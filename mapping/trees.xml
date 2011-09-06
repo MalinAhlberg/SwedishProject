@@ -1,0 +1,26 @@
+	<sentence id="1836" user="" date="">
+			<word id="1" form="Det" postag="PO" head="2" deprel="SS"/>
+			<word id="2" form="är" postag="AV" head="0" deprel="ROOT"/>
+			<word id="3" form="inte" postag="AB" head="2" deprel="NA"/>
+			<word id="4" form="lätt" postag="AJ" head="2" deprel="SP"/>
+			<word id="5" form="." postag="IP" head="2" deprel="IP"/>
+		</sentence>
+
+		<sentence id="720" user="" date="">
+			<word id="1" form="Man" postag="PO" head="2" deprel="SS"/>
+			<word id="2" form="fäster" postag="VV" head="0" deprel="ROOT"/>
+			<word id="3" form="större" postag="AJ" head="4" deprel="AT"/>
+			<word id="4" form="vikt" postag="NN" head="2" deprel="OO"/>
+			<word id="5" form="vid" postag="PR" head="8" deprel="PR"/>
+			<word id="6" form="elevernas" postag="NN" head="8" deprel="DT"/>
+			<word id="7" form="spontana" postag="AJ" head="8" deprel="AT"/>
+			<word id="8" form="förmåga" postag="NN" head="2" deprel="OA"/>
+			<word id="9" form="att" postag="IM" head="10" deprel="IM"/>
+			<word id="10" form="uttrycka" postag="VV" head="8" deprel="ET"/>
+			<word id="11" form="sig" postag="PO" head="10" deprel="OO"/>
+			<word id="12" form="muntligt" postag="AJ" head="10" deprel="AA"/>
+			<word id="13" form="och" postag="++" head="12" deprel="++"/>
+			<word id="14" form="skriftligt" postag="AJ" head="13" deprel="++"/>
+			<word id="15" form="." postag="IP" head="2" deprel="IP"/>
+		</sentence>
+

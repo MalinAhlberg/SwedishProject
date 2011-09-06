@@ -1,0 +1,157 @@
+AA    övr adverbial          mycket, sig
+AG    agent
+AN    apposition
+AT    adjektivattribut
+CA    framhävande adverbial  bland (annat), redan..
+DT    bestämmar attribut     de,en,sådan
+EF    relativ satsen i emfasisk utbryting, root i bisats..?
+EO    egentligt objekt
+ES    egentligt subjekt
+ET    övr efterställt attr
+FO    formellt objekt
+FS    formellt subjekt      det
+FV    finit predikatsverb (verb i bisats utan subjekt..)
+IC    citationstecken
+ID    del av idiom          (bland) annat, (ett) eller annat...
+IG    övrigt skiljetecken
+IK    kommatecken
+IM    infintivmärke
+IO    indirekt objekt
+IP    punkt
+IR    parantes
+IS    semikolon
+IT    tankstreck
+IU    utropstecken
+IV    infinit verb
+IQ    indirekt objekt         ;
+I?    frågetecken
+JC    citationstecken (stäng)
+JG    andra av ngn punktation    numrering 
+JR    parantes (stäng)
+JT    tankestreck (stäng)
+KA    komperationsadverbial
+MA    talarattitydsadverbial     väl,kanske,gärna
+MS    makrosyntagm           root i bisats?
+NA    negationsadverbial
+OA    objekt adverbial
+OO    direkt objekt
+PL    partikel
+PR    preposition
+PT    predikativt attribut
+RA    rumsadverbial
+ROOT
+SP    subjektiv predikatsfyllnad
+SS    subjekt
+TA    tidsadverbial
+UK    underordnande konjunktion    liksom, för (att),som
+VA    varslande adverbial          både, - , *
+VO    infintivfrasen i objekt
+VS    infintivfrasen i subjekt
+XA    metaadverbial (talarens omdöme om det han säger) så (att säga), kan (man säga)
+XF    satsförkortning
+XT    metaattribut (=bestämmarattribut)                så (kallad)
+XX    obestämbar
+ZZ    ??? inte med! root i parantes?
+YY    interjektionsfras
++A    konjunktionellt adverbial    dessutom, också
++F    koordinationsfras            utan, och
++S    ??? inte med! konjunktion + mening?
+++    samordnande konjunktion (eller plats den kunde ha stått)
+
+
+-- 05
+pos
+ABSA - så (then)
+xxFA - interrogativ
+xxGG - genitiv
+xxIP - imperativ
+xxIV - infintiv
+xxKP - kopmerativ
+xxPK - preteritum subjunktiv (konjunktiv?)
+xxPS - presens
+xxPT - preteritum
+xxSN - supinum
+
+cat
+AP  - Adjective phrase
+AVP - Adverb phrase
+CAP - Coordinated AP
+CAVP -Coordinated AVP
+CNP - Coordinated NP
+CONJP - Other coordinated phrase
+CPP - Coordinated PP
+CS - Coordinated S
+CVP - Coordinated VP
+CXP - Coordinated XP
+NAC - Not a constituent
+NP - Noun phrase
+PP - Prepositional phrase
+ROOT - Topmost phrase
+S - Sentence
+VP - Verb phrase
+XP - Other (non-coordinated) phrase
+     
+++ -  Coordinating conjunction
++A -  Conjunctional adverbial
++F -  Coordination at main clause level
+AA -  Other adverbial
+AG -  Agent
+AN -  Apposition
+AT -  Nominal (adjectival) pre-modifier
+CA -  Contrastive adverbial
+DB -  Doubled function
+DT -  Determiner
+EF -  Relative clause in cleft
+EO -  Logical object
+ES -  Logical subject
+ET -  Other nominal post-modifier
+FO -  Dummy object
+FS -  Dummy subject
+FV -  Finite predicate verb
+I? -  Question mark
+IC -  Quotation mark
+ID -  Part of idiom (multi-word unit)
+IG -  Other punctuation mark
+IK -  Comma
+IM -  Infinitive marker
+IO -  Indirect object
+IP -  Period
+IQ -  Colon
+IR -  Parenthesis
+IS -  Semicolon
+IT -  Dash
+IU -  Exclamation mark
+IV -  Nonfinite verb
+JC -  Second quotation mark
+JG -  Second (other) punctuation mark
+JR -  Second parenthesis
+JT -  Second dash
+KA -  Comparative adverbial
+MA -  Attitude adverbial
+MD -  Other modifier
+MS -  Macrosyntagm
+NA -  Negation adverbial
+OA -  Object adverbial
+OO -  Other object
+PL -  Verb particle
+PR -  Preposition
+PT -  Predicative attribute
+RA -  Place adverbial
+SP -  Subjective predicative complement
+SS -  Other subject
+ST -  Paragraph
+TA -  Time adverbial
+TT -  Speaking to
+UK -  Subordinating conjunction
+VA -  varslande adverbial
+VO -  Infinitive object complement
+VS -  Infinitive subject complement
+XA -  Expressions like "så att säga" (so to speak)
+XF -  Fundament phrase
+XT -  Expressions like "så kallad" (so called)
+XX -  Unclassifiable grammatical function
+YY -  Interjection phrase
+CJ -  First conjunct in binary branching analysis of coordination
+HD -  Other head
+&gt;&gt;">Pause
+!!">Imperative macrosyntagm

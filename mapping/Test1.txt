@@ -1,0 +1,6 @@
+(S
+  (PO (SS det))
+  (AV (ROOT är))
+  (AB (NA inte))
+  (AJ (SP lätt))
+  (IP (IP .)))

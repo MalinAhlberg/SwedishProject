@@ -1,0 +1,23 @@
+(ROOT (MS(S (SS(POZPHH Man)) (FV(VVPS fäster))
+        (OO(NP (AT(AJKP större)) (HD(NN vikt))))
+          (OA(PP (PR(PR vid)) (DT(NNDDHHGG elevernas))
+          (AT(AJ spontana)) (HD(NN förmåga))
+            (ET(VP (IM(IM att)) (IV(VVIV uttrycka))
+              (OO(POXPHHGG sig))
+              (AA(CAP (CJ(AJ muntligt)) (++(++OC och))
+                (CJ(AJ skriftligt))))))))
+           (IP(IP .)))))
+
+Node {rootLabel = "ROOT",
+ subForest = [Node {rootLabel = "MS", 
+               subForest = [Node {rootLabel = "S",
+                             subForest = [Node {rootLabel = "SS",
+                                           subForest = [Node {rootLabel = "POOP",
+                                                       subForest = [Node {rootLabel = "Det", subForest = []}]}]},
+                                          Node {rootLabel = "FV", subForest = [Node {rootLabel = "AVPS", 
+                                                subForest = [Node {rootLabel = "\228r", subForest = []}]}]},
+                                          Node {rootLabel = "NA", subForest = [Node {rootLabel = "ABNA", subForest = [Node {rootLabel = "inte",
+                                                                                                                               subForest = []}]}]},
+                                          Node {rootLabel = "SP", subForest = [Node {rootLabel = "AJ", subForest = [Node {rootLabel = "l\228tt",
+                                                                                                                     subForest = []}]}]},
+                                          Node {rootLabel = "IP", subForest = [Node {rootLabel = "IP", subForest = [Node {rootLabel = ".", subForest = []}]}]}]}]}]
