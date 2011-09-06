@@ -1,6 +1,6 @@
 module Monad ( Rule(..), Grammar, grammar
              , P, parse
-             , cat, word, lemma, inside, transform
+             , cat, word, word2, lemma, inside, transform
              , many, many1, opt
              , getDep  -- Malins
              ) where
@@ -21,13 +21,14 @@ infix 1 :->
 data Rule    t e = t :-> P t e e
 type Grammar t e = t -> PGF -> Morpho -> [Tree t] -> e
 
-grammar :: (Ord t,Show t) => ([e] -> e) -> [Rule t e] -> Grammar t e
+grammar :: (Ord t,Show t,Show e) => ([e] -> e) -> [Rule t e] -> Grammar t e
 grammar def rules = gr
   where
     gr = \tag ->
       case Map.lookup tag pmap of
         Just f  -> \pgf m ts -> case unP f gr pgf m ts of
                                   Just (e,[]) -> e
+                                  Just (e,xs) -> trace "restParse!" $ e
                                   _           -> case ts of
                                                    [Node w []] -> def []
                                                    ts          -> def [gr tag pgf m ts | Node tag ts <- ts]
@@ -58,7 +59,7 @@ parse gr pgf morpho (Node tag ts) = gr tag pgf morpho ts
 cat :: (Eq t,Show t) => [t] -> P [t] e e
 cat tag = P (\gr pgf morpho ts -> 
   case ts of
-    (Node tag1 ts1 : ts) |  trace (show tag1 ++ show tag) (tag `isPrefixOf` tag1)
+    (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                                        -> Just (gr tag1 pgf morpho ts1,ts)
     _                                  -> Nothing)
 
@@ -68,35 +69,29 @@ word tag = P (\gr pgf morpho ts ->
     (Node tag1 [Node w []] : ts) | tag == tag1 -> Just (w,ts)
     _                                          -> Nothing)
 
+word2 :: Eq t => t -> P t e t
+word2 tag = P (\gr pgf morpho ts -> 
+  case ts of
+    (Node tag1 [Node tag2 [Node w []]] : ts) | tag == tag1 -> Just (w,ts)
+    _                                                      -> Nothing)
+
+
 inside :: (Eq t,Show t )=> [t] -> P [t] e a -> P [t] e a
 inside tag f = P (\gr pgf morpho ts ->
- trace ("inside ") $
+ --trace ("inside ") $
   case ts of
-    (Node tag1 ts1 : ts) | trace (show tag1 ++ show tag) (tag `isPrefixOf` tag1)
+    (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                             -> case unP f gr pgf morpho ts1 of
                                             Just (x,[]) -> Just (x,ts)
                                             _           -> Nothing
     _                       -> Nothing)
 
 
-{-
-later :: Eq t => t -> P t e a -> P t e a
-later tag f = P (\gr pgf morpho ts ->
-  case ts of
-    (Node tag1 ts1 : ts) | tag == tag1 -> case unP f gr pgf morpho ts1 of
-                                            Just (x,[]) -> Just (x,ts)
-                                            _           -> Nothing
-                         | otherwise   -> later tag (\s -> f pgf morpho ts
-    _                                  -> Nothing)
--}
 
 lemma :: String -> String -> P String e CId
 lemma cat0 an0 = P (\gr pgf morpho ts -> 
-  trace ("heer"++show ts++show cat0) $ case ts of
-    (Node w [] : ts) -> trace (show [(lemma,an1) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
-                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)
-                                    , cat0 == cat1 ])
-                                $ case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
+  trace ("lemma: "++show ts++show cat0) $ case ts of
+    (Node w [] : ts) -> case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
                                     , let cat1 = maybe "" (showType []) (functionType pgf lemma)
                                     , cat0 == cat1 && an0 == an1] of
                           (id:_) -> Just (id,ts)

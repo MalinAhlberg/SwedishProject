@@ -88,28 +88,31 @@ xpWords = xpList $ xpElem "t"
 mainF src =   
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO (putStrLn . unlines . map (show . toTree'))) -- (writeFile dst . show)) 
+        >>> arrIO (putStrLn . unlines . map (show . toTree))) 
 
 parse src =
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO (return . map toTree')) 
+        >>> arrIO (return . map toTree)) 
 
 
 
+toTree :: Sentence -> T.Tree String
+toTree s@(Sent root ws inf) = toTree' root s
 
-toTree' s@(Sent root ws inf) = toTree root s
-toTree :: String -> Sentence -> T.Tree String
-toTree nr s@(Sent root ws inf) = 
+toTree' :: String -> Sentence -> T.Tree String
+toTree' nr s@(Sent root ws inf) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
-  where putWord (W i p w) = T.Node p [T.Node w []]
+  where putWord (W i p w)    = T.Node p [T.Node w []]
         putPhrase (Ph i c t) = T.Node c 
-                                $ map (\(tag,next) -> T.Node tag  [toTree next s]) t
+                                $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
+
         lookup' y (w@(W x _ _):xs) | y ==x     = Just w
                                    | otherwise = lookup' y xs
         lookup' y [] = Nothing
+
         lookup'' y (w@(Ph x _ _):xs) | y ==x     = Just w
                                      | otherwise = lookup'' y xs
         lookup'' y [] = Nothing
