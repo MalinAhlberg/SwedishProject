@@ -82,3 +82,6 @@ cidBaseAP      = mkCId "BaseAP"
 cidConjAP      = mkCId "ConjAP"
 cidAndConj     = mkCId "and_Conj"
 cidOrConj      = mkCId "or_Conj"
+cidConsAP      = mkCId "ConsAP"
+
+cidHave_V2        = mkCId "have_V2"

@@ -16,16 +16,19 @@ import Control.Monad.State
 
 data Word     = W  {id :: Id, pos :: Tag, word :: String}
 data PhrTag   = Ph {idPh :: Id, cat :: Tag, tags :: [(Tag,Id)]}
-data Sentence = Sent {rootS :: Id, words :: [Word], info :: [PhrTag]}
+data Sentence = Sent {idS :: Id, rootS :: Id, words :: [Word], info :: [PhrTag]}
 type Tag      = String
 type Id       = String
 
 instance Show Sentence where
-  show s@(Sent r w info) = showa r s
+  show s@(Sent id r w info) = showa r s
+
+getSentence s = let sent = concat . intersperse " " . map word . words in
+      (idS s,sent s)
 
 -- gets the trees into a nice format
 showa :: String -> Sentence -> String
-showa nr s@(Sent root ws inf) = 
+showa nr s@(Sent id root ws inf) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
@@ -72,7 +75,9 @@ xpTagMap = xpElem "edge"
 
 xpSentence :: PU Sentence  
 xpSentence = xpElem "s"
-             $ xpWrap (uncurry3 Sent,\s -> (rootS s,words s, info s))
+             $ xpWrap (\(a,(b,c,d)) -> Sent a b c d,\s -> (idS s,(rootS s,words s, info s)))
+             $ xpPair
+             ( xpAttr "id" xpText)
              $ xpElem "graph"  
              $  xpTriple (xpAttr "root" xpText)
                          ( xpElem "terminals" xpWords)
@@ -84,20 +89,20 @@ xpWords = xpList $ xpElem "t"
                      (xpAttr "pos" xpText)
                      (xpAttr "word" xpText)
                      
-mainF src =   
+mainF src f =   
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO (putStrLn . unlines . map (show . toTree'))) -- (writeFile dst . show)) 
+        >>> arrIO f) -- putStrLn . unlines . map (show . toTree'))) -- (writeFile dst . show)) 
 
-toTree' s@(Sent root ws inf) = toTree root s
-toTree :: String -> Sentence -> T.Tree String
-toTree nr s@(Sent root ws inf) = 
+toTree s@(Sent id root ws inf) = toTree' root s
+toTree' :: String -> Sentence -> T.Tree String
+toTree' nr s@(Sent id root ws inf) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
   where putWord (W i p w) = T.Node p [T.Node w []]
         putPhrase (Ph i c t) = T.Node c 
-                                $ map (\(tag,next) -> T.Node tag  [toTree next s]) t
+                                $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
         lookup' y (w@(W x _ _):xs) | y ==x     = Just w
                                    | otherwise = lookup' y xs
         lookup' y [] = Nothing

@@ -464,5 +464,39 @@
 				</nonterminals>
 			</graph>
 		</s>
+  <s id="s1739">
+			<graph root="s1739_501">
+				<terminals>
+					<t id="s1739_1" word="Det" pos="POOP"/>
+					<t id="s1739_2" word="är" pos="AVPS"/>
+					<t id="s1739_3" word="inte" pos="ABNA"/>
+					<t id="s1739_4" word="gult" pos="AJ"/>
+					<t id="s1739_5" word="," pos="IK"/>
+					<t id="s1739_6" word="litet" pos="AJ"/>
+					<t id="s1739_7" word="och" pos="++OC"/>
+					<t id="s1739_8" word="stort" pos="AJ"/>
+					<t id="s1739_9" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1739_502" cat="S">
+						<edge label="SS" idref="s1739_1"/>
+						<edge label="FV" idref="s1739_2"/>
+						<edge label="NA" idref="s1739_3"/>
+						<edge label="SP" idref="s1739_503"/>
+						<edge label="IP" idref="s1739_9"/>
+					</nt>
+					<nt id="s1739_501" cat="ROOT">
+						<edge label="MS" idref="s1739_502"/>
+					</nt>
+                  	<nt id="s1739_503" cat="CAP">
+						<edge label="CJ" idref="s1739_4"/>
+						<edge label="IK" idref="s1739_5"/>
+						<edge label="CJ" idref="s1739_6"/>
+						<edge label="++" idref="s1739_7"/>
+						<edge label="CJ" idref="s1739_8"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
 	</body>
 </corpus>

@@ -75,7 +75,7 @@ xxSN - supinum
 cat
 AP  - Adjective phrase
 AVP - Adverb phrase
-CAP - Coordinated AP
+CAP - Coordinated AP         ok
 CAVP -Coordinated AVP
 CNP - Coordinated NP
 CONJP - Other coordinated phrase
