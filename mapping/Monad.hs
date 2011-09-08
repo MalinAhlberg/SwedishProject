@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , getDep  -- Malins
+             , getDep, optEat -- Malins
              ) where
 
 import Data.Tree
@@ -78,12 +78,13 @@ word2 tag = P (\gr pgf morpho ts ->
 
 inside :: (Eq t,Show t )=> [t] -> P [t] e a -> P [t] e a
 inside tag f = P (\gr pgf morpho ts ->
- --trace ("inside ") $
   case ts of
     (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                             -> case unP f gr pgf morpho ts1 of
                                             Just (x,[]) -> Just (x,ts)
-                                            _           -> Nothing
+                                            Just (x,xs) -> trace ("inside fail "++show xs) 
+                                                           $ Nothing
+                                            Nothing      -> Nothing
     _                       -> Nothing)
 
 
@@ -122,4 +123,13 @@ many1 f = do x  <- f
              return (x:xs)
 
 opt :: P t e a -> a -> P t e a
-opt f x = mplus f (return x)
+opt f x = mplus f (return x)  
+optEat :: P t e a -> a -> P t e a
+optEat f x = mplus f (consume >> return x)  --consume brought here by Malin!
+                                         --if tex lemma fails, the word shouldn't 
+                                         --stay in the toBeParseTree, is hence consumed
+--consume :: P t e a
+consume = P (\gr pgf morpho ts ->
+  case ts of
+   (Node x w:ws) -> Just ((),ws))
+

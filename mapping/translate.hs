@@ -68,9 +68,12 @@ testa  str = do
 penn :: Grammar String Expr
 penn =
   grammar (mkApp meta) 
-   ["S" :-> do np   <- trace "looking for SS" $ inside "SS" pSS
+   ["S" :-> do trace "hej" $ return () 
+               np   <- trace "looking for SS" $ inside "SS" pSS
+               trace ("SS done "++show np) return ()
                advs <- many $ cat "OA"
-               (tmp,sim,pol,vp) <- pVP  
+               trace "now to pVP" return ()
+               (tmp,sim,pol,vp) <- trace "goto pVP" pVP  
                opt (word2 "IP") ""
                let e0 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
                                        ,mkApp pol []
@@ -263,26 +266,18 @@ getVTemp "PT" = ("VPast",VTense cidTPast)
 getVTemp "SN" = ("VPast",VTense cidTPast) -- fel = supinum
 getVTemp _    = ("VInf",VInf) --Nothing
 
-pSS = do
-     -- dep <- cat "PO"
+pSS =  
+  do
      w   <- inside "PO" $ lemma "Pron" $ "s NPNom" -- ++order dep
      trace "lemma ok" return () 
      return (mkApp cidUsePron [mkApp w []])
+ {-`mplus`
+     cat "NP"
+     -}
 
-{-
-pFV v = do
-  x <- cat v
-  dep <- getDep
-  let (tStr,tcid) = getVTemp $ drop 2 dep
-  (v,tmp) <- case take 2 dep of
-                  "AV" -> return (cidUseComp,tcid)
-                  --"BV" -> return (cidUseComp,tcid) -- fel, 'bli'
-                  "VV" -> do v <- inside "VV" $ opt (lemma "VS" $ "s "++tStr) meta
-                             return (v,tcid)
-  return (v,fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) tmp)
--}
 pVP = 
- do t <- inside "FV" $ pCopula 
+ do trace "try pV2 one" $ return ()
+    t <- inside "FV" $ pCopula 
     pol <- trace "FV done" pPol
     sp <- inside "SP" $ do a <- pAdj 
                            trace "adj return" $ return (mkApp cidCompAP [a])
@@ -295,9 +290,13 @@ pVP =
     let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) t
     return (tmp,cidASimul,pol,mkApp cidUseComp [sp])
  `mplus`
- do (t,v) <- inside "FV" $ pV2 
+ do trace "try pV2 two" $ return ()
+    (t,v) <- inside "FV" $ pV2 
+    trace "have ok" $ return ()
     pol <- pPol
-    obj <- inside "OO" $ pNoun 
+    trace "pol ok" $ return ()
+    obj <- inside "OO" $ pNP
+    trace "oo ok" $ return ()
     let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) t
     return (tmp,cidASimul,pol,mkApp cidComplSlash [v,obj])
 
@@ -305,31 +304,95 @@ pV2 = do
   (t,v) <- do t <- pHave
               return (t,mkApp cidHave_V2 [])
            `mplus`
-           do (t,v) <- inside "VV" (pVerb "V2")  -- man skulle kunna kolla mer på taggarna här
-                       `mplus`                   -- speciellt bra för får, gör, blir..
-                       inside "FV" (pVerb "V2")
+           do (t,v) <- inside "VV"  (pVerb "V2")  -- man skulle kunna kolla mer på taggarna här
+                       `mplus`                   
+                       tryVerb "FV" cidGet_V2 "V2"
                        `mplus`
-                       inside "GV" (pVerb "V2")
+                       tryVerb "GV" cidDo_V2 "V2"
                        `mplus`
-                       inside "BV" (pVerb "V2")
+                       tryVerb "BV" cidBecome_V2 "V2"
               return (t,mkApp v [])
   return (t,mkApp cidSlashV2a [v])
 
+tryVerb tag cid cat =
+ do t <- tense tag
+    return (t,cid) 
+ `mplus`
+  inside tag (pVerb cat)
+
 
 pVerb cat =
-  do v <- opt (lemma cat "s (VF (VPres Act))") meta
+  do v <- optEat (lemma cat "s (VF (VPres Act))") meta
      return (VTense cidTPres,v)
   `mplus`
-  do v <- opt (lemma cat "s (VI (VInfin Act))") meta
+  do v <- optEat (lemma cat "s (VI (VInfin Act))") meta
      return (VInf,v)
   `mplus`
-  do v <- opt (lemma cat "s (VF (VPret Act))") meta
+  do v <- optEat (lemma cat "s (VF (VPret Act))") meta
      return (VTense cidTPast,v)
   `mplus`
-  do v <- opt (lemma cat "s (VI (VSupin Act))") meta
+  do v <- optEat (lemma cat "s (VI (VSupin Act))") meta
      return (VSupin,v)
 
-pNoun = undefined -- VN,cat NP,NN 
+{-
+pNP = 
+ cat "NP"
+ `mplus` 
+  do n <- do trace "VN" $ inside "VN" pNoun
+             `mplus`
+             inside "NN" pNoun
+     return $ mkApp cidUseN [mkApp n []]
+     -}
+ 
+-- may use tag, "xx    GG" = genitiv
+
+pCN = 
+  do      n <- (mplus (optEat (lemma "N" "s Pl Indef Nom") meta)
+                      (optEat (lemma "N" "s Pl Indef Gen") meta))
+          return (n,cidNumPl,False)
+  `mplus` do
+     n <- (mplus (optEat (lemma "N" "s Sg Indef Nom") meta)
+                      (optEat (lemma "N" "s Sg Indef Gen") meta))
+     return (n,cidNumSg,False)
+  `mplus` do
+          n <- (mplus (optEat (lemma "N" "s Sg Def Nom") meta)
+                      (optEat (lemma "N" "s Sg Def Gen") meta))
+          return (n,cidNumSg,True)
+  `mplus` do
+          n <- (mplus (optEat (lemma "N" "s Pl Def Nom") meta)
+               (optEat (lemma "N" "s Pl Def Gen") meta))
+          return (n,cidNumPl,False)
+
+pNP = 
+  cat "NP"
+  `mplus` 
+  do m_q   <- return Nothing  --opt (liftM Just pQuant) Nothing   -- lägg till svenska här!
+     m_num <- return Nothing --- opt (liftM Just pCD   ) Nothing   -- och här!!
+     (n,num,def) <- pCN
+     let cn   = (mkApp cidUseN [mkApp n []])
+         {-cn    = foldr (\adj e -> mkApp cidAdjCN [adj, e]) 
+                       cn0
+                       adjs-}
+         nums  = fromMaybe (mkApp num []) m_num
+         defs  = (m_num,def)
+          
+     e0 <- case defs of
+                (Just q,_   )   -> return $ mkApp cidDetCN
+                                                  [mkApp cidDetQuant [q,nums],cn]
+                (_     ,True)   -> return $ mkApp cidDetCN 
+                                                  [mkApp cidDetQuant 
+                                                  [mkApp cidDefArt [], nums],cn]
+                (Nothing,False) -> if num == cidNumSg 
+                                      then do guard (isNothing m_num)
+                                              return (mkApp cidMassNP [cn])
+                                       else return $ mkApp cidDetCN 
+                                                       [mkApp cidDetQuant 
+                                                       [mkApp cidIndefArt [],nums],cn]
+    {- let e1 = case m_pdt of
+                Just pdt -> mkApp cidPredetNP [pdt,e0]
+                Nothing  -> e0-}
+     return  e0
+    
 
 pAdj = do 
   ad <- (inside "AJ" $ lemma "A" adjAn)
@@ -355,11 +418,11 @@ pConj =
      return (mkApp s [])
 
 pCopula = tense "AV"
-pHave   = tense "HV"  
+pHave   = trace "have" $ tense "HV"  
   
 tense cat =
   do word $ cat++"IV"    
-     return (VInf)
+     return VInf
   `mplus`
   do word $ cat++"PK"   -- ??
      return VPart

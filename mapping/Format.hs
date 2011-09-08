@@ -20,36 +20,7 @@ data Sentence = Sent {rootS :: Id, words :: [Word], info :: [PhrTag]}
 type Tag      = String
 type Id       = String
 
-{-
-instance Show Sentence where
-  show s@(Sent r w info) = showa r s
 
--- gets the trees into a nice format
-showa :: String -> Sentence -> String
-showa nr s@(Sent root ws inf) = 
-     case (lookup' nr ws,lookup'' nr inf) of
-       (Just w,_) -> putWord w
-       (_,Just p) -> putPhrase p
-  where putWord (W i p w) = par $ p++" "++w
-        putPhrase (Ph i c t) =  
-             par $ c++" "++unwords (map (\(t,next) -> par $ t++showa next s) t) 
-        lookup' y (w@(W x _ _):xs) | y ==x     = Just w
-                                   | otherwise = lookup' y xs
-        lookup' y [] = Nothing
-        lookup'' y (w@(Ph x _ _):xs) | y ==x     = Just w
-                                     | otherwise = lookup'' y xs
-        lookup'' y [] = Nothing
-        par s = "("++s++")"
-  
-
-
-instance Show Word where
-  show (W id pos w) = "id "++id++" pos "++pos++" word "++w
-  
-instance Show PhrTag where
-  show (Ph id cat tag) = "id "++id++" cat "++cat++" tags "++show tag
--}
- 
 instance XmlPickler [Word] where
   xpickle = xpWords
 
