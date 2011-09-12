@@ -410,29 +410,33 @@
 			</edgelabel>
 		</annotation>
 	</head>
-	<body>
+    <body>
 
-<s id="s452">
-			<graph root="s452_501">
+<s id="s694">
+			<graph root="s694_501">
 				<terminals>
-					<t id="s452_1" word="Det" pos="POOP"/>
-					<t id="s452_2" word="har" pos="HVPS"/>
-					<t id="s452_3" word="betydelse" pos="VN"/>
-					<t id="s452_4" word="." pos="IP"/>
+					<t id="s694_1" word="Här" pos="ABDA"/>
+					<t id="s694_2" word="ges" pos="VVPS  PA"/>
+					<t id="s694_3" word="några" pos="POZP"/>
+					<t id="s694_4" word="exempel" pos="NN"/>
+					<t id="s694_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s452_502" cat="S">
-						<edge label="SS" idref="s452_1"/>
-						<edge label="FV" idref="s452_2"/>
-						<edge label="OO" idref="s452_3"/>
-						<edge label="IP" idref="s452_4"/>
+					<nt id="s694_503" cat="NP">
+						<edge label="DT" idref="s694_3"/>
+						<edge label="HD" idref="s694_4"/>
 					</nt>
-					<nt id="s452_501" cat="ROOT">
-						<edge label="MS" idref="s452_502"/>
+					<nt id="s694_502" cat="S">
+						<edge label="RA" idref="s694_1"/>
+						<edge label="FV" idref="s694_2"/>
+						<edge label="SS" idref="s694_503"/>
+						<edge label="IP" idref="s694_5"/>
+					</nt>
+					<nt id="s694_501" cat="ROOT">
+						<edge label="MS" idref="s694_502"/>
 					</nt>
 				</nonterminals>
 			</graph>
 		</s>
-
 	</body>
 </corpus>

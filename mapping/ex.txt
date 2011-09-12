@@ -1,3 +1,8 @@
+även förmögenhet har betydelse:
+(UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP ? (MassNP (UseN foermoegenhet_nn_1))) 
+    (ComplSlash (SlashV2a have_V2) (MassNP (UseN betydelse_nn_1)))))
+
+
 (ROOT (MS(S (SS(POZPHH Man)) (FV(VVPS fäster))
         (OO(NP (AT(AJKP större)) (HD(NN vikt))))
           (OA(PP (PR(PR vid)) (DT(NNDDHHGG elevernas))

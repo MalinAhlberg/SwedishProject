@@ -15,6 +15,8 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
+test = False
+trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
 
@@ -28,7 +30,7 @@ grammar def rules = gr
       case Map.lookup tag pmap of
         Just f  -> \pgf m ts -> case unP f gr pgf m ts of
                                   Just (e,[]) -> e
-                                  Just (e,xs) -> trace "restParse!" $ e
+                                  Just (e,xs) -> trace' "restParse!" $ e
                                   _           -> case ts of
                                                    [Node w []] -> def []
                                                    ts          -> def [gr tag pgf m ts | Node tag ts <- ts]
@@ -82,7 +84,7 @@ inside tag f = P (\gr pgf morpho ts ->
     (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                             -> case unP f gr pgf morpho ts1 of
                                             Just (x,[]) -> Just (x,ts)
-                                            Just (x,xs) -> trace ("inside fail "++show xs) 
+                                            Just (x,xs) -> trace' ("inside fail "++show xs) 
                                                            $ Nothing
                                             Nothing      -> Nothing
     _                       -> Nothing)
@@ -91,13 +93,15 @@ inside tag f = P (\gr pgf morpho ts ->
 
 lemma :: String -> String -> P String e CId
 lemma cat0 an0 = P (\gr pgf morpho ts -> 
-  trace ("lemma: "++show ts++show cat0) $ case ts of
-    (Node w [] : ts) -> case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
+  trace' ("lemma: "++show ts++show cat0) $ case ts of
+    (Node w [] : ts) -> {-trace' (show [(lemma,an1,an0,cat1,cat0) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
+                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)] ) $-}
+                         case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
                                     , let cat1 = maybe "" (showType []) (functionType pgf lemma)
                                     , cat0 == cat1 && an0 == an1] of
-                          (id:_) -> Just (id,ts)
-                          _      -> Nothing
-    _                -> Nothing)
+                          (id:_) -> trace' "lemma ok" $ Just (id,ts)
+                          _      -> trace' "no word" Nothing
+    _                -> trace' "tried to lemma a tag" Nothing)
 
 transform :: ([Tree t] -> [Tree t]) -> P t e ()
 transform f = P (\gr pgf morpho ts -> Just ((),f ts))
@@ -105,7 +109,7 @@ transform f = P (\gr pgf morpho ts -> Just ((),f ts))
 --malins
 getDep :: Show t =>  P t e t
 getDep = P (\gr pgf morpho ts -> 
- trace ("getDep "++show ts) $
+ trace' ("getDep "++show ts) $
   case ts of
    (Node dep ws:ts) -> Just (dep, Node dep ws:ts)
    _                -> Nothing)
