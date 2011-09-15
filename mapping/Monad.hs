@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , getDep, optEat -- Malins
+             , getDep, optEat, consume -- Malins
              ) where
 
 import Data.Tree
@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = False
+test = True
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -30,7 +30,7 @@ grammar def rules = gr
       case Map.lookup tag pmap of
         Just f  -> \pgf m ts -> case unP f gr pgf m ts of
                                   Just (e,[]) -> e
-                                  Just (e,xs) -> trace' "restParse!" $ e
+                                  Just (e,xs) -> trace (color red "\n\nrestParse!\n\n") $ e
                                   _           -> case ts of
                                                    [Node w []] -> def []
                                                    ts          -> def [gr tag pgf m ts | Node tag ts <- ts]
@@ -65,10 +65,10 @@ cat tag = P (\gr pgf morpho ts ->
                                        -> Just (gr tag1 pgf morpho ts1,ts)
     _                                  -> Nothing)
 
-word :: Eq t => t -> P t e t
+word :: (Show t,Eq t) => [t] -> P [t] e [t]
 word tag = P (\gr pgf morpho ts -> 
   case ts of
-    (Node tag1 [Node w []] : ts) | tag == tag1 -> Just (w,ts)
+    (Node tag1 [Node w []] : ts) | tag `isPrefixOf` tag1 -> Just (w,ts)
     _                                          -> Nothing)
 
 word2 :: Eq t => t -> P t e t
@@ -81,7 +81,7 @@ word2 tag = P (\gr pgf morpho ts ->
 inside :: (Eq t,Show t )=> [t] -> P [t] e a -> P [t] e a
 inside tag f = P (\gr pgf morpho ts ->
   case ts of
-    (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
+    (Node tag1 ts1 : ts) | trace' (show tag++" "++show tag1) (tag `isPrefixOf` tag1)
                             -> case unP f gr pgf morpho ts1 of
                                             Just (x,[]) -> Just (x,ts)
                                             Just (x,xs) -> trace' ("inside fail "++show xs) 
@@ -90,6 +90,8 @@ inside tag f = P (\gr pgf morpho ts ->
     _                       -> Nothing)
 
 
+sequence fs = P (\gr pgf morpho ts ->
+   mapM (unP f gr pgf morpho ts) fs
 
 lemma :: String -> String -> P String e CId
 lemma cat0 an0 = P (\gr pgf morpho ts -> 
@@ -136,4 +138,22 @@ optEat f x = mplus f (consume >> return x)  --consume brought here by Malin!
 consume = P (\gr pgf morpho ts ->
   case ts of
    (Node x w:ws) -> Just ((),ws))
+
+----
+type C = Int
+color :: C -> String -> String
+color c s = fgcol c ++ s ++ normal
+
+normal = "\ESC[0m"
+
+bold :: String -> String
+bold = ("\ESC[1m" ++)
+
+
+fgcol :: Int -> String
+fgcol col = "\ESC[0" ++ show (30+col) ++ "m"
+
+
+red :: C
+red = 1
 

@@ -418,7 +418,7 @@
 					<t id="s694_1" word="Här" pos="ABDA"/>
 					<t id="s694_2" word="ges" pos="VVPS  PA"/>
 					<t id="s694_3" word="några" pos="POZP"/>
-					<t id="s694_4" word="exempel" pos="NN"/>
+					<t id="s694_4" word="katter" pos="NN"/>
 					<t id="s694_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
@@ -438,5 +438,6 @@
 				</nonterminals>
 			</graph>
 		</s>
-	</body>
+
+		</body>
 </corpus>
