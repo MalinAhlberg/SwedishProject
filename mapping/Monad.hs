@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , getDep, optEat, consume -- Malins
+             , optEat, consume -- Malins
              ) where
 
 import Data.Tree
@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = True
+test = False 
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -90,9 +90,6 @@ inside tag f = P (\gr pgf morpho ts ->
     _                       -> Nothing)
 
 
-sequence fs = P (\gr pgf morpho ts ->
-   mapM (unP f gr pgf morpho ts) fs
-
 lemma :: String -> String -> P String e CId
 lemma cat0 an0 = P (\gr pgf morpho ts -> 
   trace' ("lemma: "++show ts++show cat0) $ case ts of
@@ -107,14 +104,6 @@ lemma cat0 an0 = P (\gr pgf morpho ts ->
 
 transform :: ([Tree t] -> [Tree t]) -> P t e ()
 transform f = P (\gr pgf morpho ts -> Just ((),f ts))
-
---malins
-getDep :: Show t =>  P t e t
-getDep = P (\gr pgf morpho ts -> 
- trace' ("getDep "++show ts) $
-  case ts of
-   (Node dep ws:ts) -> Just (dep, Node dep ws:ts)
-   _                -> Nothing)
 
 many :: P t e a -> P t e [a]
 many f = do x  <- f
@@ -154,6 +143,7 @@ fgcol :: Int -> String
 fgcol col = "\ESC[0" ++ show (30+col) ++ "m"
 
 
-red :: C
+red,green :: C
 red = 1
+green = 2 
 

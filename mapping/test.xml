@@ -412,28 +412,28 @@
 	</head>
     <body>
 
-<s id="s694">
-			<graph root="s694_501">
+	<s id="s1955">
+			<graph root="s1955_501">
 				<terminals>
-					<t id="s694_1" word="Här" pos="ABDA"/>
-					<t id="s694_2" word="ges" pos="VVPS  PA"/>
-					<t id="s694_3" word="några" pos="POZP"/>
-					<t id="s694_4" word="katter" pos="NN"/>
-					<t id="s694_5" word="." pos="IP"/>
+					<t id="s1955_1" word="Nu" pos="ABDA"/>
+					<t id="s1955_2" word="kunde" pos="VVPT"/>
+					<t id="s1955_3" word="katten" pos="NNDD"/>
+					<t id="s1955_4" word="flyga" pos="VVIV"/>
+					<t id="s1955_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s694_503" cat="NP">
-						<edge label="DT" idref="s694_3"/>
-						<edge label="HD" idref="s694_4"/>
+					<nt id="s1955_503" cat="NAC">
+						<edge label="IV" idref="s1955_4"/>
 					</nt>
-					<nt id="s694_502" cat="S">
-						<edge label="RA" idref="s694_1"/>
-						<edge label="FV" idref="s694_2"/>
-						<edge label="SS" idref="s694_503"/>
-						<edge label="IP" idref="s694_5"/>
+					<nt id="s1955_502" cat="S">
+						<edge label="TA" idref="s1955_1"/>
+						<edge label="FV" idref="s1955_2"/>
+						<edge label="SS" idref="s1955_3"/>
+						<edge label="OO" idref="s1955_503"/>
+						<edge label="IP" idref="s1955_5"/>
 					</nt>
-					<nt id="s694_501" cat="ROOT">
-						<edge label="MS" idref="s694_502"/>
+					<nt id="s1955_501" cat="ROOT">
+						<edge label="MS" idref="s1955_502"/>
 					</nt>
 				</nonterminals>
 			</graph>

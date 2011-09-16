@@ -1,14 +1,18 @@
 module Test where
 
 
--- räknar fel???
 compareRes :: [String] -> String
-compareRes xs | and ans = "Hurra!!"
+compareRes xs | and ans = color green "Hurra!! All is good"
               | otherwise = let errs = map snd $ filter (not . fst) $ zip ans [0..] 
-                                h    = if take 1 errs== [0] then [show (length res),show (length xs)] else [] in
-                   unlines $ ":(" : h ++ [show (xs !! (x-1))++" /= "++ show (res !! (x-1)) | x <- errs, x>0]
+                                h    = if take 1 errs== [0] 
+                                          then [show (length res),show (length xs)]
+                                          else []                                in
+                   color red $ unlines $ ":(" : h ++ [show (xs !! (x-1))
+                                          ++" /= "++ show (res !! (x-1)) | x <- errs, x>0]
   where ans = (length res==length xs) : zipWith (==) res xs 
-  --16
+
+
+
 res =
    -- den har katt
    ["? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc))"
@@ -74,10 +78,25 @@ res =
    ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN priest_N)) (ComplVV can_VV (ComplVV (DropAttVV can_VV) (UseV think_V)))))) NoVoc))"
    -- det är tjockt långt
    ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP (PositAdAAdj thick_A) (PositA long_A))))))) NoVoc))"
-
-
-
-
+   -- nu kunde katten flyga
+   ,"? (? (PhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV (DropAttVV can_VV) (UseV fly_V)))))) NoVoc))"
 
    ]
+type C = Int
+color :: C -> String -> String
+color c s = fgcol c ++ s ++ normal
+
+normal = "\ESC[0m"
+
+bold :: String -> String
+bold = ("\ESC[1m" ++)
+
+
+fgcol :: Int -> String
+fgcol col = "\ESC[0" ++ show (30+col) ++ "m"
+
+
+red,green :: C
+red = 1
+green = 2 
 
