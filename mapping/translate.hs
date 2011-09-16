@@ -20,6 +20,7 @@ import Debug.Trace
 -- Not parsable: 542 (particle), 452 (även noun), 694 (passive), 802 (passive)
 --               898 (kallas), 1001 (mycket som pronomen), 1107 (fler som pronomen)
 --               1129 (fler bilar,passiv),1150 (eller som PConj (hittepågrejs runt))
+--               ...
 
 test = True
 usePGF = testGr
@@ -99,9 +100,6 @@ penn =
                let pconj = fromMaybe (mkApp cidNoPConj []) conj
                return $ mkApp cidPhrUtt [pconj, cl,mkApp cidNoVoc []]
 
-
-    --- problem with particip. adA should then find A, not AdA in AB, but it doesn't know which
-    --  and can't guess => can't guess for a word. 
      ,"AP" :-> do trace' "in AP" $ return ()
                   ad <- inside "AA" $ pAdA
                   trace' ("found adA: "++show ad) $ return ()
@@ -123,9 +121,7 @@ penn =
                    return undefined -- det kan anses vara så gott som slut 6088
 -}
  --   ,"AVP" :-> bland annat, just nu, t ex, i kontakt... 
-      ,"CAP" :-> do as   <- listOf pAdj -- many $ do a <- inside "CJ" $ pAdj 
-                                    --  word2 "IK"
-                                     -- return a
+      ,"CAP" :-> do as   <- listOf pAdj 
                     a1   <- inside "CJ" $ pAdj
                     conj <- inside "++" pConj 
                     a2   <- inside "CJ" $ pAdj
@@ -137,42 +133,10 @@ penn =
                     a2   <- inside "CJ" $ pAdj 
                     return $ mkApp cidConjNP [conj, mkApp cidBaseAP [n1,a2]]
       ,"NP" :-> pflatNP
-       {-do 
-
-                   -- only cars
-                   p         <- inside "+A" $ pPredet
-                   (np,form) <- inside "HD"   $ pNP  -- tänk på form
-                   return $ mkApp cidPredetNP [p,np]
-                `mplus`
-                do trace' "in NP with Adj" $ return ()
-                   -- good cars
-                   m_det        <- opt (liftM Just $ inside "DT" pDet) Nothing 
-                   m_a          <- opt (liftM Just $ inside "AT" pAdj) Nothing
-                   (noun,n,def) <- inside "HD" pCN
-                   et           <- many $ inside "ET" $ cat "PP"
-                   let cn = case m_a of
-                                 Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [mkApp noun []]]
-                                 Nothing -> mkApp cidUseN [mkApp noun []]
-                       num = mkApp n []
-                       d   = fromMaybe (mkApp cidDefArt []) m_det
-                   np <- case (def,m_det) of
-                              (True,_      )   -> return $ mkApp cidDetCN 
-                                                           [mkApp cidDetQuant [d,num]
-                                                           ,cn]
-                              (False,Nothing) -> if n == cidNumSg 
-                                          then return (mkApp cidMassNP [cn])
-                                          else return $ mkApp cidDetCN 
-                                                          [mkApp cidDetQuant 
-                                                          [mkApp cidIndefArt [],num],cn]
-                              (False,Just d) -> return $ mkApp cidDetCN [d,cn]
-                   return $ foldr (\e n -> mkApp cidAdvNP [n,e]) np et 
-        -}           
                    
       ,"PP" :-> do pr     <- trace' "PP!" $ inside "PR" $ pPrep
                    trace' "prep found" $ return ()
                    np     <- pflatNP
-                   --(n,num,def)  <- inside "HD" $ pCN
-                 --  (n,_) <- inside "HD" $ pNP
                    trace' "prep noun found" $ return ()
                    return $ mkApp cidPrepNP [pr,np]
       ,"XX" :-> do n     <- opt (liftM Just pNP) Nothing  -- här får vi nog lägga till mer
@@ -191,117 +155,6 @@ penn =
      -- ,"CAVP" :-> do 
    --, "CC"  :-> do cc <- lemma "Conj" "s2"
     --              return (mkApp cc [])
-{-    , "SS" :-> do dep <- getDep 
-                  w   <- lemma "Pron" $ "s "++order dep
-                  trace "lemma ok" return ()  --          s Pres Simul Pos Inv
-                  return (mkApp cidUsePron [mkApp w []])
-   , "AV"  :-> do -- dep <- trace "in AV" getDep
-                  ar <- cat "ROOT" --eller VInf inte root alltid + att man borde se tempus mm här
-                  (tmp,pol,vp) <- trace "catAv ok" $ inside "SP" pVP --kanske en speciell med bara AJ osv? nej..
-                  return (mkApp cidUseComp [vp])
-   , "ADVP":-> do adv <- cat "RB"
-                  case unApp adv of
-                    Just (f,[a]) | f == cidPositAdvAdj -> return (mkApp cidPositAdVAdj [a])
-                    _                                  -> mzero
-   , "ADJP":-> do adas <- many pAdA
-                  adj  <- cat "JJ"
-                  return (foldr (\ada ap -> mkApp cidAdAP [ada,ap]) (mkApp cidPositA [adj]) adas)
-   , "S"   :-> do advs <- many $ do
-                            pp <- cat "PP"
-                            word ","
-                            return pp 
-                  np <- cat "NP"
-                  (tmp,pol,vp) <- do (tmp,pol,vp) <- inside "VP" pVP
-                                     return (isVTense tmp,pol,vp)
-                                  `mplus`
-                                  do vp <- cat "VP"
-                                     return (Nothing,meta,vp)
-                  opt (word ".") ""
-                  let e0 = mkApp cidUseCl [fromMaybe (mkApp meta []) tmp
-                                          ,mkApp pol []
-                                          ,mkApp cidPredVP [np,vp]
-                                          ]
-                      e1 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e0 advs
-                  return e1
-   , "NP"  :-> do (m_cc,list_np) <- pBaseNPs
-                  case m_cc of
-                    Just cc -> return (mkApp cidConjNP [cc, list_np])
-                    Nothing -> return list_np
-               `mplus`
-               do (m_cc,list_np) <- pNPs
-                  case m_cc of
-                    Just cc -> return (mkApp cidConjNP [cc, list_np])
-                    Nothing -> return list_np
-   , "VP"  :-> do (_,_,e) <- pVP
-                  return e
-   , "PP"  :-> do prep <- do cat "IN"
-                          `mplus`
-                          do word "TO"
-                             return (mkApp cidto_Prep [])
-                          `mplus`
-                          do w1 <- word "JJ"
-                             w2 <- word "IN"
-                             guard (w1 == "such" && w2 == "as")
-                             return (mkApp cidsuch_as_Prep [])
-                  np   <- cat "NP"
-                  return (mkApp cidPrepNP [prep,np])
-   , "CC"  :-> do cc <- lemma "Conj" "s2"
-                  return (mkApp cc [])
-   , "DT"  :-> do (dt,b) <- pDT
-                  return dt
-   , "IN"  :-> do prep <- lemma "Prep" "s"
-                  return (mkApp prep [])
-   , "NN"  :-> do transform (concatMap splitDashN)
-                  (do n <- lemma "N" "s Sg Nom"
-                      (do word "-"
-                          n2 <- lemma "N" "s Sg Nom"
-                          return (mkApp cidDashCN [mkApp n [], mkApp n2 []])
-                       `mplus`
-                       do return (mkApp n [])))
-               `mplus`
-               do v <- lemma "V" "s VPresPart"
-                  return (mkApp cidGerundN [mkApp v []])
-   , "NNS" :-> do transform (concatMap splitDashN)
-                  (do n <- lemma "N" "s Pl Nom"inside "FV" $ (pVerb "VV" "V")
-
-                      return (mkApp n [])
-                   `mplus`
-                   do n1 <- lemma "N" "s Sg Nom"
-                      word "-"
-                      n2 <- lemma "N" "s Pl Nom"
-                      return (mkApp cidDashCN [mkApp n1 [], mkApp n2 []]))
-   , "PRP" :-> do p <- lemma "Pron" "s (NCase Nom)"
-                  return (mkApp p [])
-   , "PRP$":-> do p <- lemma "Pron" "s (NCase Gen)"
-                  return (mkApp cidPossPron [mkApp p []])
-   , "RB"  :-> do a <- lemma "A" "s AAdv"
-                  return (mkApp cidPositAdvAdj [mkApp a []])
-               `mplus`
-               do adv <- lemma "Adv" "s"
-                  return (mkApp adv [])
-   , "-NONE-"
-           :-> return (mkApp meta [])
-   , "JJ"  :-> do a <- lemma "A" "s (AAdj Posit Nom)"
-                  return (mkApp a [])
-   , "JJR" :-> do a <- lemma "A" "s (AAdj Compar Nom)"
-                  return (mkApp a [])
-   , "JJS" :-> do a <- lemma "A" "s (AAdj Superl Nom)"
-                  return (mkApp a [])
-   , "VB"  :-> do v <- mplus (lemma "V" "s VInf")  (lemma "V2" "s VInf")
-                  return (mkApp v [])
-   , "VBD" :-> do v <- mplus (lemma "V" "s VPast") (lemma "V2" "s VPast")
-                  return (mkApp v [])
-   , "VBG" :-> do v <- mplus (lemma "V" "s VPresPart") (lemma "V2" "s VPresPart")
-                  return (mkApp v [])
-   , "VBN" :-> do v <- mplus (lemma "V" "s VPPart") (lemma "V2" "s VPPart")
-                  return (mkApp v [])
-   , "VBP" :-> do v <- mplus (lemma "V" "s VInf") (lemma "V2" "s VInf")
-                  return (mkApp v [])
-   , "VBZ" :-> do v <- mplus (lemma "V" "s VPres") (lemma "V2" "s VPres")
-                  return (mkApp v [])
-   , "PDT" :-> do pdt <- lemma "Predet" "s"
-                  return (mkApp pdt [])
-                  -}
    ]
  
 
@@ -311,7 +164,8 @@ pNPCl = do
 
 
 pCl = do 
- cl <- do (np,typ) <- trace' "looking for SS" $ inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
+ cl <- do trace' "looking for SS" $ return () 
+          (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
           trace' ("SS done "++show np) return ()
           --advs <- many $ cat "OA"
           trace' "now to pVP" return ()
@@ -327,20 +181,7 @@ pCl = do
        `mplus`
       -- find out whether it should be AdvS or FocAdv here!
        do advs <- many $ pAdv    -- use def to know if it is question or not
-       {-   (vp',tmp0,typ) <- pSlashVP "FV"
-                       --       trace' ("S2 to pVP, adv: "++show advs) $ pVP "FV"
-                      `mplus`
-                      (trace' "smiter" $ inside "FV" consume >> metaVP') --(mkApp meta [],VInf,VV)) --metaVP) 
-                      -}
-          (tmp,pol,np,nptyp,vp) <- g --undefined --foldr1 mplus (map f vForms)
-                         {- (v,t,_) <- pSlashVP typ "FV"
-                                        `mplus`
-                                        inside "FV" (consume >> metaVP' V) --return [])
-                          (np,nptyp) <- trace' "looking for SS" $ inside "SS" pNP
-                          trace' ("AdvCl found np "++show np) $ return ()
-                          (tmp,s,pol,vp) <- pComplVP typ v t
-                          trace' ("AdvCl found compl "++show vp) $ return ()
-                          return (tmp,s,pol,np,nptyp,vp))) vForms -}
+          (tmp,pol,np,nptyp,vp) <- pVSOs
           let e0 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
                                   ,mkApp pol []
                                   ,mkApp nptyp [np,vp]
@@ -349,13 +190,13 @@ pCl = do
           return e1
  return $ mkApp cidUttS [cl]
  
-g :: P [Char] Expr (VForm Expr, CId, Expr, CId, Expr)
-g = foldr1 (mplus) $ map f [V,VV,VA,V2,Sup]
-f :: VPForm -> P [Char] Expr (VForm Expr, CId, Expr, CId, Expr)
-f typ = do
-  (v,t,_) <- pSlashVP typ "FV"
+pVSOs :: P [Char] Expr (VForm Expr, CId, Expr, CId, Expr)
+pVSOs = foldr1 (mplus) $ map pVSO vForms
+pVSO :: VPForm -> P [Char] Expr (VForm Expr, CId, Expr, CId, Expr)
+pVSO typ = do
+  (v,t) <- pSlashVP typ "FV"
                 `mplus`
-                inside "FV" (consume >> metaVP' V) --return [])
+                inside "FV" (consume >> metaVP' typ)
   (np,nptyp) <- trace' "looking for SS" $ inside "SS" pNP
   trace' ("AdvCl found np "++show np) $ return ()
   (tmp,s,pol,vp) <- pComplVP typ v t
@@ -374,13 +215,6 @@ pImp = do trace' "in imperative" $ return ()
               imp = mkApp cidImpVP [e0] 
           return $ mkApp cidUttImpPol [mkApp pol [],imp]
           
-{-
-order :: String -> String
-order "SS" = "NPNom"
-order "ROOT" = "SP" -- annars kanske "OP"
-order _    = "Main"   --OBS!!!
--}
-
 data VForm a
   = VInf | VPart | VSupin | VTense a
    deriving (Show,Eq)
@@ -403,85 +237,59 @@ isVSupin _       = False
 isVTense (VTense t) = Just t
 isVTense _          = Nothing
 
---getVTemp "IP" = cidTImp
-getVTemp "IV" = ("VInf",VInf)
-getVTemp "PK" = ("VPres",VTense cidTCond) --fel fst
-getVTemp "PS" = ("VPres",VTense cidTPres)
-getVTemp "PT" = ("VPast",VTense cidTPast)
-getVTemp "SN" = ("VSupin",VSupin)
-getVTemp _    = ("VInf",VInf) --Nothing
 
 data VPForm  = Cop | Sup | VV | VA | V | V2
   deriving (Eq,Show)
 
-vForms  = [V,VV,VA,V2,Sup,Cop]
-{-
-pSlashVP typ =
-  liftM catMaybes $ sequence $ map (\p -> opt (liftM Just p) Nothing) $  verbs typ
- where verbs typ = 
-         [do t <- inside typ $ pCopula 
-             return (mkApp meta [],mk t,Cop)
-         ,do t <- inside typ $ pHave
-             return (mkApp meta [],mk t,Sup)
-         ,do (t,v) <- inside typ $ pV2 
-             return (v,mk t,V2)
-         ,do (t,v) <- inside typ $ pVV
-             return (v,mk t,VV) 
-         ,do (t,v) <- inside typ pVA
-             return (v,mk t,VA)
-         ,do (t,v) <- inside typ $ pVerb "VV" "V"
-                                   `mplus`
-                                   (pCopula >>= return . (,cidUseCopula))
-             return (mkApp v [],mk t,V)
-         ]
-       mk = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) 
-       -}
+vForms  = [Cop,Sup,VV,VA,V2,V]
 
 pSlashVP V typ =
  do (t,v) <-inside typ $ pVerb "VV" "V"
                          `mplus`
                          (pCopula >>= return . (,cidUseCopula))
-    return (mkApp v [],mk t,V)
+    return (mkApp v [],mkTmp t)
 
-mk = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) 
-{-
-  do (verb,t,typ) <- verbs typ
-     let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) t
-     return (verb,tmp,typ)
- where verbs typ = 
-          do t <- inside typ $ pCopula 
-             return (mkApp meta [],t,Cop)
-          `mplus`
-          do t <- inside typ $ pHave
-             return (mkApp meta [],t,Sup)
-          `mplus`
-          do (t,v) <- inside typ $ pV2 
-             return (v,t,V2)
-          `mplus`
-          do (t,v) <- inside typ $ pVV
-             return (v,t,VV) 
-          `mplus`
-          do (t,v) <- inside typ pVA
-             return (v,t,VA)
-          `mplus`
-          do (t,v) <- inside typ $ pVerb "VV" "V"
-                                   `mplus`
-                                   (pCopula >>= return . (,cidUseCopula))
-             return (mkApp v [],t,V)
--}
+pSlashVP VV typ =
+ do (t,v) <- inside typ $ pVV
+    return (v,mkTmp t)
+
+pSlashVP V2 typ =
+ do (t,v) <- inside typ $ pV2 
+    return (v,mkTmp t)
+
+
+pSlashVP Cop typ =
+ do t <- inside typ $ pCopula 
+    return (mkApp meta [],mkTmp t)
+
+pSlashVP Sup typ =
+  do t <- inside typ $ pHave
+     return (mkApp meta [],mkTmp t)
+
+
+pSlashVP VA typ =
+  do (t,v) <- inside typ pVA
+     return (v,mkTmp t)
+
+
+
+mkTmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) 
+
 
 
 -- adv efter verb? före eller efter pol?
+-- simplify by using pSlash and pCompVP
 pVP typ = 
  do trace' "try pVP one" $ return ()    
     -- Copula: is red/a cat...
-    t <- inside typ $ pCopula 
+    pSlashVP Cop typ >>= uncurry (pComplVP Cop)
+ {-   t <- inside typ $ pCopula 
     trace "copula done" $ return ()  
     (pol,adv,sp) <- pComplCopula 
     let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) t
         cop = mkApp cidUseComp [sp]
         vp  = maybe cop (\a -> mkApp meta [cop,a]) adv 
-    return (tmp,cidASimul,pol,vp)
+    return (tmp,cidASimul,pol,vp)-}
  `mplus`
   do trace' "VP supinum" $ return ()
      -- supinum
@@ -545,7 +353,7 @@ pVP typ =
      inside typ (do word2 "IM"
                     pVP "IV")
 
-
+pComplVP :: VPForm -> Expr -> t -> P [Char] Expr (t, CId, CId, Expr)
 pComplVP V vp tmp = do 
   compl <- pComplV
   (pol,adv,p) <- pComplV
@@ -669,14 +477,15 @@ maybeParticle = opt (liftM Just $ inside "PL" pPart) Nothing
 metaVP = do
   let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) $ VTense cidTPres  
   return (tmp,cidASimul,cidPPos,mkApp meta [])
-metaVP' :: VPForm -> P [Char] Expr (Expr,VForm Expr,VPForm)
+metaVP' :: VPForm -> P [Char] Expr (Expr,VForm Expr)
 metaVP' vf = do
   let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) $ VTense cidTPres  
-  return $(mkApp meta [],tmp,vf)
+  return $(mkApp meta [],tmp)
 metaVerb = (VInf,meta)
 
 
 pComplCopula = do
+  trace' "copula compl begins" $ return ()
   pol <- pPol
   adv <- maybeVerbAdv
   sp <- inside "SP" (do a <- pAdj 
@@ -693,6 +502,7 @@ pComplCopula = do
   return (pol,adv,sp)
 
 pComplSup = do
+  trace' "supinum compl begins" $ return ()
   p <- pPol
   adv <- maybeVerbAdv
   (t',sup) <- inside "IV" $ optEat (pVerb "TP" "V") (VSupin,meta) -- inte bara V 
@@ -700,6 +510,7 @@ pComplSup = do
   return (p,adv,sup)
 
 pComplV2 = do
+  trace' "v2 compl begins" $ return ()
   pol <- pPol
   trace' "oo pol ok" $ return ()
   adv <- maybeVerbAdv
@@ -713,7 +524,9 @@ pComplV2 = do
   adj <- opt (liftM Just $ inside "OO" $ findAdj) Nothing  -- eller findAdvAdj
   return (pol,adv,obj,adj)
 
+-- dropAtt only needed for some verbs.. More checking?
 pComplVV = do
+  trace' "vv compl begins" $ return ()
   pol   <- pPol
   trace' "pol ok" $ return ()
   adv <- maybeVerbAdv
@@ -734,12 +547,14 @@ pComplVV = do
   return (pol,adv,iv,p,b)
 
 pComplVA = do
+  trace' "va compl begins" $ return ()
   pol   <- pPol
   adv   <- maybeVerbAdv
   a     <- inside "SP" pAdj
   return (pol,adv,a)
 
 pComplV = do
+  trace' "v-simple compl begins" $ return ()
   pol <- pPol
   adv <- maybeVerbAdv
   p   <- maybeParticle
