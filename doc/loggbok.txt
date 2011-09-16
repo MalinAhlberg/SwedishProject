@@ -1,0 +1,13 @@
+v 37
+This week I have been working on the mapping of Talbanken trees.
+I use the trees in Talbanken05 (flat version), and so far the mapping
+seams to be unambiguous. On the other hand, I don't spend much time on
+the constructions that aren't allowed in GF yet, I save that for later.
+I have made a list of problems and things that should be added (probably)
+to GF (MappingProblemList.txt)
+However, the mapping takes much more time than I had expected, I still
+have a lot to do, even though I'm only considering short sentences.
+So I could probably spend all of next week on the mapping...
+
+I will spend the rest of the week (day) to examine Extract and Maltparser,
+cleaning my code and organizing my work.

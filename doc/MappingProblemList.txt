@@ -1,0 +1,26 @@
+mapping problems
+- A2 used as A
+- AdvS vs. FocAdv. What is the difference? (s694,s1321)
+- subject predicative, 'kallas'. Treat them like V2? (s898)
+- s1269, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
+
+constructs not in GF
+- Predets from Adv, 'även förmögenhet har betydelse' (s452).
+- particles not included in lexicon 'vara med' (s542).
+- verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
+- detemerminers an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
+- 'fler bilar'. (s1129)
+- particip. presens particip as noun 'antalet arbetande växer'
+                             as adjective 'gällande avtal'
+            perfect particip as adjective 'de är väl bevarade'
+     Solved by grammar or lexicon? (s1321,s1506)
+- nouns as quantifiers? 'flertalet bilar', 'antalet bilar' (s1321,s1606)
+     Maybe (DetQuant (? antal_N) NumSg).
+- adverbs describing verbs, not verb phrases. 'man fotograferar också området'. 
+  Not the same as 'man fotograferar området också'. (s1458)
+- reciprocals, 'varandra' is not accepted by the grammar. (s1682)
+- V2 + OA. Preposition phrase instead of noun phrase as complement to the verb.
+     'de vaktar på varandra'. From lexicon or grammar? 
+- adjective describing noun in verb phrase, 'vi har frågan öppen' (s1756).
+     (unlike 'vi har frågan öppet')
+- V2 when used as V. (s1840).

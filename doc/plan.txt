@@ -1,0 +1,24 @@
+Sept
+36 mapping
+37 mapping evaluated 
+38 mapping done
+39 imported lexicon & have a good testsuite
+   tried parsed test suite with new version - evaluated against mapped trees
+Okt
+40 added things to grammar
+41 work on chunking parsing 
+42 writing
+43 presentation
+
+Nov
+44
+45
+46
+47
+
+Dec
+48
+49 presentation
+50 writing
+51 thesis done
+
