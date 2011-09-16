@@ -1245,12 +1245,127 @@
 				</nonterminals>
 			</graph>
 		</s>
-
-
-
-
-
-
+	<s id="s1955">
+			<graph root="s1955_501">
+				<terminals>
+					<t id="s1955_1" word="Redan" pos="ABDA"/>
+					<t id="s1955_2" word="började" pos="VVPT"/>
+					<t id="s1955_3" word="lavinen" pos="NNDD"/>
+					<t id="s1955_4" word="rulla" pos="VVIV"/>
+					<t id="s1955_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1955_503" cat="NAC">
+						<edge label="IV" idref="s1955_4"/>
+					</nt>
+					<nt id="s1955_502" cat="S">
+						<edge label="TA" idref="s1955_1"/>
+						<edge label="FV" idref="s1955_2"/>
+						<edge label="SS" idref="s1955_3"/>
+						<edge label="OO" idref="s1955_503"/>
+						<edge label="IP" idref="s1955_5"/>
+					</nt>
+					<nt id="s1955_501" cat="ROOT">
+						<edge label="MS" idref="s1955_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+<s id="s1975">
+			<graph root="s1975_501">
+				<terminals>
+					<t id="s1975_1" word="Han" pos="POPPHH"/>
+					<t id="s1975_2" word="är" pos="AVPS"/>
+					<t id="s1975_3" word="pessimist" pos="NN  HH"/>
+					<t id="s1975_4" word="förstås" pos="ABZA"/>
+					<t id="s1975_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1975_502" cat="S">
+						<edge label="SS" idref="s1975_1"/>
+						<edge label="FV" idref="s1975_2"/>
+						<edge label="SP" idref="s1975_3"/>
+						<edge label="MA" idref="s1975_4"/>
+						<edge label="IP" idref="s1975_5"/>
+					</nt>
+					<nt id="s1975_501" cat="ROOT">
+						<edge label="MS" idref="s1975_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+		<s id="s1989">
+			<graph root="s1989_501">
+				<terminals>
+					<t id="s1989_1" word="Det" pos="POOP"/>
+					<t id="s1989_2" word="är" pos="AVPS"/>
+					<t id="s1989_3" word="rena" pos="AJ"/>
+					<t id="s1989_4" word="struntpratet" pos="NNDDSS"/>
+					<t id="s1989_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1989_503" cat="NP">
+						<edge label="AT" idref="s1989_3"/>
+						<edge label="HD" idref="s1989_4"/>
+					</nt>
+					<nt id="s1989_502" cat="S">
+						<edge label="SS" idref="s1989_1"/>
+						<edge label="FV" idref="s1989_2"/>
+						<edge label="SP" idref="s1989_503"/>
+						<edge label="IP" idref="s1989_5"/>
+					</nt>
+					<nt id="s1989_501" cat="ROOT">
+						<edge label="MS" idref="s1989_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+<s id="s2024">
+			<graph root="s2024_501">
+				<terminals>
+					<t id="s2024_1" word="Vi" pos="POPPHH"/>
+					<t id="s2024_2" word="måste" pos="MVPS"/>
+					<t id="s2024_3" word="ha" pos="HVIV"/>
+					<t id="s2024_4" word="elkraft" pos="NN  SS"/>
+					<t id="s2024_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s2024_502" cat="S">
+						<edge label="SS" idref="s2024_1"/>
+						<edge label="FV" idref="s2024_2"/>
+						<edge label="IV" idref="s2024_3"/>
+						<edge label="OO" idref="s2024_4"/>
+						<edge label="IP" idref="s2024_5"/>
+					</nt>
+					<nt id="s2024_501" cat="ROOT">
+						<edge label="MS" idref="s2024_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+<s id="s2241">
+			<graph root="s2241_501">
+				<terminals>
+					<t id="s2241_1" word="Det" pos="POOP"/>
+					<t id="s2241_2" word="går" pos="VVPS"/>
+					<t id="s2241_3" word="också" pos="ABOC"/>
+					<t id="s2241_4" word="bra" pos="ABZA"/>
+					<t id="s2241_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s2241_502" cat="S">
+						<edge label="SS" idref="s2241_1"/>
+						<edge label="FV" idref="s2241_2"/>
+						<edge label="+A" idref="s2241_3"/>
+						<edge label="AA" idref="s2241_4"/>
+						<edge label="IP" idref="s2241_5"/>
+					</nt>
+					<nt id="s2241_501" cat="ROOT">
+						<edge label="MS" idref="s2241_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
 
 	</body>
 </corpus>

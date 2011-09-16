@@ -411,29 +411,28 @@
 		</annotation>
 	</head>
     <body>
-
-	<s id="s1955">
-			<graph root="s1955_501">
+		<s id="s2250">
+			<graph root="s2250_501">
 				<terminals>
-					<t id="s1955_1" word="Nu" pos="ABDA"/>
-					<t id="s1955_2" word="kunde" pos="VVPT"/>
-					<t id="s1955_3" word="katten" pos="NNDD"/>
-					<t id="s1955_4" word="flyga" pos="VVIV"/>
-					<t id="s1955_5" word="." pos="IP"/>
+					<t id="s2250_1" word="Det" pos="POOP"/>
+					<t id="s2250_2" word="går" pos="VVPS"/>
+					<t id="s2250_3" word="att" pos="IM"/>
+					<t id="s2250_4" word="bildbeskriva" pos="VVIVSM"/>
+					<t id="s2250_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s1955_503" cat="NAC">
-						<edge label="IV" idref="s1955_4"/>
+					<nt id="s2250_503" cat="VP">
+						<edge label="IM" idref="s2250_3"/>
+						<edge label="IV" idref="s2250_4"/>
 					</nt>
-					<nt id="s1955_502" cat="S">
-						<edge label="TA" idref="s1955_1"/>
-						<edge label="FV" idref="s1955_2"/>
-						<edge label="SS" idref="s1955_3"/>
-						<edge label="OO" idref="s1955_503"/>
-						<edge label="IP" idref="s1955_5"/>
+					<nt id="s2250_502" cat="S">
+						<edge label="SS" idref="s2250_1"/>
+						<edge label="FV" idref="s2250_2"/>
+						<edge label="OA" idref="s2250_503"/>
+						<edge label="IP" idref="s2250_5"/>
 					</nt>
-					<nt id="s1955_501" cat="ROOT">
-						<edge label="MS" idref="s1955_502"/>
+					<nt id="s2250_501" cat="ROOT">
+						<edge label="MS" idref="s2250_502"/>
 					</nt>
 				</nonterminals>
 			</graph>

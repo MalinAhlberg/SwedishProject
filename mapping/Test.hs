@@ -80,6 +80,14 @@ res =
    ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP (PositAdAAdj thick_A) (PositA long_A))))))) NoVoc))"
    -- nu kunde katten flyga
    ,"? (? (PhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV (DropAttVV can_VV) (UseV fly_V)))))) NoVoc))"
+   -- han är katt idag
+   ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (UseComp (CompNP (MassNP (UseN cat_N)))) today_Adv)))) NoVoc))"
+   -- det är rena gummit
+   ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (AdjCN (PositA clean_A) (UseN rubber_N)))))))) NoVoc))"
+   -- vi måste ha katt
+   ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron we_Pron) (ComplVV must_VV (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N))))))) NoVoc))"
+   -- det går redan här
+   ,"? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseV (? walk_V already_Adv)) here_Adv)))) NoVoc))"
 
    ]
 type C = Int

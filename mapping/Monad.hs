@@ -30,7 +30,7 @@ grammar def rules = gr
       case Map.lookup tag pmap of
         Just f  -> \pgf m ts -> case unP f gr pgf m ts of
                                   Just (e,[]) -> e
-                                  Just (e,xs) -> trace (color red "\n\nrestParse!\n\n") $ e
+                                  Just (e,xs) -> trace (color red "\n\nrestParse!\n\n") e
                                   _           -> case ts of
                                                    [Node w []] -> def []
                                                    ts          -> def [gr tag pgf m ts | Node tag ts <- ts]
@@ -85,7 +85,7 @@ inside tag f = P (\gr pgf morpho ts ->
                             -> case unP f gr pgf morpho ts1 of
                                             Just (x,[]) -> Just (x,ts)
                                             Just (x,xs) -> trace' ("inside fail "++show xs) 
-                                                           $ Nothing
+                                                            Nothing
                                             Nothing      -> Nothing
     _                       -> Nothing)
 
