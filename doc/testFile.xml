@@ -1,0 +1,1217 @@
+<corpus id="Talbanken05_P_f">
+	<head hej="bu">
+		<meta>
+			<format>TIGER-MAMBA-Flat</format>
+			<name>Talbanken05 - Section P (flat)</name>
+			<author>Joakim Nivre, Jens Nilsson, Johan Hall</author>
+			<date>April 2006</date>
+			<description>Flat phrase structure representation with grammatical function labels based on MAMBA; cf. Ulf Teleman (1974) Manual för grammatisk beskrivning av talad och skriven svenska. Lund: Studentlitteratur
+			</description>
+		</meta>
+		</head>
+	<body>
+
+Talbankens träd:
+<s id="s541">
+			<graph root="s541_501">
+				<terminals>
+					<t id="s541_1" word="Det" pos="POOP"/>
+					<t id="s541_2" word="är" pos="AVPS"/>
+					<t id="s541_3" word="mycket" pos="ABZA"/>
+					<t id="s541_4" word="enkelt" pos="AJ"/>
+					<t id="s541_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s541_503" cat="AP">
+						<edge label="AA" idref="s541_3"/>
+						<edge label="HD" idref="s541_4"/>
+					</nt>
+					<nt id="s541_502" cat="S">
+						<edge label="SS" idref="s541_1"/>
+						<edge label="FV" idref="s541_2"/>
+						<edge label="SP" idref="s541_503"/>
+						<edge label="IP" idref="s541_5"/>
+					</nt>
+					<nt id="s541_501" cat="ROOT">
+						<edge label="MS" idref="s541_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   
+   Förenklad till:
+   " det är mycket gult"
+   Översättning till GF:
+   (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+                (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP very_AdA (PositA yellow_A))))))) NoVoc)
+   Kommentar:
+
+		<s id="s452">
+			<graph root="s452_501">
+				<terminals>
+					<t id="s452_1" word="Även" pos="ABOC"/>
+					<t id="s452_2" word="förmögenhet" pos="AN"/>
+					<t id="s452_3" word="har" pos="HVPS"/>
+					<t id="s452_4" word="betydelse" pos="VN"/>
+					<t id="s452_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s452_503" cat="NP">
+						<edge label="+A" idref="s452_1"/>
+						<edge label="HD" idref="s452_2"/>
+					</nt>
+					<nt id="s452_502" cat="S">
+						<edge label="SS" idref="s452_503"/>
+						<edge label="FV" idref="s452_3"/>
+						<edge label="OO" idref="s452_4"/>
+						<edge label="IP" idref="s452_5"/>
+					</nt>
+					<nt id="s452_501" cat="ROOT">
+						<edge label="MS" idref="s452_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+	
+  Förenklad till: 
+  " även bil har katt"
+ Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+      (PredVP (PredetNP ? (MassNP (UseN car_N))) (ComplSlash (SlashV2a have_V2)
+                                                               (MassNP (UseN cat_N)))))) NoVoc)
+  Kommentar:  should 'även' be a Predet in GF? should you be able to form a Predet from an adverb?
+
+<s id="s620">
+			<graph root="s620_501">
+				<terminals>
+					<t id="s620_1" word="Fattigdomen" pos="NNDD"/>
+					<t id="s620_2" word="är" pos="AVPS"/>
+					<t id="s620_3" word="inte" pos="ABNA"/>
+					<t id="s620_4" word="ny" pos="AJ"/>
+					<t id="s620_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s620_502" cat="S">
+						<edge label="SS" idref="s620_1"/>
+						<edge label="FV" idref="s620_2"/>
+						<edge label="NA" idref="s620_3"/>
+						<edge label="SP" idref="s620_4"/>
+						<edge label="IP" idref="s620_5"/>
+					</nt>
+					<nt id="s620_501" cat="ROOT">
+						<edge label="MS" idref="s620_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+  Förenklad till: 
+  " katten är inte gul"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg 
+         (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N))
+                 (UseComp (CompAP (PositA yellow_A)))))) NoVoc)
+
+
+<s id="s1739">
+			<graph root="s1739_501">
+				<terminals>
+					<t id="s1739_1" word="Det" pos="POOP"/>
+					<t id="s1739_2" word="är" pos="AVPS"/>
+					<t id="s1739_3" word="inte" pos="ABNA"/>
+					<t id="s1739_4" word="lätt" pos="AJ"/>
+					<t id="s1739_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1739_502" cat="S">
+						<edge label="SS" idref="s1739_1"/>
+						<edge label="FV" idref="s1739_2"/>
+						<edge label="NA" idref="s1739_3"/>
+						<edge label="SP" idref="s1739_4"/>
+						<edge label="IP" idref="s1739_5"/>
+					</nt>
+					<nt id="s1739_501" cat="ROOT">
+						<edge label="MS" idref="s1739_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det är inte gult"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg 
+                   (PredVP (UsePron it_Pron) (UseComp (CompAP (PositA yellow_A)))))) NoVoc)
+
+
+
+  <s id="s1739">
+			<graph root="s1739_501">
+				<terminals>
+					<t id="s1739_1" word="Det" pos="POOP"/>
+					<t id="s1739_2" word="är" pos="AVPS"/>
+					<t id="s1739_3" word="inte" pos="ABNA"/>
+					<t id="s1739_4" word="gult" pos="AJ"/>
+					<t id="s1739_5" word="," pos="IK"/>
+					<t id="s1739_6" word="litet" pos="AJ"/>
+					<t id="s1739_7" word="och" pos="++OC"/>
+					<t id="s1739_8" word="stort" pos="AJ"/>
+					<t id="s1739_9" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1739_502" cat="S">
+						<edge label="SS" idref="s1739_1"/>
+						<edge label="FV" idref="s1739_2"/>
+						<edge label="NA" idref="s1739_3"/>
+						<edge label="SP" idref="s1739_503"/>
+						<edge label="IP" idref="s1739_9"/>
+					</nt>
+					<nt id="s1739_501" cat="ROOT">
+						<edge label="MS" idref="s1739_502"/>
+					</nt>
+                  	<nt id="s1739_503" cat="CAP">
+						<edge label="CJ" idref="s1739_4"/>
+						<edge label="IK" idref="s1739_5"/>
+						<edge label="CJ" idref="s1739_6"/>
+						<edge label="++" idref="s1739_7"/>
+						<edge label="CJ" idref="s1739_8"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det är inte gult litet och stort"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg 
+                  (PredVP (UsePron it_Pron) (UseComp (CompAP (ConjAP and_Conj 
+                                 (ConsAP (PositA yellow_A) (BaseAP (PositA small_A)
+                                                  (PositA big_A))))))))) NoVoc))"
+
+
+<s id="s542">
+			<graph root="s542_501">
+				<terminals>
+					<t id="s542_1" word="Vilka" pos="POFPHH"/>
+					<t id="s542_2" word="får" pos="FVPS"/>
+					<t id="s542_3" word="vara" pos="AVIV"/>
+					<t id="s542_4" word="med" pos="PR"/>
+					<t id="s542_5" word="?" pos="I?"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s542_502" cat="S">
+						<edge label="SS" idref="s542_1"/>
+						<edge label="FV" idref="s542_2"/>
+						<edge label="IV" idref="s542_3"/>
+						<edge label="PL" idref="s542_4"/>
+						<edge label="I?" idref="s542_5"/>
+					</nt>
+					<nt id="s542_501" cat="ROOT">
+						<edge label="MS" idref="s542_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " vilka får vara med"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (QuestVP whoPl_IP (ComplVV faa_VV 
+                                                            (? UseCopula with_Prep))))) NoVoc)
+    Kommentar:  how to treat particles not included in the lexicon ('vara med'?) Add new way of combining
+       verbs and prepositions?  (UseVPart UseCoplua with_Prep)?
+
+
+<s id="s694">
+			<graph root="s694_501">
+				<terminals>
+					<t id="s694_1" word="Här" pos="ABDA"/>
+					<t id="s694_2" word="ges" pos="VVPS  PA"/>
+					<t id="s694_3" word="några" pos="POZP"/>
+					<t id="s694_4" word="exempel" pos="NN"/>
+					<t id="s694_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s694_503" cat="NP">
+						<edge label="DT" idref="s694_3"/>
+						<edge label="HD" idref="s694_4"/>
+					</nt>
+					<nt id="s694_502" cat="S">
+						<edge label="RA" idref="s694_1"/>
+						<edge label="FV" idref="s694_2"/>
+						<edge label="SS" idref="s694_503"/>
+						<edge label="IP" idref="s694_5"/>
+					</nt>
+					<nt id="s694_501" cat="ROOT">
+						<edge label="MS" idref="s694_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " här ges några katter"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (AdvS here_Adv (UseCl (TTAnt TPres ASimul) PPos 
+                (PredVP (DetCN somePl_Det (UseN cat_N)) (UseV ?))))) NoVoc)
+   Kommentar:  grammar doesn't handle passive yet. Should be added. 
+
+
+<s id="s802">
+			<graph root="s802_501">
+				<terminals>
+					<t id="s802_1" word="Avgiften" pos="NNDD"/>
+					<t id="s802_2" word="beräknas" pos="VVPS  PA"/>
+					<t id="s802_3" word="efter" pos="PR"/>
+					<t id="s802_4" word="inkomst" pos="NN"/>
+					<t id="s802_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s802_503" cat="PP">
+						<edge label="PR" idref="s802_3"/>
+						<edge label="HD" idref="s802_4"/>
+					</nt>
+					<nt id="s802_502" cat="S">
+						<edge label="SS" idref="s802_1"/>
+						<edge label="FV" idref="s802_2"/>
+						<edge label="AA" idref="s802_503"/>
+						<edge label="IP" idref="s802_5"/>
+					</nt>
+					<nt id="s802_501" cat="ROOT">
+						<edge label="MS" idref="s802_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " katten sitts efter bil"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+            (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (AdvVP (UseV ?) 
+                              (PrepNP after_Prep (MassNP (UseN car_N))))))) NoVoc)
+   Kommentar:  passive again.
+
+
+<s id="s898">
+			<graph root="s898_501">
+				<terminals>
+
+					<t id="s898_1" word="Denna" pos="PODP"/>
+					<t id="s898_2" word="dom" pos="NN"/>
+					<t id="s898_3" word="kallas" pos="VVPS  PA"/>
+					<t id="s898_4" word="hemskillnadsdom" pos="NN  SS"/>
+					<t id="s898_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s898_503" cat="NP">
+						<edge label="DT" idref="s898_1"/>
+						<edge label="HD" idref="s898_2"/>
+					</nt>
+					<nt id="s898_502" cat="S">
+						<edge label="SS" idref="s898_503"/>
+						<edge label="FV" idref="s898_3"/>
+						<edge label="SP" idref="s898_4"/>
+						<edge label="IP" idref="s898_5"/>
+					</nt>
+					<nt id="s898_501" cat="ROOT">
+						<edge label="MS" idref="s898_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " denna katt jagar bil"
+  Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+        (PredVP (DetCN this8denna_Quant (UseN cat_N)) (ComplSlash (SlashV2a hunt_V2)
+                                                      (MassNP (UseN car_N)))))) NoVoc)
+  Kommentar:  make a difference between verbs that need subjective predicative and normal transitiv verbs?
+     
+
+<s id="s945">
+			<graph root="s945_501">
+				<terminals>
+					<t id="s945_1" word="Våra" pos="POPPHHGG"/>
+					<t id="s945_2" word="köpvanor" pos="NN  SS"/>
+					<t id="s945_3" word="har" pos="HVPS"/>
+					<t id="s945_4" word="förändrats" pos="TP    PA"/>
+					<t id="s945_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s945_503" cat="NP">
+						<edge label="DT" idref="s945_1"/>
+						<edge label="HD" idref="s945_2"/>
+					</nt>
+					<nt id="s945_502" cat="S">
+						<edge label="SS" idref="s945_503"/>
+						<edge label="FV" idref="s945_3"/>
+						<edge label="IV" idref="s945_4"/>
+						<edge label="IP" idref="s945_5"/>
+					</nt>
+					<nt id="s945_501" cat="ROOT">
+						<edge label="MS" idref="s945_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " våra katter har suttit"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos 
+          (PredVP (DetCN (DetQuant (PossPron we_Pron) NumPl) (UseN cat_N)) (UseV sit_V)))) NoVoc)
+
+
+<s id="s1001">
+			<graph root="s1001_501">
+				<terminals>
+					<t id="s1001_1" word="Men" pos="++MN"/>
+					<t id="s1001_2" word="mycket" pos="POZP"/>
+					<t id="s1001_3" word="blir" pos="BVPS"/>
+					<t id="s1001_4" word="enklare" pos="AJKP"/>
+					<t id="s1001_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1001_502" cat="S">
+						<edge label="++" idref="s1001_1"/>
+						<edge label="SS" idref="s1001_2"/>
+						<edge label="FV" idref="s1001_3"/>
+						<edge label="SP" idref="s1001_4"/>
+						<edge label="IP" idref="s1001_5"/>
+					</nt>
+					<nt id="s1001_501" cat="ROOT">
+						<edge label="MS" idref="s1001_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " men han blir gulare"
+   Översättning till GF:
+  (PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+           (PredVP (UsePron he_Pron) (ComplVA become_VA (UseComparA yellow_A))))) NoVoc)
+   Kommentar:  no way to use 'mycket' as a noun phrase in GF at the moment.
+      allow determiners to act as noun phrases?
+
+
+<s id="s1037">
+			<graph root="s1037_501">
+				<terminals>
+					<t id="s1037_1" word="Den" pos="PODP"/>
+					<t id="s1037_2" word="har" pos="HVPS"/>
+					<t id="s1037_3" word="tillräcklig" pos="AJ"/>
+					<t id="s1037_4" word="bärförmåga" pos="NN  SS"/>
+					<t id="s1037_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1037_503" cat="NP">
+						<edge label="AT" idref="s1037_3"/>
+						<edge label="HD" idref="s1037_4"/>
+					</nt>
+					<nt id="s1037_502" cat="S">
+						<edge label="SS" idref="s1037_1"/>
+						<edge label="FV" idref="s1037_2"/>
+						<edge label="OO" idref="s1037_503"/>
+						<edge label="IP" idref="s1037_5"/>
+					</nt>
+					<nt id="s1037_501" cat="ROOT">
+						<edge label="MS" idref="s1037_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " den har dålig bil"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+          (PredVP (UsePron it8utr_Pron) (ComplSlash (SlashV2a have_V2) 
+                         (MassNP (AdjCN (PositA bad_A) (UseN car_N))))))) NoVoc)
+
+
+<s id="s1106">
+			<graph root="s1106_501">
+				<terminals>
+					<t id="s1106_1" word="Den" pos="PODP"/>
+					<t id="s1106_2" word="kollektiva" pos="AJ"/>
+					<t id="s1106_3" word="trafikservicen" pos="NNDDSS"/>
+					<t id="s1106_4" word="försämras" pos="VVPSSMPA"/>
+					<t id="s1106_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1106_503" cat="NP">
+						<edge label="DT" idref="s1106_1"/>
+						<edge label="AT" idref="s1106_2"/>
+						<edge label="HD" idref="s1106_3"/>
+					</nt>
+					<nt id="s1106_502" cat="S">
+						<edge label="SS" idref="s1106_503"/>
+						<edge label="FV" idref="s1106_4"/>
+						<edge label="IP" idref="s1106_5"/>
+					</nt>
+					<nt id="s1106_501" cat="ROOT">
+						<edge label="MS" idref="s1106_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " den dåliga bilen tänker"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+        (PredVP (DetCN (DetQuant DefArt NumSg) 
+         (AdjCN (PositA bad_A) (UseN car_N))) (UseV think_V)))) NoVoc)
+   Kommentar:  passive again. 
+
+
+<s id="s1103">
+			<graph root="s1103_501">
+				<terminals>
+					<t id="s1103_1" word="Fler" pos="POKPHH"/>
+					<t id="s1103_2" word="vill" pos="WVPS"/>
+					<t id="s1103_3" word="använda" pos="VVIV"/>
+					<t id="s1103_4" word="bil" pos="NN"/>
+					<t id="s1103_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1103_502" cat="S">
+						<edge label="SS" idref="s1103_1"/>
+						<edge label="FV" idref="s1103_2"/>
+						<edge label="IV" idref="s1103_3"/>
+						<edge label="OO" idref="s1103_4"/>
+						<edge label="IP" idref="s1103_5"/>
+					</nt>
+					<nt id="s1103_501" cat="ROOT">
+						<edge label="MS" idref="s1103_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " de vill äta bil"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+       (PredVP (UsePron they_Pron) (ComplVV want_VV 
+                         (ComplSlash (SlashV2a eat_V2) (MassNP (UseN car_N))))))) NoVoc)
+
+   Kommentar:  fler is not in GF. A determiner? 
+
+<s id="s1107">
+			<graph root="s1107_501">
+				<terminals>
+					<t id="s1107_1" word="Fler" pos="POKPHH"/>
+					<t id="s1107_2" word="måste" pos="MVPS"/>
+					<t id="s1107_3" word="använda" pos="VVIV"/>
+					<t id="s1107_4" word="bil" pos="NN"/>
+					<t id="s1107_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1107_502" cat="S">
+						<edge label="SS" idref="s1107_1"/>
+						<edge label="FV" idref="s1107_2"/>
+						<edge label="IV" idref="s1107_3"/>
+						<edge label="OO" idref="s1107_4"/>
+						<edge label="IP" idref="s1107_5"/>
+					</nt>
+					<nt id="s1107_501" cat="ROOT">
+						<edge label="MS" idref="s1107_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " de måste äta bil"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+             (PredVP (UsePron they_Pron) (ComplVV must_VV (ComplSlash (SlashV2a eat_V2)
+                                           (MassNP (UseN car_N))))))) NoVoc)
+   Kommentar:  fler again.   
+
+
+<s id="s1129">
+			<graph root="s1129_501">
+				<terminals>
+					<t id="s1129_1" word="Fler" pos="POKP"/>
+					<t id="s1129_2" word="resor" pos="NN"/>
+					<t id="s1129_3" word="görs" pos="GVPS  PA"/>
+					<t id="s1129_4" word="kollektivt" pos="AJ"/>
+					<t id="s1129_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1129_505" cat="NP">
+						<edge label="DT" idref="s1129_1"/>
+						<edge label="HD" idref="s1129_2"/>
+					</nt>
+					<nt id="s1129_504" cat="S">
+						<edge label="SS" idref="s1129_505"/>
+						<edge label="FV" idref="s1129_3"/>
+						<edge label="AA" idref="s1129_4"/>
+					</nt>
+					<nt id="s1129_503" cat="NAC">
+						<edge label="+F" idref="s1129_504"/>
+					</nt>
+					<nt id="s1129_502" cat="XP">
+						<edge label="AA" idref="s1129_503"/>
+						<edge label="IP" idref="s1129_5"/>
+					</nt>
+					<nt id="s1129_501" cat="ROOT">
+						<edge label="MS" idref="s1129_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " fler resor tänker gult"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) 
+                            (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc)
+   Kommentar:  fler is now used as a determiner. Should probably be like 'DetCN fler_Det (UseN resa_N)' 
+
+
+<s id="s1150">
+			<graph root="s1150_501">
+				<terminals>
+					<t id="s1150_1" word="Eller" pos="++EL"/>
+					<t id="s1150_2" word="skyddsombudet" pos="NNDDHS"/>
+					<t id="s1150_3" word="på" pos="PR"/>
+					<t id="s1150_4" word="arbetsplatsen" pos="NNDDSS"/>
+					<t id="s1150_5" word="?" pos="I?"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1150_507" cat="PP">
+						<edge label="PR" idref="s1150_3"/>
+						<edge label="HD" idref="s1150_4"/>
+					</nt>
+					<nt id="s1150_506" cat="NP">
+						<edge label="HD" idref="s1150_2"/>
+						<edge label="ET" idref="s1150_507"/>
+					</nt>
+					<nt id="s1150_505" cat="S">
+						<edge label="++" idref="s1150_1"/>
+						<edge label="SS" idref="s1150_506"/>
+					</nt>
+					<nt id="s1150_504" cat="NAC">
+						<edge label="+F" idref="s1150_505"/>
+					</nt>
+					<nt id="s1150_503" cat="NAC">
+						<edge label="ET" idref="s1150_504"/>
+					</nt>
+					<nt id="s1150_502" cat="XP">
+						<edge label="SP" idref="s1150_503"/>
+						<edge label="I?" idref="s1150_5"/>
+					</nt>
+					<nt id="s1150_501" cat="ROOT">
+						<edge label="MS" idref="s1150_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " eller katten på bilen"
+   Översättning till GF:
+  (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) 
+                 (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc)
+   
+
+<s id="s1244">
+			<graph root="s1244_501">
+				<terminals>
+					<t id="s1244_1" word="Gå" pos="VVIP"/>
+					<t id="s1244_2" word="bakom" pos="PR"/>
+					<t id="s1244_3" word="en" pos="EN"/>
+					<t id="s1244_4" word="skärm" pos="NN"/>
+					<t id="s1244_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1244_503" cat="PP">
+						<edge label="PR" idref="s1244_2"/>
+						<edge label="DT" idref="s1244_3"/>
+						<edge label="HD" idref="s1244_4"/>
+					</nt>
+					<nt id="s1244_502" cat="S">
+						<edge label="FV" idref="s1244_1"/>
+						<edge label="RA" idref="s1244_503"/>
+						<edge label="IP" idref="s1244_5"/>
+					</nt>
+					<nt id="s1244_501" cat="ROOT">
+						<edge label="MS" idref="s1244_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " gå bakom en katt"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttImpPol PPos (ImpVP (AdvVP (UseV walk_V) 
+               (PrepNP behind_Prep (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))) NoVoc)
+
+
+ 	<s id="s1246">
+			<graph root="s1246_501">
+				<terminals>
+					<t id="s1246_1" word="Kuverten" pos="NNDD"/>
+					<t id="s1246_2" word="bör" pos="VVPS"/>
+					<t id="s1246_3" word="klistras" pos="VVIV  PA"/>
+					<t id="s1246_4" word="igen" pos="ABZA"/>
+					<t id="s1246_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1246_502" cat="S">
+						<edge label="SS" idref="s1246_1"/>
+						<edge label="FV" idref="s1246_2"/>
+						<edge label="IV" idref="s1246_3"/>
+						<edge label="PL" idref="s1246_4"/>
+						<edge label="IP" idref="s1246_5"/>
+					</nt>
+					<nt id="s1246_501" cat="ROOT">
+						<edge label="MS" idref="s1246_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " katterna måste tänka igen"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+      (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) 
+                      (ComplVV must_VV (? think_V ?))))) NoVoc))
+   Kommentar:  passive (klistras). particle (klistras igen). 'UseVPart (UseV think_V) with_Prep'?
+
+
+<s id="s1295">
+			<graph root="s1295_501">
+				<terminals>
+					<t id="s1295_1" word="Befolkningen" pos="VNDD"/>
+					<t id="s1295_2" word="börjar" pos="VVPSSM"/>
+					<t id="s1295_3" word="att" pos="IM"/>
+					<t id="s1295_4" word="tänka" pos="VVIV"/>
+					<t id="s1295_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1295_503" cat="VP">
+						<edge label="IM" idref="s1295_3"/>
+						<edge label="IV" idref="s1295_4"/>
+					</nt>
+					<nt id="s1295_502" cat="S">
+						<edge label="SS" idref="s1295_1"/>
+						<edge label="FV" idref="s1295_2"/>
+						<edge label="OO" idref="s1295_503"/>
+						<edge label="IP" idref="s1295_5"/>
+					</nt>
+					<nt id="s1295_501" cat="ROOT">
+						<edge label="MS" idref="s1295_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " katten börjar att tänka "
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+         (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV ? (UseV think_V))))) NoVoc)
+
+
+	<s id="s1321">
+			<graph root="s1321_501">
+				<terminals>
+					<t id="s1321_1" word="Dessutom" pos="ABOC"/>
+					<t id="s1321_2" word="växer" pos="VVPS"/>
+					<t id="s1321_3" word="antalet" pos="NNDD"/>
+					<t id="s1321_4" word="arbetande" pos="SP  HH"/>
+					<t id="s1321_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1321_503" cat="NP">
+						<edge label="DT" idref="s1321_3"/>
+						<edge label="HD" idref="s1321_4"/>
+					</nt>
+					<nt id="s1321_502" cat="S">
+						<edge label="+A" idref="s1321_1"/>
+						<edge label="FV" idref="s1321_2"/>
+						<edge label="SS" idref="s1321_503"/>
+						<edge label="IP" idref="s1321_5"/>
+					</nt>
+					<nt id="s1321_501" cat="ROOT">
+						<edge label="MS" idref="s1321_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " dessutom tänker antalet arbetande"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos 
+                       (PredVP (? (? ?) (? ?)) (UseV think_V))))) NoVoc)
+   Kommentar:  'antalet arbetare' not accepted by GF. How to model this? 
+       Maybe (DetCN (DetQuant (? antal_N) NumSg) UseN noun_N)?
+       How to handle presens particip as noun; 'arbetande'?
+
+
+<s id="s1458">
+			<graph root="s1458_501">
+				<terminals>
+					<t id="s1458_1" word="Man" pos="POZPHH"/>
+					<t id="s1458_2" word="flygfotograferar" pos="VVPSSM"/>
+					<t id="s1458_3" word="också" pos="ABOC"/>
+					<t id="s1458_4" word="området" pos="NNDD"/>
+					<t id="s1458_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1458_502" cat="S">
+						<edge label="SS" idref="s1458_1"/>
+						<edge label="FV" idref="s1458_2"/>
+						<edge label="+A" idref="s1458_3"/>
+						<edge label="OO" idref="s1458_4"/>
+						<edge label="IP" idref="s1458_5"/>
+					</nt>
+					<nt id="s1458_501" cat="ROOT">
+						<edge label="MS" idref="s1458_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " man äter redan äpplet"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+        (GenericCl (ComplSlash (? (SlashV2a eat_V2) already_Adv)
+             (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc)
+   Kommentar:  No way of letting adverbs be put between the verb and the object. Should
+      differ from 'man flygfotograferar området också' which would be parsed
+      as 
+         PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+            (GenericCl (ComplSlash (SlashV2a eat_V2) 
+             (DetCN (DetQuant DefArt NumSg) (AdvCN (UseN apple_N) already_Adv)))))) NoVoc
+      or as
+          PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+            (GenericCl (AdvVP (ComplSlash (SlashV2a eat_V2) 
+             (DetCN (DetQuant DefArt NumSg) (UseN apple_N))) already_Adv)))) NoVoc
+      Maybe the last one should be 'man äter också äpplet' and the first 'man äter äpplet också'?
+
+<s id="s1506">
+			<graph root="s1506_501">
+				<terminals>
+					<t id="s1506_1" word="Byggnaderna" pos="NNDD"/>
+					<t id="s1506_2" word="är" pos="AVPS"/>
+					<t id="s1506_3" word="väl" pos="ABZA"/>
+					<t id="s1506_4" word="bevarade" pos="TP    PA"/>
+					<t id="s1506_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1506_503" cat="AP">
+						<edge label="AA" idref="s1506_3"/>
+						<edge label="HD" idref="s1506_4"/>
+					</nt>
+					<nt id="s1506_502" cat="S">
+						<edge label="SS" idref="s1506_1"/>
+						<edge label="FV" idref="s1506_2"/>
+						<edge label="SP" idref="s1506_503"/>
+						<edge label="IP" idref="s1506_5"/>
+					</nt>
+					<nt id="s1506_501" cat="ROOT">
+						<edge label="MS" idref="s1506_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " katterna är dåligt ätna"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+       (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) 
+           (UseComp (CompAP (AdAP (PositAdAAdj bad_A) (? eat_V2))))))) NoVoc)
+   Kommentar:  perfect particip as adjective ('bevarade') is not in the grammar.
+
+
+<s id="s1606">
+			<graph root="s1606_501">
+				<terminals>
+					<t id="s1606_1" word="Flertalet" pos="NNDD"/>
+					<t id="s1606_2" word="arbeten" pos="NN"/>
+					<t id="s1606_3" word="är" pos="AVPS"/>
+					<t id="s1606_4" word="utomhus" pos="ABZA"/>
+					<t id="s1606_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1606_503" cat="NP">
+						<edge label="DT" idref="s1606_1"/>
+						<edge label="HD" idref="s1606_2"/>
+					</nt>
+					<nt id="s1606_502" cat="S">
+						<edge label="SS" idref="s1606_503"/>
+						<edge label="FV" idref="s1606_3"/>
+						<edge label="RA" idref="s1606_4"/>
+						<edge label="IP" idref="s1606_5"/>
+					</nt>
+					<nt id="s1606_501" cat="ROOT">
+						<edge label="MS" idref="s1606_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Kommentar:  flertalet katter är någonstans
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+      (PredVP (DetCN (DetQuant (? ?) NumSg) (UseN cat_N)) (UseComp (CompAdv somewhere_Adv))))) NoVoc)
+   Kommentar:  flertalet not accepted, same as antalet in sentence 1321.
+
+	<s id="s1617">
+			<graph root="s1617_501">
+				<terminals>
+					<t id="s1617_1" word="Lön" pos="NN"/>
+					<t id="s1617_2" word="enligt" pos="PR"/>
+					<t id="s1617_3" word="gällande" pos="SP"/>
+					<t id="s1617_4" word="avtal" pos="NN"/>
+					<t id="s1617_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1617_503" cat="PP">
+						<edge label="PR" idref="s1617_2"/>
+						<edge label="AT" idref="s1617_3"/>
+						<edge label="HD" idref="s1617_4"/>
+					</nt>
+					<nt id="s1617_502" cat="XP">
+						<edge label="XX" idref="s1617_1"/>
+						<edge label="AA" idref="s1617_503"/>
+						<edge label="IP" idref="s1617_5"/>
+					</nt>
+					<nt id="s1617_501" cat="ROOT">
+						<edge label="MS" idref="s1617_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " katt för gällande bil"
+   (? (? (MassNP (UseN cat_N))) (PrepNP for_Prep (MassNP (AdjCN (PositA (? ?)) (UseN car_N)))))
+   Kommentar:  gällande, the form presens particip is not generated from the verbs.
+
+
+<s id="s1682">
+			<graph root="s1682_501">
+				<terminals>
+					<t id="s1682_1" word="Alla" pos="POTPHH"/>
+					<t id="s1682_2" word="vaktar" pos="VVPS"/>
+					<t id="s1682_3" word="på" pos="PR"/>
+					<t id="s1682_4" word="varandra" pos="POCPHH"/>
+					<t id="s1682_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1682_503" cat="PP">
+						<edge label="PR" idref="s1682_3"/>
+						<edge label="HD" idref="s1682_4"/>
+					</nt>
+					<nt id="s1682_502" cat="S">
+						<edge label="SS" idref="s1682_1"/>
+						<edge label="FV" idref="s1682_2"/>
+						<edge label="OA" idref="s1682_503"/>
+						<edge label="IP" idref="s1682_5"/>
+					</nt>
+					<nt id="s1682_501" cat="ROOT">
+						<edge label="MS" idref="s1682_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " alla äter på varandra "
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+       (PredVP everybody_NP (ComplSlash (SlashV2a eat_V2) (? (PrepNP on_Prep ?)))))) NoVoc)
+   Kommentar:  treat 'vakta' as an intransitive verb together with a prepositional phrase,
+      or as a transitive with an PP as an object?
+
+
+<s id="s1739">
+			<graph root="s1739_501">
+				<terminals>
+					<t id="s1739_1" word="Det" pos="POOP"/>
+					<t id="s1739_2" word="är" pos="AVPS"/>
+					<t id="s1739_3" word="inte" pos="ABNA"/>
+					<t id="s1739_4" word="lätt" pos="AJ"/>
+					<t id="s1739_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1739_502" cat="S">
+						<edge label="SS" idref="s1739_1"/>
+						<edge label="FV" idref="s1739_2"/>
+						<edge label="NA" idref="s1739_3"/>
+						<edge label="SP" idref="s1739_4"/>
+						<edge label="IP" idref="s1739_5"/>
+					</nt>
+					<nt id="s1739_501" cat="ROOT">
+						<edge label="MS" idref="s1739_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det är inte lätt"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron it_Pron) 
+                                                  (UseComp (CompAP (PositA ?)))))) NoVoc)
+   Kommentar:  'lätt' is of type A2 (two-place adjective) in the grammar. Either add it as a normal
+       adjective, or allow A2 to be used as adjectives.
+
+
+<s id="s1756">
+			<graph root="s1756_501">
+				<terminals>
+					<t id="s1756_1" word="Vi" pos="POPPHH"/>
+					<t id="s1756_2" word="har" pos="HVPS"/>
+					<t id="s1756_3" word="frågan" pos="NNDD"/>
+					<t id="s1756_4" word="öppen" pos="AJ"/>
+					<t id="s1756_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1756_502" cat="S">
+						<edge label="SS" idref="s1756_1"/>
+						<edge label="FV" idref="s1756_2"/>
+						<edge label="OO" idref="s1756_3"/>
+						<edge label="OO" idref="s1756_4"/>
+						<edge label="IP" idref="s1756_5"/>
+					</nt>
+					<nt id="s1756_501" cat="ROOT">
+						<edge label="MS" idref="s1756_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " vi har frågan gul "
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+          (PredVP (UsePron we_Pron) (ComplSlash (SlashV2a have_V2) 
+             (? (DetCN (DetQuant DefArt NumSg) (UseN question_N)) yellow_A))))) NoVoc)
+   Kommentar:  adjective describing noun in verb phrase, unlike 'vi har frågan öppet'.
+
+
+<s id="s1840">
+			<graph root="s1840_501">
+				<terminals>
+					<t id="s1840_1" word="Prästen" pos="NNDDHH"/>
+					<t id="s1840_2" word="kan" pos="QVPS"/>
+					<t id="s1840_3" word="vägra" pos="VVIV"/>
+					<t id="s1840_4" word="viga" pos="VVIV"/>
+					<t id="s1840_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1840_503" cat="NAC">
+						<edge label="IV" idref="s1840_4"/>
+					</nt>
+					<nt id="s1840_502" cat="S">
+						<edge label="SS" idref="s1840_1"/>
+						<edge label="FV" idref="s1840_2"/>
+						<edge label="IV" idref="s1840_3"/>
+						<edge label="OO" idref="s1840_503"/>
+						<edge label="IP" idref="s1840_5"/>
+					</nt>
+					<nt id="s1840_501" cat="ROOT">
+						<edge label="MS" idref="s1840_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " prästen kan kunna tänka"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+          (PredVP (DetCN (DetQuant DefArt NumSg) (UseN priest_N)) 
+             (ComplVV can_VV (ComplVV (DropAttVV can_VV) (UseV think_V)))))) NoVoc)
+   Kommentar:  the DropAttVV should not be used if the verb is must,can etc.
+    the verb 'viga' is not of type V (but V2), this must be handled to.
+
+
+<s id="s1871">
+			<graph root="s1871_501">
+				<terminals>
+					<t id="s1871_1" word="Det" pos="POOP"/>
+					<t id="s1871_2" word="är" pos="AVPS"/>
+					<t id="s1871_3" word="klart" pos="AJ"/>
+					<t id="s1871_4" word="fel" pos="AJ"/>
+					<t id="s1871_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1871_503" cat="AP">
+						<edge label="AA" idref="s1871_3"/>
+						<edge label="HD" idref="s1871_4"/>
+					</nt>
+					<nt id="s1871_502" cat="S">
+						<edge label="SS" idref="s1871_1"/>
+						<edge label="FV" idref="s1871_2"/>
+						<edge label="SP" idref="s1871_503"/>
+						<edge label="IP" idref="s1871_5"/>
+					</nt>
+					<nt id="s1871_501" cat="ROOT">
+						<edge label="MS" idref="s1871_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det är tjockt långt"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+       (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP (PositAdAAdj thick_A) (PositA long_A))))))) NoVoc)
+
+
+
+	<s id="s1955">
+			<graph root="s1955_501">
+				<terminals>
+					<t id="s1955_1" word="Redan" pos="ABDA"/>
+					<t id="s1955_2" word="började" pos="VVPT"/>
+					<t id="s1955_3" word="lavinen" pos="NNDD"/>
+					<t id="s1955_4" word="rulla" pos="VVIV"/>
+					<t id="s1955_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1955_503" cat="NAC">
+						<edge label="IV" idref="s1955_4"/>
+					</nt>
+					<nt id="s1955_502" cat="S">
+						<edge label="TA" idref="s1955_1"/>
+						<edge label="FV" idref="s1955_2"/>
+						<edge label="SS" idref="s1955_3"/>
+						<edge label="OO" idref="s1955_503"/>
+						<edge label="IP" idref="s1955_5"/>
+					</nt>
+					<nt id="s1955_501" cat="ROOT">
+						<edge label="MS" idref="s1955_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " nu kunde katten flyga"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPast ASimul) PPos 
+       (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) 
+             (ComplVV (DropAttVV can_VV) (UseV fly_V)))))) NoVoc)
+   Kommentar:  DropAttVV should be used with 'börja' (but not with can_VV). 
+
+
+<s id="s1975">
+			<graph root="s1975_501">
+				<terminals>
+					<t id="s1975_1" word="Han" pos="POPPHH"/>
+					<t id="s1975_2" word="är" pos="AVPS"/>
+					<t id="s1975_3" word="pessimist" pos="NN  HH"/>
+					<t id="s1975_4" word="förstås" pos="ABZA"/>
+					<t id="s1975_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1975_502" cat="S">
+						<edge label="SS" idref="s1975_1"/>
+						<edge label="FV" idref="s1975_2"/>
+						<edge label="SP" idref="s1975_3"/>
+						<edge label="MA" idref="s1975_4"/>
+						<edge label="IP" idref="s1975_5"/>
+					</nt>
+					<nt id="s1975_501" cat="ROOT">
+						<edge label="MS" idref="s1975_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " han är katt idag"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+      (PredVP (UsePron he_Pron) (AdvVP (UseComp (CompNP (MassNP (UseN cat_N)))) today_Adv)))) NoVoc)
+
+
+		<s id="s1989">
+			<graph root="s1989_501">
+				<terminals>
+					<t id="s1989_1" word="Det" pos="POOP"/>
+					<t id="s1989_2" word="är" pos="AVPS"/>
+					<t id="s1989_3" word="rena" pos="AJ"/>
+					<t id="s1989_4" word="struntpratet" pos="NNDDSS"/>
+					<t id="s1989_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1989_503" cat="NP">
+						<edge label="AT" idref="s1989_3"/>
+						<edge label="HD" idref="s1989_4"/>
+					</nt>
+					<nt id="s1989_502" cat="S">
+						<edge label="SS" idref="s1989_1"/>
+						<edge label="FV" idref="s1989_2"/>
+						<edge label="SP" idref="s1989_503"/>
+						<edge label="IP" idref="s1989_5"/>
+					</nt>
+					<nt id="s1989_501" cat="ROOT">
+						<edge label="MS" idref="s1989_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det är rena gummit"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+         (PredVP (UsePron it_Pron) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg)
+                         (AdjCN (PositA clean_A) (UseN rubber_N)))))))) NoVoc)
+
+
+
+<s id="s2024">
+			<graph root="s2024_501">
+				<terminals>
+					<t id="s2024_1" word="Vi" pos="POPPHH"/>
+					<t id="s2024_2" word="måste" pos="MVPS"/>
+					<t id="s2024_3" word="ha" pos="HVIV"/>
+					<t id="s2024_4" word="elkraft" pos="NN  SS"/>
+					<t id="s2024_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s2024_502" cat="S">
+						<edge label="SS" idref="s2024_1"/>
+						<edge label="FV" idref="s2024_2"/>
+						<edge label="IV" idref="s2024_3"/>
+						<edge label="OO" idref="s2024_4"/>
+						<edge label="IP" idref="s2024_5"/>
+					</nt>
+					<nt id="s2024_501" cat="ROOT">
+						<edge label="MS" idref="s2024_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " vi måste ha katt"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+        (PredVP (UsePron we_Pron) (ComplVV must_VV
+            (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N))))))) NoVoc)
+
+
+<s id="s2241">
+			<graph root="s2241_501">
+				<terminals>
+					<t id="s2241_1" word="Det" pos="POOP"/>
+					<t id="s2241_2" word="går" pos="VVPS"/>
+					<t id="s2241_3" word="också" pos="ABOC"/>
+					<t id="s2241_4" word="bra" pos="ABZA"/>
+					<t id="s2241_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s2241_502" cat="S">
+						<edge label="SS" idref="s2241_1"/>
+						<edge label="FV" idref="s2241_2"/>
+						<edge label="+A" idref="s2241_3"/>
+						<edge label="AA" idref="s2241_4"/>
+						<edge label="IP" idref="s2241_5"/>
+					</nt>
+					<nt id="s2241_501" cat="ROOT">
+						<edge label="MS" idref="s2241_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+   Förenklad till: 
+  " det går redan här"
+   Översättning till GF:
+  (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+        (PredVP (UsePron it_Pron) (AdvVP (UseV (? walk_V already_Adv)) here_Adv)))) NoVoc)
+   Kommentar:  should perhaps rather be:
+           PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos 
+              (PredVP (UsePron it_Pron) (AdvVP (AdvVP (UseV walk_V) already_Adv) here_Adv)))) NoVoc
+
+
+	</body>
+</corpus>
