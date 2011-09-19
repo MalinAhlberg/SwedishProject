@@ -76,6 +76,7 @@ toTree' nr s@(Sent root ws inf) =
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
+       _          -> error $ "Error in toTree' "++show nr++" could not be found"
   where putWord (W i p w)    = T.Node p [T.Node w []]
         putPhrase (Ph i c t) = T.Node c 
                                 $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t

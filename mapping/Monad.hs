@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , optEat, consume -- Malins
+             , optEat, consume, insideTake -- Malins
              ) where
 
 import Data.Tree
@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = False 
+test = False
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -40,6 +40,11 @@ grammar def rules = gr
 
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
+{-
+continue = 
+   Node w [] -> 
+   ts        -> 
+   -}
 
 newtype P t e a = P {unP :: Grammar t e -> PGF -> Morpho -> [Tree t] -> Maybe (a,[Tree t])}
 
@@ -57,7 +62,7 @@ instance MonadPlus (P t e) where
 parse :: Grammar t e -> PGF -> Morpho -> Tree t -> e
 parse gr pgf morpho (Node tag ts) = gr tag pgf morpho ts
 
--- ingen lista i singn..
+-- ingen lista i signaturen..
 cat :: (Eq t,Show t) => [t] -> P [t] e e
 cat tag = P (\gr pgf morpho ts -> 
   case ts of
@@ -88,6 +93,17 @@ inside tag f = P (\gr pgf morpho ts ->
                                                             Nothing
                                             Nothing      -> Nothing
     _                       -> Nothing)
+
+insideTake :: (Eq t,Show t )=> [t] -> P [t] e a -> P [t] e a
+insideTake tag f = P (\gr pgf morpho ts ->
+  case ts of
+    (Node tag1 ts1 : ts) | trace' (show tag++" "++show tag1) (tag `isPrefixOf` tag1)
+                            -> case unP f gr pgf morpho ts1 of
+                                            Just (x,[]) -> Just (x,ts)
+                                            Just (x,xs) -> Just (x,Node tag1 xs: ts)
+                                            Nothing      -> Nothing
+    _                       -> Nothing)
+
 
 
 lemma :: String -> String -> P String e CId
