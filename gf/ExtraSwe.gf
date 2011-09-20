@@ -95,6 +95,7 @@ lin
     {s = \\_ => subj ++ neg ++ verb ++ compl };
     
 
+  PassV2' v2 = predV (depV v2);
 -- Also works for "vi tittar på vår bok", which it maybe shouldn't..
 ReflGenVP vp cn = let vp_l = lin VPSlash vp ;
                       cn_l = lin CN cn in
@@ -118,6 +119,56 @@ ReflGenVP vp cn = let vp_l = lin VPSlash vp ;
    \p,subnum,objnum,g -> let pn = getPronoun p subnum
       in --(PossPron pn).s ! objnum ! True ! True ! (ngen2gen g);
           pn.s ! NPPoss (gennum g Pl) Nom ;
+
+
+
+        --(\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
+{-Verb : Type = {
+      s : VForm => Str ;
+      part : Str ;
+      vtype : VType
+      } ;
+VForm = 
+     VF VFin
+   | VI VInf ;
+
+  VFin =
+     VPres Voice
+   | VPret Voice   --# notpresent
+   | VImper Voice
+   ;
+
+  VInf = 
+     VInfin Voice
+   | VSupin Voice  --# notpresent
+   | VPtPret AFormPos Case
+   ;
+
+  VPForm = 
+     VPFinite Tense Anteriority
+   | VPImperat
+   
+-}
+
+{- VP = {
+      s : VPForm => {
+        fin : Str ;          -- V1 har  ---s1
+        inf : Str            -- V2 sagt ---s4
+        } ;
+      a1 : Polarity => Str ; -- A1 inte ---s3
+      n2 : Agr => Str ;      -- N2 dig  ---s5  
+      a2 : Str ;             -- A2 idag ---s6
+      ext : Str ;            -- S-Ext att hon går   ---s7
+      en2,ea2,eext : Bool    -- indicate if the field exists
+      } ;
+    VPSlash = CommonScand.VP ** {
+      n3 : Agr => Str ;  -- object-control complement
+      c2 : Complement
+      } ;
+    Comp = {s : Agr => Str} ; 
+-}
+
+
 
   this_NP : Str -> Gender -> Number -> NP =
   \denna,g,n -> lin NP {s = table {NPPoss gn c => denna+"s";

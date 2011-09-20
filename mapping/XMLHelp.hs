@@ -26,6 +26,8 @@ instance Show Sentence where
 getSentence s = let sent = concat . intersperse " " . map word . words in
       (idS s,sent s)
 
+getSentence' s = let sent = map word . words in
+      (idS s,sent s)
 -- gets the trees into a nice format
 showa :: String -> Sentence -> String
 showa nr s@(Sent id root ws inf) = 

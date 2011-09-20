@@ -1,0 +1,609 @@
+s1	Individuell beskattning av arbetsinkomster
+s12	Observera att ansökan härom skall göras senast den 1 juli 1971 .
+s22	Höjt avdrag för underhållsbidrag till icke hemmavarande barn
+s32	Vid högre taxerad inkomst sjunker avdraget med en femtedel av det belopp som överstiger 30000 kronor .
+s43	Skattelättnad för folkpensionärer
+s53	Inryckning
+s63	Den militära verksamheten har kriget som bakgrund .
+s73	En sekunds tvekan eller dröjsmål eller ett till synes oskyldigt slarv kan kosta dig och även kamraterna livet .
+s83	Hjälp då dina svagare kamrater .
+s93	Tystnadsplikt
+s103	Toalettartiklar ( kan även köpas i marketenteriet ) - rakhyvel och rakborste - även om du har elektrisk rakapparat .
+s113	Träningsoverall
+s123	På förmiddagen tränas du i olika utbildningsgrenar , i regel till omkring kl 11 .
+s133	90 procent av befälet i krig är värnpliktiga eller reservbefäl .
+s143	En del av dessa värnpliktiga skall t ex handha särskilt komplicerad och dyrbar materiel .
+s153	Värnpliktiga som fullgör längre tjänst än 300 dagar får särskilda premier , som växer med tjänstgöringens längd .
+s163	Från 1 januari 1970 tillämpas ett nytt och enklare system för ersättning av kostnader vid läkarvård .
+s173	I de avgifter du betalar ingår också eventuella röntgen- och laboratorieundersökninga .
+s183	Det nya ersättningssystemet gäller den allmänna öppna vården .
+s193	Folkpensionärer som är sjukpenningförsäkrade ( genom inkomst av arbete ) har i fortsättningen rätt till både sjukpenning i sammanlagt 180 dagar och fri sjukvård i sammanlagt 365 dagar .
+s203	Om du måste söka läkare ( t ex specialist ) långt hemifrån kan försäkringskassan i vissa fall ersätta dina utgifter för övernattning .
+s213	Ring gärna .
+s223	Var i Sverige finns invandrarna ?
+s233	Arbetstillstånd beviljas av statens invandrarverk ( Siv ) efter tillstyrkan av arbetsmarknadsstyrelsen , som bedömer läget på arbetsmarknaden .
+s243	De har samma skydd för sin person och egendom , samma möjligheter till utbildning , hälso- och sjukvård som svenskar .
+s253	För att få medborgarskap skall nordiska medborgare ha vistats i Sverige tre år och icke-nordbor sju år .
+s263	I varje svensk postadress ingår ett femsiffrigt postnummer , som skall stå till vänster om adressortens namn .
+s273	Då används alltid , om det rör sig om post med gatuadress etc , det lägsta av dessa nummer .
+s283	För varje ort i del 2 ges upplysning om postnumren för fack- och boxadresser och för olika gator , vägar etc .
+s293	Eller också kan det gälla adresser till en gård eller en by i ett område där det inte finns gatuadresser .
+s303	Bokstavsbeteckningarna för postutdelningsområden i Stockholm , Göteborg och Malmö ( Stockholm C , Göteborg H , Malmö S etc ) behöver inte användas , när man sätter ut postnumret framför Stockholm , Göteborg resp Malmö .
+s313	Eftersom bilarna i både Väst- och Östtyskland har bokstavsbeteckningen D , går det inte att använda enbart den bokstaven i förbindelse med postnummer till Östtyskland .
+s323	Det finns olika sätt att skicka postpaket inom landet .
+s333	Postbehandlingstid
+s343	Utkörning förekommer inte på sön- och helgdagar .
+s353	Adresskortet delas ut till adressaten på första vardagen efter inlämningsdagen .
+s363	Expressutdelning kan begäras på paket adresserade till ca 600 tätorter .
+s373	Blir resultatet tveksamt kan undersökningen kompletteras med analys av ett urinprov .
+s383	Det ovan nämnda hormonet uppträder i tillräcklig mängd i urinen först ca 10 dagar efter den dag den uteblivna menstruationen skulle ha börjat .
+s393	För att Rfsu-laboratoriets undersökning skall bli tillförlitlig fordras att Ni ... 1. tidigast 10 dagar efter den uteblivna menstruationens beräknade första dag eller tidigast fyra veckor efter eventuellt befruktningstillfälle tar ... 2. ett prov av Er morgonurin , ca 1/2 dl ( = 50 gr ) , i en väl rengjord flaska ( glas eller plast ) , som etiketteras med Ert namn och som ... 3. inlämnas eller postas till Rfsu-laboratoriet tillsammans med en av Er ifylld inlämningsblankett .
+s403	Ni kan också få det översänt per post i ett förslutet neutralt kuvert .
+s413	Ni som äter p-piller
+s423	Allt efter som prisläget förändras , ändras också basbeloppet .
+s433	Vem kan få Atp ?
+s443	Förtidspension eller sjukbidrag
+s453	( Se vidare sid 8 ff . )
+s463	På grundval av den pensionsgrundande inkomsten beräknas pensionspoäng , som registreras på Ert poängkort hos försäkringskassan .
+s473	Pensionsålder
+s483	Den som har gjort förtida uttag av ålderspension kan återkalla detta .
+s493	Atp infördes 1960 .
+s503	Kommunalt bostadstillägg är ett tillägg till bl a ålderspension och utgår enligt grunder som varje kommun själv bestämmer .
+s513	Barntillägg utgår till ålderspensionär , som har eget eller hustruns barn under 16 år i hemmet eller som har vårdnaden om sådant barn .
+s523	Och du har inte bara en chans att vinna .
+s533	Din insats i skattelotteriet är samtidigt ett sparande som återgår till dig med rekordränta .
+s543	Förmånerna gäller bara privatpersoner ( inte bolag etc ) som fått skatteåterbäring .
+s553	Varje hundralapp ger en andel i lotteriet .
+s563	Antalet andelar i lotteriet minskar också .
+s573	Men antingen förmår man ännu inte utnyttja de resurser man har - eller också utnyttjas dessa på ett sätt som inte kommer majoriteten av folket tillgodo .
+s583	Ett exempel : enbart i Usa ökar Bnp varje år med ett belopp , som är ungefär lika stort som den totala bruttonationalprodukten i hela Afrika eller Indien !
+s593	Skillnaderna inom ett land kan vara mycket stora .
+s603	När dagens 30-åringar gick i skolan var Afrikas och Asiens kartor i huvudsak indelade i några få färgfält - för att utmärka de olika områden , som tillhörde England , Frankrike , Holland , Belgien eller Portugal .
+s613	industriländerna ( ' i-länderna ' ) producerar förädlade produkter , som de måste få avsättning för , u-länderna måste få sälja sina råvaror .
+s623	Den är följden av att stora folksjukdomar nu bekämpas med moderna hjälpmedel , att människornas kunskap om hygien har förbättrats och att tillgången på mat och vatten har ökat .
+s633	Även med en jämn fördelning av produktionen blir det inte tillräckligt för var och en .
+s643	Barndödligheten beräknas - trots den minskning som skett - i Indien vara tio gånger så hög som i Sverige , i Peru och Tunisien sex gånger så hög .
+s653	Låg- och mellanstadiet
+s663	Praktisk yrkesorientering ( pryo ) , dvs praktik på en arbetsplats , skall alla elever i årskurs 9 ha under två veckor .
+s674	Ett helt nytt inslag i grundskolan blir fritt valt arbete .
+s684	Kristendomskunskap byter namn och kallas religionskunskap .
+s694	Här ges några exempel .
+s705	En samordning av undervisningen i dessa ämnen blir därför nödvändig .
+s715	' Att skydda , vårda och förbättra vår miljö ' är exempel på ett arbetsområde som berör ämnena naturkunskap , samhällskunskap och geografi .
+s725	Det kan ske antingen i specialklass eller genom samordnad specialundervisning .
+s735	Man får också veta vart man ska vända sig .
+s746	Den förebyggande barnavården sköts av barnavårdscentralen .
+s756	Barnavårdsmannen ska se till att barnets rätt tas tillvara i bl. a. ekonomiska frågor , ge biträde inför domstol och hjälpa föräldrarna med råd och anvisningar .
+s766	På Bb brukar personalen se till att anmälan blir ifylld och avsänd .
+s776	Man vänder sig till landstinget eller barnavårdsnämnden .
+s786	Många kommuner ordnar olika former av barntillsyn .
+s796	Barntillsyn ordnas också genom
+s806	Dessa leds av läkare .
+s816	Bostadstillägg till barnfamiljer
+s826	Grundbeloppet utgår oberoende av bostadens storlek och utrustning .
+s836	Blanketter sänds varje år till alla familjer som får barnbidrag .
+s846	J större kommuner finns vanligen en särskild kommunal bostadsförmedling .
+s856	Se också Förbättringslån sida 12 och Invalidbostadsbidrag sida 13 .
+s866	Lagen ger också hyresgästen rätt att i vissa fall byta lägenheten även om hyresvärden skulle motsätta sig ett byte .
+s876	I Socialkatalogen finns vidare upplysningar om bl. a. barn- och ungdomsfrågor , bostadsfrågor , försäkringsskydd , arv och andra familjerättsliga frågor .
+s886	Denna innebär bl. a. att vardera maken vid äktenskapets upplösning har rätt till hälften av den andre makens tillgångar .
+s896	Hemskillnad
+s906	Om makarna har levt var för sig ( hemskilda ) under minst ett år , kan en eller båda begära att domstolen dömer till äktenskapsskillnad .
+s916	Statistiska centralbyrån beräknar varje månad de genomsnittliga prisförändringarna för de varor och tjänster vi konsumerar .
+s926	Varje månad har vi utgifter för kött , fisk , mjölk , öl , tobak , kläder , möbler , hyra , läkarvård osv .
+s936	Konsumentprisindex skall visa prisförändringar på jämförbara varor vid oförändrad kvalitet .
+s946	Förr ingick bland representantvarorna i Kpi varor som fårstek , bruna bönor , rågmjöl , herrtrenchcoat och tvättbräde .
+s956	Kpi berättar för oss hur mycket dyrare det har blivit att leva .
+s966	Vi får också nya femkronorsmynt .
+s976	En limpa för 2:57
+s986	Men det är endast slutsumman på kassakvittot som ska avrundas .
+s996	Hur mycket skall du betala ?
+s1006	Köerna vid kassorna blir mindre .
+s1016	Statens pris- och kartellnämnd följer prisutvecklingen noga .
+s1026	En frusen eller medvetslös person kan inte simma .
+s1036	En person med västen på flyter i bakåtlutat läge med mun och näsa betryggande över vattenytan .
+s1046	De flesta flytvästar i handeln är orangefärgade .
+s1056	Förvaras västen på riktigt sätt ?
+s1066	Motsvaras de stora prisskillnaderna av en lika stor skillnad i kvalitet ?
+s1076	Det går knappast att göra en cellplast så mjuk och smidig som luftkudde med inlagd skumplast .
+s1086	Bilar kan byggas mer eller mindre säkra .
+s1096	En del bilmodeller kommer att visa sig bättre än andra från säkerhetssynpunkt .
+s1106	Den kollektiva trafikservicen försämras .
+s1116	Och hälften av landets hushåll saknar bil .
+s1126	De här trafikolyckorna kan minskas om
+s1136	I trafiksystemet använder bilister , cyklister och fotgängare ofta samma utrymme .
+s1146	Vilka resmöjligheter har du när du skall till och från jobbet / skolan ?
+s1156	Man måste köra på cykelbana om sådan finns .
+s1166	På en motortrafikled kan du alltså möta andra motorfordon på samma körbana .
+s1176	Vad vet du om vägmarkeringar ?
+s1186	Mittlinje kan också användas för uppdelning i två eller flera körfält för färd i samma riktning .
+s1196	Kör aldrig med sprit i kroppen - även en enda mellanöl ger påverkan .
+s1207	Röstkortet bör tas med vid röstning i vallokal och måste tas med vid röstning på postanstalt , hos utlandsmyndighet och på fartyg .
+s1217	Var finns valsedlar ?
+s1230	Röstning i vallokalen den 20 september
+s1241	Om du inte har med dig valsedlar finns de i allmänhet vid vallokalen .
+s1251	Europas äldsta författning moderniseras
+s1261	Efter omfattande utredningar och överläggningar mellan de fyra stora riksdagspartierna beslutade riksdagen om vissa delreformer som ska träda i kraft den 1 januari 1971 .
+s1272	Vid landstings- och kommunval finns dock bostadsbandet kvar .
+s1282	Vi har idag i Storstockholm 620000 lägenheter .
+s1292	Detta område är geografiskt detsamma som regionplaneområdet ( och landstingsområdet ) .
+s1302	Den här antagna ökningen ligger mellan de lägsta och högsta siffrorna i de prognoser som finns .
+s1312	Så här föreslås lägenheterna bli fördelade
+s1322	År 1970 hade ungefär 700000 förvärvsarbete i vår region .
+s1332	Att få ett barn är en stor upplevelse och glädje och medför en genomgripande förändring av vårt liv .
+s1342	Alla föräldrar funderar över hur det skall gå för deras barn i livet och vilka möjligheter det har inom sig .
+s1352	Men , även om tiden man kan vara tillsammans med barnet är kort , kan man ge det vad det behöver av trygg och varm moderskontakt .
+s1362	En del barn är tidiga och andra sena , skillnaderna brukar jämna ut sig på längre sikt .
+s1372	Det övar kryprörelser och lär sig rulla över på rygg .
+s1382	De undersöker allt de kommer åt och nu börjar en tid när man måste plocka undan allt som kan gå sönder eller skada dem .
+s1392	Det är så mycket som händer under barnets första år , då det förvandlas från en helt beroende varelse till en liten personlighet redo att ta sin omvärld i besittning .
+s1402	Det är inte alltid lätt att få lugn omkring sig om man har flera småbarn i familjen - som kanske dessutom känner sig avundsjuka på den minste som får ha mamma alldeles för sig själv , men om matningen kan ordnas som en skön stund utan jäkt och brådska är det bäst för både mor och barn .
+s1412	Har barnet napp bör man se till , att den är hel och av en säker modell , som inte kan glida ner i halsen .
+s1422	Att trösta barn när de är ledsna är inte att skämma bort dem .
+s1432	Dessutom frigörs några små partiklar , som kallas neutroner .
+s1442	För detta ändamål används särskilda s k kontrollstavar , som placeras i reaktorn bland bränslestavarna , dvs de rör av speciallegering , som innehåller små cylindrar eller s k kutsar av sintrad urandioxid , där det klyvbara U235 ingår .
+s1452	Vi undersöker och planerar
+s1462	Detta behandlas av en särskild utredning .
+s1472	För drift av det första aggregatet erfordras ca 80 man .
+s1482	Totala kostnaden för en kraftstation utbyggd med fyra aggregat blir således ca 2 miljarder kronor .
+s1492	Stadsplan för industriområdet .
+s1502	Forsmarks bruksidyll berörs inte av kraftbygget .
+s1512	Eller några synpunkter och förslag att komma med ?
+s1522	Nya arbeten kommer till och gamla försvinner .
+s1532	Man kan ofta börja när som helst och utbildningen sker ibland i etapper .
+s1542	Hyresbidrag till hela kostnaden för fast bostad i hemorten och - om utbildningen sker på annan ort - bidrag med 150 - 200 kr / mån för merkostnaden .
+s1552	Man behöver alltså inte vara arbetslös eller riskera att bli det för att få deltaga .
+s1562	En flyttning till en ort med behov av arbetskraft medför ökad trygghet och ökade valmöjligheter för hela familjen .
+s1572	Bortavistelsebidrag under den tid då familjen måste leva på två håll :
+s1582	Ansökan
+s1592	Ekonomisk hjälp kan utgå från arbetslöshetsförsäkringe .
+s1602	Bidraget - högst 800 kr / mån. - är skattepliktigt och storleken beror på inkomsten före arbetslösheten .
+s1612	Månadslön utgår efter ett stort antal lönegrupper .
+s1622	När man söker jobb vill man ha så stora valmöjligheter som möjligt .
+s1632	Ska man på hemorten söka ett liknande arbete som det man har vana från , nöjer man sig i regel med upplysningar om lön och arbetsförhållanden .
+s1642	Företagets storlek och produktion
+s1652	Ibland räcker det inte med platslistor
+s1662	Den tillhandahåller också en omfattande information om läget på arbetsmarknaden inom olika branscher och inom olika delar av landet erbjuder dig yrkesvägledning vid valet av yrke och utbildningsväg och hjälper dig att kartlägga dina förutsättningar för olika arbetsuppgifter hjälper dig genom arbetsvård att minska eller undanröja det hinder som ett handikapp kan vara för dig på arbetsmarknaden och försöker finna ett lämpligt arbete på öppna marknaden eller erbjuda andra arbetsmöjligheter .
+s1672	Det är förlorarnas gäng som efter andra världskriget gick på kryckor : 1 Västtyskland 2 Frankrike 3 Italien 4 Belgien 5 Holland 6 Luxemburg
+s1682	Alla vaktar på varandra .
+s1692	Detta är EEC:s maktpyramid
+s1702	Ständiga representanternas kommitte :
+s1712	Sexstatsparlamentet :
+s1722	Efter hand har också kommissionen i huvudsak reducerats till ett utredande organ men är fortfarande ett förslagsställande och verkställande organ .
+s1732	Resten är tjänstemän från respektive medlemsländer , som åker fram och tillbaka mellan sina respektive huvudstäder och EEC-högkvarteret i Bryssel .
+s1742	Som EEC ser ut i dag har de tre stora , Västtyskland , Frankrike och Italien 4 röster vardera .
+s1752	För kvalificerad majoritet fordras 43 röster av 61 .
+s1762	Hur EEC finansieras i dag kan vi hoppa över .
+s1772	Det verkligt intressanta är egentligen inte heller det EEC som existerar i dag utan det EEC som vi kommer att få om Storbritannien , Irland , Norge , Danmark och därmed Sverige kommer med .
+s1782	Nato : North Atlantic Treaty Organization ( Atlantpakten ) .
+s1792	I USA var den samma tid 78 proc .
+s1802	Det hotas av 1) USA , 2) Sovjet och 3) Japan .
+s1812	Till detta kommer ett 100-tal kommitteer - t. ex. kommitten för tomatpriser , fläskpriser , preventivmedel etc - var och en med 10 - 15 medlemmar , varav ett par från kommissionen , resten är folk som reser fram och tillbaka mellan Bryssel och sina respektive hemländers huvudstäder
+s1822	Numera kan den enkla ansökan skickas med posten .
+s1832	Kyrkoskattens höjd bestäms av kyrkofullmäktige .
+s1842	Kyrkans tro
+s1852	Statskyrkan i nuvarande form försvinner kanske i framtiden .
+s1862	Det tar bara ett par timmar och kostar inte särskilt mycket .
+s1872	Efter 100 timmar har glödlamporna tappat halva effekten !
+s1882	Normalt ska det vara cirka 100 dubbar per hjul .
+s1892	Annars lossnar dubbarna snabbt och effekten minskar .
+s1902	Byt vindrutetorkarblad .
+s1912	Dörrlister - lås :
+s1922	Inte sprayflaska - ta pensel och rostskydd på burk .
+s1932	Du kommer inte att bli så irriterad att du blir trafikfarlig eftersom du kommer igång på mornarna .
+s1942	När bilen är ren under - kontrollera att allt ' sitter fast ' , att avgasröret är helt , att ingenting hänger och slänger .
+s1952	Folkökningen går bara fortare och fortare .
+s1962	Våra miljövårdsproblem av i dag kommer att framstå som idylliska .
+s1972	' Måste vi kräva bevis om en katastrof innan vi gör något ? '
+s1982	Det enda man kan säga med säkerhet är att u-länderna blir utestängda från en sådan värld och att klyftan mellan fattiga och rika bara blir större och större .
+s1992	Urbaniseringen leder till en förslummning av en omfattning som världen hittills aldrig har skådat .
+s2002	Stadsbefolkningen har alltså ökat från 7 till 90 miljoner på 40 år .
+s2012	Folk tvättar både kläder och sig själva i förorenat vatten .
+s2022	Blodkräfta
+s2032	Andelen stadsbor i procent
+s2042	När det första borrtornet rests - någonstans i triangeln Malmö - Falsterbo - Ystad - börjar miljonrullningen på allvar i jakten på svensk olja .
+s2052	600 markägare har chansen
+s2062	Få markägare får så att säga mer än en enda chans .
+s2072	Jerome Bayless har borrat i åtskilliga delar av världen .
+s2082	Där oljeförekomster finns råder ett högt tryck , men för att inte oljan skall spruta rätt upp i luften regleras trycket med spolvätska och en serie olika ventiler .
+s2092	10000-tals svenskar har obotliga hörfel .
+s2102	Sveriges främste expert på området , docenten Ingmar H:son Klockhoff , vid Uppsala akademiska sjukhus , säger till Expressen :
+s2112	En soldat kan bli obotligt hörselskadad redan vid sin första skjutning .
+s2122	Under sjukvårdsstyrelsen sorterar försvarets materielbyrå .
+s2132	På I>12 i Eksjö tog en kompanichef för ett pansarvärnskompani saken i egna händer .
+s2142	Framtiden är snabbkontroll av hörseln och registrering av defekter och uppfattningsförmåga via data .
+s2152	Vapnen förekommer numera på alla förband inom armen .
+s2162	Dr Horn är chef för National Clearinghouse for Smoking and Health , det amerikanska hälsoministeriets specialorgan för tobaksfrågor .
+s2172	De insåg att det var lättare att få andra människor att sluta röka om de själva slängde cigaretterna .
+s2182	Enligt dr Horn är det en mängd aktioner på gång i USA för att försöka få ner cigarrettkonsumtionen .
+s2192	Om ni måste röka
+s2202	Skär ner dagskonsumtionen .
+s2212	Han försökte med teckenspråk , försökte rita , men han hade C i teckning i skolan .
+s2222	' Medicinsk bildtolk ' gör det i en kort bildsvit på ett klarläggande sätt .
+s2232	För bildtolkens användning i Skandinavien utnyttjas f. n. sju språk , valda med hänsyn till frekvens av utlänningar i vårt land .
+s2242	Men i den gröna delen blir det svårare .
+s2252	Kissar man mest när solen eller månen är uppe ?
+s2262	Främst löser den nya iden en angelägen humanitär uppgift .
+s2272	Men valmaskinleverantören sviktade i sista stund och vi får vänta till nästa val .
+s2282	Röstkortet överräcks , en valförrättare slår i röstlängden .
+s2292	Visserligen blir hålkortsvalsedlarna något dyrare än de gamla vanliga .
+s2302	Valboxen är en liten additionsflink kamrer , den räknar in valsedlarna och vägrar att ta emot kassetter som innehåller två valsedlar , det ska bara vara en i varje .
+s2312	Men här får vi slutresultatet litet senare på natten .
+s2322	- Allting var klart förra hösten .
+s2332	Vad rösterna än ropar i vinden så visar deras mångfald att det är nödvändigt att dra datamaskinens insug ända fram till valbåset .
+s2342	Glädjen över att det blir fler borgerliga än socialdemokrater i riksdagen grumlas av att minst 14 , kanske 17 kommunister borgar för fortsatt socialistiskt styre .
+s2352	Och det finns flera städer i landsorten som väntar lika spänt på slutresultatet .
+s2362	Men en hel del har också vandrat till de borgerliga .
+s2372	På valförrättarens bord står valboxen .
+s2382	Under veckan uppmärksammas detta i Sveriges skolor .
+s2392	U-länderna måste ta en genväg för att komma i fatt .
+s2402	Dessutom är det många i u-länderna som slutar skolan efter ett par års dålig undervisning .
+s2412	Det beror på att undervisningssystemen övertagits från den forna kolonialmakten och ofta har värderingar från 1800-talet .
+s2422	Men det större problemet - folkökningen och bristen på resurser - är mer svårlöst .
+s2432	I Sydasien , Mellanöstern och Latinamerika har de flesta länder aldrig försökt genomföra den målsättningen .
+s2442	Minst var tredje människa är analfabet , kan varken läsa eller skriva .
+s2452	I stora delar av Afrika och Latinamerika slutar mer än varannan elev efter två år .
+s2462	4 miljoner bilar
+s2472	Den andra stora gruppen som ökar kraftigt är åldern 0 - 14 år .
+s2482	Många behov kommer att tävla om den stigande nationalinkomsten .
+s2492	Färre i industrin
+s2502	70-talet kommer att medföra stora förändringar för alla medborgare - en utveckling på både gott och ont .
+s2513	Men minoritetsgruppens problem har börjat uppmärksammas av både medicinare och psykologer .
+s2523	Kostnaderna blir små i förhållande till de vinster som kan göras , säger lektor Öqvist .
+s2533	Jag finner det underligt att industrin inte visat något intresse för att ta reda på när deras anställda anser sig fungera bäst på dygnet .
+s2543	Däremot är de morgonpigga hungriga när de vaknar .
+s2553	Psykologerna har hittills när det gällt arbetstider och arbetsplacering byggt upp en idealtyp men glömt bort minoriteter .
+s2563	I dag garanterar Folkhälsan och Naturvårdsverket att larmrapporten om gifthalten fått överdrivna proportioner - strömming , lax och ål är helt riskfritt att äta .
+s2573	Resultatet av detta fiske visar att södra Östersjön drabbats av oroväckande stora mängder DDT och PCB .
+s2583	Och det är en oroande faktor .
+s2593	I den första och tredje undersökningen deltog också psykolog Per-erik Almgren .
+s2603	En moraliserande inställning till sexuallivet i uppväxtmiljön hör också till de faktorer som kan ge psykiska problem vid en graviditet .
+s2613	Kvinnor som inte kan acceptera modersrollen i djupare bemärkelse , som inte kan identifiera sig med sin egen mor eller har en markant starkare identifikation med fadern får oftare svårigheter vid en graviditet .
+s2623	- Jag är själv inte särskilt villig att dra långtgående slutsatser ur materialet , säger Åke Nilsson .
+s2633	' Vi håller på att spåra ur fullständigt . '
+s2643	Arbetskraftsundersöknin en gång i kvartalet - från 1970 en gång i månaden - visar en långsiktig ökning av antalet sjukfrånvarande .
+s2653	Första halvåret 1970 visar ett par procent bättre siffror än fjolåret .
+s2663	Det ser rätt illa ut - men om man undersöker varje åldersgrupp för sig är det ingen ökning alls , upplyser byrådirektör Birger Rohlin vid SJ .
+s2673	Det räcker med en timmes frånvaro eller en för sen ankomst för att 75-kronorspremien skall falla bort .
+s2683	Man bjuder med stolthet ut potatis med 0,02 procent bisulfit i okokt produkt .
+s2693	Hellre fälla än fria under utredningstiden .
+s2703	Nej , både direktör Schmidt och docent Svensson medger att det ofta finns goda skäl att vägra äta den fabriksskalade potatisen , som utgör 40000 ton av en årlig svensk potatisskörd på totalt 570000 ton .
+s2713	Men hinnan är oaptitlig , konsistensen ofta sorglig .
+s2723	Inte på sjukhus .
+s2733	Det är minst lika angeläget att få bort den från juicer , läsk och torkad frukt .
+s2743	Björn Gillberg å sin sida hade exempel på hur välgrundade varningsskrivelser ( om cyklamat , kvicksilver ) i åratal fått ligga obeaktade av myndigheterna .
+s2753	En del försök att beräkna väntade hyreshöjningar ingår i det material som följer med ett förslag i dag från Statens hyresråd att slopa hyresregleringen i Sverige från den 1 januari 1972 .
+s2763	Största hyreshöjningen ( femdubbling ) drabbade city , där den kända utställningslokalen ' Den permanente ' fick hyran höjd från 470000 till 1,2 milj kr om året .
+s2773	Hyresgästföreningen var besviken därför att de stegrade hyrorna i de äldre husen inte medförde någon sänkning av hyran i de nybyggda .
+s2783	De fattiga som bäst behöver lagen i kampen mot ogina hyresvärdar känner ofta inte ens till att lagen existerar .
+s2793	Med kommunens tillstånd och gillande ( ! ) har de sedan rustat upp husen och öppnat dem för några av Englands 100000-tals hemlösa .
+s2803	Det rör sig alltså om fall där orsaken till patientens symtom inte primärt är åderförkalkning utan i stället beror på en sannolik störning i cirkulationen av den vätska som omger hjärnan .
+s2813	' Väck inget hopp om det . '
+s2823	Genom den utrustning som finns på röntgendiagnostiska avdelningen vid lasarettet i Lund , en s k gammakamera , finns nu möjligheter att studera dessa cirkulationsförhållanden .
+s2833	Det innebär alltså att man motsvarande det ' skadade ' området får en ökad strålning i jämförelse med den omkringliggande vävnaden och att denna skillnad mellan abnorm och normal vävnad kan iakttagas med hjälp av gammakameran .
+s2843	Försiktig beräkning visar att en besparing på 75000 kronor , ungefär 300 vårddagar hade kunnat sparas redan under gammakamerans första användningsår .
+s2853	Det skulle kunna återföra många patienter till ett normalt liv
+s2863	Visserligen har eleverna på de praktiska linjerna varit frånvarande mer än sina kamrater , sade Bengt Silfverberg .
+s2873	I Bromma gymnasium ökade frånvaron med 40 proc. från vårterminen 1968 till vårterminen 1969 .
+s2883	Orsakerna är komplexa .
+s2893	Alla elever passar inte in i ämneslärarsystemet på högstadiet , konstaterade skolsköterskan Ingrid Gunneson i Göteborg .
+s2903	För en statistiskt utvald grupp män och kvinnor visades en samlagsfilm i färg med tre agerande , pornografitidningar delades ut och slutligen lästes en novell upp .
+s2913	I dag klockan halv tre på eftermiddagen läste nye handelsministern Kjell-Olof Feldt upp Sveriges förhandlingsutspel för EEC:s ministerråd .
+s2923	Innertrio under Feldt
+s2933	När innertrions första jobb är klart ska EEC-tjänstemännen skriva en rapport till politikerna i Ministerrådet .
+s2943	Den nordiska samordningen har redan gått så långt på dessa områden att det anses nödvändigt .
+s2953	I viktigare frågor kommer den att arbeta på statssekreterarnivå .
+s2963	För Sverige betyder det tullfrihet för tre fjärdedelar av exporten , men mycket små nackdelar i höjda råvarutullar .
+s2973	Sveriges önskan att medverka i ekonomiskt samarbete utan formella bindningar tillfredsställes bäst i en tullunion , anser EEC-byråkratin .
+s2983	Alla grupper får det de vill ha :
+s2993	Men från jordbrukets organisationer har man försäkrat att jordbruket inte skulle komma att fälla en sådan uppgörelse för Sveriges del .
+s3003	Ånnu återstår den s k C14-undersökningen , genom vilken man definitivt skall datera fynden , men redan nu är man på riksantikvarieämbetet på det klara med att man gjort ett strålande kap .
+s3013	I kvinnans mun har man påträffat hallonfrön .
+s3023	Det har hittills varit en besvärlig höst för bilister som vill säkert .
+s3033	Annars blir slitaget på tok för stort både på dubbar och vägar .
+s3043	Dubbarna tränger därigenom ned i is och hård snö .
+s3053	Utvecklingen har gått mot allt bredare däck på bilarna .
+s3063	På ett smalt däck blir yttrycket större och därmed också väggreppet .
+s3073	Toaletter ombord på nöjesbåten har blivit ett naturvårdsproblem .
+s3083	Plomberas
+s3093	Som det nu är ser det inte vidare trevligt ut med toalettpapper och avföringshögar vid stränderna till de populära ankringsvikarna i skärgårdarna .
+s3103	Eftersom man har 400 medlemmar i klubben blev utdebiteringen per medlem inte hög .
+s3113	Flaskhalsarna vid S:t Eriksgatan och Fridhemsplan försvinner .
+s3123	Bilisterna måste ta av vid Ågestavägen .
+s3134	I radio och teve , på kurser och föräldramöten får skolbarnens pappor och mammor lära sig mängdlära , statistik , funktioner , sannolikhetsberäkningar o s v .
+s3144	Ett annat viktigt namn bakom de nya metoderna är Jean Piaget , en världsberömd schweizisk forskare och psykolog , som har studerat begreppsbildningen hos barn - till exempel av matematiska begrepp som antal , kvantitel , mängd , rum , tid och hastighel .
+s3154	De nordiska deltagarna fattade där ett beslut om regionalt samarbete , som så småningom resulterade i Nordiska kommitten för modernisering av matematikundervisningen med bland andra lektor Hemer som ledamot .
+s3164	Jo , man är på väg mot en reform jämförbar med vår , men inget nytt begrepp införs i sovjetmatten innan varenda lärare är grundligt beredd .
+s3174	Därför att vi har ett brett förankrat undervisningsväsende .
+s3184	Genom en intensiv tillämpning av de laborativa metoderna har man i experimentskolor på olika håll i världen kunnat lära helt vanliga ungar att lösa matteproblem av en svårighetsgrad som annars hör hemma på avancerad akademisk nivå .
+s3194	Just det .
+s3204	Men det är viktigt att de får leksaker och lekmaterial , som passar just för deras ålder och utvecklingsskede .
+s3214	En bra böjan , men mycket mer behövs .
+s3224	Lekcirkeln är uppdelad i fem sektorer i var sin glad färg .
+s3234	Och liksom vi i vår kost behöver något från varje bit av kostcirkeln för att må bra , så behöver barnen något från varje del av lekcirkeln för sin lek för att den ska bidra till deras utveckling .
+s3244	Många bra leksaker kan också hänga med i flera år ( tänk bara på en mjuk , älskad nalle ) .
+s3254	Det var 6-åringarna , som står på gränsen mellan småbarns- och skolbarnsåldern .
+s3264	Kan en hund se vad ett fotografi föreställer ?
+s3274	Till skillnad mot t. ex. aporna .
+s3284	Och inte minst sällskapshunden .
+s3294	Hur klok är egentligen en hund ?
+s3304	De flesta hundar kan känna igen människor på avstånd som varierar mellan 30 och 180 meter .
+s3314	Hunden glömmer inte
+s3324	Doc. Bergman påpekade att det möjligen finns en lägre intelligens hos hunden .
+s3334	Och vad gör det egentligen oss hundägare om intelligensen är klokhet som kommer genom erfarenhet ?
+s3344	Överhuvudtaget är människans psyke med sin sammansatthet och känslighet utsatt för många slags påfrestningar , och psykiska besvär är också mycket vanliga .
+s3354	De vande sig vid att mat sattes fram när klockan ringde .
+s3364	Olika människor har olika lätt att utstå sådana .
+s3374	Symptomen kan bli så allvarliga att en sjukhusvistelse blir nödvändig .
+s3384	Omkring hälften av dem som insjuknar blir psykiskt invalidiserade under flera år eller för resten av sitt liv .
+s3394	Eftersom man med mycket små doser av vissa gifter kan framkalla övergående schizofreni-symptom hos friska personer , tänker man sig att sjukdomen skulle kunna bero på ämnesomsättnings-rubbnin .
+s3404	Dels blir patienten efter hand lätt beroende av dem och dels har de en negativ inverkan på tankeförmåga och vakenhet .
+s3414	Den ena består av de dämpande , rogivande medlen .
+s3424	Ett annat är Lergigan , som användes mot sjösjuka och allergier men också som lugnande medel och sömnmedel .
+s3434	Ett nytt medel , som har visat sig kunna förebygga depressioner hos manisk-depressiva patienter , är alkalimetallen litium , nära besläktad med natrium .
+s3444	Till sin kemiska sammansättning påminner hallucinogenerna om vissa monoaminer .
+s3454	Man har använt dem på grund av deras verkningar på nervsystemet utan att känna till dessas fysiologiska natur .
+s3464	Regelbundet bruk av alkohol och narkotika leder ofta till att kroppen vänjer sig vid dem .
+s3474	De tidigare nämnda lugnande medlen har samma verkningar , men det tar betydligt längre tid och fordrar betydligt större doser .
+s3484	Samtidigt företas en ' avgiftning ' genom att den sjuke långsamt avvänjes med allt mindre doser av giftet i fråga .
+s3494	Det är en arbetsfördelning som sedan utan större förändringar har levt vidare i det typiska jordbrukarsamhället .
+s3504	Polygyni och polyandri kallas med ett gemensamt namn för polygami .
+s3514	Gruppäktenskap ... 0
+s3524	I den extremt patriarkaliska familjen är en man , i regel den äldste , den maktutövande .
+s3534	Mannen representerar familjen utåt , är den som för familjens talan .
+s3544	I en undersökning som Gustav Jonsson och Anna-Lisa Kälvestam gjorde av ett urval Stockholmspojkar ställde man frågor som rörde den här saken .
+s3554	Tv gav familjen en ny samlingspunkt .
+s3564	Den religiösa funktionen .
+s3574	Det finns en lång tradition i vårt land att acceptera föräktenskapliga förbindelser ( i vissa former ) men det förefaller vara sannolikt att de föräktenskapliga och utomäktenskapliga förbindelserna har ökat .
+s3584	Bara för några hundra år sedan var folkökningen långsam och reglerades bl. a. genom en hög barndödlighet och en relativt kort livslängd .
+s3594	Produktionen av livsmedel skulle redan nu behöva ökas med 50 % för att avhjälpa svälten , och vid början av nästa sekel skulle den behöva vara tre gånger så stor som i dag .
+s3604	Föroreningen av sjöar och havsområden måste upphöra , så att vattnens produktivitet inte minskar .
+s3614	' Ökenträdgård ' i Israel , skapad genom saltvattenbevattning ( 0,2 - 0,6 % salt i vattnet ) .
+s3624	Vissa nyodlade jordar gav mycket dålig avkastning , trots att de brukades och gödslades enligt gängse metoder .
+s3634	Växtsjukdomar och skadedjur minskar utbytet av odlingen och skadar produkterna under lagring och transport .
+s3644	Men det är viktigt , att förlusterna inte blir onödigt stora .
+s3654	Till större delen går fångsterna åt för att täcka dessa länders egna behov .
+s3664	En omfattande forskning bedrivs också över odlingsmetoder och algernas användning .
+s3674	För detta har man använt jästsvampar och vissa bakterier .
+s3684	( Barbro Backberger i DN 24 / 12 1965 . )
+s3694	De besvaras ibland med påståendet , att äktenskapet är en ren privatsak , som inte angår samhället .
+s3704	De som frivilligt genomgår denna akt inför myndighet med vigselakt etablerar sig därmed i samhället som äkta makar .
+s3714	Äktenskapet är alltså en institution eller ordning i samhället .
+s3724	Kring dessa och andra faktorer utformades sociala , moraliska och religiösa mönster och ideal , som upplevdes som förpliktande till sammanhållning .
+s3734	Det är inte längre som medlemmar av den eller den gruppen i samhället som moderna människor ingår äktenskap utan som individer med självklar rätt att välja efter eget val .
+s3744	Vad är min plikt mot andra och samhället ?
+s3754	För katolikerna är äktenskapet ett sakrament
+s3764	Denna upplevelse innebär emellertid inte bara lycka utan denna lycka blir en kraft som hjälper makarna att mogna fram till fullkomlighet , helighet .
+s3774	I denna uppgift betraktas föräldrarna ibland som Guds medarbetare och medskapare .
+s3784	Profan äktenskapssyn
+s3794	Varför monogami ?
+s3804	En röst ur den svenska debatten kring äktenskapet : vår moraliska uppfattning om äktenskapet är ' varken av Gud eller naturen given och det är därför möjligt att förändra den .
+s3814	I filmen Min lycka skildrar Agnes Varda en man som lever i ett lyckligt äktenskap och samtidigt har ett lyckligt förhållande med en annan kvinna .
+s3824	' Ett ögonblicks eftertanke skulle inte skada .
+s3834	Hur går nu denna syn att förena med det faktum , att många äktenskap upplöses ?
+s3844	Den ortodoxa kyrkans praxis innebär en kompromiss .
+s3854	Man har efterhand kommit att acceptera ett annat skäl för skilsmässa och omgifte .
+s3864	Ju fler värden man tillskriver äktenskapet , desto mer komplicerad blir frågan om skilsmässans berättigande .
+s3878	Det utmärkande för den moderna situationen är att mannen och kvinnan gemensamt tvingas att fråga : hur ska vi fördela våra yrkes- och hemuppgifter ?
+s3889	Genom sinnrikt konstruerade stånggånger kunde man överföra kraften från vattenhjulet till mer lämpligt belägna arbetsplatser .
+s3899	Men nu kan vi också tillgodogöra oss den kraftutveckling , som sker vid kärnreaktioner .
+s3909	Den grå zonen anger det ' normala ' sambandet .
+s3919	Räknar man däremot bara med de viktigaste konventionella energikällorna , blir verkningsgraden väsentligt högre men överstiger dock inte 50 % .
+s3929	Världens produktion och konsumtion av energi med fördelning på områden
+s3939	Dessa människor skall främst försörjas med livsmedel .
+s3949	Men om vi räknar med att alla världens länder skulle ha samma höga konsumtion per capita som USA , räcker tillgångarna bara ca 100 år .
+s3959	Uppgifter
+s3969	Särskilt produktionsförhållandet mellan oljan och stenkolet har bestämts av den tekniska utvecklingen .
+s3979	Till de största i världen hör verket vid Frimmersdorf i ett brunkolsdistrikt vid Rhen .
+s3989	De länder som måste importera fossila bränslen , använder i första hand oljedrift för sina värmekraftverk , t ex det svenska Stenungsundsverket .
+s3999	Uppgifter
+s4009	I varje grupp intar varje individ en särskild position , han har en viss status .
+s4019	Hur fast sådana rollförväntningar är knutna till olika positioner , det växlar mellan olika grupper .
+s4029	De flesta av de rollförväntningar vi har på varandra av könsrollskaraktär är inlärda och hör samman med den kultur vi lever i .
+s4039	I undersökningen ingick också intelligenstest och kunskapsprov .
+s4049	De fick göra en sådan bedömning 50 gånger var .
+s4059	Den individuella tolkningen av situationen förändras i riktning mot den tolkning som utbildas i gruppen .
+s4069	Ytterligare ett exempel kan belysa i huvudsak samma problematik .
+s4079	Ingen av de studenter som gjorde sina bedömningar individuellt gjorde ens tillnärmelsevis så många fel .
+s4089	Var och en av personerna förekom tillsammans med samtliga andra men endast en gång tillsammans med var och en av dem .
+s4099	Grupptillhörighet leder till konformitet i många avseenden .
+s4109	I många olika sammanhang är vi utsatta för denna konformitetstendens .
+s4119	Målet för bostadspolitiken är att var och en ska ha möjlighet att skaffa en tillräckligt rymlig , tillräckligt modern och samtidigt välbelägen bostad .
+s4129	Under 30-talet förändrades sakta synen på bostadsbyggandet .
+s4139	Barnkullarna tenderade att öka och en fortsatt stark inflyttning från landsbygden till städerna kunde förväntas .
+s4149	Hyrorna för hus som byggts före 1942 låstes fast vid den nivå som rådde detta år .
+s4159	Så här kommer många lägenheter att byggas .
+s4169	Instrumenten för detta är de stads- och byggnadsplaner kommunerna upprättar .
+s4179	Lånevillkoren har varit så beskaffade att de har medverkat till att hålla bostadskostnaderna på rimlig nivå .
+s4189	Man har från samhällets sida garderat sig mot att de fastighetsägare som utnyttjat statliga lån och bidrag genom höga hyror gjort sig oförtjänt stora vinster .
+s4199	Vid mitten av 60-talet fanns den kvar på endast 160 ställen .
+s4209	Som en följd av att hyrorna knutits till produktionskostnaderna har lägenheter med ungefär samma standard och läge kunnat ha avsevärt olika hyror därför att de haft olika byggnadsår .
+s4219	Den fria hyressättningen begränsades samtidigt av att hyresregleringslagen fram till 1971 existerar jämsides med den nya lagen .
+s4229	På grund av omflyttningen från landsbygd till stad , lägre giftermålsålder och ökade krav på bostadsstandard har köerna på många håll ändå inte visat tendens till minskning .
+s4239	När marknadsmekanismen sätts ur spel , måste bostäderna fördelas efter andra grunder .
+s4249	Ställer man däremot bestämda krav på lägenheternas beskaffenhet och storlek måste man bygga mer .
+s4259	Elektronugn och diskmaskin ?
+s4269	Ytterligare en miljon är arbetslösa men det syns inte i den officiella statistiken .
+s4279	I runt tal 300000 löntagare , dvs. drygt var tionde , har 1970 under 6:50 i timmen .
+s4289	De som råkar mest illa ut är de som inte kan få arbete , inte tillräckligt i varje fall , inte har pension , inte är gifta - och en stor grupp är i hög grad sjukliga men inte så sjuka att de får pension .
+s4299	Fortfarande är socialhjälpen kringgärdad av en omfattande detaljgranskning och ett visst kineseri varför många känner motvilja , t. o. m. ångest , för att söka hjälp .
+s4309	Folkpensioner , barnbidrag , bidragsförskott , sjukpenning m. m. drar 27 miljarder 1970 .
+s4319	I och med att hälsan sviktar blir lönen ännu lägre och spiralen kommer i gång neråt .
+s4329	Framställt av Utbildningsförlaget i samarbete med Försäkringsbolaget Trygg . -
+s4339	Här måste ställas nya krav på företagarna och deras politik .
+s4350	Om någon trots allt passerar eller kommer nära otrygghetens tröskel skall den hjälpande formen automatiskt träda i funktion .
+s4360	De rika ländernas utvecklingshjälp till de fattiga länderna är egentligen inget annat än just en solidaritets- och socialpolitik på det internationella planet .
+s4370	Men utbyggnaden är inte klar i något land och det kommer den inte någonsin att bli .
+s4380	Detta är varje enskilds rättighet , men den kan realiseras bara om samhällets insatser i högre grad än hittills anpassar sig till dessa minoriteters och enskilda människors behov .
+s4390	Självfallet medför denna förlängda skolgång - utbildningssamhället - ekonomiska påfrestningar både för familje- och statsbudgeten .
+s4400	' När man absolut behöver så trodde jag ändå att det skulle gå att få en daghemsplats , sade en mamma i en intervju kring TV-pjäsen Väckarklockan .
+s4410	Den expressiva funktionen utövas huvudsakligen av modern .
+s4420	Båda könen anser att manlig dominans är vanligare än kvinnlig .
+s4430	I praktiken , har man invänt , varierar olika familjer kraftigt sinsemellan när det gäller fördelningen av roller .
+s4440	Burgess har betecknats som optimist :
+s4450	Ingen av familjen lever med sitt hjärta i storstaden , de vistas där men brukar den inte ...
+s4460	Hustrurna är värdinnor i stora vackra hem , ibland dessutom hårt arbetande hemslavinnor eftersom hemhjälp tryter .
+s4470	Här är några exempel :
+s4480	Som ett exempel från medelklassen kan vi ta köpmansfamiljen , där båda arbetar i ett eget blomstrande företag .
+s4490	Hur mycket mannen hjälper till i hushållet beror på i vilken utsträckning hustrun förvärvsarbetar utanför hemmet .
+s4500	Man får anta att det numera och speciellt i de yngre familjerna råder en något mer likformig arbetsfördelning .
+s4510	Beteendet visar en viss flexibilitet .
+s4520	Villkoret för ett socialt beteende är alltså ett visst samspel mellan individerna .
+s4530	Om en elritsa i ett stim såras , utgör blodet i vattnet en skräcksignal för de övriga i stimmet .
+s4540	Efter parbildningen deltar även honan i hävdandet av reviret .
+s4550	Det finns emellertid även ' lågspänningsfiskar ' , t. ex. nilgäddan , som kontinuerligt utsänder impulser av omkring 5 volts spänning och med en frekvens av ca 300 per sekund .
+s4560	En tumlare uppfattar svängningar upp till 150000 herz .
+s4570	Om en trut börjar skrika mot en inkräktare , gör snart hela flocken detsamma .
+s4580	En näbbattrapp med röd fläck gav fyra gånger så många pickningar per tidsenhet som en naturtrogen modell utan röd fläck .
+s4590	Maktkampen utspelas i form av strider mellan de starkaste handjuren .
+s4600	Solitära gnagare gräver t. ex. sämre gångsystem än de som lever i samhällen och faller därför lättare offer för rovdjur .
+s4610	Hos samhällsbildande insekter , som för övrigt endast omfattar tre procent av alla insekter , har man genom studiet av bärnstensfaunan från Östersjöområdet kunnat spåra den sociala differentieringen tillbaka till tidig tertiär .
+s4620	Risken för felprestationer blir också mindre .
+s4630	Kampens dödliga utgång förhindras genom avväpningsställningar där den svagare reagerar på sådant sätt att den starkare avbryter striden .
+s4640	Vid studiet av evolutionen berördes betydelsen av geografiska barriärer för artbildningen ( del 1 , s. 174 ) .
+s4650	Honorna identifierar och lockas av den egna artens hanar ; parning sker med en av dem .
+s4660	Vad är s. k. aptitbeteende ?
+s4670	Redan nu är situationen prekär .
+s4680	En av världens mest angelägna samarbetsuppgifter har under efterkrigstiden varit att försöka åstadkomma en försörjningsbalans så att industriländernas överskottsprodukter kan komma u-länderna tillgodo , samtidigt som möjligheter skapas för inhemsk industri i dessa länder .
+s4690	Storbritannien , Frankrike och Västtyskland bidrog under samma tid med omkring 10 miljarder vardera .
+s4700	WHO:s uppgift är u///uatt förebygga sjukdomar .
+s4710	De länder om vilka tveksamhet oftast råder har på kartan givits en streckrandning .
+s4720	1966 gick 0,64 procent av den svenska nationalinkomsten till u-länderna .
+s4730	Vi har tidigare studerat staden ur historisk synpunkt och sökt peka på några olika drag under århundradenas gång .
+s4740	du möter den inte enbart i antikens värld , t. ex. i de grekiska kolonistäderna på Sicilien .
+s4750	garnisonsstaden ;
+s4760	Har den utvecklats från en typ av stad till en annan ?
+s4770	Redan på 1890-talet började Wienarkitekten Otto Wagner sträva efter att förvandla kvarterens inre till en trädgård med grönska och lekplatser .
+s4780	I de mindre parkerna kom det franska idealet att få störst betydelse .
+s4790	När har de skapats ?
+s4800	Gör om möjligt ett besök på stadsarkitektkontoret och sök få en intervju med dem som arbetar där .
+s4810	Ibland tilldelas exempelvis kvinnorna de kroppsligt tyngsta arbetena , ibland tilldelas dessa männen .
+s4820	Av hävd har många vårdyrken kommit att betraktas som typiskt kvinnliga .
+s4830	I Bibeln omtalas , att det i det gamla Israel inte var ovanligt att en man hade flera hustrur .
+s4840	det går flera kvinnor på en man .
+s4850	Både etiska och ekonomiska skäl gör , att monogami är den vanligaste familjeformen även utanför den kristna traditionen .
+s4860	man skötte gårdens arbete tillsammans , man hade gemensam fritid , man gick tillsammans i kyrkan .
+s4870	En tredje faktor som hör till äktenskapet är den kroppsliga samlevnaden .
+s4880	Möjligheten att få del av denna njutning har i vår tid ökats genom preventivmedelsteknik .
+s4890	Ett argument för denna ståndpunkt är att samhällsutvecklingen medfört , att äktenskap ingås först långt efter det att pojkar och flickor blivit sexuellt mogna .
+s4900	Under 1960-talet har enligt kriminalstatistikens siffror antalet ' brott som kommit till polisens kännedom ' ökat från ca 275000 ( 1960 ) till ca 440000 ( 1967 ) , dvs. med ca 60 % .
+s4910	Brottsligheten i Sverige utgörs till stor del av ungdomsbrottslighet .
+s4920	' Nio pojkar av tio eller 92 % av Stockholms skolpojkar mellan 9 och 14 år har gjort sig skyldiga till brott av något slag .
+s4930	Detta syfte skulle nås genom ett klart utformat system av straff i proportion till brottets svårighetsgrad .
+s4940	Saken kan ses ur flera synpunkter :
+s4950	Se vidare Brottsbalken kap. 8 ( stöld , rån och andra tillgreppsbrott ) ; Sverige m. fl. , kap. 1 ; Nelson , kap. De särskilda brotten .
+s4960	Se SOU 1964 : 58 , kap. 4 ; Blomberg , kap. 3 ; Eriksson , Kap. Samhället och ungdomsbrottslingarna .
+s4970	Låt mig börja från början - grunden för en harmonisk samlevnad - dvs individens förutsättningar för anpassning till andra individer .
+s4980	I denna de 20- - 30-åriga hemmafruarnas värld växer barnen upp .
+s4990	Barn som saknar förmäga till kontakt med äldre generationer som de endast stött på till högtider och helger i form av far och morföräldrar .
+s5000	Man torde väl kunna säga att de flesta människor i vårt land är överens om att denna syn är principiellt riktig , alldeles bortsett från hur man sedan motiverar den .
+s5010	Liksom varje civilisation har vissa former för familjebildning och äktenskapets ingående , finns det också olika möjligheter att genom skilsmässa upplösa ett bestående äktenskap och ingå ett nytt .
+s5020	Det är ur flera synpunkter inte särskilt väl anpassat till vår kultursituation .
+s5030	Den sexuella aktiviteten är särpräglad och betingad av drifts- och känslolivet i en utsträckning som delvis genombryter varje etisk besnning .
+s5040	Dessutom innebär den ofta ett återfall i kasuistik etik som lägger större vikt vid den formella situationen än vid den personliga avgörelsen .
+s5050	Kyrkans uppgift - att övertyga
+s5060	Jag försöker tålmodigt förklara atl del inte är fråga om att ' hjälpa till ' , atl man lika gärna kunde berömma min fru för atl hon ' hjälper ' mig .
+s5070	När vi senare ska ut i förvärvslivet blir det sannolikt mer komplicerat .
+s5080	Vägen till ' valfriheten ' är sannerligen inte lätt och vi behöver all hjälp vi kan få av principerna .
+s5090	Det kändes mycket tillfredsställande .
+s5100	Han använder detta som ett argument mot en konsekvent tudelning av barnavården som han säger inte får bli ' ett självändamål , där barnet blir ett slagträ i emancipationsstriden ' .
+s5110	De äldre rollmodellerna är seglivade , bl. a. beroende på deras förankring i tidig socialisation .
+s5120	Bortsett från familjen och i någon mån arbetsgruppen är det huvudsakligen medlemskap i sekundära grupper , massbildningar , organisationer , tillfälliga bekantskaper och anonyma församlingar som karakteriserar individens kontakter och samvaro med andra .
+s5130	Man tillskriver familjen nya botande och kurativa funktioner i en hård värld av stora anonyma sociala enheter med vilken individen inte förmår uppleva meningsfulla relationer .
+s5140	Genom att avbryta yrkeskarriären förlorar kvinnan kontakten med arbetsgruppen och andra sekundära grupprelationer och riskerar att hämmas i sin utveckling i en ålder då människors liv i regel är som mest expansivt .
+s5150	I Svenska kyrkans vigselritual formuleras detta i två ord :
+s5160	Å andra sidan följer härav , att där viljan till och längtan efter att ' vara fruktsamma ' inte finns hos två makar , är vet inte längre tal om ett äktenskap på biblisk grund .
+s5170	Av dessa syften är det ( förutom det primära syftet med släktets förökelse ) undvikandet av otukt , som kanske tilldragit sig den största uppmärksamheten i tidigare framställningar om äktenskapet .
+s5180	1 I Kor. 7 : 2 .
+s5190	man tycker om och ' älskar ' det som är vackert , tilldragande , sexuellt upphetsande , i alla betydelser älskvärt .
+s5200	Det är i stället i den mån , som Kristi kärlek får prägla jaget , som kärleken mellan man och kvinna kan förverkligas .
+s5210	Syftet med äktenskapet enligt bibeln och luthersk katekestradition blir , för att sammanfatta : 1. förökelsen av människosläktet 2. motverkandet av otukt 3. utlevandet av genuint kristen kärlek ' såsom Kristus har älskat '
+s5220	I framställningar av äktenskapsetik på lutherskt område brukar det ofta påminnas om att Luther ansåg äktenskapet vara ' ett världsligt ting ' .
+s5230	Vad konstituerar äktenskapet ?
+s5240	Det är helt klart att vi här har en fråga , där man kan tänka sig skiftande praxis i olika samhällssystem , och där dessa skiftningar inte i och för sig behöver tillmätas någon etisk relevans .
+s5250	Vi har här en parallell till abortfrågans ställning i kristen etik .
+s5260	Eller man gifter sig bara för ett barns skull - något som är mindre vanligt nu än förr , men som inte minst från kristen synpunkt måste anses orimligt .
+s5270	Sådana motiv ges i en kristen livssyn , men den som säger nej till denna har naturligtvis ingen glädje av dessa motiv .
+s5280	Dock är det samtidigt begripligt om kristna blir misstänksamma mot en del sådan rådgivning , eftersom man i sådana och liknade sammanhang - som tidigare antytts - ofta oklart sammanblandar fakta och värderingar .
+s5290	Från kristen synpunkt är ett äktenskap en av de mest genomgripande satsningar en människa kan göra , och den kristna etiken är såtillvida optimistisk i sin människosyn , att den tror att människor har mycket stora möjligheter att växa samman och anpassa sig till varann om de uppriktigt önskar göra det .
+s5300	Flickan får därigenom en mer positiv inställning till och större förståelse för det motsatta könet och pojken får en bra manlig identifiering .
+s5310	De som försvarar de förvärvsarbetande mödrarna ser i stället dessa kvinnors barn som mer ansvarsfulla , lyckligare och självständigare än hemmamammans , som blir överbeskyddade och osäkra .
+s5320	Det är här som diskussionen kört fast .
+s5330	Här i landet låter vi oftast våra barn vänta till 6 eller rent av till 7 års ålder innan får dessa erfarenheter .
+s5340	Så som samhället nu är inrättat är det svårare att få kvalificerat arbete om man vill ha deltidstjänst .
+s5350	' Grunden för vårt system är mycket enkel : att göra motsatsen mot vad vi själva erfor eller lärde oss som barn . '
+s5360	I en vanlig familj är barnen helt utlämnade åt eventuella misstag och försummelser från föräldrarnas sida och , vad mera är , de kan få hela sitt liv upp och nedvänt om föräldrarna skulle skilja sig eller dö och lämna barnen utan någon fast punkt .
+s5370	'
+s5380	Men för barnens del är det annorlunda .
+s5390	Flera vetenskapsmän har gjort det , särskilt sociologer och psykologer , som i kibbutzerna sett ett enastående forskningsfält för att testa hypoteser om miljöeffekter på personlighets-utveckling och för att få uppslag till nya frågeställningar .
+s5400	7. För en närmare beskrivning av testmetoderna och resultaten , se A. I. Rabin : Infants and Children under Conditions of ' Intermittent ' Mothering in the Kibbutz .
+s5410	För att besvara de frågorna jämförde Rabin på liknande sätt en grupp 10-åriga kibbutzbarn med jämnåriga moshavbarn och fick som resultat en rakt motsatt trend .
+s5420	Rabin , och många forskare med honom , anser att resultaten ger belägg för att kibbutzbarn inte tar skada av den kollektiva uppfostran , att de tvärtom verkar välanpassade , självständiga och jämförelsevis tidigt utvecklade med undantag för de yngsta barnen .
+s5430	Dubbelarbetande eller enbart hemarbetande ?
+s5440	Så hårda inkomst och medborgarstreck hade tidigare begränsat rösträtten att den knappast kunde kallas för allmän ens för männen .
+s5450	Kvinnan har sålunda långt att gå innan hon vinner det politiska inflytande hennes ställning i samhällsarbetet och vid rösturnorna motiverar .
+s5460	Man kan inte finna något arbetsområde där män och kvinnor fördelar sig slumpmässigt lika med avseende på funktion , lön och ställning .
+s5470	Nästan ännu mera könsuppdelat är valet av yrke ute i det praktiska arbetslivet .
+s5480	Inom alla de politiska partierna finns en allmän liknöjdhet beträffande kvinnans jämlikhetskrav och ett motsvarande ointresse finns också inom arbetsmarknadens stora , miljonomslutande organisationer .
+s5490	Konventionerna kräver idag liksom tidigare , då det var en både social och ekonomisk nödrändighet , att kvinnan ska gifta sig och helst tidigt .
+s5500	Men det är lång väg innan så sker .
+s5510	I och med att kvinnan axlar mer krävande uppgifter får hon högre lön .
+s5520	Kvinnofrågan är i första hand en fråga om individens rätt , kvinnans rätt att själv bestämma över sitt liv som moder , maka och förvärvsarbetande , antingen dessa roller förverkligas samtidigt eller var för sig under bestämda perioder .
+s5530	Detta förutan begår de flesta kvinnor , mer eller mindre medvetet , ett slags naturligt förräderi mot sin egen sak .
+s5540	När någon efteråt uttryckte sin förvåning över flickornas passivitet förklarade en lärare att ingen av dem ville riskera att anses okvinnlig - i konkurrensen om pojkarnas gunst .
+s5550	Vi kan söka påverka mannens uppfattning om sin roll i samhället .
+s5560	De driver den tesen så hårt att vi snart blir Tvungna att göra samma saker .
+s5570	Den kvinnliga sexualiteten kanaliseras till mer vårdande och personlighetsinriktade aktiviteter .
+s5580	Vi måste så hårt understryka det väsentliga och betydelsefulla i vårdandet av den nya generationen , att männen får en önskan att tränga in på ' vårt ' område , att få vara med om detta det mest fascinerande i människolivet , att leda , hjälpa och forma en ny människa .
+s5590	Vi lever allt fler år , håller oss vitala upp i allt högre åldrar .
+s5600	Ännu har vi tid att ändra den väg vi är inne på .
+s5610	Jag läste någonting i en aftontidning igår som snuddade vid jämlikhetsproblemet .
+s5620	Moderskapet har framställts som kvinnans första uppgift i livet och kanske också den enda .
+s5630	Kvinnan borde basera sitt liv på sina egna personliga prestationer .
+s5640	Hur löser man bäst barntillsynsproblemen ?
+s5650	För utlänningar är det ju roligt att berätta - för de uppskattar det - att våra pojkar har hemkunskap i sjuan .
+s5660	Kvinnorna har praktiskt taget ingen möjlighet att nå de höga befattningarna inom industrin , inte ens någon mellanposition utom i undantagsfall .
+s5670	Det har blivit så att kvinnorna är livlösa .
+s5680	Och nu fortsätter dom att bygga hus med 100 små spisar och 100 diskhoar .
+s5690	Det var efter jag hade slutat kursen som jag fick lära mig livets hårda sida .
+s5700	Det drar man på lönen direkt , nämligen .
+s5710	När jag började i kiosken fick jag ett helt annat människovärde .
+s5720	Jag blir så arg på maken .
+s5730	Kvinnorna är inte något vidare aktiva annars .
+s5740	Likadant med utlänningarna .
+s5750	I Svenska Dagbladets debatt använde man den falska motsättningen rent politiskt , för att genom en konstruerad lojalitet ' hemmafruar emellan ' driva fram en konservativ opinion mot Strängs skatteförslag .
+s5760	Dom tvingas bära den dubbelarbetandes alla bördor i ett samhälle , där utbyggnaden av kollektiv barnpassning och hemservice misskötts katastrofalt - bl. a. på grund av de privilegierade hemmafruarnas svek .
+s5770	De är goda konsumenter som håller produktionen uppe .
+s5780	För det är just det det är frågan om .
+s5790	Så har också omvärldens attityder och värderingar gjort i generationer .
+s5800	arbete
+s5810	Avlöning , säger någon , visst får jag avlöning , min man lägger alla pengarna på bordet då han kommer hem på avlöningsdagen .
+s5820	Rätt till lika delning av egendomen i boet vid äktenskapets upplösning har för de flesta människor i dagens samhälle ingen större betydelse .
+s5830	Bristen på välplanerade bostadsområden med serviceinrättningar av olika slag , butikers , daghems och andra serviceorgans öppethållande och placering ger yrkeskvinnan en helt orimlig arbetsbörda .
+s5840	Jag fick nyligen en liten skrift i min hand .
+s5850	Pappa , mamma , barn , det är de första roller vi leker oss in i - och vi har svårt att tänka oss dem annorlunda än så som vi upplevde dem från början .
+s5860	Trots daghemmens otillräckliga resurser , framför allt personella , visar en färsk undersökning att daghemsbarn är självständigare , mindre ängsligt beroende och mer realitetsanpassade än barn som uppfostras i hemmet .
+s5870	Barnen kände trygghet i gruppen och växte upp i en hos oss okänd frihet från ångest och neuroser .
+s5880	Och vi måste bort från anstalten där barnen förskockas , tröttas ut och tvingas rivalisera om några få vuxna som inte orkar svara dem alla - en enkönad , avemotionaliserad , också den isolerad miljö utan anknytningar till världen utanför .
+s5890	Nog törs vi t ex ifrågasätta om alla våra bostadsområden måste se ut som de gör : travar med likadana topputrustade enheter centrerade kring snabbköp , kiosk och parkeringsplats ?
+s5900	Barnens hus tänker jag mej hellre av modell äldre villa med stora och små rum , fantasieggande prång och skrubbar , dit man kan dra sej tillbaka i ensamhet eller med sin bästis , än som hyperhgieniska och lättstädade lokaler där allt har sitt fastställda ändamål .
+s5910	Barnen bor i ' sin ' gård , men gästar föräldrarna när de vill - och barnens hus har plats för gästande föräldrar .
+s5920	Detta innebär inte att förhållandena är oförändrade i andra länder , som exempel kan nämnas den nya synen på skilsmässa i Italien .
+s5930	Enligt direktiven skall lagstiftningen ses som ett medel att påverka utvecklingen och därjämte förändra samhällstrukturen mot ett samhälle där varje vuxen kan ta ansvar för sig själv utan ekonomiskt beroende av anhöriga .
+s5940	I ett förhållande är aldrig bägge parter lika starka .
+s5950	Kärlekens innersta väsen lär inte något politiskt parti kunna påverka , men formerna för dess yttringar kan alltid regleras i lag .
+s5960	Äktenskapet är ett avtal , och ett bindande avtal .
+s5970	Om man emellertid är helt övertygad om att den för alla parter bästa samlevnadsformen är äktenskapet , så innebär det inte att man gör moraliska värderingar .
+s5980	I stället bör man undersöka huruvida inte en registrering skulle kunna utgöra det konstitutiva momentet vid äktenskapets ingående .
+s5990	Själva avtalet måste emellertid vara det konstitutiva elementet , inte registreringen av detsamma .
+s6000	Arvsrätt och giftorätt finns inte .
+s6010	Familjelagstiftningen är egentligen inte begränsad till äktenskapet .
+s6020	Genom att försvaga äktenskapet ökar vi dessa företeelser och vi gör dem urarva .
+s6030	Därmed är det också i allmänhet våra känslor som får fälla utslaget vid valet av make .
+s6040	Den patriarkaliska familjen som ideal
+s6050	Man kan ju undra hur samlevnaden tar sig ut om den ena parten i ett äktenskap helhjärtat håller på husbondevälde och den andra på den likställighet som enligt svensk lag skall råda mellan makar .
+s6060	Vårt ideal i dag är ett samspel mellan jämlikar .
+s6070	Många familjer tillämpar en ansvars- och arbetsfördelning som bär drag av en tid då mannen var familjens överhuvud och kvinnan betraktades som beroende och beskyddad ; mannen svarar för försörjningen och ger familjen dess ställning , hustrun står för hushåll och barnomsorger .
+s6080	Hur ser ni på den äldre generationens förhållande till den yngre i dagens samliv ?
+s6090	Kvinnor avbryter nämligen gärna sin utbildning och sina studier på halva vägen , de utvecklar inte sina anlag och tränar inte sin intelligens till fullo , de struntar i mänsklighetens stora problem och tar ingen eller ringa del i kulturens överbyggnader ( vetenskap och forskning till exempel ) , de gifter sig och binder sig och stagnerar mer eller mindre i sin passiva kvinnoroll .
+s6100	Allt detta kommer att ta sin tid ty man måste börja med att låta flickorna växa till i ålder , visdom och medansvar i stället för att som nu hämmas i sin utveckling genom att man tilldelar dem den ovärdiga rollen som mannekäng och kläddocka på världens arena .

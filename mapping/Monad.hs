@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = False
+test = True
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -73,7 +73,8 @@ cat tag = P (\gr pgf morpho ts ->
 word :: (Show t,Eq t) => [t] -> P [t] e [t]
 word tag = P (\gr pgf morpho ts -> 
   case ts of
-    (Node tag1 [Node w []] : ts) | tag `isPrefixOf` tag1 -> Just (w,ts)
+    (Node tag1 [Node w []] : ts) | tag `isPrefixOf` tag1 
+                                               -> Just (w,ts)
     _                                          -> Nothing)
 
 word2 :: Eq t => t -> P t e t

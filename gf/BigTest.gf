@@ -20,4 +20,7 @@ abstract BigTest =
   Tense
   ** {
   flags startcat=Phr ;
+  
+  fun
+  begin_VV : VV ;
   } ;

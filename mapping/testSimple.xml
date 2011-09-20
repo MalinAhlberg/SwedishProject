@@ -625,7 +625,7 @@
 			<graph root="s694_501">
 				<terminals>
 					<t id="s694_1" word="Här" pos="ABDA"/>
-					<t id="s694_2" word="ges" pos="VVPS  PA"/>
+					<t id="s694_2" word="äts" pos="VVPS  PA"/>
 					<t id="s694_3" word="några" pos="POZP"/>
 					<t id="s694_4" word="katter" pos="NN"/>
 					<t id="s694_5" word="." pos="IP"/>
@@ -651,7 +651,7 @@
 			<graph root="s802_501">
 				<terminals>
 					<t id="s802_1" word="Katten" pos="NNDD"/>
-					<t id="s802_2" word="sitts" pos="VVPS  PA"/>
+					<t id="s802_2" word="äts" pos="VVPS  PA"/>
 					<t id="s802_3" word="efter" pos="PR"/>
 					<t id="s802_4" word="bil" pos="NN"/>
 					<t id="s802_5" word="." pos="IP"/>

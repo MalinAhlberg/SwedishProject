@@ -23,6 +23,29 @@ dots = ".,:!?,"
 swap (a,b) = (b,a)
 
 
+--- 
+extractSentences = do 
+  ss <- mainF talbanken (return . map getSentence')
+  return $ concat ss
+
+isBad = any (`elem` ["*"]) . snd
+prettyPrint (id,s) = id++"\t"++ Data.List.unwords s
+
+
+makeTestSuite = do
+  ss <- extractSentences
+  let goods = filter (not . isBad) ss
+      testS = f goods
+  return $ unlines $ map prettyPrint testS
+ where f =  map head .takeWhile (not . null) 
+           . map (take 10) . iterate (drop 10)
+          -- unfoldr (return . first head . splitAt 10)
+
+g = map head .takeWhile (not . null) 
+   . map (take 10) . iterate (drop 10)
+
+
+
 best = [Just "s452",Just "s541",Just "s542",Just "s620",Just "s694",Just "s802",Just "s898"
        ,Just "s945",Just "s1001",Just "s1037",Just "s1103",Just "s1106",Just "s1107",Just "s1129"
        ,Just "s1150",Just "s1244",Just "s1246",Just "s1295",{-Just "s1296",-} Just "s1321"

@@ -3,13 +3,21 @@ mapping problems
 - AdvS vs. FocAdv. What is the difference? (s694,s1321)
 - subject predicative, 'kallas'. Treat them like V2? (s898)
 - s1269, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
+- meta noun. seems to be used as ApposCN, but also in titles, idioms etc.
+- when to handle a unknown word? will be ambiguous if a verb is not in lexicon
+- DB, 'så'. när han gör det så 
+                SS  FV   OO DB
+           (         S        )
+                    TA/AA
 
 constructs not in GF
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
-- particles not included in lexicon 'vara med' (s542).
+                    'åtminstone några timmar'
+- particles not included in lexicon 'vara med' (s542). (UseVPart UseCoplua with_Prep)?
 - verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
-- detemerminers an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
-- 'fler bilar'. (s1129)
+   Agent is in tag AG. For V2 only? 
+- determiners an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
+- 'fler bilar'. (s1129) (DetCN fler_Det (UseN resa_N)) ?
 - particip. presens particip as noun 'antalet arbetande växer'
                              as adjective 'gällande avtal'
             perfect particip as adjective 'de är väl bevarade'
@@ -21,6 +29,37 @@ constructs not in GF
 - reciprocals, 'varandra' is not accepted by the grammar. (s1682)
 - V2 + OA. Preposition phrase instead of noun phrase as complement to the verb.
      'de vaktar på varandra'. From lexicon or grammar? 
+     'de går att göra' (s2250) 
 - adjective describing noun in verb phrase, 'vi har frågan öppen' (s1756).
      (unlike 'vi har frågan öppet')
 - V2 when used as V. (s1840).
+- CNNumNP should be used in grammar for 'år 1970'
+- 'kommer att'. Which parsetree? 
+   (PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PPos
+          (PredVP (UsePron it8utr_Pron) (? think_V)))) NoVoc)
+   And in past? 'jag kom att gå dit'.
+- 'Deras värde som...' 'Han är som..'
+- if_then_Conj is very weird!!  -> add ConjS : Conj -> [S] -> S 
+- 'dom' should be in the grammar (pronomen)
+- 'än' ComparA, UK in grammar. Special care here!
+- 'bli glad av ngt' . av ngt will be agent.
+- CompIQuant should be included! but doesn't seem to have a function 
+   RelS : S -> RS -> S ; -- hon sover vilket är bra  
+   RelNP
+   RelCN
+   CleftNP
+   
+
+
+
+
+apposition: föräldrarna, särskilt fadern, 
+                         (  XP          ) 
+               HD            AN
+                  NP
+                  
+            männens roll som försörjare
+                          UK   NN
+                            XP
+              DT    HD   (  AN        )
+                  

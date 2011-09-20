@@ -31,9 +31,9 @@ res =
    -- vilka får vara med
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (QuestVP whoPl_IP (ComplVV faa_VV (? UseCopula with_Prep))))) NoVoc"
    -- här ges några katter
-   ,"PhrUtt NoPConj (UttS (AdvS here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN somePl_Det (UseN cat_N)) (UseV ?))))) NoVoc"
+   ,"PhrUtt NoPConj (UttS (AdvS here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN somePl_Det (UseN cat_N)) (PassV2' eat_V2))))) NoVoc"
    -- katten sitts efter bil
-   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (AdvVP (UseV ?) (PrepNP after_Prep (MassNP (UseN car_N))))))) NoVoc"
+   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (AdvVP (PassV2' eat_V2) (PrepNP after_Prep (MassNP (UseN car_N))))))) NoVoc"
    -- denna katt jagar bil
   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN this8denna_Quant (UseN cat_N)) (ComplSlash (SlashV2a hunt_V2) (MassNP (UseN car_N)))))) NoVoc"
    -- våra katter har suttit
@@ -49,7 +49,8 @@ res =
    -- de måste äta bil
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (ComplVV must_VV (ComplSlash (SlashV2a eat_V2) (MassNP (UseN car_N))))))) NoVoc"
    -- fler resor tänker gult
-   ,"PhrUtt NoPConj (? (? (? (? (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A)))))))) (? ?)) NoVoc"
+   ,"? (? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc)))) (? ?)"
+   --,"PhrUtt NoPConj (? (? (? (? (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A)))))))) (? ?)) NoVoc"
    -- eller katten på bilen
    ,"? (? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc)))))) (? ?)"
    -- gå bakom en katt
@@ -57,7 +58,7 @@ res =
    -- katterna måste tänka igen
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) (ComplVV must_VV (? think_V ?))))) NoVoc"
    -- katten börjar att tänka 
-   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV ? (UseV think_V))))) NoVoc"
+   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV (DropAttVV begin_VV) (UseV think_V))))) NoVoc"
    -- dessutom tänker antalet arbetande
    ,"PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (UseV think_V))))) NoVoc"
    -- man äter redan äpplet
@@ -67,7 +68,8 @@ res =
    -- flertalet katter är någonstans
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (? ?) NumSg) (UseN cat_N)) (UseComp (CompAdv somewhere_Adv))))) NoVoc"
    -- katt för gällande bil
-   ,"PhrUtt NoPConj (? (? (MassNP (UseN cat_N))) (PrepNP for_Prep (MassNP (AdjCN (PositA (? ?)) (UseN car_N))))) NoVoc"
+   ,"? (? (MassNP (UseN cat_N))) (PrepNP for_Prep (MassNP (AdjCN (PositA (? ?)) (UseN car_N))))"
+   --,"PhrUtt NoPConj (? (? (MassNP (UseN cat_N))) (PrepNP for_Prep (MassNP (AdjCN (PositA (? ?)) (UseN car_N))))) NoVoc"
    -- alla äter på varandra 
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP everybody_NP (ComplSlash (SlashV2a eat_V2) (? (PrepNP on_Prep ?)))))) NoVoc"
    -- det är inte lätt

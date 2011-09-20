@@ -113,11 +113,13 @@ cidConjS       = mkCId "ConjS"
 cidSubjS       = mkCId "SubjS"
 cidUttAdv      = mkCId "UttAdv"
 cidApposCN     = mkCId "ApposCN"
+cidPassV2'     = mkCId "PassV2'"
 
 
 cidSSubjS      = mkCId "SSubjS"
 cidCNNumNP     = mkCId "CNNumNP"
 
+cidBy8agent_Prep = mkCId "by8agent_Prep"
 cidD_1         = mkCId "D_1"
 cidName        = mkCId "john_PN"
 cidCan_VV      = mkCId "can_VV"  --ambig! can be can8know 

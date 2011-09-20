@@ -411,40 +411,28 @@
 		</annotation>
 	</head>
     <body>
-<s id="s1150">
-			<graph root="s1150_501">
+<s id="s802">
+			<graph root="s802_501">
 				<terminals>
-					<t id="s1150_1" word="Eller" pos="++EL"/>
-					<t id="s1150_2" word="katten" pos="NNDDHS"/>
-					<t id="s1150_3" word="på" pos="PR"/>
-					<t id="s1150_4" word="bilen" pos="NNDDSS"/>
-					<t id="s1150_5" word="?" pos="I?"/>
+					<t id="s802_1" word="Katten" pos="NNDD"/>
+					<t id="s802_2" word="äts" pos="VVPS  PA"/>
+					<t id="s802_3" word="efter" pos="PR"/>
+					<t id="s802_4" word="bil" pos="NN"/>
+					<t id="s802_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s1150_507" cat="PP">
-						<edge label="PR" idref="s1150_3"/>
-						<edge label="HD" idref="s1150_4"/>
+					<nt id="s802_503" cat="PP">
+						<edge label="PR" idref="s802_3"/>
+						<edge label="HD" idref="s802_4"/>
 					</nt>
-					<nt id="s1150_506" cat="NP">
-						<edge label="HD" idref="s1150_2"/>
-						<edge label="ET" idref="s1150_507"/>
+					<nt id="s802_502" cat="S">
+						<edge label="SS" idref="s802_1"/>
+						<edge label="FV" idref="s802_2"/>
+						<edge label="AA" idref="s802_503"/>
+						<edge label="IP" idref="s802_5"/>
 					</nt>
-					<nt id="s1150_505" cat="S">
-						<edge label="++" idref="s1150_1"/>
-						<edge label="SS" idref="s1150_506"/>
-					</nt>
-					<nt id="s1150_504" cat="NAC">
-						<edge label="+F" idref="s1150_505"/>
-					</nt>
-					<nt id="s1150_503" cat="NAC">
-						<edge label="ET" idref="s1150_504"/>
-					</nt>
-					<nt id="s1150_502" cat="XP">
-						<edge label="SP" idref="s1150_503"/>
-						<edge label="I?" idref="s1150_5"/>
-					</nt>
-					<nt id="s1150_501" cat="ROOT">
-						<edge label="MS" idref="s1150_502"/>
+					<nt id="s802_501" cat="ROOT">
+						<edge label="MS" idref="s802_502"/>
 					</nt>
 				</nonterminals>
 			</graph>

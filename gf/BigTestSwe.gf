@@ -20,6 +20,8 @@ concrete BigTestSwe of BigTest =
   LexiconSwe
   ** {
 
-flags startcat = Phr ;  unlexer = text ; lexer = text ;
+flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
+  lin
+    begin_VV = mkVV (mkV "börja") ;
 } ;
