@@ -36,13 +36,15 @@ makeTestSuite = do
   ss <- extractSentences
   let goods = filter (not . isBad) ss
       testS = f goods
-  return $ unlines $ map prettyPrint testS
+  return $ map fst testS
+  --return $ unlines $ map prettyPrint testS
  where f =  map head .takeWhile (not . null) 
            . map (take 10) . iterate (drop 10)
           -- unfoldr (return . first head . splitAt 10)
 
 g = map head .takeWhile (not . null) 
    . map (take 10) . iterate (drop 10)
+
 
 
 

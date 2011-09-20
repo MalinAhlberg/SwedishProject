@@ -114,6 +114,8 @@ cidSubjS       = mkCId "SubjS"
 cidUttAdv      = mkCId "UttAdv"
 cidApposCN     = mkCId "ApposCN"
 cidPassV2'     = mkCId "PassV2'"
+cidUseRCl      = mkCId "UseRCl"
+cidRelNP'      = mkCId "RelNP'"
 
 
 cidSSubjS      = mkCId "SSubjS"

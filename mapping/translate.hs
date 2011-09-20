@@ -167,20 +167,23 @@ penn =
      --"NAC" :-> parse >>= return meta 
      --"ROOT" :-> släng bort
      --"S" :-> behövs ej
-      ,"VP" :-> do word2 "IM"                 --ever needed?? as pInfVP
+      ,"VP" :-> do word2 "IM"                
                    (tmp,s,pol,v) <- pVP "IV"
-                   return (mkApp cidUseV [v])
+                   return v 
 
    ]
 
-paresS = inside "S" $ pS
+parseSCl = inside "S" $ pCl
 
 pS = do
-  cl <- pCl 
+  cl <- do (cl,_,_) <- pCl 
+           return $ mkApp cidUttS [cl]
         `mplus`
         pImp 
         `mplus`
         pNPCl
+        `mplus`
+        pSS
         `mplus`
      --   pRelS
      --   `mplus`
@@ -196,42 +199,41 @@ pNPCl = do
  return $ mkApp cidUttNP [np]
 
 
-pCl = do 
- cl <- do trace' "looking for SS" $ return () 
-          (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
-          trace' ("SS done "++show np) return ()
-          --advs <- many $ cat "OA"
-          trace' "now to pVP" return ()
-          (tmp,sim,pol,vp) <- (trace' "goto pVP" $ pVP "FV")
-                              `mplus` (trace' "no VP!" $ inside "FV" consume >> metaVP) -- obs! för passiv
-          advs <- many pAdv
-          let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
-              e1 = if typ == cidGenericCl then mkApp typ [e0]
-                                          else mkApp typ [np,e0]
-              e2 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
-                                  ,mkApp pol [],e1]
-          return e2
-       `mplus`
-      -- find out whether it should be AdvS or FocAdv here!
-       do advs <- many pAdv    -- use def to know if it is question or not
-          (tmp,pol,np,nptyp,vp) <- pVSOs
-          advs2 <- many pAdv
-          let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs2
-              e1 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
-                                  ,mkApp pol []
-                                  ,mkApp nptyp [np,e0]
-                                  ]
-              e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
-          return e2
-       `mplus`
-       do s1   <- cat "S"    -- jag går om hon kommer
-          conj <- inside "UK" pConj
-          s2   <- cat "S"
-          return $ mkApp cidSSubjS [s1,conj,s2] 
+pCl = 
+  do trace' "looking for SS" $ return () 
+     (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
+     trace' ("SS done "++show np) return ()
+     --advs <- many $ cat "OA"
+     trace' "now to pVP" return ()
+     (tmp,sim,pol,vp) <- (trace' "goto pVP" $ pVP "FV")
+                         `mplus` (trace' "no VP!" $ inside "FV" consume >> metaVP) -- obs! för passiv
+     advs <- many pAdv
+     let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
+         e1 = if typ == cidGenericCl then mkApp typ [e0]
+                                     else mkApp typ [np,e0]
+         e2 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
+                             ,mkApp pol [],e1]
+     return (e2,tmp,pol)
+  `mplus`
+ -- find out whether it should be AdvS or FocAdv here!
+  do advs <- many pAdv    -- use def to know if it is question or not
+     (tmp,pol,np,nptyp,vp) <- pVSOs
+     advs2 <- many pAdv
+     let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs2
+         e1 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
+                             ,mkApp pol []
+                             ,mkApp nptyp [np,e0]
+                             ]
+         e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
+     return (e2,tmp,pol)
 
- return $ mkApp cidUttS [cl]
+pSS =  
+  do s1   <- cat "S"    -- jag går om hon kommer
+     conj <- inside "UK" pConj
+     s2   <- inside "S" pUttAdv 
+     return $ mkApp cidSSubjS [s1,conj,s2] 
 
- 
+
 pVSOs :: P String Expr (VForm Expr, CId, Expr, CId, Expr)
 pVSOs = foldr1 (mplus) $ map pVSO vForms
 
@@ -274,6 +276,14 @@ pUttAdv = do
      e2 = mkApp cidUseCl [fromMaybe (mkApp meta []) (isVTense tmp)
                          ,mkApp pol [],e1]
  return $ mkApp cidSubjS [sub,e2]
+
+parseRelS = do 
+  w <- inside "S" $ inside "SS" $ word "PO" 
+  guard (w =="Som" || w == "som")
+  pol <- pPol
+  (tmp,sim,p,vp) <- (trace' "goto pVP" $ pVP "FV")
+  return (vp,tmp,pol) 
+ 
 
 pSpecialPP cid = 
  do pr <- inside "PR" $ optEat (lemma "Prep" "s") meta
@@ -361,7 +371,9 @@ pSlashVP Fut' typ =
     return (mkApp meta [],t)
 
 
-mkTmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) 
+mkTmp = mkTmp' cidASimul 
+mkTmp' a | a ==cidASimul = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) 
+         | a ==cidAAnter = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidAAnter []]) 
 
 
 
@@ -605,6 +617,12 @@ pComplV2 = do
          `mplus`
          do o <- inside "OA" (cat "PP" `mplus` cat "VP")
             return (mkApp meta [o]) --tveksamt fall?
+         `mplus`  
+         do det <- inside "FO" pItPron     -- funnit det attraktivt att (VP)
+            a   <- pAdj
+            vp  <- inside "EO" $ cat "VP" 
+            return (mkApp meta [det,mkApp meta [a,vp]])  --check this. AdjNP,VerbAP??
+                                                         -- then a. how to combine them?
   trace' "oo ok" $ return ()
   adj <- maybeParse $ inside "OO" findAdj  -- eller findAdvAdj?
   return (pol,adv,obj,adj)
@@ -685,14 +703,13 @@ pflatNP =
      et           <- many $ inside "ET" $ cat "PP"
      m_app        <- maybeParse $ inside "AN" pAppos
      m_relCl      <- maybeParse $ do opt (word2 "IK") ""
-                                     inside "EF" $ cat "S"
-    -- m_relCl      <- op
+                                     inside "EF" $ parseRelS
      let cn = case m_a of
                    Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [mkApp noun []]]
                    Nothing -> mkApp cidUseN [mkApp noun []]
          num = mkApp n []
          d   = fromMaybe (mkApp cidDefArt []) m_det
-         cn0 = maybe cn (\app -> mkApp cidApposCN [cn,app]) m_app
+         cn0 = maybe cn      (\app -> mkApp cidApposCN [cn,app]) m_app
          -- mer när vi vet hur även ska hanteras. även den bilen, även bilar osv.
          -- kan antagligen först göra np av de andra och sen ta predet utanpå
      np0 <- case (def,m_det) of
@@ -710,6 +727,8 @@ pflatNP =
      let np1 = case m_predet of
                     Just p -> mkApp cidPredetNP [p,np0]
                     Nothing -> np0 
+         cn1 = maybe np1     (\(vp,t,p) -> mkApp cidRelNP' [np1,vp,t,p])  
+
      return $ foldr (\e n -> mkApp cidAdvNP [n,e]) np1 et 
   `mplus`
   do (noun,n,def) <- inside "HD" pCN
@@ -762,7 +781,10 @@ isDef :: NForm -> Bool
 isDef NIndef = True
 isDet _      = False
 
-
+pItPron = 
+ do p <- inside "POOP" $ lemma "Pron" "s NPNom"
+    return $ mkApp p []
+ 
 pPN = do n <- inside "PN" $ optEat (lemma "PN" "s Nom") cidName
          return $ mkApp n []
 pNP = 

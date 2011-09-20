@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , optEat, consume, insideTake -- Malins
+             , optEat, consume -- Malins
              ) where
 
 import Data.Tree
@@ -95,6 +95,7 @@ inside tag f = P (\gr pgf morpho ts ->
                                             Nothing      -> Nothing
     _                       -> Nothing)
 
+{-
 insideTake :: (Eq t,Show t )=> [t] -> P [t] e a -> P [t] e a
 insideTake tag f = P (\gr pgf morpho ts ->
   case ts of
@@ -105,6 +106,7 @@ insideTake tag f = P (\gr pgf morpho ts ->
                                             Nothing      -> Nothing
     _                       -> Nothing)
 
+-}
 
 
 lemma :: String -> String -> P String e CId
