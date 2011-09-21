@@ -1,5 +1,6 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe , ParadigmsSwe - [nominative] **
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe ,
+                                   ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination in {
 
@@ -95,7 +96,18 @@ lin
     {s = \\_ => subj ++ neg ++ verb ++ compl };
     
 
-  PassV2' v2 = predV (depV v2);
+  PassV2 v2 = predV (depV v2);
+  PassV2Be v = insertObj 
+        (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
+        (predV verbBecome) ;
+
+-- does not allow you to say "kattens som bor här"
+  RelNP' np vp tmp pol =
+    let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
+      {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
+       a = np.a} ;
+
+
 -- Also works for "vi tittar på vår bok", which it maybe shouldn't..
 ReflGenVP vp cn = let vp_l = lin VPSlash vp ;
                       cn_l = lin CN cn in

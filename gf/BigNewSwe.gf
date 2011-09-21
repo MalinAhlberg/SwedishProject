@@ -2,7 +2,7 @@
 
 concrete BigNewSwe of BigNew = 
   NounSwe,
-  VerbSwe - [ComplVS],
+  VerbSwe - [PassV2],
   AdjectiveSwe,
   AdverbSwe,
   IdiomSwe,

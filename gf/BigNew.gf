@@ -5,7 +5,7 @@ abstract BigNew =
   LexiconExt,
   ExtraSweAbs,
   Noun,
-  Verb,
+  Verb - [PassV2],
   Adjective,
   Adverb,
   Idiom,

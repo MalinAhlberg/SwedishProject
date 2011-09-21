@@ -5,7 +5,7 @@ abstract BigTest =
   Lexicon,
   ExtraSweAbs,
   Noun,
-  Verb,
+  Verb -[PassV2],
   Adjective,
   Adverb,
   Idiom,

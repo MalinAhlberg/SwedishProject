@@ -17,7 +17,11 @@ fun
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
   
   
-  PassV2' : V2 -> VP ;  -- äts 
+  PassV2   : V2 -> VP ;  -- äts 
+  PassV2Be : V2 -> VP ;  -- bli äten
+  RelNP'   : NP -> VP -> Temp -> Pol -> NP ;
+
+  
 
   dethaer_NP : NP ;
   detdaer_NP : NP ;
