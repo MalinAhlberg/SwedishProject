@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = True
+test = False
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -30,7 +30,7 @@ grammar def rules = gr
       case Map.lookup tag pmap of
         Just f  -> \pgf m ts -> case unP f gr pgf m ts of
                                   Just (e,[]) -> e
-                                  Just (e,xs) -> trace (color red "\n\nrestParse!\n\n") e
+                                   --Just (e,xs) ->  trace (color red "\n\nrestParse!\n\n") e
                                   _           -> case ts of
                                                    [Node w []] -> def []
                                                    ts          -> def [gr tag pgf m ts | Node tag ts <- ts]

@@ -99,7 +99,6 @@ cidImpVP       = mkCId "ImpVP"
 cidPConjConj   = mkCId "PConjConj"
 cidUttNP       = mkCId "UttNP"
 cidGenericCl   = mkCId "GenericCl"
-cidDropAttVV   = mkCId "DropAttVV"
 cidAdAdv       = mkCId "AdAdv"
 cidConsAdv     = mkCId "ConsAdv"
 cidBaseAdv     = mkCId "BaseAdv"
@@ -113,14 +112,19 @@ cidConjS       = mkCId "ConjS"
 cidSubjS       = mkCId "SubjS"
 cidUttAdv      = mkCId "UttAdv"
 cidApposCN     = mkCId "ApposCN"
-cidPassV2'     = mkCId "PassV2'"
 cidUseRCl      = mkCId "UseRCl"
+cidImpersCl    = mkCId "ImpersCl"
+cidReflVP      = mkCId "ReflVP"
+-- added to Extra
+cidDropAttVV   = mkCId "DropAttVV"
 cidRelNP'      = mkCId "RelNP'"
+cidPassV2'     = mkCId "PassV2'"
 
-
+-- to implemented yet
 cidSSubjS      = mkCId "SSubjS"
 cidCNNumNP     = mkCId "CNNumNP"
 
+-- words
 cidBy8agent_Prep = mkCId "by8agent_Prep"
 cidD_1         = mkCId "D_1"
 cidName        = mkCId "john_PN"

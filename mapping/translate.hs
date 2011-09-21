@@ -25,15 +25,17 @@ import Debug.Trace
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
-test = True
+test = False
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
+paint  = False
 
 trace' | test = trace
        | otherwise = flip const
 
 main = main' "test.xml" >> return ()
+bigTest = main' "testShortSimple.xml" >>= writeFile "mappingShort.txt" . unlines
 main2 = main' "test2.xml" >> return ()
 mainTest = main' "testSimple.xml" >>= putStrLn . compareRes
 mainT2 = main' "testSimple.xml" >>= putStrLn . unlines
@@ -42,17 +44,18 @@ main' fil = do
   let Just language = readLanguage $ snd usePGF
       morpho        = buildMorpho pgf language
   s <- fmap concat $ Form.parse fil
-  ref <- trace' (show $ prune $ head s) $ newIORef (0,0,0)
+  ref <- trace' (show $ prune $ snd $ head s) $ newIORef (0,0,0)
   mapM (process pgf morpho ref) ({-(if test then take 15 else id)-} s)
   where
-    process pgf morpho ref t = do
+    process pgf morpho ref (id,t) = do
       (cn,co,l) <- readIORef ref
+      putStrLn $ takeWhile (/='_') id 
       let e         = parse penn pgf morpho (prune t)
           (cn',co') = count (cn,co) e
           l'        = l+1
       writeIORef ref (cn',co',l')
       hPutStrLn stdout (showExpr [] e)
-      when test $ do
+      when paint $ do
         writeFile "tmp_tree.dot" (graphvizAbstractTree pgf (True,False) e)
         rawSystem "dot" ["-Tpdf", "tmp_tree.dot", "-otrees/tree"++showAlign l'++".pdf"]
         return ()
@@ -97,14 +100,17 @@ penn =
    
      ,"S" :-> do trace' "hej" $ return () 
                  conj     <- maybeParse $ inside "++" pPConj
-                 trace' ("conj: "++show conj) $ return ()
+             --    trace' ("conj: "++show conj) $ return ()
                  (s,s2)   <- pS
+                 m_voc <- maybeParse (do opt (word2 "IK") ""
+                                         inside "TT" $ pNP)
                  opt (word2 "IP" `mplus`
                       word2 "I?" `mplus`
                       word2 "IG" `mplus`
                       word2 "IU") ""
                  let pconj = fromMaybe (mkApp cidNoPConj []) conj
-                 return $ mkApp cidPhrUtt [pconj, s,mkApp cidNoVoc []]
+                     voc   = maybe (mkApp cidNoVoc []) fst m_voc
+                 return $ mkApp cidPhrUtt [pconj, s,voc]
 
      ,"AP" :-> do trace' "in AP" $ return ()
                   ad <- inside "AA" pAdA
@@ -195,13 +201,13 @@ pS = do
 
 
 pNPCl = do 
- (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
+ (np,typ) <- parseSubject
  return $ mkApp cidUttNP [np]
 
 
 pCl = 
   do trace' "looking for SS" $ return () 
-     (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
+     (np,typ) <- parseSubject
      trace' ("SS done "++show np) return ()
      --advs <- many $ cat "OA"
      trace' "now to pVP" return ()
@@ -242,7 +248,7 @@ pVSO typ = do
   (v,t) <- pSlashVP typ "FV"
            --`mplus`                                 -- we need to deal with unknowns somewhere
            --inside "FV" (consume >> metaVP' typ)    -- slash should find them if the right tag is there!
-  (np,nptyp) <- trace' "looking for SS" $ inside "SS" pNP
+  (np,nptyp) <- trace' "looking for SS" $ parseSubject
   trace' ("AdvCl found np "++show np) $ return ()
   (tmp,s,pol,vp) <- pComplVP typ v t
   trace' ("AdvCl found compl "++show vp) $ return ()
@@ -262,7 +268,7 @@ pImp = do trace' "in imperative" $ return ()
 
 pUttAdv = do 
  sub <- inside "UK" $ pSubj 
- (np,typ) <- inside "SS" $ optEat pNP (mkApp meta [],cidPredVP)
+ (np,typ) <- parseSubject
  trace' ("SS done for UttAdv"++show np) return ()
  trace' "now to pVP" return ()
  pol <- pPol
@@ -282,7 +288,8 @@ parseRelS = do
   guard (w =="Som" || w == "som")
   pol <- pPol
   (tmp,sim,p,vp) <- (trace' "goto pVP" $ pVP "FV")
-  return (vp,tmp,pol) 
+  let t = fromMaybe (mkApp meta []) (isVTense tmp)
+  return (vp,t,mkApp pol []) 
  
 
 pSpecialPP cid = 
@@ -451,10 +458,16 @@ pComplVP VV vp tmp = do
   return (mkTmp tmp,cidASimul,pol,vv2)
 pComplVP V2 vp tmp = do
   (pol,adv,obj,adj) <- pComplV2
-  let vp0  = maybe vp (\a -> mkApp meta [vp,a]) adv 
-      np0 = maybe obj (\a -> mkApp meta [obj,a]) adj
-      vp1 = mkApp cidComplSlash [vp0,np0]
-  return (mkTmp tmp,cidASimul,pol,vp1)
+  case obj of
+    Just o  -> do
+               let vp0 = maybe vp (\a -> mkApp meta [vp,a]) adv  -- meta :O
+                   np0 = maybe o (\a -> mkApp meta [o,a]) adj -- meta :O
+                   vp1 = mkApp cidComplSlash [vp0,np0]
+               return (mkTmp tmp,cidASimul,pol,vp1)
+    Nothing -> do
+               let vp0 = mkApp cidReflVP [vp]
+                   vp1 = maybe vp (\a -> mkApp meta [vp0,a]) adv  -- meta :O
+               return (mkTmp tmp,cidASimul,pol,vp1)
 pComplVP V2Pass vp tmp = do
   (pol,adv1,agent,adv2) <- pComplV2Pass
   let vp0 = maybe vp  (\a -> mkApp cidAdvVP [vp,a]) adv1
@@ -608,27 +621,32 @@ pComplSup = do
 
 pComplV2 = do
   trace' "v2 compl begins" $ return ()
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   pol <- pPol
   trace' "oo pol ok" $ return ()
   adv <- maybeVerbAdv
-  obj <- liftM fst (inside "OO" pNP)
+  obj <- liftM (Just .fst) (inside "OO" pNP)
          `mplus`
-         liftM fst (inside "SP" pNP)
+         liftM (Just .fst) (inside "SP" pNP)
          `mplus`
          do o <- inside "OA" (cat "PP" `mplus` cat "VP")
-            return (mkApp meta [o]) --tveksamt fall?
+            return (Just $ mkApp meta [o]) --tveksamt fall?
          `mplus`  
          do det <- inside "FO" pItPron     -- funnit det attraktivt att (VP)
             a   <- pAdj
             vp  <- inside "EO" $ cat "VP" 
-            return (mkApp meta [det,mkApp meta [a,vp]])  --check this. AdjNP,VerbAP??
+            return (Just $ mkApp meta [det,mkApp meta [a,vp]])  --check this. AdjNP,VerbAP??
+         `mplus`  
+         do inside "IO" $ word "POXPHH"  
+            return (Nothing) -- sig
                                                          -- then a. how to combine them?
   trace' "oo ok" $ return ()
-  adj <- maybeParse $ inside "OO" findAdj  -- eller findAdvAdj?
+  adj <- maybeParse $ inside "OO" findAdj  -- eller findAdvAdj? should be togheter with IO
   return (pol,adv,obj,adj)
 
 pComplV2Pass = do
   trace' "v2pass compl begins" $ return ()
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   pol <- pPol
   adv1 <- maybeVerbAdv
   ag <- maybeParse $ inside "AG" $ pSpecialPP cidBy8agent_Prep
@@ -640,6 +658,7 @@ pComplV2Pass = do
 pComplVV = do
   trace' "vv compl begins" $ return ()
   pol   <- pPol
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   trace' "pol ok" $ return ()
   adv <- maybeVerbAdv
   (t',s,p,iv,b)  <- do (t,s,p,i) <- pVP "IV"
@@ -660,6 +679,7 @@ pComplVV = do
 
 pComplVA = do
   trace' "va compl begins" $ return ()
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   pol   <- pPol
   adv   <- maybeVerbAdv
   a     <- inside "SP" pAdj
@@ -668,6 +688,7 @@ pComplVA = do
 pComplV = do
   trace' "v-simple compl begins" $ return ()
   pol <- pPol
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   adv <- maybeVerbAdv
   p   <- maybeParticle
   trace' ("particle: "++show p) $ return ()
@@ -675,6 +696,7 @@ pComplV = do
 
 pComplFut = do
   trace' "futurum compl begins" $ return ()
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   p   <- pPol
   adv <- maybeVerbAdv
   (t',iv) <- inside "IV" $ optEat (pVerb "VV" "V") (VInf,meta) -- inte bara V 
@@ -682,6 +704,7 @@ pComplFut = do
   return (p,adv,iv)
 pComplFut' = do
   trace' "futurum compl begins 'komma att'" $ return ()
+  opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   p   <- pPol
   word2 "IM"
   adv <- maybeVerbAdv
@@ -700,36 +723,39 @@ pflatNP =
      m_det        <- maybeParse $ inside "DT" pDet
      m_a          <- maybeParse $ inside "AT" pAdj
      (noun,n,def) <- inside "HD" pCN
+     m_pt         <- maybeParse $ inside "PT" consume  -- no way of parsing 'själv' yet
      et           <- many $ inside "ET" $ cat "PP"
      m_app        <- maybeParse $ inside "AN" pAppos
      m_relCl      <- maybeParse $ do opt (word2 "IK") ""
                                      inside "EF" $ parseRelS
-     let cn = case m_a of
-                   Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [mkApp noun []]]
-                   Nothing -> mkApp cidUseN [mkApp noun []]
+     let cn  = mkApp noun [] 
+         cn0 = maybe cn (\x -> mkApp meta [cn,mkApp meta []]) m_pt  -- kvinnan själv'
+         cn1 = case m_a of
+                   Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [cn0]]
+                   Nothing -> mkApp cidUseN [cn0]
          num = mkApp n []
          d   = fromMaybe (mkApp cidDefArt []) m_det
-         cn0 = maybe cn      (\app -> mkApp cidApposCN [cn,app]) m_app
+         cn2 = maybe cn1 (\app -> mkApp cidApposCN [cn1,app]) m_app
          -- mer när vi vet hur även ska hanteras. även den bilen, även bilar osv.
          -- kan antagligen först göra np av de andra och sen ta predet utanpå
      np0 <- case (def,m_det) of
                 (NDef,_       ) -> return $ mkApp cidDetCN 
                                              [mkApp cidDetQuant [d,num]
-                                             ,cn0]
+                                             ,cn2]
                 (NIndef,Nothing) -> if n == cidNumSg 
-                            then return (mkApp cidMassNP [cn0])
+                            then return (mkApp cidMassNP [cn2])
                             else return $ mkApp cidDetCN 
                                             [mkApp cidDetQuant 
-                                            [mkApp cidIndefArt [],num],cn0]
-                (NIndef,Just d)  -> return $ mkApp cidDetCN [d,cn0]
+                                            [mkApp cidIndefArt [],num],cn2]
+                (NIndef,Just d)  -> return $ mkApp cidDetCN [d,cn2]
                 (NOther,_)       -> do guard (isNothing m_predet && isNothing m_det) --ok?
                                        return $ mkApp noun []
      let np1 = case m_predet of
                     Just p -> mkApp cidPredetNP [p,np0]
                     Nothing -> np0 
-         cn1 = maybe np1     (\(vp,t,p) -> mkApp cidRelNP' [np1,vp,t,p])  
+         np2 = maybe np1 (\(vp,t,p) -> mkApp cidRelNP' [np1,vp,t,p]) m_relCl
 
-     return $ foldr (\e n -> mkApp cidAdvNP [n,e]) np1 et 
+     return $ foldr (\e n -> mkApp cidAdvNP [n,e]) np2 et 
   `mplus`
   do (noun,n,def) <- inside "HD" pCN
      guard $ def == NIndef && n == cidNumSg  -- stämmer ej för 'våningarna 8 och 9'
@@ -780,6 +806,14 @@ data NForm = NDef | NIndef | NOther -- NOther for reciprocs etc
 isDef :: NForm -> Bool
 isDef NIndef = True
 isDet _      = False
+
+
+parseSubject = inside "SS" (optEat pNP (mkApp meta [],cidPredVP))
+               `mplus` 
+               inside "FS"  
+                  (do w <- inside "PO" $ lemma "VP -> Cl" "s Pres Simul Pos Main"
+                      trace' "imperson hittad!!" $ return ()
+                      return (mkApp w [],cidImpersCl))
 
 pItPron = 
  do p <- inside "POOP" $ lemma "Pron" "s NPNom"

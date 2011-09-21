@@ -1,8 +1,12 @@
 import XMLHelp
+import Simplify
+import Text.XML.HXT.Core 
 import Data.Char
 import Data.List
 import Debug.Trace
 import Data.Maybe
+import Control.Monad
+import qualified Debug.Trace as DT
 
 talbanken = "../Talbanken05_20060604/FPS/P.tiger.xml" 
 test = "test.xml"
@@ -24,6 +28,43 @@ swap (a,b) = (b,a)
 
 
 --- 
+getTrees :: [Sentence] -> [Sentence]
+getTrees = filter ((`elem` list) . idS) -- (concat trs)
+
+{-
+my = runX (xpickleDocument xpSentence
+                            [withIndent yes,
+                             withInputEncoding utf8] "testShort.xml")
+        -}
+mainEt 	:: String -> IO ()
+mainEt src
+    = do
+      runX ( xunpickleDocument xpSentences
+                                [withInputEncoding utf8
+                                , withRemoveWS yes] src
+	        >>>
+	        simplify --process   
+	        >>>
+            xpickleDocument xpSentences
+                            [withIndent yes,
+                             withInputEncoding utf8] "testShortSimple.xml")
+
+      return ()
+
+process :: IOSArrow [Sentence] [Sentence]
+process = arrIO (\x -> return $ getTrees x)
+
+simplify :: IOSArrow [Sentence] [Sentence]
+simplify = arrIO (\x -> do putStrLn (show x)
+                           return $ map f x)
+ where f s  = Sent (idS s) (rootS s) (map g (XMLHelp.words s)) (info s)
+       g w  = let simpleW = fromMaybe (word w) (lookup (pos w) simpleList) in
+                DT.trace (word w++pos w) $ W (XMLHelp.id w) simpleW (pos w) 
+
+simpleList = Simplify.transl
+list = catMaybes best -- ["s802"]
+
+
 extractSentences = do 
   ss <- mainF talbanken (return . map getSentence')
   return $ concat ss

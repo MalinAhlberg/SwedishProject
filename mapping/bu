@@ -1,6 +1,0 @@
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompNP (DetNP
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseComp (CompNP (DetNP much_Det))) (PositAdvAdj yellow_A))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP UseCopula (AdAdv very_AdA (PositAdvAdj yellow_A)))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP very_AdA (PositA yellow_A))))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv (AdAdv very_AdA (PositAdvAdj yellow_A))))))) NoVoc
-PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompNP (AdvNP (DetNP much_Det) (PositAdvAdj yellow_A))))))) NoVoc

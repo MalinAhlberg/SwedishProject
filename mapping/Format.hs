@@ -49,9 +49,17 @@ xpSentence = xpElem "s"
              $  xpTriple (xpAttr "root" xpText)
                          ( xpElem "terminals" xpWords)
                          ( xpElem "nonterminals" xpTags)
+{-
 xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
           $ xpWrap (uncurry3 W,\t -> (id t, pos t,word t)) 
+          $ xpTriple (xpAttr "id" xpText)
+                     (xpAttr "pos" xpText)
+                     (xpAttr "word" xpText)
+                     -}
+xpWords :: PU [Word]
+xpWords = xpList $ xpElem "t"  
+          $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
           $ xpTriple (xpAttr "id" xpText)
                      (xpAttr "pos" xpText)
                      (xpAttr "word" xpText)
@@ -68,8 +76,8 @@ parse src =
 
 
 
-toTree :: Sentence -> T.Tree String
-toTree s@(Sent root ws inf) = toTree' root s
+toTree :: Sentence -> (String,T.Tree String)
+toTree s@(Sent root ws inf) = (root,toTree' root s)
 
 toTree' :: String -> Sentence -> T.Tree String
 toTree' nr s@(Sent root ws inf) = 

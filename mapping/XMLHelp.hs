@@ -14,7 +14,7 @@ import Control.Monad.State
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
-data Word     = W  {id :: Id, pos :: Tag, word :: String}
+data Word     = W  {id :: Id, word :: String, pos :: Tag}
 data PhrTag   = Ph {idPh :: Id, cat :: Tag, tags :: [(Tag,Id)]}
 data Sentence = Sent {idS :: Id, rootS :: Id, words :: [Word], info :: [PhrTag]}
 type Tag      = String
@@ -23,11 +23,14 @@ type Id       = String
 instance Show Sentence where
   show s@(Sent id r w info) = showa r s
 
+getSentence :: Sentence -> (Id, String)
 getSentence s = let sent = concat . intersperse " " . map word . words in
       (idS s,sent s)
 
+getSentence' :: Sentence -> (Id, [String])
 getSentence' s = let sent = map word . words in
       (idS s,sent s)
+
 -- gets the trees into a nice format
 showa :: String -> Sentence -> String
 showa nr s@(Sent id root ws inf) = 
@@ -86,15 +89,15 @@ xpSentence = xpElem "s"
                          ( xpElem "nonterminals" xpTags)
 xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
-          $ xpWrap (uncurry3 W,\t -> (id t, pos t,word t)) 
+          $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
           $ xpTriple (xpAttr "id" xpText)
-                     (xpAttr "pos" xpText)
                      (xpAttr "word" xpText)
+                     (xpAttr "pos" xpText)
                      
 mainF src f =   
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO f) -- putStrLn . unlines . map (show . toTree'))) -- (writeFile dst . show)) 
+        >>> arrIO f) 
 
 toTree s@(Sent id root ws inf) = toTree' root s
 toTree' :: String -> Sentence -> T.Tree String
