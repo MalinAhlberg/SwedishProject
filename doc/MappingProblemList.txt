@@ -5,17 +5,18 @@ mapping problems
 - s1269, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
 - meta noun. seems to be used as ApposCN, but also in titles, idioms etc.
 - when to handle a unknown word? will be ambiguous if a verb is not in lexicon
-- DB, 'så'. när han gör det så 
-                SS  FV   OO DB
-           (         S        )
+- DB, 'så'. när han gör det så. Och mamman, det är en person som ... 
+                SS  FV   OO DB        HD     DB
+           (         S        )      (   NP    )
                     TA/AA
 
 constructs not in GF
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
                     'åtminstone några timmar'
 - particles not included in lexicon 'vara med' (s542). (UseVPart UseCoplua with_Prep)?
-- verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
-   Agent is in tag AG. For V2 only? 
+- Agent is in tag AG. For V2 only? 
+  (PredVP np (AdvVP (PassV2' eat_V2) (PrepNP by8agent_Prep (UsePron youSg_Pron)))))) NoVoc
+
 - determiners an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
 - 'fler bilar'. (s1129) (DetCN fler_Det (UseN resa_N)) ?
 - particip. presens particip as noun 'antalet arbetande växer'
@@ -48,10 +49,12 @@ constructs not in GF
    RelNP
    RelCN
    CleftNP
-   
-
-
-
+- 'de säger alla/själva att.. ' dummy subject.
+- han fann det lätt att äta. 
+    (AdjNP det (VerbAP (lätt, att äta)))    -- AdjNp is needed for 'frågan öppen' too!
+                               Adj      VP  -- 'äter den rå' 
+                  NP        AP
+              NP    
 
 apposition: föräldrarna, särskilt fadern, 
                          (  XP          ) 
@@ -63,3 +66,12 @@ apposition: föräldrarna, särskilt fadern,
                             XP
               DT    HD   (  AN        )
                   
+
+
+
+
+solved/added:
+
+- verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
+   handled PassV2'
+- RelNP' : NP -> VP -> Temp -> Pol -> NP 'kvinnan som sitter där'

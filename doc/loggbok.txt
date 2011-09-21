@@ -1,3 +1,18 @@
+v 38 1/2
+I've been working on the mapping, which just becomes harder and harder,
+and tested it on the testsuite I was using before the summer, where
+the sentences are relatively easy. Since the testsuit was in another
+format than the one I'm using now, I have to put some time into
+getting the same sentences in the new format.
+The testsuite now consists of 118 sentences, and the translator fails
+completely for 38 of those. The resulting trees are saved in mappingShort.txt.
+This testsuite are not meant to be the testsuite for the whole project, so 
+I will extract another one soon. For Maltparser, they used 10% as for testing,
+so I could probably do the same.
+I hope to improve the mapping during this week.
+Some functions have also been added to my grammar, RelNP' (kvinnan som äter)
+and another PassVP (äts).
+
 v 37
 This week I have been working on the mapping of Talbanken trees.
 I use the trees in Talbanken05 (flat version), and so far the mapping
