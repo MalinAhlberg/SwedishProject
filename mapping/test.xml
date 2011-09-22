@@ -411,32 +411,35 @@
 		</annotation>
 	</head>
     <body>
-<s id="s802">
-			<graph root="s802_501">
-				<terminals>
-					<t id="s802_1" word="Katten" pos="NNDD"/>
-					<t id="s802_2" word="äts" pos="VVPS  PA"/>
-					<t id="s802_3" word="efter" pos="PR"/>
-					<t id="s802_4" word="bil" pos="NN"/>
-					<t id="s802_5" word="." pos="IP"/>
-				</terminals>
-				<nonterminals>
-					<nt id="s802_503" cat="PP">
-						<edge label="PR" idref="s802_3"/>
-						<edge label="HD" idref="s802_4"/>
-					</nt>
-					<nt id="s802_502" cat="S">
-						<edge label="SS" idref="s802_1"/>
-						<edge label="FV" idref="s802_2"/>
-						<edge label="AA" idref="s802_503"/>
-						<edge label="IP" idref="s802_5"/>
-					</nt>
-					<nt id="s802_501" cat="ROOT">
-						<edge label="MS" idref="s802_502"/>
-					</nt>
-				</nonterminals>
-			</graph>
-		</s>
+
+   <s id="s752">
+      <graph root="s752_501">
+        <terminals>
+          <t id="s752_1" word="jag" pos="POZPHH"/>
+          <t id="s752_2" word="tvättar" pos="VVPS"/>
+          <t id="s752_3" word="mig" pos="POXPHHAA"/>
+          <t id="s752_4" word="på" pos="PR"/>
+          <t id="s752_5" word="kvinnan" pos="NNDDSS"/>
+          <t id="s752_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s752_503" cat="PP">
+            <edge label="PR" idref="s752_4"/>
+            <edge label="HD" idref="s752_5"/>
+          </nt>
+          <nt id="s752_502" cat="S">
+            <edge label="SS" idref="s752_1"/>
+            <edge label="FV" idref="s752_2"/>
+            <edge label="OO" idref="s752_3"/>
+            <edge label="RA" idref="s752_503"/>
+            <edge label="IP" idref="s752_6"/>
+          </nt>
+          <nt id="s752_501" cat="ROOT">
+            <edge label="MS" idref="s752_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
 
 		</body>
 </corpus>

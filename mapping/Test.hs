@@ -19,7 +19,8 @@ res =
    -- det är mycket gult
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP very_AdA (PositA yellow_A))))))) NoVoc"
   -- även bil har katt
-  ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP ? (MassNP (UseN car_N))) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc"
+  ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc"
+  -- better but needs lexicon,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP ? (MassNP (UseN car_N))) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc"
   -- katten är inte gul
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseComp (CompAP (PositA yellow_A)))))) NoVoc"
    -- det är inte gult
@@ -29,7 +30,7 @@ res =
    -- det är inte gult litet och stort
    ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron it_Pron) (UseComp (CompAP (ConjAP and_Conj (ConsAP (PositA yellow_A) (BaseAP (PositA small_A) (PositA big_A))))))))) NoVoc"
    -- vilka får vara med
-   ,"PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (QuestVP whoPl_IP (ComplVV faa_VV (? UseCopula with_Prep))))) NoVoc"
+   ,"PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoPl_IP (ComplVV faa_VV (? UseCopula with_Prep))))) NoVoc"
    -- här ges några katter
    ,"PhrUtt NoPConj (UttS (AdvS here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN somePl_Det (UseN cat_N)) (PassV2' eat_V2))))) NoVoc"
    -- katten sitts efter bil

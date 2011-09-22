@@ -14,7 +14,7 @@ import Control.Monad.State
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
-data Word     = W  {id :: Id, pos :: Tag, word :: String}
+data Word     = W  {id :: Id, word :: String, pos :: Tag}
 data PhrTag   = Ph {idPh :: Id, cat :: Tag, tags :: [(Tag,Id)]}
 data Sentence = Sent {rootS :: Id, words :: [Word], info :: [PhrTag]}
 type Tag      = String
@@ -49,20 +49,12 @@ xpSentence = xpElem "s"
              $  xpTriple (xpAttr "root" xpText)
                          ( xpElem "terminals" xpWords)
                          ( xpElem "nonterminals" xpTags)
-{-
-xpWords :: PU [Word]
-xpWords = xpList $ xpElem "t"  
-          $ xpWrap (uncurry3 W,\t -> (id t, pos t,word t)) 
-          $ xpTriple (xpAttr "id" xpText)
-                     (xpAttr "pos" xpText)
-                     (xpAttr "word" xpText)
-                     -}
 xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
           $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
           $ xpTriple (xpAttr "id" xpText)
-                     (xpAttr "pos" xpText)
                      (xpAttr "word" xpText)
+                     (xpAttr "pos" xpText)
                      
 mainF src =   
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
@@ -85,7 +77,7 @@ toTree' nr s@(Sent root ws inf) =
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
        _          -> error $ "Error in toTree' "++show nr++" could not be found"
-  where putWord (W i p w)    = T.Node p [T.Node w []]
+  where putWord (W i w p)    = T.Node p [T.Node w []]
         putPhrase (Ph i c t) = T.Node c 
                                 $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
 

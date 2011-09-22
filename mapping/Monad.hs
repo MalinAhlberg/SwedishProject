@@ -2,7 +2,7 @@ module Monad ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , optEat, consume -- Malins
+             , optEat, consume, wordlookup -- Malins
              ) where
 
 import Data.Tree
@@ -15,7 +15,7 @@ import PGF hiding (Tree,parse)
 
 infix 1 :->
 
-test = False
+test = True
 trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
@@ -107,6 +107,20 @@ insideTake tag f = P (\gr pgf morpho ts ->
     _                       -> Nothing)
 
 -}
+wordlookup :: String -> String -> String -> P String e CId
+wordlookup w cat0 an0 = P (\gr pgf morpho ts -> 
+
+     do
+        trace' ("wordlookup: "++w++show ts++show cat0) $ return ()
+        trace' (show [(lemma,an1,an0,cat1,cat0) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
+                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)] ) $ return ()
+        let wds = [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
+                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)
+                                    , cat0 == cat1 && an0 == an1] 
+        case wds of
+             (wd:_)  -> Just (wd,ts)
+             []      -> Nothing 
+       )
 
 
 lemma :: String -> String -> P String e CId
