@@ -1,0 +1,50 @@
+download newest GF
+
+behöver gå på två presentationer! hitta dem.
+behöver opponera/opponeras! hitta person.
+
+LREC. kolla upp och skriv två sidor. 20 okt? write about what I did before spring,
+that I'm using the resources Saldo, talbanken,gf. "first results".
+
+Om en månad möte med elisabet.
+
+9 dec med lilla gruppen.
+
+ha seminarie 12/13 jan på clt.
+
+subbranch the swedish from scandinavian.
+Upload my things!
+
+Goals: -make better usage of SALDO (keep the identifiers!), re-import it, 
+        see if we can stay up to date with it. make one big version, but
+        have a small one as well, for the project, where one word of each type is 
+        available.
+       -add grammatical constructions, such as relative clauses, embedded clauses.
+        make a list from talbanken. (better than compounds, ellipses,conjunction acc. to Elisbeth)
+       -add things in AVP. idioms.
+
+particles: to types, particles (vara med) and preposition (bero på). At least all particles are
+           in the lexicon. (maybe ask aarne/ramona/krasse about the mapping for this)
+
+double function: read in Academy grammar, annex. should be added, but needs considerations.
+                 both subject and object can have a np in the end of the sentence. reuse 
+                 records? needs agreement. 
+
+idioms: list and add!
+
+mycket as pron: list all (mycket, fler, också, även, bara). should be in the list if they
+                can be put before the finite verb. then they can also focus the NP. Focusing
+                Sentence Adverbials. Put them as category X, which can be used as Det (and thereby
+                as NP) and as AdV.
+
+meta nouns: handle them as nouns.
+
+AVP and idioms: list all, add. 
+
+antalet bilar: N2 with empty prep-field. make sure it works for 'antalet arbetande' and 'antalet bilar'
+
+special case of passive: det dansas. needs 'det'. can be added.
+
+passive: Should have VP/NP -> Passive, so not only V2 -> NP.
+
+ha frågan öppen: V2A. Different from 'dansa naken'. Object predicative. 
