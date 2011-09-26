@@ -1,0 +1,26 @@
+Sept
+36 mapping
+37 mapping 
+38 mapping
+39 mapping, do poster, start on paper
+Okt
+40 Gullmarsstrand - poster done,paper,mapping of easy trees ok
+41 paper in good shape, mapping evaluated
+42 mapping done, paper submitted, write about mapping, start on saldo
+43 imported lexicon & work on testsuite  
+Nov
+44 added things to grammar, have a good testsuite, work on lexicon
+45 tried parsed test suite with new version - evaluated against mapped trees, work on saldo
+46 work on grammar, write about it
+47 work on grammar and write about it
+Dec
+48 work on grammar, writing
+49 writing
+50 writing, wrapping up
+Jan
+2 presentation
+
+The Future
+ work on chunking parsing 
+
+2011-09-26

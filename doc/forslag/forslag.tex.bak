@@ -1,0 +1,99 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+
+
+\begin{document}
+\title{Proposal of Master Thesis \\
+       A Wide-Coverage Grammar and Parser for Swedish}
+\author{Malin Ahlberg}
+\maketitle
+\vspace{20mm}
+
+\abstract
+By using existing technologies
+and tools, we would like to implement a robust parser for Swedish.
+The goal is to be able to parse open domain language and the
+parser will be evaluated on an extensive Swedish
+treebank, Talbanken. 
+A parser like this would be of great use for many natural
+language processing applications, such as translation and information retrieval
+as well as making semantic representations.
+
+The project is accepted and funded by Center of Language 
+Technology, Gothenburg University.
+
+
+\section*{Description}
+Making computers able of handling human language is a 
+hard problem.
+The meaning of a sentence depends not only of which words it consists of, but
+also on their syntactic use, how they interact and relate to each other.
+For a computer to make sense of natural language, it needs to analyse this 
+syntactic structure; it needs a good grammar and parser.
+In this project, a robust parser for Swedish will be implemented
+using the grammar formalism Grammatical Framework. %\cite{gf} (GF).
+
+The libraries of GF provide a basic grammar for
+Swedish, covering the fundamental features of the language, such as morphology and
+commonly used syntax. This is suitable 
+for building domain specific applications. In those cases the user is not
+allowed to freely compose sentences, but has to stay within the bounds of a 
+controlled language. Both the vocabulary and grammatical structures are fixed,
+meaning that there only is a limit number of ways to write a sentence.
+Parsing open domain natural language is a much bigger task, since it involves handling both
+standard and non-standard grammatical constructions. 
+
+The work to enhance and expand the Swedish GF grammar was started
+in a pilot project made this spring.
+The grammar was then tested, evaluated and extended. 
+Further, other tools that are needed was been implemented and examined.
+
+The future work will include extending and enhancing the existing Swedish GF grammar,
+importing lexicon and develop technics for handling unknown words and grammatical
+constructions, proper names, idioms, ellips etc, in order to make the parser robust.
+
+\begin{comment}
+\subsection{Background}
+This project makes use of some external resources such as  GF and its module \verb|Extra|,
+the lexicon SALDO and the treebank Talbanken. Those are briefly described
+here.
+
+GF is a special-purpose programming language, based on functional programming. 
+The key idea of is to have
+one abstract syntax, modeling the common structure. 
+In addition, concrete syntaxes are implementing the abstract in different languages.
+The libraries of GF, the resource libraries\cite{resource}, provides
+a common abstract and implementations of this in 18 languages.
+Since translation always should be possible, the abstract may only contain constructions that
+are common to all implemented languages. Language specific constructs may be
+given in the module \verb|Extra.gf|. This may be stylistic changes, idioms, informal
+expressions etc.
+As an example, the Swedish \verb|Extra| module contains a function for expressing sentences
+where the negation is put in focus: \emph{``Inte var jag glad"} (\emph{``Not was I happy"}).
+
+SALDO\cite{saldo} is an open source lexicon resource
+based on Svenskt Associations Lexikon (SAL). It is
+developed at Gothenburg University and intended to be used in language technology
+research. 
+From SALDO, a large GF lexicon, \\
+\verb|DictSwe.gf| has been extracted,
+containing 50 000 entries.
+
+Talbanken\cite{talbanken} is
+a Swedish treebank which was put together in the 1970s at Lund University,
+consisting of 6316 sentences. Each word is tagged with its word class, by
+a POS-tag (Part of Speech). There are also tags showing the syntactic
+use and the relationships between the words of a sentence.
+The project described here started by combining the 
+implementation of \verb|Extra| and the SALDO dictionary,and it's aim
+is to be able to parse all of Talbaken.
+
+\bibliographystyle{ieeetr}
+\bibliography{report}
+\end{comment}
+\end{document}

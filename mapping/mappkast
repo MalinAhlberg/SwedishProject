@@ -1,0 +1,118 @@
+s26	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (PrepNP on_Prep (MassNP (UseN cat_N)))) (PassV2 eat_V2)))) NoVoc
+s62	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN woman_N)) (UseComp (CompAP (ConjAP and_Conj (BaseAP (PositA yellow_A) (PositA yellow_A)))))))) NoVoc
+s81	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (PredetNP all_Predet (DetCN (DetQuant IndefArt NumPl) (UseN woman_N))) (UseComp ?)))) NoVoc
+s83	PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (? (SlashV2a eat_V2) now_Adv) (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (AdjCN (UseComparA yellow_A) (UseN woman_N)))))) NoVoc
+s223	? (? (? (? ?) (? (? (? ?) (? ?))))) (? ?) (? ?) (? ?)
+s226	? (? (? (? ?) (? ?) (? ?))) (? ?) (? ?) (? ?)
+s396	? (? ?) (? (? (? ?) (? ?))) (? ?) (? ?) (? ?)
+s452	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP already_Adv (MassNP (UseN cat_N))) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc
+s524	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (ComplSlash (? (SlashV2a have_V2) already_Adv) (DetCN (DetQuant IndefArt (NumCard (NumDigits (IDig D_1)))) (UseN cat_N)))))) NoVoc
+s528	PhrUtt (PConjConj if_then_Conj) (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP all_Predet (DetCN (DetQuant DefArt NumPl) (UseN woman_N))) (UseComp (CompAP (PositA yellow_A)))))) NoVoc
+s538	PhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP too_AdA (PositA yellow_A)))))))) NoVoc
+s541	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP very_AdA (PositA yellow_A))))))) NoVoc
+s542	PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whoPl_IP (ComplVV faa_VV (UseV tankaTill_V))))) NoVoc
+s568	PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestVP whatPl_IP (ComplSlash (SlashV2a fight_V2) (? (PrepNP with_Prep (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))))) NoVoc
+s620	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseComp (CompAP (PositA yellow_A)))))) NoVoc
+s632	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s690	PhrUtt NoPConj (UttS (AdvS already_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN woman_N)) (AdvVP (PassV2 eat_V2) (DetCN every_Det (UseN woman_N))))))) NoVoc
+s694	PhrUtt NoPConj (UttS (AdvS here_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN somePl_Det (UseN woman_N)) (PassV2 eat_V2))))) NoVoc
+s696	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (AdjCN (PositA yellow_A) (UseN woman_N))) (ComplVA become_VA (UseComparA yellow_A))))) NoVoc
+s752	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (SlashV2a wash_V2) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) NoVoc
+s771	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl ImpersCl (? (DetCN (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))) (UseN woman_N)))))) NoVoc
+s793	? (? ?) (? ?) (? (? (? ?) (? ?))) (? ?) (? ?)
+s802	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (AdvVP (PassV2 eat_V2) (PrepNP on_Prep (MassNP (UseN woman_N))))))) NoVoc
+s835	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplVV must_VV (AdvVP (UseV think_V) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))))) NoVoc
+s888	? (? (? (? ?) (? ?) (? ?))) (? ?) (? ?) (? ?)
+s898	? (? (DetCN DefArt (UseN woman_N))) (? ?) (? ?) (? ?)
+s907	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ComplVS know_VS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (PassV2 eat_V2))))))) NoVoc
+s945	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)) (UseV eat_V2)))) NoVoc
+s966	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (? (SlashV2a faa_V2) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))))) NoVoc
+s967	PhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (DetNP (DetQuant this8denna_Quant NumPl)) (ComplSlash (SlashV2a become_V2) (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA yellow_A) (UseN woman_N))))))) NoVoc
+s996	PhrUtt NoPConj (UttS (AdvS (? (? ?) (? ?)) (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron i_Pron) (UseV think_V))))) NoVoc
+s1001	PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVA become_VA (UseComparA yellow_A))))) NoVoc
+s1006	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) (ComplVA become_VA (UseComparA yellow_A))))) NoVoc
+s1028	PhrUtt NoPConj (UttS (AdvS (? (? ?) (? ?)) (UseCl (TTAnt TPast ASimul) PPos (PredVP ? (UseComp (CompNP (UseN woman_N))))))) NoVoc
+s1037	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it8utr_Pron) (ComplSlash (SlashV2a have_V2) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))))) NoVoc
+s1056	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (AdvVP (PassV2 eat_V2) (PrepNP on_Prep (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))))))) NoVoc
+s1103	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP ? (ComplVV want_VV (ComplSlash (SlashV2a eat_V2) (MassNP (UseN woman_N))))))) NoVoc
+s1106	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (AdjCN (PositA yellow_A) (UseN woman_N))) (PassV2 eat_V2)))) NoVoc
+s1107	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP ? (ComplVV must_VV (ComplSlash (SlashV2a eat_V2) (MassNP (UseN woman_N))))))) NoVoc
+s1129	? (? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP ? (PositAdvAdj yellow_A))))) NoVoc)))) (? ?)
+s1139	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (PredetNP all_Predet (DetCN (DetQuant IndefArt NumPl) (UseN woman_N))) (ComplSlash (SlashV2a have_V2) (? (? ?) (? ?)))))) NoVoc
+s1143	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV want_VV (ComplSlash (SlashV2a have_V2) (UsePron it_Pron))))))) NoVoc
+s1150	? (? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))) NoVoc)))))) (? ?)
+s1176	? (? ?) (? ?) (? ?) (? (PrepNP on_Prep (MassNP (UseN cat_N)))) (? ?)
+s1192	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (ComplVV can_VV (UseV think_V)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) NoVoc
+s1236	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (PossPron we_Pron) NumSg) (UseN woman_N)) (ComplSlash (SlashV2a eat_V2) (MassNP (AdjCN (UseComparA yellow_A) (UseN cat_N))))))) NoVoc
+s1244	PhrUtt NoPConj (UttImpPol PPos (ImpVP (AdvVP (UseV think_V) (PrepNP on_Prep (DetCN (DetQuant IndefArt NumSg) (UseN woman_N)))))) NoVoc
+s1246	? (? ?) (? ?) (? ?) (? ?) (? ?)
+s1249	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s1250	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP ? (UseV think_V))))) NoVoc
+s1290	? (? (? (? ?) (? ?))) (? ?) (? ?) (? ?) (? ?)
+s1295	? (? ?) (? ?) (? (UseV think_V)) (? ?)
+s1321	PhrUtt NoPConj (UttS (AdvS already_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (UseV think_V))))) NoVoc
+s1378	? (? ?) (? ?) (? ?) (? (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))) (? ?)
+s1458	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplSlash (? (SlashV2a eat_V2) already_Adv) (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) NoVoc
+s1496	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseComp (CompAdv (PrepNP on_Prep (DetCN (DetQuant IndefArt (NumCard (NumDigits (IDig D_1)))) (UseN woman_N)))))))) NoVoc
+s1506	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseComp (CompAP (AdAP ? (? eat_V2))))))) NoVoc
+s1606	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (? woman_N) NumSg) (UseN woman_N)) (UseComp (CompAdv ?))))) NoVoc
+s1617	? (? (MassNP (UseN woman_N))) (PrepNP on_Prep (MassNP (AdjCN (PositA (? ?)) (UseN woman_N))))
+s1674	? (? (? (? ?) (? ?))) (? ?) (? ?) (? ?) (? ?)
+s1682	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP everybody_NP (AdvVP (UseV think_V) (PrepNP on_Prep ?))))) NoVoc
+s1719	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA yellow_A) (UseN woman_N)))))))) NoVoc
+s1739	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (UsePron it_Pron) (UseComp (CompAP (PositA yellow_A)))))) NoVoc
+s1756	? (? ?) (? ?) (? ?) (? ?) (? ?)
+s1767	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (ImpersCl ImpersCl (ComplSlash (? (SlashV2a eat_V2) already_Adv) (? (? ?) (? ?)))))) NoVoc
+s1819	PhrUtt but_PConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (? (SlashV2a eat_V2) ?) (MassNP (UseN woman_N)))))) NoVoc
+s1840	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (ComplVV can_VV (ComplVV (DropAttVV want_VV) (UseV think_V)))))) NoVoc
+s1855	PhrUtt NoPConj (UttS (AdvS (PrepNP on_Prep (PredetNP most_Predet (MassNP (UseN woman_N)))) (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseV think_V))))) NoVoc
+s1858	? (? ?) (? ?) (? (? (? ?) (? (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))))) (? ?)
+s1871	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP (PositAdAAdj yellow_A) (PositA yellow_A))))))) NoVoc
+s1878	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s1923	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it8utr_Pron) (UseComp (CompAP (ConjAP and_Conj (BaseAP (UseComparA yellow_A) (UseComparA yellow_A)))))))) NoVoc
+s1948	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+s1955	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (ComplVV (DropAttVV begin_VV) (UseV think_V)))))) NoVoc
+s1965	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s1975	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (AdvVP (UseComp (CompNP (MassNP (UseN woman_N)))) ?)))) NoVoc
+s1988	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s1989	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompNP (DetCN (DetQuant DefArt NumSg) (AdjCN (PositA yellow_A) (UseN woman_N)))))))) NoVoc
+s1991	? (? ?) (? ?) (? (? (? ?) (? ?) (? ?))) (? ?)
+s1995	? (? (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN woman_N)))) (? ?) (? ?) (? ?) (? ?)
+s2024	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2a have_V2) (MassNP (UseN woman_N))))))) NoVoc
+s2055	? (? ?) (? ?) (? ?) (? ?) (? ?) (? ?)
+s2074	? (? ?) (? ?) (? ?) (? (? (? ?) (? ?))) (? ?)
+s2241	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseV (? walk_V already_Adv)) ?)))) NoVoc
+s2250	? (? ?) (? ?) (? (UseV think_V)) (? ?)
+s2417	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it8utr_Pron) (AdvVP (UseV think_V) (PrepNP on_Prep (MassNP (UseN cat_N))))))) NoVoc
+s2446	PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompNP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IDig D_1)))) (UseN woman_N))))))) NoVoc
+s2551	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (UseComp (CompAP (PositA ?)))))) NoVoc
+s2734	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN woman_N)) (AdvVP (AdvVP (PassV2 eat_V2) ?) ?)))) NoVoc
+s2981	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (ComplVV want_VV (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+s3022	PhrUtt NoPConj (? (? (? ?) (? ?) (? ?))) NoVoc
+s3177	? (? ?) (? ?) (? ?) (? ?) (? ?)
+s3219	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (AdvNP (MassNP (UseN woman_N)) (PrepNP on_Prep (MassNP (UseN woman_N)))) (PassV2 eat_V2)))) NoVoc
+s3284	? (? (? (? (? (? ?) (? (? (? ?) (? ?) (? ?))))))) (? ?)
+s3301	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (ComplSlash (SlashV2a eat_V2) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))))) NoVoc
+s3555	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv ?)))))) NoVoc
+s3561	? (? (? (? (? (? (? (? (? (? ?) (? (? (? ?) (? ?) (? ?))))) (? ?)))))))
+s3566	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAdv now_Adv)))))) NoVoc
+s3598	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (UseComp (CompAP (? eat_V2)))))) NoVoc
+s3687	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN this8denna_Quant (UseN cat_N)) (UseComp (CompAP (PositA yellow_A)))))) NoVoc
+s3747	? (? ?) (? ?) (? (DetCN (DetQuant IndefArt NumSg) (UseN woman_N))) (? ?)
+s3901	? (? (? (? ?) (? ?))) (? ?) (? ?) (? ?)
+s4005	PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (? (? ?) (? ?)))))) NoVoc
+s4093	PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseComp (CompAP (AdAP very_AdA (PositA yellow_A))))))) NoVoc
+s4281	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (SlashV2a wash_V2))))) NoVoc
+s4659	? (? ?) (? ?) (? (? (? ?) (? ?))) (? ?)
+s4790	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres AAnter) PPos (PredVP (UsePron they_Pron) (PassV2 eat_V2))))) NoVoc
+s4954	PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (SlashV2a eat_V2) (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN cat_N))))))) NoVoc
+s5086	? (? ?) (? ?) (? ?) (? ?) (? ?)
+s5090	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (ComplSlash (SlashV2a become_V2) (AdAP ? (PositA yellow_A)))))) NoVoc
+s5499	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)) (ComplVV must_VV (UseV think_V))))) NoVoc
+s5645	PhrUtt NoPConj (UttS (AdvS ? (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron he_Pron) (AdvVP (UseV think_V) (PositAdvAdj yellow_A)))))) NoVoc
+s5654	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (UseComp (CompAP (PositA yellow_A)))))) NoVoc
+s5724	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (UseComp (CompAP (AdAP ? (PositA yellow_A))))))) NoVoc
+s5753	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it_Pron) (AdvVP (UseV think_V) (PrepNP on_Prep (MassNP (UseN woman_N))))))) NoVoc
+s5784	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (UseComp (CompAP (AdAP ? (PositA yellow_A))))))) NoVoc
+s5803	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron it8utr_Pron) (ComplSlash (SlashV2a have_V2) (MassNP (AdjCN (? eat_V2) (UseN woman_N))))))) NoVoc
+s5974	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron i_Pron) (ComplVV must_VV (ComplSlash (SlashV2a do_V2) (UseN cat_N)))))) NoVoc

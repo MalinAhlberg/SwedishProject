@@ -16,7 +16,8 @@ fun
   DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
   
-  
+ 
+  UseComparA  : A -> AP ;
   PassV2   : V2 -> VP ;  -- äts 
   PassV2Be : V2 -> VP ;  -- bli äten
   RelNP'   : NP -> VP -> Temp -> Pol -> NP ;

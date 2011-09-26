@@ -4,7 +4,7 @@
 concrete BigTestSwe of BigTest = 
   NounSwe,
   VerbSwe -[PassV2], -- [ComplVS],
-  AdjectiveSwe,
+  AdjectiveSwe -[UseComparA],
   AdverbSwe,
   IdiomSwe,
   NumeralSwe,
@@ -23,5 +23,7 @@ concrete BigTestSwe of BigTest =
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
   lin
-    begin_VV = mkVV (mkV "börja") ;
+    begin_VV    = mkVV (mkV "börja") ;
+    tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
+    become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
 } ;

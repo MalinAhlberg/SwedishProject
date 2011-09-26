@@ -1,0 +1,18 @@
+\begin{thebibliography}{1}
+
+\bibitem{gf}
+A.~Ranta, ``Grammatical framework: A type-theoretical grammar formalism,'' {\em
+  Journal of Functional Programming}, vol.~14, March 2004.
+
+\bibitem{resource}
+A.~Ranta, ``The gf resource grammar library,'' {\em Linguistics in Language
+  Technology}, 2009.
+
+\bibitem{saldo}
+L.~Borin, M.~Forsberg, and L.~Lönngren, ``Saldo 1.0 (svenskt
+  associationslexikon version 2),'' 2008.
+
+\bibitem{talbanken}
+J.~Einarsson, ``Talbankens skriftspråkskonkordans,'' 1976.
+
+\end{thebibliography}

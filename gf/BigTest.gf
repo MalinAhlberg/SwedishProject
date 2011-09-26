@@ -4,9 +4,9 @@
 abstract BigTest = 
   Lexicon,
   ExtraSweAbs,
-  Noun,
+  Noun ,
   Verb -[PassV2],
-  Adjective,
+  Adjective -[UseComparA],
   Adverb,
   Idiom,
   Numeral,
@@ -23,4 +23,6 @@ abstract BigTest =
   
   fun
   begin_VV : VV ;
+  tankaTill_V : V ;
+  become_V2 : V2 ;
   } ;

@@ -101,6 +101,16 @@ lin
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
 
+  UseComparA a = {
+      s = \\ap => case a.isComp of {
+        True => compMore ++ a.s ! AF (APosit ap) Nom ;
+        _    => a.s ! AF ACompar Nom
+        } ;
+      isPre = True
+      } ;
+
+
+ 
 -- does not allow you to say "kattens som bor här"
   RelNP' np vp tmp pol =
     let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
