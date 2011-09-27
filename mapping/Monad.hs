@@ -40,12 +40,6 @@ grammar def rules = gr
 
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
-{-
-continue = 
-   Node w [] -> 
-   ts        -> 
-   -}
-
 newtype P t e a = P {unP :: Grammar t e -> PGF -> Morpho -> [Tree t] -> Maybe (a,[Tree t])}
 
 instance Monad (P t e) where
@@ -122,16 +116,17 @@ wordlookup w cat0 an0 = P (\gr pgf morpho ts ->
              []      -> Nothing 
        )
 
-
 lemma :: String -> String -> P String e CId
-lemma cat0 an0 = P (\gr pgf morpho ts -> 
+lemma cat = liftM head . lemmas cat
+lemmas :: String -> String -> P String e [CId]
+lemmas cat0 an0 = P (\gr pgf morpho ts -> 
   trace' ("lemma: "++show ts++show cat0) $ case ts of
     (Node w [] : ts) -> {-trace' (show [(lemma,an1,an0,cat1,cat0) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
                                     , let cat1 = maybe "" (showType []) (functionType pgf lemma)] ) $-}
                          case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
                                     , let cat1 = maybe "" (showType []) (functionType pgf lemma)
                                     , cat0 == cat1 && an0 == an1] of
-                          (id:_) -> trace' "lemma ok" $ Just (id,ts)
+                          (id:ids) -> trace' "lemma ok" $ Just (id:ids,ts)
                           _      -> trace' "no word" Nothing
     _                -> trace' "tried to lemma a tag" Nothing)
 

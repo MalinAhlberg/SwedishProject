@@ -603,8 +603,8 @@
 				<terminals>
 					<t id="s542_1" word="Vilka" pos="POFPHH"/>
 					<t id="s542_2" word="får" pos="FVPS"/>
-					<t id="s542_3" word="vara" pos="AVIV"/>
-					<t id="s542_4" word="med" pos="PR"/>
+					<t id="s542_3" word="lägga" pos="AVIV"/>
+					<t id="s542_4" word="till" pos="PR"/>
 					<t id="s542_5" word="?" pos="I?"/>
 				</terminals>
 				<nonterminals>
@@ -949,7 +949,7 @@
 					<t id="s1246_1" word="Katterna" pos="NNDD"/>
 					<t id="s1246_2" word="måste" pos="VVPS"/>
 					<t id="s1246_3" word="tänka" pos="VVIV  PA"/>
-					<t id="s1246_4" word="igen" pos="ABZA"/>
+					<t id="s1246_4" word="till" pos="ABZA"/>
 					<t id="s1246_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
@@ -995,10 +995,10 @@
 <s id="s1321">
 			<graph root="s1321_501">
 				<terminals>
-					<t id="s1321_1" word="Dessutom" pos="ABOC"/>
+					<t id="s1321_1" word="Redan" pos="ABOC"/>
 					<t id="s1321_2" word="tänker" pos="VVPS"/>
 					<t id="s1321_3" word="antalet" pos="NNDD"/>
-					<t id="s1321_4" word="arbetande" pos="SP  HH"/>
+					<t id="s1321_4" word="katter" pos="SP  HH"/>
 					<t id="s1321_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
@@ -1070,7 +1070,7 @@
 <s id="s1606">
 			<graph root="s1606_501">
 				<terminals>
-					<t id="s1606_1" word="Flertalet" pos="NNDD"/>
+					<t id="s1606_1" word="Antalet" pos="NNDD"/>
 					<t id="s1606_2" word="katter" pos="NN"/>
 					<t id="s1606_3" word="är" pos="AVPS"/>
 					<t id="s1606_4" word="någonstans" pos="ABZA"/>
@@ -1172,7 +1172,7 @@
 			<graph root="s1756_501">
 				<terminals>
 					<t id="s1756_1" word="Vi" pos="POPPHH"/>
-					<t id="s1756_2" word="har" pos="HVPS"/>
+					<t id="s1756_2" word="målar" pos="VVPS"/>
 					<t id="s1756_3" word="frågan" pos="NNDD"/>
 					<t id="s1756_4" word="gul" pos="AJ"/>
 					<t id="s1756_5" word="." pos="IP"/>

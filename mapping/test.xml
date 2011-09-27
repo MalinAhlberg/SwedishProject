@@ -411,35 +411,32 @@
 		</annotation>
 	</head>
     <body>
-
-   <s id="s752">
-      <graph root="s752_501">
-        <terminals>
-          <t id="s752_1" word="jag" pos="POZPHH"/>
-          <t id="s752_2" word="tvättar" pos="VVPS"/>
-          <t id="s752_3" word="mig" pos="POXPHHAA"/>
-          <t id="s752_4" word="på" pos="PR"/>
-          <t id="s752_5" word="kvinnan" pos="NNDDSS"/>
-          <t id="s752_6" word="." pos="IP"/>
-        </terminals>
-        <nonterminals>
-          <nt id="s752_503" cat="PP">
-            <edge label="PR" idref="s752_4"/>
-            <edge label="HD" idref="s752_5"/>
-          </nt>
-          <nt id="s752_502" cat="S">
-            <edge label="SS" idref="s752_1"/>
-            <edge label="FV" idref="s752_2"/>
-            <edge label="OO" idref="s752_3"/>
-            <edge label="RA" idref="s752_503"/>
-            <edge label="IP" idref="s752_6"/>
-          </nt>
-          <nt id="s752_501" cat="ROOT">
-            <edge label="MS" idref="s752_502"/>
-          </nt>
-        </nonterminals>
-      </graph>
-    </s>
+<s id="s1321">
+			<graph root="s1321_501">
+				<terminals>
+					<t id="s1321_1" word="Redan" pos="ABOC"/>
+					<t id="s1321_2" word="tänker" pos="VVPS"/>
+					<t id="s1321_3" word="antalet" pos="NNDD"/>
+					<t id="s1321_4" word="katter" pos="SP  HH"/>
+					<t id="s1321_5" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1321_503" cat="NP">
+						<edge label="DT" idref="s1321_3"/>
+						<edge label="HD" idref="s1321_4"/>
+					</nt>
+					<nt id="s1321_502" cat="S">
+						<edge label="+A" idref="s1321_1"/>
+						<edge label="FV" idref="s1321_2"/>
+						<edge label="SS" idref="s1321_503"/>
+						<edge label="IP" idref="s1321_5"/>
+					</nt>
+					<nt id="s1321_501" cat="ROOT">
+						<edge label="MS" idref="s1321_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
 
 		</body>
 </corpus>

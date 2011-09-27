@@ -2,31 +2,41 @@ mapping problems
 - A2 used as A
 - AdvS vs. FocAdv. What is the difference? (s694,s1321)
 - subject predicative, 'kallas'. Treat them like V2? (s898)
-- s1269, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
+- s1296, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
 - meta noun. seems to be used as ApposCN, but also in titles, idioms etc.
 - when to handle a unknown word? will be ambiguous if a verb is not in lexicon
 - DB, 'så'. när han gör det så. Och mamman, det är en person som ... 
                 SS  FV   OO DB        HD     DB
            (         S        )      (   NP    )
                     TA/AA
+- 'sådana','lika'... som PO, vad är de i gf?
+- how to know if the words takes a particle or not? the talbanken trees does always tell,
+  as in 568. Vad menas (med en kvinna), 'med' is a preposition. Should it?
+- FocObj
+- 'man vänder sig' - sig is now OO instead of IO as it uses to be, not considered reflexive? 
+  often OO. difference?
+- particle: cannot tell if there should be a particle or not. tänka may give 'tänka till'
+- olika slags - is NP but needs special rule unless everything should get be translated into Predet
+- get ReflGenVP from pflatNP to pCl... hard
+
 
 constructs not in GF
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
                     'åtminstone några timmar'
+- din gulare kvinna - (AdjCN (ComparA yellow) (UseN ..)) => 'din kvinna gulare'
+  ComparA changes isPre to False. Why? --changed it in ExtraSwe
 - particles not included in lexicon 'vara med' (s542). (UseVPart UseCoplua with_Prep)?
-- Agent is in tag AG. For V2 only? 
-  (PredVP np (AdvVP (PassV2' eat_V2) (PrepNP by8agent_Prep (UsePron youSg_Pron)))))) NoVoc
-
-- determiners an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
+- pronouns etc. an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
 - 'fler bilar'. (s1129) (DetCN fler_Det (UseN resa_N)) ?
-- particip. presens particip as noun 'antalet arbetande växer'
-                             as adjective 'gällande avtal'
+- particip. presens particip as noun 'antalet arbetande växer' -- ok parse as noun
+                             as adjective 'gällande avtal'  -- harder. 
             perfect particip as adjective 'de är väl bevarade'
      Solved by grammar or lexicon? (s1321,s1506)
 - nouns as quantifiers? 'flertalet bilar', 'antalet bilar' (s1321,s1606)
-     Maybe (DetQuant (? antal_N) NumSg).
+    'olika slags bilar' (s771)
+     Maybe (DetQuant (? antal_N) NumSg). -- make a list of those who can behave like this?
 - adverbs describing verbs, not verb phrases. 'man fotograferar också området'. 
-  Not the same as 'man fotograferar området också'. (s1458)
+  Not the same as 'man fotograferar området också'. (s1458) -- very common 
 - reciprocals, 'varandra' is not accepted by the grammar. (s1682)
 - V2 + OA. Preposition phrase instead of noun phrase as complement to the verb.
      'de vaktar på varandra'. From lexicon or grammar? 
