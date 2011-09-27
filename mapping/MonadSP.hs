@@ -1,15 +1,14 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables #-}
-{-module SPMonad  ( Rule(..), Grammar, grammar
+module MonadSP  ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
-             , optEat, consume, wordlookup -- Malins
+             , optEat, consume, wordlookup,write -- Malins
              ) where
-             -}
 
 import Data.Tree
 import Data.Char
-import Data.List --malin
+import Data.List
 import Debug.Trace
 import qualified Data.Map as Map
 import Control.Monad
@@ -28,6 +27,9 @@ trace' = if test then trace else flip const
 data Rule  s t e = t :-> P s t e e
 type Grammar t e = t -> PGF -> Morpho -> [Tree t] -> e
 
+instance Show t => Show (Rule s t e) where
+  show (t :-> x) = show t
+
 grammar :: (Ord t,Show t,Show e) => ([e] -> e) -> [Rule s t e] -> s -> Grammar t (e,[String])
 grammar def rules sinit = gr
   where
@@ -42,7 +44,7 @@ grammar def rules sinit = gr
               (_,w)           -> case ts of
                                [Node _ []] -> (def [],w)
                                ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts]
-                                              in (def (map fst res),concatMap snd res)
+                                              in (def (map fst res),w++concatMap snd res)
         Nothing -> \pgf m ts -> case ts of
               [Node w []] -> (def [],[])
               ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts] 
@@ -52,14 +54,13 @@ grammar def rules sinit = gr
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
 
-
 newtype P s t e a = P {unP :: Grammar t e -> PGF -> Morpho -> [Tree t] -> s -> (Maybe (a,s,[Tree t]),[String])}
 
 instance Monad (P s t e) where
   return x = P (\gr pgf m ts s -> (Just (x,s,ts),[]))
   f >>= g  = P $ \gr pgf m ts s -> case unP f gr pgf m ts s of
-                                  (Just (x,s',ts),ws) -> case unP (g x) gr pgf m ts s' of
-                                                              (Just m,ws')  -> (Just m,ws++ws')
+                                  (Just (x,s',ts'),ws) -> case unP (g x) gr pgf m ts' s' of
+                                                              (Just y,ws')  -> (Just y,ws++ws')
                                                               (Nothing,ws') -> (Nothing,ws++ws')
                                   (Nothing,ws)        -> (Nothing,ws)
 
@@ -68,8 +69,12 @@ superduperfunktionen f g (x,x') (y,y') = (f x y,g x' y')
 
 instance MonadPlus (P s t e) where
   mzero     = P $ \gr pgf m ts s -> (Nothing,[])
-  mplus f g = P $ \gr pgf m ts s ->
-                superduperfunktionen mplus (++) (unP f gr pgf m ts s) (unP g gr pgf m ts s)
+  mplus f g = P $ \gr pgf m ts s -> case unP f gr pgf m ts s of
+                                     (Just x,ws) -> (Just x,ws)
+                                     (Nothing,ws) -> let (res,w) = unP g gr pgf m ts s
+                                                     in  (res,ws++w)
+                  
+              --  superduperfunktionen mplus (++) (unP f gr pgf m ts s) (unP g gr pgf m ts s)
                   -- parallell states
 
 instance MonadState s (P s t e) where
@@ -87,6 +92,7 @@ speak  s (m,w) = (m,s:w)
 speaks s (m,w) = (m,s++w)
 addS   s m = (m,s)
 add    s m = (m,[s])
+
 
 -- ingen lista i signaturen..
 cat :: (Eq t,Show t) => [t] -> P s [t] e e
@@ -116,7 +122,7 @@ inside tag f = P (\gr pgf morpho ts s ->
     (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                             ->  speak (show tag++" "++show tag1) 
                                   $ case unP f gr pgf morpho ts1 s of
-                                            (Just (x,s',[]),w) -> addS w $ Just (x,s',ts)
+                                            (Just (x,s',[]),w) -> trace' ("inside "++show w) $ addS w $ Just (x,s',ts)
                                             (Just (x,s',xs),w) -> addS (("inside fail "++show xs):w) 
                                                                      Nothing
                                             (Nothing,w)      -> addS w Nothing
@@ -178,9 +184,9 @@ many1 f = do x  <- f
              return (x:xs)
 
 opt :: P s t e a -> a -> P s t e a
-opt f x = mplus f (return x)  
+opt f x = write "opt" >> mplus f (return x)  
 optEat :: P s t e a -> a -> P s t e a
-optEat f x = mplus f (consume >> return x)  --consume brought here by Malin!
+optEat f x = write "optEat" >> mplus f (consume >> return x)  --consume brought here by Malin!
                                          --if tex lemma fails, the word shouldn't 
                                          --stay in the toBeParseTree, is hence consumed
 --consume :: P t e a
