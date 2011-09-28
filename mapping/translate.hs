@@ -1,4 +1,4 @@
-{-# LANGUAGE TupleSections #-}
+{-# LANGUAGE TupleSections, TypeOperators, TemplateHaskell #-}
 module Translate where
 import MonadSP
 import Idents
@@ -7,7 +7,7 @@ import qualified Format as Form
 
 import PGF hiding (Tree,parse)
 import Control.Monad
-import Control.Monad.State
+import Control.Monad.RWS hiding (put,gets,get)
 import System.IO
 import System.Process
 import Data.Maybe
@@ -15,6 +15,8 @@ import Data.List
 import Data.IORef
 import Data.Char
 import Data.Tree
+import Data.Label 
+import Data.Label.PureM 
 
 --import Debug.Trace
 -- man måste ha två paranteser i början av indatan
@@ -26,7 +28,11 @@ import Data.Tree
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
-data S = S {isReflGenVP :: Bool}
+data S = S { _isReflGenVP :: Bool
+           , _isExist     :: Bool
+           }
+
+$(mkLabels [''S])
 
 test = True
 usePGF = testGr
@@ -35,7 +41,7 @@ bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
 paint  = False
 
 startState :: S 
-startState = S {isReflGenVP = False}
+startState = S {_isReflGenVP = False, _isExist = False}
 
 {-trace' | test = trace
        | otherwise = flip const
@@ -59,7 +65,7 @@ main' fil = do
       (cn,co,l) <- readIORef ref
       let idN =  takeWhile (/='_') id 
       putStrLn idN
-      let (e,trace) = parse penn pgf morpho (prune t)
+      let (e,trace) = evalRWS (parse penn pgf morpho (prune t)) () startState
           (cn',co') = count (cn,co) e
           l'        = l+1
       writeIORef ref (cn',co',l')
@@ -101,9 +107,9 @@ testa  str = do
                    ,let cat = maybe "" (showType []) (functionType pgf lemma)]
 
 
-penn :: Grammar String (Expr,[String])
+penn :: Grammar (RWS () [String] S) String Expr
 penn =
-  grammar startState (mkApp meta)
+  grammar (mkApp meta)
    ["ROOT" :-> do -- fult, gör fint
                   s <- inside "MS" $ cat "S"
                                      `mplus` cat "XP"
@@ -265,10 +271,10 @@ pSS =
      return $ mkApp cidSSubjS [s1,conj,s2] 
 
 
-pVSOs :: P S String Expr (VForm Expr, CId, Expr, CId, Expr)
+--pVSOs :: P S String Expr (VForm Expr, CId, Expr, CId, Expr)
 pVSOs = foldr1 (mplus) $ map pVSO vForms
 
-pVSO :: VPForm -> P S String Expr (VForm Expr, CId, Expr, CId, Expr)
+--pVSO :: VPForm -> P S String Expr (VForm Expr, CId, Expr, CId, Expr)
 pVSO typ = do
   (v,t) <- pSlashVP typ "FV"
            --`mplus`                                 -- we need to deal with unknowns somewhere
@@ -376,8 +382,8 @@ pSlashVP VV typ =
 
 pSlashVP V2 typ =
  do (t,v) <- inside typ pV2Act
-    --         `mplus`
-    --         inside typ (inside "VV" pExist)
+             `mplus`
+             inside typ (inside "VV" pExist)
     return (v,t)
 
 pSlashVP V2A typ =
@@ -482,7 +488,7 @@ pInfVP =
         v  <- pVP "IV"
         return (im,v)
 
-pComplVP :: VPForm -> Expr -> VForm CId -> P S String Expr (VForm Expr, CId, CId, Expr)
+--pComplVP :: VPForm -> Expr -> VForm CId -> P S String Expr (VForm Expr, CId, CId, Expr)
 pComplVP V vp tmp = do 
   (pol,adv,part,adv1) <- pComplV
   let vp0  = maybe vp (\p -> mkApp p []) part 
@@ -506,9 +512,9 @@ pComplVP VV vp tmp = do
   return (mkTmp tmp,cidASimul,pol,vv3)
 pComplVP V2 vp tmp = do
   (pol,adv,obj) <- pComplV2
-  isRefl <- gets isReflGenVP
+  isRefl <- gets isReflGenVP 
   write $ "refl? : "++show isRefl
-  let compl = if isRefl then cidReflGenVP else cidComplSlash
+  let compl = if isRefl then cidReflSlash else cidComplSlash
   case (obj,isExistNP vp) of
     (Just o,False) -> do
                       let vp0 = maybe vp (\a -> mkApp cidAdvVPSlash [vp,a]) adv  -- meta :O
@@ -632,16 +638,17 @@ pV2Pass = do
   return (t,mkApp cidPassV2 [mkApp v []])
 
 pExist =
-   do lemma "NP -> Cl" "s Pres Simul Pos Main"
-      return (VTense cidTPres,mkApp cidExistNP [])
-   `mplus`
-   do lemma "NP -> Cl" "s Pret Simul Pos Main"
-      return (VTense cidTPast,mkApp cidExistNP [])
-   `mplus`
-   do (lemma "NP -> Cl" "s Pres Anter Pos Main"
-       `mplus`
-       lemma "NP -> Cl" "s Pret Anter Pos Main")
-      return (VSupin,mkApp cidExistNP [])
+-- do set isExist True
+    do lemma "NP -> Cl" "s Pres Simul Pos Main"
+       return (VTense cidTPres,mkApp cidExistNP [])
+    `mplus`
+    do lemma "NP -> Cl" "s Pret Simul Pos Main"
+       return (VTense cidTPast,mkApp cidExistNP [])
+    `mplus`
+    do (lemma "NP -> Cl" "s Pres Anter Pos Main"
+        `mplus`
+        lemma "NP -> Cl" "s Pret Anter Pos Main")
+       return (VSupin,mkApp cidExistNP [])
 
 tryVerb tag cid cat =
  do t <- tense tag
@@ -689,7 +696,7 @@ metaVP = do
   let tmp = fmap (\t -> mkApp cidTTAnt [mkApp t [],mkApp cidASimul []]) $ VTense cidTPres  
   return (tmp,cidASimul,cidPPos,mkApp meta [])
 
-metaVP' :: VPForm -> P S String Expr (Expr,VForm CId)
+--metaVP' :: VPForm -> P S String Expr (Expr,VForm CId)
 metaVP' vf = return (mkApp meta [],VTense cidTPres)
 
 metaVerb   = (VInf,meta)
@@ -898,7 +905,7 @@ pflatNP =
          d   = fromMaybe (mkApp cidDefArt []) m_det
          cn2 = maybe cn1 (\app -> mkApp cidApposCN [cn1,app]) m_app
      np0 <- case (m_sitt,def,m_det) of
-                (Just (),_,_)   -> return $ mkApp cidReflNP [num,cn2]
+                (Just (),_,_)   -> return $ mkApp cidReflCN [num,cn2]
                 (_,     NDef,_) -> return $ mkApp cidDetCN 
                                              [mkApp cidDetQuant [d,num]
                                              ,cn2]
@@ -1169,11 +1176,12 @@ pQuant =
   `mplus`
   do n <- pNumber 
      return $ mkApp cidDetQuant [mkApp cidIndefArt [],mkApp cidNumCard [n]]
-        
+
+
 pDetRefl =         
   do w <- word "POXP" 
      write "setting it to true"
-     set True
+     isReflGenVP =: True
      t <- gets isReflGenVP
      write $ "it is " ++ show t
      return () -- $ mkApp cidReflGenVP [] 
@@ -1252,9 +1260,9 @@ pSubj = do
 
 pCopula  = write "copula?" >> tense "AV"
 pHave    = write "have" >> tense "HV"  
-pMust    = write "must?" >> tense "MV"
-pWant    = tense "WV"
-pCan     = tense "QV"
+--pMust    = write "must?" >> tense "MV"
+--pWant    = tense "WV"
+--pCan     = tense "QV"
 pFuturum = do write "futurum?"
               t <- tense "SV"
               write ("futurum: "++show t)
@@ -1361,7 +1369,8 @@ isExistNP = (==mkApp cidExistNP [])
 meta = mkCId "?"
 mkExpr x = mkApp x []
 
-set b = modify $ \s -> s {isReflGenVP = b}
+
+--set b = modify $ \s -> s {isReflGenVP = b}
 -- Old code by Krasimir
 {-
   advs   <- many (cat "ADVP")

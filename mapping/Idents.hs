@@ -125,7 +125,9 @@ cidComplN2     = mkCId "ComplN2"
 cidDropAttVV   = mkCId "DropAttVV"
 cidRelNP'      = mkCId "RelNP'"
 cidPassV2'     = mkCId "PassV2'"
-cidReflGenVP   = mkCId "ReflGenVP"
+--cidReflGenVP   = mkCId "ReflGenVP"
+cidReflCN      = mkCId "ReflCN"
+cidReflSlash   = mkCId "ReflSlash"
 
 -- to implemented yet
 cidSSubjS      = mkCId "SSubjS"
