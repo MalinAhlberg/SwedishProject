@@ -26,4 +26,7 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     begin_VV    = mkVV (mkV "börja") ;
     tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
     become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
+    numberOf_N2 = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep ;
+    gallande_A  = mkA "gällande" "gällande" "gällande" "gällande" "gällande";
+      -- suprelativ..
 } ;

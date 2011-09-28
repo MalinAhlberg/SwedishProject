@@ -5,7 +5,7 @@ abstract BigTest =
   Lexicon,
   ExtraSweAbs,
   Noun ,
-  Verb -[PassV2],
+  Verb -[PassV2,AdvVPSlash],
   Adjective -[UseComparA],
   Adverb,
   Idiom,
@@ -25,4 +25,6 @@ abstract BigTest =
   begin_VV : VV ;
   tankaTill_V : V ;
   become_V2 : V2 ;
+  numberOf_N2 : N2 ;
+  gallande_A : A ;
   } ;
