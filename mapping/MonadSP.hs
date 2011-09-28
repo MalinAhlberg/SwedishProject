@@ -72,12 +72,22 @@ instance MonadState s m => MonadPlus (P t e m) where
     case res of
       Just x  -> return (Just x)
       Nothing -> put store >> unP g gr pgf m ts
+      
+instance MonadState s m => MonadState s (P t e m) where
+  put s = P $ \gr pgf m ts -> put s >> return (Just ((),ts))
+  get   = P $ \gr pgf m ts -> get >>= \s -> return (Just (s,ts))
+  
+instance MonadWriter w m => MonadWriter w (P t e m) where
+  tell w = P $ \gr pgf m ts -> tell w >> return (Just ((),ts))
+  listen = error "listen not implemented for P"
+  pass   = error "pass not implemented for P"
                                      
+-- write x = tell [x]
+write :: MonadWriter [w] m => w -> P t e m ()
+write = tell . return
+
 instance MonadTrans (P t e) where
   lift m = P $ \gr p morpho ts -> m >>= \r -> return (Just (r,ts))
-
-write :: MonadWriter w m => w -> P t e m ()
-write w = P $ \gr pgf m ts -> tell w >> return (Just ((),[]))
 
 parse :: Monad m => Grammar m t e -> PGF -> Morpho -> Tree t -> m e
 parse gr pgf morpho (Node tag ts) = gr tag pgf morpho ts
@@ -172,12 +182,12 @@ many1 f = do x  <- f
              xs <- many f
              return (x:xs)
 
-opt :: (MonadState s m,MonadWriter [String] m) => P t e m a -> a -> P t e m a
-opt f x = write ["opt"] >> mplus f (return x)  
+opt :: MonadState s m => P t e m a -> a -> P t e m a
+opt f x = mplus f (return x)  
 
 
-optEat :: (MonadState s m,MonadWriter [String] m) => P t e m a -> a -> P t e m a
-optEat f x = write ["optEat"] >> mplus f (consume >> return x)  
+optEat :: MonadState s m => P t e m a -> a -> P t e m a
+optEat f x = mplus f (consume >> return x)  
              --consume brought here by Malin!
              --if tex lemma fails, the word shouldn't 
              --stay in the toBeParseTree, is hence consumed
