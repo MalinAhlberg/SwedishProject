@@ -7,6 +7,7 @@ import qualified Format as Form
 
 import PGF hiding (Tree,parse)
 import Control.Monad
+import Control.Monad.State
 import System.IO
 import System.Process
 import Data.Maybe
@@ -25,13 +26,16 @@ import Data.Tree
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
-type S = [Bool]
+data S = S {isReflGenVP :: Bool}
 
 test = True
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
 paint  = False
+
+startState :: S 
+startState = S {isReflGenVP = False}
 
 {-trace' | test = trace
        | otherwise = flip const
@@ -99,7 +103,7 @@ testa  str = do
 
 penn :: Grammar String (Expr,[String])
 penn =
-  grammar (mkApp meta)
+  grammar startState (mkApp meta)
    ["ROOT" :-> do -- fult, gör fint
                   s <- inside "MS" $ cat "S"
                                      `mplus` cat "XP"
@@ -185,7 +189,7 @@ penn =
                    (tmp,s,pol,v) <- pVP "IV"
                    return v 
 
-   ] []
+   ] 
 
 
 clType typ | typ==cidQuestVP = cidUseQCl
@@ -502,10 +506,13 @@ pComplVP VV vp tmp = do
   return (mkTmp tmp,cidASimul,pol,vv3)
 pComplVP V2 vp tmp = do
   (pol,adv,obj) <- pComplV2
+  isRefl <- gets isReflGenVP
+  write $ "refl? : "++show isRefl
+  let compl = if isRefl then cidReflGenVP else cidComplSlash
   case (obj,isExistNP vp) of
     (Just o,False) -> do
                       let vp0 = maybe vp (\a -> mkApp cidAdvVPSlash [vp,a]) adv  -- meta :O
-                          vp1 = mkApp cidComplSlash [vp0,o]
+                          vp1 = mkApp compl [vp0,o]
                       return (mkTmp tmp,cidASimul,pol,vp1)
     (Just o,True)  -> do
                let vp1 = maybe o (\a -> mkApp cidAdvVPSlash [o,a]) adv
@@ -872,8 +879,8 @@ pflatNP =
                                   `mplus`
                                   inside "DT" pPredet
      m_det        <- maybeParse $ inside "DT" pDet
-     m_refl       <- maybeParse $ inside "DT" pDetRefl  -- not used, since unclear how to handle it. Get ReflGenVP to pCl
-     m_n2         <- maybeParse $ inside "DT" pN2
+     m_sitt       <- maybeParse $ inside "DT" pDetRefl  
+     m_n2         <- maybeParse $ inside "DT" pN2 -- antal
      m_a          <- maybeParse $ inside "AT" pAdj
      (noun,n,def) <- inside "HD" pCN
      m_pt         <- maybeParse $ inside "PT" consume  -- no way of parsing 'själv' yet
@@ -887,24 +894,22 @@ pflatNP =
          cn1 = case m_a of
                    Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [cn0]]
                    Nothing -> mkApp cidUseN [cn0]
-         --cn2 = maybe cn1 (\x -> mkApp cidComplN2 [x,cn1]) m_n2
          num = mkApp n []
          d   = fromMaybe (mkApp cidDefArt []) m_det
          cn2 = maybe cn1 (\app -> mkApp cidApposCN [cn1,app]) m_app
-         -- mer när vi vet hur även ska hanteras. även den bilen, även bilar osv.
-         -- kan antagligen först göra np av de andra och sen ta predet utanpå
-     np0 <- case (def,m_det) of
-                (NDef,_       ) -> return $ mkApp cidDetCN 
+     np0 <- case (m_sitt,def,m_det) of
+                (Just (),_,_)   -> return $ mkApp cidReflNP [num,cn2]
+                (_,     NDef,_) -> return $ mkApp cidDetCN 
                                              [mkApp cidDetQuant [d,num]
                                              ,cn2]
-                (NIndef,Nothing) -> if n == cidNumSg 
+                (_,NIndef,Nothing) -> if n == cidNumSg 
                             then return (mkApp cidMassNP [cn2])
                             else return $ mkApp cidDetCN 
                                             [mkApp cidDetQuant 
                                             [mkApp cidIndefArt [],num],cn2]
-                (NIndef,Just d)  -> return $ mkApp cidDetCN [d,cn2]
-                (NOther,_)       -> do guard (isNothing m_predet && isNothing m_det) --ok?
-                                       return $ mkApp noun []
+                (_,NIndef,Just d)  -> return $ mkApp cidDetCN [d,cn2]
+                (_,NOther,_)       -> do guard (isNothing m_predet && isNothing m_det) --ok?
+                                         return $ mkApp noun []
      let np' = maybe np0 (\(n2,num,def) -> mkApp cidDetCN [mkApp cidDetQuant [def,num]
                                                           ,mkApp cidComplN2 [n2,np0]]) m_n2
          np1 = maybe np' (\p -> mkApp cidPredetNP [p,np']) m_predet
@@ -1052,18 +1057,20 @@ pAdj =
   `mplus`
   cat "CAP" 
   `mplus`
-  do a <- inside "TP" $ optEat findAParticip meta
+  do a <- inside "TP" $ optEat findAPerfParticip meta
      return (mkApp meta [mkApp a []])
   
 findAdj = 
-  do ad <- inside "AJ" $ optEat (lemma "A" adjSN 
-                                 `mplus` lemma "A" adjSU
-                                 `mplus` lemma "A" adjWSg
-                                 `mplus` lemma "A" adjWPl) meta
+  do ad <- inside "AJ" (optEat findA meta)
+           `mplus`
+           do write "found particip adjective"
+              inside "SP" findA
      return $ mkApp ad []
-  `mplus`
-  do (part,_,_) <- inside "SP" findNParticip
-     return $ mkApp meta [mkApp part []]
+ where findA =         lemma "A" adjSN 
+               `mplus` lemma "A" adjSU
+               `mplus` lemma "A" adjWSg
+               `mplus` lemma "A" adjWPl
+
 
 findA2 = 
   do ad <- inside "AJ" (lemma "A2" "s (AF (APosit (Strong (GSg Neutr))) Nom)")
@@ -1076,7 +1083,7 @@ findA2 =
 -- not in gf :O!
 -- make function and simplify
 findNParticip = pNoun -- consume >> return meta
-findAParticip = 
+findAPerfParticip = 
  lemma "V" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
  `mplus`
  lemma "V" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
@@ -1165,7 +1172,11 @@ pQuant =
         
 pDetRefl =         
   do w <- word "POXP" 
-     return $ mkApp cidReflGenVP [] 
+     write "setting it to true"
+     set True
+     t <- gets isReflGenVP
+     write $ "it is " ++ show t
+     return () -- $ mkApp cidReflGenVP [] 
 pDet =                                                          
   do w <- word "PODP"            -- to avoid this_Quant when it should be DefArt
      guard (map toLower w=="den")                               
@@ -1349,6 +1360,8 @@ adjWSg = "s (AF (APosit (Weak Sg)) Nom)"
 isExistNP = (==mkApp cidExistNP [])
 meta = mkCId "?"
 mkExpr x = mkApp x []
+
+set b = modify $ \s -> s {isReflGenVP = b}
 -- Old code by Krasimir
 {-
   advs   <- many (cat "ADVP")
