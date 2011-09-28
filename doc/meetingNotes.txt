@@ -26,6 +26,7 @@ Goals: -make better usage of SALDO (keep the identifiers!), re-import it,
 particles: to types, particles (vara med) and preposition (bero på). At least all particles are
            in the lexicon. (maybe ask aarne/ramona/krasse about the mapping for this)
 
+
 double function: read in Academy grammar, annex. should be added, but needs considerations.
                  both subject and object can have a np in the end of the sentence. reuse 
                  records? needs agreement. 
@@ -37,11 +38,14 @@ mycket as pron: list all (mycket, fler, också, även, bara). should be in the l
                 Sentence Adverbials. Put them as category X, which can be used as Det (and thereby
                 as NP) and as AdV.
 
+particip: parsa dem som adjektiv
+
 meta nouns: handle them as nouns.
 
 AVP and idioms: list all, add. 
 
 antalet bilar: N2 with empty prep-field. make sure it works for 'antalet arbetande' and 'antalet bilar'
+               A2
 
 special case of passive: det dansas. needs 'det'. can be added.
 

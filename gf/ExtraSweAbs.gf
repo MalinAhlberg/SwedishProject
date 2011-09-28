@@ -3,6 +3,7 @@
 
 abstract ExtraSweAbs = ExtraScandAbs ** {
 
+cat ReflNP ; -- ReflPron ;
 
 fun
   CompoundNomN : N -> N -> N ;  -- fot+boll
@@ -11,8 +12,12 @@ fun
  
   it8utr_Pron   : Pron ;
   this8denna_Quant : Quant ;
-  ReflGenVP : VPSlash -> CN -> VP ; --han tog sin bok 
-
+  
+  -- alla sina syskon? sin brors bok?
+  ReflCN : Num -> CN -> ReflNP ;
+  ReflSlash : VPSlash -> ReflNP -> VP ;
+  
+  
   DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
   
@@ -21,8 +26,9 @@ fun
   PassV2   : V2 -> VP ;  -- äts 
   PassV2Be : V2 -> VP ;  -- bli äten
   RelNP'   : NP -> VP -> Temp -> Pol -> NP ;
-
+ 
   
+  AdvVPSlash : VPSlash -> Adv -> VPSlash ;
 
   dethaer_NP : NP ;
   detdaer_NP : NP ;
@@ -30,4 +36,6 @@ fun
   dedaer8neut_NP : NP ;
   denhaer_NP : NP ;
   dendaer_NP : NP ;
+
+  --ReflNP : Type ;
 }

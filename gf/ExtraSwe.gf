@@ -4,6 +4,9 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe ,
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination in {
 
+lincat
+ ReflNP  = NP ;
+--  ReflGenPron = {s : Agr => Str} ;
 
 lin
   FocVP vp np = {
@@ -117,81 +120,42 @@ lin
       {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
        a = np.a} ;
 
+  -- not adV, but for normal advers, 'han åt redan äpplet'
+  AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
+                                             c2 = vp.c2} ;
 
--- Also works for "vi tittar på vår bok", which it maybe shouldn't..
-ReflGenVP vp cn = let vp_l = lin VPSlash vp ;
-                      cn_l = lin CN cn in
-    lin VP (reflGenVPnum vp_l cn_l Sg) | lin VP (reflGenVPnum vp_l cn_l Pl) ;
 
-  oper reflGenVPnum : VPSlash -> CN -> ParadigmsSwe.Number -> CatSwe.VP ;
-  reflGenVPnum vp cn num =
-   lin VP (insertObj (\\a => let refl = reflForm a cn.g num in
-               vp.c2.s ++ refl ++ cn.s ! num ! DIndef ! Nom) vp) ;
+  ReflCN num cn = 
+        let g = cn.g ;
+            m = cn.isMod ;
+            dd = DDef Indef ;
+      in lin NP {
+      s = \\c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
+      a = agrP3 (ngen2gen g) num.n -- ?
+      } ;
 
-  oper reflForm : Agr -> NGender -> ParadigmsSwe.Number -> Str = \a,gen,objnum ->
-    case <a.p,(ngen2gen gen),objnum> of {
+  ReflSlash vp np = let vp_l = lin VPSlash vp ;
+                      np_l = lin NP np   in
+    lin VP (insertObj (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom) vp) ; 
+
+
+
+
+ oper reflForm : Agr -> Agr -> Str = \aSub,aObj   ->
+    case <aSub.p,aObj.g,aObj.n> of {
      <P3,Neutr,Sg> => "sitt" ;
      <P3,Utr ,Sg>  => "sin" ;
      <P3,_   ,Pl>  => "sina" ;
-     _          => reflGenPron a.p a.n objnum gen
-     };
-
+     _             => reflGenPron aSub.p aSub.n aObj.n aObj.g};
+  
   oper reflGenPron : Person -> (subnum,objnum : ParadigmsSwe.Number)
                      -> NGender -> Str =
    \p,subnum,objnum,g -> let pn = getPronoun p subnum
-      in --(PossPron pn).s ! objnum ! True ! True ! (ngen2gen g);
-          pn.s ! NPPoss (gennum g Pl) Nom ;
+      in pn.s ! NPPoss (gennum g Pl) Nom ;
 
 
 
-        --(\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
-{-Verb : Type = {
-      s : VForm => Str ;
-      part : Str ;
-      vtype : VType
-      } ;
-VForm = 
-     VF VFin
-   | VI VInf ;
-
-  VFin =
-     VPres Voice
-   | VPret Voice   --# notpresent
-   | VImper Voice
-   ;
-
-  VInf = 
-     VInfin Voice
-   | VSupin Voice  --# notpresent
-   | VPtPret AFormPos Case
-   ;
-
-  VPForm = 
-     VPFinite Tense Anteriority
-   | VPImperat
-   
--}
-
-{- VP = {
-      s : VPForm => {
-        fin : Str ;          -- V1 har  ---s1
-        inf : Str            -- V2 sagt ---s4
-        } ;
-      a1 : Polarity => Str ; -- A1 inte ---s3
-      n2 : Agr => Str ;      -- N2 dig  ---s5  
-      a2 : Str ;             -- A2 idag ---s6
-      ext : Str ;            -- S-Ext att hon går   ---s7
-      en2,ea2,eext : Bool    -- indicate if the field exists
-      } ;
-    VPSlash = CommonScand.VP ** {
-      n3 : Agr => Str ;  -- object-control complement
-      c2 : Complement
-      } ;
-    Comp = {s : Agr => Str} ; 
--}
-
-
-
+      
   this_NP : Str -> Gender -> Number -> NP =
   \denna,g,n -> lin NP {s = table {NPPoss gn c => denna+"s";
                                    _           => denna};
