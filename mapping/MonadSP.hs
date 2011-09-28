@@ -1,12 +1,10 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables, FlexibleContexts #-}
-{- module MonadSP  ( Rule(..), Grammar, grammar
+module MonadSP  ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
              , optEat, consume, wordlookup,write -- Malins
              ) where
--}
-module MonadSP where
 import Data.Tree
 import Data.Char
 import Data.List
@@ -16,7 +14,7 @@ import Control.Monad
 import Control.Monad.State
 import Control.Monad.Writer
 import PGF hiding (Tree,parse)
--- import qualified Monad as P
+
 
 infix 1 :->
 
@@ -37,7 +35,7 @@ grammar def rules sinit = gr
     gr = \tag ->
       case Map.lookup tag pmap of
         -- f :: P s t e e 
-        Just f  -> \pgf m ts -> unP f gr pgf m ts sinit >>= \r -> case r of
+        Just f -> \pgf m ts -> unP f gr pgf m ts sinit >>= \r -> case r of
               Just (e,_,[]) -> return e
               Just (e,_,xs) -> tell ["Rest parse"] >> return (def [])
               _           -> case ts of
