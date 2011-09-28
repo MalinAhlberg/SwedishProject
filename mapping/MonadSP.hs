@@ -30,24 +30,29 @@ type Grammar t e = t -> PGF -> Morpho -> [Tree t] -> e
 instance Show t => Show (Rule s t e) where
   show (t :-> x) = show t
 
-grammar :: (Ord t,Show t,Show e) => ([e] -> e) -> [Rule s t e] -> s -> Grammar t (e,[String])
-grammar def rules sinit = gr
+grammar :: (Ord t,Show t,Show e) => s -> ([e] -> e) -> [Rule s t e] -> Grammar t (e,[String])
+grammar sinit def rules = gr sinit
   where
     -- What happens with sharing here?
-    sgr = \tag pgf m ts -> fst (gr tag pgf m ts)
-    gr = \tag ->
+    sgr s = \tag pgf m ts -> let res = (gr s tag pgf m ts )
+                           in  trace' (unlines $ snd res) (fst res)
+    gr s = \tag ->
       case Map.lookup tag pmap of
         -- f :: P s t e e 
-        Just f  -> \pgf m ts -> case unP f sgr pgf m ts sinit of
+        Just f  -> \pgf m ts -> case unP f (sgr s) pgf m ts s of
               (Just (e,_,[]),w) ->  (e,w)
-              -- Just (e,xs) ->  trace (color red "\n\nrestParse!\n\n") e
-              (_,w)           -> case ts of
+               --Just (e,_,xs),w) ->  trace (color red "\n\nrestParse!\n\n") e
+              (Just (_,s',xs),w)           -> case ts of
                                [Node _ []] -> (def [],w)
-                               ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts]
+                               ts          -> let res = [gr s' tag pgf m ts | Node tag ts <- ts]
+                                              in (def (map fst res),w++concatMap snd res)
+              (Nothing,w)           -> case ts of
+                               [Node _ []] -> (def [],w)
+                               ts          -> let res = [gr s tag pgf m ts | Node tag ts <- ts]
                                               in (def (map fst res),w++concatMap snd res)
         Nothing -> \pgf m ts -> case ts of
               [Node w []] -> (def [],[])
-              ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts] 
+              ts          -> let res = [gr s tag pgf m ts | Node tag ts <- ts] 
                              in (def (map fst res),concatMap snd res)
 
     -- If many rules match, try all of them (mplus)
@@ -122,7 +127,7 @@ inside tag f = P (\gr pgf morpho ts s ->
     (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
                             ->  speak (show tag++" "++show tag1) 
                                   $ case unP f gr pgf morpho ts1 s of
-                                            (Just (x,s',[]),w) -> trace' ("inside "++show w) $ addS w $ Just (x,s',ts)
+                                            (Just (x,s',[]),w) -> addS w $ Just (x,s',ts)
                                             (Just (x,s',xs),w) -> addS (("inside fail "++show xs):w) 
                                                                      Nothing
                                             (Nothing,w)      -> addS w Nothing
@@ -184,9 +189,9 @@ many1 f = do x  <- f
              return (x:xs)
 
 opt :: P s t e a -> a -> P s t e a
-opt f x = write "opt" >> mplus f (return x)  
+opt f x = mplus f (return x)  
 optEat :: P s t e a -> a -> P s t e a
-optEat f x = write "optEat" >> mplus f (consume >> return x)  --consume brought here by Malin!
+optEat f x = mplus f (consume >> return x)  --consume brought here by Malin!
                                          --if tex lemma fails, the word shouldn't 
                                          --stay in the toBeParseTree, is hence consumed
 --consume :: P t e a
