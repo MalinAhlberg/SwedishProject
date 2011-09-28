@@ -1,11 +1,12 @@
-{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables #-}
-module MonadSP  ( Rule(..), Grammar, grammar
+{-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, ScopedTypeVariables, FlexibleContexts #-}
+{- module MonadSP  ( Rule(..), Grammar, grammar
              , P, parse
              , cat, word, word2, lemma, inside, transform
              , many, many1, opt
              , optEat, consume, wordlookup,write -- Malins
              ) where
-
+-}
+module MonadSP where
 import Data.Tree
 import Data.Char
 import Data.List
@@ -13,7 +14,7 @@ import Debug.Trace
 import qualified Data.Map as Map
 import Control.Monad
 import Control.Monad.State
-import Control.Arrow ((***))
+import Control.Monad.Writer
 import PGF hiding (Tree,parse)
 -- import qualified Monad as P
 
@@ -24,67 +25,53 @@ trace' = if test then trace else flip const
 
 --- funktion som bara hittar en sak inuti och inte slänger saker på vägen?
 
-data Rule  s t e = t :-> P s t e e
-type Grammar t e = t -> PGF -> Morpho -> [Tree t] -> e
+data Rule  m s t e = t :-> P m s t e e
+type Grammar m t e = t -> PGF -> Morpho -> [Tree t] -> m e
 
-instance Show t => Show (Rule s t e) where
+instance Show t => Show (Rule m s t e) where
   show (t :-> x) = show t
 
-grammar :: (Ord t,Show t,Show e) => ([e] -> e) -> [Rule s t e] -> s -> Grammar t (e,[String])
+grammar :: (MonadWriter [String] m,Ord t,Show t,Show e) => ([e] -> e) -> [Rule m s t e] -> s -> Grammar m t e
 grammar def rules sinit = gr
   where
-    -- What happens with sharing here?
-    sgr = \tag pgf m ts -> fst (gr tag pgf m ts)
     gr = \tag ->
       case Map.lookup tag pmap of
         -- f :: P s t e e 
-        Just f  -> \pgf m ts -> case unP f sgr pgf m ts sinit of
-              (Just (e,_,[]),w) ->  (e,w)
-              -- Just (e,xs) ->  trace (color red "\n\nrestParse!\n\n") e
-              (_,w)           -> case ts of
-                               [Node _ []] -> (def [],w)
-                               ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts]
-                                              in (def (map fst res),w++concatMap snd res)
+        Just f  -> \pgf m ts -> unP f gr pgf m ts sinit >>= \r -> case r of
+              Just (e,_,[]) -> return e
+              Just (e,_,xs) -> tell ["Rest parse"] >> return (def [])
+              _           -> case ts of
+                                  [Node w []] -> return (def [])
+                                  ts          -> def `liftM` sequence [gr tag pgf m ts | Node tag ts <- ts]
         Nothing -> \pgf m ts -> case ts of
-              [Node w []] -> (def [],[])
-              ts          -> let res = [gr tag pgf m ts | Node tag ts <- ts] 
-                             in (def (map fst res),concatMap snd res)
+                                  [Node w []] -> return (def [])
+                                  ts          -> def `liftM` sequence [gr tag pgf m ts | Node tag ts <- ts]
 
     -- If many rules match, try all of them (mplus)
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
 
-newtype P s t e a = P {unP :: Grammar t e -> PGF -> Morpho -> [Tree t] -> s -> (Maybe (a,s,[Tree t]),[String])}
+newtype P m s t e a = P {unP :: Grammar m t e -> PGF -> Morpho -> [Tree t] -> s -> m (Maybe (a,s,[Tree t]))} 
 
-instance Monad (P s t e) where
-  return x = P (\gr pgf m ts s -> (Just (x,s,ts),[]))
-  f >>= g  = P $ \gr pgf m ts s -> case unP f gr pgf m ts s of
-                                  (Just (x,s',ts'),ws) -> case unP (g x) gr pgf m ts' s' of
-                                                              (Just y,ws')  -> (Just y,ws++ws')
-                                                              (Nothing,ws') -> (Nothing,ws++ws')
-                                  (Nothing,ws)        -> (Nothing,ws)
+instance Monad m => Monad (P m s t e) where
+  return x = P $ \gr pgf m ts s -> return (Just (x,s,ts))
+  f >>= g  = P $ \gr pgf m ts s -> unP f gr pgf m ts s >>= \r -> case r of
+                                  Just (x,s',ts') -> unP (g x) gr pgf m ts' s'
+                                  Nothing         -> return Nothing
 
-superduperfunktionen :: (a -> b -> c) -> (a' -> b' -> c') -> (a,a') -> (b,b') -> (c,c')
-superduperfunktionen f g (x,x') (y,y') = (f x y,g x' y')
+instance Monad m => MonadPlus (P m s t e) where
+  mzero     = P $ \gr pgf m ts s -> return Nothing
+  mplus f g = P $ \gr pgf m ts s -> liftM2 mplus (unP f gr pgf m ts s) (unP g gr pgf m ts s)
+                                     
+instance Monad m => MonadState s (P m s t e) where
+  put s = P $ \gr p m ts _ -> return (Just ((),s,ts))
+  get   = P $ \gr p m ts s -> return (Just (s,s,ts))
 
-instance MonadPlus (P s t e) where
-  mzero     = P $ \gr pgf m ts s -> (Nothing,[])
-  mplus f g = P $ \gr pgf m ts s -> case unP f gr pgf m ts s of
-                                     (Just x,ws) -> (Just x,ws)
-                                     (Nothing,ws) -> let (res,w) = unP g gr pgf m ts s
-                                                     in  (res,ws++w)
-                  
-              --  superduperfunktionen mplus (++) (unP f gr pgf m ts s) (unP g gr pgf m ts s)
-                  -- parallell states
+write :: MonadWriter w m => w -> P m s t e ()
+write w = P $ \gr pgf m ts s -> tell w >> return (Just ((),s,[]))
 
-instance MonadState s (P s t e) where
-  put s = P (\gr p m ts _ -> (Just ((),s,ts),[]))
-  get   = P (\gr p m ts s -> (Just (s,s,ts),[]))
 
-write :: String -> P s t e ()
-write w = P (\gr pgf m ts s -> (Just ((),s,ts),[w]))
-
-parse :: Grammar t e -> PGF -> Morpho -> Tree t -> e
+parse :: Monad m => Grammar m t e -> PGF -> Morpho -> Tree t -> m e
 parse gr pgf morpho (Node tag ts) = gr tag pgf morpho ts
 
 silent m     = (m,[])
@@ -95,38 +82,42 @@ add    s m = (m,[s])
 
 
 -- ingen lista i signaturen..
-cat :: (Eq t,Show t) => [t] -> P s [t] e e
-cat tag = P $ \gr pgf morpho ts s -> silent $
+cat :: (Monad m,Eq t,Show t) => [t] -> P m s [t] e e
+cat tag = P $ \gr pgf morpho ts s ->
   case ts of
-    (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
-                                       -> Just (gr tag1 pgf morpho ts1,s,ts)
-    _                                  -> Nothing
+    Node tag1 ts1 : ts | tag `isPrefixOf` tag1
+                                       -> gr tag1 pgf morpho ts1 >>= \r -> return (Just (r,s,ts))
+    _                                  -> return Nothing
 
-word :: (Show t,Eq t) => [t] -> P s [t] e [t]
-word tag = P (\gr pgf morpho ts s -> silent $
+word :: (Monad m,Show t,Eq t) => [t] -> P m s [t] e [t]
+word tag = P $ \gr pgf morpho ts s -> return $
   case ts of
     (Node tag1 [Node w []] : ts) | tag `isPrefixOf` tag1 
                                                -> Just (w,s,ts)
-    _                                          -> Nothing)
+    _                                          -> Nothing
 
-word2 :: Eq t => t -> P s t e t
-word2 tag = P (\gr pgf morpho ts s -> silent $
+
+word2 :: (Monad m,Eq t) => t -> P m s t e t
+word2 tag = P $ \gr pgf morpho ts s -> return $
   case ts of
     (Node tag1 [Node tag2 [Node w []]] : ts) | tag == tag1 -> Just (w,s,ts)
-    _                                                      -> Nothing)
+    _                                                      -> Nothing
 
 
-inside :: (Eq t,Show t )=> [t] -> P s [t] e a -> P s [t] e a
-inside tag f = P (\gr pgf morpho ts s -> 
+
+
+inside :: (MonadWriter [String] m,Eq t,Show t)=> [t] -> P m s [t] e a -> P m s [t] e a          
+inside tag f = P $ \gr pgf morpho ts s ->
   case ts of
-    (Node tag1 ts1 : ts) | (tag `isPrefixOf` tag1)
-                            ->  speak (show tag++" "++show tag1) 
-                                  $ case unP f gr pgf morpho ts1 s of
-                                            (Just (x,s',[]),w) -> trace' ("inside "++show w) $ addS w $ Just (x,s',ts)
-                                            (Just (x,s',xs),w) -> addS (("inside fail "++show xs):w) 
-                                                                     Nothing
-                                            (Nothing,w)      -> addS w Nothing
-    _                       -> silent Nothing)
+    Node tag1 ts1 : ts | tag `isPrefixOf` tag1 -> do
+                            tell [show tag++" "++show tag1]
+                            unP f gr pgf morpho ts1 s >>= \r -> case r of
+                                            Just (x,s',[]) -> return (Just (x,s',ts))
+                                            Just (x,s',xs) -> tell ["inside fail "++show xs] >> return Nothing
+                                            Nothing        -> return Nothing
+    _                       -> return Nothing
+
+
 
 {-
 insideTake :: (Eq t,Show t )=> [t] -> P s [t] e a -> P s [t] e a
@@ -138,61 +129,65 @@ insideTake tag f = P (\gr pgf morpho ts ->
                                             Just (x,xs) -> Just (x,Node tag1 xs: ts)
                                             Nothing      -> Nothing
     _                       -> Nothing)
-
 -}
-wordlookup :: String -> String -> String -> P s String e CId
-wordlookup w cat0 an0 = P (\gr pgf morpho ts s -> 
-     do
-        let wds = [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
-                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)
-                                    , cat0 == cat1 && an0 == an1] 
-        speaks (("wordlookup: "++w++show ts++show cat0) : [(show [(lemma,an1,an0,cat1,cat0) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
-                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)] )]) $
-          case wds of
-               (wd:_)  -> silent $ Just (wd,s,ts)
-               []      -> silent Nothing 
-       )
 
-lemma :: String -> String -> P s String e CId
+-- This was used in wordlookup and lemma, refactored here to avoid copy-paste.
+magicLookup :: String -> String -> String -> Morpho -> PGF -> [Lemma]
+magicLookup w cat0 an0 morpho pgf = [ lem 
+                                | (lem, an1) <- lookupMorpho morpho (map toLower w)
+                                , let cat1 = maybe "" (showType []) (functionType pgf lem)
+                                , cat0 == cat1 && an0 == an1
+                                ] 
+
+wordlookup :: MonadWriter [String] m => String -> String -> String -> P m s String e CId
+wordlookup w cat0 an0 = P $ \gr pgf morpho ts s -> do
+  tell ["wordlookup: " ++ w ++ show ts ++ show cat0]
+  let wds = magicLookup w cat0 an0 morpho pgf
+  tell [show wds]
+  case wds of
+    (wd:_) -> return $ Just (wd,s,ts)
+    []     -> return Nothing
+  
+  
+lemma :: MonadWriter [String] m => String -> String -> P m s String e CId
 lemma cat = liftM head . lemmas cat
-lemmas :: String -> String -> P s String e [CId]
-lemmas cat0 an0 = P (\gr pgf morpho ts s -> 
-   speak ("lemma: "++show ts++show cat0) $
-    case ts of
-    (Node w [] : ts) -> {-trace' (show [(lemma,an1,an0,cat1,cat0) | (lemma, an1) <- lookupMorpho morpho (map toLower w)
-                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)] ) $-}
-                         case [lemma | (lemma, an1) <- lookupMorpho morpho (map toLower w)
-                                    , let cat1 = maybe "" (showType []) (functionType pgf lemma)
-                                    , cat0 == cat1 && an0 == an1] of
-                          (id:ids) -> add "lemma ok"  $ Just (id:ids,s,ts)
-                          _      -> add "no word" Nothing
-    _                -> add "tried to lemma a tag" Nothing)
 
-transform :: ([Tree t] -> [Tree t]) -> P s t e ()
-transform f = P (\gr pgf morpho ts s -> silent $ Just ((),s,f ts))
+lemmas :: MonadWriter [String] m => String -> String -> P m s String e [CId]
+lemmas cat0 an0 = P $ \gr pgf morpho ts s -> do
+   tell ["lemma: "++show ts++show cat0]
+   case ts of
+     Node w [] : ts -> case magicLookup w cat0 an0 morpho pgf of
+                          (id:ids) -> tell ["lemma ok"] >> return (Just (id:ids,s,ts))
+                          _        -> tell ["no word"]  >> return Nothing
+     _              -> tell ["tried to lemma a tag"]    >> return Nothing
 
-many :: P s t e a -> P s t e [a]
+
+transform :: Monad m => ([Tree t] -> [Tree t]) -> P m s t e ()
+transform f = P $ \gr pgf morpho ts s -> return (Just ((),s,f ts))
+
+many :: Monad m => P m s t e a -> P m s t e [a]
 many f = do x  <- f
             xs <- many f
             return (x:xs)
          `mplus`
          do return []
 
-many1 :: P s t e a -> P s t e [a]
+many1 :: Monad m => P m s t e a -> P m s t e [a]
 many1 f = do x  <- f
              xs <- many f
              return (x:xs)
 
-opt :: P s t e a -> a -> P s t e a
-opt f x = write "opt" >> mplus f (return x)  
-optEat :: P s t e a -> a -> P s t e a
-optEat f x = write "optEat" >> mplus f (consume >> return x)  --consume brought here by Malin!
+opt :: (MonadWriter [String] m) => P m s t e a -> a -> P m s t e a
+opt f x = write ["opt"] >> mplus f (return x)  
+
+optEat :: (MonadWriter [String] m) => P m s t e a -> a -> P m s t e a
+optEat f x = write ["optEat"] >> mplus f (consume >> return x)  --consume brought here by Malin!
                                          --if tex lemma fails, the word shouldn't 
                                          --stay in the toBeParseTree, is hence consumed
---consume :: P t e a
-consume = P (\gr pgf morpho ts s ->
+consume :: Monad m => P m s t e ()
+consume = P $ \gr pgf morpho ts s ->
   case ts of
-   (Node x w:ws) -> silent $ Just ((),s,ws))
+   Node x w:ws -> return (Just ((),s,ws))
 
 ----
 type C = Int
@@ -212,3 +207,4 @@ fgcol col = "\ESC[0" ++ show (30+col) ++ "m"
 red,green :: C
 red = 1
 green = 2 
+ 
