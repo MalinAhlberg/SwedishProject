@@ -12,13 +12,11 @@ fun
  
   it8utr_Pron   : Pron ;
   this8denna_Quant : Quant ;
-  ReflGenVP : VPSlash -> CN -> VP ; --han tog sin bok 
   
-  ---
+  -- alla sina syskon? sin brors bok?
   ReflCN : Num -> CN -> ReflNP ;
   ReflSlash : VPSlash -> ReflNP -> VP ;
   
-  ---
   
   DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit

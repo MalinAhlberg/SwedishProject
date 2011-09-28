@@ -134,7 +134,7 @@ lin
       a = agrP3 (ngen2gen g) num.n -- ?
       } ;
 
-ReflSlash vp np = let vp_l = lin VPSlash vp ;
+  ReflSlash vp np = let vp_l = lin VPSlash vp ;
                       np_l = lin NP np   in
     lin VP (insertObj (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom) vp) ; 
 

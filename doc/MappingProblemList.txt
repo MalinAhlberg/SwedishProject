@@ -1,14 +1,15 @@
 mapping problems
-- A2 used as A
 - AdvS vs. FocAdv. What is the difference? (s694,s1321)
 - subject predicative, 'kallas'. Treat them like V2? (s898)
-- s1269, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
+- s1269, 'vad beror ökningen på' - how to make sure the right word/particle is used?
 - meta noun. seems to be used as ApposCN, but also in titles, idioms etc.
 - when to handle a unknown word? will be ambiguous if a verb is not in lexicon
 - DB, 'så'. när han gör det så. Och mamman, det är en person som ... 
                 SS  FV   OO DB        HD     DB
            (         S        )      (   NP    )
                     TA/AA
+
+particip is now assumed to be in lexicon!!
 
 constructs not in GF
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
@@ -19,10 +20,7 @@ constructs not in GF
 
 - determiners an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
 - 'fler bilar'. (s1129) (DetCN fler_Det (UseN resa_N)) ?
-- particip. presens particip as noun 'antalet arbetande växer'
-                             as adjective 'gällande avtal'
-            perfect particip as adjective 'de är väl bevarade'
-     Solved by grammar or lexicon? (s1321,s1506)
+
 - nouns as quantifiers? 'flertalet bilar', 'antalet bilar' (s1321,s1606)
      Maybe (DetQuant (? antal_N) NumSg).
 - adverbs describing verbs, not verb phrases. 'man fotograferar också området'. 
@@ -50,6 +48,8 @@ constructs not in GF
    RelCN
    CleftNP
 - 'de säger alla/själva att.. ' dummy subject.
+- ReflGenVP needs to better, to handle not only common nouns and allow 'han åt dessutom sin syster'
+   and 'han åt alla sina systrar'. add tex PredetReflNP : Predet -> ReflNP -> ReflNP ;
 - han fann det lätt att äta. 
     (AdjNP det (VerbAP (lätt, att äta)))    -- AdjNp is needed for 'frågan öppen' too!
                                Adj      VP  -- 'äter den rå' 
@@ -75,3 +75,7 @@ solved/added:
 - verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
    handled PassV2'
 - RelNP' : NP -> VP -> Temp -> Pol -> NP 'kvinnan som sitter där'
+ ((- particip. presens particip as noun 'antalet arbetande växer'
+                             as adjective 'gällande avtal'
+            perfect particip as adjective 'de är väl bevarade'
+     Solved by grammar or lexicon? (s1321,s1506)))
