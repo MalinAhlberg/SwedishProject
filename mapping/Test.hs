@@ -65,7 +65,7 @@ res =
    -- man äter redan äpplet
    ,"s1458\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (GenericCl (ComplSlash (AdvVPSlash (SlashV2a eat_V2) already_Adv) (DetCN (DetQuant DefArt NumSg) (UseN apple_N)))))) NoVoc"
    -- katterna är dåligt ätna
-   ,"s1506\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) (UseComp (CompAP (AdAP (PositAdAAdj bad_A) (? eat_V2))))))) NoVoc"
+   ,"s1506\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN cat_N)) (UseComp (CompAP (AdAP (PositAdAAdj bad_A) (VPSlashAP eat_V2))))))) NoVoc"
    -- antalet katter är någonstans
    ,"s1606\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (ComplN2 numberOf_N2 (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))) (UseComp (CompAdv somewhere_Adv))))) NoVoc"
    -- katt för gällande bil
@@ -100,7 +100,9 @@ res =
    -- den kommer att tänka
    ,"s3\tPhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron it8utr_Pron) (? think_V)))) NoVoc"
    -- nu kan barnen rinna om de sväller
-   ,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (AdvVP (ComplVV can_VV (UseV flow_V)) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V))))))))) NoVoc"
+   -- obs, man vet ej hur den ska parsas!!
+   ,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (ComplVV can_VV (AdvVP (UseV flow_V) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V)))))))))) NoVoc"
+   --,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (AdvVP (ComplVV can_VV (UseV flow_V)) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V))))))))) NoVoc"
    ]
 type C = Int
 color :: C -> String -> String
