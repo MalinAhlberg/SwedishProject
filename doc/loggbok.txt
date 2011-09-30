@@ -1,3 +1,48 @@
+v 39
+I spent this week trying to get the basic mapping done, so that
+it will be nice to show at Gullmarsstrand. I had to restructure 
+the monad, and in order to map questions (where the complement of
+the verbs comes before the verb) I'll need to restructure the
+code again. The fuctions translating the complements returns 
+tupels of different type depending on what kind of complement it is,
+and therefore the type of the function combining the verb with its
+complement doesn't know exactly what type of arguments it has.
+Apart from these problems I think the mapping is in a pretty
+good shape now. 
+I have also been working on the grammar, redefining ReflGenVP
+to make it show what numerus the noun is in. I have added the function
+AdvVPSlash (which is in abstract.gf but was not implemented for scandinavian).
+This allows you to put an adverb between the verb and its complement;
+'han åt sedan äpplet'. Yesterday I worked on a function which makes use
+of the preterium particip, 'det ätna äpplet', 'äpplet är ätet'. I'm not quite sure 
+which type it should have, either VPSlash -> AP 
+to allow  'han är äten', 'han är given till henne', 'han är ombedd att gå'
+,'den är tänkt att sitta där' ... or maybe also V -> AP since you can say
+'de gågna åren', 'de tänkta bostäderna' (where the verbs are of type V).
+(given is adjective in saldo and talbanken!)
+The problem with VPSlash is that in the VP-record there is no longer 
+information about the pret.particip form. 
+At the moment the type is V2 -> AP.
+There is also a problem with ReflGenVP, since you can say 
+'han gillade alla sina syskon', where you add a Predet to a ReflNP,
+but it still is a ReflNP. Maybe I should add this. There might be more
+problems, like 'han gillade sina syskon som var i utlandet', if
+you want to parse it like ((sina syskon) som var i utlandet) instead
+of (sina (syskon som var i utlandet)).
+
+I have looked for someone who will finish his/her master soon, so that
+I can be his/her opponent, but everyone I found won't finish until
+march, and neither Sven or Suzana knows about someone else.
+
+Also, I been starting on the paper for LREC, but haven't got very far yet.
+I will try to find other papers from previous years to read.
+
+Apart from this, I need to prepare a presentation and a demo for Gullmarsstrand.
+So, considering that I would want to finish all of this this week and 
+that it's friday today I have a lot (too much) to do.
+
+
+
 v 38 1/2
 I've been working on the mapping, which just becomes harder and harder,
 and tested it on the testsuite I was using before the summer, where

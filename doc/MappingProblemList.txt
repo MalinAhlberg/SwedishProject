@@ -1,11 +1,7 @@
 mapping problems
 - AdvS vs. FocAdv. What is the difference? (s694,s1321)
 - subject predicative, 'kallas'. Treat them like V2? (s898)
-<<<<<<< HEAD
-- s1296, 'vad beror ökningen på' - 'på' as a particle belonging to 'vad'??
-=======
 - s1269, 'vad beror ökningen på' - how to make sure the right word/particle is used?
->>>>>>> stateMonad
 - meta noun. seems to be used as ApposCN, but also in titles, idioms etc.
 - when to handle a unknown word? will be ambiguous if a verb is not in lexicon
 - DB, 'så'. när han gör det så. Och mamman, det är en person som ... 
@@ -22,30 +18,21 @@ mapping problems
 - olika slags - is NP but needs special rule unless everything should get be translated into Predet
 - get ReflGenVP from pflatNP to pCl... hard
 
-
 particip is now assumed to be in lexicon!!
 
 constructs not in GF
+- 'ett stort antal', 'olika slags' 'alla slags'
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
                     'åtminstone några timmar'
-- din gulare kvinna - (AdjCN (ComparA yellow) (UseN ..)) => 'din kvinna gulare'
-  ComparA changes isPre to False. Why? --changed it in ExtraSwe
 - particles not included in lexicon 'vara med' (s542). (UseVPart UseCoplua with_Prep)?
 - pronouns etc. an subject, 'mycket blir bättre','fler åker bil' (s1001,s1129)
 - 'fler bilar'. (s1129) (DetCN fler_Det (UseN resa_N)) ?
-<<<<<<< HEAD
-- particip. presens particip as noun 'antalet arbetande växer' -- ok parse as noun
-                             as adjective 'gällande avtal'  -- harder. 
-            perfect particip as adjective 'de är väl bevarade'
-     Solved by grammar or lexicon? (s1321,s1506)
-=======
 
->>>>>>> stateMonad
 - nouns as quantifiers? 'flertalet bilar', 'antalet bilar' (s1321,s1606)
     'olika slags bilar' (s771)
      Maybe (DetQuant (? antal_N) NumSg). -- make a list of those who can behave like this?
 - adverbs describing verbs, not verb phrases. 'man fotograferar också området'. 
-  Not the same as 'man fotograferar området också'. (s1458) -- very common 
+  Not the same as 'man fotograferar området också'. (s1458)
 - reciprocals, 'varandra' is not accepted by the grammar. (s1682)
 - V2 + OA. Preposition phrase instead of noun phrase as complement to the verb.
      'de vaktar på varandra'. From lexicon or grammar? 
@@ -72,8 +59,8 @@ constructs not in GF
 - ReflGenVP needs to better, to handle not only common nouns and allow 'han åt dessutom sin syster'
    and 'han åt alla sina systrar'. add tex PredetReflNP : Predet -> ReflNP -> ReflNP ;
 - han fann det lätt att äta. 
-    (AdjNP det (VerbAP (lätt, att äta)))    -- AdjNp is needed for 'frågan öppen' too!
-                               Adj      VP  -- 'äter den rå' 
+    (AdjNP det (VerbAP (lätt, att äta)))    
+                               Adj      VP  
                   NP        AP
               NP    
 
@@ -89,8 +76,6 @@ apposition: föräldrarna, särskilt fadern,
                   
 
 
-
-
 solved/added:
 
 - verbs in passive, 'exempel ges','de görs' (s694,s802,s898)
@@ -99,4 +84,6 @@ solved/added:
  ((- particip. presens particip as noun 'antalet arbetande växer'
                              as adjective 'gällande avtal'
             perfect particip as adjective 'de är väl bevarade'
-     Solved by grammar or lexicon? (s1321,s1506)))
+     Solved by lexicon? (s1321,s1506)))
+-- V2A is needed for 'frågan öppen' too!
+-- 'äter den rå' 
