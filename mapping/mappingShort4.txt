@@ -2,7 +2,7 @@ s26	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (AdvNP (DetCN 
 s62	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (MassNP (UseN woman_N)) (UseComp (CompAP (ConjAP and_Conj (BaseAP (PositA yellow_A) (PositA yellow_A)))))))) NoVoc
 s81	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PNeg (PredVP (PredetNP all_Predet (DetCN (DetQuant IndefArt NumPl) (UseN woman_N))) (UseComp ?)))) NoVoc
 s83	PhrUtt NoPConj (UttImpPol PPos (ImpVP (ComplSlash (AdvVPSlash (SlashV2a eat_V2) now_Adv) (DetCN (DetQuant (PossPron youSg_Pron) NumSg) (AdjCN (UseComparA yellow_A) (UseN woman_N)))))) NoVoc
-s223	PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (AdvIAdv how_IAdv (PrepNP on_Prep (UsePN johan_PN))) (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseV think_V))))) NoVoc
+s223	PhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIAdv (AdvIAdv where_IAdv (PrepNP in_Prep (UsePN johan_PN))) (PredVP (DetCN (DetQuant DefArt NumSg) (UseN woman_N)) (UseV think_V))))) NoVoc
 s226	? (? (? (? ?) (? ?) (? ?))) (? ?) (? ?) (? ?)
 s396	? (? ?) (? (? (? ?) (? ?))) (? ?) (? ?) (? ?)
 s452	PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (ComplSlash (SlashV2a have_V2) (MassNP (UseN cat_N)))))) NoVoc

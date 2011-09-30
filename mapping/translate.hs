@@ -49,7 +49,7 @@ startState = S {_isReflGenVP = False, _isExist = False}
        -}
 
 main = main' "test.xml" >> return ()
-bigTest = main' "../testSuites/testShortSimpleTwo.xml" >>= writeFile "mappingShort3.txt" . unlines
+bigTest = main' "../testSuites/testShortSimpleTwo.xml" >>= writeFile "mappingShort4.txt" . unlines
 main2 = main' "test2.xml" >> return ()
 mainTest = main' "testSimple.xml" >>= putStrLn . compareRes
 mainT2 = main' "testSimple.xml" >>= putStrLn . unlines
@@ -107,8 +107,10 @@ testa  str = do
   return [(lemma,an,cat) | (lemma,an) <- lookupMorpho morpho str
                    ,let cat = maybe "" (showType []) (functionType pgf lemma)]
 
-paintTree t = do
+paintTree = do
+  s <- fmap concat $ Form.parse "test.xml" 
   pgf <- readPGF $ fst usePGF
+  let t = snd $ head s
   writeFile "tmp_treetest.dot" (dotTree t [])
   rawSystem "dot" ["-Tpdf", "tmp_treetest.dot", "-otesttree.pdf"]
   return ()
