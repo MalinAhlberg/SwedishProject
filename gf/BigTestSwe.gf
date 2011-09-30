@@ -29,4 +29,5 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     numberOf_N2 = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep ;
     gallande_A  = mkA "gällande" "gällande" "gällande" "gällande" "gällande";
       -- suprelativ..
+    johan_PN = regPN "johan" ;
 } ;

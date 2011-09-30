@@ -6,7 +6,6 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe ,
 
 lincat
  ReflNP  = NP ;
---  ReflGenPron = {s : Agr => Str} ;
 
 lin
   FocVP vp np = {
@@ -115,7 +114,7 @@ lin
 
  
 -- does not allow you to say "kattens som bor här"
-  RelNP' np vp tmp pol =
+  RelNP' tmp pol np vp =
     let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
       {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
        a = np.a} ;
@@ -124,6 +123,11 @@ lin
   AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
                                              c2 = vp.c2} ;
 
+ 
+  -- be callled PPartAP?
+  VPSlashAP v2 =
+    {s     = \\aform => v2.s ! VI (VPtPret aform Nom);
+     isPre = True} ; 
 
   ReflCN num cn = 
         let g = cn.g ;
