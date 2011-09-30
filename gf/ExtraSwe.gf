@@ -1,11 +1,19 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination in {
 
 lincat
  ReflNP  = NP ;
+
+lin
+
+ ComplSlash' vp np = 
+       insertObjPost
+         (\\_ => vp.c2.s ++ np.s ! accusative ++ vp.n3 ! np.a) vp ;
+
+ ReflVP' vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
 
 lin
   FocVP vp np = {
@@ -140,7 +148,7 @@ lin
 
   ReflSlash vp np = let vp_l = lin VPSlash vp ;
                       np_l = lin NP np   in
-    lin VP (insertObj (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom) vp) ; 
+    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom) vp) ; 
 
 
 
@@ -155,7 +163,7 @@ lin
   oper reflGenPron : Person -> (subnum,objnum : ParadigmsSwe.Number)
                      -> NGender -> Str =
    \p,subnum,objnum,g -> let pn = getPronoun p subnum
-      in pn.s ! NPPoss (gennum g Pl) Nom ;
+      in pn.s ! NPPoss (gennum g objnum) Nom ;
 
 
 

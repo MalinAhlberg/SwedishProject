@@ -28,6 +28,8 @@ fun
   RelNP'   : Temp -> Pol ->  NP -> VP -> NP ; -- flickan som inte åt äpplen
   -- RelNP "flickan, sådan att hon inte åt äpplen"
  
+  ComplSlash' : VPSlash -> NP -> VP ;
+  ReflVP'   : VPSlash -> VP ;
 
   {- here it would be nice with VPSlash -> AP
        'han är äten', 'han är given till henne', 
