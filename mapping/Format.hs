@@ -90,3 +90,6 @@ toTree' nr s@(Sent root ws inf) =
         lookup'' y [] = Nothing
  
 
+
+showa :: T.Tree String -> String
+showa (T.Node root ts) = "("++root++" "++concatMap showa ts++" )"

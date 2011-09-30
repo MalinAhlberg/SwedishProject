@@ -17,6 +17,7 @@ import Data.Char
 import Data.Tree
 import Data.Label 
 import Data.Label.PureM 
+import GraphTree
 
 --import Debug.Trace
 -- man måste ha två paranteser i början av indatan
@@ -105,6 +106,13 @@ testa  str = do
       morpho        = buildMorpho pgf language
   return [(lemma,an,cat) | (lemma,an) <- lookupMorpho morpho str
                    ,let cat = maybe "" (showType []) (functionType pgf lemma)]
+
+paintTree t = do
+  pgf <- readPGF $ fst usePGF
+  writeFile "tmp_treetest.dot" (dotTree t [])
+  rawSystem "dot" ["-Tpdf", "tmp_treetest.dot", "-otesttree.pdf"]
+  return ()
+
 
 
 penn :: Grammar (RWS () [String] S) String Expr
