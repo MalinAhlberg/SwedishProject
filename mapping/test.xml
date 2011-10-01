@@ -412,33 +412,31 @@
 	</head>
     <body>
 
-    <s id="s223">
-      <graph root="s223_501">
+
+   <s id="s793">
+      <graph root="s793_501">
         <terminals>
-          <t id="s223_1" word="var" pos="ABFA"/>
-          <t id="s223_2" word="i" pos="PR"/>
-          <t id="s223_3" word="Johan" pos="PN"/>
-          <t id="s223_4" word="tänker" pos="VVPS"/>
-          <t id="s223_5" word="kvinnan" pos="NNDDHH"/>
-          <t id="s223_6" word="?" pos="I?"/>
+          <t id="s793_1" word="kvinnan" pos="NNDD"/>
+          <t id="s793_2" word="är" pos="AVPS"/>
+          <t id="s793_3" word="i" pos="ABZA"/>
+          <t id="s793_4" word="regel" pos="ID"/>
+          <t id="s793_5" word="gul" pos="AJ"/>
+          <t id="s793_6" word="." pos="IP"/>
         </terminals>
         <nonterminals>
-          <nt id="s223_504" cat="PP">
-            <edge label="PR" idref="s223_2"/>
-            <edge label="HD" idref="s223_3"/>
+          <nt id="s793_503" cat="AVP">
+            <edge label="HD" idref="s793_3"/>
+            <edge label="HD" idref="s793_4"/>
           </nt>
-          <nt id="s223_503" cat="AVP">
-            <edge label="HD" idref="s223_1"/>
-            <edge label="RA" idref="s223_504"/>
+          <nt id="s793_502" cat="S">
+            <edge label="SS" idref="s793_1"/>
+            <edge label="FV" idref="s793_2"/>
+            <edge label="AA" idref="s793_503"/>
+            <edge label="SP" idref="s793_5"/>
+            <edge label="IP" idref="s793_6"/>
           </nt>
-          <nt id="s223_502" cat="S">
-            <edge label="RA" idref="s223_503"/>
-            <edge label="FV" idref="s223_4"/>
-            <edge label="SS" idref="s223_5"/>
-            <edge label="I?" idref="s223_6"/>
-          </nt>
-          <nt id="s223_501" cat="ROOT">
-            <edge label="MS" idref="s223_502"/>
+          <nt id="s793_501" cat="ROOT">
+            <edge label="MS" idref="s793_502"/>
           </nt>
         </nonterminals>
       </graph>
