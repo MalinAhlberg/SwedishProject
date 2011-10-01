@@ -33,6 +33,8 @@ data S = S { _isReflGenVP :: Bool
            , _isExist     :: Bool
            }
 
+type PMonad = (RWS () [String] S)
+
 $(mkLabels [''S])
 
 test = True
@@ -43,7 +45,6 @@ paint  = False
 
 startState :: S 
 startState = S {_isReflGenVP = False, _isExist = False}
-
 {-trace' | test = trace
        | otherwise = flip const
        -}
@@ -108,7 +109,7 @@ testa  str = do
                    ,let cat = maybe "" (showType []) (functionType pgf lemma)]
 
 
-penn :: Grammar (RWS () [String] S) String Expr
+penn :: Grammar PMonad String Expr
 penn =
   grammar (mkApp meta)
    ["ROOT" :-> do -- fult, gör fint
@@ -156,7 +157,9 @@ penn =
                  do iadv <- inside "HD" $ pIAdv
                     adv  <- pAdv
                     return $ mkApp cidAdvIAdv [iadv, adv]
-                 `mplus` consume >>= mkExpr meta
+                 `mplus`
+                 do consume
+                    return (mkExpr meta)
      -- ,"CAVP" :-> coordinated AVP 
       ,"CAP" :-> conjunct cidConsAP cidBaseAP cidConjAP pAdj
                     {-as   <- listOf pAdj 
@@ -303,7 +306,7 @@ pVSO typ = do
   (np,nptyp) <- write "looking for SS" >> parseSubject
   write ("AdvCl found np "++show np)
   exps <- pCompl typ
-  (tmp,s,pol,vp) <- pComplVP v t exps
+  (tmp,s,pol,vp) <- pComplVP typ v t exps
   write ("AdvCl found compl "++show vp)
   return (tmp,pol,np,nptyp,vp)
 
@@ -457,8 +460,8 @@ pVP typ = msum [pVO typ x | x <- vForms]
 pVO typ vp = 
  do write $ "try verb "++show typ
     (t,v) <- pSlashVP vp typ
-    exps  <- pCompl vp 
-    pComplVP vp t v exps
+    comp  <- pCompl vp 
+    pComplVP vp t v comp
     {-
     -- Copula: is red/a cat...
     pSlashVP Cop typ >>= uncurry (pComplVP Cop) -- >>= write "pVP Cop". return
@@ -519,37 +522,39 @@ pInfVP =
         v  <- pVP "IV"
         return (im,v)
 
-pComplVP V vp tmp exps = do 
-  (pol,adv,part,adv1) <- case exps of
-                  (p:a:p':a1:[]) -> (p,a,p',a1)
-                  _              -> write "wrong number of arguments to pCompl V"
-  let vp0  = maybe vp mkExpr part 
+--pComplVP :: VPForm -> Expr -> a -> (CId,[Maybe Expr],[Bool]) -> P String Expr PMonad a
+pComplVP V vp tmp (pol,exps,_) = do 
+  (adv,part,adv1) <- case exps of
+                          (a:p:a1:_) -> return (a,p,a1)
+                          _          -> argErr "V"
+  let vp0  = fromMaybe vp part 
       vp1  = mkApp cidUseV [vp0]
       vp2  = maybe vp1 (\a -> mkApp cidAdvVP [vp1,a]) adv 
       vp3  = maybe vp2 (\a -> mkApp cidAdvVP [vp2,a]) adv1
   write ("particle "++show part++" verb "++show vp)
 --   when (isJust p) $ guard (mkExpr (fromJust p) == vp)  -- how to do this right? need lists of verbs/particles to see which fit
   return (mkTmp tmp,cidASimul,pol,vp3) 
-pComplVP VA vp tmp exps = do 
-  (pol,adv,a) <- case exps of
-                  (p:a:aj:[]) -> (p,a,aj)
-                  _           -> write "wrong number of arguments to pCompl VA"
+pComplVP VA vp tmp (pol,exps,_) = do 
+  (adv,a) <- case exps of
+                  (a:Just aj:_) -> return (a,aj)
+                  _             -> argErr "VA"
   let vp1  = maybe vp (\a -> mkApp cidAdvVPSlash [vp,a]) adv 
   return (mkTmp tmp,cidASimul,pol,mkApp cidComplVA [vp1,a])
-pComplVP VV vp tmp exps = do
-  (pol,adv,iv,p,b) <- case exps of
-                  (p:a:i:p':b:[]) -> (p,a,i,p',b)
-                  _               -> write "wrong number of arguments to pCompl VV"
+
+pComplVP VV vp tmp (pol,exps,[b]) = do
+  (adv,iv,p) <- case exps of
+                  (a:Just i:p':_) -> return (a,i,p')
+                  _               -> argErr "VV"
   let vv0 = if b then mkApp cidDropAttVV [vp] else vp
-      vv1 = maybe vv0 (\p -> mkExpr p) p 
+      vv1 = fromMaybe vv0 p 
       vv2  = maybe vv1 (\a -> mkApp cidAdvVP [vv1,a]) adv 
 --   when (isJust p) $ guard (mkExpr (fromJust p) == vp)  -- how to do this right? need lists of verbs/particles to see which fit
       vv3 = mkApp cidComplVV [vv2,iv] 
   return (mkTmp tmp,cidASimul,pol,vv3)
-pComplVP V2 vp tmp exps = do
-  (pol,adv,obj) <- case exps of
-                  (p:a:o:[]) -> (p,a,o)
-                  _          -> write "wrong number of arguments to pCompl V2"
+pComplVP V2 vp tmp (pol,exps,_) = do
+  (adv,obj) <- case exps of
+                  (a:o:[]) -> return (a,o)
+                  _        -> argErr "V2"
   isRefl <- gets isReflGenVP 
   write $ "refl? : "++show isRefl
   let compl = if isRefl then cidReflSlash else cidComplSlash
@@ -565,10 +570,10 @@ pComplVP V2 vp tmp exps = do
                let vp0 = mkApp cidReflVP [vp]
                    vp1 = maybe vp (\a -> mkApp cidAdvVPSlash [vp0,a]) adv  -- meta :O
                return (mkTmp tmp,cidASimul,pol,vp1)
-pComplVP V2A vp tmp exps = do
-  (pol,adv,obj,adj) <- case exps of
-                  (p:a:o:aj:[]) -> (p,a,o,aj)
-                  _             -> write "wrong number of arguments to pCompl V2A"
+pComplVP V2A vp tmp (pol,exps,_) = do
+  (adv,obj,adj) <- case exps of
+                  (a:o:Just aj:_) -> return (a,o,aj)
+                  _               -> argErr "V2A"
   let slashVP = mkApp cidSlashV2A [vp,adj]
   case obj of
     Just o  -> do
@@ -580,59 +585,62 @@ pComplVP V2A vp tmp exps = do
                    vp1 = maybe slashVP (\a -> mkApp cidAdvVPSlash [vp0,a]) adv  -- meta :O
                return (mkTmp tmp,cidASimul,pol,vp1)
 
-pComplVP V2Pass vp tmp exps = do
-  (pol,adv1,agent,eo,adv2) <- case exps of
-                  (p:a:g:e:a2:[]) -> (p,a,g,e,a2)
-                  _               -> write "wrong number of arguments to pCompl V2Pass"
-  let vp' = foldr (\a vp -> mkApp cidAdvVP [vp,a]) vp $ catMaybes [adv1,agent,adv2]
+pComplVP V2Pass vp tmp (pol,exps,_) = do
+  (adv1,agent,eo,adv2) <- case exps of
+                  (a:g:e:a2:_) -> return (a,g,e,a2)
+                  _            -> argErr "V2Pass"
+  let vp' = foldr (\a vp -> mkApp cidAdvVP [vp,a]) vp 
+                               $ catMaybes [adv1,agent,adv2]
       vp3 = maybe vp' (\a -> mkApp meta [a]) eo --- wrong! cidExistNP if verb was 'finns' 
   return  (mkTmp tmp,cidASimul,pol,vp3)
-pComplVP Sup vp t exps = do
-  (pol,adv,sup,useV) <- case exps of
-                  (p:a:s:u:[]) -> (p,a,s,u)
-                  _            -> write "wrong number of arguments to pCompl Sup"
+pComplVP Sup vp t (pol,exps,[b]) = do
+  (adv,sup) <- case exps of
+                    (a:Just s:_) -> return (a,s)
+                    _                   -> argErr "Sup"
   let tmp  = fmap (\t -> mkApp cidTTAnt [mkExpr t,mkExpr cidAAnter]) t
-      vp0  = mkExpr sup
-      vp1  = maybe vp0 (\a -> mkApp cidAdvVPSlash [vp0,a]) adv 
+      vp1  = maybe sup (\a -> mkApp cidAdvVPSlash [sup,a]) adv 
+      useV = if b then cidUseV else cidPassV2
   return (tmp,cidAAnter,pol,mkApp useV [vp1])
-pComplVP Cop vp tmp exps = do
-  (pol,adv,sp) <- case exps of
-                  (p:a:s:[]) -> (p,a,s)
-                  _          -> write "wrong number of arguments to pCompl Cop"
+pComplVP Cop vp tmp (pol,exps,_) = do
+  (adv,sp) <- case exps of
+                  (a:Just s:_) -> return (a,s)
+                  _            -> argErr "Cop"
   write ("copula sp "++ show sp)
   let cop = mkApp cidUseComp [sp]
       vp1  = maybe cop (\a -> mkApp cidAdvVPSlash [cop,a]) adv 
   return (mkTmp tmp,cidASimul,pol,vp1)
-pComplVP Fut vp t exps = do
-  (pol,adv,v) <- case exps of
-                  (p:a:s:[]) -> (p,a,s)
-                  _          -> write "wrong number of arguments to pCompl Fut"
+pComplVP Fut vp t (pol,exps,_) = do
+  (adv,v) <- case exps of
+                  (a:Just s:_) -> return (a,s)
+                  _            -> argErr "Fut"
   let vp1  = maybe v (\a -> mkApp cidAdvVPSlash [v,a]) adv 
   write ("fut compl: "++show vp1)
   return (mkTmp t,cidASimul,pol,vp1)
-pComplVP Fut' vp t exps = do
-  (pol,adv,v) <- case exps of
-                  (p:a:s:[]) -> (p,a,s)
-                  _          -> write "wrong number of arguments to pCompl Fut'"
-  let vp0  = mkExpr v
-      vp1  = maybe vp0 (\a -> mkApp cidAdvVPSlash [vp0,a]) adv 
+pComplVP Fut' vp t (pol,exps,_) = do
+  (adv,vp0) <- case exps of
+                  (a:Just s:_) -> return (a,s)
+                  _            -> argErr "Fut'"
+  let vp1  = maybe vp0 (\a -> mkApp cidAdvVPSlash [vp0,a]) adv 
   return (mkTmp t,cidASimul,pol,mkApp meta [vp1])
-pComplVP VS vp t exps = do
-   (pol,adv,s) <- case exps of
-                   (p:a:s:[]) -> (p,a,s)
-                   _          -> write "wrong number of arguments to pCompl VP"
+pComplVP VS vp t (pol,exps,_) = do
+   (adv,s) <- case exps of
+                   (a:Just s:_) -> return (a,s)
+                   _            -> argErr "VS"
    let vp0 = mkApp cidComplVS [vp,s]
        vp1 = maybe vp0 (\a -> mkApp cidAdvVP [vp1,a]) adv
    return (mkTmp t,cidASimul,pol,vp1)
 
+argErr s = do
+  write ("wrong number of arguments to pCompl "++ s)
+  fail ""
 
-
-
-pPart v = do write "part right!!"
-             inside "AB" (lemma v "part")
-          `mplus`
-          do write "part" 
-             inside "PR" (lemma v "part") -- `mplus` optEat (lemma "Prep" "s") meta)
+pPart v = do
+  p <- do write "part right!!"
+          inside "AB" (lemma v "part")
+       `mplus`
+       do write "part" 
+          inside "PR" (lemma v "part") -- `mplus` optEat (lemma "Prep" "s") meta)
+  return (mkExpr p)
        --   `mplus`
        --   (inside "AB" $ optEat (lemma "A" "s") meta)  -- vi vet inte hur en sån ska se ut
 -- (send_V3,"c3 s","V3")
@@ -761,7 +769,7 @@ metaVP' vf = return (mkExpr meta,VTense cidTPres)
 
 metaVerb   = (VInf,meta)
 
-
+pCompl :: VPForm -> P String Expr PMonad (CId,[Maybe Expr],[Bool])
 pCompl Cop = do
   write "copula compl begins"
   pol <- pPol
@@ -783,7 +791,7 @@ pCompl Cop = do
            a <- pAdv
            write "copula found adv"
            return (mkApp cidCompAdv [a])
-  return undefined --[pol,adv,sp]
+  return (pol,[adv,Just sp],[])
 
 pCompl Sup = do
   write "supinum compl begins"
@@ -795,12 +803,12 @@ pCompl Sup = do
                                 inside "TP" (consume >> return (VSupin,meta))
                                 `mplus`
                                 foldr1 mplus [pVerb "VVSN" v | v <- ["V","V2"]]  -- inte bara V och V2? 
-                       return (t,s,cidUseV)
+                       return (t,s,True) --cidUseV)
               `mplus`         
                do (t,s) <- foldr1 mplus [pPassVerb "VVSN" v | v <- ["V","V2"]]  -- inte bara V och V2? 
-                  return (t,s,cidPassV2)
+                  return (t,s,False) --cidPassV2)
   guard (isVSupin t') -- && pol == cidPPos)
-  return [p,adv,sup,useV]
+  return (p,[adv,Just $ mkExpr sup],[useV])
 
 pCompl V2 = do
   write "v2 compl begins"
@@ -831,7 +839,7 @@ pCompl V2 = do
          liftM (Just . fst) (inside "ES" pNP)
                                                          -- then a. how to combine them?
   write "oo ok"
-  return undefined --[pol,adv,obj]
+  return (pol,[adv,obj],[])
 pCompl V2A = do
   write "v2a compl begins"
   opt (word2 "FO") ""          -- dummy object, alla/själva. ?
@@ -852,7 +860,7 @@ pCompl V2A = do
             return Nothing -- sig
   adj <- inside "OO" pAdj
   write "oo ok"
-  return undefined -- [pol,adv,obj,adj]
+  return (pol,[adv,obj,Just adj],[])
 
 
 pCompl V2Pass = do
@@ -864,7 +872,7 @@ pCompl V2Pass = do
   ag   <- maybeParse $ inside "AG" $ pSpecialPP cidBy8agent_Prep
   adv2 <- maybeVerbAdv
   write "agent ok"
-  return undefined --[pol,adv1,ag,eo,adv2]
+  return (pol,[adv1,ag,eo,adv2],[])
 
 -- dropAtt only needed for some verbs.. More checking?
 pCompl VV = do
@@ -887,7 +895,7 @@ pCompl VV = do
   write "iv ok"
   p <- maybeParticle "VV"
   write ("particle: "++show p)
-  return undefined --[pol,adv,iv,p,b]
+  return (pol,[adv,Just iv,p],[b])
 
 pCompl VA = do
   write "va compl begins"
@@ -895,7 +903,7 @@ pCompl VA = do
   pol   <- pPol
   adv   <- maybeVerbAdv
   a     <- inside "SP" pAdj
-  return [pol,adv,a]
+  return (pol,[adv,Just a],[])
 
 pCompl V = do
   write "v-simple compl begins"
@@ -905,17 +913,17 @@ pCompl V = do
   p   <- maybeParticle "V"
   write ("particle: "++show p)
   adv1  <- maybeParse $ inside "OA" $ cat "PP"
-  return [pol,adv,p,adv1]
+  return (pol,[adv,p,adv1],[])
 
 pCompl Fut = do
   write "futurum compl begins"
   opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   p   <- pPol
   adv <- maybeVerbAdv
-  (t',s,p',iv) <- pVP "IV" -- optEat (pVerb "VV" "V") (VInf,meta) -- inte bara V 
+  (t',s,p',iv) <- pVP "IV"  -- inte bara V 
   write ("comlpfut "++show iv)
  -- guard $ p ==cidPPos
-  return [p,adv,iv]
+  return (p,[adv,Just iv],[])
 pCompl Fut' = do
   write "futurum compl begins 'komma att'"
   opt (word2 "FO") ""          -- dummy object, alla/själva. ?
@@ -923,7 +931,7 @@ pCompl Fut' = do
   word2 "IM"
   adv <- maybeVerbAdv
   (t',iv) <- inside "IV" $ optEat (pVerb "VV" "V") (VInf,meta) -- inte bara V 
-  return [p,adv,iv]
+  return (p,[adv,Just $ mkExpr iv],[])
 
 pCompl VS = do
   write "VS compl "
@@ -935,7 +943,7 @@ pCompl VS = do
                       inside "S" $ do conj <- inside "UK" pSubj
                                       pCl
   write "s in vs ok"
-  return [pol,adv,s]
+  return (pol,[adv,Just s],[])
 
 
 
