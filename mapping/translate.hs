@@ -42,7 +42,8 @@ test = True
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
-paint  = False
+lang   = fromJust $ readLanguage "BigTestSwe"
+paint  = True
 
 startState :: S 
 startState = S {_isReflGenVP = False, _isExist = False}
@@ -76,7 +77,7 @@ main' fil = do
       when test $ putStrLn $ unlines trace
       hPutStrLn stdout (showExpr [] e)
       when paint $ do
-        writeFile "tmp_tree.dot" (graphvizAbstractTree pgf (True,False) e)
+        writeFile "tmp_tree.dot" (graphvizParseTree pgf lang e) -- (True,False) e)
         rawSystem "dot" ["-Tpdf", "tmp_tree.dot", "-otrees/tree"++showAlign l'++".pdf"]
         return ()
       hPutStrLn stderr (show ((fromIntegral cn' / fromIntegral co') * 100))
@@ -291,7 +292,7 @@ pCl =
          --(cl1,t) = maybe (e1,cidUttS) (\q -> (mkApp cidQuestIAdv [q,cl],cidQuestVP)) qadv  
          e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
      return (e2,tmp,pol,t)
-  `mplus`
+{-  `mplus`
   --- question; 'vem är det'   
   do (tmp,pol,np,nptyp,vp) <- msum $ map pOVS vForms
      advs2 <- many pAdv
@@ -307,6 +308,7 @@ pCl =
          --(cl1,t) = maybe (e1,cidUttS) (\q -> (mkApp cidQuestIAdv [q,cl],cidQuestVP)) qadv  
          e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
      return (e2,tmp,pol,t)
+     -}
 
   --sp
   --fv
@@ -325,7 +327,7 @@ pOVS typ = do
   (v,t) <- pSlashVP typ "FV"
   (tmp,s,pol,vp) <- pComplVP typ v t exps
   (np,nptyp) <- write "looking for SS in OVS" >> parseSubject
-  return (tmp,pol,np,vptyp,vp)
+  return (tmp,pol,np,nptyp,vp)
 
 pVSOs = msum $ map pVSO vForms
 
@@ -335,6 +337,7 @@ pVSO typ = do
            --inside "FV" (consume >> metaVP' typ)    -- slash should find them if the right tag is there!
   (np,nptyp) <- write "looking for SS" >> parseSubject
   write ("AdvCl found np "++show np)
+  exps <- pCompl typ
   (tmp,s,pol,vp) <- pComplVP typ v t exps
   write ("AdvCl found compl "++show vp)
   return (tmp,pol,np,nptyp,vp)
@@ -1241,7 +1244,6 @@ pIAdv =
   do write "making a question"
      a <- inside "AB" $ lemma "IAdv" "s"
      return $ mkExpr a
-  `mplus`
   
 
 findAdverb = do
