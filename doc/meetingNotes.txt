@@ -33,7 +33,9 @@ double function: read in Academy grammar, annex. should be added, but needs cons
 
 idioms: list and add!
 
-mycket as pron: list all (mycket, fler, också, även, bara). should be in the list if they
+mycket as pron: list all (mycket,fler,sådan) that can be either predets or adjectives
+
+               list all (också, även, bara). should be in the list if they
                 can be put before the finite verb. then they can also focus the NP. Focusing
                 Sentence Adverbials. Put them as category X, which can be used as Det (and thereby
                 as NP) and as AdV.
