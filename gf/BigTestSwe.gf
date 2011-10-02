@@ -3,7 +3,7 @@
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
   NounSwe,
-  VerbSwe -[PassV2], -- [ComplVS],
+  VerbSwe -[PassV2,ComplSlash,ReflVP], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
   IdiomSwe,

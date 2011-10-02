@@ -99,41 +99,44 @@ lin
 
   DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
 
-  SupCl np vp pol = let subj = np.s ! nominative ;
+  SupCl np vp pol = let sub = np.s ! nominative ;
                         verb = (vp.s ! VPFinite Pres Anter).inf ;
-                        neg  = vp.a1 ! pol.p ;
+                        neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
-    {s = \\_ => subj ++ neg ++ verb ++ compl };
+    {s = \\_ => sub ++ neg ++ verb ++ compl };
     
 
   PassV2 v2 = predV (depV v2);
+
+--    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
 
-  UseComparA a = {
-      s = \\ap => case a.isComp of {
-        True => compMore ++ a.s ! AF (APosit ap) Nom ;
-        _    => a.s ! AF ACompar Nom
-        } ;
-      isPre = True
-      } ;
+ -- UseComparA a = {
+ --     s = \\ap => case a.isComp of {
+ --       True => compMore ++ a.s ! AF (APosit ap) Nom ;
+ --       _    => a.s ! AF ACompar Nom
+ --       } ;
+ --     isPre = True
+ --     } ;
 
-
+  
  
 -- does not allow you to say "kattens som bor här"
-  RelNP' tmp pol np vp =
-    let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
-      {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
-       a = np.a} ;
+--  RelNP' tmp pol np vp =
+--    let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
+--      {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
+--       a = np.a} ;
 
   -- not adV, but for normal advers, 'han åt redan äpplet'
   AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
                                              c2 = vp.c2} ;
 
+  AdvComp comp adv = {s = \\agr => adv.s ++ comp.s ! agr} ;
  
   -- be callled PPartAP?
-  VPSlashAP v2 =
+  PPartAP v2 =
     {s     = \\aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
 
@@ -147,8 +150,9 @@ lin
       } ;
 
   ReflSlash vp np = let vp_l = lin VPSlash vp ;
-                      np_l = lin NP np   in
-    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom) vp) ; 
+                        np_l = lin NP np      ;
+                        obj  = vp.n3 ! np.a   in
+    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
 
 
 
