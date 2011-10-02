@@ -291,8 +291,23 @@ pCl =
          --(cl1,t) = maybe (e1,cidUttS) (\q -> (mkApp cidQuestIAdv [q,cl],cidQuestVP)) qadv  
          e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
      return (e2,tmp,pol,t)
-  --`mplus`
-  ---- question; 'vem är det'   
+  `mplus`
+  --- question; 'vem är det'   
+  do (tmp,pol,np,nptyp,vp) <- msum $ map pOVS vForms
+     advs2 <- many pAdv
+     let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs2
+         cl = constructCl nptyp np e0
+         t  =cidQuestVP -- kolla att det är sant
+         c  = maybe cl (\q -> (mkApp cidQuestIAdv [q,cl])) qadv  
+         e1 = mkApp (clType t) [fromMaybe (mkExpr meta) (isVTense tmp)
+                             ,mkExpr pol
+                             ,c
+                             ]
+               -- if pAdv:s is found after pIAdv, there will be a problem..
+         --(cl1,t) = maybe (e1,cidUttS) (\q -> (mkApp cidQuestIAdv [q,cl],cidQuestVP)) qadv  
+         e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
+     return (e2,tmp,pol,t)
+
   --sp
   --fv
   --ss
@@ -305,10 +320,14 @@ pSS =
 
 
 pOVS typ = do
-  -- (tmp,s,pol,vp) <- pComplVP typ 
-  return undefined
+  exps <- pCompl typ
+  write $ "found compl in OVS "++show typ
+  (v,t) <- pSlashVP typ "FV"
+  (tmp,s,pol,vp) <- pComplVP typ v t exps
+  (np,nptyp) <- write "looking for SS in OVS" >> parseSubject
+  return (tmp,pol,np,vptyp,vp)
 
-pVSOs = foldr1 (mplus) $ map pVSO vForms
+pVSOs = msum $ map pVSO vForms
 
 pVSO typ = do
   (v,t) <- pSlashVP typ "FV"
@@ -316,7 +335,6 @@ pVSO typ = do
            --inside "FV" (consume >> metaVP' typ)    -- slash should find them if the right tag is there!
   (np,nptyp) <- write "looking for SS" >> parseSubject
   write ("AdvCl found np "++show np)
-  exps <- pCompl typ
   (tmp,s,pol,vp) <- pComplVP typ v t exps
   write ("AdvCl found compl "++show vp)
   return (tmp,pol,np,nptyp,vp)
@@ -1223,6 +1241,8 @@ pIAdv =
   do write "making a question"
      a <- inside "AB" $ lemma "IAdv" "s"
      return $ mkExpr a
+  `mplus`
+  
 
 findAdverb = do
   a <- inside "AB" $ optEat (lemma "Adv" "s") meta

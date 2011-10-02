@@ -25,7 +25,7 @@ main filePath = do -- do args <- getArgs
                 let noOk = length $ filter ((/=[]). snd) res
                 putStrLn $ "Writing output to file resFile"
                 let outp = parsNo noOk ++ (unlines $ map formatRes res)
-                writeFile "resFile.txt" outp 
+                writeFile "resFile2.txt" outp 
                 putStrLn $ "Results written to: resFile"
                 putStrLn $ "Parsed "++show noOk ++" out of totally "++show (length res)
         --        exitSuccess
