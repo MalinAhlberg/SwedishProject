@@ -20,4 +20,5 @@ dotTree t name = header ++ body ++ footer where
         bodies = concat [dotTreeBody (Node n ts) (i+1) | (Node n ts) <- xs ]
    name n i = map correct n ++ show i
    correct '?' = 'Q'
+   correct ' ' = '_'
    correct x   = x

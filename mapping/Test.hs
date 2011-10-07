@@ -5,7 +5,8 @@ compareRes :: [String] -> String
 compareRes xs | and ans = color green "Hurra!! All is good"
               | otherwise = let errs = map snd $ filter (not . fst) $ zip ans [0..] 
                                 h    = if take 1 errs== [0] 
-                                          then [show (length res),show (length xs)]
+                                          then ["In Test.hs: "  ++show (length res)
+                                               ,"In testSimple.xml: "++show (length xs)]
                                           else []                                in
                    color red $ unlines $ ":(" : h ++ [show (xs !! (x-1))
                                           ++" /= "++ show (res !! (x-1)) | x <- errs, x>0]
@@ -36,7 +37,8 @@ res =
    -- katten sitts efter bil
    ,"s802\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (AdvVP (PassV2 eat_V2) (PrepNP after_Prep (MassNP (UseN car_N))))))) NoVoc"
    -- denna katt jagar bil
-  ,"s898\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN this8denna_Quant (UseN cat_N)) (ComplSlash (SlashV2a hunt_V2) (MassNP (UseN car_N)))))) NoVoc"
+  ,"s898\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant this8denna_Quant NumSg) (UseN cat_N)) (ComplSlash (SlashV2a hunt_V2) (MassNP (UseN car_N)))))) NoVoc"
+  --,"s898\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN this8denna_Quant (UseN cat_N)) (ComplSlash (SlashV2a hunt_V2) (MassNP (UseN car_N)))))) NoVoc"
    -- våra katter har suttit
    ,"s945\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres AAnter) PPos (PredVP (DetCN (DetQuant (PossPron we_Pron) NumPl) (UseN cat_N)) (UseV sit_V)))) NoVoc"
    -- men han blir gulare
@@ -103,6 +105,8 @@ res =
    -- obs, man vet ej hur den ska parsas!!
    ,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (ComplVV can_VV (AdvVP (UseV flow_V) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V)))))))))) NoVoc"
    --,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (AdvVP (ComplVV can_VV (UseV flow_V)) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V))))))))) NoVoc"
+   -- på vilken kvinna är kvinnan
+   ,"s226\tPhrUtt NoPConj (UttQS (UseQCl (TTAnt TPres ASimul) PPos (QuestIComp (CompIAdv (PrepIP on_Prep (IdetCN (IdetQuant which_IQuant NumSg) (UseN woman_N)))) (DetCN (DetQuant DefArt NumSg) (UseN woman_N))))) NoVoc"
    ]
 type C = Int
 color :: C -> String -> String

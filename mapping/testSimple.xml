@@ -1490,6 +1490,35 @@
 				</nonterminals>
 			</graph>
 		</s>
+    <s id="s226">
+      <graph root="s226_501">
+        <terminals>
+          <t id="s226_1" word="på" pos="PR"/>
+          <t id="s226_2" word="vilken" pos="POFP"/>
+          <t id="s226_3" word="kvinna" pos="NN"/>
+          <t id="s226_4" word="är" pos="AVPS"/>
+          <t id="s226_5" word="kvinnan" pos="NNDDHH"/>
+          <t id="s226_6" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s226_503" cat="PP">
+            <edge label="PR" idref="s226_1"/>
+            <edge label="DT" idref="s226_2"/>
+            <edge label="HD" idref="s226_3"/>
+          </nt>
+          <nt id="s226_502" cat="S">
+            <edge label="SP" idref="s226_503"/>
+            <edge label="FV" idref="s226_4"/>
+            <edge label="SS" idref="s226_5"/>
+            <edge label="I?" idref="s226_6"/>
+          </nt>
+          <nt id="s226_501" cat="ROOT">
+            <edge label="MS" idref="s226_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+
 
 
 
