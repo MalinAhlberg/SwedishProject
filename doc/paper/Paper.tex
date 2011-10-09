@@ -1,208 +1,357 @@
-\documentclass[submission,copyright,creativecommons]{eptcs} %rätt lincens?
+\documentclass[submission]{eptcs} %rätt lincens?
 \providecommand{\event}{LREC2012}
+\usepackage[utf8]{inputenc}
 %\usepackage{breakurl}        
 \usepackage{graphicx}
 
-\title{Den stora grammatiken} % ska vi vara anonyma?
+\title{First results of developing a ruled based Swedish parser} %A Wide-Coverage Swedish Grammar} % ska vi vara anonyma?
 \author{Malin Ahlberg
-\institute{Gothenburg University, Sweden}
-\email{ahlberg.malin@gmail.com}
+% vad ska stå här eg?
+\institute{Center of Language Technology, Gothenburg University, Sweden}
+%\email{ahlberg.malin@gmail.com}
 }
-\def\titlerunning{First results}
+\def\titlerunning{First results of developing a ruled based Swedish parser}
 \def\authorrunning{M. Ahlberg}
 \begin{document}
 \maketitle
 
-
 \begin{abstract}
-om parsning of free language (take from old report)
-but for linguistics, make a wide coverage grammar, robust parser
-By using existing technologies
-and tools:use three resources, gf, talbanken, saldo
-A parser like this would be of great use for many natural
-language processing applications, such as translation and information retrieval
-as well as making semantic representations.
-The goal is to be able to parse open domain language and the
-parser will be evaluated on an extensive Swedish
-treebank, Talbanken. 
+This paper describes an on-going work of a rule-based, open source
+parser for Swedish, based on a wide-coverage grammar implemented in
+Grammatical Framework (GF).
+In addition to GF, we use two other main resources; the Swedish treebank Talbanken
+and the electronic lexicon SALDO.
+The grammar will be highly reusable as GF provides libraries for compiling
+grammars to a number of programming languages.
+% allow easy interaction with other programs and grammars
+% 
 
-This report describes the start of implementing a robust parser for Swedish,
-using the grammar formalism Grammatical Framework\cite{gf} (GF).
+%>> something very commercial, interesting and outstanding here please!
+
+%R: this phrase "We aim to implement a parser for open domain language
+%and this paper describes our work and results so far as well as the
+%directions of future work." doesn't belong in the abstract because it
+%just describes the normal structure of any paper, without saying why
+%your work are interesting/outstanding, worth-reading-further. Make it
+%sound more commercial, if you want to have it there.
+
 
 \end{abstract}
 
 \section{Introduction}
+%R: the first sentence - in "deep robust parser" - why "deep" - grammar
+%formalism, why "robust" - ??
+% afterwards, you don't actually have named-entity recognition, and
+%further more, there's no such thing as "exhaustive lexicon" - you can
+%always switch to another domain and find new words. Further on, the
+%work has nothing to do with statistitics so far, so you can't mention
+%as opening line.  The same goes for parallel chunk parsing.
 
-Making computers able of handling human language is a 
-hard problem.
-The meaning of a sentence depends not only of which words it consists of, but
-also on their syntactic use, how they interact and relate to each other.
-For a computer to make sense of natural language, it needs to analyse this 
-syntactic structure; it needs a good grammar and parser.
-Moreover, the parser needs a preprocessor, named entity recognizer and more
-tequnices to make it robust. 
+%R: the first sentence doesn't really make sense because you first
+%refer to a parser and only then to GF and a grammar, but without
+%giving an explanation of how making the grammar would give you a
+%parser for free.
 
-We are working on an extended implementation of a grammar from Swedish, allowing
-complicated constructions such as focusing different parts of the sentences,
-using complex relative clauses etc and constructions (byt ord) specific to Swedish.
+%R: -- the second paragraph - OK but please extend.
+We would like to implement a wide coverage grammar and parser for Swedish.
+We thereby investigate how the grammar formalism Grammatical Framework,
+further described in section \ref{sec:gf}, can be used for open domain parsing.
+By starting from an already existing Swedish grammar written in GF, we get 
+an fundamental description of the language. The framework also provides
+tools such as parsing, generation and
+a well tested interpretation of the parse trees. There are also tools for using
+the grammar in a number of programming languages. 
+%>> , tools for visualizing ...
 
-The libraries of GF provide a basic grammar for
-Swedish, covering the fundamental features of the language, such as morphology and
-commonly used syntax. This is suitable 
-for building domain specific applications. In those cases the user is not
-allowed to freely compose sentences, but has to stay within the bounds of a 
-controlled language. Both the vocabulary and grammatical structures are fixed,
-meaning that there only is a limit number of ways to write a sentence.
-Parsing open domain natural language is a much bigger task, since it involves handling both
-standard and non-standard grammatical constructions. 
+From the GF grammar we aim to implement a robust parser. 
+The parser will be evaluated both by experts and by comparing the results of
+parsing sentences in an often used Swedish treebank, Talbanken.
 
-The future work will include extending and enhancing the existing Swedish GF grammar,
-importing lexicon and develop techniques for handling unknown words and grammatical
-constructions, proper names, idioms, ellipses etc, in order to make the parser robust.
+%We aim to implement % The goal is to be able to 
+%a parser for open domain language and 
+%This paper describes our work and results 
+%so far as well as the directions of future work.
 
-By using this, we hope to eventually implement a grammar able to handle free % synonyyym!
-Swedish. It would be of great use for many natural
-language processing applications, such as translation and information retrieval
-as well as making semantic representations.
-
-
+\section{Background}
 \subsection{Grammatical Framework}
+\label{sec:gf}
+
+%R: the GF part - "especially suitable" - it's actually meant for the purpose
+%:)
 
 %compiler inspired approach, 
 % om resources: library that implements morphology and syntax rules, länk till papper om dessa
 % skriv ord som modular, architectur, reusable (fast stava dem rätt)
 
-% about why we need more, extra module, separate swedish from scandinavian
-GF\cite{gf} (Grammatical Framework) is a grammar formalism based on functional programming,
-and suitable for multilingual grammar applications. The key idea is to have
-one abstract grammar, modelling the structure of the domain. 
-In addition, concrete grammars are implementing the abstract in different languages.
+Grammatical Framework\cite{gf} (GF) is a grammar formalism based on functional
+programming, designed for multilingual grammar applications.
+
+The key idea
+is to divide the grammar into abstract and concrete.
+The abstract grammar gives a logical representation of the semantics of the
+domain, modeled as abstract trees. Complications occurring in
+natural languages, such as agreement, case and word order, are abstracted away. 
+%R: what complications do you abstract away ?
+%categories and trees are not interesting as such, but their usage
+%is - why do you need them in the abstract syntax actually ?
+That is, the abstract grammar contains no actual linguistic information, but
+information about what categories are used and how to combine them into trees.
+
+To add a new languages means to give a concrete grammar. This implements
+the abstract grammar and describes how to translate abstract
+trees to strings of the language. The framework enables us to parse strings into 
+abstract trees as well as linearize trees into strings.
 Since all languages supported in an application shares a common abstract syntax,
-multilingual is easy to support.
+we get multilinguality for free.
 
-In this way the grammar becomes independent, it may be reused in another project
-and the implementation may be changed without modifying the application utilizing the grammar.
+% obra mening
+The grammar acts as an independent module and may be used in different
+projects.
+%R: more about the GF library - if you have space
+Reusability is further supported by the GF resource grammars\cite{resource},
+a library provided with the GF package, 
+where information about the morphological and
+syntactical rules for more than 20 different languages are implemented.
+As a result, an end user of the framework does not need to describe how to 
+form standard sentences, phrases or decline words, but can focus on the
+particularities for the given domain and choose what kind of 
+utterances that should be allowed.
 
-GF provides resource grammars\cite{resource} implementing information about the morphological and
-syntactical rules for 18 different languages. By utilizing these, 
-GF is an advantageous tool for writing special-purpose grammars.
+%so far bara used för vissa saker, 
+% about why we need more, extra module, separate swedish from scandinavian
+% get inspired by Shafqat.
+GF has so far been used in a number of projects, MOLTO\cite{molto} and
+WebAlt\cite{webalt} to mention a few. 
+All those are special domain applications, dealing with controlled natural
+language.
+This project experiments on other usages of a GF grammar.
 
-  
-The libraries of GF, the resource libraries\cite{resource}, provides
-a common abstract and implementations of this in 18 languages.
-Since translation always should be possible, the abstract may only contain constructions that
-are common to all implemented languages.
-
-  But this also means that all ---- added to the resources
-  must be translatable to and expressable in all other language.
- therefor, the resources are very general, non language specific.
-
-Language specific constructs may be
-given in the module \verb|Extra.gf|. This may be stylistic changes, idioms, informal
-expressions etc.
-As an example, the Swedish \verb|Extra| module contains a function for expressing sentences
-where the negation is put in focus: \emph{``Inte var jag glad"} (\emph{``Not was I happy"}).
-
-
-The work to enhance and expand the Swedish GF grammar has already been started
 % parsing free language, more work is required and it has been investigated what
 %Further, other tools that are needed have been implemented and examined.
 %will be needed to make it sufficient and a start on developing tools has beenmade. 
 
 
-\section{Talbanken}
+\subsection{Talbanken}
 %Wherefrom, how big, who, when, version, used for maltparser
 Talbanken\cite{talbanken} is
-a Swedish treebank which was put together in the 1970s at Lund University,
-consisting of 6316 sentences. Each word is tagged with 
-its part of speech, syntactic function and its position in a head dependent
-analysis.
-In 2005 Talbanken was mordenized \cite{} and enriched with annotation for a
-full phrase structure analysis. Talbanken05 was used when training the 
-data-driven parser Maltparser \cite{}, which var bra?
+a Swedish treebank put together in the 1970s at Lund University.
+In 2005 it was modernized by Nivre, Nilsson and Hall\cite{talbanken05} and
+enriched with annotation for a
+full phrase structure analysis. 
+Talbanken contains both written and spoken Swedish. For this project only
+the prose material, consisting of 6316 sentences will be used.
+This part was also used when training the data-driven parser Maltparser \cite{malt}. \\
+We are using parts of Talbanken for testing, development and evaluation.
+%and the parsetree generated by our grammar will eventually be 
+%compared to those from the treebank.
 
-\section{Saldo}
-
+\subsection{Saldo}
+%R: Saldo part - why would you like to reimport ? "enlarge and enhance"
+%- how do you enhance it ?
 SALDO\cite{saldo} is an open source lexicon resource
-based on Svenskt Associations Lexikon (SAL). It is
-developed at Sprakbanken\cite{} at Gothenburg University
-and intended to be used in language technology
+based on Svenskt Associationslexikon (SAL). It is
+developed at Språkbanken at Gothenburg University
+and intended for usage in language technology
 research. 
 % how it is tagged, other usages, benefits,
 % how easy it is to map it to gf
-From SALDO, a large GF lexicon, \\
-\verb|DictSwe.gf| has earlier been extracted \cite{},
-containing 50 000 entries. Using the same updated tecniques,
-we would like to reimport the lexicon in order to enlarge,
-enhance it. The importing-method should be fast and reliable
-enough to be able to always have an fresh version of the dictonary
+From SALDO, a large GF lexicon
+has earlier been extracted,
+containing 50 000 entries.
+By updating this technique, we would like
+to reimport SALDO, which has since then been developed.
+%and we would like
+%to reimport the it using the same
+%updated techniques. %in order to enlarge our lexicon,
+%we  in order to enlarge and
+%GF version. 
+The importing method should be fast and reliable
+enough to be allow us to always have a fresh version of the dictionary
 in GF.
-We are using parts of Talbanken for testing and development,
-and the parsetree generated by our grammar will eventually be 
-compared to those from the treebank.
 
 
-\section{The lexicon tool}
-A tool for automatically acquisition has been created. Making use of the
-tags in Talbanken and the paradigms in the Swedish resource grammar, 
-it interactivelly generates GF lexicons. The user
-verifies tho correctness of a guess from the program, and can either
+\section{Work in progress}
+\subsection{A tool for lexical acquisition}
+%R: lexicon extraction part - more about everything, comparison with
+%Extract and Functional Morphology, evaluation of the lexicon builder -
+%"supervised lexicon extraction"(common term for this - google it if
+%you want to find related work)
+
+To enlarge the lexicon, 
+a tool for automatically acquisition has been created. It has 
+been tested on verbs with good results. It makes use of
+the \emph{smart paradigm} given in the Swedish resource grammar.
+The smart paradigm accepts verbs in present tense indicative form and decides
+ which paradigm it most likely belong to. If needed, it also accepts more
+verb forms showing the correct inflection.
+%which Making use of the
+
+By combining this method with the information from the tags in Talbanken,
+%and the paradigms in the Swedish resource grammar, 
+the tool interactively generates GF lexicons. 
+Given a list of words, it iteratively
+tries to figure out how to conjugate each of them. If several forms of a word is 
+given, the program will try to identify the one that carries the most linguistic
+information, put this in a form recognized by the smart paradigm and ask GF to output
+a table with the resulting inflection table. 
+If this table contains all other forms from the input list,
+the program will ask the  user to
+validate the claimed conjunction. The user may now either
 allow the word to be added to the lexicon, remove it or demand the program
 to make another guess.
-Altough using very simple tecniques, the test of the tool on verbs 
-has a correctness rate of about
-70-75\%, and can easily ? be improved.
+Although using simple techniques, the tool 
+manage to correctly guess 70-75\% of the given lemmas when tested on
+verbs. \\
+For further extractions, there are also earlier developed tools such as
+Extract\cite{extract} for supervised lexicon extraction and
+FM\cite{fm} for programming lexical resources. Extract uses a similar 
+method but does not have access to the GF smart paradigm. 
 
-use together with Extract/FM,
 
-\section{Mapping of trees}
-The information from the tags in Talbanken can be used for many xx.
-The tools for lexical extraction can be enhanced if we get more information
-about which form the word is currently used in. 
-We are currently working on a automatical mapping from Talbanken trees to trees in GF format.
-This would later enable us to extract possibilities for how often different functions
-are used, a feature (!) that would improve the parsing considerably.
-The evalution of the parser could also be accomplished by comparing the trees
-from the parser and from the mapping-process.
-brastartord there are differences in the notation of the sättet träden är uppbyggda på \\
- exempel?? \\ 
 
-explation of the trees
-why we need the mapping : evaluation, adding words, finding missing constructions
-difficulties
+%% Write more here!!
+\subsection{Mapping of trees}
+%R: mapping - very nice - more about it
+The information from the tags in Talbanken can be used for many purposes.
+We are currently working on an automatic transformation of Talbanken trees 
+to trees in GF format. The translation makes use of the POS tags as well as
+the syntactic information and the mapping has so far turned out to be unambiguous. 
 
-\section{New things and hard things in the grammar}
-Due to the ressemblemences between the Scandinavian languages, they share about 80\% (?)
-of their resource code. This is good because blabla.
-However, for a bigger Swedish grammar, the implementation of the languages need to be more separated,
-in order to avoid ad-hoc solutions and constructions that are standard in
-Norweigan and Danish but very rare in Swedish. \\ %skriv om här änna
+The information given by this mapping may be used for the lexical extraction
+tools. Those can be enhanced if they are given more data about which form a word is
+currently used in. 
+The translated trees will also enable us to extract possibilities for how often
+different functions are used, a feature that would enable disambiguation.
+Furthermore, the translation makes it easy to identify grammatical constructions
+missing from the GF grammar and shows how the GF analysis differs from the one made
+in Talbanken.
+
+%>> by looking on how often a gf function is used
+%<< that would improve the parsing considerably.
+Another important use of the mapping is evaluation. By comparing the trees
+from the parser and from the transformer, we get an interesting way of
+accomplishing an evaluation.
+%An evaluation of the parser
+%could also be accomplished by  \\
+%<< brastartord there are differences in the notation of the sättet träden är uppbyggda på \\
+%>>maybe something about how it's going and why it's hard?
+%>> exempel?? \\ 
+
+%explation of the trees
+%why we need the mapping : evaluation, adding words, finding missing constructions
+%difficulties
+
+\subsection{Development of the grammar}
+%R: New things and hard things in the grammar" - this goes hand in
+%hand with more explanations about resource library and functors for
+%families, also emphasize the words that you refer to in the example -
+%bold font or smth equally noticeable. Explain more why these
+%constructions weren't there before.
+
+For multilingual GF applications, translation should always be possible, and
+therefore the abstract may only contain constructions that
+are common to all implemented languages.
+%>> resources for controlled language. does not aim for covering whole language
+%>> googla efter bra citat
+This means that everything added to the resources
+must be expressable in all other languages.
+Therefore, the resources have to be general and non language specific.
+Language specific constructs such as stylistic changes, idioms, informal
+expressions etc may be given in a special module.
+This module, together with the Swedish resource grammar has been the starting
+point of this project.
+
+Since many of the languages in the GF library reassemble each other grammatically,
+they can share much of their grammar implementations. This is usually done by using a
+\verb|Functor|, which lets a number of languages share parts of their implementation. 
+In addition to simply avoiding code duplication, this technique aids the code maintenance.
+For Swedish, about 85\% of the resource code is shared with the other Scandinavian
+languages.
+%due to the resemblances between the languages, they share
+%>> using a functor for sharing code, for when having the same structure but
+%>> but only different words. 
+For a bigger and still well-defined Swedish grammar however, the implementation of
+the languages needs to be more separated. % in order to avoid ad-hock solutions.
+%<<in order to avoid ad-hoc solutions and 
+Some constructions that are standard in
+Norwegian and Danish may be very rare in Swedish and while extending the
+grammar there may occur situations where a deeper restructuring of the
+implementation is needed. \\
 A number of grammatical constructions have been added the the Swedish grammar.
-Those include using the reflexive pronoun \emph{sitt}:\\
-\textbf{Han såg sitt hus} \emph{He saw his (own) house} \\
+%>> this is language specific, therefore not in common abstract
+Those include constructs that are generally not present in other languages,
+such as the reflexive pronoun \emph{sitt}: \\
+\emph{Han såg \textbf{sitt} hus} $\;$ (\emph{He saw his (own) house}) $\;$
 as opposed to \\
-\textbf{Han såg hans hus} \emph{He saw his (an other person's) house} \\
-% to simple for linguists?
-The possibility to put a part of a sentence in focus has also been added such as:\\
-\textbf{Glad var han inte} \emph{Happy was he not}
-Some ellipses are added, while there is work going on to add trickier ones (eller inte 
-ellipser just nu dårå, men vi skriver något fint här med, ja-jaaaa!).
+\emph{Han såg \textbf{hans} hus} $\;$ (\emph{He saw his (an other person's) house}) \\
+%>> an stylistic change that has been added, not needed for expressable new things (typ) 
+%>> not critical, does not have to be in resource grammar
+%>> also not expressable in all languages
+The possibility to put a part of a sentence in focus has also been added:\\
+\emph{Glad var han inte.} $\;$ (\emph{Happy was he not}). \\
+This sort of rephrasing which has little effect on the logical representation
+is commonly not given by the resource grammar.
+
+In order to keep the grammar as clean and to keep it from being too allowing,
+much care is taken to develop this as neatly as possible. 
+%<<Some ellipses are added, while there is work going on to add trickier ones (eller inte 
+%<<ellipser just nu dårå, men vi skriver något fint här med, ja-jaaaa!).
 
 
+%% Rephrase
+\section{Evaluation}
+%R: you need especially an evaluation part where you can also argue
+%that the method is better than statistics.
+Compared to a statistical parser which operates like a black box,
+a rule-based one is not only theoretically interesting,
+but could also give a more explanatory output since the rules
+are given their names by a human and hence acts as informative labels.
+Chosen parts of the parser or grammar may also be used in other applications,
+which may be dealing with controlled natural languages. Automatic language
+generation from the grammar is also provided by GF.
+
+We intend to evaluate the parser both automatically - by comparing the output
+the translated trees from Talbanken - and manually by an expert in Swedish grammar.
+
+%% more explaination of probabilities
 \section{Future Work}
-robust parser, ner, preprocessing, adding new words,
-probabilties
-ellipses, chunk parsing 
+
+After having developed the grammar and lexicon, we plan to 
+make the parser robust by using techniques such as chunk parsing, named
+entity recognition, methods for handling unknown words and
+grammatical constructions, idioms, ellipses etc. 
+
+It is already possible to add probabilities for GF functions,
+which serves as a ranking when several parse trees are possible.
+By adding dependency probabilities, we would like to improve the
+disambiguation.
 
 
+% ha med det som inte nämnts innan
+% ha en jämförelse med stat.parse?
+% är den deep?
 \section{Conclusion}
-hard but nice
-why better than statistical
+We intend to implement a robust deep parser for Swedish, by first developing
+a large scale grammar and then equip this with named entity recognition, a
+voluminous lexicon, statistical information for disambiguation,
+a method of parallel chunk parsing etc.
+So far we have been working on the grammar, the lexical resources and
+a translation of the treebank Talbanken to GF.
+The usage of Grammatical Framework gives us the advent age to start from
+a well-defined system of describing grammar, as well as tools for
+using the grammar in combination with programming languages like Haskell
+and Java. 
+
+
+\section{Acknowledgments}
+Special thanks to Aarne Ranta, Ramona Enache, Elisabet Engdahl, Krasimir
+Angelov and Lars Borin for their help and support.
+
 
 
 \nocite{*}
 \bibliographystyle{eptcs}
-\bibliography{ourBib}
+\bibliography{ourbib}
 \end{document}
 
 
