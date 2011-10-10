@@ -1,0 +1,10 @@
+41 paper in good shape, mapping evaluated
+------------------------------------------------------
+monday:    write paper, write down notes from presentation, 
+           define good testcases for evaluation
+tuesday:   paper, extract good testsuite from talbanken,
+           fix some parts of mapping
+wednesday: paper, fix mapping, meet ramona and talk about evaluation
+thursday:  paper, fix mapping, do evaluation, write about it
+friday:    read about saldo, lexin and other interesting things
+           find out changes in saldo, examine code from krasimir
