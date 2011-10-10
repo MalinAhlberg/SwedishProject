@@ -9,11 +9,11 @@ lincat
 
 lin
 
- ComplSlash' vp np = 
+ ComplSlash vp np = 
        insertObjPost
          (\\_ => vp.c2.s ++ np.s ! accusative ++ vp.n3 ! np.a) vp ;
 
- ReflVP' vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
+ ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
 
 lin
   FocVP vp np = {

@@ -32,8 +32,8 @@ fun
   -- RelNP'   : Temp -> Pol ->  NP -> VP -> NP ; -- flickan som inte åt äpplen
   ---- RelNP "flickan, sådan att hon inte åt äpplen"
  
-  ComplSlash' : VPSlash -> NP -> VP ;
-  ReflVP'   : VPSlash -> VP ;
+  ComplSlash : VPSlash -> NP -> VP ;
+  ReflVP   : VPSlash -> VP ;
 
   {- here it would be nice with VPSlash -> AP
        'han är äten', 'han är given till henne', 
@@ -44,6 +44,7 @@ fun
   -- be callled PPartAP?
   PPartAP : V2 -> AP ; --VPSlash -> AP ;
    
+  -- does not work for Focused. 'det gör redan kvinnan' 632
   AdvVPSlash : VPSlash -> Adv -> VPSlash ;
 
   -- add possibility of saying 'det är här som jag äter' (CleftAdv + som)?
