@@ -1,8 +1,10 @@
 import XMLHelp
+import PGF
 import Simplify
 import Text.XML.HXT.Core 
 import Data.Char
 import Data.List
+import Data.Ord
 import Debug.Trace
 import Data.Maybe
 import Control.Monad
@@ -14,7 +16,7 @@ test = "test.xml"
 findIt :: [(Id,String)] -> String -> Maybe Id
 findIt sents str = lookup (trim str) (map (\(id,s) -> (format s,id)) sents)
 
-main = do
+mainText = do
  sents <- mainF talbanken (return . map getSentence) 
  old   <- readFile "Best.txt"
  return $ map (findIt $ concat sents) (lines old)
@@ -36,6 +38,8 @@ my = runX (xpickleDocument xpSentence
                             [withIndent yes,
                              withInputEncoding utf8] "testShort.xml")
         -}
+
+main = mainEt talbanken
 mainEt 	:: String -> IO ()
 mainEt src
     = do
@@ -43,11 +47,11 @@ mainEt src
                                 [withInputEncoding utf8
                                 , withRemoveWS yes] src
 	        >>>
-	        simplify --process   
+	        arrIO mappEvaluations --simplify --process   
 	        >>>
             xpickleDocument xpSentences
                             [withIndent yes,
-                             withInputEncoding utf8] "testShortSimple.xml")
+                             withInputEncoding utf8] "evaluation")
 
       return ()
 
@@ -57,18 +61,43 @@ process = arrIO (\x -> return $ getTrees x)
 simplify :: IOSArrow [Sentence] [Sentence]
 simplify = arrIO (\x -> do putStrLn (show x)
                            return $ map f x)
- where f s  = Sent (idS s) (rootS s) (map g (XMLHelp.words s)) (info s)
+ where f s  = Sent (idS s) (rootS s) (map g (XMLHelp.words s)) (info s) (ws s)
        g w  = let simpleW = fromMaybe (word w) (lookup (pos w) simpleList) in
                 DT.trace (word w++pos w) $ W (XMLHelp.id w) simpleW (pos w) 
 
+mappEvaluations x =
+  do pgf <- readPGF "../gf/BigTest.pgf"
+     let morpho  = buildMorpho pgf language
+         Just language = readLanguage "BigTestSwe"
+         nice  = filter (not . hasBadTag) x
+         short = sortBy (comparing ws) nice
+         good  = map (replaceWords morpho) short 
+     return $ drop 400 $ take 500 good
+ where replaceWords morpho s = 
+          Sent (idS s) (rootS s) (map (g morpho) (XMLHelp.words s)) (info s) (ws s)
+       g morpho w = let smallW = map toLower (word w) 
+                        simpleW = if isKnown morpho smallW
+                                     then smallW
+                                     else fromMaybe smallW (lookup (pos w) simpleList)
+              in W (XMLHelp.id w) simpleW (pos w) 
+        
+hasBadTag :: Sentence -> Bool
+hasBadTag x = any (`elem` badTags) (ts x++cs x++ps x)
+  where ts = map fst . concatMap tags . info
+        cs = map cat . info
+        ps = map pos . XMLHelp.words 
+
 simpleList = Simplify.transl
-list = catMaybes best -- ["s802"]
+list = catMaybes best 
 
 
 extractSentences = do 
   ss <- mainF talbanken (return . map getSentence')
   return $ concat ss
 
+badTags = ["NAC","XP","AVP","CAP","CAVP","CNP","CONJP","CPP","CS","CVP","CXP",
+            "CJ","XX","XT","XF","XA","DB","IC","ID","IG","IQ","IR","IS","IT",
+            "ET","UK","++"]
 isBad = any (`elem` ["*"]) . snd
 prettyPrint (id,s) = id++"\t"++ Data.List.unwords s
 
@@ -85,6 +114,16 @@ makeTestSuite = do
 
 g = map head .takeWhile (not . null) 
    . map (take 10) . iterate (drop 10)
+
+
+isKnown morpho str = 
+  not $ null [lemma | lemma <- lookupMorpho morpho (map toLower str)]
+
+testa  str = do
+  pgf <- readPGF "../gf/BigTest.pgf"
+  let Just language = readLanguage "BigTestSwe"
+      morpho        = buildMorpho pgf language
+  return $ not $ null [lemma | lemma <- lookupMorpho morpho str]
 
 
 

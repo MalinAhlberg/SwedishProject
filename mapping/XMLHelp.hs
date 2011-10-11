@@ -16,12 +16,13 @@ import Control.Monad.State
 
 data Word     = W  {id :: Id, word :: String, pos :: Tag}
 data PhrTag   = Ph {idPh :: Id, cat :: Tag, tags :: [(Tag,Id)]}
-data Sentence = Sent {idS :: Id, rootS :: Id, words :: [Word], info :: [PhrTag]}
+data Sentence = Sent { idS :: Id, rootS :: Id, words :: [Word]
+                     , info :: [PhrTag], ws :: Int}
 type Tag      = String
 type Id       = String
 
 instance Show Sentence where
-  show s@(Sent id r w info) = showa r s
+  show s@(Sent id r w info _) = showa r s
 
 getSentence :: Sentence -> (Id, String)
 getSentence s = let sent = concat . intersperse " " . map word . words in
@@ -33,7 +34,7 @@ getSentence' s = let sent = map word . words in
 
 -- gets the trees into a nice format
 showa :: String -> Sentence -> String
-showa nr s@(Sent id root ws inf) = 
+showa nr s@(Sent id root ws inf _) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
@@ -80,13 +81,15 @@ xpTagMap = xpElem "edge"
 
 xpSentence :: PU Sentence  
 xpSentence = xpElem "s"
-             $ xpWrap (\(a,(b,c,d)) -> Sent a b c d,\s -> (idS s,(rootS s,words s, info s)))
+             $ xpWrap (makeSentence,\s -> (idS s,(rootS s,words s, info s)))
              $ xpPair
              ( xpAttr "id" xpText)
              $ xpElem "graph"  
              $  xpTriple (xpAttr "root" xpText)
                          ( xpElem "terminals" xpWords)
                          ( xpElem "nonterminals" xpTags)
+  where makeSentence (i,(r,ws,tgs)) = Sent i r ws tgs (length ws)
+
 xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
           $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
@@ -99,12 +102,16 @@ mainF src f =
                                      , withRemoveWS yes] src
         >>> arrIO f) 
 
-toTree s@(Sent id root ws inf) = toTree' root s
+toNumberedTree :: Sentence -> (String,T.Tree String)
+toNumberedTree s@(Sent id root ws inf _) = (root,toTree' root s)
+
+toTree s@(Sent id root ws inf _) = toTree' root s
 toTree' :: String -> Sentence -> T.Tree String
-toTree' nr s@(Sent id root ws inf) = 
+toTree' nr s@(Sent id root ws inf _) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
+       _          -> error $ "Error in toTree' "++show nr++" could not be found"
   where putWord (W i p w) = T.Node p [T.Node w []]
         putPhrase (Ph i c t) = T.Node c 
                                 $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
@@ -115,4 +122,9 @@ toTree' nr s@(Sent id root ws inf) =
                                      | otherwise = lookup'' y xs
         lookup'' y [] = Nothing
  
+parse src =
+  runX (xunpickleDocument xpSentences [withInputEncoding utf8
+                                     , withRemoveWS yes] src
+        >>> arrIO (return . map toNumberedTree)) 
+
 

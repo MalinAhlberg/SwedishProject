@@ -132,6 +132,7 @@ cidIdetQuant   = mkCId "IdetQuant"
 cidPrepIP      = mkCId "PrepIP"
 cidFocObj      = mkCId "FocObj"
 cidSlashVP     = mkCId "SlashVP"
+cidAdvSlash    = mkCId "AdvSlash"
 -- added to Extra
 cidDropAttVV   = mkCId "DropAttVV"
 cidRelNP'      = mkCId "RelNP'"
@@ -143,8 +144,10 @@ cidReflSlash   = mkCId "ReflSlash"
 -- to implemented yet
 cidSSubjS      = mkCId "SSubjS"
 cidCNNumNP     = mkCId "CNNumNP"
+cidDummy       = mkCId "dummy" -- for dummy objects
 
 -- words
+cidhow8much_IAdv = mkCId "how8much_IAdv"
 cidBy8agent_Prep = mkCId "by8agent_Prep"
 cidD_1         = mkCId "D_1"
 cidName        = mkCId "john_PN"
@@ -155,5 +158,6 @@ cidHave_V2     = mkCId "have_V2"
 cidGet_V2      = mkCId "faa_V2"   -- doesn't exist
 cidGet_VV      = mkCId "faa_VV"   -- doesn't exist
 cidDo_V2       = mkCId "do_V2"
+cidDo_VV       = mkCId "do_VV"
 cidBecome_V2   = mkCId "become_V2" -- doesn't exist
 cidBecome_VA   = mkCId "become_VA" 

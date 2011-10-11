@@ -16,7 +16,7 @@ import Control.Monad.State
 
 data Word     = W  {id :: Id, word :: String, pos :: Tag}
 data PhrTag   = Ph {idPh :: Id, cat :: Tag, tags :: [(Tag,Id)]}
-data Sentence = Sent {rootS :: Id, words :: [Word], info :: [PhrTag]}
+data Sentence = Sent {rootS :: Id, words :: [Word], info :: [PhrTag], ws :: Int}
 type Tag      = String
 type Id       = String
 
@@ -44,11 +44,14 @@ xpTagMap = xpElem "edge"
 
 xpSentence :: PU Sentence  
 xpSentence = xpElem "s"
-             $ xpWrap (uncurry3 Sent,\s -> (rootS s,words s, info s))
+             $ xpWrap (makeSentence,\s -> (rootS s,words s, info s))
              $ xpElem "graph"  
              $  xpTriple (xpAttr "root" xpText)
                          ( xpElem "terminals" xpWords)
                          ( xpElem "nonterminals" xpTags)
+  where makeSentence (r,ws,tgs) = Sent r ws tgs (length ws)
+
+
 xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
           $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
@@ -69,10 +72,10 @@ parse src =
 
 
 toTree :: Sentence -> (String,T.Tree String)
-toTree s@(Sent root ws inf) = (root,toTree' root s)
+toTree s@(Sent root ws inf _) = (root,toTree' root s)
 
 toTree' :: String -> Sentence -> T.Tree String
-toTree' nr s@(Sent root ws inf) = 
+toTree' nr s@(Sent root ws inf _) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p

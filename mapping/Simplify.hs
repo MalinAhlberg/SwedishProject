@@ -11,17 +11,17 @@ transl =
  ,("ABFA","hur")
  ,("ABJA","lika")
  ,("ABJU","desto") --finns ej i gf
- ,("ABKP","mera")
- ,("ABKS","alltså") -- finns ej i gf 
- ,("ABKU","alltså") -- finns ej i gf 
- ,("ABMN","än")
+ ,("ABKP","större")
+ ,("ABKS","nu") -- finns ej i gf 
+ ,("ABKU","nu") -- finns ej i gf 
+ ,("ABMN","nu")
  ,("ABNA","inte")
  ,("ABOC","också")
  ,("ABRA","när")
  ,("ABSA","så")
  ,("ABSU","minst")
  ,("ABTA","fullt")
- ,("ABZA","mycket")
+ ,("ABZA","nu")
  ,("ABZK","slutligen") -- finns ej i gf 
  ,("AJ  HH","unga")
  ,("AJ  HHGG","ungas")
