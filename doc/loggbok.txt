@@ -1,3 +1,17 @@
+v40
+Three days of this week was spent in Gullmarsstrand, and on Thursday
+I did not get much done since I spent some hours on travelling to Lindholmen,
+and then doing administration that Ann-Britt told me I should do.
+I gave a presentation and had a demo at the conference, which took some time
+to prepare, and I have spent some time reading and writing on the LREC-paper.
+The mapping is better, but still (!!) not done. It now manage to translate
+50% of the testsuite totally, and fails totally on 11 of the sentences.
+Most of them includes conjunction, XP or NAC tags, two of them fail because I
+don't know how to handle 'kallas'.
+The paper needs a lot more work, so I will have to work on that during the week-end.
+
+
+
 v 39
 I spent this week trying to get the basic mapping done, so that
 it will be nice to show at Gullmarsstrand. I had to restructure 

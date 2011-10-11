@@ -1,0 +1,31 @@
+    <s id="s4700">
+      <graph root="s4700_501">
+        <terminals>
+          <t id="s4700_1" word="Johans" pos="PN    GG"/>
+          <t id="s4700_2" word="få" pos="FV"/>
+          <t id="s4700_3" word="är" pos="AVPS"/>
+          <t id="s4700_4" word="u///uatt" pos="IM"/>
+          <t id="s4700_5" word="tänka" pos="VVIVSM"/>
+          <t id="s4700_6" word="kvinna" pos="NN"/>
+          <t id="s4700_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4700_503" cat="NP">
+            <edge label="DT" idref="s4700_1"/>
+            <edge label="HD" idref="s4700_2"/>
+          </nt>
+          <nt id="s4700_502" cat="S">
+            <edge label="SS" idref="s4700_503"/>
+            <edge label="FV" idref="s4700_3"/>
+            <edge label="IM" idref="s4700_4"/>
+            <edge label="IV" idref="s4700_5"/>
+            <edge label="OO" idref="s4700_6"/>
+            <edge label="IP" idref="s4700_7"/>
+          </nt>
+          <nt id="s4700_501" cat="ROOT">
+            <edge label="MS" idref="s4700_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+

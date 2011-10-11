@@ -1,0 +1,7 @@
+Uppsala Chart Parser
+CassSwe - operates on pos- annotated text
+Swedish Core Language Engine, Gambäck
+Swedish Constrain Grammar, Birn - pos-tagging, shallow
+Voutilainen 2001
+GTA - robust shallow parser
+Megyesi, 2002 - annotated text

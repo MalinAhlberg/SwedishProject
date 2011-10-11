@@ -21,6 +21,7 @@ mapping problems
 particip is now assumed to be in lexicon!!
 
 constructs not in GF
+- questions involving 'man' can only be parsed as man_N, not GenericCl
 - 'ett stort antal', 'olika slags' 'alla slags'
 - Predets from Adv, 'även förmögenhet har betydelse' (s452).
                     'åtminstone några timmar'
