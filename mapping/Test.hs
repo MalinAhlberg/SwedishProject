@@ -52,10 +52,12 @@ res =
    -- de måste äta bil
    ,"s1107\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (ComplVV must_VV (ComplSlash (SlashV2a eat_V2) (MassNP (UseN car_N))))))) NoVoc"
    -- fler resor tänker gult
-   ,"s1129\t? (? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc)))) (? ?)"
+   ,"s1129\t? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc))) (? ?)"
+--   ,"s1129\t? (? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc)))) (? ?)"
    --,"PhrUtt NoPConj (? (? (? (? (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (? (? ?) (? ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A)))))))) (? ?)) NoVoc"
    -- eller katten på bilen
-   ,"s1150\t? (? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc)))))) (? ?)"
+   ,"s1150\t? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc))))) (? ?)"
+   --,"s1150\t? (? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc)))))) (? ?)"
    -- gå bakom en katt
    ,"s1244\tPhrUtt NoPConj (UttImpPol PPos (ImpVP (AdvVP (UseV walk_V) (PrepNP behind_Prep (DetCN (DetQuant IndefArt NumSg) (UseN cat_N)))))) NoVoc"
    -- katterna måste tänka till

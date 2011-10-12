@@ -142,6 +142,8 @@ cidReflCN      = mkCId "ReflCN"
 cidReflSlash   = mkCId "ReflSlash"
 
 -- to implemented yet
+cidXDet        = mkCId "XDet"  -- 'sådana' -> determiner
+cidXAdj        = mkCId "XAdj"  -- 'sådana' -> adjective
 cidSSubjS      = mkCId "SSubjS"
 cidCNNumNP     = mkCId "CNNumNP"
 cidDummy       = mkCId "dummy" -- for dummy objects

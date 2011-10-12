@@ -5,7 +5,7 @@
              UndecidableInstances #-}
 module MonadSP  ( Rule(..), Grammar, grammar
              , P, parse
-             , cat, word, word2, lemma, inside, transform
+             , cat, word, word2, lemma, inside, insideSuff, transform
              , many, many1, opt
              , optEat, consume, wordlookup,write -- Malins
              ) where
@@ -121,12 +121,15 @@ word2 tag = P $ \gr pgf morpho ts -> return $
     _                                                      -> Nothing
 
 
+inside, insideSuff :: (MonadWriter [String] m,Eq t,Show t)=> [t] -> P [t] e m a -> P [t] e m a          
+insideSuff = inside' isSuffixOf
+inside     = inside' isPrefixOf
 
-
-inside :: (MonadWriter [String] m,Eq t,Show t)=> [t] -> P [t] e m a -> P [t] e m a          
-inside tag f = P $ \gr pgf morpho ts ->
+inside' :: (MonadWriter [String] m,Eq t,Show t)=>
+              ([t] -> [t] -> Bool) -> [t] -> P [t] e m a -> P [t] e m a          
+inside' isEq tag f = P $ \gr pgf morpho ts ->
   case ts of
-    Node tag1 ts1 : ts | tag `isPrefixOf` tag1 -> do
+    Node tag1 ts1 : ts | tag `isEq` tag1 -> do
                             tell [show tag++" "++show tag1]
                             unP f gr pgf morpho ts1 >>= \r -> case r of
                                             Just (x,[]) -> return (Just (x,ts))

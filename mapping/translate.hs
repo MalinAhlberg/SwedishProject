@@ -21,21 +21,15 @@ import Data.Label
 import Data.Label.PureM 
 import GraphTree
 
---import Debug.Trace
--- man måste ha två paranteser i början av indatan
--- Not parsable: 542 (particle), 452 (även noun), 694 (passive), 802 (passive)
---               898 (kallas), 1001 (mycket som pronomen), 1107 (fler som pronomen)
---               1129 (fler bilar,passiv),1150 (eller som PConj (hittepågrejs runt))
---               ...
-
-
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
 data SentenceType = Q | D | F
   deriving (Show,Eq)
-data VPForm  = Cop | Sup | VV | VA | V | V2 | V2A | V2Pass | Fut | Fut' 
-             | VS                           -- Fut : ska
-                                            -- Fut': kommer att
+data VPForm  = Cop | Sup | VV | VA 
+             | V | V2 | V2A | V2Pass 
+             | Fut | Fut' -- Fut : ska
+             | VS         -- Fut': kommer att                  
+                                            
   deriving (Eq,Show)
 data S = S { _isReflGenVP  :: Bool
            , _isExist      :: Bool
@@ -50,7 +44,7 @@ type PMonad = (RWS () [String] S)
 
 $(mkLabels [''S])
 
-test = False
+test = True
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
@@ -63,13 +57,10 @@ startState = S {_isReflGenVP = False, _isExist = False
                ,_iquant = False, _complement = (V,[])
                , _sentenceType = D, _object = Nothing}
 
-{-trace' | test = trace
-       | otherwise = flip const
-       -}
 
 mapp f = main' f >> return ()
 main = main' "test.xml" >> return ()
-bigTest = main' "../testSuites/testShortSimpleTwo.xml" >>= writeFile "mappingShort5d.txt" . unlines
+bigTest = main' "../testSuites/testShortSimpleTwo.xml" >>= writeFile "mappingShort6.txt" . unlines
 evaluation = main' "EvalMappSuite2.xml" >>= writeFile "Evalresult.txt" . unlines
 main2 = main' "test2.xml" >> return ()
 mainTest = main' "testSimple.xml" >>= putStrLn . compareRes
@@ -206,6 +197,13 @@ penn =
                    np <- pflatNP `mplus` inside "HD" (liftM fst pNP)
                    write "prep noun found"
                    returnApp cidPrepNP [pr,np]
+      ,"VP" :-> do write "in cat VP"
+                   word2 "IM"                
+                   (tmp,s,pol,v) <- pVP "IV"
+                   write $ "VP returns " ++ show v
+                   return v 
+
+   -- weirds
       ,"XX" :-> do n     <- maybeParse pNP  -- not really a cat 
                    let e = maybe (mkExpr meta) fst n    -- här får vi nog lägga till mer
                    write ("xx returns "++show e)
@@ -228,14 +226,46 @@ penn =
       ,"CS" :-> conjunct cidConsS cidBaseS cidConjS (cat "S")
       ,"CXP" :-> conjunct meta meta meta (cat "XP")  -- coordinated XP
       --,"NAC" :-> (consume >> return (mkExpr meta))
-     --"ROOT" :-> släng bort
-     --"S" :-> behövs ej
       ,"VP" :-> do write "in cat VP"
                    word2 "IM"                
                    (tmp,s,pol,v) <- pVP "IV"
                    write $ "VP returns " ++ show v
                    return v 
 
+      ,"++" :-> pPConj
+      ,"+A" :-> pPredet
+      ,"+F" :-> cat "S"
+      ,"AA" :-> pAA
+      ,"AG" :-> pSpecialPP cidBy8agent_Prep
+      ,"AN" :-> pAppos
+      ,"AT" :-> pAdj
+      ,"CA" :-> pPredet
+      --,"DB"  :(
+      ,"DT" :-> pQuant `mplus` pIQuant `mplus` pPredet 
+                       `mplus` liftM (\(a,b,c) -> a) pN2
+      ,"EF" :-> liftM (\(a,b,c) -> a) parseRelS
+      ,"EO" :-> cat "VP"
+      ,"ES" :-> liftM fst pNP
+      ,"ET" :-> cat "PP"
+      ,"FO" :-> pItPron 
+      ,"FS" :-> liftM fst pFS
+      ,"FV" :-> liftM fst (msum $ map (`pSlashVP` "FV") vForms)
+      --,"I?" :-> cidTQuestMark -- just to get something
+      -- punctuation: ,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
+      ,"IV" :-> liftM fst (msum $ map (`pSlashVP` "IV") vForms)
+     -- punctuation: , "JC", "JG", "JR", "JT",
+      ,"KA" :-> cat "S"
+      ,"MA" :-> cat "NP" `mplus` cat "AVP"
+                         `mplus` findAdverb
+                          
+      ,"MD" :-> cat "NP" `mplus` cat "PP"
+      ,"MS" :-> cat "S"
+      ,"NA" :-> return (mkExpr cidPNeg)
+      ,"OA" :-> cat "PP" `mplus` cat "VP"
+      ,"OO" :-> cat "S"  `mplus` cat "VP" 
+                         `mplus` pAdj
+                         `mplus` liftM fst pNP
+                        --,"PL","PR","PT","RA","SP", "SS", "ST", "TA", "TT", "UK", "VA", "VO", "VS", "XA", "XF", "XT", "XX", "YY", "CJ", "HD"
    ] 
 
 
@@ -1056,7 +1086,7 @@ pflatNP =
                                   `mplus`
                                   inside "DT" pPredet
      m_det        <- if typ==Q then (iquant =: True >> liftM Just (inside "DT" pIQuant))
-                               else maybeParse $ inside "DT" pQuant -- pDet
+                               else maybeParse $ inside "DT" pQuant 
      m_sitt       <- maybeParse $ inside "DT" pDetRefl   -- sig
      m_n2         <- maybeParse $ inside "DT" pN2 -- antal
      m_a          <- maybeParse $ inside "AT" pAdj
@@ -1069,8 +1099,8 @@ pflatNP =
      write "start putting together np"
      opt (word2 "IP") ""
      t <- gets sentenceType
-     let cn  = mkExpr noun 
-         cn0 = maybe cn (\x -> mkApp meta [cn,mkExpr meta]) m_pt  -- kvinnan själv'
+     let --cn  = mkExpr noun 
+         cn0 = maybe noun (\x -> mkApp meta [noun,mkExpr meta]) m_pt  -- kvinnan själv'
          cn1 = case m_a of
                    Just a  -> mkApp cidAdjCN [a,mkApp cidUseN [cn0]]
                    Nothing -> mkApp cidUseN [cn0]
@@ -1089,7 +1119,7 @@ pflatNP =
                                             [mkExpr cidIndefArt,num],cn2]
                 (_,NIndef,Just d)  -> returnApp cidDetCN [d,cn2]
                 (_,NOther,_)       -> do guard (isNothing m_predet && isNothing m_det) --ok?
-                                         return $ mkExpr noun
+                                         return noun -- $ mkExpr noun
      t <- gets sentenceType
      let np' = maybe np0 (\(n2,num,def) -> mkApp (getCId t cidDetCN)
                                                           [mkApp cidDetQuant [def,num]
@@ -1103,7 +1133,7 @@ pflatNP =
   do (noun,n,def) <- inside "HD" pCN
      guard $ def == NIndef && n == cidNumSg  -- stämmer ej för 'våningarna 8 och 9'
      num <- pNumber
-     returnApp cidCNNumNP [mkApp cidUseN [mkExpr noun],num]
+     returnApp cidCNNumNP [mkApp cidUseN [noun],num]
   `mplus`
   do w1 <- inside "AA" $ word "ABFA"
      w2 <- inside "HD" $ word "POZP"
@@ -1121,57 +1151,66 @@ pCN =
      `mplus`
      inside "AN" pNoun
      `mplus`
-     do word "NNDD"
-        return (meta,cidNumSg,NDef)  --kan vara Pl också..
-     `mplus`
      do w <- inside "POCP" consume  -- varandra, reciprokt! ej i GF
-        return (meta,cidNumPl,NOther)
+        return (mkExpr meta,cidNumPl,NOther)
      `mplus`
      do write "test for particip"
         (part,num,def) <- inside "SP" findNParticip
         return $ (part,num,def)
      `mplus`
+     do write "test for category X"
+        w <- inside "PO" (lemma "X" "s (AF (APosit (Strong GPl)) Nom)")
+        return (mkApp cidXDet [mkExpr w],cidNumPl,NIndef)
+     `mplus`
+     do word "NNDD"
+        return (mkExpr meta,cidNumSg,NDef)  --kan vara Pl också..
+     `mplus`
      do write "testing last pCN"
         word "NN"
-        return (meta,cidNumSg,NIndef)
+        return (mkExpr meta,cidNumSg,NIndef)
  
  
 -- may use tag, "xx    GG" = genitiv
-pNoun = 
-  do      n <- (mplus (lemma "N" "s Pl Indef Nom")
-                      (lemma "N" "s Pl Indef Gen"))
-          return (n,cidNumPl,NIndef)
+pNoun    = pNoun' "Nom"
+pNounGen = pNoun' "Gen"
+pNoun' nom = 
+  do      n <- lemma "N" ("s Pl Indef "++nom)
+          return (mkExpr n,cidNumPl,NIndef)
   `mplus` do
-          n <- (mplus (lemma "N" "s Sg Indef Nom")
-                      (lemma "N" "s Sg Indef Gen"))
-          return (n,cidNumSg,NIndef)
+          n <- lemma "N" ("s Sg Indef "++nom)
+          return (mkExpr n,cidNumSg,NIndef)
   `mplus` do
-          n <- (mplus (lemma "N" "s Sg Def Nom")
-                      (lemma "N" "s Sg Def Gen"))
-          return (n,cidNumSg,NDef)
+          n <- lemma "N" ("s Sg Def "++nom)
+          return (mkExpr n,cidNumSg,NDef)
   `mplus` do
-          n <- (mplus (lemma "N" "s Pl Def Nom")
-                      (lemma "N" "s Pl Def Gen"))
-          return (n,cidNumPl,NDef)
+          n <- lemma "N" ("s Pl Def "++ nom)
+          return (mkExpr n,cidNumPl,NDef)
 
-metaNoun = (meta,cidNumSg,NIndef)
+
+
+metaNoun = (mkExpr meta,cidNumSg,NIndef)
 data NForm = NDef | NIndef | NOther -- NOther for reciprocs etc 
   deriving (Eq,Show)
 
-isDef :: NForm -> Bool
-isDef NIndef = True
-isDet _      = False
+--isDef :: NForm -> Bool
+--isDef NIndef = True
+--isDet _      = False
+getDef NDef = cidDefArt
+getDef NIndef = cidIndefArt
+getDef NOther = meta
 
 
 parseSubject = inside "SS" (optEat pNP (mkExpr meta,cidPredVP))
                `mplus` 
-               inside "FS"  
-                  (do w <- inside "PO" $ lemma "VP -> Cl" "s Pres Simul Pos Main"
-                      write "imperson hittad!!"
-                      return (mkExpr w,cidImpersCl))
-                  `mplus`
-                  (do w <- inside "PO" $ lemma "NP -> Cl" "s Pres Simul Pos Inv"
-                      return (mkExpr w,cidExistNP))
+               inside "FS" pFS
+              
+pFS =
+     do w <- inside "PO" $ lemma "VP -> Cl" "s Pres Simul Pos Main"
+        write "imperson hittad!!"
+        return (mkExpr w,cidImpersCl)
+     `mplus`
+     do w <- inside "PO" $ lemma "NP -> Cl" "s Pres Simul Pos Inv"
+        return (mkExpr w,cidExistNP)
 
 pItPron = 
  do p <- inside "POOP" $ lemma "Pron" "s NPNom"
@@ -1219,7 +1258,7 @@ pNP =
    `mplus`
    do write "in complicated np"
       (n,num,def) <- pCN 
-      let cn   = (mkApp cidUseN [mkExpr n])
+      let cn   = (mkApp cidUseN [n])
           nums = mkExpr num
       t <- gets sentenceType
       e0 <- case def of
@@ -1228,7 +1267,7 @@ pNP =
                                    [mkExpr cidDefArt, nums],cn]
                  NIndef -> if num==cidNumPl then return cn
                                             else return (mkApp cidMassNP [cn])
-                 NOther -> return $ mkExpr n -- och guards!!
+                 NOther -> return n  -- och guards!!
       return (e0,cidPredVP)
   
 -- akta optEat här!! om fler läggs till måste den flyttas ut!
@@ -1251,6 +1290,9 @@ pAdj =
      cat "AP"
   `mplus`
   cat "CAP" 
+  `mplus`
+  do a <- inside "PO" $ lemma "X" "s (AF (APosit (Strong (GSg Utr))) Nom)"
+     return $ mkApp cidXAdj [mkExpr a]
   `mplus`
   do a <- inside "TP" $ optEat findAPerfParticip meta
      return (mkApp cidVPSlashAP  [mkExpr a])
@@ -1321,11 +1363,14 @@ pAdv' xs =
          | x <- xs]
   `mplus`
   do write "looking for adv in AA1"
-     (inside "AA" (cat "PP" `mplus` pAdvAdj 
-                            `mplus` pAdv
-                            `mplus` findAdverb
-                            `mplus` inside "S" pUttAdv
-                            `mplus` cat "AVP"))
+     inside "AA" pAA
+     
+pAA =         cat "PP" 
+      `mplus` pAdvAdj 
+      `mplus` pAdv
+      `mplus` findAdverb
+      `mplus` inside "S" pUttAdv
+      `mplus` cat "AVP"
 
 pIAdv =
   msum [ inside x (cat "AVP") | x <- ["RA","TA"]]
@@ -1359,8 +1404,9 @@ pIQuant =
           returnApp cidDetQuant [mkExpr dt,mkExpr cidNumPl]) 
 
 pQuant =
-  do w <- word "PODP"            -- to avoid this_Quant when it should be DefArt
-     guard (map toLower w=="den")                               
+  do w <- word "PODP"   -- to avoid this_Quant when it should be DefArt
+     let den = map toLower w
+     guard (den=="den" || den=="det")                               
      returnApp cidDetQuant [mkExpr cidDefArt,mkExpr cidNumSg]
   `mplus`                                                       
   do inside "PO" (   -- fler taggar än PO?                         
@@ -1373,31 +1419,10 @@ pQuant =
                 `mplus` lemma "Quant" ("s Pl False False Neutr")
           write ("det: "++show dt)
           returnApp cidDetQuant [mkExpr dt,mkExpr cidNumPl]) 
-       --return (mkExpr dt))
   `mplus`
-  {-
-  do dt <- inside "PO" $ lemma "Det" "s False Utr"
-     write ("det: "++show dt)
-     return $ mkExpr dt 
+  do w <- inside "PO" $ lemma "X" "s (AF (APosit (Strong GPl)) Nom)"
+     return $ mkApp cidXDet [mkExpr w]
   `mplus`
-       let (quant,s) = if t==D then ("Quant","False False ") else ("IQuant","")
-       dt <-          lemma quant ("s Sg "++s++"Utr") -- dessa två ej helt testade
-              `mplus` lemma quant ("s Sg "++s++"Neutr")
-              `mplus` lemma quant ("s Pl "++s++"Utr")
-              `mplus` lemma quant ("s Pl "++s++"Neutr")
- 
-  inside "PO" (   -- fler taggar än PO?                         
-    do dt <-          lemma "Quant" "s Sg False False Utr"  -- dessa två ej helt testade
-              `mplus` lemma "Quant" "s Sg False False Neutr"
-       write ("det: "++show dt)
-       return $ (mkApp cidDetQuant [mkExpr dt,mkExpr cidNumSg]) 
-    `mplus`
-     do dt <-         lemma "Quant" "s Pl False False Utr"
-              `mplus` lemma "Quant" "s Pl False False Neutr"
-        write ("det: "++show dt)
-        return $ (mkApp cidDetQuant [mkExpr dt,mkExpr cidNumPl]))
-  `mplus`
-     -}
   do dt <- inside "PO" $ lemma "Pron" "s (NPPoss GPl Nom)"
      return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr dt],mkExpr cidNumPl]
   `mplus`
@@ -1418,6 +1443,16 @@ pQuant =
   `mplus`
   do n <- pNumber 
      return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkApp cidNumCard [n]]
+  `mplus`
+  do p <- inside "POXPHHGG" $ lemma "Pron" "s (NPPoss (GSg Utr) Nom)"
+     return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr p]]
+  `mplus`
+  -- genitiv nouns
+  do (n,num,def) <- insideSuff "GG" pNounGen
+     let dt = mkApp cidDetQuant [mkExpr (getDef def),mkExpr num] 
+         np = mkApp cidDetCN [dt,mkApp cidUseN [n]]
+     return $ mkApp cidDetQuant [mkApp cidGenNP [np]] 
+     
 
 
 
@@ -1428,40 +1463,7 @@ pDetRefl =
      t <- gets isReflGenVP
      write $ "it is " ++ show t
      return () -- $ mkExpr cidReflGenVP 
-     {-
-pDet =                                                          
-  do w <- word "PODP"            -- to avoid this_Quant when it should be DefArt
-     guard (map toLower w=="den")                               
-     return $ mkExpr cidDefArt                                
-  `mplus`                                                       
-  inside "PO" (   -- fler taggar än PO?                         
-    do t <- gets sentenceType
-       let (quant,s) = if t==D then ("Quant","False False ") else ("IQuant","")
-       dt <-          lemma quant ("s Sg "++s++"Utr") -- dessa två ej helt testade
-              `mplus` lemma quant ("s Sg "++s++"Neutr")
-              `mplus` lemma quant ("s Pl "++s++"Utr")
-              `mplus` lemma quant ("s Pl "++s++"Neutr")
-       write ("det: "++show dt)
-       return (mkExpr dt))
-  `mplus`
-  do dt <- inside "PO" $ lemma "Det" "s False Utr"
-     write ("det: "++show dt)
-     return $ mkExpr dt 
-  `mplus`
-  do dt <- inside "PO" $ lemma "Pron" "s (NPPoss GPl Nom)"
-     return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr dt],mkExpr cidNumPl]
-  `mplus`
-  do dt <- inside "PO" $ mplus (lemma "Pron" "s (NPPoss (GSg Neutr) Nom)")
-                               (lemma "Pron" "s (NPPoss (GSg Utr) Nom)")
-     return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr dt],mkExpr cidNumSg]
-  `mplus`
-  do inside "EN" $ mplus (lemma "Quant" "s Sg False False Utr")
-                         (lemma "Quant" "s Sg False False Neutr")
-     return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkExpr cidNumSg]
-  `mplus`
-  do n <- pNumber 
-     return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkApp cidNumCard [n]]
--}
+
 
 pN2 = 
   -- hur vill gf ha det här?
@@ -1515,7 +1517,7 @@ pFuturum = do write "futurum?"
               t <- tense "SV"
               write ("futurum: "++show t)
               if isVTenseForm cidTPres t then return (VTense cidTFut)
-                                           else return (VTense cidTCond) -- ?
+                                         else return (VTense cidTCond) -- ?
 -- hmm.. weird.                                
 pFuturum' = do write "futurum komma att?"
                t <- tense "KV"
@@ -1572,6 +1574,8 @@ pPredet =
                         wordlookup w "Predet" "s Utr Sg"
                         `mplus`
                         wordlookup w "Predet" "s Neutr Sg")
+                      
+
                        
 
 

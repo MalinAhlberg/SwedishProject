@@ -9,7 +9,20 @@ remove UK,ID,ET
 
 manually verify words
 [(0,22),(1,16),(2,4),(3,1),(5,5),(6,3),(7,5),(8,6),(9,9),(10,7),(11,2),(12,6),(13,1),(14,3),(16,1),(17,6),(19,2),(21,1)]
-48% less than 3 metas
+38% less than 3 metas
 8% not at all
 75% of the nodes are restored! (according to krasse)
+
+genitive, X category
+[(0,25),(1,20),(2,4),(3,1),(5,3),(6,1),(7,3),(8,5),(9,9),(10,7),(11,2),(12,6),(13,1),(14,3),(16,1),(17,6),(19,2),(21,1)]
+45%
+7% not at all
+77% of the nodes restored!
+
+
+starting to add more cats
+[(0,25),(1,20),(2,4),(3,4),(4,2),(5,1),(6,1),(7,8),(8,7),(9,7),(10,6),(11,4),(12,2),(14,2),(15,4),(16,2),(17,1)]
+45%
+1% not at all
+80% of nodes restored
 

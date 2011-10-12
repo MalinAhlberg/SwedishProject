@@ -989,15 +989,15 @@
         </nonterminals>
       </graph>
     </s>
-    <s id="s3702">
+   <s id="s3702">
       <graph root="s3702_501">
         <terminals>
           <t id="s3702_1" word="de" pos="PODP"/>
-          <t id="s3702_2" word="gul" pos="AJ"/>
+          <t id="s3702_2" word="gula" pos="AJ"/>
           <t id="s3702_3" word="kyrkorna" pos="NNDD"/>
           <t id="s3702_4" word="äter" pos="VVPS"/>
-          <t id="s3702_5" word="sådan" pos="POKP"/>
-          <t id="s3702_6" word="kvinna" pos="NN"/>
+          <t id="s3702_5" word="sådana" pos="POKP"/>
+          <t id="s3702_6" word="kvinnor" pos="NN"/>
           <t id="s3702_7" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -2254,7 +2254,7 @@
       <graph root="s209_501">
         <terminals>
           <t id="s209_1" word="de" pos="PODP"/>
-          <t id="s209_2" word="gällande" pos="TP  HHGG"/>
+          <t id="s209_2" word="gällandes" pos="TP  HHGG"/>
           <t id="s209_3" word="egna" pos="POZP"/>
           <t id="s209_4" word="kvinnorna" pos="NN  SS"/>
           <t id="s209_5" word="äts" pos="VVPSSMPA"/>
@@ -2469,8 +2469,8 @@
     <s id="s265">
       <graph root="s265_501">
         <terminals>
-          <t id="s265_1" word="allt" pos="POTP"/>
-          <t id="s265_2" word="kvinnan" pos="NNDD"/>
+          <t id="s265_1" word="sådana" pos="POTP"/>
+          <t id="s265_2" word="kvinnor" pos="NNDD"/>
           <t id="s265_3" word="blir" pos="BVPS"/>
           <t id="s265_4" word="skrivas" pos="VVIV  PA"/>
           <t id="s265_5" word="med" pos="PR"/>
@@ -2638,8 +2638,8 @@
     <s id="s544">
       <graph root="s544_501">
         <terminals>
-          <t id="s544_1" word="sådan" pos="POKP"/>
-          <t id="s544_2" word="kvinna" pos="NN"/>
+          <t id="s544_1" word="sådana" pos="POKP"/>
+          <t id="s544_2" word="kvinnor" pos="NN"/>
           <t id="s544_3" word="tänker" pos="VVPS"/>
           <t id="s544_4" word="också" pos="ABOC"/>
           <t id="s544_5" word="för" pos="PR"/>
