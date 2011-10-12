@@ -18,9 +18,11 @@ concrete BigTestSwe of BigTest =
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe
-  ** {
+  ** open IrregSwe, ParamX, CommonScand in {
+      -- Irreg needed for göra
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
+      optimize=values ;
 
   lin
     begin_VV    = mkVV (mkV "börja") ;
@@ -30,4 +32,6 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     gallande_A  = mkA "gällande" "gällande" "gällande" "gällande" "gällande";
       -- suprelativ..
     johan_PN = regPN "johan" ;
+    do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
+    sadana_X = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
 } ;

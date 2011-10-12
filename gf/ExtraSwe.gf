@@ -6,8 +6,15 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP] ,
 
 lincat
  ReflNP  = NP ;
+ X       = A ; -- to be modified!!
 
 lin
+
+  XDet x = {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
+            n = Pl ; det = DDef Indef} ;
+
+  XAdj x = lin A x ; 
+
 
  ComplSlash vp np = 
        insertObjPost

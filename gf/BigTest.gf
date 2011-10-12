@@ -28,4 +28,6 @@ abstract BigTest =
   numberOf_N2 : N2 ;
   gallande_A : A ;
   johan_PN : PN ;
+  do_VV : VV;
+  sadana_X : X ;
   } ;

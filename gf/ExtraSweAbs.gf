@@ -3,9 +3,14 @@
 
 abstract ExtraSweAbs = ExtraScandAbs ** {
 
-cat ReflNP ;
+cat ReflNP ; X ; -- X is for 'sådana','mycket'
 
 fun
+
+  XDet : X -> Det ;
+  XAdj : X -> A ;
+
+
   CompoundNomN : N -> N -> N ;  -- fot+boll
   CompoundGenN : N -> N -> N ;  -- yrkes+musiker
   CompoundAdjN : A -> N -> N ;  -- vit+vin
