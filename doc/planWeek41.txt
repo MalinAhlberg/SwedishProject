@@ -5,7 +5,9 @@ monday:    write paper, write down notes from presentation,
 tuesday:   paper, extract good testsuite from talbanken,
            fix some parts of mapping
 wednesday: paper, fix mapping, meet ramona and talk about evaluation
-thursday:  paper, fix mapping, do evaluation, write about it
+           prepare things to show elisabet
+thursday:  paper, fix mapping, do evaluation, talk to elisabet,
+           write about mapping
 friday:    read about saldo, lexin and other interesting things
            find out changes in saldo, examine code from krasimir
            write document about the hard parts of mapping (at least a list)

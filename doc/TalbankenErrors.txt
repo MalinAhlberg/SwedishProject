@@ -1,31 +1,66 @@
-    <s id="s4700">
-      <graph root="s4700_501">
-        <terminals>
-          <t id="s4700_1" word="Johans" pos="PN    GG"/>
-          <t id="s4700_2" word="få" pos="FV"/>
-          <t id="s4700_3" word="är" pos="AVPS"/>
-          <t id="s4700_4" word="u///uatt" pos="IM"/>
-          <t id="s4700_5" word="tänka" pos="VVIVSM"/>
-          <t id="s4700_6" word="kvinna" pos="NN"/>
-          <t id="s4700_7" word="." pos="IP"/>
-        </terminals>
-        <nonterminals>
-          <nt id="s4700_503" cat="NP">
-            <edge label="DT" idref="s4700_1"/>
-            <edge label="HD" idref="s4700_2"/>
-          </nt>
-          <nt id="s4700_502" cat="S">
-            <edge label="SS" idref="s4700_503"/>
-            <edge label="FV" idref="s4700_3"/>
-            <edge label="IM" idref="s4700_4"/>
-            <edge label="IV" idref="s4700_5"/>
-            <edge label="OO" idref="s4700_6"/>
-            <edge label="IP" idref="s4700_7"/>
-          </nt>
-          <nt id="s4700_501" cat="ROOT">
-            <edge label="MS" idref="s4700_502"/>
-          </nt>
-        </nonterminals>
-      </graph>
-    </s>
+		<s id="s265">
+			<graph root="s265_501">
+				<terminals>
+					<t id="s265_1" word="Hela" pos="POTP"/>
+					<t id="s265_2" word="adressen" pos="NNDD"/>
+					<t id="s265_3" word="bör" pos="BVPS"/>  <-- tag for 'bliva'
+					<t id="s265_4" word="skrivas" pos="VVIV  PA"/>
+					<t id="s265_5" word="med" pos="PR"/>
+					<t id="s265_6" word="rak" pos="AJ"/>
+					<t id="s265_7" word="vänsterkant" pos="NN  SS"/>
+					<t id="s265_8" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s265_503" cat="NP">
+						<edge label="DT" idref="s265_1"/>
+						<edge label="HD" idref="s265_2"/>
+					</nt>
+					<nt id="s265_504" cat="PP">
+						<edge label="PR" idref="s265_5"/>
+						<edge label="AT" idref="s265_6"/>
+						<edge label="HD" idref="s265_7"/>
+					</nt>
+					<nt id="s265_502" cat="S">
+						<edge label="SS" idref="s265_503"/>
+						<edge label="FV" idref="s265_3"/>
+						<edge label="IV" idref="s265_4"/>
+						<edge label="AA" idref="s265_504"/>
+						<edge label="IP" idref="s265_8"/>
+					</nt>
+					<nt id="s265_501" cat="ROOT">
+						<edge label="MS" idref="s265_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
+		<s id="s4700">
+			<graph root="s4700_501">
+				<terminals>
+					<t id="s4700_1" word="WHO:s" pos="PN    GG"/>
+					<t id="s4700_2" word="uppgift" pos="FV"/>   <-- tag for 'få'
+					<t id="s4700_3" word="är" pos="AVPS"/>
+					<t id="s4700_4" word="u///uatt" pos="IM"/>   <--- ?
+					<t id="s4700_5" word="förebygga" pos="VVIVSM"/>
+					<t id="s4700_6" word="sjukdomar" pos="NN"/>
+					<t id="s4700_7" word="." pos="IP"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s4700_503" cat="NP">
+						<edge label="DT" idref="s4700_1"/>
+						<edge label="HD" idref="s4700_2"/>
+					</nt>
+					<nt id="s4700_502" cat="S">
+						<edge label="SS" idref="s4700_503"/>
+						<edge label="FV" idref="s4700_3"/>
+						<edge label="IM" idref="s4700_4"/>
+						<edge label="IV" idref="s4700_5"/>
+						<edge label="OO" idref="s4700_6"/>
+						<edge label="IP" idref="s4700_7"/>
+					</nt>
+					<nt id="s4700_501" cat="ROOT">
+						<edge label="MS" idref="s4700_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
 
