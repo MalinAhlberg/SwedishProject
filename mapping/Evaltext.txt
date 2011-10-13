@@ -26,3 +26,15 @@ starting to add more cats
 1% not at all
 80% of nodes restored
 
+all (almost) labels added
+[(0,25),(1,22),(2,6),(3,3),(4,2),(5,17),(6,2),(7,5),(8,5),(9,6),(10,3),(12,3),(14,1)]
+53 % less than 3 metas
+0% not at all
+86% of the nodes restored
+
+
+-- for the 100 first sentences in Talbanken, with no simplification, we get
+50% restored tags
+63% with bigger lexicon
+65% without NAC,XP,DB,UP,XX and weird punctuation...
+

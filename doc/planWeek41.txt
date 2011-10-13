@@ -7,7 +7,11 @@ tuesday:   paper, extract good testsuite from talbanken,
 wednesday: paper, fix mapping, meet ramona and talk about evaluation
            prepare things to show elisabet
 thursday:  paper, fix mapping, do evaluation, talk to elisabet,
+           redo paper: check english. write about combining resources and how
+                       (re)move all future work, evaluate.
            write about mapping
 friday:    read about saldo, lexin and other interesting things
            find out changes in saldo, examine code from krasimir
            write document about the hard parts of mapping (at least a list)
+           redo paper: check english. write about combining resources and how
+                       (re)move all future work, evaluate.

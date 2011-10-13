@@ -44,12 +44,12 @@ type PMonad = (RWS () [String] S)
 
 $(mkLabels [''S])
 
-test = True
+test = False
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
-bigGr  = ("../gf/BigNew.pgf","BigNewSwe")
+bigGr  = ("../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
-paint  = False
+paint  = True
 
 startState :: S 
 startState = S {_isReflGenVP = False, _isExist = False
@@ -62,8 +62,10 @@ mapp f    = main' f >> return ()
 main      = main' "test.xml" >> return ()
 bigTest   = main' "../testSuites/testShortSimpleTwo.xml" 
             >>= writeFile "mappingShort6.txt" . unlines
-evaluation = main' "EvalMappSuite2.xml"
-             >>= writeFile "Evalresult.txt" . unlines
+evaluation = evaluations "EvalMappSuite2.xml" "Evalresult.txt" 
+evaluations test to = 
+    main' test 
+    >>= writeFile to . unlines 
 main2      = main' "test2.xml" >> return ()
 mainTest   = main' "testSimple.xml" >>= putStrLn . compareRes
 mainT2     = main' "testSimple.xml" >>= putStrLn . unlines
@@ -87,10 +89,11 @@ main' fil  = do
       when test $ putStrLn $ unlines trace
       hPutStrLn stdout (showExpr [] e)
       when paint $ do
-        writeFile "tmp_tree.dot" (graphvizAbstractTree pgf (True,False) e) --(graphvizParseTree pgf lang e) 
+        writeFile "tmp_tree.dot" --(graphvizAbstractTree pgf (True,False) e)
+                                   (graphvizParseTree pgf lang e) 
         rawSystem "dot" ["-Tpdf", "tmp_tree.dot"
-                        --, "-otrees/tree"++showAlign l'++".pdf"]
-                        , "-o"++dropExtension fil++"GF.pdf"]
+                        , "-otrees/tree"++showAlign l'++"GFparsX.pdf"]
+                        --, "-o"++dropExtension fil++"GF.pdf"]
         return ()
       hPutStrLn stderr (show ((fromIntegral cn' / fromIntegral co') * 100))
       --return (showExpr [] e)
@@ -104,16 +107,17 @@ main' fil  = do
         Nothing     -> (cn+1,co+1)
 
 
-    showAlign n =
-      replicate (5 - length s) '0' ++ s
-      where
-        s = show n
-
+    
     prune (Node tag ts)
       |   tag == "ROOT" 
        && not (null ts)
        && last ts == Node "." [Node "." []] = Node tag (init ts)
       | otherwise                           = Node tag ts
+
+showAlign n =
+      replicate (5 - length s) '0' ++ s
+      where
+        s = show n
 
 
 testa  str = do
@@ -126,10 +130,12 @@ testa  str = do
 paintTree file = do
   s <- fmap concat $ Form.parse file 
   pgf <- readPGF $ fst usePGF
-  let t = snd $ head s
-  writeFile "tmp_treetest.dot" (dotTree t [])
-  rawSystem "dot" ["-Tpdf", "tmp_treetest.dot", "-otesttree.pdf"]
-  return ()
+  mapM_ paintIt $ zip [0..] $ map snd s 
+ where 
+   paintIt (i,t) = do
+          writeFile "tmp_treetest.dot" (dotTree t [])
+          rawSystem "dot" ["-Tpdf", "tmp_treetest.dot", "-otrees/"++showAlign i++"testtree.pdf"]
+          return ()
 
 
 

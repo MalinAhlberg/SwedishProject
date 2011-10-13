@@ -1,8 +1,8 @@
-396 'hur och hur' is åkvård in talbanken
+396 'hur och hur' is akward in talbanken
 888 'kallas'
 1249 'så har jag gjort mitt'
 1356 conjunction of weirdness
-1384 'och inte minst kvinnan'  -xp,nac
+3284 'och inte minst kvinnan'  -xp,nac -- use minst as normal adjective
 conjuction i allmänhet
 1988 'bara' på fel ställen
 1878 'kvinnan kan jag äta själv'

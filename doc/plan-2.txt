@@ -7,11 +7,11 @@ Okt
 40 Gullmarsstrand - poster done,paper,mapping of easy trees ok
 41 paper in good shape, mapping evaluated
 42 mapping done, paper submitted, write about mapping, start on saldo
-43 imported lexicon & work on testsuite  
+43 imported lexicon & work on testsuite , work on dispostion
 Nov
 44 added things to grammar, have a good testsuite, work on lexicon
 45 tried parsed test suite with new version - evaluated against mapped trees, work on saldo
-46 work on grammar, write about it
+46 work on grammar, write about it  - meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
 47 work on grammar and write about it
 Dec
 48 work on grammar, writing

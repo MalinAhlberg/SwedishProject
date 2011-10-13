@@ -3,7 +3,10 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 
-\title{First results of developing a Swedish parser based on a wide-coverage grammar}
+\title{First results of developing a Swedish parser based on a wide-coverage grammar\\
+        eller Combining resources into a Swedish parser
+        eller Bootstrapping a Swedish parser \\
+        eller A grammar-based Swedish parser from already existing resources}
 \author{Malin Ahlberg \& Ramona Enache
 %\and
 %Co Author \qquad\qquad 
@@ -17,14 +20,16 @@
 \begin{abstract}
 This paper describes on going work of a rule-based, open-source
 parser for Swedish. The central component will be a wide-coverage grammar
-implemented in the formalism Grammatical Framework (GF). The
-resulting parser will be the first deep Swedish grammar-based parser  and
-will give a full syntactic analysis of the input sentences.
+implemented in the formalism Grammatical Framework (GF), from which we 
+derive?? a deep parser.
 In addition to GF, we use two other main resources: the Swedish
 treebank Talbanken and the electronic lexicon SALDO.
+The resulting parser will 
+will give a full syntactic analysis of the input sentences.
+Since all the parser will be freely available, 
 % ha med detta?
-The grammar will be highly reusable, chosen 
-parts of the it can be used in applications dealing with
+it will be highly reusable and chosen parts of the the grammar can be used in
+applications dealing with
 %controlled or free
 natural language. GF also provides libraries for compiling
 grammars to a number of programming languages.
@@ -139,6 +144,21 @@ The importing method should be fast and reliable
 enough to allow us to always have a fresh version of the dictionary
 in GF.
 
+%compare!!
+\section{Related work}
+Language technology for Swedish is an area of much interesting research.
+There are tools for lexical extractions, such as
+Extract for supervised lexicon extraction and
+FM\cite{MarkusForsberg2007} for programming lexical resources.
+There are two other deep grammar-based parser for Swedis,
+SICS (Manny Raynen, ) and ? (Mats Wirén,?). Unlike our parser, 
+they are not freely commercialized.
+Among other parsers for Swedish, the statistical MaltParser\cite{malt}
+which was trained on Talbanken, is worth mentioning. 
+CassSwe (Kokkinakis and Johansson-Kokkinakis, 1999) is based on finite state cascades,
+whereas the shallow parser GTA (Knutsson, Bigert and Kann, 2003) relies on rules of 
+a context free grammar. Both GTA and CassSwe operate on POS tagged text.
+
 
 \section{Work in progress}
 \label{sec:progress}
@@ -227,18 +247,6 @@ has little effect on the logical representation.
 
 In order to keep the grammar clean and to keep it syntactically correct,
 much care is taken to develop it as neatly as possible. 
-
-%compare!!
-\section{Related work}
-Language technology for Swedish is an area of much interesting research.
-There are tools for lexical extractions, such as
-Extract for supervised lexicon extraction and
-FM\cite{MarkusForsberg2007} for programming lexical resources.
-Among other parsers for Swedish, the statistical MaltParser\cite{malt}
-which was trained on Talbanken, is worth mentioning. 
-CassSwe (Kokkinakis and Johansson-Kokkinakis, 1999) is based on finite state cascades,
-whereas the shallow parser GTA (Knutsson, Bigert and Kann, 2003) relies on rules of 
-a context free grammar. Both GTA and CassSwe operate on POS tagged text.
 
 \section{Evaluation and future work}
 %Compared to a statistical parser which operates like a black box,

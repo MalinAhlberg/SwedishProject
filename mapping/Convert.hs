@@ -47,11 +47,11 @@ mainEt src
                                 [withInputEncoding utf8
                                 , withRemoveWS yes] src
 	        >>>
-	        arrIO mappEvaluations --simplify --process   
+	        arrIO mappEvaluations --simplify --process  -- (return . take 100)  
 	        >>>
             xpickleDocument xpSentences
                             [withIndent yes,
-                             withInputEncoding utf8] "evaluation")
+                             withInputEncoding utf8] "TalbankenBeg.xml")
 
       return ()
 
@@ -66,13 +66,13 @@ simplify = arrIO (\x -> do putStrLn (show x)
                 DT.trace (word w++pos w) $ W (XMLHelp.id w) simpleW (pos w) 
 
 mappEvaluations x =
-  do pgf <- readPGF "../gf/BigTest.pgf"
+  do pgf <- readPGF "../gf/Big.pgf"
      let morpho  = buildMorpho pgf language
-         Just language = readLanguage "BigTestSwe"
+         Just language = readLanguage "BigSwe"
          nice  = filter (not . hasBadTag) x
          short = sortBy (comparing ws) nice
          good  = map (replaceWords morpho) short 
-     return $ drop 400 $ take 500 good
+     return $ take 100 nice --drop 400 $ take 500 good
  where replaceWords morpho s = 
           Sent (idS s) (rootS s) (map (g morpho) (XMLHelp.words s)) (info s) (ws s)
        g morpho w = let smallW = map toLower (word w) 
@@ -95,9 +95,11 @@ extractSentences = do
   ss <- mainF talbanken (return . map getSentence')
   return $ concat ss
 
-badTags = ["NAC","XP","AVP","CAP","CAVP","CNP","CONJP","CPP","CS","CVP","CXP",
-            "CJ","XX","XT","XF","XA","DB","IC","ID","IG","IQ","IR","IS","IT",
-            "ET","UK","++"]
+badTags = ["NAC","XP","AVP","PU"-- ,"CAP","CAVP","CNP","CONJP","CPP","CS","CVP","CXP",
+           -- "CJ"
+           ,"XX"--,"XT","XF","XA","DB",
+           ,"IC","IG","IQ","IR","IS","IT"]
+            --,"ID","ET","UK","++"]
 isBad = any (`elem` ["*"]) . snd
 prettyPrint (id,s) = id++"\t"++ Data.List.unwords s
 

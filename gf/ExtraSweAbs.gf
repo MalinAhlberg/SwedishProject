@@ -49,9 +49,11 @@ fun
   -- be callled PPartAP?
   PPartAP : V2 -> AP ; --VPSlash -> AP ;
    
+  -- jag äter redan äpplet 
   -- does not work for Focused. 'det gör redan kvinnan' 632
   AdvVPSlash : VPSlash -> Adv -> VPSlash ;
 
+  -- jag är redan här
   -- add possibility of saying 'det är här som jag äter' (CleftAdv + som)?
   AdvComp : Comp -> Adv -> Comp ;
 

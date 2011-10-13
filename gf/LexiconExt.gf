@@ -1,5 +1,5 @@
 --# -path=.:swedish:prelude:alltenses
-abstract LexiconExt = DictSweAbs ** {
+abstract LexiconExt = DictSweAbs** {
 
 fun
   AA_PN : PN;

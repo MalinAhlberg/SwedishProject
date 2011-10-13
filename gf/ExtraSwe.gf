@@ -28,7 +28,7 @@ lin
         let
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
-          vps  = vp.s ! VPFinite t a ;  -- Fut Simul -- t a
+          vps  = vp.s ! VPFinite t a ;  
           vf = case <<t,a> : ParamX.Tense * Anteriority> of {
             <Pres,Simul> => vps.fin;
             <Past,Simul> => vps.fin;
@@ -115,27 +115,12 @@ lin
 
   PassV2 v2 = predV (depV v2);
 
---    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
 
- -- UseComparA a = {
- --     s = \\ap => case a.isComp of {
- --       True => compMore ++ a.s ! AF (APosit ap) Nom ;
- --       _    => a.s ! AF ACompar Nom
- --       } ;
- --     isPre = True
- --     } ;
-
-  
+   
  
--- does not allow you to say "kattens som bor här"
---  RelNP' tmp pol np vp =
---    let cl = mkClause (np.s ! nominative ++ "som") np.a vp in 
---      {s = \\_ => cl.s ! tmp.t ! tmp.a ! pol.p ! Sub ;
---       a = np.a} ;
-
   -- not adV, but for normal advers, 'han åt redan äpplet'
   AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
                                              c2 = vp.c2} ;
