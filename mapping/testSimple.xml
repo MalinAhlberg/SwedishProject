@@ -850,7 +850,7 @@
 <s id="s1129">
 			<graph root="s1129_501">
 				<terminals>
-					<t id="s1129_1" word="Fler" pos="POKP"/>
+					<t id="s1129_1" word="Sådana" pos="POKP"/>
 					<t id="s1129_2" word="resor" pos="NN"/>
 					<t id="s1129_3" word="tänker" pos="VVPS  PA"/>
 					<t id="s1129_4" word="gult" pos="AJ"/>

@@ -411,32 +411,43 @@
 		</annotation>
 	</head>
     <body>
-   <s id="s5654">
-      <graph root="s5654_501">
-        <terminals>
-          <t id="s5654_1" word="kvinnornas" pos="NN  SSGG"/>
-          <t id="s5654_2" word="kvinna" pos="NN"/>
-          <t id="s5654_3" word="är" pos="AVPS"/>
-          <t id="s5654_4" word="gul" pos="AJ"/>
-          <t id="s5654_5" word="." pos="IP"/>
-        </terminals>
-        <nonterminals>
-          <nt id="s5654_503" cat="NP">
-            <edge label="DT" idref="s5654_1"/>
-            <edge label="HD" idref="s5654_2"/>
-          </nt>
-          <nt id="s5654_502" cat="S">
-            <edge label="SS" idref="s5654_503"/>
-            <edge label="FV" idref="s5654_3"/>
-            <edge label="SP" idref="s5654_4"/>
-            <edge label="IP" idref="s5654_5"/>
-          </nt>
-          <nt id="s5654_501" cat="ROOT">
-            <edge label="MS" idref="s5654_502"/>
-          </nt>
-        </nonterminals>
-      </graph>
-    </s>
-
+<s id="s1150">
+			<graph root="s1150_501">
+				<terminals>
+					<t id="s1150_1" word="Eller" pos="++EL"/>
+					<t id="s1150_2" word="katten" pos="NNDDHS"/>
+					<t id="s1150_3" word="på" pos="PR"/>
+					<t id="s1150_4" word="bilen" pos="NNDDSS"/>
+					<t id="s1150_5" word="?" pos="I?"/>
+				</terminals>
+				<nonterminals>
+					<nt id="s1150_507" cat="PP">
+						<edge label="PR" idref="s1150_3"/>
+						<edge label="HD" idref="s1150_4"/>
+					</nt>
+					<nt id="s1150_506" cat="NP">
+						<edge label="HD" idref="s1150_2"/>
+						<edge label="ET" idref="s1150_507"/>
+					</nt>
+					<nt id="s1150_505" cat="S">
+						<edge label="++" idref="s1150_1"/>
+						<edge label="SS" idref="s1150_506"/>
+					</nt>
+					<nt id="s1150_504" cat="NAC">
+						<edge label="+F" idref="s1150_505"/>
+					</nt>
+					<nt id="s1150_503" cat="NAC">
+						<edge label="ET" idref="s1150_504"/>
+					</nt>
+					<nt id="s1150_502" cat="XP">
+						<edge label="SP" idref="s1150_503"/>
+						<edge label="I?" idref="s1150_5"/>
+					</nt>
+					<nt id="s1150_501" cat="ROOT">
+						<edge label="MS" idref="s1150_502"/>
+					</nt>
+				</nonterminals>
+			</graph>
+		</s>
 	</body>
 </corpus>
