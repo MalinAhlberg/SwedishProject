@@ -1,0 +1,37 @@
+The mapping can deal with sentences in main, inverted and
+subordinate order. It can map questions, some relative clauses
+etc. However it still has problems with the complicated verbs (=all verbs)
+Complications occur when the complement are split in unnice ways:
+'vad skulle du vilja äta idag'
+There are no rules for V3 and other cases may be missing too.
+The list of label-rules makes the mapping pretty robust, but
+on the other hand the most interesting information (the top nodes)
+will still be missing.
+Talbanken trees are flatter, which makes the translation harder.
+Might be ambiguities when dealing with more complicated verb sentences.
+If there are verbs that can be used with or without particles,
+the mapper will be confused. This should therefore not be allowed,
+a smaller but covering lexicon should be used, although this
+will lead to complications when simplifying the sentences. Much 
+manual work may be required to get it right.
+Conjuction is a problem, especially at satsnivå, but is not important
+enough at this stage, since we will be focusing on easier sentences anyway.
+To many subordinate clauses will fail, one might work. Does not have the same 
+analysis.
+Idioms are not dealt with. 
+'kallas' is not ok.
+'kommer att' is not ok.
+DB is not ok.
+There are many XP/NAC tags, unclear how to handle this. Used often since
+the analysise is different from GF. Example: 'eller skyddsomudet på arbetsplatsen'.
+Parsable in GF, but Talbanken wants to know if it is subject or object and is
+confused >> NAC.
+The high number of pronouns in Talbanken has been confusing, but is probably
+solved (who can know for sure)
+Have problems with 'finnas' (Exist). Is probably translated to ImpersCl.
+'deras värde som','han är som'. Apposition in Talbanken. 
+
+
+Problems:
+av -which one? same problem when parsing how ever.
+kommer att needs to be added!!

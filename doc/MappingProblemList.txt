@@ -11,12 +11,10 @@ mapping problems
 - 'sådana','lika'... som PO, vad är de i gf?
 - how to know if the words takes a particle or not? the talbanken trees does always tell,
   as in 568. Vad menas (med en kvinna), 'med' is a preposition. Should it?
-- FocObj
 - 'man vänder sig' - sig is now OO instead of IO as it uses to be, not considered reflexive? 
   often OO. difference?
 - particle: cannot tell if there should be a particle or not. tänka may give 'tänka till'
 - olika slags - is NP but needs special rule unless everything should get be translated into Predet
-- get ReflGenVP from pflatNP to pCl... hard
 
 particip is now assumed to be in lexicon!!
 
