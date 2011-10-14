@@ -1,0 +1,2 @@
+ ghci make-saldo.hs -i FM/src/lib/General.hs FM/src/lib/DictToDictionary.hs FM/src/lib/Dict/ErrM FM/src/saldo/EncodeSw.hs FM/src/lib/Dict/Abs.hs FM/src/lib/Dictionary.hs FM/src/saldo/TestSw.hs FM/src/saldo/CommandsSw.hs FM/src/lib/UTF8.hs FM/src/lib/Frontend.hs 
+
