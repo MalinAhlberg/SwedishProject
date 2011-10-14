@@ -45,11 +45,11 @@ type PMonad = (RWS () [String] S)
 $(mkLabels [''S])
 
 test = False
-usePGF = testGr
+usePGF = bigGr --testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
-paint  = True
+paint  = False
 
 startState :: S 
 startState = S {_isReflGenVP = False, _isExist = False
@@ -264,6 +264,8 @@ penn =
 --     --,"PT"  cant parse 'sjálv'
       ,"RA" :-> inAdv
       ,"SP" :-> do a <- pAdj         --undersok om fler sp kan ha denna
+                        `mplus`
+                        pAdA 
                    write ("adj return"++show a)
                    returnApp cidCompAP [a]
                 `mplus`

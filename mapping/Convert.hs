@@ -95,7 +95,8 @@ extractSentences = do
   ss <- mainF talbanken (return . map getSentence')
   return $ concat ss
 
-badTags = ["NAC","XP","AVP","PU"-- ,"CAP","CAVP","CNP","CONJP","CPP","CS","CVP","CXP",
+badTags = ["NAC","XP","AVP","PU"-- ,"CAP","CAVP","CNP","CONJP","CPP","CS"
+           --,"CVP","CXP",
            -- "CJ"
            ,"XX"--,"XT","XF","XA","DB",
            ,"IC","IG","IQ","IR","IS","IT"]
