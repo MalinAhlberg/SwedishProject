@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- $Id$ -->
+<Lexicon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://svn.spraakdata.gu.se/sb-arkiv/pub/lexikon/saldom/saldom.xsd">
+   <LexicalEntry>
+    <lem>dväljas..vb.1</lem>
+    <saldo>dväljas..1</saldo>
+    <gf>dväljas</gf>
+    <p>vb_vs_dväljas</p>
+    <pos>vb</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind s-form</param><wf>dväljes</wf></form>
+     <form><param>pres ind s-form</param><wf>dväljs</wf></form>
+     <form><param>pret ind s-form</param><wf>dvaldes</wf></form>
+     <form><param>pret ind s-form</param><wf>dväljdes</wf></form>
+     <form><param>imper</param><wf>dväljes</wf></form>
+     <form><param>imper</param><wf>dväljs</wf></form>
+     <form><param>inf s-form</param><wf>dväljas</wf></form>
+     <form><param>sup s-form</param><wf>dvalts</wf></form>
+     <form><param>sup s-form</param><wf>dvälts</wf></form>
+
+    </table>
+   </LexicalEntry>
+
+   <LexicalEntry>
+    <lem>fort..ab.1</lem>
+    <saldo>fort..1</saldo>
+    <gf>fort</gf>
+    <p>ab_1_fort</p>
+    <pos>ab</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pos</param><wf>fort</wf></form>
+     <form><param>komp</param><wf>fortare</wf></form>
+     <form><param>super</param><wf>fortast</wf></form>
+     <form><param>c</param><wf>fort</wf></form>
+     <form><param>c</param><wf>fort-</wf></form>
+     <form><param>sms</param><wf>fort-</wf></form>
+
+    </table>
+   </LexicalEntry>
+
+</Lexicon>
+ <LexicalEntry>
+    <lem>vildkatt..nn.1</lem>
+    <saldo>vildkatt..1</saldo>
+    <gf>vildkatt</gf>
+    <p>nn_3u_tid</p>
+    <pos>nn</pos>
+    <inhs>u</inhs>
+    <table>
+     <form><param>sg indef nom</param><wf>vildkatt</wf></form>
+     <form><param>sg indef gen</param><wf>vildkatts</wf></form>
+     <form><param>sg def nom</param><wf>vildkatten</wf></form>
+     <form><param>sg def gen</param><wf>vildkattens</wf></form>
+     <form><param>pl indef nom</param><wf>vildkatter</wf></form>
+     <form><param>pl indef gen</param><wf>vildkatters</wf></form>
+     <form><param>pl def nom</param><wf>vildkatterna</wf></form>
+     <form><param>pl def gen</param><wf>vildkatternas</wf></form>
+     <form><param>ci</param><wf>vildkatt-</wf></form>
+     <form><param>ci</param><wf>vildkatts-</wf></form>
+     <form><param>ci</param><wf>vildkatt</wf></form>
+     <form><param>ci</param><wf>vildkatts</wf></form>
+     <form><param>cm</param><wf>vildkatt-</wf></form>
+     <form><param>cm</param><wf>vildkatts-</wf></form>
+     <form><param>cm</param><wf>vildkatt</wf></form>
+     <form><param>cm</param><wf>vildkatts</wf></form>
+     <form><param>sms</param><wf>vildkatt-</wf></form>
+     <form><param>sms</param><wf>vildkatts-</wf></form>
+
+    </table>
+   </LexicalEntry>
+
+</Lexicon>

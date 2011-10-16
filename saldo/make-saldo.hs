@@ -27,8 +27,8 @@ import General(Str(..))
 
 main = do
   hSetBuffering stdout NoBuffering
-  putStr "Reading saldo_2.0/saldo_20v00.txt ... "
-  res   <- parseDict SAL "saldo_2.0/saldo_20v00.txt" (False,False,False)
+  putStr "Reading lillsaldo.xml ... "
+  res   <- parseDict SAL "lillsaldo.xml" (False,False,False)
   saldo <- case res of
              Ok (dict,_) -> return $ Map.fromList [(mkGFName (get_lemma_id entry), entry) | entry <- unDict dict]
              Bad msg     -> fail msg
@@ -83,7 +83,7 @@ check count fm gf entry@(id,cat,lemmas,_,paradigms) = do
   let fm_t = case Map.lookup (mkGFName id) fm of
                Just entry -> let (_, _, _, _, _,inft,_) = entry in inft
                Nothing    -> error ("unknown id in SALDO: " ++ id)
-      gf_t = PGF.tabularLinearize gf (read "saldoCnc") (read (mkGFName id))
+      gf_t = undefined (\a -> (fst $ head $ head a, map snd)) $  PGF.tabularLinearizes gf (read "saldoCnc") (read (mkGFName id))
       paramMap = head [map | (_,gf_cat,map,_) <- catMap, gf_cat == cat]
   checkForms count paramMap fm_t gf_t entry
 
@@ -126,6 +126,7 @@ compileGF = do
 -- Generate GF identifier
 -------------------------------------------------------------------
 
+-- why all the '?'s ?
 mkGFName id' = name
   where
        dash2us '-' = '_'
