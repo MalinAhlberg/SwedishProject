@@ -1,0 +1,149 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/!svn/ver/39631/sblex/pub/fm/sblex/src/lib
+END
+CTrie.hs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/CTrie.hs
+END
+trie_lib.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/trie_lib.h
+END
+DictToDictionary.hs
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/DictToDictionary.hs
+END
+Combine.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Combine.hs
+END
+General.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/General.hs
+END
+Util.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Util.hs
+END
+Command.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Command.hs
+END
+Frontend.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Frontend.hs
+END
+rts.c
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/rts.c
+END
+Compound.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Compound.hs
+END
+Net.hs
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Net.hs
+END
+UTF8.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/UTF8.hs
+END
+Tokenize.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Tokenize.hs
+END
+Options.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Options.hs
+END
+Invariant.hs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Invariant.hs
+END
+Print.hs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/!svn/ver/39631/sblex/pub/fm/sblex/src/lib/Print.hs
+END
+CommonMain.hs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/!svn/ver/30642/sblex/pub/fm/sblex/src/lib/CommonMain.hs
+END
+SharedString.hs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/SharedString.hs
+END
+EditDistance.hs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/EditDistance.hs
+END
+Dict.cf
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict.cf
+END
+trie_lib.c
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/trie_lib.c
+END
+Trie.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Trie.hs
+END
+GeneralIO.hs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/GeneralIO.hs
+END
+Dictionary.hs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dictionary.hs
+END

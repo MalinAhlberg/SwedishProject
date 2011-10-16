@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/!svn/ver/24646/sblex/pub/fm/sblex/src/fsv
+END
+PrintSw.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/24646/sblex/pub/fm/sblex/src/fsv/PrintSw.hs
+END
+TestGen.hs
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/fsv/TestGen.hs
+END
+Rules.hs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/fsv/Rules.hs
+END
+Build.hs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/!svn/ver/24207/sblex/pub/fm/sblex/src/fsv/Build.hs
+END
+Test.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/fsv/Test.hs
+END
+Commands.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/24207/sblex/pub/fm/sblex/src/fsv/Commands.hs
+END
+Dict.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/24207/sblex/pub/fm/sblex/src/fsv/Dict.hs
+END
+Main.hs
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/repos/!svn/ver/23844/sblex/pub/fm/sblex/src/fsv/Main.hs
+END
+Types.hs
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/fsv/Types.hs
+END

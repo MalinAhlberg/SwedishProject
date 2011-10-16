@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/!svn/ver/34796/sblex/pub/fm/sblex/src/lib/Dict
+END
+DictMakefile
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/DictMakefile
+END
+Lex.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/34796/sblex/pub/fm/sblex/src/lib/Dict/Lex.hs
+END
+Doc.tex
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Doc.tex
+END
+Print.hs
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Print.hs
+END
+Skel.hs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Skel.hs
+END
+Par.y
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Par.y
+END
+Par.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/34794/sblex/pub/fm/sblex/src/lib/Dict/Par.hs
+END
+GetDict.hs
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/GetDict.hs
+END
+Abs.hs
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Abs.hs
+END
+ErrM.hs
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/ErrM.hs
+END
+Lex.x
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/src/lib/Dict/Lex.x
+END

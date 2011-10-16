@@ -1,0 +1,2 @@
+cat regression_data | ../bin/saldo ../dict/saldo.dict -c none -m fail -t lines
+

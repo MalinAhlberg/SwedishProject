@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/regression
+END
+regression_test
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/regression/regression_test
+END
+create_regression_data
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/regression/create_regression_data
+END

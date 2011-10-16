@@ -1,0 +1,6 @@
+Installation
+------------
+$ ./configure
+$ make
+$ sudo make install
+

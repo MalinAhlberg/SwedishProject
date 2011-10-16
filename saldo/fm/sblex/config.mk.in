@@ -1,0 +1,22 @@
+# Set name of binary
+SALDO=saldo
+DALIN=dalin
+FSV=fsv
+
+PACKAGE_VERSION = @PACKAGE_VERSION@
+prefix = @prefix@
+exec_prefix = @exec_prefix@
+bindir = @bindir@
+libdir = @libdir@
+datadir = @datadir@
+datarootdir = @datarootdir@
+host = @host@
+build = @build@
+GHCFLAGS = @GHCFLAGS@
+CPPFLAGS = @CPPFLAGS@
+LDFLAGS = @LDFLAGS@
+EXEEXT = @EXEEXT@
+INSTALL = @INSTALL@
+TAR = @TAR@
+GHC = @GHC@
+CC  = @CC@

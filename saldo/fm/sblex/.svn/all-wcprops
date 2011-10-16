@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/repos/!svn/ver/39631/sblex/pub/fm/sblex
+END
+config.mk.in
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/config.mk.in
+END
+configure
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/configure
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/!svn/ver/23851/sblex/pub/fm/sblex/LICENSE
+END
+Makefile.in
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/Makefile.in
+END
+Setup.lhs
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/!svn/ver/23844/sblex/pub/fm/sblex/Setup.lhs
+END
+INSTALL
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/INSTALL
+END
+configure.in
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/configure.in
+END
+config.status
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/repos/!svn/ver/36162/sblex/pub/fm/sblex/config.status
+END
+config.mk
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/repos/!svn/ver/36162/sblex/pub/fm/sblex/config.mk
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/Makefile
+END
+FM-SBLEX.cabal
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/repos/!svn/ver/24213/sblex/pub/fm/sblex/FM-SBLEX.cabal
+END
+install-sh
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/repos/!svn/ver/23751/sblex/pub/fm/sblex/install-sh
+END

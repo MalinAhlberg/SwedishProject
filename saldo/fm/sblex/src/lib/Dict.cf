@@ -1,0 +1,18 @@
+Dict . Dictionary ::= [Entry] ;
+
+terminator Entry ";" ;
+separator Arg "" ;
+separator Term "," ;
+
+E  . Entry ::= Ident [Arg] ;
+EA . Entry ::= Ident [Arg] "{" [Term] "}" ;
+
+TermC . Term ::= Ident "(" [Term] ")" ;
+TermA . Term ::= Arg ;
+
+NId  . Arg ::= Ident ;
+NArg . Arg ::= Integer;
+NStr . Arg ::= String ;
+
+comment "--" ;
+comment "{-" "-}" ;
