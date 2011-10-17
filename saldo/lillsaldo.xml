@@ -23,6 +23,39 @@
    </LexicalEntry>
 
    <LexicalEntry>
+    <lem>upphäva..vb.2</lem>
+    <saldo>häva_upp..1</saldo>
+    <gf>upphäva</gf>
+    <p>vb_vm_upphäva</p>
+    <pos>vb</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind aktiv</param><wf>upphäver</wf></form>
+     <form><param>pres ind s-form</param><wf>upphäves</wf></form>
+     <form><param>pres ind s-form</param><wf>upphävs</wf></form>
+     <form><param>pres konj aktiv</param><wf>upphäve</wf></form>
+     <form><param>pres konj s-form</param><wf>upphäves</wf></form>
+     <form><param>pret ind aktiv</param><wf>upphävde</wf></form>
+     <form><param>pret ind aktiv</param><wf>upphov</wf></form>
+     <form><param>pret ind s-form</param><wf>upphävdes</wf></form>
+     <form><param>pret ind s-form</param><wf>upphovs</wf></form>
+     <form><param>pret konj aktiv</param><wf>upphove</wf></form>
+     <form><param>pret konj s-form</param><wf>upphoves</wf></form>
+     <form><param>imper</param><wf>upphäv</wf></form>
+     <form><param>inf aktiv</param><wf>upphäva</wf></form>
+     <form><param>inf s-form</param><wf>upphävas</wf></form>
+     <form><param>sup aktiv</param><wf>upphävt</wf></form>
+     <form><param>sup s-form</param><wf>upphävts</wf></form>
+     <form><param>pres_part nom</param><wf>upphävande</wf></form>
+     <form><param>pres_part gen</param><wf>upphävandes</wf></form>
+     <form><param>c</param><wf>upphäv</wf></form>
+     <form><param>c</param><wf>upphäv-</wf></form>
+     <form><param>sms</param><wf>upphäv-</wf></form>
+
+    </table>
+   </LexicalEntry>
+
+   <LexicalEntry>
     <lem>fort..ab.1</lem>
     <saldo>fort..1</saldo>
     <gf>fort</gf>
@@ -40,7 +73,30 @@
     </table>
    </LexicalEntry>
 
-</Lexicon>
+   <LexicalEntry>
+    <lem>blekgul..av.1</lem>
+    <saldo>blekgul..1</saldo>
+    <gf>blekgul</gf>
+    <p>av_0_medelstor</p>
+    <pos>av</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pos indef sg u nom</param><wf>blekgul</wf></form>
+     <form><param>pos indef sg u gen</param><wf>blekguls</wf></form>
+     <form><param>pos indef sg n nom</param><wf>blekgult</wf></form>
+     <form><param>pos indef sg n gen</param><wf>blekgults</wf></form>
+     <form><param>pos indef pl nom</param><wf>blekgula</wf></form>
+     <form><param>pos indef pl gen</param><wf>blekgulas</wf></form>
+     <form><param>pos def sg no_masc nom</param><wf>blekgula</wf></form>
+     <form><param>pos def sg no_masc gen</param><wf>blekgulas</wf></form>
+     <form><param>pos def sg masc nom</param><wf>blekgule</wf></form>
+     <form><param>pos def sg masc gen</param><wf>blekgules</wf></form>
+     <form><param>pos def pl nom</param><wf>blekgula</wf></form>
+     <form><param>pos def pl gen</param><wf>blekgulas</wf></form>
+
+    </table>
+   </LexicalEntry>
+
  <LexicalEntry>
     <lem>vildkatt..nn.1</lem>
     <saldo>vildkatt..1</saldo>

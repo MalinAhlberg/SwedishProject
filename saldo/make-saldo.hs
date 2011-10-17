@@ -25,6 +25,10 @@ import Dict.ErrM(Err(..))
 import DictToDictionary
 import General(Str(..))
 
+{-
+ ghci make-saldo.hs -ifm/sblex/src/lib/ -ifm/sblex/src/Dict/ -ifm/sblex/src/saldo/
+-}
+
 main = do
   hSetBuffering stdout NoBuffering
   putStr "Reading lillsaldo.xml ... "
