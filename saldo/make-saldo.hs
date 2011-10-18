@@ -34,7 +34,8 @@ main = do
   putStr "Reading lillsaldo.xml ... "
   res   <- parseDict SAL "lillsaldo.xml" (False,False,False)
   saldo <- case res of
-             Ok (dict,_) -> return $ Map.fromList [(mkGFName (get_lemma_id entry), entry) | entry <- unDict dict]
+             Ok (dict,_) -> return $ Map.fromList [(mkGFName (get_lemma_id entry)
+                                                  , entry) | entry <- unDict dict]
              Bad msg     -> fail msg
   putStrLn ""
 
@@ -87,7 +88,8 @@ check count fm gf entry@(id,cat,lemmas,_,paradigms) = do
   let fm_t = case Map.lookup (mkGFName id) fm of
                Just entry -> let (_, _, _, _, _,inft,_) = entry in inft
                Nothing    -> error ("unknown id in SALDO: " ++ id)
-      gf_t = undefined (\a -> (fst $ head $ head a, map snd)) $  PGF.tabularLinearizes gf (read "saldoCnc") (read (mkGFName id))
+      gf_t = (\a -> (fst $ head $ head a, map snd)) 
+                         $  PGF.tabularLinearizes gf (read "saldoCnc") (read (mkGFName id))
       paramMap = head [map | (_,gf_cat,map,_) <- catMap, gf_cat == cat]
   checkForms count paramMap fm_t gf_t entry
 
@@ -136,7 +138,8 @@ mkGFName id' = name
        dash2us '-' = '_'
        dash2us x = x
        num x = if isDigit (head x) then 'x':x else x
-       name =  num $ dropWhile (== '_') $ transform_letters $ map dash2us $ dropWhile (== '_') $ undot (decodeUTF8 id')
+       name =  num $ dropWhile (== '_') $ transform_letters 
+                   $ map dash2us $ dropWhile (== '_') $ undot (decodeUTF8 id')
        transform_letters = concat . map trans
        trans '\229' = "aa"
        trans '\197' = "AA"

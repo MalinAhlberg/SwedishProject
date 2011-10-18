@@ -1,6 +1,5 @@
 {-# LANGUAGE TypeSynonymInstances, FlexibleInstances #-}
-module XMLHelp where
-import Prelude 
+module SaldoXML where
 import Text.XML.HXT.Core 
 import Data.Ord
 import Data.List hiding (words)
@@ -46,18 +45,17 @@ xpLex = xpElem "Lexicon"
 
 xpEntry :: PU (String,Entry)
 xpEntry = xpElem "LexicalEntry"
-          $ Debug.trace "in Entry" $ xpPair
-          --  (xpWrap (nameWord,unnameWord) 
-             (xpWrap ((\(_,_,gf,_,pos,_) -> nameWord (gf,pos)),(\gf -> (gf,gf,gf,gf,gf,"-")))
+          $ xpPair
+             (xpWrap ((\(_,_,gf,_,pos,_) -> Debug.trace pos $ nameWord (gf,pos))
+                     ,(\gf               -> (gf,gf,gf,gf,gf,"-")))
                (xp6Tuple 
               (xpElem "lem" xpText)
               (xpElem "saldo" xpText)
-              (Debug.trace "in gf?" $ xpElem "gf" xpText)
+              (xpElem "gf" xpText)
               (xpElem "p" xpText)
               (xpElem "pos" xpText)
               (xpElem "inhs" xpText)))
-              (Debug.trace "in table?" $ xpElem "table" xpTable)
-             --    $ xpElem "saldo" xpUnit
+              (xpElem "table" xpTable)
 
 xpTable :: PU [(String,String)]
 xpTable = xpList $ xpElem "form"
@@ -66,16 +64,21 @@ xpTable = xpList $ xpElem "form"
            (xpElem "wf"    xpText)
 
 nameWord :: (String,String) -> String
-nameWord (name,tag) = name++toGF tag
-unnameWord x = (x,x) -- fix
+nameWord (name,tag) = name++"_"++toGF tag
+unnameWord x = let (w,t) = break (=='_') x in (w,drop 1 t)
 toGF :: String -> String
-toGF = id
+toGF "av" = "A" 
+toGF "nn" = "N" 
+toGF "vb" = "V" 
+toGF "ab" = "Adv" 
+toGF x    = x
 
 
-mainF src =   
+mainF src f =   
   runX (xunpickleDocument xpLex [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO return) 
+        >>> arrIO f) --(return . f)) 
+
 
   {-
   <LexicalEntry>
