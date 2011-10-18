@@ -8,13 +8,16 @@ import qualified Data.Map as M
 import System.Environment
 import Debug.Trace as Debug
 import Data.Char
+import Data.ByteString.Char8 hiding (break)
 import qualified Data.Tree as T
 import Control.Monad.State
+import Control.Arrow
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
-type Lex   = M.Map String Entry
-type Entry = [(String,String)]
+type Lex   = [Entry] --M.Map String Entry
+data Entry = E {word :: String, pos :: ByteString, table :: [(ByteString,String)]}
+  deriving Show
 {-
 data Noun = NDef { sg_indef_nom, sg_indef_gen, sg_def_nom, sg_def_gen,
                    pl_indef_nom, pl_indef_gen, pl_def_nom, pl_def_gen
@@ -40,32 +43,33 @@ instance XmlPickler Lex where
   xpickle = xpLex
   
 xpLex = xpElem "Lexicon"
-            $ xpWrap (M.fromList,M.toList)
             $ xpList xpEntry
 
-xpEntry :: PU (String,Entry)
+xpEntry :: PU Entry
 xpEntry = xpElem "LexicalEntry"
-          $ xpPair
-             (xpWrap ((\(_,_,gf,_,pos,_) -> Debug.trace pos $ nameWord (gf,pos))
-                     ,(\gf               -> (gf,gf,gf,gf,gf,"-")))
-               (xp6Tuple 
+            $ xpWrap ((\(_,_,gf,_,pos,_,table) -> 
+                        E (nameWord (gf,pos)) (pack pos) table)
+                     ,(\(E w p t)  -> (w,w,unnameWord w,w,unpack p,"-",t)))
+            $ xp7Tuple
+              -- (xp6Tuple 
               (xpElem "lem" xpText)
               (xpElem "saldo" xpText)
               (xpElem "gf" xpText)
               (xpElem "p" xpText)
               (xpElem "pos" xpText)
-              (xpElem "inhs" xpText)))
+              (xpElem "inhs" xpText)
               (xpElem "table" xpTable)
 
-xpTable :: PU [(String,String)]
+xpTable :: PU [(ByteString,String)]
 xpTable = xpList $ xpElem "form"
+          $ xpWrap (first pack,first unpack)
           $ xpPair 
            (xpElem "param" xpText)
            (xpElem "wf"    xpText)
 
 nameWord :: (String,String) -> String
 nameWord (name,tag) = name++"_"++toGF tag
-unnameWord x = let (w,t) = break (=='_') x in (w,drop 1 t)
+unnameWord = fst . break (=='_')  
 toGF :: String -> String
 toGF "av" = "A" 
 toGF "nn" = "N" 
