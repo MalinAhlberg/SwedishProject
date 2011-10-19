@@ -18,7 +18,7 @@ Synopsis:            a wide coverage swedish grammar
 License:             GPL
 
 -- The file containing the license text.
-License-file:        LICENSE
+--License-file:        LICENSE
 
 -- The package author(s).
 Author:              Malin Ahlberg
@@ -39,16 +39,17 @@ Build-type:          Simple
 -- Extra-source-files:  
 
 -- Constraint on the version of Cabal needed to build this package.
-Cabal-version:       >=1.2
+Cabal-version:       >=0.8
 
 
 Library
   -- Modules exported by the library.
-  Exposed-modules:     Test, Simplify, Format, Test, MonadSP, XMLHelp, XMLParser, Idents, Convert, Monad, Format, AFormat
+ -- Exposed-modules:     Test, Simplify, Format, Test, MonadSP, XMLHelp, XMLParser, Idents, Convert, Monad, Format, AFormat
   
   -- Packages needed in order to build this package.
   -- Build-depends:       
-  
+     Build-depends: base >= 4 && < 5
+
   -- Modules not exported by this package.
   -- Other-modules:       
   
