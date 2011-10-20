@@ -15,6 +15,7 @@ import Control.Arrow
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
+--type Lex   = [(String,Entry)]
 type Lex   = M.Map String Entry
 data Entry = E {pos :: ByteString, table :: [(ByteString,String)]}
   deriving Show
@@ -26,7 +27,7 @@ parseDict :: String -> IO (Maybe Lex)
 parseDict d = liftM listToMaybe $ mainF d return
 
 xpLex = xpElem "Lexicon"
-        $ xpWrap (M.fromList,M.toList)
+         $ xpWrap (M.fromList,M.toList)
             $ xpList xpEntry
 
 xpEntry :: PU (String,Entry)
@@ -34,10 +35,10 @@ xpEntry = xpElem "LexicalEntry"
             $ xpWrap ((\(_,_,gf,_,pos,_,table) -> 
                          --(nameWord (gf,pos),E (pack pos) table))
                          (gf,E (pack pos) table))
-                     ,(\(w,E p t)  -> (w,w,unnameWord w,w,unpack p,"-",t)))
+                     ,(\(w,E p t)  -> (w,Just w,unnameWord w,w,unpack p,"-",t)))
             $ xp7Tuple
               (xpElem "lem" xpText)
-              (xpElem "saldo" xpText)
+              xpSaldos
               (xpElem "gf" xpText)
               (xpElem "p" xpText)
               (xpElem "pos" xpText)
@@ -50,6 +51,21 @@ xpTable = xpList $ xpElem "form"
           $ xpPair 
            (xpElem "param" xpText)
            (xpElem "wf"    xpText)
+
+xpSaldos :: PU (Maybe String)
+xpSaldos = xpWrap (\(x,_,_,_,_,_,_,_,_) -> x, \x -> (x,x,x,x,x,x,x,x,x)) 
+           $ xp9Tuple 
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+             maybeSaldo
+           
+  where maybeSaldo = xpOption $ xpElem "saldo" xpText
 
 nameWord :: (String,String) -> String
 nameWord (name,tag) = name++"_"++toGF tag

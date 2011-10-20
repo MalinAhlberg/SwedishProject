@@ -1,6 +1,38 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <!-- $Id$ -->
 <Lexicon xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://svn.spraakdata.gu.se/sb-arkiv/pub/lexikon/saldom/saldom.xsd">
+ <LexicalEntry>
+    <lem>rysa..vb.1</lem>
+    <saldo>rysa..1</saldo>
+    <gf>rysa</gf>
+    <p>vb_vm_fnysa</p>
+    <pos>vb</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind aktiv</param><wf>ryser</wf></form>
+     <form><param>pres ind s-form</param><wf>rys</wf></form>
+     <form><param>pres konj aktiv</param><wf>ryse</wf></form>
+     <form><param>pres konj s-form</param><wf>ryses</wf></form>
+     <form><param>pret ind aktiv</param><wf>ryste</wf></form>
+     <form><param>pret ind aktiv</param><wf>rös</wf></form>
+     <form><param>pret ind s-form</param><wf>rystes</wf></form>
+     <form><param>pret ind s-form</param><wf>rös</wf></form>
+     <form><param>pret konj aktiv</param><wf>röse</wf></form>
+     <form><param>pret konj s-form</param><wf>röses</wf></form>
+     <form><param>imper</param><wf>rys</wf></form>
+     <form><param>inf aktiv</param><wf>rysa</wf></form>
+     <form><param>inf s-form</param><wf>rysas</wf></form>
+     <form><param>sup aktiv</param><wf>ryst</wf></form>
+     <form><param>sup s-form</param><wf>rysts</wf></form>
+     <form><param>pres_part nom</param><wf>rysande</wf></form>
+     <form><param>pres_part gen</param><wf>rysandes</wf></form>
+     <form><param>c</param><wf>rys</wf></form>
+     <form><param>c</param><wf>rys-</wf></form>
+     <form><param>sms</param><wf>rys-</wf></form>
+
+    </table>
+   </LexicalEntry>
+
    <LexicalEntry>
     <lem>dväljas..vb.1</lem>
     <saldo>dväljas..1</saldo>
@@ -124,6 +156,19 @@
      <form><param>sms</param><wf>vildkatt-</wf></form>
      <form><param>sms</param><wf>vildkatts-</wf></form>
 
+    </table>
+   </LexicalEntry>
+   <LexicalEntry>
+    <lem>talas_vid..vbm.1</lem>
+    <saldo>talas_vid..1</saldo>
+    <gf>talas vid</gf>
+    <p>vbm_vsp1_talas</p>
+    <pos>vbm</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>inf aktiv 1:1-2</param><wf>talas</wf></form>
+     <form><param>inf aktiv 1:2-2</param><wf>vid</wf></form>
+     <form><param>frag</param><wf>talas vid</wf></form>
     </table>
    </LexicalEntry>
 
