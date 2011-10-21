@@ -1,3 +1,22 @@
+v42 (and 41) 
+Although I promised Elisabet to be an organized person and write 
+something everyday, I forgot to write at all last week. 
+I spend very much time on writing the paper, but I think it was worth 
+it, since I learned a lot. I also finished the mapping (it could 
+still be much better..) and evaluated it, and wrote down some notes 
+about it. 
+This week I've been working on the saldo-parts. I've had some 
+computer problems, but at least I manage to get Krasemir's code 
+working (it needed some updating) and I've also added support for 
+adding reflexive verbs and verbs with particles! It's seems to be 
+working just fine, actually. I can extract all adjectives I've  
+tested (about 1000) and 28% of the verbs. Considering that the verbs 
+in many many cases are parts of idioms in saldo (slå läger, for example), 
+I think the results are good. The biggest problems are: 
+- make it fast enough to parse the xml 
+- handle the verbs. It would be very nice if we could add 
+  some information about the valancy!  
+  
 v40
 Three days of this week was spent in Gullmarsstrand, and on Thursday
 I did not get much done since I spent some hours on travelling to Lindholmen,

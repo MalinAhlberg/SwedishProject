@@ -79,6 +79,7 @@ prepositions =
  ,"uppför"
  ,"uppå"
  ,"ur"
+ ,"ut"-- in is not in the original list, but needed
  ,"utan"
  ,"utanför"
  ,"utanpå"

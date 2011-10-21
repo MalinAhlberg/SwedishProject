@@ -30,8 +30,8 @@ To change input format, just replace parseDict
 Based on Krasimir's code.
 -----------------------------------------------------------------------------}
 
-inputFile = "lillsaldo.xml"
---inputFile = "saldo100kNice.xml"
+--inputFile = "lillsaldo.xml"
+inputFile = "saldo100k.xml"
 
 type Convert = StateT CState IO
 data CState   = CS {errs :: [String], msg :: [String], retries :: [GrammarInfo]
@@ -223,14 +223,15 @@ compileGF = do
 -- Generate GF identifier
 -------------------------------------------------------------------
 
+mkGFName :: String -> String -> String
 mkGFName id' cat = name++"_"++cat
   where
        dash2us '-' = '_'
        dash2us x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
-       name =  num {-$ dropWhile (== '_')-} $ transform_letters 
-                   $ map dash2us $ takeWhile (/= '_')
-                   $ dropWhile (== '_') $ undot (decodeUTF8 id')
+       name =  (++ [last id']) $ num {-$ dropWhile (== '_')-} $ transform_letters 
+                   $ map dash2us $ takeWhile (/= '.') id'
+                   -- $ dropWhile (== '_')-- $ undot (decodeUTF8 id')
        transform_letters w | any (`elem` translated) w = (++"_1") $ concat $ map trans w
                            | otherwise                 = w
                            
