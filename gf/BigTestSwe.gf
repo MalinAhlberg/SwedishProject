@@ -25,6 +25,7 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
 
   lin
+   
     begin_VV    = mkVV (mkV "börja") ;
     tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
     become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
@@ -34,4 +35,5 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
     sadana_X = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
+    biogen_A = mkA "biogen" ;
 } ;

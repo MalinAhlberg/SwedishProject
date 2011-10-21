@@ -32,9 +32,9 @@ xpLex = xpElem "Lexicon"
 
 xpEntry :: PU (String,Entry)
 xpEntry = xpElem "LexicalEntry"
-            $ xpWrap ((\(_,_,gf,_,pos,_,table) -> 
+            $ xpWrap ((\(lem,_,_,_,pos,_,table) -> 
                          --(nameWord (gf,pos),E (pack pos) table))
-                         (gf,E (pack pos) table))
+                         (lem,E (pack pos) table))
                      ,(\(w,E p t)  -> (w,Just w,unnameWord w,w,unpack p,"-",t)))
             $ xp7Tuple
               (xpElem "lem" xpText)

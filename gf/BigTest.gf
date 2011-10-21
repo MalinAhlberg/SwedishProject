@@ -30,4 +30,6 @@ abstract BigTest =
   johan_PN : PN ;
   do_VV : VV;
   sadana_X : X ;
+  biogen_A : A ;
   } ;
+

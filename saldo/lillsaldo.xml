@@ -171,5 +171,298 @@
      <form><param>frag</param><wf>talas vid</wf></form>
     </table>
    </LexicalEntry>
+   <LexicalEntry>
+    <lem>gälisk..av.1</lem>
+    <saldo>gaelisk..1</saldo>
+    <gf>gälisk</gf>
+    <p>av_1_gul</p>
+    <pos>av</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pos indef sg u nom</param><wf>gälisk</wf></form>
+     <form><param>pos indef sg u gen</param><wf>gälisks</wf></form>
+     <form><param>pos indef sg n nom</param><wf>gäliskt</wf></form>
+     <form><param>pos indef sg n gen</param><wf>gäliskts</wf></form>
+     <form><param>pos indef pl nom</param><wf>gäliska</wf></form>
+     <form><param>pos indef pl gen</param><wf>gäliskas</wf></form>
+     <form><param>pos def sg no_masc nom</param><wf>gäliska</wf></form>
+     <form><param>pos def sg no_masc gen</param><wf>gäliskas</wf></form>
+     <form><param>pos def sg masc nom</param><wf>gäliske</wf></form>
+     <form><param>pos def sg masc gen</param><wf>gäliskes</wf></form>
+     <form><param>pos def pl nom</param><wf>gäliska</wf></form>
+     <form><param>pos def pl gen</param><wf>gäliskas</wf></form>
+     <form><param>komp nom</param><wf>gäliskare</wf></form>
+     <form><param>komp gen</param><wf>gäliskares</wf></form>
+     <form><param>super indef nom</param><wf>gäliskast</wf></form>
+     <form><param>super indef gen</param><wf>gäliskasts</wf></form>
+     <form><param>super def no_masc nom</param><wf>gäliskaste</wf></form>
+     <form><param>super def no_masc gen</param><wf>gäliskastes</wf></form>
+     <form><param>super def masc nom</param><wf>gäliskaste</wf></form>
+     <form><param>super def masc gen</param><wf>gäliskastes</wf></form>
+     <form><param>c</param><wf>gälisk</wf></form>
+     <form><param>c</param><wf>gälisk-</wf></form>
+     <form><param>sms</param><wf>gälisk-</wf></form>
+
+    </table>
+   </LexicalEntry>
+<LexicalEntry>
+    <lem>sy_in..vbm.1</lem>
+    <saldo>sy_in..1</saldo>
+    <saldo>sy_in..2</saldo>
+    <saldo>sy_in..3</saldo>
+    <gf>sy in</gf>
+    <p>vbm_3ap1_sy</p>
+    <pos>vbm</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind aktiv 1:1-2</param><wf>syr</wf></form>
+     <form><param>pres ind aktiv 1:2-2</param><wf>in</wf></form>
+     <form><param>pres ind s-form 1:1-2</param><wf>sys</wf></form>
+     <form><param>pres ind s-form 1:2-2</param><wf>in</wf></form>
+     <form><param>pret ind aktiv 1:1-2</param><wf>sydde</wf></form>
+     <form><param>pret ind aktiv 1:2-2</param><wf>in</wf></form>
+     <form><param>pret ind s-form 1:1-2</param><wf>syddes</wf></form>
+     <form><param>pret ind s-form 1:2-2</param><wf>in</wf></form>
+     <form><param>imper 1:1-2</param><wf>sy</wf></form>
+     <form><param>imper 1:2-2</param><wf>in</wf></form>
+     <form><param>inf aktiv 1:1-2</param><wf>sy</wf></form>
+     <form><param>inf aktiv 1:2-2</param><wf>in</wf></form>
+     <form><param>inf s-form 1:1-2</param><wf>sys</wf></form>
+     <form><param>inf s-form 1:2-2</param><wf>in</wf></form>
+     <form><param>sup aktiv 1:1-2</param><wf>sytt</wf></form>
+     <form><param>sup aktiv 1:2-2</param><wf>in</wf></form>
+     <form><param>sup s-form 1:1-2</param><wf>sytts</wf></form>
+     <form><param>sup s-form 1:2-2</param><wf>in</wf></form>
+     <form><param>pres_part nom 1:1-2</param><wf>syende</wf></form>
+     <form><param>pres_part nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pres_part gen 1:1-2</param><wf>syendes</wf></form>
+     <form><param>pres_part gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef sg u nom 1:1-2</param><wf>sydd</wf></form>
+     <form><param>pret_part indef sg u nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef sg u nom 2:1-1</param><wf>insydd</wf></form>
+     <form><param>pret_part indef sg u gen 1:1-2</param><wf>sydds</wf></form>
+     <form><param>pret_part indef sg u gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef sg u gen 2:1-1</param><wf>insydds</wf></form>
+     <form><param>pret_part indef sg n nom 1:1-2</param><wf>sytt</wf></form>
+     <form><param>pret_part indef sg n nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef sg n nom 2:1-1</param><wf>insytt</wf></form>
+     <form><param>pret_part indef sg n gen 1:1-2</param><wf>sytts</wf></form>
+     <form><param>pret_part indef sg n gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef sg n gen 2:1-1</param><wf>insytts</wf></form>
+     <form><param>pret_part indef pl nom 1:1-2</param><wf>sydda</wf></form>
+     <form><param>pret_part indef pl nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef pl nom 2:1-1</param><wf>insydda</wf></form>
+     <form><param>pret_part indef pl gen 1:1-2</param><wf>syddas</wf></form>
+     <form><param>pret_part indef pl gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part indef pl gen 2:1-1</param><wf>insyddas</wf></form>
+     <form><param>pret_part def sg no_masc nom 1:1-2</param><wf>sydda</wf></form>
+     <form><param>pret_part def sg no_masc nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def sg no_masc nom 2:1-1</param><wf>insydda</wf></form>
+     <form><param>pret_part def sg no_masc gen 1:1-2</param><wf>syddas</wf></form>
+     <form><param>pret_part def sg no_masc gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def sg no_masc gen 2:1-1</param><wf>insyddas</wf></form>
+     <form><param>pret_part def sg masc nom 1:1-2</param><wf>sydde</wf></form>
+     <form><param>pret_part def sg masc nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def sg masc nom 2:1-1</param><wf>insydde</wf></form>
+     <form><param>pret_part def sg masc gen 1:1-2</param><wf>syddes</wf></form>
+     <form><param>pret_part def sg masc gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def sg masc gen 2:1-1</param><wf>insyddes</wf></form>
+     <form><param>pret_part def pl nom 1:1-2</param><wf>sydda</wf></form>
+     <form><param>pret_part def pl nom 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def pl nom 2:1-1</param><wf>insydda</wf></form>
+     <form><param>pret_part def pl gen 1:1-2</param><wf>syddas</wf></form>
+     <form><param>pret_part def pl gen 1:2-2</param><wf>in</wf></form>
+     <form><param>pret_part def pl gen 2:1-1</param><wf>insyddas</wf></form>
+     <form><param>frag</param><wf>syr in</wf></form>
+     <form><param>frag</param><wf>sys in</wf></form>
+     <form><param>frag</param><wf>sydde in</wf></form>
+     <form><param>frag</param><wf>syddes in</wf></form>
+     <form><param>frag</param><wf>sy in</wf></form>
+     <form><param>frag</param><wf>sy in</wf></form>
+     <form><param>frag</param><wf>sys in</wf></form>
+     <form><param>frag</param><wf>sytt in</wf></form>
+     <form><param>frag</param><wf>sytts in</wf></form>
+     <form><param>frag</param><wf>syende in</wf></form>
+     <form><param>frag</param><wf>syendes in</wf></form>
+     <form><param>frag</param><wf>sydd in</wf></form>
+     <form><param>frag</param><wf>sydds in</wf></form>
+     <form><param>frag</param><wf>sytt in</wf></form>
+     <form><param>frag</param><wf>sytts in</wf></form>
+     <form><param>frag</param><wf>sydda in</wf></form>
+     <form><param>frag</param><wf>syddas in</wf></form>
+     <form><param>frag</param><wf>sydda in</wf></form>
+     <form><param>frag</param><wf>syddas in</wf></form>
+     <form><param>frag</param><wf>sydde in</wf></form>
+     <form><param>frag</param><wf>syddes in</wf></form>
+     <form><param>frag</param><wf>sydda in</wf></form>
+     <form><param>frag</param><wf>syddas in</wf></form>
+    </table>
+   </LexicalEntry>
+ <LexicalEntry>
+    <lem>tilltvinga_sig..vbm.1</lem>
+    <saldo>tilltvinga_sig..1</saldo>
+    <gf>tilltvinga sig</gf>
+    <p>vbm_vms1_tvinga</p>
+    <pos>vbm</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind aktiv 1:1-2</param><wf>tilltvingar</wf></form>
+     <form><param>pres ind aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>pres ind aktiv 2:1-2</param><wf>tilltvingar</wf></form>
+     <form><param>pres ind aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>pres ind aktiv 3:1-2</param><wf>tilltvingar</wf></form>
+     <form><param>pres ind aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>pres ind aktiv 4:1-2</param><wf>tilltvingar</wf></form>
+     <form><param>pres ind aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>pres ind aktiv 5:1-2</param><wf>tilltvingar</wf></form>
+     <form><param>pres ind aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>pres konj aktiv 1:1-2</param><wf>tilltvinge</wf></form>
+     <form><param>pres konj aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>pres konj aktiv 2:1-2</param><wf>tilltvinge</wf></form>
+     <form><param>pres konj aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>pres konj aktiv 3:1-2</param><wf>tilltvinge</wf></form>
+     <form><param>pres konj aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>pres konj aktiv 4:1-2</param><wf>tilltvinge</wf></form>
+     <form><param>pres konj aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>pres konj aktiv 5:1-2</param><wf>tilltvinge</wf></form>
+     <form><param>pres konj aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>pret ind aktiv 1:1-2</param><wf>tilltvingade</wf></form>
+     <form><param>pret ind aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>pret ind aktiv 2:1-2</param><wf>tilltvingade</wf></form>
+     <form><param>pret ind aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>pret ind aktiv 3:1-2</param><wf>tilltvingade</wf></form>
+     <form><param>pret ind aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>pret ind aktiv 4:1-2</param><wf>tilltvingade</wf></form>
+     <form><param>pret ind aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>pret ind aktiv 5:1-2</param><wf>tilltvingade</wf></form>
+     <form><param>pret ind aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>pret ind aktiv 6:1-2</param><wf>tilltvang</wf></form>
+     <form><param>pret ind aktiv 6:2-2</param><wf>mig</wf></form>
+     <form><param>pret ind aktiv 7:1-2</param><wf>tilltvang</wf></form>
+     <form><param>pret ind aktiv 7:2-2</param><wf>dig</wf></form>
+     <form><param>pret ind aktiv 8:1-2</param><wf>tilltvang</wf></form>
+     <form><param>pret ind aktiv 8:2-2</param><wf>sig</wf></form>
+     <form><param>pret ind aktiv 9:1-2</param><wf>tilltvang</wf></form>
+     <form><param>pret ind aktiv 9:2-2</param><wf>oss</wf></form>
+     <form><param>pret ind aktiv 10:1-2</param><wf>tilltvang</wf></form>
+     <form><param>pret ind aktiv 10:2-2</param><wf>er</wf></form>
+     <form><param>pret konj aktiv 1:1-2</param><wf>tilltvunge</wf></form>
+     <form><param>pret konj aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>pret konj aktiv 2:1-2</param><wf>tilltvunge</wf></form>
+     <form><param>pret konj aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>pret konj aktiv 3:1-2</param><wf>tilltvunge</wf></form>
+     <form><param>pret konj aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>pret konj aktiv 4:1-2</param><wf>tilltvunge</wf></form>
+     <form><param>pret konj aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>pret konj aktiv 5:1-2</param><wf>tilltvunge</wf></form>
+     <form><param>pret konj aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>imper 1:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>imper 1:2-2</param><wf>dig</wf></form>
+     <form><param>imper 2:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>imper 2:2-2</param><wf>er</wf></form>
+     <form><param>inf aktiv 1:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>inf aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>inf aktiv 2:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>inf aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>inf aktiv 3:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>inf aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>inf aktiv 4:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>inf aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>inf aktiv 5:1-2</param><wf>tilltvinga</wf></form>
+     <form><param>inf aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>sup aktiv 1:1-2</param><wf>tilltvingat</wf></form>
+     <form><param>sup aktiv 1:2-2</param><wf>mig</wf></form>
+     <form><param>sup aktiv 2:1-2</param><wf>tilltvingat</wf></form>
+     <form><param>sup aktiv 2:2-2</param><wf>dig</wf></form>
+     <form><param>sup aktiv 3:1-2</param><wf>tilltvingat</wf></form>
+     <form><param>sup aktiv 3:2-2</param><wf>sig</wf></form>
+     <form><param>sup aktiv 4:1-2</param><wf>tilltvingat</wf></form>
+     <form><param>sup aktiv 4:2-2</param><wf>oss</wf></form>
+     <form><param>sup aktiv 5:1-2</param><wf>tilltvingat</wf></form>
+     <form><param>sup aktiv 5:2-2</param><wf>er</wf></form>
+     <form><param>sup aktiv 6:1-2</param><wf>tilltvungit</wf></form>
+     <form><param>sup aktiv 6:2-2</param><wf>mig</wf></form>
+     <form><param>sup aktiv 7:1-2</param><wf>tilltvungit</wf></form>
+     <form><param>sup aktiv 7:2-2</param><wf>dig</wf></form>
+     <form><param>sup aktiv 8:1-2</param><wf>tilltvungit</wf></form>
+     <form><param>sup aktiv 8:2-2</param><wf>sig</wf></form>
+     <form><param>sup aktiv 9:1-2</param><wf>tilltvungit</wf></form>
+     <form><param>sup aktiv 9:2-2</param><wf>oss</wf></form>
+     <form><param>sup aktiv 10:1-2</param><wf>tilltvungit</wf></form>
+     <form><param>sup aktiv 10:2-2</param><wf>er</wf></form>
+     <form><param>pres_part nom 1:1-2</param><wf>tilltvingande</wf></form>
+     <form><param>pres_part nom 1:2-2</param><wf>mig</wf></form>
+     <form><param>pres_part nom 2:1-2</param><wf>tilltvingande</wf></form>
+     <form><param>pres_part nom 2:2-2</param><wf>dig</wf></form>
+     <form><param>pres_part nom 3:1-2</param><wf>tilltvingande</wf></form>
+     <form><param>pres_part nom 3:2-2</param><wf>sig</wf></form>
+     <form><param>pres_part nom 4:1-2</param><wf>tilltvingande</wf></form>
+     <form><param>pres_part nom 4:2-2</param><wf>oss</wf></form>
+     <form><param>pres_part nom 5:1-2</param><wf>tilltvingande</wf></form>
+     <form><param>pres_part nom 5:2-2</param><wf>er</wf></form>
+     <form><param>pres_part gen 1:1-2</param><wf>tilltvingandes</wf></form>
+     <form><param>pres_part gen 1:2-2</param><wf>mig</wf></form>
+     <form><param>pres_part gen 2:1-2</param><wf>tilltvingandes</wf></form>
+     <form><param>pres_part gen 2:2-2</param><wf>dig</wf></form>
+     <form><param>pres_part gen 3:1-2</param><wf>tilltvingandes</wf></form>
+     <form><param>pres_part gen 3:2-2</param><wf>sig</wf></form>
+     <form><param>pres_part gen 4:1-2</param><wf>tilltvingandes</wf></form>
+     <form><param>pres_part gen 4:2-2</param><wf>oss</wf></form>
+     <form><param>pres_part gen 5:1-2</param><wf>tilltvingandes</wf></form>
+     <form><param>pres_part gen 5:2-2</param><wf>er</wf></form>
+     <form><param>frag</param><wf>tilltvingar mig</wf></form>
+     <form><param>frag</param><wf>tilltvingar dig</wf></form>
+     <form><param>frag</param><wf>tilltvingar sig</wf></form>
+     <form><param>frag</param><wf>tilltvingar oss</wf></form>
+     <form><param>frag</param><wf>tilltvingar er</wf></form>
+     <form><param>frag</param><wf>tilltvinge mig</wf></form>
+     <form><param>frag</param><wf>tilltvinge dig</wf></form>
+     <form><param>frag</param><wf>tilltvinge sig</wf></form>
+     <form><param>frag</param><wf>tilltvinge oss</wf></form>
+     <form><param>frag</param><wf>tilltvinge er</wf></form>
+     <form><param>frag</param><wf>tilltvingade mig</wf></form>
+     <form><param>frag</param><wf>tilltvingade dig</wf></form>
+     <form><param>frag</param><wf>tilltvingade sig</wf></form>
+     <form><param>frag</param><wf>tilltvingade oss</wf></form>
+     <form><param>frag</param><wf>tilltvingade er</wf></form>
+     <form><param>frag</param><wf>tilltvang mig</wf></form>
+     <form><param>frag</param><wf>tilltvang dig</wf></form>
+     <form><param>frag</param><wf>tilltvang sig</wf></form>
+     <form><param>frag</param><wf>tilltvang oss</wf></form>
+     <form><param>frag</param><wf>tilltvang er</wf></form>
+     <form><param>frag</param><wf>tilltvunge mig</wf></form>
+     <form><param>frag</param><wf>tilltvunge dig</wf></form>
+     <form><param>frag</param><wf>tilltvunge sig</wf></form>
+     <form><param>frag</param><wf>tilltvunge oss</wf></form>
+     <form><param>frag</param><wf>tilltvunge er</wf></form>
+     <form><param>frag</param><wf>tilltvinga dig</wf></form>
+     <form><param>frag</param><wf>tilltvinga er</wf></form>
+     <form><param>frag</param><wf>tilltvinga mig</wf></form>
+     <form><param>frag</param><wf>tilltvinga dig</wf></form>
+     <form><param>frag</param><wf>tilltvinga sig</wf></form>
+     <form><param>frag</param><wf>tilltvinga oss</wf></form>
+     <form><param>frag</param><wf>tilltvinga er</wf></form>
+     <form><param>frag</param><wf>tilltvingat mig</wf></form>
+     <form><param>frag</param><wf>tilltvingat dig</wf></form>
+     <form><param>frag</param><wf>tilltvingat sig</wf></form>
+     <form><param>frag</param><wf>tilltvingat oss</wf></form>
+     <form><param>frag</param><wf>tilltvingat er</wf></form>
+     <form><param>frag</param><wf>tilltvungit mig</wf></form>
+     <form><param>frag</param><wf>tilltvungit dig</wf></form>
+     <form><param>frag</param><wf>tilltvungit sig</wf></form>
+     <form><param>frag</param><wf>tilltvungit oss</wf></form>
+     <form><param>frag</param><wf>tilltvungit er</wf></form>
+     <form><param>frag</param><wf>tilltvingande mig</wf></form>
+     <form><param>frag</param><wf>tilltvingande dig</wf></form>
+     <form><param>frag</param><wf>tilltvingande sig</wf></form>
+     <form><param>frag</param><wf>tilltvingande oss</wf></form>
+     <form><param>frag</param><wf>tilltvingande er</wf></form>
+     <form><param>frag</param><wf>tilltvingandes mig</wf></form>
+     <form><param>frag</param><wf>tilltvingandes dig</wf></form>
+     <form><param>frag</param><wf>tilltvingandes sig</wf></form>
+     <form><param>frag</param><wf>tilltvingandes oss</wf></form>
+     <form><param>frag</param><wf>tilltvingandes er</wf></form>
+    </table>
+   </LexicalEntry>
 
 </Lexicon>
