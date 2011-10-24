@@ -52,15 +52,15 @@ writeFiles (x:xmls) n = do
   where cont =  mk $  unlines  x
           -- does not work for last file, make better with interval maybe
         mk f  | "<?xml version" `isPrefixOf` f = f  ++ end
-              | "</Lexicon>"    `isSuffixOf` f = head ++ f
+              | null xmls                      = head ++ f
               | otherwise                      = head ++ f ++ end
         head = "<Lexicon>"
         end  = "</Lexicon>"
 
 
 initGFFiles = do
-  writeFile "saldo.gf" $ absHeader "Tot"
-  writeFile "saldoCnc.gf"    $ concHeader "Tot"
+  writeFile "saldoTot.gf" $ absHeader "Tot"
+  writeFile "saldoTotCnc.gf"    $ concHeader "Tot"
 
 endGFFiles = do
   appendFile "saldoTot.gf" "}"
