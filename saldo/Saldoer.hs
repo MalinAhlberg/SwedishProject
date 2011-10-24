@@ -15,6 +15,7 @@ import qualified Data.Map as Map
 import Text.Read.Lex(Lexeme(..),lex)
 import Control.Monad.Writer
 import Control.Monad.State
+import Control.Monad.Error
 import Control.Arrow
 import Debug.Trace
 
@@ -30,12 +31,12 @@ To change input format, just replace parseDict
 Based on Krasimir's code.
 -----------------------------------------------------------------------------}
 
---inputFile = "lillsaldo.xml"
+inputFile = "lillsaldo.xml"
 --inputFile = "saldo100k.xml"
-inputFile = "saldom.xml"
+--inputFile = "saldom.xml"
 
 
-type Convert = StateT CState IO
+type Convert = StateT CState (ErrorT String IO)
 data CState   = CS {errs :: [String], msg :: [String], retries :: [GrammarInfo]
                    , pgf :: FilePath, ok :: [GrammarInfo]
                    , saldo :: Lex, changes :: Int, dead :: [String] 
@@ -48,7 +49,7 @@ data GrammarInfo = G {lemma :: String, pos :: String, forms :: [[String]]
 type Paradigm = [(String,[String],String)]
 
 instance Eq GrammarInfo where
- g1 == g2 = (lemma g1) == (lemma g2) 
+ g1 == g2 = lemma g1 == lemma g2 
          -- checks equality on the name only, in order to
          -- simplify deletion from retries-list
 
@@ -61,18 +62,21 @@ extract inputFile n = do
              Nothing  -> fail $ "cannot read "++inputFile 
   putStrLn ""
 
-  st <- execStateT (createGF saldo
+  mst <- runErrorT $ execStateT (createGF saldo
                     >> compileGF
                     >> loop
                     -- >> printGFFinal
                     >> cleanUp)  (initState n)
-  let ms   =  "\n Messages:\n "++ unlines (msg st)
-  let ers  =  "\n Errors:\n "  ++ unlines (errs st)
-  let fail =  "\n Failing:\n " ++ unlines (show (retries st):dead st)
-  writeFile ("Messages"++show n++".txt") ms
-  writeFile ("Errors"++show n++".txt") ers        
-  writeFile ("Fail"++show n++".txt") fail
-  appendCode $ ok st
+  er <- case mst of 
+             Left er  -> return er
+             Right st -> do 
+                 let ms   =  "\n Messages:\n "++ unlines (msg st)
+                 let fail =  "\n Failing:\n " ++ unlines (show (retries st):dead st)
+                 writeFile ("Messages"++show n++".txt") ms
+                 writeFile ("Fail"++show n++".txt") fail
+                 return $ unlines (errs st)
+  writeFile ("Errors"++show n++".txt")  $ "\n Errors:\n "  ++ er
+  -- appendCode $ ok st
 
   where
     loop = do
@@ -89,10 +93,11 @@ appendCode entries = do
 -- Bootstrap initial version of GF
 -------------------------------------------------------------------
 
+createGF :: Lex -> Convert ()
 createGF sal = do
   io $ putStr "Creating GF source for SALDO ... "
   io $ print [lemma | (lemma,E pos tab) <- Map.toList sal, lemma == "vilkatt_N"]
-  mapM findGrammar (Map.toList sal) 
+  mapM_ findGrammar (Map.toList sal) 
   modify $ \s -> s {saldo = sal}
   
   printGF 
@@ -144,11 +149,11 @@ updateGF = do
   cnc_file <- gets retries
   modify $ \s -> s {changes = 0, retries = []}
   report $ "updating "++ unlines (map show cnc_file)
-  mapM (check pgf) cnc_file
+  mapM_ (check pgf) cnc_file
   printGF 
   c <- gets changes
   io $ putStrLn ""
-  let update = ("updated "++show c++" words")
+  let update = "updated "++show c++" words"
   io $ putStrLn update
   report update
 
@@ -219,7 +224,10 @@ compileGF = do
   res <- io $ rawSystem "gf" ["--batch", "--make", "generate/saldoCnc"++show num++".gf", "+RTS", "-K64M"]
   case res of
     ExitSuccess      -> return () 
-    ExitFailure code -> report ("compiliation failed with error code "++show code)
+    ExitFailure code -> do
+                   n <- gets partNo 
+                   fail ("compiliation failed with error code "++show code
+                         ++"\nPartition "++show n++" will be skipped")
   (fpath,h) <- io $ openTempFile "." "tmp.pgf"
   io $ hClose h
   io $ copyFile ("saldo"++show num++".pgf") fpath
@@ -243,7 +251,7 @@ mkGFName id' cat = name++"_"++cat
               $ map dash2us $ takeWhile (/= '.')
                    {- $ dropWhile (== '_')-- -}
               $ undot (decodeUTF8 id')
-       transform_letters w | any (`elem` translated) w = (++"_1") $ concat $ map trans w
+       transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
                            | otherwise                 = concatMap trans w -- to be sure..
                            
        trans '\229' = "aa"
@@ -514,8 +522,8 @@ isDead d = modify $ \s -> s {dead = d:dead s, retries = delete (emptyG d) (retri
   where emptyG d = G d [] [] [] ("","") []
 --add to ok, remove from retries
 accept :: GrammarInfo -> Convert ()
-accept e = do report $ "accepting "++(lemma e)
-              modify $ \s -> s {retries = delete e (retries s), ok = e:(ok s)}
+accept e = do report $ "accepting "++lemma e
+              modify $ \s -> s {retries = delete e (retries s), ok = e:ok s}
               r <- gets retries
               report $ "deleted "++lemma e++" from retries. result: "++show (e `elem` r)
 
@@ -528,7 +536,7 @@ addTemp f = modify $ \s -> s {tmps = f:tmps s}
 -------------------------------------------------------------------
 
 io :: IO a -> Convert a
-io = lift 
+io = lift . lift
 
 report :: String -> Convert ()
 report x = modify $ \s  -> s {msg = x:msg s}

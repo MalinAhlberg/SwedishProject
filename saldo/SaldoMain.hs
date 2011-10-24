@@ -10,6 +10,8 @@ import Data.Maybe
 import Control.Applicative
 
 main :: IO ()
+main = extract "saldoPart1.xml" 60
+{-
 main = do 
   arg <- fmap (fmap read . listToMaybe) getArgs 
   (fpaths,skip) <- case arg of
@@ -29,6 +31,7 @@ main = do
 --  combine files
   endGFFiles
   return ()
+  -}
 
 combine :: [[GrammarInfo]] -> IO ()
 combine xs = do
