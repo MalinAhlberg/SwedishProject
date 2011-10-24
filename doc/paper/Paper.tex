@@ -25,8 +25,8 @@ we obtain a %can be compiled to a % from which we derive??
 parser.
 In addition to GF, we use two other main resources: the Swedish
 treebank Talbanken and the electronic SALDO lexicon.
-The resulting parser will 
-give a full syntactic analysis of the input sentences.
+The resulting parser 
+gives a full syntactic analysis of the input sentences.
 It will be highly reusable, freely available,
 and as GF provides libraries for compiling
 grammars to a number of programming languages,
@@ -61,7 +61,7 @@ We chose our resources so that both our grammar and parser can
 be freely available and open-source. 
 
 This paper will briefly introduce GF, Talbanken and SALDO in Section \ref{sec:background}
-and describe our results so far in Section \ref{sec:progress}.
+and describe our results in Section \ref{sec:progress}.
 %We aim to implement % The goal is to be able to 
 %a parser for open domain language and 
 %This paper describes our work and results 
@@ -97,9 +97,9 @@ abstract trees as well as linearize trees into strings.
 %Since all languages supported in an application share a common abstract syntax,
 %we get multilinguality for free.
 
-The grammar acts as an independent module.
+The grammar acts as an independent module and
 %and may be used in different projects.
-Reusability is further supported by the separation between resource grammars
+reusability is further supported by the separation between resource grammars
 and application grammars. The resource library provided with GF 
 implements morphological and
 syntactical rules for more than 20 different languages.
@@ -109,8 +109,8 @@ form standard sentences, phrases or inflect words.
 
 Since many of the languages in the GF library resemble each other grammatically,
 they can share much of their implementations. This is usually done by using a
-\verb|Functor|. % , which lets a number of languages share parts of their implementation. 
-This avoids code duplication and aids the code maintenance.
+\verb|Functor|, % , which lets a number of languages share parts of their implementation. 
+avoids code duplication and aids the code maintenance.
 
 GF has so far been used in a number of projects, MOLTO\cite{molto}, TALK\cite{talk}
 and WebAlt\cite{webalt} to mention a few. 
@@ -133,12 +133,11 @@ and Java.
 
 
 \subsection{Talbanken}
-Talbanken\cite{talbanken} is
-a Swedish treebank assembled in the 1970s at Lund University.
-In 2005 it was modernized by Nivre, Nilsson and Hall\cite{talbanken05} and
-enriched with annotation for a full phrase structure analysis. 
-We are using the treebank for development and evaluation. 
-
+For development and evaluation, we use the Swedish treebank
+Talbanken\cite{talbanken}.
+It was assembled in the 1970s at Lund University and modernized
+in 2005 by Nivre, Nilsson and Hall\cite{talbanken05} and
+enriched with annotation for a full phrase structure analysis.  \\
 Although Talbanken contains both written and spoken Swedish,
 only the prose material, consisting of 6316 sentences, will be used in this project.
 This part was also used when training the data-driven parser Maltparser \cite{malt}. \\
@@ -151,9 +150,10 @@ based on Svenskt Associationslexikon. It is
 developed at Språkbanken at Gothenburg University
 and intended for usage in language technology
 research. 
-A large GF lexicon has been extracted from SALDO,
-containing 50 000 entries. By updating this technique, we will
-re-import SALDO, which has been developed since.
+We are developing tools for extracting GF lexicons
+from SALDO, which have resulted in a dictionary containing
+over 98000 entries including information about verbs that
+are reflexive or needs a particle.
 The importing method should be fast and reliable
 enough to allow us to always have a fresh version of the dictionary
 in GF.
@@ -162,11 +162,12 @@ in GF.
 \section{Related work}
 Language technology for Swedish is an area of much interesting research.
 There are two other deep grammar-based parser for Swedish:
-SICS (Raynen and Gambäck, 1992) based on Core Language Engine and a
-unification-based chart parser (Mats Wirén, 1988),
+Swedish Core Language Engine (Raynen and Gambäck, 1992) and a
+unification-based chart parser\cite{wiren},
+%correct reference?
 though none of them are freely available.
-Among other parsers for Swedish, the statistical MaltParser\cite{malt}
-which was trained on Talbanken, is worth mentioning. 
+Among other parsers for Swedish, the statistical MaltParser\cite{malt},
+trained on Talbanken, is worth mentioning. 
 CassSwe (Kokkinakis and Johansson-Kokkinakis, 1999) is based on finite state cascades,
 whereas the shallow parser GTA (Knutsson, Bigert and Kann, 2003) relies on rules of 
 a context free grammar. Both GTA and CassSwe operate on POS tagged text.\\
@@ -242,8 +243,8 @@ The evaluation of trees of this sort shows that the mapping
 can restore 85\% of the nodes. 
 %, given that all words are
 %known to the grammar.
-If the we lift the restrictions, we can currently restore 63\% of the tags.
-%mapping, a number that would probably increase substansially when working with a bigger lexicon.
+If we lift the restrictions, we can restore 63\% of the tags.
+%mapping, a number that would probably increase substantially when working with a bigger lexicon.
 %is an interesting way of
 %% an straightforward
 %accomplishing an evaluation.
@@ -274,7 +275,7 @@ the reflexive pronoun \emph{sitt}: \\
 as opposed to \\
 \emph{Han såg \textbf{hans} hus} $\;$ (\emph{He saw his (another person's) house}) \\
 %>> not critical, does not have to be in resource grammar
-%>> also not expressable in all languages
+%>> also not expressible in all languages
 Fronting words or phrases is very common in Swedish and are now allowed by the grammar:\\
 %the possibility for this has been added to the grammar:\\
 \emph{\textbf{Glad} var han inte.} $\;$ (\emph{\textbf{Happy} was he not}). \\
@@ -296,7 +297,7 @@ Chosen parts of the parser or grammar may be used in other applications
 which deal with controlled natural languages. Automatic language
 generation from the grammar is also provided by GF.
 
-%% more explaination of probabilities
+%% more explanation of probabilities
 We aim to make the parser robust by equipping it with techniques such as chunk
 parsing, named entity recognition and methods for handling unknown 
 grammatical constructions such as idioms and ellipses. %etc. 
