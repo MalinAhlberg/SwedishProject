@@ -12,7 +12,6 @@ saldo/xmlenL
 
 saldo/xmlen
 
-saldo/q
 
 saldo/SaldoMain
 
@@ -28,18 +27,17 @@ doc/paper/Paper2.tex
 
 doc/paper/Paper.pdf
 
-saldo/Messages4.txt
-
-saldo/Messages1.txt
-
-saldo/Messages4.txt
-
-saldo/Fail1.txt
-
-saldo/Errors1.txt
-
-saldo/Messages4.txt
 
 .gitignore
 
-.gitignore
+saldo/MessagesS66.txt
+
+saldo/MessagesS15.txt
+
+saldo/MessagesS14.txt
+
+saldo/FailS15.txt
+
+saldo/FailS14.txt
+
+saldo/FailS66.txt
