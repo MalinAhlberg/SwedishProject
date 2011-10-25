@@ -26,6 +26,7 @@ Nov
                                        refine reflNP to cover 'sin','sig','själv', 'sina barns katts matskål'
                                        reintroduce genitive!
                                        work on PassV2 (including 'det skålas'?) and PPart. refine VP-type?
+                                       comparing adverbs ('ofta','fort')
 Dec
 48 work on grammar, writing
 49 writing
@@ -34,6 +35,7 @@ Jan
 2 presentation
 
 The Future
+ noun guesser and import the failed nouns
  work on chunking parsing 
 
 2011-09-26
