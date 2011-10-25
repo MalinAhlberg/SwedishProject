@@ -28,7 +28,9 @@ import UTF8
 {-----------------------------------------------------------------------------
 Translates saldom.xml into GF dictionary.
 To change input format, just replace parseDict
-Based on Krasimir's code.
+The main fuction is extract, which could operate alone or together with
+SaldoMain
+Based on code by Krasimir.
 -----------------------------------------------------------------------------}
 
 inputFile = "lillsaldo.xml"
@@ -40,7 +42,8 @@ type Convert = StateT CState (ErrorT String IO)
 data CState   = CS {errs :: [String], msg :: [String], retries :: [GrammarInfo]
                    , pgf :: FilePath, ok :: [GrammarInfo]
                    , saldo :: Lex, changes :: Int, dead :: [String] 
-                   , tmps :: [FilePath], partNo :: Int }
+                   , tmps :: [FilePath], partNo :: Int
+                   , selection :: Maybe [String], name :: String}
 
 data GrammarInfo = G {lemma :: String, pos :: String, forms :: [[String]]
                      ,extra :: String, functions :: (String,String)
@@ -53,7 +56,7 @@ instance Eq GrammarInfo where
          -- checks equality on the name only, in order to
          -- simplify deletion from retries-list
 
-extract inputFile n = do
+extract select name inputFile n  = do
   hSetBuffering stdout NoBuffering
   putStr $ "Reading "++inputFile++" ... "
   res   <- parseDict inputFile 
@@ -66,15 +69,15 @@ extract inputFile n = do
                     >> compileGF
                     >> loop
                     -- >> printGFFinal
-                    >> cleanUp)  (initState n)
+                    >> cleanUp)  (initState n select name)
   er <- case mst of 
              Left er  -> return er
              Right st -> do 
                  let ms   =  "\n Messages:\n "++ unlines (msg st)
                  let fails =  "\n Failing:\n " ++ unlines (show (retries st):dead st)
-                 writeFile ("Messages"++show n++".txt") ms
-                 writeFile ("Fail"++show n++".txt") fails
-                 appendCode $ ok st
+                 writeFile ("MessagesS"++show n++".txt") ms -- S to keep old files
+                 writeFile ("FailS"++show n++".txt") fails
+                 appendCode name $ ok st
                  return $ unlines (errs st)
   writeFile ("Errors"++show n++".txt")  $ "\n Errors:\n "  ++ er
 
@@ -85,9 +88,9 @@ extract inputFile n = do
      changes <- gets changes
      unless (changes == 0) loop 
 
-appendCode entries = do
-  appendFile "saldoTot.gf"  (concatMap showAbs entries)
-  appendFile "saldoTotCnc.gf"  (concatMap showCnc entries)
+appendCode name entries = do
+  appendFile ("saldo"++name++".gf")    (concatMap showAbs entries)
+  appendFile ("saldo"++name++"Cnc.gf") (concatMap showCnc entries)
 
 -------------------------------------------------------------------
 -- Bootstrap initial version of GF
@@ -96,8 +99,9 @@ appendCode entries = do
 createGF :: Lex -> Convert ()
 createGF sal = do
   io $ putStr "Creating GF source for SALDO ... "
-  --io $ print [lemma | (lemma,E pos tab) <- Map.toList sal, lemma == "vilkatt_N"]
   mapM_ findGrammar (Map.toList sal) 
+  todo <- gets retries
+  when (null todo) $ fail "No words from this section. Skipping"
   modify $ \s -> s {saldo = sal}
   
   printGF 
@@ -106,15 +110,18 @@ createGF sal = do
 
 findGrammar :: (String,Entry) -> Convert ()
 findGrammar (id,E pos table) =  do
-  let xs = [(gf_cat,f,paradigms) | (fm_cat,gf_cat,_,f,paradigms) <- catMap, fm_cat == pos
-                                                               ,okCat gf_cat id]
-  if null xs then do tellFailing ("don't accept pos "++show pos
-                                  ++", word '"++id++"' rejected.")
-                     isDead id
-             else do let cnc = [G id gf_cat [[snd $ head' "createGF" table]]
-                                   "" (f,findA id++f') paradigms 
-                                             | (gf_cat,(f,f'),paradigms) <- xs]
-                     modify $ \s -> s {retries = cnc++retries s}
+  rest <- gets selection
+  let keep = maybe True (id `elem`) rest 
+  when keep $ do
+   let xs = [(gf_cat,f,paradigms) | (fm_cat,gf_cat,_,f,paradigms) <- catMap
+                                    , fm_cat == pos ,okCat gf_cat id]
+   if null xs then do tellFailing ("don't accept pos "++show pos
+                                   ++", word '"++id++"' rejected.")
+                      isDead id
+              else do let cnc = [G id gf_cat [[snd $ head' "createGF" table]]
+                                    "" (f,findA id++f') paradigms 
+                                              | (gf_cat,(f,f'),paradigms) <- xs]
+                      modify $ \s -> s {retries = cnc++retries s}
 
 okCat "V2" = hasPrep  
 okCat "VR" = isRefl
@@ -165,8 +172,8 @@ check gf entry@(G id cat lemmas _ _ _) = do
                           isDead id
 
 checkWord gf t entry@(G id cat lemmas _ _ _) = do 
-  n <- gets partNo
-  let gf_t     = concat $ PGF.tabularLinearizes gf (read $ "saldoCnc"++show n)
+  langName <- getLangName
+  let gf_t     = concat $ PGF.tabularLinearizes gf (read $ langName)
                                                (read (mkGFName id cat))
       paramMap = head' "check" [map | (_,gf_cat,map,_,_) <- catMap
                                       , gf_cat == cat]
@@ -186,7 +193,6 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
                                    , Just gf_v  <- [lookup gf_p gf_t]
                                    , Just fm_v  <- [isDiff gf_v fm_vs]]
    -- if there is no information about the form in saldo, we chose to accept it
-   -- should probably add 'variant {}' or similair
     isDiff  _ [] = Nothing
     isDiff  x xs | x `elem` xs = Nothing
                  | otherwise   = Just $ head xs
@@ -194,7 +200,7 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
     getNextLemma x@(G id cat lemmas _ _ []) = do
         tellFailing ("No more paradigms to choose from: " ++id)
         isDead id
-    getNextLemma entry@(G id cat lemmas b f ((_,xs,a):ps)) = do
+    getNextLemma entry@(G id cat lemmas b f ((pre,xs,a):ps)) = do
         report $ "working on "++id
         report $ "next paradigm: " ++ show xs
         report $ "to choose from: "++show ps
@@ -202,8 +208,10 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
         if Nothing `elem` forms 
            then do report ("all forms for "++id++" not found" )
                    getNextLemma (G id cat lemmas b f ps)
-           else replace (G id cat [catMaybes forms] a f ps)
+           else replace (G id cat [catMaybes forms] a (specialF pre f) ps)
       where
+        specialF "compoundA" _ = ("compoundA","") --- to be removed
+        specialF x           f = f
         getLemma  gf_p=
                      case lookup fm_p fm_t of
                           Just ""   -> do report ("form "++gf_p++" was empty for "++id)
@@ -220,18 +228,19 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
 compileGF :: Convert () 
 compileGF = do
   io $ putStrLn "Compile generate/saldoCnc.gf ... "
-  num <- gets partNo
-  res <- io $ rawSystem "gf" ["--batch", "--make", "generate/saldoCnc"++show num++".gf", "+RTS", "-K64M"]
+  concName <- getCncName
+  pgfName  <- getPGFName
+  res <- io $ rawSystem "gf" ["--batch", "--make", concName, "+RTS", "-K64M"]
   case res of
     ExitSuccess      -> return () 
     ExitFailure code -> do
                    n <- gets partNo 
-                   io $ putStrLn "failed to read PGF.\nWill skip this section"
+                   io $ putStrLn "failed to create PGF.\nWill skip this section"
                    fail ("compiliation failed with error code "++show code
                          ++"\nPartition "++show n++" will be skipped")
   (fpath,h) <- io $ openTempFile "." "tmp.pgf"
   io $ hClose h
-  io $ copyFile ("saldo"++show num++".pgf") fpath
+  io $ copyFile pgfName fpath
   addTemp fpath
   report "compilation done"
   setPGF fpath  
@@ -247,10 +256,9 @@ mkGFName id' cat = name++"_"++cat
        dash2us '-' = '_'
        dash2us x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
-       name =  undot $ (++ [last id']) $ num       {-$ dropWhile (== '_')-} 
+       name =  undot $ (++ [last id']) $ num 
               $ transform_letters 
               $ map dash2us $ takeWhile (/= '.')
-                   {- $ dropWhile (== '_')-- -}
               $ undot (decodeUTF8 id')
        transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
                            | otherwise                 = concatMap trans w -- to be sure..
@@ -343,6 +351,7 @@ adjParadigmList =
   , ("mkA", [a1, a3 , a5, a11 , a13], "")
   , ("mkA", [a1, a3 , a5, a11 , a13], "")
   , ("mkA", [a1, a3 , a7, a5 , a11, a13, a15], "")
+  , ("compoundA", [a1, a3, a5], "") -- new paradigm
   ]
 
 
@@ -450,7 +459,7 @@ nounParadigmList =
 printGFFinal = do
   good <- gets ok
   num <- gets partNo
-  io $ printGF' good (show num)
+  io $ printGF' good (show num) "Fin"
 
 printGF :: Convert ()
 printGF = do
@@ -458,15 +467,19 @@ printGF = do
   good <- gets ok
   let entries = new++good
   num <- gets partNo
-  io $ printGF' entries (show num)
+  nam <- gets name
+  io $ printGF' entries (show num) nam
 
-printGF' entries num = do
-  writeFile  ("generate/saldo"++num++".gf") $
-      absHeader num ++
+printGF' [] _ _ = putStrLn "no lemmas to write"
+printGF' entries num name = do
+  let absName = "generate/saldo"++name++num++".gf"
+      cncName = "generate/saldo"++name++num++"Cnc.gf"
+  writeFile  absName $
+      absHeader num name ++
       concatMap showAbs entries ++
       "}"
-  writeFile ("generate/saldoCnc"++num++".gf") $
-      concHeader num ++
+  writeFile cncName $
+      concHeader num name ++ 
       concatMap showCnc entries ++
       "}"
 
@@ -490,17 +503,37 @@ showCnc (G id cat lemmas a (mk,end) paradigms)
     fnutta x@"variant {}" = "("++x++")"
     fnutta x = "\""++x++"\""
 
-absHeader n  = "--# -path=.:abstract:alltenses/\n" ++ "abstract saldo"++n++" = Cat ** {\n"++
+absHeader n nam =
+  "--# -path=.:abstract:alltenses/\n" ++ "abstract saldo"++nam++n++" = Cat ** {\n"++
       "\n"++ "fun\n" 
 
-concHeader n = "--# -path=.:swedish:scandinavian:abstract:common:alltenses\n" ++
-      "concrete saldoCnc"++n++" of saldo"++n++" = CatSwe ** open ParadigmsSwe in {\n"++
+concHeader n nam = 
+      "--# -path=.:swedish:scandinavian:abstract:common:alltenses\n" ++
+      "concrete saldo"++nam++n++"Cnc of saldo"++nam++n++" = CatSwe ** open ParadigmsSwe in {\n"++
       "\n"++
       "flags\n"++
       "  optimize=values ; coding=utf8 ;\n"++
       "\n"++
       "lin\n"
  
+getCncName, getAbsName, getPGFName :: Convert String 
+getCncName = do
+ n   <- gets partNo
+ nam <- gets name
+ return $ "generate/saldo"++nam++show n++"Cnc.gf"
+getAbsName = do
+ n   <- gets partNo
+ nam <- gets name
+ return $ "generate/saldo"++nam++show n++".gf"
+getLangName= do
+ n   <- gets partNo
+ nam <- gets name
+ return $ "saldo"++nam++show n++"Cnc"
+getPGFName = do
+ n   <- gets partNo
+ nam <- gets name
+ return $ "saldo"++nam++show n++".pgf"
+
 
 cleanUp :: Convert ()
 cleanUp = do
@@ -511,10 +544,11 @@ cleanUp = do
 -- State
 -------------------------------------------------------------------
  
-initState n = CS {errs = [], msg = [], retries = []
-               , pgf = "", ok = [] ,dead = []
-               , saldo = Map.empty, changes = 0, tmps = []
-               , partNo = n }
+initState n s name 
+  = CS {errs = [], msg = [], retries = []
+        , pgf = "", ok = [] ,dead = []
+        , saldo = Map.empty, changes = 0, tmps = []
+        , partNo = n, selection = s, name = name }
 
 setPGF f = modify $ \s -> s { pgf = f}
 replace gr = modify $ \s -> s {retries = gr : delete gr (retries s)} -- hehe, make nice?

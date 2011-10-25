@@ -1,0 +1,22 @@
+have changed krasses code, got more than 98000 entries.
+prints lists of all failing words.
+uses saldom.xml, converts to haskell and all forms given should be the same
+as the gf given ones.
+script for splitting saldo in reasonable parts and treat
+them separately to save memory (needed even on 8GB).
+namnkonvertering - ambiguost failar allt, sa maste ha olika + kältiska, kaeltiska
+ see inari-mail about opinions. could be reversible with some changes (a apastrof,
+ hyphens)
+refl
+particles (difference prepositions)
+valency - big problem
+problems with words that do not have all forms (adjectives without
+  comparative). Had to add new paradigm for those.
+
+excluded tags : vbm (most), abm, nnm, nna, pronouns (many, would
+  require different tagging in gf),personal names.
+adverbs that can be compared needs special treatment in gf.  
+list that of idioms (nnm, abm) should be extracted.
+reason for failing (all categories): all forms not in saldo (passive verbs,
+  mera-adjectives, nouns in plural/determined form). 
+
