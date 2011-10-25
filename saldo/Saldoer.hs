@@ -71,12 +71,12 @@ extract inputFile n = do
              Left er  -> return er
              Right st -> do 
                  let ms   =  "\n Messages:\n "++ unlines (msg st)
-                 let fail =  "\n Failing:\n " ++ unlines (show (retries st):dead st)
+                 let fails =  "\n Failing:\n " ++ unlines (show (retries st):dead st)
                  writeFile ("Messages"++show n++".txt") ms
-                 writeFile ("Fail"++show n++".txt") fail
+                 writeFile ("Fail"++show n++".txt") fails
+                 appendCode $ ok st
                  return $ unlines (errs st)
   writeFile ("Errors"++show n++".txt")  $ "\n Errors:\n "  ++ er
-  -- appendCode $ ok st
 
   where
     loop = do
@@ -96,7 +96,7 @@ appendCode entries = do
 createGF :: Lex -> Convert ()
 createGF sal = do
   io $ putStr "Creating GF source for SALDO ... "
-  io $ print [lemma | (lemma,E pos tab) <- Map.toList sal, lemma == "vilkatt_N"]
+  --io $ print [lemma | (lemma,E pos tab) <- Map.toList sal, lemma == "vilkatt_N"]
   mapM_ findGrammar (Map.toList sal) 
   modify $ \s -> s {saldo = sal}
   
@@ -226,6 +226,7 @@ compileGF = do
     ExitSuccess      -> return () 
     ExitFailure code -> do
                    n <- gets partNo 
+                   io $ putStrLn "failed to read PGF.\nWill skip this section"
                    fail ("compiliation failed with error code "++show code
                          ++"\nPartition "++show n++" will be skipped")
   (fpath,h) <- io $ openTempFile "." "tmp.pgf"

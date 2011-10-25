@@ -9,9 +9,10 @@ import System.Environment
 import Data.Maybe
 import Control.Applicative
 
+{-
 main :: IO ()
 main = extract "saldoPart1.xml" 60
-{-
+  -}
 main = do 
   arg <- fmap (fmap read . listToMaybe) getArgs 
   (fpaths,skip) <- case arg of
@@ -27,11 +28,12 @@ main = do
         return (["saldoPart"++show n++".xml" | n <- [skip..15]],skip)
   initGFFiles 
   zipWithM extract fpaths [skip..]
-  putStrLn "extraction complete.. Combining files ..."
+  putStrLn "extraction complete.. Completing files ..."
 --  combine files
   endGFFiles
+  putStrLn "Lexicon salodTot created!"
+--  combine files
   return ()
-  -}
 
 combine :: [[GrammarInfo]] -> IO ()
 combine xs = do
@@ -47,7 +49,7 @@ splits xs = let (part,rest) = splitAt 200000 xs
 writeFiles :: [[String]] -> Int -> IO [FilePath]
 writeFiles [] _ = return []
 writeFiles (x:xmls) n = do
-     putStrLn ("Writing "++show n)
+     putStrLn ("Writing part "++show n)
      let name = ("saldoPart"++show n++".xml")
      writeFile name cont
      names <- writeFiles xmls (n+1)

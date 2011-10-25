@@ -464,5 +464,44 @@
      <form><param>frag</param><wf>tilltvingandes er</wf></form>
     </table>
    </LexicalEntry>
+  <LexicalEntry>
+    <lem>underförstå..vb.1</lem>
+    <saldo>underförstå..1</saldo>
+    <gf>underförstå</gf>
+    <p>vb_4a_missförstå</p>
+    <pos>vb</pos>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pres ind aktiv</param><wf>underförstår</wf></form>
+     <form><param>pres ind s-form</param><wf>underförstås</wf></form>
+     <form><param>pret ind aktiv</param><wf>underförstod</wf></form>
+     <form><param>pret ind s-form</param><wf>underförstods</wf></form>
+     <form><param>pret konj aktiv</param><wf>underförstode</wf></form>
+     <form><param>pret konj s-form</param><wf>underförstodes</wf></form>
+     <form><param>imper</param><wf>underförstå</wf></form>
+     <form><param>inf aktiv</param><wf>underförstå</wf></form>
+     <form><param>inf s-form</param><wf>underförstås</wf></form>
+     <form><param>sup aktiv</param><wf>underförstådd</wf></form>
+     <form><param>sup s-form</param><wf>underförstådds</wf></form>
+     <form><param>pres_part nom</param><wf>underförstående</wf></form>
+     <form><param>pres_part gen</param><wf>underförståendes</wf></form>
+     <form><param>pret_part indef sg u nom</param><wf>underförstådd</wf></form>
+     <form><param>pret_part indef sg u gen</param><wf>underförstådds</wf></form>
+     <form><param>pret_part indef sg n nom</param><wf>underförstått</wf></form>
+     <form><param>pret_part indef sg n gen</param><wf>underförståtts</wf></form>
+     <form><param>pret_part indef pl nom</param><wf>underförstådda</wf></form>
+     <form><param>pret_part indef pl gen</param><wf>underförståddas</wf></form>
+     <form><param>pret_part def sg no_masc nom</param><wf>underförstådda</wf></form>
+     <form><param>pret_part def sg no_masc gen</param><wf>underförståddas</wf></form>
+     <form><param>pret_part def sg masc nom</param><wf>underförstådde</wf></form>
+     <form><param>pret_part def sg masc gen</param><wf>underförståddes</wf></form>
+     <form><param>pret_part def pl nom</param><wf>underförstådda</wf></form>
+     <form><param>pret_part def pl gen</param><wf>underförståddas</wf></form>
+     <form><param>c</param><wf>underförstå</wf></form>
+     <form><param>c</param><wf>underförstå-</wf></form>
+     <form><param>sms</param><wf>underförstå-</wf></form>
+
+    </table>
+   </LexicalEntry>
 
 </Lexicon>

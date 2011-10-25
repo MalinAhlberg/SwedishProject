@@ -52,18 +52,15 @@ xpTable = xpList $ xpElem "form"
            (xpElem "param" xpText)
            (xpElem "wf"    xpText)
 
+-- very ugly indeed, how to solve this?
 xpSaldos :: PU (Maybe String)
-xpSaldos = xpWrap (\(x,_,_,_,_,_,_,_,_) -> x, \x -> (x,x,x,x,x,x,x,x,x)) 
-           $ xp9Tuple 
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
-             maybeSaldo
+xpSaldos = xpWrap (\(x,_,_,_,_, _,_,_,_,_, _,_,_,_,_, _,_,_,_,_) -> x
+                 , \x -> (x,x,x,x,x ,x,x,x,x,x, x,x,x,x,x ,x,x,x,x,x)) 
+           $ xp20Tuple 
+             maybeSaldo maybeSaldo maybeSaldo maybeSaldo maybeSaldo
+             maybeSaldo maybeSaldo maybeSaldo maybeSaldo maybeSaldo
+             maybeSaldo maybeSaldo maybeSaldo maybeSaldo maybeSaldo
+             maybeSaldo maybeSaldo maybeSaldo maybeSaldo maybeSaldo
            
   where maybeSaldo = xpOption $ xpElem "saldo" xpText
 
