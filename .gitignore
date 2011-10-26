@@ -14,12 +14,14 @@ saldo/xmlen
 
 
 saldo/SaldoMain
+saldo/importFiles
 
 saldo/Messages60.txt
 
 saldo/.vimrc
 
 
+Talbanken05_20060604
 
 doc/paper/Paper2.tex
 
@@ -41,3 +43,9 @@ saldo/FailS15.txt
 saldo/FailS14.txt
 
 saldo/FailS66.txt
+
+saldo/CountWords
+
+saldo/kastfail
+
+saldo/kast.hs

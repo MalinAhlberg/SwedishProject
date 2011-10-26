@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian
 
 abstract Big = 
-  LexiconExt,
+  SaldoTot,
   ExtraSweAbs,
   Noun ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],

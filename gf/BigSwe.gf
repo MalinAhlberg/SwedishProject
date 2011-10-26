@@ -16,7 +16,7 @@ concrete BigSwe of Big =
   TenseX,
   StructuralSwe, 
   ExtraSwe,
-  LexiconExtSwe
+  SaldoTotCnc
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
 
