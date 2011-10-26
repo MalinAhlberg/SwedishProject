@@ -6,6 +6,8 @@ Nov
 Monday - find bug in saldoer, submit final version of paper
 Tuesday - meet with Ramona, write about saldo, fix saldo things, think
           about test suite
-Wednesday - start importing test suite, finish saldo
-Thursday - done with testsuite (or test suite-maker)
+Wednesday - start importing test suite, finish saldo, 
+            test all talbanken unknown words
+Thursday - seminars, done with testsuite (or test suite-maker)
+           extract list?
 Friday - think and plan grammar, read cle-books

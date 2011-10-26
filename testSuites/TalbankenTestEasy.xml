@@ -1,0 +1,2091 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<corpus>
+  <head/>
+  <body>
+    <s id="s1553">
+      <graph root="s1553_501">
+        <terminals>
+          <t id="s1553_1" word="Företagsutbildning" pos="VN  SS"/>
+          <t id="s1553_2" word="anordnas" pos="VVPS  PA"/>
+          <t id="s1553_3" word="i" pos="PR"/>
+          <t id="s1553_4" word="olika" pos="AJ"/>
+          <t id="s1553_5" word="former" pos="NN"/>
+          <t id="s1553_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1553_503" cat="PP">
+            <edge label="PR" idref="s1553_3"/>
+            <edge label="AT" idref="s1553_4"/>
+            <edge label="HD" idref="s1553_5"/>
+          </nt>
+          <nt id="s1553_502" cat="S">
+            <edge label="SS" idref="s1553_1"/>
+            <edge label="FV" idref="s1553_2"/>
+            <edge label="AA" idref="s1553_503"/>
+            <edge label="IP" idref="s1553_6"/>
+          </nt>
+          <nt id="s1553_501" cat="ROOT">
+            <edge label="MS" idref="s1553_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1592">
+      <graph root="s1592_501">
+        <terminals>
+          <t id="s1592_1" word="Ekonomisk" pos="AJ"/>
+          <t id="s1592_2" word="hjälp" pos="NN"/>
+          <t id="s1592_3" word="kan" pos="QVPS"/>
+          <t id="s1592_4" word="utgå" pos="VVIVSM"/>
+          <t id="s1592_5" word="från" pos="PR"/>
+          <t id="s1592_6" word="arbetslöshetsförsäkringe" pos="VNDDSS"/>
+          <t id="s1592_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1592_503" cat="NP">
+            <edge label="AT" idref="s1592_1"/>
+            <edge label="HD" idref="s1592_2"/>
+          </nt>
+          <nt id="s1592_504" cat="PP">
+            <edge label="PR" idref="s1592_5"/>
+            <edge label="HD" idref="s1592_6"/>
+          </nt>
+          <nt id="s1592_502" cat="S">
+            <edge label="SS" idref="s1592_503"/>
+            <edge label="FV" idref="s1592_3"/>
+            <edge label="IV" idref="s1592_4"/>
+            <edge label="RA" idref="s1592_504"/>
+            <edge label="IP" idref="s1592_7"/>
+          </nt>
+          <nt id="s1592_501" cat="ROOT">
+            <edge label="MS" idref="s1592_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1647">
+      <graph root="s1647_501">
+        <terminals>
+          <t id="s1647_1" word="Svårt" pos="AJ"/>
+          <t id="s1647_2" word="att" pos="IM"/>
+          <t id="s1647_3" word="hitta" pos="VVIV"/>
+          <t id="s1647_4" word="själv" pos="POZP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1647_503" cat="VP">
+            <edge label="IM" idref="s1647_2"/>
+            <edge label="IV" idref="s1647_3"/>
+            <edge label="FO" idref="s1647_4"/>
+          </nt>
+          <nt id="s1647_502" cat="S">
+            <edge label="SP" idref="s1647_1"/>
+            <edge label="SS" idref="s1647_503"/>
+          </nt>
+          <nt id="s1647_501" cat="ROOT">
+            <edge label="MS" idref="s1647_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1710">
+      <graph root="s1710_501">
+        <terminals>
+          <t id="s1710_1" word="Domstolen" pos="NNDD"/>
+          <t id="s1710_2" word="har" pos="HVPS"/>
+          <t id="s1710_3" word="en" pos="EN"/>
+          <t id="s1710_4" word="relativt" pos="AJ"/>
+          <t id="s1710_5" word="stor" pos="AJ"/>
+          <t id="s1710_6" word="makt" pos="NN"/>
+          <t id="s1710_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1710_504" cat="AP">
+            <edge label="AA" idref="s1710_4"/>
+            <edge label="HD" idref="s1710_5"/>
+          </nt>
+          <nt id="s1710_503" cat="NP">
+            <edge label="DT" idref="s1710_3"/>
+            <edge label="AT" idref="s1710_504"/>
+            <edge label="HD" idref="s1710_6"/>
+          </nt>
+          <nt id="s1710_502" cat="S">
+            <edge label="SS" idref="s1710_1"/>
+            <edge label="FV" idref="s1710_2"/>
+            <edge label="OO" idref="s1710_503"/>
+            <edge label="IP" idref="s1710_7"/>
+          </nt>
+          <nt id="s1710_501" cat="ROOT">
+            <edge label="MS" idref="s1710_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1753">
+      <graph root="s1753_501">
+        <terminals>
+          <t id="s1753_1" word="Ett" pos="EN"/>
+          <t id="s1753_2" word="beslut" pos="NN"/>
+          <t id="s1753_3" word="kan" pos="QVPS"/>
+          <t id="s1753_4" word="därmed" pos="ABDA"/>
+          <t id="s1753_5" word="stoppas" pos="VVIV  PA"/>
+          <t id="s1753_6" word="av" pos="PR"/>
+          <t id="s1753_7" word="19" pos="RO"/>
+          <t id="s1753_8" word="röster" pos="NN"/>
+          <t id="s1753_9" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1753_503" cat="NP">
+            <edge label="DT" idref="s1753_1"/>
+            <edge label="HD" idref="s1753_2"/>
+          </nt>
+          <nt id="s1753_504" cat="PP">
+            <edge label="PR" idref="s1753_6"/>
+            <edge label="DT" idref="s1753_7"/>
+            <edge label="HD" idref="s1753_8"/>
+          </nt>
+          <nt id="s1753_502" cat="S">
+            <edge label="SS" idref="s1753_503"/>
+            <edge label="FV" idref="s1753_3"/>
+            <edge label="AA" idref="s1753_4"/>
+            <edge label="IV" idref="s1753_5"/>
+            <edge label="AG" idref="s1753_504"/>
+            <edge label="IP" idref="s1753_9"/>
+          </nt>
+          <nt id="s1753_501" cat="ROOT">
+            <edge label="MS" idref="s1753_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1806">
+      <graph root="s1806_501">
+        <terminals>
+          <t id="s1806_1" word="Detta" pos="POOP"/>
+          <t id="s1806_2" word="är" pos="AVPS"/>
+          <t id="s1806_3" word="EEC-länderna" pos="NNDDSS"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1806_502" cat="S">
+            <edge label="SS" idref="s1806_1"/>
+            <edge label="FV" idref="s1806_2"/>
+            <edge label="SP" idref="s1806_3"/>
+          </nt>
+          <nt id="s1806_501" cat="ROOT">
+            <edge label="MS" idref="s1806_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1854">
+      <graph root="s1854_501">
+        <terminals>
+          <t id="s1854_1" word="Regeringen" pos="VNDD"/>
+          <t id="s1854_2" word="har" pos="HVPS"/>
+          <t id="s1854_3" word="ännu" pos="ABDA"/>
+          <t id="s1854_4" word="inte" pos="ABNA"/>
+          <t id="s1854_5" word="tagit" pos="VVSN"/>
+          <t id="s1854_6" word="ställning" pos="VN"/>
+          <t id="s1854_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1854_502" cat="S">
+            <edge label="SS" idref="s1854_1"/>
+            <edge label="FV" idref="s1854_2"/>
+            <edge label="TA" idref="s1854_3"/>
+            <edge label="NA" idref="s1854_4"/>
+            <edge label="IV" idref="s1854_5"/>
+            <edge label="OO" idref="s1854_6"/>
+            <edge label="IP" idref="s1854_7"/>
+          </nt>
+          <nt id="s1854_501" cat="ROOT">
+            <edge label="MS" idref="s1854_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1902">
+      <graph root="s1902_501">
+        <terminals>
+          <t id="s1902_1" word="Byt" pos="VVIP"/>
+          <t id="s1902_2" word="vindrutetorkarblad" pos="NN  SS"/>
+          <t id="s1902_3" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1902_502" cat="S">
+            <edge label="FV" idref="s1902_1"/>
+            <edge label="OO" idref="s1902_2"/>
+            <edge label="IP" idref="s1902_3"/>
+          </nt>
+          <nt id="s1902_501" cat="ROOT">
+            <edge label="MS" idref="s1902_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1939">
+      <graph root="s1939_501">
+        <terminals>
+          <t id="s1939_1" word="Byt" pos="VVIP"/>
+          <t id="s1939_2" word="torkarblad" pos="NN  SS"/>
+          <t id="s1939_3" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1939_502" cat="S">
+            <edge label="FV" idref="s1939_1"/>
+            <edge label="OO" idref="s1939_2"/>
+            <edge label="IP" idref="s1939_3"/>
+          </nt>
+          <nt id="s1939_501" cat="ROOT">
+            <edge label="MS" idref="s1939_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s1995">
+      <graph root="s1995_501">
+        <terminals>
+          <t id="s1995_1" word="För" pos="PR"/>
+          <t id="s1995_2" word="industriländerna" pos="NNDDSS"/>
+          <t id="s1995_3" word="är" pos="AVPS"/>
+          <t id="s1995_4" word="det" pos="POOP"/>
+          <t id="s1995_5" word="tvärtom" pos="ABMN"/>
+          <t id="s1995_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s1995_503" cat="PP">
+            <edge label="PR" idref="s1995_1"/>
+            <edge label="HD" idref="s1995_2"/>
+          </nt>
+          <nt id="s1995_502" cat="S">
+            <edge label="OA" idref="s1995_503"/>
+            <edge label="FV" idref="s1995_3"/>
+            <edge label="SS" idref="s1995_4"/>
+            <edge label="AA" idref="s1995_5"/>
+            <edge label="IP" idref="s1995_6"/>
+          </nt>
+          <nt id="s1995_501" cat="ROOT">
+            <edge label="MS" idref="s1995_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2074">
+      <graph root="s2074_501">
+        <terminals>
+          <t id="s2074_1" word="Vad" pos="POFP"/>
+          <t id="s2074_2" word="tror" pos="VVPS"/>
+          <t id="s2074_3" word="han" pos="PODPHH"/>
+          <t id="s2074_4" word="om" pos="PR"/>
+          <t id="s2074_5" word="Skåne" pos="PN"/>
+          <t id="s2074_6" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2074_503" cat="PP">
+            <edge label="PR" idref="s2074_4"/>
+            <edge label="HD" idref="s2074_5"/>
+          </nt>
+          <nt id="s2074_502" cat="S">
+            <edge label="OO" idref="s2074_1"/>
+            <edge label="FV" idref="s2074_2"/>
+            <edge label="SS" idref="s2074_3"/>
+            <edge label="OA" idref="s2074_503"/>
+            <edge label="I?" idref="s2074_6"/>
+          </nt>
+          <nt id="s2074_501" cat="ROOT">
+            <edge label="MS" idref="s2074_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2118">
+      <graph root="s2118_501">
+        <terminals>
+          <t id="s2118_1" word="Docent" pos="NN  HH"/>
+          <t id="s2118_2" word="Klockhoff" pos="PN  HH"/>
+          <t id="s2118_3" word="har" pos="HVPS"/>
+          <t id="s2118_4" word="kämpat" pos="VVSN"/>
+          <t id="s2118_5" word="för" pos="PR"/>
+          <t id="s2118_6" word="att" pos="IM"/>
+          <t id="s2118_7" word="få" pos="FVIV"/>
+          <t id="s2118_8" word="problemet" pos="NNDD"/>
+          <t id="s2118_9" word="ordentligt" pos="AJ"/>
+          <t id="s2118_10" word="belyst" pos="TP    PA"/>
+          <t id="s2118_11" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2118_503" cat="NP">
+            <edge label="DT" idref="s2118_1"/>
+            <edge label="HD" idref="s2118_2"/>
+          </nt>
+          <nt id="s2118_505" cat="NP">
+            <edge label="AA" idref="s2118_9"/>
+            <edge label="HD" idref="s2118_10"/>
+          </nt>
+          <nt id="s2118_504" cat="PP">
+            <edge label="PR" idref="s2118_5"/>
+            <edge label="IM" idref="s2118_6"/>
+            <edge label="IV" idref="s2118_7"/>
+            <edge label="OO" idref="s2118_8"/>
+            <edge label="OO" idref="s2118_505"/>
+          </nt>
+          <nt id="s2118_502" cat="S">
+            <edge label="SS" idref="s2118_503"/>
+            <edge label="FV" idref="s2118_3"/>
+            <edge label="IV" idref="s2118_4"/>
+            <edge label="AA" idref="s2118_504"/>
+            <edge label="IP" idref="s2118_11"/>
+          </nt>
+          <nt id="s2118_501" cat="ROOT">
+            <edge label="MS" idref="s2118_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2148">
+      <graph root="s2148_501">
+        <terminals>
+          <t id="s2148_1" word="Därför" pos="ABDA"/>
+          <t id="s2148_2" word="måste" pos="MVPT"/>
+          <t id="s2148_3" word="omedelbara" pos="AJ"/>
+          <t id="s2148_4" word="åtgärder" pos="NN"/>
+          <t id="s2148_5" word="sättas" pos="VVIV  PA"/>
+          <t id="s2148_6" word="in" pos="ABZA"/>
+          <t id="s2148_7" word="nu" pos="ABDA"/>
+          <t id="s2148_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2148_503" cat="NP">
+            <edge label="AT" idref="s2148_3"/>
+            <edge label="HD" idref="s2148_4"/>
+          </nt>
+          <nt id="s2148_502" cat="S">
+            <edge label="AA" idref="s2148_1"/>
+            <edge label="FV" idref="s2148_2"/>
+            <edge label="SS" idref="s2148_503"/>
+            <edge label="IV" idref="s2148_5"/>
+            <edge label="PL" idref="s2148_6"/>
+            <edge label="TA" idref="s2148_7"/>
+            <edge label="IP" idref="s2148_8"/>
+          </nt>
+          <nt id="s2148_501" cat="ROOT">
+            <edge label="MS" idref="s2148_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2227">
+      <graph root="s2227_501">
+        <terminals>
+          <t id="s2227_1" word="Patienten" pos="NNDDHH"/>
+          <t id="s2227_2" word="önskar" pos="VVPS"/>
+          <t id="s2227_3" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2227_502" cat="S">
+            <edge label="SS" idref="s2227_1"/>
+            <edge label="FV" idref="s2227_2"/>
+            <edge label="IP" idref="s2227_3"/>
+          </nt>
+          <nt id="s2227_501" cat="ROOT">
+            <edge label="MS" idref="s2227_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2280">
+      <graph root="s2280_501">
+        <terminals>
+          <t id="s2280_1" word="Vi" pos="POPPHH"/>
+          <t id="s2280_2" word="skrider" pos="VVPS"/>
+          <t id="s2280_3" word="fram" pos="ABZA"/>
+          <t id="s2280_4" word="till" pos="PR"/>
+          <t id="s2280_5" word="valförrättaren" pos="NNDDHS"/>
+          <t id="s2280_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2280_503" cat="PP">
+            <edge label="PR" idref="s2280_4"/>
+            <edge label="HD" idref="s2280_5"/>
+          </nt>
+          <nt id="s2280_502" cat="S">
+            <edge label="SS" idref="s2280_1"/>
+            <edge label="FV" idref="s2280_2"/>
+            <edge label="PL" idref="s2280_3"/>
+            <edge label="RA" idref="s2280_503"/>
+            <edge label="IP" idref="s2280_6"/>
+          </nt>
+          <nt id="s2280_501" cat="ROOT">
+            <edge label="MS" idref="s2280_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2363">
+      <graph root="s2363_501">
+        <terminals>
+          <t id="s2363_1" word="Hur" pos="ABFA"/>
+          <t id="s2363_2" word="dessa" pos="PODP"/>
+          <t id="s2363_3" word="vandringar" pos="VN"/>
+          <t id="s2363_4" word="skett" pos="VVSN"/>
+          <t id="s2363_5" word="," pos="IK"/>
+          <t id="s2363_6" word="blir" pos="BVPS"/>
+          <t id="s2363_7" word="en" pos="EN"/>
+          <t id="s2363_8" word="uppgift" pos="NN"/>
+          <t id="s2363_9" word="för" pos="PR"/>
+          <t id="s2363_10" word="partiernas" pos="NNDD  GG"/>
+          <t id="s2363_11" word="valstrateger" pos="NN  HS"/>
+          <t id="s2363_12" word="att" pos="IM"/>
+          <t id="s2363_13" word="beräkna" pos="VVIV"/>
+          <t id="s2363_14" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2363_505" cat="NP">
+            <edge label="DT" idref="s2363_2"/>
+            <edge label="HD" idref="s2363_3"/>
+          </nt>
+          <nt id="s2363_504" cat="S">
+            <edge label="AA" idref="s2363_1"/>
+            <edge label="SS" idref="s2363_505"/>
+            <edge label="IV" idref="s2363_4"/>
+          </nt>
+          <nt id="s2363_503" cat="VP">
+            <edge label="OO" idref="s2363_504"/>
+            <edge label="IM" idref="s2363_12"/>
+            <edge label="IV" idref="s2363_13"/>
+          </nt>
+          <nt id="s2363_506" cat="NP">
+            <edge label="DT" idref="s2363_7"/>
+            <edge label="HD" idref="s2363_8"/>
+          </nt>
+          <nt id="s2363_507" cat="PP">
+            <edge label="PR" idref="s2363_9"/>
+            <edge label="DT" idref="s2363_10"/>
+            <edge label="HD" idref="s2363_11"/>
+          </nt>
+          <nt id="s2363_502" cat="S">
+            <edge label="SS" idref="s2363_503"/>
+            <edge label="IK" idref="s2363_5"/>
+            <edge label="FV" idref="s2363_6"/>
+            <edge label="SP" idref="s2363_506"/>
+            <edge label="OA" idref="s2363_507"/>
+            <edge label="IP" idref="s2363_14"/>
+          </nt>
+          <nt id="s2363_501" cat="ROOT">
+            <edge label="MS" idref="s2363_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2403">
+      <graph root="s2403_501">
+        <terminals>
+          <t id="s2403_1" word="Då" pos="ABDA"/>
+          <t id="s2403_2" word="glömmer" pos="VVPS"/>
+          <t id="s2403_3" word="de" pos="PODPHH"/>
+          <t id="s2403_4" word="fort" pos="ABZA"/>
+          <t id="s2403_5" word="vad" pos="POFP"/>
+          <t id="s2403_6" word="de" pos="PODPHH"/>
+          <t id="s2403_7" word="lärt" pos="VVSN"/>
+          <t id="s2403_8" word="sig" pos="POXPHHAA"/>
+          <t id="s2403_9" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2403_503" cat="S">
+            <edge label="OO" idref="s2403_5"/>
+            <edge label="SS" idref="s2403_6"/>
+            <edge label="IV" idref="s2403_7"/>
+            <edge label="IO" idref="s2403_8"/>
+          </nt>
+          <nt id="s2403_502" cat="S">
+            <edge label="TA" idref="s2403_1"/>
+            <edge label="FV" idref="s2403_2"/>
+            <edge label="SS" idref="s2403_3"/>
+            <edge label="AA" idref="s2403_4"/>
+            <edge label="OO" idref="s2403_503"/>
+            <edge label="IP" idref="s2403_9"/>
+          </nt>
+          <nt id="s2403_501" cat="ROOT">
+            <edge label="MS" idref="s2403_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2463">
+      <graph root="s2463_501">
+        <terminals>
+          <t id="s2463_1" word="Datorn" pos="NNDD"/>
+          <t id="s2463_2" word="styr" pos="VVPS"/>
+          <t id="s2463_3" word="företagen" pos="NNDD"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2463_502" cat="S">
+            <edge label="SS" idref="s2463_1"/>
+            <edge label="FV" idref="s2463_2"/>
+            <edge label="OO" idref="s2463_3"/>
+          </nt>
+          <nt id="s2463_501" cat="ROOT">
+            <edge label="MS" idref="s2463_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2519">
+      <graph root="s2519_501">
+        <terminals>
+          <t id="s2519_1" word="Det" pos="POOP"/>
+          <t id="s2519_2" word="bör" pos="BVPS"/>
+          <t id="s2519_3" word="ligga" pos="VVIV"/>
+          <t id="s2519_4" word="i" pos="PR"/>
+          <t id="s2519_5" word="varje" pos="POTP"/>
+          <t id="s2519_6" word="företags" pos="NN    GG"/>
+          <t id="s2519_7" word="intresse" pos="NN"/>
+          <t id="s2519_8" word="att" pos="IM"/>
+          <t id="s2519_9" word="få" pos="FVIV"/>
+          <t id="s2519_10" word="besked" pos="NN"/>
+          <t id="s2519_11" word="om" pos="PR"/>
+          <t id="s2519_12" word="när" pos="ABFA"/>
+          <t id="s2519_13" word="individen" pos="NNDDHH"/>
+          <t id="s2519_14" word="fungerar" pos="VVPS"/>
+          <t id="s2519_15" word="bäst" pos="ABSU"/>
+          <t id="s2519_16" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2519_503" cat="PP">
+            <edge label="PR" idref="s2519_4"/>
+            <edge label="DT" idref="s2519_5"/>
+            <edge label="DT" idref="s2519_6"/>
+            <edge label="HD" idref="s2519_7"/>
+          </nt>
+          <nt id="s2519_505" cat="PP">
+            <edge label="PR" idref="s2519_11"/>
+            <edge label="TA" idref="s2519_12"/>
+            <edge label="SS" idref="s2519_13"/>
+            <edge label="FV" idref="s2519_14"/>
+            <edge label="AA" idref="s2519_15"/>
+          </nt>
+          <nt id="s2519_504" cat="VP">
+            <edge label="IM" idref="s2519_8"/>
+            <edge label="IV" idref="s2519_9"/>
+            <edge label="OO" idref="s2519_10"/>
+            <edge label="OA" idref="s2519_505"/>
+          </nt>
+          <nt id="s2519_502" cat="S">
+            <edge label="FS" idref="s2519_1"/>
+            <edge label="FV" idref="s2519_2"/>
+            <edge label="IV" idref="s2519_3"/>
+            <edge label="OA" idref="s2519_503"/>
+            <edge label="ES" idref="s2519_504"/>
+            <edge label="IP" idref="s2519_16"/>
+          </nt>
+          <nt id="s2519_501" cat="ROOT">
+            <edge label="MS" idref="s2519_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2609">
+      <graph root="s2609_501">
+        <terminals>
+          <t id="s2609_1" word="De" pos="PODPHH"/>
+          <t id="s2609_2" word="blev" pos="BVPT"/>
+          <t id="s2609_3" word="i" pos="PR"/>
+          <t id="s2609_4" word="många" pos="POZP"/>
+          <t id="s2609_5" word="fall" pos="NN"/>
+          <t id="s2609_6" word="gravida" pos="AJ"/>
+          <t id="s2609_7" word="oavsiktligt" pos="AJ"/>
+          <t id="s2609_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2609_503" cat="PP">
+            <edge label="PR" idref="s2609_3"/>
+            <edge label="DT" idref="s2609_4"/>
+            <edge label="HD" idref="s2609_5"/>
+          </nt>
+          <nt id="s2609_502" cat="S">
+            <edge label="SS" idref="s2609_1"/>
+            <edge label="FV" idref="s2609_2"/>
+            <edge label="AA" idref="s2609_503"/>
+            <edge label="SP" idref="s2609_6"/>
+            <edge label="AA" idref="s2609_7"/>
+            <edge label="IP" idref="s2609_8"/>
+          </nt>
+          <nt id="s2609_501" cat="ROOT">
+            <edge label="MS" idref="s2609_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2705">
+      <graph root="s2705_501">
+        <terminals>
+          <t id="s2705_1" word="Råvaran" pos="NNDDSS"/>
+          <t id="s2705_2" word="måste" pos="MVPS"/>
+          <t id="s2705_3" word="fylla" pos="VVIV"/>
+          <t id="s2705_4" word="mycket" pos="ABZA"/>
+          <t id="s2705_5" word="höga" pos="AJ"/>
+          <t id="s2705_6" word="krav" pos="NN"/>
+          <t id="s2705_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2705_504" cat="AP">
+            <edge label="AA" idref="s2705_4"/>
+            <edge label="HD" idref="s2705_5"/>
+          </nt>
+          <nt id="s2705_503" cat="NP">
+            <edge label="AT" idref="s2705_504"/>
+            <edge label="HD" idref="s2705_6"/>
+          </nt>
+          <nt id="s2705_502" cat="S">
+            <edge label="SS" idref="s2705_1"/>
+            <edge label="FV" idref="s2705_2"/>
+            <edge label="IV" idref="s2705_3"/>
+            <edge label="OO" idref="s2705_503"/>
+            <edge label="IP" idref="s2705_7"/>
+          </nt>
+          <nt id="s2705_501" cat="ROOT">
+            <edge label="MS" idref="s2705_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2776">
+      <graph root="s2776_501">
+        <terminals>
+          <t id="s2776_1" word="Hyrorna" pos="NNDD"/>
+          <t id="s2776_2" word="ökade" pos="VVPT"/>
+          <t id="s2776_3" word="med" pos="PR"/>
+          <t id="s2776_4" word="flera" pos="POZP"/>
+          <t id="s2776_5" word="hundra" pos="RO"/>
+          <t id="s2776_6" word="procent" pos="NN"/>
+          <t id="s2776_7" word="i" pos="PR"/>
+          <t id="s2776_8" word="städernas" pos="NNDD  GG"/>
+          <t id="s2776_9" word="centrala" pos="AJ"/>
+          <t id="s2776_10" word="delar" pos="NN"/>
+          <t id="s2776_11" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2776_503" cat="PP">
+            <edge label="PR" idref="s2776_3"/>
+            <edge label="DT" idref="s2776_4"/>
+            <edge label="DT" idref="s2776_5"/>
+            <edge label="HD" idref="s2776_6"/>
+          </nt>
+          <nt id="s2776_504" cat="PP">
+            <edge label="PR" idref="s2776_7"/>
+            <edge label="DT" idref="s2776_8"/>
+            <edge label="AT" idref="s2776_9"/>
+            <edge label="HD" idref="s2776_10"/>
+          </nt>
+          <nt id="s2776_502" cat="S">
+            <edge label="SS" idref="s2776_1"/>
+            <edge label="FV" idref="s2776_2"/>
+            <edge label="OA" idref="s2776_503"/>
+            <edge label="RA" idref="s2776_504"/>
+            <edge label="IP" idref="s2776_11"/>
+          </nt>
+          <nt id="s2776_501" cat="ROOT">
+            <edge label="MS" idref="s2776_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2895">
+      <graph root="s2895_501">
+        <terminals>
+          <t id="s2895_1" word="Var" pos="ABFA"/>
+          <t id="s2895_2" word="är" pos="AVPS"/>
+          <t id="s2895_3" word="tryggheten" pos="ANDD"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2895_502" cat="S">
+            <edge label="RA" idref="s2895_1"/>
+            <edge label="FV" idref="s2895_2"/>
+            <edge label="SS" idref="s2895_3"/>
+          </nt>
+          <nt id="s2895_501" cat="ROOT">
+            <edge label="MS" idref="s2895_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s2971">
+      <graph root="s2971_501">
+        <terminals>
+          <t id="s2971_1" word="Därför" pos="ABDA"/>
+          <t id="s2971_2" word="vill" pos="WVPS"/>
+          <t id="s2971_3" word="de" pos="PODP"/>
+          <t id="s2971_4" word="ge" pos="VVIV"/>
+          <t id="s2971_5" word="Sverige" pos="PN"/>
+          <t id="s2971_6" word="en" pos="EN"/>
+          <t id="s2971_7" word="bra" pos="AJ"/>
+          <t id="s2971_8" word="lösning" pos="VN"/>
+          <t id="s2971_9" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s2971_503" cat="NP">
+            <edge label="DT" idref="s2971_6"/>
+            <edge label="AT" idref="s2971_7"/>
+            <edge label="HD" idref="s2971_8"/>
+          </nt>
+          <nt id="s2971_502" cat="S">
+            <edge label="AA" idref="s2971_1"/>
+            <edge label="FV" idref="s2971_2"/>
+            <edge label="SS" idref="s2971_3"/>
+            <edge label="IV" idref="s2971_4"/>
+            <edge label="IO" idref="s2971_5"/>
+            <edge label="OO" idref="s2971_503"/>
+            <edge label="IP" idref="s2971_9"/>
+          </nt>
+          <nt id="s2971_501" cat="ROOT">
+            <edge label="MS" idref="s2971_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3028">
+      <graph root="s3028_501">
+        <terminals>
+          <t id="s3028_1" word="Skall" pos="SVPS"/>
+          <t id="s3028_2" word="man" pos="POZPHH"/>
+          <t id="s3028_3" word="våga" pos="VVIV"/>
+          <t id="s3028_4" word="ta" pos="VVIV"/>
+          <t id="s3028_5" word="av" pos="PR"/>
+          <t id="s3028_6" word="dubbdäcken" pos="NNDDSS"/>
+          <t id="s3028_7" word="inför" pos="PR"/>
+          <t id="s3028_8" word="en" pos="EN"/>
+          <t id="s3028_9" word="långresa" pos="NN  SS"/>
+          <t id="s3028_10" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3028_504" cat="PP">
+            <edge label="PR" idref="s3028_7"/>
+            <edge label="DT" idref="s3028_8"/>
+            <edge label="HD" idref="s3028_9"/>
+          </nt>
+          <nt id="s3028_503" cat="VP">
+            <edge label="IV" idref="s3028_4"/>
+            <edge label="PL" idref="s3028_5"/>
+            <edge label="OO" idref="s3028_6"/>
+            <edge label="AA" idref="s3028_504"/>
+          </nt>
+          <nt id="s3028_502" cat="S">
+            <edge label="FV" idref="s3028_1"/>
+            <edge label="SS" idref="s3028_2"/>
+            <edge label="IV" idref="s3028_3"/>
+            <edge label="OO" idref="s3028_503"/>
+            <edge label="I?" idref="s3028_10"/>
+          </nt>
+          <nt id="s3028_501" cat="ROOT">
+            <edge label="MS" idref="s3028_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3060">
+      <graph root="s3060_501">
+        <terminals>
+          <t id="s3060_1" word="På" pos="PR"/>
+          <t id="s3060_2" word="ett" pos="EN"/>
+          <t id="s3060_3" word="ojämnt" pos="AJ"/>
+          <t id="s3060_4" word="vinterväglag" pos="NN  SS"/>
+          <t id="s3060_5" word="ger" pos="VVPS"/>
+          <t id="s3060_6" word="breda" pos="AJ"/>
+          <t id="s3060_7" word="däck" pos="NN"/>
+          <t id="s3060_8" word="instabil" pos="AJ"/>
+          <t id="s3060_9" word="gång" pos="NN"/>
+          <t id="s3060_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3060_503" cat="PP">
+            <edge label="PR" idref="s3060_1"/>
+            <edge label="DT" idref="s3060_2"/>
+            <edge label="AT" idref="s3060_3"/>
+            <edge label="HD" idref="s3060_4"/>
+          </nt>
+          <nt id="s3060_504" cat="NP">
+            <edge label="AT" idref="s3060_6"/>
+            <edge label="HD" idref="s3060_7"/>
+          </nt>
+          <nt id="s3060_505" cat="NP">
+            <edge label="AT" idref="s3060_8"/>
+            <edge label="HD" idref="s3060_9"/>
+          </nt>
+          <nt id="s3060_502" cat="S">
+            <edge label="RA" idref="s3060_503"/>
+            <edge label="FV" idref="s3060_5"/>
+            <edge label="SS" idref="s3060_504"/>
+            <edge label="OO" idref="s3060_505"/>
+            <edge label="IP" idref="s3060_10"/>
+          </nt>
+          <nt id="s3060_501" cat="ROOT">
+            <edge label="MS" idref="s3060_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3155">
+      <graph root="s3155_501">
+        <terminals>
+          <t id="s3155_1" word="Den" pos="PODP"/>
+          <t id="s3155_2" word="avslutade" pos="VVPT"/>
+          <t id="s3155_3" word="sin" pos="POXP  GG"/>
+          <t id="s3155_4" word="verksamhet" pos="AN"/>
+          <t id="s3155_5" word="-67" pos="RO"/>
+          <t id="s3155_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3155_503" cat="NP">
+            <edge label="DT" idref="s3155_3"/>
+            <edge label="HD" idref="s3155_4"/>
+          </nt>
+          <nt id="s3155_502" cat="S">
+            <edge label="SS" idref="s3155_1"/>
+            <edge label="FV" idref="s3155_2"/>
+            <edge label="OO" idref="s3155_503"/>
+            <edge label="TA" idref="s3155_5"/>
+            <edge label="IP" idref="s3155_6"/>
+          </nt>
+          <nt id="s3155_501" cat="ROOT">
+            <edge label="MS" idref="s3155_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3237">
+      <graph root="s3237_501">
+        <terminals>
+          <t id="s3237_1" word="Klarar" pos="VVPS"/>
+          <t id="s3237_2" word="barnet" pos="NNDDHH"/>
+          <t id="s3237_3" word="att" pos="IM"/>
+          <t id="s3237_4" word="använda" pos="VVIV"/>
+          <t id="s3237_5" word="leksaken" pos="NNDDSS"/>
+          <t id="s3237_6" word="just" pos="ABZA"/>
+          <t id="s3237_7" word="nu" pos="ABDA"/>
+          <t id="s3237_8" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3237_503" cat="VP">
+            <edge label="IM" idref="s3237_3"/>
+            <edge label="IV" idref="s3237_4"/>
+            <edge label="OO" idref="s3237_5"/>
+            <edge label="CA" idref="s3237_6"/>
+            <edge label="TA" idref="s3237_7"/>
+          </nt>
+          <nt id="s3237_502" cat="S">
+            <edge label="FV" idref="s3237_1"/>
+            <edge label="SS" idref="s3237_2"/>
+            <edge label="OO" idref="s3237_503"/>
+            <edge label="I?" idref="s3237_8"/>
+          </nt>
+          <nt id="s3237_501" cat="ROOT">
+            <edge label="MS" idref="s3237_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3276">
+      <graph root="s3276_501">
+        <terminals>
+          <t id="s3276_1" word="De" pos="PODP"/>
+          <t id="s3276_2" word="flesta" pos="POSU"/>
+          <t id="s3276_3" word="är" pos="AVPS"/>
+          <t id="s3276_4" word="mycket" pos="ABZA"/>
+          <t id="s3276_5" word="intresserade" pos="AJ"/>
+          <t id="s3276_6" word="av" pos="PR"/>
+          <t id="s3276_7" word="sina" pos="POXPHHGG"/>
+          <t id="s3276_8" word="djur" pos="NN"/>
+          <t id="s3276_9" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3276_503" cat="NP">
+            <edge label="DT" idref="s3276_1"/>
+            <edge label="DT" idref="s3276_2"/>
+          </nt>
+          <nt id="s3276_504" cat="AP">
+            <edge label="AA" idref="s3276_4"/>
+            <edge label="HD" idref="s3276_5"/>
+          </nt>
+          <nt id="s3276_505" cat="PP">
+            <edge label="PR" idref="s3276_6"/>
+            <edge label="DT" idref="s3276_7"/>
+            <edge label="HD" idref="s3276_8"/>
+          </nt>
+          <nt id="s3276_502" cat="S">
+            <edge label="SS" idref="s3276_503"/>
+            <edge label="FV" idref="s3276_3"/>
+            <edge label="SP" idref="s3276_504"/>
+            <edge label="OA" idref="s3276_505"/>
+            <edge label="IP" idref="s3276_9"/>
+          </nt>
+          <nt id="s3276_501" cat="ROOT">
+            <edge label="MS" idref="s3276_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3309">
+      <graph root="s3309_501">
+        <terminals>
+          <t id="s3309_1" word="Hur" pos="ABFA"/>
+          <t id="s3309_2" word="är" pos="AVPS"/>
+          <t id="s3309_3" word="det" pos="POOP"/>
+          <t id="s3309_4" word="med" pos="PR"/>
+          <t id="s3309_5" word="hundens" pos="NNDD  GG"/>
+          <t id="s3309_6" word="färgseende" pos="VN  SS"/>
+          <t id="s3309_7" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3309_503" cat="PP">
+            <edge label="PR" idref="s3309_4"/>
+            <edge label="DT" idref="s3309_5"/>
+            <edge label="HD" idref="s3309_6"/>
+          </nt>
+          <nt id="s3309_502" cat="S">
+            <edge label="AA" idref="s3309_1"/>
+            <edge label="FV" idref="s3309_2"/>
+            <edge label="SS" idref="s3309_3"/>
+            <edge label="OA" idref="s3309_503"/>
+            <edge label="I?" idref="s3309_7"/>
+          </nt>
+          <nt id="s3309_501" cat="ROOT">
+            <edge label="MS" idref="s3309_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3347">
+      <graph root="s3347_501">
+        <terminals>
+          <t id="s3347_1" word="Alla" pos="POTP"/>
+          <t id="s3347_2" word="människor" pos="NN  HH"/>
+          <t id="s3347_3" word="råkar" pos="VVPS"/>
+          <t id="s3347_4" word="någon" pos="POZP"/>
+          <t id="s3347_5" word="gång" pos="NN"/>
+          <t id="s3347_6" word="ut" pos="ABZA"/>
+          <t id="s3347_7" word="för" pos="PR"/>
+          <t id="s3347_8" word="vissa" pos="POZP"/>
+          <t id="s3347_9" word="psykiska" pos="AJ"/>
+          <t id="s3347_10" word="störningar" pos="VN"/>
+          <t id="s3347_11" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3347_503" cat="NP">
+            <edge label="DT" idref="s3347_1"/>
+            <edge label="HD" idref="s3347_2"/>
+          </nt>
+          <nt id="s3347_504" cat="NP">
+            <edge label="DT" idref="s3347_4"/>
+            <edge label="HD" idref="s3347_5"/>
+          </nt>
+          <nt id="s3347_505" cat="PP">
+            <edge label="PR" idref="s3347_7"/>
+            <edge label="DT" idref="s3347_8"/>
+            <edge label="AT" idref="s3347_9"/>
+            <edge label="HD" idref="s3347_10"/>
+          </nt>
+          <nt id="s3347_502" cat="S">
+            <edge label="SS" idref="s3347_503"/>
+            <edge label="FV" idref="s3347_3"/>
+            <edge label="TA" idref="s3347_504"/>
+            <edge label="PL" idref="s3347_6"/>
+            <edge label="OA" idref="s3347_505"/>
+            <edge label="IP" idref="s3347_11"/>
+          </nt>
+          <nt id="s3347_501" cat="ROOT">
+            <edge label="MS" idref="s3347_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3435">
+      <graph root="s3435_501">
+        <terminals>
+          <t id="s3435_1" word="Det" pos="PODP"/>
+          <t id="s3435_2" word="prövas" pos="VVPS  PA"/>
+          <t id="s3435_3" word="nu" pos="ABDA"/>
+          <t id="s3435_4" word="vid" pos="PR"/>
+          <t id="s3435_5" word="svenska" pos="AJ"/>
+          <t id="s3435_6" word="sjukhus" pos="NN"/>
+          <t id="s3435_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3435_503" cat="PP">
+            <edge label="PR" idref="s3435_4"/>
+            <edge label="AT" idref="s3435_5"/>
+            <edge label="HD" idref="s3435_6"/>
+          </nt>
+          <nt id="s3435_502" cat="S">
+            <edge label="SS" idref="s3435_1"/>
+            <edge label="FV" idref="s3435_2"/>
+            <edge label="TA" idref="s3435_3"/>
+            <edge label="RA" idref="s3435_503"/>
+            <edge label="IP" idref="s3435_7"/>
+          </nt>
+          <nt id="s3435_501" cat="ROOT">
+            <edge label="MS" idref="s3435_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3530">
+      <graph root="s3530_501">
+        <terminals>
+          <t id="s3530_1" word="Arvet" pos="NNDD"/>
+          <t id="s3530_2" word="går" pos="VVPS"/>
+          <t id="s3530_3" word="på" pos="PR"/>
+          <t id="s3530_4" word="den" pos="PODP"/>
+          <t id="s3530_5" word="manliga" pos="AJ"/>
+          <t id="s3530_6" word="sidan" pos="NNDD"/>
+          <t id="s3530_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3530_503" cat="PP">
+            <edge label="PR" idref="s3530_3"/>
+            <edge label="DT" idref="s3530_4"/>
+            <edge label="AT" idref="s3530_5"/>
+            <edge label="HD" idref="s3530_6"/>
+          </nt>
+          <nt id="s3530_502" cat="S">
+            <edge label="SS" idref="s3530_1"/>
+            <edge label="FV" idref="s3530_2"/>
+            <edge label="RA" idref="s3530_503"/>
+            <edge label="IP" idref="s3530_7"/>
+          </nt>
+          <nt id="s3530_501" cat="ROOT">
+            <edge label="MS" idref="s3530_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3601">
+      <graph root="s3601_501">
+        <terminals>
+          <t id="s3601_1" word="naturresurserna" pos="NNDDSS"/>
+          <t id="s3601_2" word="måste" pos="MVPS"/>
+          <t id="s3601_3" word="utnyttjas" pos="VVIVSMPA"/>
+          <t id="s3601_4" word="på" pos="PR"/>
+          <t id="s3601_5" word="ett" pos="EN"/>
+          <t id="s3601_6" word="förnuftigt" pos="AJ"/>
+          <t id="s3601_7" word="sätt" pos="NN"/>
+          <t id="s3601_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3601_503" cat="PP">
+            <edge label="PR" idref="s3601_4"/>
+            <edge label="DT" idref="s3601_5"/>
+            <edge label="AT" idref="s3601_6"/>
+            <edge label="HD" idref="s3601_7"/>
+          </nt>
+          <nt id="s3601_502" cat="S">
+            <edge label="SS" idref="s3601_1"/>
+            <edge label="FV" idref="s3601_2"/>
+            <edge label="IV" idref="s3601_3"/>
+            <edge label="AA" idref="s3601_503"/>
+          </nt>
+          <nt id="s3601_501" cat="ROOT">
+            <edge label="MS" idref="s3601_502"/>
+            <edge label="IP" idref="s3601_8"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3696">
+      <graph root="s3696_501">
+        <terminals>
+          <t id="s3696_1" word="Äktenskapet" pos="NNDD"/>
+          <t id="s3696_2" word="är" pos="AVPS"/>
+          <t id="s3696_3" word="en" pos="EN"/>
+          <t id="s3696_4" word="institution" pos="NN"/>
+          <t id="s3696_5" word="i" pos="PR"/>
+          <t id="s3696_6" word="samhället" pos="NNDD"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3696_503" cat="NP">
+            <edge label="DT" idref="s3696_3"/>
+            <edge label="HD" idref="s3696_4"/>
+          </nt>
+          <nt id="s3696_504" cat="PP">
+            <edge label="PR" idref="s3696_5"/>
+            <edge label="HD" idref="s3696_6"/>
+          </nt>
+          <nt id="s3696_502" cat="S">
+            <edge label="SS" idref="s3696_1"/>
+            <edge label="FV" idref="s3696_2"/>
+            <edge label="SP" idref="s3696_503"/>
+            <edge label="RA" idref="s3696_504"/>
+          </nt>
+          <nt id="s3696_501" cat="ROOT">
+            <edge label="MS" idref="s3696_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3785">
+      <graph root="s3785_501">
+        <terminals>
+          <t id="s3785_1" word="Det" pos="POOP"/>
+          <t id="s3785_2" word="finns" pos="VVPS"/>
+          <t id="s3785_3" word="idag" pos="ABDA"/>
+          <t id="s3785_4" word="många" pos="POZP"/>
+          <t id="s3785_5" word="variationer" pos="VN"/>
+          <t id="s3785_6" word="på" pos="PR"/>
+          <t id="s3785_7" word="icke" pos="ABNA"/>
+          <t id="s3785_8" word="religiösa" pos="AJ"/>
+          <t id="s3785_9" word="äktenskapsuppfattningar" pos="VN  SS"/>
+          <t id="s3785_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3785_503" cat="NP">
+            <edge label="DT" idref="s3785_4"/>
+            <edge label="HD" idref="s3785_5"/>
+          </nt>
+          <nt id="s3785_505" cat="AP">
+            <edge label="NA" idref="s3785_7"/>
+            <edge label="HD" idref="s3785_8"/>
+          </nt>
+          <nt id="s3785_504" cat="PP">
+            <edge label="PR" idref="s3785_6"/>
+            <edge label="AT" idref="s3785_505"/>
+            <edge label="HD" idref="s3785_9"/>
+          </nt>
+          <nt id="s3785_502" cat="S">
+            <edge label="FS" idref="s3785_1"/>
+            <edge label="FV" idref="s3785_2"/>
+            <edge label="TA" idref="s3785_3"/>
+            <edge label="ES" idref="s3785_503"/>
+            <edge label="OA" idref="s3785_504"/>
+            <edge label="IP" idref="s3785_10"/>
+          </nt>
+          <nt id="s3785_501" cat="ROOT">
+            <edge label="MS" idref="s3785_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3875">
+      <graph root="s3875_501">
+        <terminals>
+          <t id="s3875_1" word="Man" pos="POZPHH"/>
+          <t id="s3875_2" word="kan" pos="QVPS"/>
+          <t id="s3875_3" word="litet" pos="ABZA"/>
+          <t id="s3875_4" word="schematiskt" pos="AJ"/>
+          <t id="s3875_5" word="återge" pos="VVIVSM"/>
+          <t id="s3875_6" word="förändringen" pos="VNDD"/>
+          <t id="s3875_7" word="i" pos="PR"/>
+          <t id="s3875_8" word="tre" pos="RO"/>
+          <t id="s3875_9" word="etapper" pos="NN"/>
+          <t id="s3875_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3875_503" cat="AP">
+            <edge label="AA" idref="s3875_3"/>
+            <edge label="HD" idref="s3875_4"/>
+          </nt>
+          <nt id="s3875_504" cat="PP">
+            <edge label="PR" idref="s3875_7"/>
+            <edge label="DT" idref="s3875_8"/>
+            <edge label="HD" idref="s3875_9"/>
+          </nt>
+          <nt id="s3875_502" cat="S">
+            <edge label="SS" idref="s3875_1"/>
+            <edge label="FV" idref="s3875_2"/>
+            <edge label="AA" idref="s3875_503"/>
+            <edge label="IV" idref="s3875_5"/>
+            <edge label="OO" idref="s3875_6"/>
+            <edge label="AA" idref="s3875_504"/>
+            <edge label="IP" idref="s3875_10"/>
+          </nt>
+          <nt id="s3875_501" cat="ROOT">
+            <edge label="MS" idref="s3875_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s3990">
+      <graph root="s3990_501">
+        <terminals>
+          <t id="s3990_1" word="Givetvis" pos="ABZA"/>
+          <t id="s3990_2" word="har" pos="HVPS"/>
+          <t id="s3990_3" word="också" pos="ABOC"/>
+          <t id="s3990_4" word="produktionskostnaderna" pos="NNDDSS"/>
+          <t id="s3990_5" word="en" pos="EN"/>
+          <t id="s3990_6" word="stor" pos="AJ"/>
+          <t id="s3990_7" word="betydelse" pos="VN"/>
+          <t id="s3990_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s3990_503" cat="NP">
+            <edge label="+A" idref="s3990_3"/>
+            <edge label="HD" idref="s3990_4"/>
+          </nt>
+          <nt id="s3990_504" cat="NP">
+            <edge label="DT" idref="s3990_5"/>
+            <edge label="AT" idref="s3990_6"/>
+            <edge label="HD" idref="s3990_7"/>
+          </nt>
+          <nt id="s3990_502" cat="S">
+            <edge label="MA" idref="s3990_1"/>
+            <edge label="FV" idref="s3990_2"/>
+            <edge label="SS" idref="s3990_503"/>
+            <edge label="OO" idref="s3990_504"/>
+            <edge label="IP" idref="s3990_8"/>
+          </nt>
+          <nt id="s3990_501" cat="ROOT">
+            <edge label="MS" idref="s3990_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4044">
+      <graph root="s4044_501">
+        <terminals>
+          <t id="s4044_1" word="Våra" pos="POPPHHGG"/>
+          <t id="s4044_2" word="bedömningar" pos="VN"/>
+          <t id="s4044_3" word="påverkas" pos="VVPSSMPA"/>
+          <t id="s4044_4" word="av" pos="PR"/>
+          <t id="s4044_5" word="gruppen" pos="NNDD"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4044_503" cat="NP">
+            <edge label="DT" idref="s4044_1"/>
+            <edge label="HD" idref="s4044_2"/>
+          </nt>
+          <nt id="s4044_504" cat="PP">
+            <edge label="PR" idref="s4044_4"/>
+            <edge label="HD" idref="s4044_5"/>
+          </nt>
+          <nt id="s4044_502" cat="S">
+            <edge label="SS" idref="s4044_503"/>
+            <edge label="FV" idref="s4044_3"/>
+            <edge label="AG" idref="s4044_504"/>
+          </nt>
+          <nt id="s4044_501" cat="ROOT">
+            <edge label="MS" idref="s4044_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4109">
+      <graph root="s4109_501">
+        <terminals>
+          <t id="s4109_1" word="I" pos="PR"/>
+          <t id="s4109_2" word="många" pos="POZP"/>
+          <t id="s4109_3" word="olika" pos="AJ"/>
+          <t id="s4109_4" word="sammanhang" pos="NN"/>
+          <t id="s4109_5" word="är" pos="AVPS"/>
+          <t id="s4109_6" word="vi" pos="POPPHH"/>
+          <t id="s4109_7" word="utsatta" pos="TP  SMPA"/>
+          <t id="s4109_8" word="för" pos="PR"/>
+          <t id="s4109_9" word="denna" pos="PODP"/>
+          <t id="s4109_10" word="konformitetstendens" pos="NN  SS"/>
+          <t id="s4109_11" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4109_503" cat="PP">
+            <edge label="PR" idref="s4109_1"/>
+            <edge label="DT" idref="s4109_2"/>
+            <edge label="AT" idref="s4109_3"/>
+            <edge label="HD" idref="s4109_4"/>
+          </nt>
+          <nt id="s4109_504" cat="PP">
+            <edge label="PR" idref="s4109_8"/>
+            <edge label="DT" idref="s4109_9"/>
+            <edge label="HD" idref="s4109_10"/>
+          </nt>
+          <nt id="s4109_502" cat="S">
+            <edge label="RA" idref="s4109_503"/>
+            <edge label="FV" idref="s4109_5"/>
+            <edge label="SS" idref="s4109_6"/>
+            <edge label="SP" idref="s4109_7"/>
+            <edge label="OA" idref="s4109_504"/>
+            <edge label="IP" idref="s4109_11"/>
+          </nt>
+          <nt id="s4109_501" cat="ROOT">
+            <edge label="MS" idref="s4109_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4167">
+      <graph root="s4167_501">
+        <terminals>
+          <t id="s4167_1" word="Kommunerna" pos="NNDD"/>
+          <t id="s4167_2" word="har" pos="HVPS"/>
+          <t id="s4167_3" word="huvudansvaret" pos="NNDDSS"/>
+          <t id="s4167_4" word="för" pos="PR"/>
+          <t id="s4167_5" word="bostadsförsörjningen" pos="VNDDSS"/>
+          <t id="s4167_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4167_503" cat="PP">
+            <edge label="PR" idref="s4167_4"/>
+            <edge label="HD" idref="s4167_5"/>
+          </nt>
+          <nt id="s4167_502" cat="S">
+            <edge label="SS" idref="s4167_1"/>
+            <edge label="FV" idref="s4167_2"/>
+            <edge label="OO" idref="s4167_3"/>
+            <edge label="OA" idref="s4167_503"/>
+            <edge label="IP" idref="s4167_6"/>
+          </nt>
+          <nt id="s4167_501" cat="ROOT">
+            <edge label="MS" idref="s4167_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4210">
+      <graph root="s4210_501">
+        <terminals>
+          <t id="s4210_1" word="I" pos="PR"/>
+          <t id="s4210_2" word="storstadsområdena" pos="NNDDSS"/>
+          <t id="s4210_3" word="märks" pos="VVPS  PA"/>
+          <t id="s4210_4" word="hyressplittringen" pos="VNDDSS"/>
+          <t id="s4210_5" word="mest" pos="ABSU"/>
+          <t id="s4210_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4210_503" cat="PP">
+            <edge label="PR" idref="s4210_1"/>
+            <edge label="HD" idref="s4210_2"/>
+          </nt>
+          <nt id="s4210_502" cat="S">
+            <edge label="RA" idref="s4210_503"/>
+            <edge label="FV" idref="s4210_3"/>
+            <edge label="SS" idref="s4210_4"/>
+            <edge label="AA" idref="s4210_5"/>
+            <edge label="IP" idref="s4210_6"/>
+          </nt>
+          <nt id="s4210_501" cat="ROOT">
+            <edge label="MS" idref="s4210_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4242">
+      <graph root="s4242_501">
+        <terminals>
+          <t id="s4242_1" word="Dessa" pos="PODP"/>
+          <t id="s4242_2" word="köer" pos="NN"/>
+          <t id="s4242_3" word="är" pos="AVPS"/>
+          <t id="s4242_4" word="dock" pos="ABMN"/>
+          <t id="s4242_5" word="av" pos="PR"/>
+          <t id="s4242_6" word="olika" pos="AJ"/>
+          <t id="s4242_7" word="skäl" pos="NN"/>
+          <t id="s4242_8" word="mycket" pos="ABZA"/>
+          <t id="s4242_9" word="otillförlitliga" pos="AJ"/>
+          <t id="s4242_10" word="mått" pos="NN"/>
+          <t id="s4242_11" word="på" pos="PR"/>
+          <t id="s4242_12" word="den" pos="PODP"/>
+          <t id="s4242_13" word="reella" pos="AJ"/>
+          <t id="s4242_14" word="bostadsefterfrågan" pos="VN  SS"/>
+          <t id="s4242_15" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4242_503" cat="NP">
+            <edge label="DT" idref="s4242_1"/>
+            <edge label="HD" idref="s4242_2"/>
+          </nt>
+          <nt id="s4242_504" cat="PP">
+            <edge label="PR" idref="s4242_5"/>
+            <edge label="AT" idref="s4242_6"/>
+            <edge label="HD" idref="s4242_7"/>
+          </nt>
+          <nt id="s4242_506" cat="AP">
+            <edge label="AA" idref="s4242_8"/>
+            <edge label="HD" idref="s4242_9"/>
+          </nt>
+          <nt id="s4242_505" cat="NP">
+            <edge label="AT" idref="s4242_506"/>
+            <edge label="HD" idref="s4242_10"/>
+          </nt>
+          <nt id="s4242_507" cat="PP">
+            <edge label="PR" idref="s4242_11"/>
+            <edge label="DT" idref="s4242_12"/>
+            <edge label="AT" idref="s4242_13"/>
+            <edge label="HD" idref="s4242_14"/>
+          </nt>
+          <nt id="s4242_502" cat="S">
+            <edge label="SS" idref="s4242_503"/>
+            <edge label="FV" idref="s4242_3"/>
+            <edge label="+A" idref="s4242_4"/>
+            <edge label="AA" idref="s4242_504"/>
+            <edge label="SP" idref="s4242_505"/>
+            <edge label="OA" idref="s4242_507"/>
+            <edge label="IP" idref="s4242_15"/>
+          </nt>
+          <nt id="s4242_501" cat="ROOT">
+            <edge label="MS" idref="s4242_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4328">
+      <graph root="s4328_501">
+        <terminals>
+          <t id="s4328_1" word="Ljudbildbandet" pos="NNDDSS"/>
+          <t id="s4328_2" word="Tryggare" pos="MN"/>
+          <t id="s4328_3" word="informerar" pos="VVPS"/>
+          <t id="s4328_4" word="om" pos="PR"/>
+          <t id="s4328_5" word="våra" pos="POPPHHGG"/>
+          <t id="s4328_6" word="sociala" pos="AJ"/>
+          <t id="s4328_7" word="förmåner" pos="NN"/>
+          <t id="s4328_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4328_503" cat="NP">
+            <edge label="DT" idref="s4328_1"/>
+            <edge label="HD" idref="s4328_2"/>
+          </nt>
+          <nt id="s4328_504" cat="PP">
+            <edge label="PR" idref="s4328_4"/>
+            <edge label="DT" idref="s4328_5"/>
+            <edge label="AT" idref="s4328_6"/>
+            <edge label="HD" idref="s4328_7"/>
+          </nt>
+          <nt id="s4328_502" cat="S">
+            <edge label="SS" idref="s4328_503"/>
+            <edge label="FV" idref="s4328_3"/>
+            <edge label="OA" idref="s4328_504"/>
+            <edge label="IP" idref="s4328_8"/>
+          </nt>
+          <nt id="s4328_501" cat="ROOT">
+            <edge label="MS" idref="s4328_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4431">
+      <graph root="s4431_501">
+        <terminals>
+          <t id="s4431_1" word="Den" pos="PODP"/>
+          <t id="s4431_2" word="hårt" pos="AJ"/>
+          <t id="s4431_3" word="rollbundna" pos="TP  SMPA"/>
+          <t id="s4431_4" word="familjen" pos="NNDD"/>
+          <t id="s4431_5" word="är" pos="AVPS"/>
+          <t id="s4431_6" word="dessutom" pos="ABOC"/>
+          <t id="s4431_7" word="på" pos="PR"/>
+          <t id="s4431_8" word="avskrivning" pos="VN"/>
+          <t id="s4431_9" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4431_504" cat="AP">
+            <edge label="AA" idref="s4431_2"/>
+            <edge label="HD" idref="s4431_3"/>
+          </nt>
+          <nt id="s4431_503" cat="NP">
+            <edge label="DT" idref="s4431_1"/>
+            <edge label="AT" idref="s4431_504"/>
+            <edge label="HD" idref="s4431_4"/>
+          </nt>
+          <nt id="s4431_505" cat="PP">
+            <edge label="PR" idref="s4431_7"/>
+            <edge label="HD" idref="s4431_8"/>
+          </nt>
+          <nt id="s4431_502" cat="S">
+            <edge label="SS" idref="s4431_503"/>
+            <edge label="FV" idref="s4431_5"/>
+            <edge label="+A" idref="s4431_6"/>
+            <edge label="SP" idref="s4431_505"/>
+            <edge label="IP" idref="s4431_9"/>
+          </nt>
+          <nt id="s4431_501" cat="ROOT">
+            <edge label="MS" idref="s4431_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4516">
+      <graph root="s4516_501">
+        <terminals>
+          <t id="s4516_1" word="Detta" pos="POOP"/>
+          <t id="s4516_2" word="stimulerar" pos="VVPS"/>
+          <t id="s4516_3" word="honorna" pos="NNDDHH"/>
+          <t id="s4516_4" word="till" pos="PR"/>
+          <t id="s4516_5" word="äggläggning" pos="VN  SS"/>
+          <t id="s4516_6" word="," pos="IK"/>
+          <t id="s4516_7" word="varigenom" pos="ABRA"/>
+          <t id="s4516_8" word="fortplantningen" pos="VNDD"/>
+          <t id="s4516_9" word="säkras" pos="VVPS  PA"/>
+          <t id="s4516_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4516_503" cat="PP">
+            <edge label="PR" idref="s4516_4"/>
+            <edge label="HD" idref="s4516_5"/>
+          </nt>
+          <nt id="s4516_504" cat="S">
+            <edge label="AA" idref="s4516_7"/>
+            <edge label="SS" idref="s4516_8"/>
+            <edge label="FV" idref="s4516_9"/>
+          </nt>
+          <nt id="s4516_502" cat="S">
+            <edge label="SS" idref="s4516_1"/>
+            <edge label="FV" idref="s4516_2"/>
+            <edge label="OO" idref="s4516_3"/>
+            <edge label="OA" idref="s4516_503"/>
+            <edge label="IK" idref="s4516_6"/>
+            <edge label="AN" idref="s4516_504"/>
+            <edge label="IP" idref="s4516_10"/>
+          </nt>
+          <nt id="s4516_501" cat="ROOT">
+            <edge label="MS" idref="s4516_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4603">
+      <graph root="s4603_501">
+        <terminals>
+          <t id="s4603_1" word="Två" pos="RO"/>
+          <t id="s4603_2" word="tumlare" pos="NN"/>
+          <t id="s4603_3" word="hjälper" pos="VVPS"/>
+          <t id="s4603_4" word="en" pos="EN"/>
+          <t id="s4603_5" word="sårad" pos="TP    PA"/>
+          <t id="s4603_6" word="artfrände" pos="NN  SS"/>
+          <t id="s4603_7" word="att" pos="IM"/>
+          <t id="s4603_8" word="hålla" pos="VVIV"/>
+          <t id="s4603_9" word="näsöppningen" pos="VNDDSS"/>
+          <t id="s4603_10" word="över" pos="PR"/>
+          <t id="s4603_11" word="vattnet" pos="NNDD"/>
+          <t id="s4603_12" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4603_503" cat="NP">
+            <edge label="HD" idref="s4603_1"/>
+            <edge label="HD" idref="s4603_2"/>
+          </nt>
+          <nt id="s4603_504" cat="NP">
+            <edge label="DT" idref="s4603_4"/>
+            <edge label="AT" idref="s4603_5"/>
+            <edge label="HD" idref="s4603_6"/>
+          </nt>
+          <nt id="s4603_506" cat="PP">
+            <edge label="PR" idref="s4603_10"/>
+            <edge label="HD" idref="s4603_11"/>
+          </nt>
+          <nt id="s4603_505" cat="VP">
+            <edge label="IM" idref="s4603_7"/>
+            <edge label="IV" idref="s4603_8"/>
+            <edge label="OO" idref="s4603_9"/>
+            <edge label="RA" idref="s4603_506"/>
+          </nt>
+          <nt id="s4603_502" cat="S">
+            <edge label="SS" idref="s4603_503"/>
+            <edge label="FV" idref="s4603_3"/>
+            <edge label="OO" idref="s4603_504"/>
+            <edge label="OA" idref="s4603_505"/>
+            <edge label="IP" idref="s4603_12"/>
+          </nt>
+          <nt id="s4603_501" cat="ROOT">
+            <edge label="MS" idref="s4603_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4693">
+      <graph root="s4693_501">
+        <terminals>
+          <t id="s4693_1" word="Sverige" pos="PN"/>
+          <t id="s4693_2" word="har" pos="HVPS"/>
+          <t id="s4693_3" word="visat" pos="VVSN"/>
+          <t id="s4693_4" word="intresse" pos="NN"/>
+          <t id="s4693_5" word="för" pos="PR"/>
+          <t id="s4693_6" word="att" pos="IM"/>
+          <t id="s4693_7" word="ge" pos="VVIV"/>
+          <t id="s4693_8" word="sitt" pos="POXP  GG"/>
+          <t id="s4693_9" word="bidrag" pos="NN"/>
+          <t id="s4693_10" word="till" pos="PR"/>
+          <t id="s4693_11" word="utvecklingssamarbetet" pos="NNDDSS"/>
+          <t id="s4693_12" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4693_504" cat="NP">
+            <edge label="DT" idref="s4693_8"/>
+            <edge label="HD" idref="s4693_9"/>
+          </nt>
+          <nt id="s4693_505" cat="PP">
+            <edge label="PR" idref="s4693_10"/>
+            <edge label="HD" idref="s4693_11"/>
+          </nt>
+          <nt id="s4693_503" cat="PP">
+            <edge label="PR" idref="s4693_5"/>
+            <edge label="IM" idref="s4693_6"/>
+            <edge label="IV" idref="s4693_7"/>
+            <edge label="OO" idref="s4693_504"/>
+            <edge label="OA" idref="s4693_505"/>
+          </nt>
+          <nt id="s4693_502" cat="S">
+            <edge label="SS" idref="s4693_1"/>
+            <edge label="FV" idref="s4693_2"/>
+            <edge label="IV" idref="s4693_3"/>
+            <edge label="OO" idref="s4693_4"/>
+            <edge label="OA" idref="s4693_503"/>
+            <edge label="IP" idref="s4693_12"/>
+          </nt>
+          <nt id="s4693_501" cat="ROOT">
+            <edge label="MS" idref="s4693_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4773">
+      <graph root="s4773_501">
+        <terminals>
+          <t id="s4773_1" word="Medeltidens" pos="NNDDSSGG"/>
+          <t id="s4773_2" word="trånga" pos="AJ"/>
+          <t id="s4773_3" word="städer" pos="NN"/>
+          <t id="s4773_4" word="hade" pos="HVPT"/>
+          <t id="s4773_5" word="emellertid" pos="ABMN"/>
+          <t id="s4773_6" word="inget" pos="PONP"/>
+          <t id="s4773_7" word="rum" pos="NN"/>
+          <t id="s4773_8" word="för" pos="PR"/>
+          <t id="s4773_9" word="parker" pos="NN"/>
+          <t id="s4773_10" word="innanför" pos="PR"/>
+          <t id="s4773_11" word="försvarsmurarna" pos="NNDDSS"/>
+          <t id="s4773_12" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4773_503" cat="NP">
+            <edge label="DT" idref="s4773_1"/>
+            <edge label="AT" idref="s4773_2"/>
+            <edge label="HD" idref="s4773_3"/>
+          </nt>
+          <nt id="s4773_504" cat="NP">
+            <edge label="DT" idref="s4773_6"/>
+            <edge label="HD" idref="s4773_7"/>
+          </nt>
+          <nt id="s4773_505" cat="PP">
+            <edge label="PR" idref="s4773_8"/>
+            <edge label="HD" idref="s4773_9"/>
+          </nt>
+          <nt id="s4773_506" cat="PP">
+            <edge label="PR" idref="s4773_10"/>
+            <edge label="HD" idref="s4773_11"/>
+          </nt>
+          <nt id="s4773_502" cat="S">
+            <edge label="SS" idref="s4773_503"/>
+            <edge label="FV" idref="s4773_4"/>
+            <edge label="+A" idref="s4773_5"/>
+            <edge label="OO" idref="s4773_504"/>
+            <edge label="OA" idref="s4773_505"/>
+            <edge label="RA" idref="s4773_506"/>
+            <edge label="IP" idref="s4773_12"/>
+          </nt>
+          <nt id="s4773_501" cat="ROOT">
+            <edge label="MS" idref="s4773_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4833">
+      <graph root="s4833_501">
+        <terminals>
+          <t id="s4833_1" word="han" pos="PODPHH"/>
+          <t id="s4833_2" word="försäkrar" pos="VVPS"/>
+          <t id="s4833_3" word="sig" pos="POXPHHAA"/>
+          <t id="s4833_4" word="om" pos="PR"/>
+          <t id="s4833_5" word="riklig" pos="AJ"/>
+          <t id="s4833_6" word="arbetskraft" pos="NN  SS"/>
+          <t id="s4833_7" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4833_503" cat="PP">
+            <edge label="PR" idref="s4833_4"/>
+            <edge label="AT" idref="s4833_5"/>
+            <edge label="HD" idref="s4833_6"/>
+          </nt>
+          <nt id="s4833_502" cat="S">
+            <edge label="SS" idref="s4833_1"/>
+            <edge label="FV" idref="s4833_2"/>
+            <edge label="OO" idref="s4833_3"/>
+            <edge label="OA" idref="s4833_503"/>
+          </nt>
+          <nt id="s4833_501" cat="ROOT">
+            <edge label="MS" idref="s4833_502"/>
+            <edge label="IP" idref="s4833_7"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s4899">
+      <graph root="s4899_501">
+        <terminals>
+          <t id="s4899_1" word="I" pos="PR"/>
+          <t id="s4899_2" word="Sverige" pos="PN"/>
+          <t id="s4899_3" word="är" pos="AVPS"/>
+          <t id="s4899_4" word="denna" pos="PODP"/>
+          <t id="s4899_5" word="utveckling" pos="VN"/>
+          <t id="s4899_6" word="mycket" pos="ABZA"/>
+          <t id="s4899_7" word="påtaglig" pos="AJ"/>
+          <t id="s4899_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s4899_503" cat="PP">
+            <edge label="PR" idref="s4899_1"/>
+            <edge label="HD" idref="s4899_2"/>
+          </nt>
+          <nt id="s4899_504" cat="NP">
+            <edge label="DT" idref="s4899_4"/>
+            <edge label="HD" idref="s4899_5"/>
+          </nt>
+          <nt id="s4899_505" cat="AP">
+            <edge label="AA" idref="s4899_6"/>
+            <edge label="HD" idref="s4899_7"/>
+          </nt>
+          <nt id="s4899_502" cat="S">
+            <edge label="RA" idref="s4899_503"/>
+            <edge label="FV" idref="s4899_3"/>
+            <edge label="SS" idref="s4899_504"/>
+            <edge label="SP" idref="s4899_505"/>
+            <edge label="IP" idref="s4899_8"/>
+          </nt>
+          <nt id="s4899_501" cat="ROOT">
+            <edge label="MS" idref="s4899_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5096">
+      <graph root="s5096_501">
+        <terminals>
+          <t id="s5096_1" word="Det" pos="POOP"/>
+          <t id="s5096_2" word="gäller" pos="VVPS"/>
+          <t id="s5096_3" word="för" pos="PR"/>
+          <t id="s5096_4" word="männen" pos="NNDDHH"/>
+          <t id="s5096_5" word="att" pos="IM"/>
+          <t id="s5096_6" word="inte" pos="ABNA"/>
+          <t id="s5096_7" word="dra" pos="VVIV"/>
+          <t id="s5096_8" word="några" pos="POZP"/>
+          <t id="s5096_9" word="förhastade" pos="AJ"/>
+          <t id="s5096_10" word="slutsatser" pos="NN  SS"/>
+          <t id="s5096_11" word="om" pos="PR"/>
+          <t id="s5096_12" word="sitt" pos="POXPHHGG"/>
+          <t id="s5096_13" word="eget" pos="POZP"/>
+          <t id="s5096_14" word="handlag" pos="NN"/>
+          <t id="s5096_15" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5096_503" cat="PP">
+            <edge label="PR" idref="s5096_3"/>
+            <edge label="HD" idref="s5096_4"/>
+          </nt>
+          <nt id="s5096_505" cat="NP">
+            <edge label="DT" idref="s5096_8"/>
+            <edge label="AT" idref="s5096_9"/>
+            <edge label="HD" idref="s5096_10"/>
+          </nt>
+          <nt id="s5096_506" cat="PP">
+            <edge label="PR" idref="s5096_11"/>
+            <edge label="DT" idref="s5096_12"/>
+            <edge label="DT" idref="s5096_13"/>
+            <edge label="HD" idref="s5096_14"/>
+          </nt>
+          <nt id="s5096_504" cat="VP">
+            <edge label="IM" idref="s5096_5"/>
+            <edge label="NA" idref="s5096_6"/>
+            <edge label="IV" idref="s5096_7"/>
+            <edge label="OO" idref="s5096_505"/>
+            <edge label="OA" idref="s5096_506"/>
+          </nt>
+          <nt id="s5096_502" cat="S">
+            <edge label="FS" idref="s5096_1"/>
+            <edge label="FV" idref="s5096_2"/>
+            <edge label="OA" idref="s5096_503"/>
+            <edge label="ES" idref="s5096_504"/>
+            <edge label="IP" idref="s5096_15"/>
+          </nt>
+          <nt id="s5096_501" cat="ROOT">
+            <edge label="MS" idref="s5096_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5313">
+      <graph root="s5313_501">
+        <terminals>
+          <t id="s5313_1" word="Resultatet" pos="NNDD"/>
+          <t id="s5313_2" word="var" pos="AVPT"/>
+          <t id="s5313_3" word="skrämmande" pos="AJ"/>
+          <t id="s5313_4" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5313_502" cat="S">
+            <edge label="SS" idref="s5313_1"/>
+            <edge label="FV" idref="s5313_2"/>
+            <edge label="SP" idref="s5313_3"/>
+            <edge label="IP" idref="s5313_4"/>
+          </nt>
+          <nt id="s5313_501" cat="ROOT">
+            <edge label="MS" idref="s5313_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5481">
+      <graph root="s5481_501">
+        <terminals>
+          <t id="s5481_1" word="Varför" pos="ABFA"/>
+          <t id="s5481_2" word="är" pos="AVPS"/>
+          <t id="s5481_3" word="det" pos="POOP"/>
+          <t id="s5481_4" word="på" pos="PR"/>
+          <t id="s5481_5" word="detta" pos="PODP"/>
+          <t id="s5481_6" word="sätt" pos="NN"/>
+          <t id="s5481_7" word="?" pos="I?"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5481_503" cat="PP">
+            <edge label="PR" idref="s5481_4"/>
+            <edge label="DT" idref="s5481_5"/>
+            <edge label="HD" idref="s5481_6"/>
+          </nt>
+          <nt id="s5481_502" cat="S">
+            <edge label="AA" idref="s5481_1"/>
+            <edge label="FV" idref="s5481_2"/>
+            <edge label="SS" idref="s5481_3"/>
+            <edge label="AA" idref="s5481_503"/>
+            <edge label="I?" idref="s5481_7"/>
+          </nt>
+          <nt id="s5481_501" cat="ROOT">
+            <edge label="MS" idref="s5481_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5605">
+      <graph root="s5605_501">
+        <terminals>
+          <t id="s5605_1" word="Mina" pos="POPPHHGG"/>
+          <t id="s5605_2" word="tankar" pos="NN"/>
+          <t id="s5605_3" word="snubblade" pos="VVPT"/>
+          <t id="s5605_4" word="på" pos="PR"/>
+          <t id="s5605_5" word="varann" pos="POCP"/>
+          <t id="s5605_6" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5605_503" cat="NP">
+            <edge label="DT" idref="s5605_1"/>
+            <edge label="HD" idref="s5605_2"/>
+          </nt>
+          <nt id="s5605_504" cat="PP">
+            <edge label="PR" idref="s5605_4"/>
+            <edge label="HD" idref="s5605_5"/>
+          </nt>
+          <nt id="s5605_502" cat="S">
+            <edge label="SS" idref="s5605_503"/>
+            <edge label="FV" idref="s5605_3"/>
+            <edge label="OA" idref="s5605_504"/>
+            <edge label="IP" idref="s5605_6"/>
+          </nt>
+          <nt id="s5605_501" cat="ROOT">
+            <edge label="MS" idref="s5605_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5662">
+      <graph root="s5662_501">
+        <terminals>
+          <t id="s5662_1" word="Procentuellt" pos="AJ"/>
+          <t id="s5662_2" word="är" pos="AVPS"/>
+          <t id="s5662_3" word="ju" pos="ABZA"/>
+          <t id="s5662_4" word="kvinnorna" pos="NNDDHH"/>
+          <t id="s5662_5" word="färre" pos="POKP"/>
+          <t id="s5662_6" word="i" pos="PR"/>
+          <t id="s5662_7" word="de" pos="PODP"/>
+          <t id="s5662_8" word="tekniska" pos="AJ"/>
+          <t id="s5662_9" word="yrkena" pos="NNDD"/>
+          <t id="s5662_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5662_503" cat="PP">
+            <edge label="PR" idref="s5662_6"/>
+            <edge label="DT" idref="s5662_7"/>
+            <edge label="AT" idref="s5662_8"/>
+            <edge label="HD" idref="s5662_9"/>
+          </nt>
+          <nt id="s5662_502" cat="S">
+            <edge label="AA" idref="s5662_1"/>
+            <edge label="FV" idref="s5662_2"/>
+            <edge label="MA" idref="s5662_3"/>
+            <edge label="SS" idref="s5662_4"/>
+            <edge label="SP" idref="s5662_5"/>
+            <edge label="RA" idref="s5662_503"/>
+            <edge label="IP" idref="s5662_10"/>
+          </nt>
+          <nt id="s5662_501" cat="ROOT">
+            <edge label="MS" idref="s5662_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5710">
+      <graph root="s5710_501">
+        <terminals>
+          <t id="s5710_1" word="När" pos="ABRA"/>
+          <t id="s5710_2" word="jag" pos="POPPHH"/>
+          <t id="s5710_3" word="började" pos="VVPT"/>
+          <t id="s5710_4" word="i" pos="PR"/>
+          <t id="s5710_5" word="kiosken" pos="NNDD"/>
+          <t id="s5710_6" word="fick" pos="FVPT"/>
+          <t id="s5710_7" word="jag" pos="POPPHH"/>
+          <t id="s5710_8" word="ett" pos="EN"/>
+          <t id="s5710_9" word="helt" pos="ABTA"/>
+          <t id="s5710_10" word="annat" pos="POKP"/>
+          <t id="s5710_11" word="människovärde" pos="NN  SS"/>
+          <t id="s5710_12" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5710_504" cat="PP">
+            <edge label="PR" idref="s5710_4"/>
+            <edge label="HD" idref="s5710_5"/>
+          </nt>
+          <nt id="s5710_503" cat="S">
+            <edge label="TA" idref="s5710_1"/>
+            <edge label="SS" idref="s5710_2"/>
+            <edge label="FV" idref="s5710_3"/>
+            <edge label="RA" idref="s5710_504"/>
+          </nt>
+          <nt id="s5710_506" cat="NP">
+            <edge label="AA" idref="s5710_9"/>
+            <edge label="HD" idref="s5710_10"/>
+          </nt>
+          <nt id="s5710_505" cat="NP">
+            <edge label="DT" idref="s5710_8"/>
+            <edge label="DT" idref="s5710_506"/>
+            <edge label="HD" idref="s5710_11"/>
+          </nt>
+          <nt id="s5710_502" cat="S">
+            <edge label="TA" idref="s5710_503"/>
+            <edge label="FV" idref="s5710_6"/>
+            <edge label="SS" idref="s5710_7"/>
+            <edge label="OO" idref="s5710_505"/>
+            <edge label="IP" idref="s5710_12"/>
+          </nt>
+          <nt id="s5710_501" cat="ROOT">
+            <edge label="MS" idref="s5710_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5739">
+      <graph root="s5739_501">
+        <terminals>
+          <t id="s5739_1" word="De" pos="PODPHH"/>
+          <t id="s5739_2" word="är" pos="AVPS"/>
+          <t id="s5739_3" word="farliga" pos="AJ"/>
+          <t id="s5739_4" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5739_502" cat="S">
+            <edge label="SS" idref="s5739_1"/>
+            <edge label="FV" idref="s5739_2"/>
+            <edge label="SP" idref="s5739_3"/>
+            <edge label="IP" idref="s5739_4"/>
+          </nt>
+          <nt id="s5739_501" cat="ROOT">
+            <edge label="MS" idref="s5739_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5784">
+      <graph root="s5784_501">
+        <terminals>
+          <t id="s5784_1" word="Valfriheten" pos="ANDDSS"/>
+          <t id="s5784_2" word="är" pos="AVPS"/>
+          <t id="s5784_3" word="högst" pos="ABSU"/>
+          <t id="s5784_4" word="illusorisk" pos="AJ"/>
+          <t id="s5784_5" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5784_503" cat="AP">
+            <edge label="AA" idref="s5784_3"/>
+            <edge label="HD" idref="s5784_4"/>
+          </nt>
+          <nt id="s5784_502" cat="S">
+            <edge label="SS" idref="s5784_1"/>
+            <edge label="FV" idref="s5784_2"/>
+            <edge label="SP" idref="s5784_503"/>
+            <edge label="IP" idref="s5784_5"/>
+          </nt>
+          <nt id="s5784_501" cat="ROOT">
+            <edge label="MS" idref="s5784_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s5840">
+      <graph root="s5840_501">
+        <terminals>
+          <t id="s5840_1" word="Jag" pos="POPPHH"/>
+          <t id="s5840_2" word="fick" pos="FVPT"/>
+          <t id="s5840_3" word="nyligen" pos="ABDA"/>
+          <t id="s5840_4" word="en" pos="EN"/>
+          <t id="s5840_5" word="liten" pos="AJ"/>
+          <t id="s5840_6" word="skrift" pos="NN"/>
+          <t id="s5840_7" word="i" pos="PR"/>
+          <t id="s5840_8" word="min" pos="POXPHHGG"/>
+          <t id="s5840_9" word="hand" pos="NN"/>
+          <t id="s5840_10" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s5840_503" cat="NP">
+            <edge label="DT" idref="s5840_4"/>
+            <edge label="AT" idref="s5840_5"/>
+            <edge label="HD" idref="s5840_6"/>
+          </nt>
+          <nt id="s5840_504" cat="PP">
+            <edge label="PR" idref="s5840_7"/>
+            <edge label="DT" idref="s5840_8"/>
+            <edge label="HD" idref="s5840_9"/>
+          </nt>
+          <nt id="s5840_502" cat="S">
+            <edge label="SS" idref="s5840_1"/>
+            <edge label="FV" idref="s5840_2"/>
+            <edge label="TA" idref="s5840_3"/>
+            <edge label="OO" idref="s5840_503"/>
+            <edge label="RA" idref="s5840_504"/>
+            <edge label="IP" idref="s5840_10"/>
+          </nt>
+          <nt id="s5840_501" cat="ROOT">
+            <edge label="MS" idref="s5840_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+    <s id="s6010">
+      <graph root="s6010_501">
+        <terminals>
+          <t id="s6010_1" word="Familjelagstiftningen" pos="VNDDSS"/>
+          <t id="s6010_2" word="är" pos="AVPS"/>
+          <t id="s6010_3" word="egentligen" pos="ABZA"/>
+          <t id="s6010_4" word="inte" pos="ABNA"/>
+          <t id="s6010_5" word="begränsad" pos="TP    PA"/>
+          <t id="s6010_6" word="till" pos="PR"/>
+          <t id="s6010_7" word="äktenskapet" pos="NNDD"/>
+          <t id="s6010_8" word="." pos="IP"/>
+        </terminals>
+        <nonterminals>
+          <nt id="s6010_503" cat="PP">
+            <edge label="PR" idref="s6010_6"/>
+            <edge label="HD" idref="s6010_7"/>
+          </nt>
+          <nt id="s6010_502" cat="S">
+            <edge label="SS" idref="s6010_1"/>
+            <edge label="FV" idref="s6010_2"/>
+            <edge label="MA" idref="s6010_3"/>
+            <edge label="NA" idref="s6010_4"/>
+            <edge label="SP" idref="s6010_5"/>
+            <edge label="RA" idref="s6010_503"/>
+            <edge label="IP" idref="s6010_8"/>
+          </nt>
+          <nt id="s6010_501" cat="ROOT">
+            <edge label="MS" idref="s6010_502"/>
+          </nt>
+        </nonterminals>
+      </graph>
+    </s>
+  </body>
+</corpus>
+

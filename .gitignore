@@ -7,7 +7,7 @@
 
 saldo/generate/*
 dist
-*\.xml
+
 saldo/xmlenL
 
 saldo/xmlen
@@ -49,3 +49,7 @@ saldo/CountWords
 saldo/kastfail
 
 saldo/kast.hs
+
+saldo/saldom.xml
+
+saldo/saldo.xml

@@ -15,12 +15,18 @@ have added extra paradigm for adjectives because manymany adjectives are
 irregular but does not have comparative forms, so seems stupid to make
 them up in the lexicon. added more than 4000 adjectives with this.
 
-have tested against talbanken and there are 3058 words missing (may be
+have tested against talbanken and there are 3058 (excluding proper names
+and numerals) words missing (may be
 same entries in different forms). More than 2000 of those are nouns,
 most of them compounds. This suggests some work on a nounguesser, but
-mostly it suggests that compounding is interesting.
+mostly it suggests that compounding is interesting. 303 are verbs, and then
+there are some of all other word classes. there is also a list of words that
+exists in saldo, but as another category than in talbanken. These may be
+words like either ok ones, like prounouns in talbanken but Ns in gf, or 
+not ok ones, like 'för' which is a ++KS (some conjuction) in talbanken but
+could be a form of the verb 'föra'. This list is worth a closer look.
 
-skips personal nouns, pronouns (but there are many words here that would
+skips personal names, pronouns (but there are many words here that would
 be nice to add), prepositions (those should be added too!), verbs with many
 arguments (idioms). there are lists of all of those. I would like to
 make a idiom-dictionary. 
