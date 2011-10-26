@@ -1,0 +1,26 @@
+my old notes disappeared!!! >:(((
+
+I have imported saldo. this resulted in more than 100 000 entries.
+problems:
+valency (for verbs mainly, but also others). no information about this
+in saldo, nor in talbanken.
+more gf forms than saldo forms sometimes
+words that misses forms in saldo fails because needs them for smart paradigm
+translation of namnes, kaeltiska/kältiska, a with apostroph still irreversible
+loses information about comparative adverbs
+features:
+finds reflexive verbs and verbs with particles (hope this is correct, check?)
+
+have added extra paradigm for adjectives because manymany adjectives are
+irregular but does not have comparative forms, so seems stupid to make
+them up in the lexicon. added more than 4000 adjectives with this.
+
+have tested against talbanken and there are 3058 words missing (may be
+same entries in different forms). More than 2000 of those are nouns,
+most of them compounds. This suggests some work on a nounguesser, but
+mostly it suggests that compounding is interesting.
+
+skips personal nouns, pronouns (but there are many words here that would
+be nice to add), prepositions (those should be added too!), verbs with many
+arguments (idioms). there are lists of all of those. I would like to
+make a idiom-dictionary. 
