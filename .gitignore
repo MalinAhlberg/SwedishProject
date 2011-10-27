@@ -4,17 +4,18 @@
 *\.gfo
 *\.swp
 *\.swo
+*\.orig
 
 saldo/generate/*
 dist
-
+saldo/importFiles/
 saldo/xmlenL
 
 saldo/xmlen
 
 
 saldo/SaldoMain
-saldo/importFiles
+
 
 saldo/Messages60.txt
 
@@ -57,3 +58,35 @@ saldo/FailS14.txt
 saldo/Errors15.txt
 
 saldo/Errors15.txt
+
+.gitignore.orig
+
+doc/planWeek43.txt.orig
+
+doc/saldoNotes.txt.LOCAL.3135.txt
+
+doc/saldoNotes.txt.BACKUP.3135.txt
+
+doc/saldoNotes.txt.REMOTE.3135.txt
+
+doc/saldoNotes.txt.orig
+
+gf/saldo.zip
+
+saldo/CountWords
+
+saldo/SaldoTools.hs.orig
+
+saldo/Saldoer.hs.orig
+
+saldo/kast.hs
+
+saldo/kastfail
+
+saldo/saldo.xml
+
+saldo/saldom.xml
+
+saldo/importFiles/xmlenL
+
+saldo/importFiles/xmlen
