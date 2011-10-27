@@ -1,30 +1,36 @@
-my old notes disappeared!!! >:(((
-
 I have imported saldo. this resulted in more than 100 000 entries.
 problems:
 valency (for verbs mainly, but also others). no information about this
-in saldo, nor in talbanken.
-more gf forms than saldo forms sometimes
-words that misses forms in saldo fails because needs them for smart paradigm
-translation of namnes, kaeltiska/kältiska, a with apostroph still irreversible
-loses information about comparative adverbs
-features:
+ in saldo, nor in talbanken. Lexin have some nice info, if we could use that.
+ or extract info from korp/talbanken/leave it to the chunkparser?
+more gf forms than saldo forms sometimes, saldo only contains the ones that are
+ actually used, gf generates all. not really a problem for parsing, anyway. 
+words that misses forms in saldo fails because needs them for smart paradigm,
+ can use verbguesser for this 
+translation of lemma-namnes, kaeltisk/kältisk both occur in saldo,
+   translation a with apostroph irreversible
+loses information about comparative adverbs. could add this to gf.
 finds reflexive verbs and verbs with particles (hope this is correct, check?)
 
 have added extra paradigm for adjectives because manymany adjectives are
 irregular but does not have comparative forms, so seems stupid to make
 them up in the lexicon. added more than 4000 adjectives with this.
+could not be called mkA, since it takes three forms and there is already a 
+paradigm for three form (tung,tyngre,tyngst) so it is added as compoundA, 
+which is now overloaded. existed: compoundA : A -> A
+                         added  : compoundA : (x,y,z:Str) -> A
 
 have tested against talbanken and there are 3058 (excluding proper names
 and numerals) words missing (may be
 same entries in different forms). More than 2000 of those are nouns,
 most of them compounds. This suggests some work on a nounguesser, but
-mostly it suggests that compounding is interesting. 303 are verbs, and then
-there are some of all other word classes. there is also a list of words that
-exists in saldo, but as another category than in talbanken. These may be
-words like either ok ones, like prounouns in talbanken but Ns in gf, or 
+mostly it suggests that compounding is interesting\important. 303 are verbs
+, and then there are some of all other word classes. there is also a list of
+words that exists in saldo, but as another category than in talbanken. These
+may be either ok ones, like prounouns in talbanken but Ns in gf, or 
 not ok ones, like 'för' which is a ++KS (some conjuction) in talbanken but
-could be a form of the verb 'föra'. This list is worth a closer look.
+in gf it exist only in other forms such as a form of the verb 'föra'.
+This list is worth a closer look.
 
 skips personal names, pronouns (but there are many words here that would
 be nice to add), prepositions (those should be added too!), verbs with many

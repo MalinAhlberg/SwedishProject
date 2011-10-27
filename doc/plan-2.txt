@@ -10,8 +10,10 @@ Okt
 43 imported lexicon & work on testsuite , work on dispostion
 Nov
 44 added things to grammar, have a good testsuite, work on lexicon
-45 tried parsed test suite with new version - evaluated against mapped trees, work on saldo
-46 work on grammar, write about it  - meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
+45 tried parsed test suite with new version - evaluated against mapped trees
+   , work on saldo
+46 work on grammar, write about it ,
+   meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
 47 work on grammar and write about it, extract words for idioms and special groups (alla/hela,sådana,bara (fokuserande, inte ens, till och med..),även)
                                        'kommer att' must be added - check for simularities with 'lova','try'
                                             maybe: UseCl (TTAnt TFut ASimul) PPos
@@ -27,6 +29,9 @@ Nov
                                        reintroduce genitive!
                                        work on PassV2 (including 'det skålas'?) and PPart. refine VP-type?
                                        comparing adverbs ('ofta','fort')
+            how to handle verbs? extract information about valency from Talbanken,
+            korp? use lexin?
+
 Dec
 48 work on grammar, writing
 49 writing

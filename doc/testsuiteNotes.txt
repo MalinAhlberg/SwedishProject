@@ -5,9 +5,14 @@ nodes in the easy one, and 64% of the hard one. Since talbanken does not
 give information about valency, the mapper needs to get this info from the
 lexicon.
 
-I now plan to create more testsuites for the other parts. I want:
+I created more testsuites for the other parts:
 a list of words paired with the sentence number, to test the lexicon.
-one testsuite with random sentences (may be the mapping one)
+ (not really a list, but I can just test talbanken and get information about
+  the sentence number)
+one testsuite with 100 random sentences, no listing allowed
 one testsuite with sentences without *,),- etc
-one testsuite with short sentences (may be the mapping one)
+one testsuite with uncomplicated sentences 
 a way of easily extracting the bare sentences (without xml) from those
+
+the testsuites are in the directory testsuites, in the README file
+there is more info about them.
