@@ -31,8 +31,8 @@ writeFiles (x:xmls) n = do
 
 
 initGFFiles tot = do
-  writeFile ("saldo"++tot++".gf")   $ absHeader "Tot" ""
-  writeFile ("saldo"++tot++"Cnc.gf") $ concHeader "Tot" ""
+  writeFile ("saldo"++tot++".gf")   $ absHeader tot
+  writeFile ("saldo"++tot++"Cnc.gf") $ concHeader tot
 
 endGFFiles tot = do
   appendFile ("saldo"++tot++".gf") "}"

@@ -28,7 +28,8 @@ import UTF8
 {-----------------------------------------------------------------------------
 Translates saldom.xml into GF dictionary.
 To change input format, just replace parseDict
-Based on Krasimir's code.
+Can be used together with SaldoMain, SaldoSelection or alone.
+Based on code by Krasimir.
 -----------------------------------------------------------------------------}
 
 inputFile = "lillsaldo.xml"
@@ -283,7 +284,9 @@ translated = ['\229', '\197', '\228', '\196', '\224', '\225', '\232', '\233', '\
 -- Mapping from SALDO categories/params to GF Resource Library
 -------------------------------------------------------------------
 
-catMap  = 
+-- all word classes that should be imported should be listed here. 
+catMap  = prepCatMap
+{-
   [ (pack "ab", "Adv", map (first pack) advParamMap,  ("mkAdv",""), advParadigmList )
   , (pack "av",   "A", map (first pack) adjParamMap,  ("mkA",""), adjParadigmList )
   , (pack "vb",   "V", map (first pack) verbParamMap, ("mkV",""), verbParadigmList)
@@ -291,9 +294,12 @@ catMap  =
   , (pack "vbm", "V2", map (first pack) verb2ParamMap, ("dirV2 (partV (mkV",")"), verb2ParadigmList)
   , (pack "vbm", "VR", map (first pack) verbRParamMap, ("dirV2 (reflV (mkV","))"), verbRParadigmList)
   ]
+  -}
+-- For prepositions, not run automatically
+prepCatMap =  [(pack "pp", "Prep", [(pack "invar","s")],("mkPrep",""),[("mkPrep",["s"],"")])]
 
 advParamMap =
-  [("pos", "s")]
+  [("pos", "s"),("invar","s")] -- is invar needed?
 
 advParadigmList =
   [("mkAdv", ["s"], "") ]
@@ -441,7 +447,6 @@ nounParadigmList =
   , ("mkN", [n1, n5], "")
   , ("mkN", [n1, n3, n5, n7], "")
   ]
-
 
 
 -------------------------------------------------------------------
