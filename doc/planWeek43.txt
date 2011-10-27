@@ -10,4 +10,18 @@ Wednesday - start importing test suite, finish saldo,
             test all talbanken unknown words
 Thursday - seminars, done with testsuite (or test suite-maker)
            extract list?
+          about test suite, plan extracting list of idioms
+Wednesday - start importing test suite, finish saldo, import verbs
+            with verbguesser, retry failde adj with compoundA
+Thursday - seminar, done with testsuite (or test suite-maker)
 Friday - think and plan grammar, read cle-books
+
+
+extract all words from talbanken and make test with them?
+use old extraction to see which one needs the most work.
+make new extraction to keep data about which sentence they
+are from, to make tool better.
+import pronouns in fancy way?
+abm-nnm -> idioms
+make pn dictionairy
+revise nameing convention

@@ -42,16 +42,18 @@ saldo/FailS15.txt
 
 saldo/FailS14.txt
 
-saldo/FailS66.txt
+.gitignore
 
-saldo/CountWords
+saldo/SaldoSelection
 
-saldo/kastfail
+saldo/MessagesS15.txt
 
-saldo/kast.hs
+saldo/MessagesS14.txt
 
-saldo/saldom.xml
+saldo/FailS15.txt
 
-saldo/saldo.xml
+saldo/FailS14.txt
 
-gf/saldo.zip
+saldo/Errors15.txt
+
+saldo/Errors15.txt

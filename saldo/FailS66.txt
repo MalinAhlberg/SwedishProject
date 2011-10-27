@@ -1,0 +1,3 @@
+
+ Failing:
+ [G {lemma = "opeppad..av.1", pos = "A", forms = [["opeppad","opeppade","opeppade"]], extra = "", functions = ("compoundA",""), paradigms = []}]

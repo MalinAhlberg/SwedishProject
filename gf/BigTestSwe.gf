@@ -35,5 +35,5 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
     sadana_X = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
-    biogen_A = mkA "biogen" ;
+    peppad_A = compoundA "peppad" "peppat" "peppade";
 } ;
