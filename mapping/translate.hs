@@ -7,6 +7,7 @@ import qualified Format as Form
 
 import PGF hiding (Tree,parse)
 import Control.Arrow
+--import Control.Applicative ((<$>))
 import Control.Monad
 import Control.Monad.RWS hiding (put,gets,get)
 import System.IO
@@ -45,7 +46,7 @@ type PMonad = (RWS () [String] S)
 $(mkLabels [''S])
 
 test = False
-usePGF = bigGr --testGr
+usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
@@ -195,7 +196,7 @@ penn =
                    
       ,"PP" :-> do pr     <- write "PP!" >> inside "PR" pPrep
                    write "prep found"
-                   np <- pflatNP `mplus` inside "HD" (liftM fst pNP)
+                   np <- pflatNP `mplus` inside "HD" (fst <$> pNP)
                    write "prep noun found"
                    returnApp cidPrepNP [pr,np]
       ,"VP" :-> do write "in cat VP"
@@ -239,17 +240,17 @@ penn =
       ,"CA" :-> pPredet
       --,"DB"  :(
       ,"DT" :-> pQuant `mplus` pIQuant `mplus` pPredet 
-                       `mplus` liftM fst3 pN2
-      ,"EF" :-> liftM fst3 parseRelS
+                       `mplus` (fst3 <$> pN2)
+      ,"EF" :-> fst3 <$> parseRelS
       ,"EO" :-> cat "VP"
-      ,"ES" :-> liftM fst pNP
+      ,"ES" :-> fst <$> pNP
    --   ,"ET" :-> cat "PP"
       ,"FO" :-> pItPron 
-      ,"FS" :-> liftM fst pFS
-      ,"FV" :-> liftM fst (msum $ map (`pSlashVP` "FV") vForms)
+      ,"FS" :-> fst <$> pFS
+      ,"FV" :-> fst <$> (msum $ map (`pSlashVP` "FV") vForms)
       -- punctuation: I?,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
       -- punctuation: , "JC", "JG", "JR", "JT",
-      ,"IV" :-> liftM fst (msum $ map (`pSlashVP` "IV") vForms)
+      ,"IV" :-> fst <$> (msum $ map (`pSlashVP` "IV") vForms)
       ,"KA" :-> cat "S"
       ,"MA" :-> inAdv
       ,"MD" :-> cat "NP" `mplus` cat "PP"
@@ -258,7 +259,7 @@ penn =
       ,"OA" :-> cat "PP" `mplus` cat "VP"
       ,"OO" :-> cat "S"  `mplus` cat "VP" 
                          `mplus` pAdj
-                         `mplus` liftM fst pNP
+                         `mplus` (fst <$> pNP)
       ,"PL" :-> pPart "V"  -- could be all sorts of verbs
       ,"PR" :-> pPrep
 --     --,"PT"  cant parse 'sjálv'
@@ -278,10 +279,10 @@ penn =
                 `mplus`
                 do consume
                    return (mkExpr meta) --we know we are in SP, so ok to consume
-      ,"SS" :-> liftM fst pNP
+      ,"SS" :-> fst <$> pNP
       --,"ST"  paragraph
       ,"TA" :-> inAdv
-      ,"TT" :-> liftM fst pNP
+      ,"TT" :-> fst <$> pNP
       ,"UK" :-> pConj `mplus` pSubj
       ,"VA" :-> inAdv
       ,"VO" :-> cat "VP"
@@ -293,9 +294,10 @@ penn =
      --,"YY" :-> inside "YY" (lemma "ja,jo"  "") --fix!!
      ,"CJ" :-> cat "S" `mplus` cat "PP" `mplus` cat "VP"
                        `mplus` pAdj     `mplus` pflatNP
-     ,"HD" :-> liftM fst3 pCN `mplus` pAdj `mplus` pIAdv `mplus` liftM fst pNP
+     ,"HD" :-> (fst3 <$> pCN) `mplus` pAdj `mplus` pIAdv `mplus` (fst <$> pNP)
    ] 
 
+(<$>) = liftM
 
 clType typ | typ==cidQuestVP = cidUseQCl
            | otherwise       = cidUseCl
@@ -546,7 +548,7 @@ gfvForms  = ["VV","VA","V2A","V2","VS","V","V3"] -- need more?
 pSlashVP V typ =
  do (t,v) <-inside typ $ pVerb "VV" "V"
                          `mplus`
-                         liftM (,cidUseCopula) pCopula
+                         ((,cidUseCopula) <$> pCopula)
              --            `mplus`
              --            inside "VV" (consume >> return metaVerb)
     return (mkExpr v,t)
@@ -991,7 +993,7 @@ pCompl V2Pass = do
   opt (word2 "FO") ""          -- dummy object, alla/själva. ?
   pol  <- pPol
   adv1 <- maybeVerbAdv
-  eo   <- maybeParse $ liftM fst (inside "ES" pNP)
+  eo   <- maybeParse $ fst <$> (inside "ES" pNP)
   part <- maybeParticle "V2"   
   write ("particle: "++show part)
   ag   <- maybeParse $ inside "AG" $ pSpecialPP cidBy8agent_Prep
@@ -1080,7 +1082,7 @@ pV2Compl = do
   write ("particle: "++show part)
   return (pol,adv,part)
 
-maybeParse = flip opt Nothing . liftM Just  
+maybeParse = flip opt Nothing . (Just <$>)  
 
 pflatNP =
   do write "in NP with Adj"
@@ -1091,7 +1093,7 @@ pflatNP =
                                   inside "CA" pPredet
                                   `mplus`
                                   inside "DT" pPredet
-     m_det        <- if typ==Q then iquant =: True >> liftM Just (inside "DT" pIQuant)
+     m_det        <- if typ==Q then iquant =: True >> Just <$> (inside "DT" pIQuant)
                                else maybeParse $ inside "DT" pQuant 
      m_sitt       <- maybeParse $ inside "DT" pDetRefl   -- sig
      m_n2         <- maybeParse $ inside "DT" pN2 -- antal
@@ -1563,7 +1565,7 @@ pPredet =
   do w <- findPredet
      return $ mkExpr w 
 --  `mplus`
---  do liftM fst pNP
+--  do fst <$> pNP
  where findPredet = inside "AB" (lemma "Adv" "s")  --should look for Adv here
                                 --  `mplus`                      --and make nice function for this
                                 --  lemma "Predet" "s Neutr Sg"

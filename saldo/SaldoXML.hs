@@ -12,6 +12,7 @@ import Data.ByteString.Char8 hiding (break,take,concat)
 import qualified Data.Tree as T
 import Control.Monad.State
 import Control.Arrow
+import Control.Applicative
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
@@ -24,7 +25,7 @@ instance XmlPickler Lex where
   xpickle = xpLex
   
 parseDict :: String -> IO (Maybe Lex)
-parseDict d = liftM listToMaybe $ mainF d return
+parseDict d = listToMaybe <$> mainF d return
 
 xpLex = xpElem "Lexicon"
          $ xpWrap (M.fromList,M.toList)

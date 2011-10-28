@@ -28,6 +28,7 @@ Nov
                                        refine reflNP to cover 'sin','sig','själv', 'sina barns katts matskål'
                                        reintroduce genitive!
                                        work on PassV2 (including 'det skålas'?) and PPart. refine VP-type?
+                                       fix PredVPS, maybe delete until we can handle conjunction nicely
                                        comparing adverbs ('ofta','fort')
             how to handle verbs? extract information about valency from Talbanken,
             korp? use lexin?
@@ -42,5 +43,10 @@ Jan
 The Future
  noun guesser and import the failed nouns
  work on chunking parsing 
+ import pronouns in fancy way?
+ abm-nnm -> idioms
+ make pn dictionairy
+ revise nameing convention for saldo
+ import verbs with verbguesser,
 
 2011-09-26

@@ -40,3 +40,8 @@ be nice to add), prepositions (those should be added too, there so many!),
 verbs with many arguments (idioms like 'hugga i sten').
 there are lists of all of those (in saldo/Results/notImported).
 I would like to make a idiom-dictionary. 
+
+To handle the big amount of data, the SaldoMain-program splits saldo up
+into parts that can be stored in the memory at the same time as a corresponding
+gf lexicon. This is neven even on 8GB computers. The resulting dictionairy
+is of course written to one file.

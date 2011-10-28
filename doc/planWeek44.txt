@@ -1,0 +1,7 @@
+43 imported lexicon & work on testsuite , work on dispostion
+Nov
+44 added things to grammar, have a good testsuite, work on lexicon
+45 tried parsed test suite with new version - evaluated against mapped trees
+
+Monday: meet Ramona, put together a list of grammar I want to add and send to
+        Elisbet. Replace 999,43,53 in testMedium

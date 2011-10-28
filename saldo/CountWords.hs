@@ -9,6 +9,7 @@ import Data.Function
 import PGF hiding (parse,Tree)
 import Control.Monad
 import Control.Monad.Writer
+import Control.Applicative
 
 import Debug.Trace
 
@@ -32,7 +33,7 @@ lang = read  "BigSwe" --"BigTestSwe" --
 
 main = do 
  putStrLn $ "Parsing talbanken "++talbanken++" ..."
- trees <- liftM head $ parse talbanken
+ trees <- head <$> parse talbanken
  putStrLn $ "Reading PGF "++pgfFile++" ..."
  pgf   <- readPGF pgfFile
  putStrLn $ "Testing words ..."
