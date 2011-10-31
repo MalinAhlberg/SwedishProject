@@ -19,6 +19,6 @@ f = do
 
 g (x:y:xs) | x==y = (x:g xs)
            | x/=y = g xs
-g xs              = xs
+g xs              = [] 
 
 
