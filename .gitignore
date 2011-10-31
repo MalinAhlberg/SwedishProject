@@ -96,3 +96,7 @@ saldo/SaldoSelect.bak
 saldo/SaldoMain.bak
 
 .gitignore
+
+testSuites/resFile2.txt
+
+testSuites/Tester
