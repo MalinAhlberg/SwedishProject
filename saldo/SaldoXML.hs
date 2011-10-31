@@ -16,8 +16,8 @@ import Control.Applicative
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
---type Lex   = [(String,Entry)]
-type Lex   = M.Map String Entry
+type Lex   = [(String,Entry)]
+--type Lex   = M.Map String Entry
 data Entry = E {pos :: ByteString, table :: [(ByteString,String)]}
   deriving Show
 
@@ -28,7 +28,7 @@ parseDict :: String -> IO (Maybe Lex)
 parseDict d = listToMaybe <$> mainF d return
 
 xpLex = xpElem "Lexicon"
-         $ xpWrap (M.fromList,M.toList)
+--         $ xpWrap (M.fromList,M.toList)
             $ xpList xpEntry
 
 xpEntry :: PU (String,Entry)

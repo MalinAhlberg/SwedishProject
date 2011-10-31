@@ -1,0 +1,13 @@
+sådana:
+started by reading in SAG, they only group sådana with likadan. extracted all pronouns from saldo which
+are used as both determiners and SP (subjective predicative complement). Got a list of six:
+ sådana, fler,något, mycket,ingen,annan,(likadan (not in talbanken, but by saldo))
+ingen and någon is already in gf, by something, some_Pl osv.
+the rest can be split into two groups: the ones who take their number from the subject and the ones who don't
+ ex: 'en sådan bil, sådana bilar' -- 'fler bilar' . not 'fler bil'
+in the group of sådana we now have likadana and annat. annat is maybe not really good. det är annat?
+since någon/inget is already added, we are left with likadan and sådan (just like sag said...)
+maybe need another category for fler, mer. they can also be compared : 'flest bilar'
+
+decided to split into two categories, seems to work ok. likadan is not treated as a pronoun.. 
+

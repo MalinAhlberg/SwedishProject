@@ -411,7 +411,38 @@
 		</annotation>
 	</head>
     <body>
-
+ <s id="s1129">
+              <graph root="s1129_501">
+                  <terminals>
+                      <t id="s1129_1" word="Sådana" pos="POKP"/>
+                      <t id="s1129_2" word="resor" pos="NN"/>
+                      <t id="s1129_3" word="tänker" pos="VVPS  PA"/>
+                      <t id="s1129_4" word="gult" pos="AJ"/>
+                      <t id="s1129_5" word="." pos="IP"/>
+                  </terminals>
+                  <nonterminals>
+                      <nt id="s1129_505" cat="NP">
+                          <edge label="DT" idref="s1129_1"/>
+                          <edge label="HD" idref="s1129_2"/>
+                      </nt>
+                      <nt id="s1129_504" cat="S">
+                          <edge label="SS" idref="s1129_505"/>
+                          <edge label="FV" idref="s1129_3"/>
+                          <edge label="AA" idref="s1129_4"/>
+                      </nt>
+                      <nt id="s1129_503" cat="NAC">
+                          <edge label="+F" idref="s1129_504"/>
+                      </nt>
+                      <nt id="s1129_502" cat="XP">
+                          <edge label="AA" idref="s1129_503"/>
+                          <edge label="IP" idref="s1129_5"/>
+                      </nt>
+                      <nt id="s1129_501" cat="ROOT">
+                          <edge label="MS" idref="s1129_502"/>
+                      </nt>
+                  </nonterminals>
+              </graph>
+          </s>
 	<s id="s3">
 			<graph root="s3_501">
 				<terminals>

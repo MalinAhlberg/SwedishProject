@@ -6,14 +6,29 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP] ,
 
 lincat
  ReflNP  = NP ;
- X       = A ; -- to be modified!!
+ PronAQ = A ; -- 'en sådan' 
+ PronAD = A ; -- 'fler' 
 
 lin
 
-  XDet x = {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
+  QuantPronAQ x = {s,sp = 
+   let utr = "en"++x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
+       ntr = "ett"++x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
+       pl  =  x.s ! AF (APosit (Strong (GSg Neutr))) Nom 
+   in
+     table {Sg => \\_,_ => genderForms utr -- ++ ]
+                                       ntr ; --++] ;
+            Pl => \\_,_,_ => pl} ;
+     det = DDef Def}; --++]}};
+
+ -- those cannot be compared 
+  AdjPronAQ x = lin A x ; 
+
+  DetPronAD x = {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
             n = Pl ; det = DDef Indef} ;
 
-  XAdj x = lin A x ; 
+  AdjPronAD x = lin A x ; 
+
 
 
  ComplSlash vp np = 

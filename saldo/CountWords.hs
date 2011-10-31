@@ -54,9 +54,9 @@ getUnknown pgf morpho = mapM_ (uncurry $ searchSentence pgf morpho)
   where searchSentence :: PGF -> Morpho -> String -> Tree String -> WWriter
         searchSentence pgf m id (Node pos [Node w []]) = check pgf m id pos w
         searchSentence pgf m id (Node pos ts) = mapM_ (searchSentence pgf m id) ts
-        -- something weird with pos and w order..
+        -- something weird with pos and w order.. Believe it is fixed now
         check :: PGF -> Morpho -> String -> String -> String -> WWriter
-        check pgf morpho id w pos  
+        check pgf morpho id pos w
            | any (`isPrefixOf` pos) ["PN","MN"] = tellName (w,id)
            | otherwise                          = do
              let-- ok  = findWord w 

@@ -13,7 +13,7 @@ TalbankenTestMedium:
  than .,?! (that is, no paranthesis, dashes, semicolons...) but has
  no restriction otherwise. Consist of every tenth sentence starting from 3.
 TalbankenTestEasy:
- 100 randomly collected testsuites, does not contains list, other punctuation 
+ 58 randomly collected testsuites, does not contains list, other punctuation 
  than .,?! (that is, no paranthesis, dashes, semicolons...), no idioms,
  relative clauses, phrases or words that was not properly tagged in Talbanken,
  conjunction or subordinate clauses.

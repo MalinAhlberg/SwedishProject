@@ -29,7 +29,7 @@ abstract BigTest =
   gallande_A : A ;
   johan_PN : PN ;
   do_VV : VV;
-  sadana_X : X ;
+  sadana_PronAQ : PronAQ ;
   peppad_A : A ;
   } ;
 

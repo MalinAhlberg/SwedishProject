@@ -35,30 +35,30 @@ main = do
   putStrLn " Ok\n"
   --absMap <- readAbbs 
   let morpho = buildMorpho pgf lang
-  c <- execStateT (mapM_ (tryparse pgf morpho) sents) newCount
+  c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) newCount
   print c
   return ()
 
 tryparse :: PGF -> Morpho -> Sent -> CState ()
 tryparse pgf morpho sents = do 
-  count sents
-  mapM_ parse' pgf morpho sents
+  --count sents
+  parse' pgf morpho sents
 
 parse' :: PGF -> Morpho -> Sent -> CState ()
-parse' pgf morpho (s,"") = addEmpty >> putEmptyMsg s
-parse' pgf morpho (s,st) = do
-  let unknown = badWords morpho st
-  if null unknown then parseOk pgf s st
+parse' pgf morpho (s,"") = addEmpty >> putEmptyMsg (s,"")
+parse' pgf morpho s = do
+  let unknown = badWords morpho (snd s)
+  if null unknown then parseOk pgf s
         else putLexMsg s unknown >> addBadLex
 
 parseOk :: PGF -> Sent-> CState ()        
 parseOk pgf s = do
-  tree <- io $ timeout timeLimit $ return $! parse pgf lang textType (snd s)
-  maybe (addTime >> putTimeMsg s) (getBestTree s tree)
+  tree <- io $ timeout timeLimit $ return $! parse pgf lang textType (map toLower $ snd s)
+  maybe (addTime >> putTimeMsg s) (getBestTree s) tree
 
 
 badWords :: Morpho -> String -> [String]
-badWords morpho s = [w| w <- words s, null $ lookupMorpho morpho w]
+badWords morpho s = [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
 
 getBestTree :: Sent -> [Tree] -> CState ()
 getBestTree s tree = do
@@ -90,7 +90,7 @@ output s c str = do
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
 lang     = fromJust $ readLanguage "BigSwe" --"BigNewSwe"
-pgfFile =  "testOld/Big.pgf" -- "BigNew.pgf"
+pgfFile =  "../gf/Big.pgf" -- "BigNew.pgf"
 outFile = "testis.txt"
 
 

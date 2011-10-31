@@ -1,14 +1,19 @@
+--# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
 abstract ExtraSweAbs = ExtraScandAbs ** {
 
-cat ReflNP ; X ; -- X is for 'sådana','mycket'
+cat ReflNP ; 
+    PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
+    PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
 
 fun
 
-  XDet : X -> Det ;
-  XAdj : X -> A ;
+  DetPronAD : PronAD -> Det ;
+  AdjPronAD : PronAD -> A ;
+  QuantPronAQ : PronAQ -> Quant ;
+  AdjPronAQ : PronAQ -> A ;
 
 
   CompoundNomN : N -> N -> N ;  -- fot+boll

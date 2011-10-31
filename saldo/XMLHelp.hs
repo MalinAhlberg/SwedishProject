@@ -94,8 +94,8 @@ xpWords :: PU [Word]
 xpWords = xpList $ xpElem "t"  
           $ xpWrap (uncurry3 W,\t -> (id t, word t,pos t)) 
           $ xpTriple (xpAttr "id" xpText)
-                     (xpAttr "word" xpText)
                      (xpAttr "pos" xpText)
+                     (xpAttr "word" xpText)
                      
 mainF src f =   
   runX (xunpickleDocument xpSentences [withInputEncoding utf8

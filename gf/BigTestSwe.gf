@@ -34,6 +34,6 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       -- suprelativ..
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    sadana_X = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
+    sadana_PronAQ = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
     peppad_A = compoundA "peppad" "peppat" "peppade";
 } ;
