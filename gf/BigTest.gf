@@ -34,12 +34,22 @@ abstract BigTest =
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;
   -- overgenerating: alla hela katter. should not be ok.
-  hela_Predet : Predet ;
+  -- predets should be able to decide definites?
+  hela_Predet : Predet ;  --hela horder/hela katten  -- both
+  sjaelva_Predet : Predet ; -- själva kungen/själva öronen -- def
+  samma_Predet : Predet ; -- samma katter/samma öra 
   varenda_Det : Det ;
   vardera_Det : Det ;
-  sjaelva_Predet : Predet ;
-  samma_Predet : Predet ;
   ena_Det : Det ;
+  baegge_Det : Det ;
+  baada_Det : Det ;
+  varannan_Det : Det ;
+  somliga_Det : Det ;
+  dylika_Det : Det ;
+  oovriga_Det : Det ;
+  aatskilliga_Det : Det ;
+  samtliga_Det : Det ;
+
 -- remove 'noll'?
   noll_Det : Det ;
   } ;

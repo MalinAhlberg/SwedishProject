@@ -31,7 +31,8 @@ in gf
 ,"DT"),("all","DT"),("allt","DT"),("alls","ET"),("alla","ET"),("alla","FO"),("alla","HD"),("allt","HD"),("all","HD"),("alls","HD"),("allt","MA"),("alla","OO"),("allt","OO"),("alla","PT"),("allt","SS"),("alla","SS")] 
 add: 
 [("b\228gge","DT"),("b\228gge","ET"),("b\228gge","SS")]
-[("b\229da","CJ"),("b\229da","DT"),("b\229da","FO"),("b\229da","HD"),("b\229da","PT"),("b\229da","SS")]
+[("b\229da","CJ"),("b\229da","DT"),("b\229da","FO"),("b\229da","HD")
+,("b\229da","PT"),("b\229da","SS")]
 [("varenda","DT"),("varenda","HD")]
 [("vardera","DT"),("vardera","FO")]
 [("varannan","DT"),("vartannat","DT"),("varannan","HD"),("varannan","SS")]

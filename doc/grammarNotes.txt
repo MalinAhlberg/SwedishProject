@@ -58,12 +58,62 @@ simply added as a predeterminer.
 "hela skogen" , "hela bordet", ?"hela husen"
                                *"alla hela husen"
 "inte hela katten"
-
+def or indef according to SAG.
 
 ---
+others:
+based on how the pronouns from saldo are used in talbanken.
+see section pronomen in SAG.
 varenda:
 determiner
 "varenda katt"
 "inte varenda katt"
 want "varenda en är gul", but it refuses to have utr.
  add extra field in Det for this?
+ 
+Things we want to say:
+den ena katten
+de log båda
+
+Don't want to say:
+den själva katten (and can't say it)
+samma katten (def)-- SAG 201: noun in indef --
+själva mat (indef) -- see SAG 230 , noun must be definite (are in exampels at least)
+
+in mail to Ramona:
+There seems to be at least three ways to divide the forms:
+- predeterminers cannot be put by them selves (turned into a NP by
+itself),  determiners can
+- determiners decide their number and if the noun should be in
+definite form or not, whereas
+ the predets don't.
+ - you can put 'de' after a predeterminer but before a determiner.
+
+ Is last rule is correct for English, when using 'the' instead of 'de'?
+ It seems to be working for
+ Swedish, 'alla de barnen' / 'de få barnen'
+ but you can't parse any of those sentences with the resource grammar.
+
+ My problem is that I have some words which doesn't really fit in
+ either category.
+ For example 'själv' (in the sense "själva kungen kom" ~ "even the king came").
+ It cannot be put alone, and it does not decide which number that should be used,
+ but I don't think you can use indefinite nouns with it: 'själva kung kom'.
+ If you want to add 'de', you should add it after 'själv': 'själva den kungen'
+
+ Another example is 'varenda'. It seems to be a determiner, the noun must be
+ in singular and in indefinite form. But you cannot say 'de(n) varenda skogen'.
+
+ Am I misunderstanding how the categories should  be used, or do I need to
+ modify the grammar? Or is it ok for the grammar to allow some constructions
+ that no one would really use (such as  'själva kung kom')?
+
+ Also, I have some questions about the field 'sp' in determiners. It seems to be
+ used when the determiner is used as a NP by the function DetNP, do you know if
+ that is the only use?
+ I would like it to have a field for gender, since it automatically is
+ set to neutrum, but for
+ 'varenda' it should be utrum: 'varenda en var gul' (not gult). (So the
+ sp-field of varenda
+ is 'varenda en').
+

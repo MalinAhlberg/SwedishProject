@@ -39,13 +39,24 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
-    hela_Predet   = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
-    varenda_Det = {s  = \\_,_ => "varenda" ; sp = \\_,_ => "varenda en" ; 
-                   n = Sg ; det = DDef Indef};
-    vardera_Det = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
-    sjaelva_Predet   = {s  = \\_,_ => "själva" ; p = [] ; a = PNoAg} ;
+
+    hela_Predet    = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
+    sjaelva_Predet = {s  = \\_,_ => "själva" ; p = [] ; a = PNoAg} ;
     samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
-    ena_Det = {s,sp = \\_,_ => "ena" ; n = Sg ; det = DDef Def};
-    noll_Det = {s,sp = \\_,_ => "noll" ;
-                n = Pl ; det = DDef Indef};
+
+    vardera_Det  = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
+    ena_Det      = {s,sp = \\_,_ => "ena" ; n = Sg ; det = DDef Def};
+    baegge_Det   = {s,sp = \\_,_ => "bägge" ; n = Pl ; det = DDef Def} ;
+    baada_Det    = {s,sp = \\_,_ => "båda" ; n = Pl ; det = DDef Def} ;
+    varannan_Det = {s,sp = \\_,_ => "varannan" ; n = Sg ; det = DDef Indef} ;
+    somliga_Det  = {s,sp = \\_,_ => "somliga" ; n = Pl ; det = DDef Indef} ;
+    dylika_Det   = {s,sp = \\_,_ => "dylika" ; n = Pl ; det = DDef Indef} ;
+    oovriga_Det  = {s,sp = \\_,_ => "övriga" ; n = Pl ; det = DDef Indef} ;
+    samtliga_Det = {s,sp = \\_,_ => "samtliga" ; n = Pl ; det = DDef Indef} ;
+    aatskilliga_Det = {s,sp = \\_,_ => "åtskilliga" ; n = Pl ; det = DDef Indef} ;
+    varenda_Det     = {s  = \\_,_ => "varenda" ; sp = \\_,_ => "varenda en" ; 
+                       n = Sg ; det = DDef Indef};
+
+
+    noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 } ;

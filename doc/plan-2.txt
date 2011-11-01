@@ -14,12 +14,13 @@ Nov
    , work on saldo
 46 work on grammar, write about it ,
    meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
-47 work on grammar and write about it, extract words for idioms and special groups (alla/hela,sådana,bara (fokuserande, inte ens, till och med..),även)
+47 work on grammar and write about it, extract words for idioms and special
+                                       groups (alla/hela,sådana,bara (fokuserande, inte ens, till och med..),även)
                                        'kommer att' must be added - check for simularities with 'lova','try'
                                             maybe: UseCl (TTAnt TFut ASimul) PPos
                                                      (PredVP (UsePron it8utr_Pron) (ShallV think_V)))
                                             past tense?
-                                       'äta själv' - build into refl-np?
+                                       'hon vet själv inte/själv inte' 'de vet alla' 'de vet båda' - build into refl-np?
                                        check konstruktionsväxlingar
                                        refine sådana, want to say 'hon såg sådant/mycket' - as determiner
                                        refine 'antalet'. should be a special noun phrase,

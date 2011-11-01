@@ -8,6 +8,7 @@ lincat
  ReflNP  = NP ;
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
+
  
 -- nounScand
   Det' = Det ** {g : Gender} ;
