@@ -1,13 +1,69 @@
 sådana:
-started by reading in SAG, they only group sådana with likadan. extracted all pronouns from saldo which
-are used as both determiners and SP (subjective predicative complement). Got a list of six:
- sådana, fler,något, mycket,ingen,annan,(likadan (not in talbanken, but by saldo))
+started by reading in SAG, they only group sådana with likadan. extracted all
+pronouns from saldo which are used as both determiners and SP (subjective
+predicative complement). Got a list of six:
+ sådana, fler,något, mycket,ingen,annan,(likadan (not in talbanken, but by
+ saldo))
 ingen and någon is already in gf, by something, some_Pl osv.
-the rest can be split into two groups: the ones who take their number from the subject and the ones who don't
+mycket is handled by much_Det, 'det är mycket'- mycket handled as Det->NP.
+ 'den är mycken' -> mycken is in saldo too? No, but do we need it as a PronAQ?
+need to decide what to do with annan?
+the rest can be split into two groups: the ones who take their number from the
+subject and the ones who don't
  ex: 'en sådan bil, sådana bilar' -- 'fler bilar' . not 'fler bil'
-in the group of sådana we now have likadana and annat. annat is maybe not really good. det är annat?
-since någon/inget is already added, we are left with likadan and sådan (just like sag said...)
-maybe need another category for fler, mer. they can also be compared : 'flest bilar'
+in the group of sådana we now have likadana and annat. annat is maybe not
+really good. det är annat?
+since någon/inget is already added, we are left with likadan and sådan (just
+like sag said...)
+maybe need another category for fler, mer. they can also be compared : 'flest
+bilar'
 
-decided to split into two categories, seems to work ok. likadan is not treated as a pronoun.. 
+can not be predeterminer: 'sådana de skogen' - 'sådana alla skogar'
+  even though this would allow the number to be handled
+decided to split into two categories, seems to work ok. likadan is not treated
+as a pronoun.. 
+becomes overgenerating, the resulting adjectives cannot be used in weak form:
+ 'de sådana katterna' in positive. many do not have compartive either.
+Does not allow comparing, neither as predicative nor as determiner.
+Can not use them as adverbs 'han springer sådan-t'
+Solved by allowing the category to be put directly into Comp. 
+The determiners are handled by tex most_Predet anyway, so maybe not needed.
+For the predicatives, gf never allows this atm, so I will skip it for now.
 
+problem with PronAQ/D -> Comp is that we miss:
+väldigt sådan (ok? a bit slangy)
+sådan av naturen (? AdvAP)
+måla den sådan  (?)
+hur sådan (ok)
+sådan och stor (ok? slangy)
+sådan, att hon är här (ok) (bra att hon är här)
+sådan är hon -- allowed
+de blev sådana (allow!) -- problem. cant allow 'han ser en katt ut'
+       so cannot have CompVA : Comp -> VA -> VP ; even though it would
+       be nice for become_VA. (han blir en katt/han blir sådan/han blir röd)
+       'han ser sådan ut' is ok, but 'han ser fler ut'. 'de ser fler ut' ok.
+       fler doesn't want singular!
+  solved: special rule for 'bli sådan' and one for 'bli fler' (<- comparA!!)
+          FocAdv takes Comp. nice, allows 'en katt är han'
+
+NPs allowed: 'sådana' or 'ett sådant'. not 'en sådan' or 'sådant'
+solved: sp : ett sådant, s: sådant
+
+PronADs is not used in singular. Bad grammar. Or maybe they can be.
+
+
+-------
+hela:
+simply added as a predeterminer.
+"hela skogen" , "hela bordet", ?"hela husen"
+                               *"alla hela husen"
+"inte hela katten"
+
+
+---
+varenda:
+determiner
+"varenda katt"
+"inte varenda katt"
+want "varenda en är gul", but it refuses to have utr.
+ add extra field in Det for this?

@@ -2,8 +2,8 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
-  NounSwe,
-  VerbSwe -[PassV2,ComplSlash,ReflVP], -- [ComplVS],
+  NounSwe, -- - [DetNP],
+  VerbSwe -[PassV2,ComplSlash,ReflVP], --,ComplVA], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
   IdiomSwe,
@@ -34,6 +34,18 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       -- suprelativ..
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    sadana_PronAQ = mkA "sådan" ; --lin Det {s,sp = \\_,_ => "sådana" ; n = Pl ; det = DDef Indef} ;
     peppad_A = compoundA "peppad" "peppat" "peppade";
+
+
+    sadana_PronAQ = mkA "sådan" ;
+    fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
+    hela_Predet   = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
+    varenda_Det = {s  = \\_,_ => "varenda" ; sp = \\_,_ => "varenda en" ; 
+                   n = Sg ; det = DDef Indef};
+    vardera_Det = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
+    sjaelva_Predet   = {s  = \\_,_ => "själva" ; p = [] ; a = PNoAg} ;
+    samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
+    ena_Det = {s,sp = \\_,_ => "ena" ; n = Sg ; det = DDef Def};
+    noll_Det = {s,sp = \\_,_ => "noll" ;
+                n = Pl ; det = DDef Indef};
 } ;

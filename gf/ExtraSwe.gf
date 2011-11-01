@@ -1,35 +1,44 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
-      NounSwe, Coordination in {
+      NounSwe, Coordination, AdjectiveSwe in {
 
 lincat
  ReflNP  = NP ;
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
+ 
+-- nounScand
+  Det' = Det ** {g : Gender} ;
 
 lin
 
-  QuantPronAQ x = {s,sp = 
-   let utr = "en"++x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
-       ntr = "ett"++x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
-       pl  =  x.s ! AF (APosit (Strong (GSg Neutr))) Nom 
+  QuantPronAQ x =  
+   let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
+       ntr = x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
+       pl  =  x.s ! AF (APosit (Strong GPl)) Nom 
    in
-     table {Sg => \\_,_ => genderForms utr -- ++ ]
-                                       ntr ; --++] ;
+   {s =
+     table {Sg => \\_,_ => genderForms ("en"++utr) 
+                                       ("ett"++ntr) ;
             Pl => \\_,_,_ => pl} ;
-     det = DDef Def}; --++]}};
+   sp = table {Sg => \\_,_ => genderForms utr ntr;
+               Pl => \\_,_,_ => pl};
+     det = DDef Indef};
 
  -- those cannot be compared 
-  AdjPronAQ x = lin A x ; 
+  CompPronAQ x = CompAP (PositA (lin A x)) ; 
 
-  DetPronAD x = {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
+  DetPronAD x = lin Det {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
             n = Pl ; det = DDef Indef} ;
 
-  AdjPronAD x = lin A x ; 
+  CompPronAD x = CompAP (PositA (lin A x)) ; 
 
-
+  -- de blev sådana
+ ComplVAPronAQ v ap = insertObj (\\a => (PositA ap).s ! agrAdjNP a DIndef) (predV v) ;
+ -- de blev fler
+ ComplVAPronAD v ap = insertObj (\\a => (UseComparA ap).s ! agrAdjNP a DIndef) (predV v) ;
 
  ComplSlash vp np = 
        insertObjPost
@@ -63,7 +72,7 @@ lin
 lin
   FocAP ap np    = 
   {s = \\t,a,p => 
-   let vp = UseComp (CompAP ap);
+   let vp = UseComp ap ; --(CompAP ap);
        vps = vp.s ! VPFinite t a;
        npAgr = np.a in
     vp.n2 ! npAgr ++ vps.fin ++ np.s ! NPNom 
@@ -161,6 +170,17 @@ lin
                         obj  = vp.n3 ! np.a   in
     lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
 
+
+---- NounScand
+  Det'NP det = 
+      let 
+        g = det.g ; ---- malin's
+        m = True ;
+      in {
+        s = \\c => det.sp ! m ! g ;
+        a = agrP3 (ngen2gen g) det.n
+      } ;
+ 
 
 
 

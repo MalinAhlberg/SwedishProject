@@ -4,8 +4,8 @@
 abstract BigTest = 
   Lexicon,
   ExtraSweAbs,
-  Noun ,
-  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
+  Noun, -- -[DetNP] ,
+  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP], --,ComplVA],
   Adjective -[UseComparA],
   Adverb,
   Idiom,
@@ -29,7 +29,18 @@ abstract BigTest =
   gallande_A : A ;
   johan_PN : PN ;
   do_VV : VV;
-  sadana_PronAQ : PronAQ ;
   peppad_A : A ;
+
+  sadana_PronAQ : PronAQ ;
+  fler_PronAD : PronAD ;
+  -- overgenerating: alla hela katter. should not be ok.
+  hela_Predet : Predet ;
+  varenda_Det : Det ;
+  vardera_Det : Det ;
+  sjaelva_Predet : Predet ;
+  samma_Predet : Predet ;
+  ena_Det : Det ;
+-- remove 'noll'?
+  noll_Det : Det ;
   } ;
 

@@ -2,18 +2,35 @@
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
-abstract ExtraSweAbs = ExtraScandAbs ** {
+abstract ExtraSweAbs = ExtraScandAbs -[FocAdv,FocAP] ** {
 
 cat ReflNP ; 
     PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
+             -- can be compared as both: de flesta katter, katterna är flest
+             --                             Predet?
+             -- få sådana katter. not parsable, since få determiner.
     PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
+  
+    Det' ; -- added a field for gender (varenda en)
 
 fun
+ 
+  Det'NP : Det' -> NP ;  -- override
+  FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
+                              -- to allow 'sådan är han'
+                              -- also allows 'här är han' , 'katt är han'
+                              -- which might actually be good
+                              -- can remove FocAdv
+
 
   DetPronAD : PronAD -> Det ;
-  AdjPronAD : PronAD -> A ;
   QuantPronAQ : PronAQ -> Quant ;
-  AdjPronAQ : PronAQ -> A ;
+  CompPronAQ : PronAQ -> Comp ;
+  CompPronAD : PronAD -> Comp ;
+  -- de blev sådana
+  ComplVAPronAQ : VA -> PronAQ -> VP ;
+ -- de blev fler
+  ComplVAPronAD : VA -> PronAD -> VP ;
 
 
   CompoundNomN : N -> N -> N ;  -- fot+boll
@@ -68,5 +85,7 @@ fun
   dedaer8neut_NP : NP ;
   denhaer_NP : NP ;
   dendaer_NP : NP ;
+
+
 
 }
