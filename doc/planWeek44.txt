@@ -4,8 +4,21 @@ Nov
 45 tried parsed test suite with new version - evaluated against mapped trees
 
 Monday: Replace 43,53 in testMedium, define 'sådan'-category
-Tuesday: meet ramona, find out how often 'annat' is used as SP
+Tuesday: meet ramona, find out how often 'annat' is used as SP.
+         add 'fler'. add 'hela', work on 'bara'.
+Wednesday: 'själv', 'även', start on 'kommer att'
+Thursday: 'kommer att', 'varandra', 'olika', 'antalet', look over 'katterna är
+           gulast/flest'
+Friday: write, plan next week and rest of semester, mail elisabet,
+        read cle, dispostition
  
 
 put together a list of grammar I want to add and send to
         Elisbet. 
+       
+
+meeting with ramona:
+we can't get lexin, search talbanken may be good (later). also noun-
+guessing is needed. it could work for compounds, by trying to find the
+basic form, just to enable parsing. need opponent!
+

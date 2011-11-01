@@ -32,10 +32,11 @@ Nov
                                        comparing adverbs ('ofta','fort')
             how to handle verbs? extract information about valency from Talbanken,
             korp? use lexin?
+   remind everyone of meeting
 
 Dec
-48 work on grammar, writing
-49 writing
+48 work on grammar, writing, plan meeting.
+49 meeting with group,writing
 50 writing, wrapping up
 Jan
 2 presentation
