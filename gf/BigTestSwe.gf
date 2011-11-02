@@ -37,12 +37,18 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     peppad_A = compoundA "peppad" "peppat" "peppade";
 
 
+
+    bara_AdVFoc = mkAdv "bara" ;
+
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
 
     hela_Predet    = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
-    sjaelva_Predet = {s  = \\_,_ => "själva" ; p = [] ; a = PNoAg} ;
     samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
+
+    sjaelva_Quant = {s = \\_,_,_,_ => "själva" ;
+                    sp = \\_,_,_,_ => variants {};
+                     det = DDef Def } ;
 
     vardera_Det  = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
     ena_Det      = {s,sp = \\_,_ => "ena" ; n = Sg ; det = DDef Def};

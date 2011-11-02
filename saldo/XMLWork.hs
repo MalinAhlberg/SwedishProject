@@ -17,9 +17,19 @@ mainet f src
 	        arrIO (return . f))
 
 
-
--- for finding all (syntactic) tags given to a list of words
 main = do
+  putStrLn "Starting ..."
+  putStrLn "Reading xml ..."
+  xml <- mainet (map toNumberedTree) input
+  putStrLn "Finding tags ..."
+  let tags = sort $ nub $ concatMap (findWords cs ts) $ map snd $ concat xml
+  putStrLn "Writing file ..."
+  writeFile "advDT.tags" $ show tags
+ where cs = ["DT"]
+       ts = ["AB", "ABDA", "ABFA", "ABJA", "ABJU", "ABKP", "ABKS", "ABKU", "ABMN", "ABNA"
+            ,"ABOC", "ABRA", "ABSA", "ABSU", "ABTA", "ABZA", "ABZK"]
+-- for finding all (syntactic) tags given to a list of words
+main1 = do
   mxs <- parseDict "importFiles/saldoPart2.xml"
   case mxs of
        Nothing -> putStrLn "could not parse importFiles/saldoPart2.xml"
@@ -58,6 +68,15 @@ findTags ws (Node cat [Node tag [Node w []]]) | not (null form) = [(head form,ca
 findTags ws (Node tag ts) = concatMap (findTags ws) ts
 
 
+findWords :: [String] -> [String] -> Tree String -> [(String,String,String)]
+findWords cats tags (Node cat [Node tag [Node w []]]) 
+         | not (null isCat) && not (null isTag) = [(w,head isCat, head isTag)]
+         | otherwise       = []
+     where isCat = [cat] `intersect` cats
+           isTag = [tag] `intersect` tags
+findWords cs tgs (Node tag ts) = concatMap (findWords cs tgs) ts
+
+
 
 ---- check if there are dublicates in the testsuites
 f = do 
@@ -71,5 +90,4 @@ f = do
 g (x:y:xs) | x==y = (x:g xs)
            | x/=y = g xs
 g xs              = xs
-
 

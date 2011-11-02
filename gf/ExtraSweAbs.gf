@@ -11,15 +11,14 @@ cat ReflNP ;
              -- få sådana katter. not parsable, since få determiner.
     PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
   
-    Det' ; -- added a field for gender (varenda en)
 
     AdvFoc ; -- foucsing adverbs 'bara'. acts as predeterminers, normal adverbs or before finite verb
+    
 
 fun
  
-  AdvFVP : AdvFoc -> VP -> VP ; -- (han) bara log
+  AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
-  Det'NP : Det' -> NP ;  -- override
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'

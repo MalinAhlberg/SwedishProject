@@ -8,13 +8,21 @@ lincat
  ReflNP  = NP ;
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
-
+ AdvFoc = Adv ;
  
--- nounScand
-  Det' = Det ** {g : Gender} ;
+ 
 
 lin
-
+ 
+  -- maybe not the best way, but the adverb should always
+  -- be befor the finite verb
+  -- needs changes in VP, fix
+  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ (vp.s ! vpf).fin ;
+                                 inf = (vp.s ! vpf).inf};
+                   a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
+                   en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
+  PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
+  
   QuantPronAQ x =  
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
        ntr = x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
@@ -171,17 +179,6 @@ lin
                         obj  = vp.n3 ! np.a   in
     lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
 
-
----- NounScand
-  Det'NP det = 
-      let 
-        g = det.g ; ---- malin's
-        m = True ;
-      in {
-        s = \\c => det.sp ! m ! g ;
-        a = agrP3 (ngen2gen g) det.n
-      } ;
- 
 
 
 

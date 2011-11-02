@@ -79,6 +79,7 @@ Don't want to say:
 den själva katten (and can't say it)
 samma katten (def)-- SAG 201: noun in indef --
 själva mat (indef) -- see SAG 230 , noun must be definite (are in exampels at least)
+  -- should be quant, but variants does not work
 
 in mail to Ramona:
 There seems to be at least three ways to divide the forms:
