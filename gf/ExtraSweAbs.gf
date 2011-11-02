@@ -17,8 +17,6 @@ cat ReflNP ;
 
 fun
  
-  -- Tense
-  TFut' : Tense ;
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdv : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
