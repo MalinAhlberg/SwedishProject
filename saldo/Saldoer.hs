@@ -210,7 +210,7 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
                    getNextLemma (G id cat lemmas b f ps)
            else replace (G id cat [catMaybes forms] a (specialF pre f) ps)
       where
-        specialF "compoundA" _ = ("compoundA","") --- to be removed
+        specialF "regA" _ = ("regA","") --- to be done more nicely
         specialF x           f = f
         getLemma  gf_p=
                      case lookup fm_p fm_t of
@@ -356,7 +356,7 @@ adjParadigmList =
   , ("mkA", [a1, a3 , a5, a11 , a13], "")
   , ("mkA", [a1, a3 , a5, a11 , a13], "")
   , ("mkA", [a1, a3 , a7, a5 , a11, a13, a15], "")
-  , ("compoundA", [a1, a3, a5], "") -- new paradigm
+  , ("regA", [a1, a3, a5], "") 
   ]
 
 

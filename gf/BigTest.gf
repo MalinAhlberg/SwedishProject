@@ -32,7 +32,7 @@ abstract BigTest =
   peppad_A : A ;
 
   ---
-  bara_AdVFoc : AdvFoc ;
+  bara_AdvFoc : AdvFoc ;
 
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;

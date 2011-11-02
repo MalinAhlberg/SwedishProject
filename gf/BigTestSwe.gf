@@ -34,11 +34,11 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       -- suprelativ..
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    peppad_A = compoundA "peppad" "peppat" "peppade";
+    peppad_A = regA "peppad" ; -- mk3A "peppad" "peppat" "peppade" ;
 
 
 
-    bara_AdVFoc = mkAdv "bara" ;
+    bara_AdvFoc = mkAdv "bara" ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;

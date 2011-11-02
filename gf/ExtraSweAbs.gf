@@ -18,7 +18,7 @@ cat ReflNP ;
 fun
  
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
-  PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
+  PredetAdv : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'

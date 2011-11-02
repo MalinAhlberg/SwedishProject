@@ -22,7 +22,7 @@ Nov
                                             past tense?
                                        'hon vet själv inte/själv inte' 'de vet alla' 'de vet båda' - build into refl-np?
                                        check konstruktionsväxlingar
-                                       refine sådana, want to say 'hon såg sådant/mycket' - as determiner
+                                       refine sådana, want to say 'hon såg sådant/mycket' - as determiner (done!)
                                        refine 'antalet'. should be a special noun phrase,
                                         so that 'ett antal' ,'ett stort antal' osv is working 
                                         the whole phrase should have the same number as 'antal'
