@@ -5,6 +5,8 @@
 *\.swp
 *\.swo
 *\.orig
+*~
+*\.swn
 
 saldo/generate/*
 dist
@@ -108,3 +110,9 @@ saldo/XMLWork
 ParadigmsSwe.gf.txt
 
 gf/ParadigmsSweOld.gf
+
+gf/kast.hs
+
+gf/Archive 2.zip
+
+gf/Saldo.zip
