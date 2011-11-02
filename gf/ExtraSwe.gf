@@ -1,7 +1,8 @@
---# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
+--# -path=./gf:.:swedish:prelude:abstract:scandinavian:common 
+   -- alltenses:
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
- open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
+ open CommonScand  , ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe in {
 
 lincat
@@ -14,6 +15,8 @@ lincat
 
 lin
  
+
+
   -- maybe not the best way, but the adverb should always
   -- be befor the finite verb
   -- needs changes in VP, fix
@@ -21,7 +24,7 @@ lin
                                  inf = (vp.s ! vpf).inf};
                    a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
                    en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
-  PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
+  PredetAdv adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
   
   QuantPronAQ x =  
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
