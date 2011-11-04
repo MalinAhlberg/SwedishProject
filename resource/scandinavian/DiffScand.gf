@@ -42,7 +42,7 @@ interface DiffScand = open CommonScand, Prelude in {
 
     verbBecome : Verb ;
 
-    auxFut : Str ;  
+    auxFut : Str ;
     auxCond : Str ;
 
     negation : Polarity => Str ;

@@ -86,7 +86,7 @@ incomplete concrete ExtraScand of ExtraScandAbs = CatScand **
     IAdvAdv adv = {s = hur_IAdv.s ++ adv.s} ;
 
   lincat
-    Foc = {s : STense => Anteriority => Polarity => Str} ;
+    Foc = {s : ParamX.Tense => Anteriority => Polarity => Str} ;
 
   lin
     FocObj np cls = {

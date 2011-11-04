@@ -19,7 +19,6 @@ instance DiffSwe of DiffScand = open CommonScand, Prelude in {
     hasAuxBe _ = False ;
 
 
-
 -- Strings.
 
     conjThat = "att" ;
