@@ -1,0 +1,15 @@
+44 added things to grammar, have a good testsuite, work on lexicon
+45 tried parsed test suite with new version - evaluated against mapped trees
+   , work on saldo
+46 work on grammar, write about it ,
+   meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
+
+
+Goals: solve VP-problem, find out how to extract valency-info from Talbanken, add easy things to
+       grammar
+Monday:    meet Ramona, ask about how to handle grammar problem, talk about disposition,
+           make plan about VP, talk to involved persons
+Tuesday:   make decisions about VP and new NP, mail Elisabet with my plan of grammar.
+Wednesday: grammar work
+Thursday:  grammar work 
+Friday:    read 

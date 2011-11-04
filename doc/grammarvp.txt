@@ -1,0 +1,20 @@
+want to : 1 add tempus 'kommer att' (future)
+          2 keep passive forms in VP
+          3 keep particips in VP
+
+How to separate from Scandinavian? Separate everything, just small parts?
+ started with tempus, but couldn't separate the tense enough from
+ the other languages (variants does not work for). there is equivalent
+ 'kommer til å' in norwegian, but not in danish (?). want to separate
+ them anyway, since I want more things in the Swedish. the problem is
+ that everythin, more or less, is effected by the verb phrase.
+ could simply copy-paste everything and not care about nor/dan, but 
+ seems like a waste.
+
+How to handle particips?
+ lars said that all perfect particips will be treated as adjectives
+ in next saldo. but they will still be forms of the verb in gf, and
+ if we manage to get valance-information for verbs, we can use this
+ for the particips also. but might not want to duplicate everything
+ to the VP also?
+
