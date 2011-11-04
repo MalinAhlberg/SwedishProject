@@ -206,6 +206,7 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
         report $ "to choose from: "++show ps
         forms <- mapM getLemma xs
         if Nothing `elem` forms 
+        -- to do: if the comparative forms for an adjective doesn't exist, add compounda
            then do report ("all forms for "++id++" not found" )
                    getNextLemma (G id cat lemmas b f ps)
            else replace (G id cat [catMaybes forms] a (specialF pre f) ps)
@@ -256,9 +257,11 @@ mkGFName id' cat = name++"_"++cat
        dash2us '-' = '_'
        dash2us x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
-       name =  undot $ (++ [last id']) $ num 
+       name =  undot -- $ (++ [last id']) 
+              $ num 
               $ transform_letters 
-              $ map dash2us $ takeWhile (/= '.')
+              $ map dash2us 
+              $ takeWhile (/= '.')  -- in case there are unwanted (unintedned?) dots left
               $ undot (decodeUTF8 id')
        transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
                            | otherwise                 = concatMap trans w -- to be sure..
@@ -281,10 +284,10 @@ mkGFName id' cat = name++"_"++cat
        trans '\183' = "_"
        trans x   | isAscii x =  [x]
                  | otherwise = "x"
-       undot [] = []
-       undot ('.':'.':xs) = '_' : undot xs 
-       undot     ('.':xs) = '_' : undot xs
-       undot       (x:xs) = x:undot xs
+undot [] = []
+undot ('.':'.':xs) = '_' : undot xs 
+undot     ('.':xs) = '_' : undot xs
+undot       (x:xs) = x:undot xs
 
 translated = ['\229', '\197', '\228', '\196', '\224', '\225', '\232', '\233', '\234', '\231', '\252', '\246', '\241', '\214', '\183','\244']
 -------------------------------------------------------------------

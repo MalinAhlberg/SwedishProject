@@ -8,6 +8,7 @@
 *~
 *\.swn
 
+
 saldo/generate/*
 dist
 saldo/importFiles/
@@ -116,3 +117,9 @@ gf/kast.hs
 gf/Archive 2.zip
 
 gf/Saldo.zip
+
+diff.patch
+
+gf/DictSweAbsOld.gf
+
+gf/DictSweOld.gf
