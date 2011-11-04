@@ -1,8 +1,7 @@
---# -path=./gf:.:swedish:prelude:abstract:scandinavian:common 
-   -- alltenses:
+--# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
- open CommonScand  , ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
+ open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe in {
 
 lincat
@@ -14,9 +13,9 @@ lincat
  
 
 lin
+
+  TFut' = {s = []} ** {t = SFut'} ;   --# notpresent
  
-
-
   -- maybe not the best way, but the adverb should always
   -- be befor the finite verb
   -- needs changes in VP, fix
@@ -24,7 +23,7 @@ lin
                                  inf = (vp.s ! vpf).inf};
                    a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
                    en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
-  PredetAdv adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
+  PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
   
   QuantPronAQ x =  
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
@@ -65,13 +64,13 @@ lin
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
           vps  = vp.s ! VPFinite t a ;  
-          vf = case <<t,a> : ParamX.Tense * Anteriority> of {
-            <Pres,Simul> => vps.fin;
-            <Past,Simul> => vps.fin;
-            <_   ,Simul> => vps.inf;
-            <Pres,Anter> => vps.inf;
-            <Past,Anter> => vps.inf;
-            <_   ,Anter> => (vp.s ! VPFinite Past Anter).inf
+          vf = case <<t,a> : STense * Anteriority> of {
+            <SPres,Simul> => vps.fin;
+            <SPast,Simul> => vps.fin;
+            <_    ,Simul> => vps.inf;
+            <SPres,Anter> => vps.inf;
+            <SPast,Anter> => vps.inf;
+            <_    ,Anter> => (vp.s ! VPFinite SPast Anter).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
           comp = vp.n2 ! agr ++ vp.a2 ++ vp.ext     
@@ -143,7 +142,7 @@ lin
   DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
-                        verb = (vp.s ! VPFinite Pres Anter).inf ;
+                        verb = (vp.s ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
     {s = \\_ => sub ++ neg ++ verb ++ compl };

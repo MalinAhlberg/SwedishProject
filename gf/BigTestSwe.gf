@@ -13,12 +13,12 @@ concrete BigTestSwe of BigTest =
   RelativeSwe, -- [IdRP, RelSlash],
   ConjunctionSwe,
   PhraseSwe, -- [UttImpSg, UttImpPl],
-  TextX,
-  TenseS,
+  TextX - [Tense,Temp] ,
+  TenseSwe,
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe
-  ** open IrregSwe, ParamX, CommonScand  in {
+  ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
@@ -34,11 +34,11 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       -- suprelativ..
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    peppad_A = regA "peppad" ; -- mk3A "peppad" "peppat" "peppade" ;
+    peppad_A = regA "peppad" ; -- "peppat" "peppade";
+    CP_skadad_av_11_A = compoundA (regA "CP-skadad") ;
 
 
-
-    bara_AdvFoc = mkAdv "bara" ;
+    bara_AdVFoc = mkAdv "bara" ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
