@@ -17,8 +17,6 @@ cat ReflNP ;
 
 fun
  
-  TFut' : Tense ; --# notpresent
-
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc

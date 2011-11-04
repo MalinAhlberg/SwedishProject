@@ -14,7 +14,6 @@ lincat
 
 lin
 
-  TFut' = {s = []} ** {t = SFut'} ;   --# notpresent
  
   -- maybe not the best way, but the adverb should always
   -- be befor the finite verb
@@ -64,13 +63,13 @@ lin
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
           vps  = vp.s ! VPFinite t a ;  
-          vf = case <<t,a> : STense * Anteriority> of {
-            <SPres,Simul> => vps.fin;
-            <SPast,Simul> => vps.fin;
+          vf = case <<t,a> : ParamX.Tense * Anteriority> of {
+            <Pres,Simul> => vps.fin;
+            <Past,Simul> => vps.fin;
             <_    ,Simul> => vps.inf;
-            <SPres,Anter> => vps.inf;
-            <SPast,Anter> => vps.inf;
-            <_    ,Anter> => (vp.s ! VPFinite SPast Anter).inf
+            <Pres,Anter> => vps.inf;
+            <Past,Anter> => vps.inf;
+            <_    ,Anter> => (vp.s ! VPFinite Past Anter).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
           comp = vp.n2 ! agr ++ vp.a2 ++ vp.ext     
@@ -142,7 +141,7 @@ lin
   DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
-                        verb = (vp.s ! VPFinite SPres Anter).inf ;
+                        verb = (vp.s ! VPFinite Pres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
     {s = \\_ => sub ++ neg ++ verb ++ compl };

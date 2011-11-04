@@ -13,8 +13,7 @@ concrete BigTestSwe of BigTest =
   RelativeSwe, -- [IdRP, RelSlash],
   ConjunctionSwe,
   PhraseSwe, -- [UttImpSg, UttImpPl],
-  TextX - [Tense,Temp] ,
-  TenseSwe,
+  TextX,
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe

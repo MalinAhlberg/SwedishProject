@@ -16,8 +16,7 @@ abstract BigTest =
   Conjunction,
   Phrase,
   Structural, 
-  Text,
-  Tense
+  Text
   ** {
   flags startcat=Phr ;
   
