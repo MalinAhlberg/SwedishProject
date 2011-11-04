@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
- open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
+ open CommonSwe, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe in {
 
 lincat

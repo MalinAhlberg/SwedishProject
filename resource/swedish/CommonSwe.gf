@@ -1,85 +1,12 @@
-instance DiffSwe of DiffScand = open CommonSwe, Prelude in {
+-- Resources that was shared with the other Scandinavian languages but
+-- have now been separated
 
--- Parameters.
+resource CommonSwe = CommonScand2 ** open Prelude in {
 
-  oper
-    NGender = Gender ; 
-    ngen2gen g = g ;
-    utrum = Utr ; 
-    neutrum = Neutr ;
+  flags optimize=all ;
 
-    detDef : Species = Def ;
+ oper
 
-    Verb : Type = {
-      s : VForm => Str ;
-      part : Str ;
-      vtype : VType
-      } ;
-
-    hasAuxBe _ = False ;
-
-
-
--- Strings.
-
-    conjThat = "att" ;
-    conjThan = "än" ;
-    conjAnd = "och" ;
-    infMark  = "att" ;
-    compMore = "mera" ;
-
-    subjIf = "om" ;
-
-    artIndef : NGender => Str = table {
-      Utr => "en" ;
-      Neutr => "ett"
-      } ;
-    detIndefPl = "några" ;
-
-    verbHave = 
-      mkVerb "ha" "har" "ha" "hade" "haft" "havd" "havt" "havda" ** noPart ;
-    verbBe = 
-      mkVerb "vara" "är" "var" "var" "varit" "varen" "varet" "varna" 
-      ** noPart ;
-    verbBecome = 
-      mkVerb "bli" "blir" "bli" "blev" "blivit" "bliven" "blivet" "blivna"
-      ** noPart ;
-
-    -- auxiliary
-    noPart = {part = []} ;
-
-    auxFut = "ska" ;      -- "skall" in ExtSwe
-    auxCond = "skulle" ;
-
-    negation : Polarity => Str = table {
-      Pos => [] ;
-      Neg => "inte"
-      } ;
-
-    genderForms : (x1,x2 : Str) -> NGender => Str = \all,allt -> 
-      table {
-        Utr => all ;
-        Neutr => allt
-        } ;
-
-    relPron : Gender => Number => RCase => Str = \\g,n,c => case c of {
-      RNom | RPrep False => "som" ;
-      RGen  => "vars" ;
-      RPrep True => gennumForms "vilken" "vilket" "vilka" ! gennum g n
-      } ;
-
-    pronSuch = gennumForms "sådan" "sådant" "sådana" ;
-
-    reflPron : Agr -> Str = \a -> case <a.n,a.p> of {
-      <Pl,P1> => "oss" ;
-      <Pl,P2> => "er" ;
-      <Sg,P1> => "mig" ;
-      <Sg,P2> => "dig" ;
-      <_, P3> => "sig"
-      } ;
-
-    hur_IAdv = {s = "hur"} ;
-    -------
 -- For $Verb$.
   VP = {
       s : VPForm => {
@@ -89,7 +16,7 @@ instance DiffSwe of DiffScand = open CommonSwe, Prelude in {
       a1 : Polarity => Str ; -- A1 inte ---s3
       n2 : Agr => Str ;      -- N2 dig  ---s5  
       a2 : Str ;             -- A2 idag ---s6
-      ext : Str ;            -- S-Ext att hon går   ---s7
+      ext : Str ;            -- S-Ext att hon gÃ¥r   ---s7
       --- ea1,ev2,           --- these depend on params of v and a1
       en2,ea2,eext : Bool    -- indicate if the field exists
       } ;
@@ -220,5 +147,4 @@ param
 
  VType = VAct | VPass | VRefl ;
 
-
-}
+ };

@@ -8,7 +8,7 @@
 -- syntax. To build a lexicon, it is better to use $ParadigmsSwe$, which
 -- gives a higher-level access to this module.
 
-resource MorphoSwe = CommonScand, ResSwe ** open Prelude, (Predef=Predef) in {
+resource MorphoSwe = CommonSwe, ResSwe ** open Prelude, (Predef=Predef) in {
 
 
 -- Verbs

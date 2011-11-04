@@ -2,7 +2,8 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
-  NounSwe, -- - [DetNP],
+  NounSwe -- - [DetNP],
+  {-
   VerbSwe -[PassV2,ComplSlash,ReflVP], --,ComplVA], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -18,12 +19,15 @@ concrete BigTestSwe of BigTest =
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe
-  ** open IrregSwe, ParamX, CommonScand in {
+  -}
+  ** open IrregSwe, ParamX CommonSwe in {};
+   {-
       -- Irreg needed for göra
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
-
+      -}
+{-
   lin
    
     begin_VV    = mkVV (mkV "börja") ;
@@ -66,3 +70,4 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
     noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 } ;
+    -}

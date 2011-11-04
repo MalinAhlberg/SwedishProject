@@ -2,6 +2,7 @@
 
 -- for testing grammar, using just the test lexicon
 abstract BigTest = 
+{-
   Lexicon,
   ExtraSweAbs,
   Noun, -- -[DetNP] ,
@@ -18,9 +19,10 @@ abstract BigTest =
   Structural, 
   Text,
   Tense
-  ** {
+  **-} {
   flags startcat=Phr ;
   
+  {-
   fun
   begin_VV : VV ;
   tankaTill_V : V ;
@@ -55,5 +57,6 @@ abstract BigTest =
 
 -- remove 'noll'?
   noll_Det : Det ;
+  -}
   } ;
 

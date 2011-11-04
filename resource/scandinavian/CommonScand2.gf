@@ -4,7 +4,7 @@
 -- languages, without dependence on parameters.
 -- Without functions not used by new Swedish
 
-resource CommonScand = ParamX ** open Prelude in {
+resource CommonScand2 = ParamX ** open Prelude in {
 
   flags optimize=all ;
 
@@ -204,22 +204,6 @@ oper
   regNP : Str -> Str -> Gender -> Number -> {s : NPForm => Str ; a : Agr} =
     \det,dess,g,n ->
     mkNP det det dess dess dess g n P3 ;
-
-----
-mkVerb : (x1,_,_,_,_,_,_,x8 : Str) -> {s : VForm => Str ; vtype : VType} = 
-   \finna,finner,finn,fann,funnit,funnen,funnet,funna -> {
-   s = table {
-    VF (VPres Act)  => finner ;
-    VF (VPres Pass) => mkVoice Pass finn ;
-    VF (VPret v)    => mkVoice v fann ;  --# notpresent
-    VF (VImper v)   => mkVoice v finn ;
-    VI (VInfin v)   => mkVoice v finna ;
-    VI (VSupin v)   => mkVoice v funnit ;  --# notpresent
-    VI (VPtPret a c)=> mkCase c (mkAdjPos a funnen funnet funna funna)
-    } ;
-   vtype = VAct
-   } ;
-
 
 
 }
