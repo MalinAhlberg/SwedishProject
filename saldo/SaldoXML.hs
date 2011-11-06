@@ -16,8 +16,8 @@ import Control.Applicative
  
 -- Functions for parsing XML to a format read by the other Haskell files
 
---type Lex   = [(String,Entry)]
-type Lex   = M.Map String Entry
+type Lex     = M.Map String Entry
+type LexList =  [(String,Entry)]
 data Entry = E {pos :: ByteString, table :: [(ByteString,String)]}
   deriving Show
 
@@ -25,10 +25,16 @@ instance XmlPickler Lex where
   xpickle = xpLex
   
 parseDict :: String -> IO (Maybe Lex)
-parseDict d = listToMaybe <$> mainF d return
+parseDict d = listToMaybe <$> mainF xpLex d return
+
+parseDictList :: String -> IO (Maybe LexList)
+parseDictList d = listToMaybe <$> mainF xpLexList d return
 
 xpLex = xpElem "Lexicon"
          $ xpWrap (M.fromList,M.toList)
+            $ xpList xpEntry
+
+xpLexList = xpElem "Lexicon"
             $ xpList xpEntry
 
 xpEntry :: PU (String,Entry)
@@ -76,8 +82,8 @@ toGF "ab" = "Adv"
 toGF x    = x
 
 
-mainF src f =   
-  runX (xunpickleDocument xpLex [withInputEncoding utf8
+mainF xpFunc src f =   
+  runX (xunpickleDocument xpFunc [withInputEncoding utf8
                                      , withRemoveWS yes] src
         >>> arrIO f) --(return . f)) 
 

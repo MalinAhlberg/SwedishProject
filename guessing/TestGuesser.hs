@@ -1,7 +1,6 @@
 module TestGuesser where
 import PGF
 import System.Environment (getArgs)
--- import Parser hiding (pgfFile,getLang)
 import Color
 import Control.Monad.State
 import Data.List
@@ -9,7 +8,7 @@ import Data.Maybe
 import Debug.Trace
 
 data TestResult = Good String | Bad String | Unsure String
-data Count = Count {good :: Int, bad :: Int, toKeep :: [(String,LexID)],
+data Count = Count {good :: Int, bad :: Int, toKeep :: [([String],LexID)],
                     toRetry :: [[String]], single :: [(String,LexID)]}
 type Tester a = StateT Count IO a
 type Analyse = [(String,[Lemma])]
@@ -32,8 +31,9 @@ incrBad  :: Tester ()
 incrBad    = modify $ \s -> s {bad = 1+bad s}
 incrBadR :: [String] -> Tester ()
 incrBadR w = modify $ \s -> s {bad = 1+bad s,toRetry = w:toRetry s}
-incrGood,incrSingle :: (String,LexID) -> Tester ()
+incrGood :: ([String],LexID) -> Tester ()
 incrGood w = modify $ \s -> s {good = 1+good s, toKeep = w:toKeep s}
+incrSingle :: (String,LexID) -> Tester ()
 incrSingle (w,"ERR")  = modify $ \s -> s {toRetry = [w]:toRetry s}
 incrSingle w = modify $ \s -> s { single = w : single s } 
 
@@ -52,7 +52,7 @@ analyseAllSent morpho str = do
 lookAtResult str@(s:strs) res  
   | containsFails res = incrBadR str >> return (noParseFail str res)
   | containsNoDifferent res =
-     incrGood (s,getID res) >> return (successMsg str)
+     incrGood (str,getID res) >> return (successMsg str)
   | otherwise = incrBad >> return (manyParseFail str (nub res))
 
 getID :: Analyse -> LexID

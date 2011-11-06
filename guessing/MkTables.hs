@@ -1,11 +1,9 @@
 module MkTables 
  (getTables, showTable, showSmallTable, getSmallForms, inf, Table) where
--- import Parser hiding (pgfFile)
 import PGF
 import Data.List
 import Data.Maybe
 import System.Environment (getArgs)
---import VerbsNames
 
 type Table = (String,[[(Form,String)]])
 type Form  = String

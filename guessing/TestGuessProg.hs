@@ -6,6 +6,7 @@ import Data.List
 import Data.Monoid
 import Control.Monad.State
 import Control.Applicative
+import Control.Arrow (first)
 import TestGuesser
 import WordGuess
 import MkTables
@@ -20,7 +21,7 @@ type TestState  = StateT TState IO
 data Result       = R [String] [String] Code
 type LoopResult   = (Code,[String])
 data TState       = S {pgf :: PGF, name :: FilePath, retry :: Int,
-                       oks :: [String],retries :: [String],code :: Code,
+                       oks :: [String],retries :: [[String]],code :: Code,
                        lng :: Language}
 
 {- usage: runghc TestGuessProg verblist grammarName (-n noOfWords)
@@ -47,7 +48,7 @@ main = do
  putStrLn "Bam bam bam"
 
 
-loop :: [String] -> TestState () 
+loop :: [[String]] -> TestState () 
 loop vs = do
  st <- get
  guessed <- io $ guessRound (retry st) vs (name st) (code st)
@@ -55,31 +56,34 @@ loop vs = do
  interactTest guessed
  extractGood 
 
-interactTest :: ([[String]],[Prefixed]) -> TestState ()
-interactTest (vs,prefs) = do
+--interactTest :: ([[String]],[Prefixed]) -> TestState ()
+interactTest :: [[String]] -> TestState ()
+--interactTest (vs,prefs) = do
+interactTest vs = do
   pgfF <- gets pgf 
   lng  <- gets lng
   let morpho = buildMorpho pgfF lng
   res <- io $ execStateT (mapM (analyseAllSent morpho) vs) emptyCount
   mapM_ confirm (toKeep res)
-  mapM_ updateRetries (concat $ toRetry res)
-  mapM_ (tryAddPrefs morpho) prefs
+  mapM_ updateRetries (toRetry res)
+  --mapM_ (tryAddPrefs morpho) prefs
   yes <- io $ askAboutSingles (single res)
-  when yes $ mapM_ confirm (single res) 
+  when yes $ mapM_ (confirm . first (:[])) (single res) 
   
 -- asks the user to confirm the word declined
-confirm :: (String,LexID) -> TestState ()
+confirm :: ([String],LexID) -> TestState ()
 confirm = uncurry confirmP 
-confirmP :: String -> LexID -> TestState ()
-confirmP w id = do
+confirmP :: [String] -> LexID -> TestState ()
+confirmP ws id = do
   st <- get
   let l = (read $  langName $ name st)
   tbl@(s,tbls) <- io $ getTables (pgf st) l id
   case tbls of
-     []  -> updateRetries w 
+     []  -> updateRetries ws 
      _   -> do io $ putStrLn $ "Generated the table: \n"++ showSmallTable tbl
-               askAboutTable w tbl
+               askAboutTable ws tbl
 
+{-
 -- functions for declining prefixed words
 tryAddPrefs ::  Morpho -> Prefixed -> TestState () 
 tryAddPrefs morpho w =
@@ -108,6 +112,7 @@ sameStem w l = do
        ('d':_) -> return Nothing
        _       -> sameStem w l
 
+           -}
 --- States 
 firstState :: FilePath -> TState
 firstState n = S {pgf = undefined, name = n, retry = 0,
@@ -122,9 +127,10 @@ finalState n i = S {pgf = undefined, name = n++show i, retry = i,
                    oks = [], retries = [], code = mempty,
                    lng = fromJust $ readLanguage $ langName (n++show i)}
 
-updateOks,updateRetries :: String -> TestState ()
+updateOks:: String -> TestState ()
 updateOks w = modify (\s -> s {oks = w:oks s})
               >> (io $ putStrLn $ "updated oks "++w)
+updateRetries :: [String] -> TestState ()
 updateRetries w = modify (\s -> s {retries = w:retries s})
 updateCode :: Code -> TestState ()
 updateCode c = modify (\s -> s {code = c `mappend` code s})
@@ -164,21 +170,21 @@ getInf pgf lang s = let exp = fromJust (readExpr s) in
   normalize $ fromJust $ lookup inf $ head $ tabularLinearizes pgf lang exp
 
 -- Table fuctions
-askAboutTable :: String -> Table -> TestState () 
-askAboutTable w tbl@(s,_) = do
+askAboutTable :: [String] -> Table -> TestState () 
+askAboutTable ws tbl@(s,_) = do
   io $ putStrLn "Do you want it? (y/n/a/d)"
   ans <- io getLine  
   case ans of
        ('y':_) -> updateOks s     
-       ('n':_) -> updateRetries w
-       ('a':_) -> bigTable w tbl
+       ('n':_) -> updateRetries ws
+       ('a':_) -> bigTable ws tbl
        ('d':_) -> return ()
-       _       -> askAboutTable w tbl
+       _       -> askAboutTable ws tbl
 
-bigTable :: String -> Table -> TestState ()
-bigTable w tbl = do          
+bigTable :: [String] -> Table -> TestState ()
+bigTable ws tbl = do          
   io $ putStrLn $ showTable tbl
-  askAboutTable w tbl
+  askAboutTable ws tbl
 
 askAboutSingles :: Show a => [a] -> IO Bool
 askAboutSingles xs =
@@ -245,8 +251,8 @@ saveAndExit = do
   error "PGF fail"
 
 -- helper functions
-getVerbs :: String -> Int -> IO [String]
-getVerbs inp n = (take n . lines) <$> readFile inp
+getVerbs :: String -> Int -> IO [[String]]
+getVerbs inp n = (take n . map words . lines) <$> readFile inp
 
 getNum :: [String] -> Int
 getNum args = case findArg "-n" args of

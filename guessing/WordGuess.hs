@@ -25,22 +25,30 @@ emptyCode = Code "" ""
 
 testlist = ["arbeta","arbetar","lekte","leker","vill"]
 
+{-
 main1 = do
   (name:_) <- getArgs
   let vs    = take 100 testlist
   guessRound 0 vs name mempty
+-}
 
 {- guessRound :: RoundNr -> Verbs -> GrammarFile -> SavedCode -> IO ...
 tries to guess the declination of the verbs -}
-guessRound :: Int -> [String] -> FilePath -> Code -> IO ([[String]],[Prefixed])
+guessRound :: Int -> [[String]] -> FilePath -> Code -> IO [[String]]
+--guessRound :: Int -> [[String]] -> FilePath -> Code -> IO ([[String]],[Prefixed])
 guessRound n list name saveCode = do
-   let named = processVs list
+   let named = processVGrouped list
    let words = map head named
-   let (pref,code) = case n of
+ {-let (pref,code) = case n of
                           0 -> ([],execWriter $ run words)
-                          _ -> runWriter $ runRetry saveCode words n
+                          _ -> runWriter $ runRetry saveCode words n -}
+   let code = case n of 
+                   0 -> execWriter $ run words
+                   _ -> snd $ runWriter $ runRetry saveCode words n
+
    writeGF code name
-   return (map (map snd) named,pref)
+   --return (map (map snd) named,pref)
+   return (map (map snd) named)
 
   
 
@@ -104,8 +112,8 @@ run :: [(String,String)] -> GFCode ()
 run = mapM_ (writeVerb False) 
 
 runRetry :: Code -> [(String,String)] -> Int -> GFCode [Prefixed] 
-runRetry saveCode vs n = 
-  tell saveCode >> mapM (writeVerbRetry n) vs >>= return . catMaybes 
+runRetry saveCode v n = 
+  tell saveCode >> mapM (writeVerbRetry n) v >>= return . catMaybes 
 
 runNames :: [[(String,String)]] -> [[String]]
 runNames = map (map (addFnutts . snd))
