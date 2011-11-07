@@ -63,8 +63,5 @@ interface DiffScand = open CommonScand, Prelude in {
 
     hur_IAdv : {s : Str} ;
 
----- herefrom
-
-  VPForm : Type ; -- add Voice, and PtPret
 }
 

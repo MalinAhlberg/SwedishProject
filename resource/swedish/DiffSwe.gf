@@ -78,15 +78,4 @@ instance DiffSwe of DiffScand = open CommonScand, Prelude in {
       } ;
 
     hur_IAdv = {s = "hur"} ;
-
--- herefrom
- 
- VPForm = 
-     VPFinite Tense Anteriority
-   | VPImperat
-   | VPInfinit Anteriority ;
-
-
-
 }
-
