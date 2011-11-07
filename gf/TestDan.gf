@@ -16,6 +16,7 @@ concrete TestDan of TestDanAbs =
   TextX - [Tense,Temp] ,
   TenseDan,
   StructuralDan,
+  ExtraDan,
   LexiconDan
   ** open IrregDan, ParamX, CommonScand in {
       -- Irreg needed for göra
