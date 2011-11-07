@@ -1,7 +1,7 @@
---# -path=./gf:.:danish:prelude:alltenses:abstract:scandinavian
+--# -path=./gf:.:common:prelude:alltenses:abstract:scandinavian
 
 -- for testing grammar, using just the test lexicon
-abstract TestDanAbs = 
+abstract Test = 
   Lexicon,
   Noun,
   Verb,
@@ -16,7 +16,7 @@ abstract TestDanAbs =
   Phrase,
   Structural, 
   Text,
-  ExtraDanAbs,
+  -- ExtraSweAbs,
   Tense
   ** {
   flags startcat=Phr ;

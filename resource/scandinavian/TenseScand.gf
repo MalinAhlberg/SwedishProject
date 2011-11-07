@@ -10,4 +10,13 @@ incomplete concrete TenseScand of Tense =
     TFut  = {s = []} ** {t = SFut} ;    --# notpresent
     TCond = {s = []} ** {t = SCond} ;   --# notpresent
 
+param 
+ STense =
+      SPres
+    | SPast   --# notpresent
+    | SFut    --# notpresent
+    | SFut'   --# notpresent
+    | SCond   --# notpresent
+    ;
+
 }

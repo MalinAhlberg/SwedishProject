@@ -14,7 +14,7 @@ concrete TestDan of TestDanAbs =
   ConjunctionDan,
   PhraseDan,
   TextX - [Tense,Temp] ,
-  TenseScand,
+  TenseDan,
   StructuralDan,
   LexiconDan
   ** open IrregDan, ParamX, CommonScand in {
