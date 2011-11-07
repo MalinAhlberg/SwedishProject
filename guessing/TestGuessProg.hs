@@ -1,4 +1,4 @@
-module TestGuessProg where
+module Main where
 import PGF  
 -- import ParseGF
 import Data.Maybe

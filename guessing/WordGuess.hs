@@ -175,12 +175,12 @@ namsHeader name =
 
 absHeader name code = let lex = "IrregSweAbs" -- "Lexicon" in -- "DictSweAbs"
                           fun = if null code then "" else "fun" in
-  "--# -path=.:/home/malin/GF/lib/src/swedish:prelude:alltenses \n"++
+  "--# -path=.:swedish:prelude:alltenses \n"++
   "abstract "++name++" = "++lex++" ** { \n "++fun++"\n"
 
 concHeader name code = let lex = "IrregSwe" -- "LexiconSwe" in -- "DictSwe"
                            lin = if null code then "" else "lin" in
-  "--# -path=.:/home/malin/GF/lib/src/swedish/:/home/malin/GF/lib/src/scandinavian:/home/malin/GF/lib/src/common:/home/malin/GF/lib/src/abstract:../../prelude\n"++
+  "--# -path=.:swedish:scandinavian:common:abstract:prelude\n"++
   "concrete "++name++"Swe of "++name++
   " = "++lex++" ** open Prelude, ParadigmsSwe, GuessSwe,StructExtraSwe in { \n"++
   "flags coding=utf8 ;\n"++lin++"\n"
