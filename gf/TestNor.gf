@@ -13,8 +13,7 @@ concrete TestNor of TestNorAbs =
   RelativeNor,
   ConjunctionNor,
   PhraseNor,
-  TextX - [Tense,Temp] ,
-  TenseScand,
+  TenseX,
   StructuralNor,
   LexiconNor
   ** open IrregNor, ParamX, CommonScand in {

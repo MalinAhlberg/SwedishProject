@@ -14,6 +14,7 @@ concrete BigTestSwe of BigTest =
   ConjunctionSwe,
   PhraseSwe, -- [UttImpSg, UttImpPl],
   TextX,
+  TenseX,
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe
@@ -29,15 +30,13 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
     become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
     numberOf_N2 = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep ;
-    gallande_A  = mkA "gällande" "gällande" "gällande" "gällande" "gällande";
+    gallande_A  = compoundA (mkA "gällande" "gällande" "gällande" "gällande" "gällande");
       -- suprelativ..
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    peppad_A = regA "peppad" ; -- "peppat" "peppade";
-    CP_skadad_av_11_A = compoundA (regA "CP-skadad") ;
 
 
-    bara_AdVFoc = mkAdv "bara" ;
+    bara_AdvFoc = mkAdv "bara" ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;

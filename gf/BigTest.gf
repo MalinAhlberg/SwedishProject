@@ -16,6 +16,7 @@ abstract BigTest =
   Conjunction,
   Phrase,
   Structural, 
+  Tense,
   Text
   ** {
   flags startcat=Phr ;
@@ -28,7 +29,6 @@ abstract BigTest =
   gallande_A : A ;
   johan_PN : PN ;
   do_VV : VV;
-  peppad_A : A ;
 
   ---
   bara_AdvFoc : AdvFoc ;
