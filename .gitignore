@@ -123,3 +123,21 @@ diff.patch
 gf/DictSweAbsOld.gf
 
 gf/DictSweOld.gf
+
+guessing/TestVerrSwe.gf
+
+guessing/TestVerr.gf
+
+guessing/TestVSwe.gf
+
+guessing/TestV.gf
+
+guessing/TestV.errlog
+
+gf/TestVSwe.gf
+
+gf/TestV.gf
+
+guessing/TestGuessProg
+
+guessing/CreateVerbList

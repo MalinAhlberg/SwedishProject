@@ -5,11 +5,15 @@
    meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
 
 
-Goals: solve VP-problem, find out how to extract valency-info from Talbanken, add easy things to
-       grammar
 Monday:    meet Ramona, ask about how to handle grammar problem, talk about disposition,
            make plan about VP, talk to involved persons
 Tuesday:   make decisions about VP and new NP, mail Elisabet with my plan of grammar.
+           search for subordinates that could be added
 Wednesday: grammar work
 Thursday:  grammar work 
-Friday:    read 
+Friday:    read, fix verb guesser etc
+
+
+Goals: solve VP-problem, add easy things to grammar
+
+find out how to extract valency-info from Talbanken, 

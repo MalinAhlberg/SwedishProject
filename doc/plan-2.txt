@@ -10,33 +10,33 @@ Okt
 43 imported lexicon & work on testsuite , work on dispostion
 Nov
 44 added things to grammar, have a good testsuite, work on lexicon
-45 tried parsed test suite with new version - evaluated against mapped trees
-   , work on saldo
+45 work on grammar, vp. 
 46 work on grammar, write about it ,
    meeting with Elisabet (disposition för uppsats, diskutera med aarne om den)
 47 work on grammar and write about it, extract words for idioms and special
                                        groups (alla/hela,sådana,bara (fokuserande, inte ens, till och med..),även)
                                        'kommer att' must be added - check for simularities with 'lova','try'
-                                            maybe: UseCl (TTAnt TFut ASimul) PPos
-                                                     (PredVP (UsePron it8utr_Pron) (ShallV think_V)))
-                                            past tense?
                                        'hon vet själv inte/själv inte' 'de vet alla' 'de vet båda' - build into refl-np?
                                        check konstruktionsväxlingar
                                        refine sådana, want to say 'hon såg sådant/mycket' - as determiner (done!)
                                        refine 'antalet'. should be a special noun phrase,
-                                        so that 'ett antal' ,'ett stort antal' osv is working 
-                                        the whole phrase should have the same number as 'antal'
+                                       so that 'ett antal' ,'ett stort antal' osv is working 
+                                       the whole phrase should have the same number as 'antal'
                                        refine reflNP to cover 'sin','sig','själv', 'sina barns katts matskål'
                                        reintroduce genitive!
                                        work on PassV2 (including 'det skålas'?) and PPart. refine VP-type?
                                        fix PredVPS, maybe delete until we can handle conjunction nicely
                                        comparing adverbs ('ofta','fort')
+                                       find subordinate clauses!! 
+                                       den är bra, den
+                                       'den sjungande' -> 'att spela piano är kul'
             how to handle verbs? extract information about valency from Talbanken,
             korp? use lexin?
    remind everyone of meeting
 
 Dec
 48 work on grammar, writing, plan meeting.
+   tried parsed test suite with new version - evaluated against mapped trees
 49 meeting with group,writing
 50 writing, wrapping up
 Jan

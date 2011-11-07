@@ -10,7 +10,7 @@ Wednesday: 'även', 'bara', start on 'kommer att' -problems with gf-versions
 Thursday: seminar, 'kommer att'
           not done: 'varandra', 'olika', 'antalet', look over 'katterna är
            gulast/flest', check 'git throw away commit'
-Friday: fix mess from Thursday, restructure VP, write, plan next week and rest of semester,
+Friday: fix mess from Thursday, restructure VP, write, plan next week (and rest of semester),
         mail elisabet, read cle, dispostition
  
 
