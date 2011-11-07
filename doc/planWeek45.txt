@@ -7,9 +7,10 @@
 
 Monday:    meet Ramona, ask about how to handle grammar problem, talk about disposition,
            make plan about VP, talk to involved persons
-Tuesday:   make decisions about VP and new NP, mail Elisabet with my plan of grammar.
-           search for subordinates that could be added
-Wednesday: grammar work
+Tuesday:   make decisions about VP and new NP, 
+           search for subordinates that could be added, look at the two last ones,
+           AN?
+Wednesday: grammar work, mail Elisabet with my plan and disposition of grammar.
 Thursday:  grammar work 
 Friday:    read, fix verb guesser etc
 

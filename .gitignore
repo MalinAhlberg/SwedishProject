@@ -141,3 +141,5 @@ gf/TestV.gf
 guessing/TestGuessProg
 
 guessing/CreateVerbList
+
+mapping/GetSentences
