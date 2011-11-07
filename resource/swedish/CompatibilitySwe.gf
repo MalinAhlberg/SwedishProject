@@ -1,6 +1,6 @@
 --# -path=.:../scandinavian:../abstract:../common
 
-concrete CompatibilitySwe of Compatibility = CatSwe ** open Prelude, CommonSwe in {
+concrete CompatibilitySwe of Compatibility = CatSwe ** open Prelude, CommonScand in {
 
 -- from Noun 19/4/2008
 

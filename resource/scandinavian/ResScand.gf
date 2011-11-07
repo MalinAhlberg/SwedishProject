@@ -52,14 +52,14 @@ interface ResScand = DiffScand ** open CommonScand, Prelude in {
 --        SPres | SPast => vf (vfin t) [] ; -- the general rule
         SPast => vf (vfin t) [] ;    --# notpresent
         SFut  => vf auxFut vinf ;    --# notpresent
-        SFut' => vf auxFut' (infMark ++ vinf) ;   --# notpresent
+        SFut' => vf auxFut' (auxFutPart ++ infMark ++ vinf) ;   --# notpresent
         SCond => vf auxCond vinf ;   --# notpresent
         SPres => vf (vfin t) []
         } ;
       VPFinite t Anter => case t of {    --# notpresent
         SPres | SPast => vf (har t) vsup ; --# notpresent
         SFut  => vf auxFut (ha ++ vsup) ; --# notpresent
-        SFut' => vf auxFut' (infMark ++ ha ++ vsup) ; --# notpresent
+        SFut' => vf auxFut' (auxFutPart ++ infMark ++ ha ++ vsup) ; --# notpresent
         SCond => vf auxCond (ha ++ vsup)  --# notpresent
         } ;                              --# notpresent
       VPImperat => vf (verb.s ! VF (VImper diath)) [] ;
@@ -75,7 +75,6 @@ interface ResScand = DiffScand ** open CommonScand, Prelude in {
     ext : Str = [] ;
     en2,ea2,eext : Bool = False   -- indicate if the field exists
     } ;
-  
-   auxFut' : Str = "" ; -- variants {} ;
+
 
 }

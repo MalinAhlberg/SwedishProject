@@ -1,6 +1,6 @@
 incomplete concrete TenseS of Tense = 
   CatSwe [Temp] ** 
-    open ResScand, CommonSwe in {
+    open ResScand, CommonScand in {
 
   lin
     TTAnt t a = {s = a.s ++ t.s ; a = a.a ; t = t.t} ;

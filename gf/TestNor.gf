@@ -16,7 +16,8 @@ concrete TestNor of TestNorAbs =
   TextX - [Tense,Temp] ,
   TenseScand,
   StructuralNor,
-  LexiconNor
+  LexiconNor,
+  ExtraNor
   ** open IrregNor, ParamX, CommonScand in {
       -- Irreg needed for göra
 

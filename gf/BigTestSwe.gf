@@ -2,8 +2,7 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
-  NounSwe -- - [DetNP],
-  {-
+  NounSwe, -- - [DetNP],
   VerbSwe -[PassV2,ComplSlash,ReflVP], --,ComplVA], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -19,30 +18,23 @@ concrete BigTestSwe of BigTest =
   StructuralSwe, 
   ExtraSwe,
   LexiconSwe
-  -}
-  ** open IrregSwe, ParamX CommonSwe in {};
-   {-
+  ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
-      -}
-{-
   lin
    
     begin_VV    = mkVV (mkV "börja") ;
     tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
     become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
     numberOf_N2 = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep ;
-    gallande_A  = mkA "gällande" "gällande" "gällande" "gällande" "gällande";
-      -- suprelativ..
+    gallande_A  = compoundA (mkA "gällande" "gällande" "gällande" "gällande" "gällande");
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
-    peppad_A = regA "peppad" ; -- "peppat" "peppade";
-    CP_skadad_av_11_A = compoundA (regA "CP-skadad") ;
 
 
-    bara_AdVFoc = mkAdv "bara" ;
+    bara_AdvFoc = mkAdv "bara" ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
@@ -70,4 +62,3 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
     noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 } ;
-    -}
