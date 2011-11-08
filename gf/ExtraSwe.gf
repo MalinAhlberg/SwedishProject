@@ -2,17 +2,25 @@
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
-      NounSwe, Coordination, AdjectiveSwe in {
+      NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
 
 lincat
  ReflNP  = NP ;
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
  AdvFoc = Adv ;
+ RelVSCl = {s : Agr => RCase => Str};
  
  
 
 lin
+ 
+--RelS s r    = {s = \\o => s.s ! o ++ "," ++ r.s ! agrP3 Neutr Sg ! RPrep True} ; --- vilket
+  RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
+  RelSlashVS t p vs np = let vpform = VPFinite t.t t.a ;
+                          cl     = PredVP np (predV vs) ; 
+                          vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
+    {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
 
   TFut' = {s = []} ** {t = SFut'} ;   --# notpresent
  

@@ -14,9 +14,12 @@ cat ReflNP ;
 
     AdvFoc ; -- foucsing adverbs 'bara'. acts as predeterminers, normal adverbs or before finite verb
     
+    RelVSCl ; 
 
 fun
  
+  RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
+  RelSlashVS : Temp -> Pol -> VS -> NP -> RelVSCl ;  -- vilket vi vet
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
