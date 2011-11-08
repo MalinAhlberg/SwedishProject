@@ -1,0 +1,14 @@
+
+ Messages:
+ compilation done
+updated 1 words
+to choose from: []
+next paradigm: ["s (AF (APosit (Strong (GSg Utr))) Nom)","s (AF (APosit (Weak Sg)) Nom)","s (AF (APosit (Strong GPl)) Nom)"]
+working on opeppad..av.1
+[(Just "opeppad",Just "opeppad"),(Just "opeppads",Just "opeppads"),(Just "opeppat",Just "opeppatt"),(Just "opeppats",Just "opeppatts"),(Just "opeppade",Just "opeppada"),(Just "opeppades",Just "opeppadas"),(Just "opeppade",Just "opeppada"),(Just "opeppades",Just "opeppadas"),(Just "opeppade",Just "opeppada"),(Just "opeppades",Just "opeppadas"),(Nothing,Just "opeppadare"),(Nothing,Just "opeppadares"),(Nothing,Just "opeppadast"),(Nothing,Just "opeppadasts"),(Nothing,Just "opeppadaste"),(Nothing,Just "opeppadastes")]
+redo word opeppad..av.1
+updating G {lemma = "opeppad..av.1", pos = "A", forms = [["opeppad"]], extra = "", functions = ("mkA",""), paradigms = [("compoundA",["s (AF (APosit (Strong (GSg Utr))) Nom)","s (AF (APosit (Weak Sg)) Nom)","s (AF (APosit (Strong GPl)) Nom)"],"")]}
+
+will update
+compilation done
+Lexicon created
