@@ -1,0 +1,34 @@
+8/11
+problem with RelS and RelVP: 
+  RelS : S -> RS -> S
+  RelVP : RP -> VP -> RCl 
+ hon sov , som var bra.
+Do not want 'som' here, but to get 'vilket', we must have RCase = RPrep True.
+The RS had type  RS = {s : Agr => Str ; c : NPForm}
+so an extra parameter (RCase) have been added. Effects some modules.
+None of the other functions on RS (CleftNP, RelNP, RelCN) makes use of this,
+it is only RelVP that choses 'vilket'.
+RCl also needs to have this parameter:
+Now: RCl = {s : STense => Anteriority => Polarity => Agr => RCase => Str ; c : NPForm} ;
+  the case is passed on by RelS, only, the other functions ignores it.
+
+
+Idiom had to be changed for Dan and Nor as well, in CleftNP.
+
+
+-- RelVS
+have added: RelVS: S -> RelVSCl -> S
+and RelSlashVS : Temp -> Pol -> VS -> NP -> RelVSCl ; 
+ 
+ which can costruct:
+hon kommer att sova , vilket han ska ha vetat
+hon kommer att ha sovit , vilket han visste
+hon har sovit , vilket han hade vetat
+hon ska ha sovit , vilket han inte vet
+hon skulle ha sovit , vilket han inte skulle veta
+hon har sovit , vilket han inte ska veta
+hon kommer inte att ha sovit , vilket han inte skulle veta
+hon sov , vilket han inte hade vetat
+hon kommer att sova , vilket han inte ska ha vetat
+hon sover inte , vilket han inte ska ha vetat
+
