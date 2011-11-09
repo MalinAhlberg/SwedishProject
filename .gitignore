@@ -5,13 +5,20 @@
 *\.swp
 *\.swo
 *\.orig
+*\.aux
+*\.log
+*\.nav
+*\.snm
+*\.toc
+*\.out
+*\.pdf
 *~
 *\.swn
 
 
 saldo/generate/*
 dist
-saldo/importFiles/
+
 saldo/xmlenL
 
 saldo/xmlen
@@ -134,10 +141,12 @@ guessing/TestV.gf
 
 guessing/TestV.errlog
 
+gf/TestVSwe.gf
+
+gf/TestV.gf
+
 guessing/TestGuessProg
 
 guessing/CreateVerbList
 
-gf/TestVSwe.gf
-
-gf/TestV.gf
+mapping/GetSentences
