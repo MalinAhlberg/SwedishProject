@@ -5,6 +5,13 @@
 *\.swp
 *\.swo
 *\.orig
+*\.aux
+*\.log
+*\.nav
+*\.snm
+*\.toc
+*\.out
+*\.pdf
 *~
 *\.swn
 
