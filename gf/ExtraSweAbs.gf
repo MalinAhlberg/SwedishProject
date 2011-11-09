@@ -29,6 +29,8 @@ fun
                               -- which might actually be good
                               -- can remove FocAdv
 
+  DetNP_utr : Det -> NP ; -- den här
+--  QuantNP_pl  : Quant -> NP ; -- de här
 
   DetPronAD : PronAD -> Det ;
   QuantPronAQ : PronAQ -> Quant ;
@@ -86,13 +88,32 @@ fun
   -- add possibility of saying 'det är här som jag äter' (CleftAdv + som)?
   AdvComp : Comp -> Adv -> Comp ;
 
-  dethaer_NP : NP ;
-  detdaer_NP : NP ;
-  dedaer8utr_NP : NP ;
-  dedaer8neut_NP : NP ;
-  denhaer_NP : NP ;
-  dendaer_NP : NP ;
 
+----------------- Predeterminers,Quantifiers,Determiners
+
+   bara_AdvFoc : AdvFoc ;
+
+  sadana_PronAQ : PronAQ ;
+  fler_PronAD : PronAD ;
+  -- overgenerating: alla hela katter. should not be ok.
+  -- predets should be able to decide definites?
+  hela_Predet : Predet ;  --hela horder/hela katten  -- both
+  sjaelva_Quant : Quant ; -- själva kungen/själva öronen -- def
+  samma_Predet : Predet ; -- samma katter/samma öra 
+  varenda_Det : Det ;
+  vardera_Det : Det ;
+  ena_Det : Det ;
+  baegge_Det : Det ;
+  baada_Det : Det ;
+  varannan_Det : Det ;
+  somliga_Det : Det ;
+  dylika_Det : Det ;
+  oovriga_Det : Det ;
+  aatskilliga_Det : Det ;
+  samtliga_Det : Det ;
+
+-- remove 'noll'?
+  noll_Det : Det ;
 
 
 }

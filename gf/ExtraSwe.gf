@@ -1,5 +1,5 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -15,14 +15,26 @@ lincat
 
 lin
  
---RelS s r    = {s = \\o => s.s ! o ++ "," ++ r.s ! agrP3 Neutr Sg ! RPrep True} ; --- vilket
+  DetNP_utr = detNP utrum Sg ;
+
+  oper detNP : NGender -> Number -> Det -> NP  =
+   \g,num,det -> let 
+          m = True ;  ---- is this needed for other than Art?
+      in lin NP {
+        s = \\c => det.sp ! m ! g;
+        a = agrP3 (ngen2gen g) num
+      } ;
+
+
+
+ lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
   RelSlashVS t p vs np = let vpform = VPFinite t.t t.a ;
                           cl     = PredVP np (predV vs) ; 
                           vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
 
-  TFut' = {s = []} ** {t = SFut'} ;   --# notpresent
+  TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
  
   -- maybe not the best way, but the adverb should always
   -- be befor the finite verb
@@ -128,13 +140,6 @@ lin
     g = b.g
     } ;
 
-  dethaer_NP= this_NP "det här" Neutr Sg;
-  detdaer_NP= this_NP "det där" Neutr Sg;
-  dedaer8utr_NP= this_NP "de där" Utr Pl ;
-  dedaer8neut_NP= this_NP "de där" Neutr Pl ;
-  denhaer_NP= this_NP "den här" Utr Sg;
-  dendaer_NP= this_NP "den där" Utr Sg ;
-
 
   it8utr_Pron = MorphoSwe.regNP "den" "dess" Utr   Sg  ;
   
@@ -221,6 +226,42 @@ lin
       <P2,Pl>   => youPl_Pron ;
       <P3,Pl>   => they_Pron } ;
 
+----------------- Predeterminers,Quantifiers,Determiners
+
+  lin
+    bara_AdvFoc = mkAdv "bara" ;
+
+    sadana_PronAQ = mkA "sådan" ;
+    fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
+
+    hela_Predet    = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
+    samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
+
+    sjaelva_Quant = {s  = \\_,_,_,_ => "själva" ;
+                     sp = \\_,_,_,_ => variants {};
+                     det = DDef Def } ;
+
+    vardera_Det  = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
+    ena_Det      = {s  = \\_,_ => "ena" ; 
+                    sp = \\_ => genderForms ["den ena"] ["det ena"] ; 
+                    n = Sg ; det = DDef Def};
+    baegge_Det   = {s,sp = \\_,_ => "bägge" ; n = Pl ; det = DDef Def} ;
+    baada_Det    = {s,sp = \\_,_ => "båda" ; n = Pl ; det = DDef Def} ;
+    varannan_Det = {s,sp = \\_,_ => "varannan" ; n = Sg ; det = DDef Indef} ;
+    somliga_Det  = {s,sp = \\_,_ => "somliga" ; n = Pl ; det = DDef Indef} ;
+    dylika_Det   = {s,sp = \\_,_ => "dylika" ; n = Pl ; det = DDef Indef} ;
+    oovriga_Det  = {s,sp = \\_,_ => "övriga" ; n = Pl ; det = DDef Indef} ;
+    samtliga_Det = {s,sp = \\_,_ => "samtliga" ; n = Pl ; det = DDef Indef} ;
+    aatskilliga_Det = {s,sp = \\_,_ => "åtskilliga" ; n = Pl ; det = DDef Indef} ;
+    varenda_Det     = {s  = \\_ => genderForms ["varenda"] ["vartenda"] ; 
+                       sp = \\_ => genderForms ["varenda en"] ["vartenda ett"] ; 
+                       n = Sg ; det = DDef Indef};
+
+    most_Det = {s,sp = \\ismod,_ => let av = case ismod of {True => "av" ; False = ""} in
+          detForms ["den mesta"] ["det mesta"] ["de flesta"] ; 
+                n = Sg ; det = DDef Indef} ;
+
+    noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
 }
 
