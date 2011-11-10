@@ -18,6 +18,8 @@ cat ReflNP ;
 
 fun
  
+  Hej : (NP -> NP) -> NP -> ReflNP ;
+ 
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
   RelSlashVS : Temp -> Pol -> VS -> NP -> RelVSCl ;  -- vilket vi vet
 

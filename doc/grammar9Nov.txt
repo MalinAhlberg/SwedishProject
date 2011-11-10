@@ -46,33 +46,65 @@ and use functions like DetNP
                                            OBS
 
   We will get another problem here, some Dets needs an extra word ('av')
+PredetNP : Predet -> NP -> NP
 Predets: alla sina barn                             - 
          bara sina barn                             -
          de flesta av sina barn                     av
          samma av mina barn (?)                     av
+DetCN : Det -> CN -> NP
 Dets:    några av sina barn                         av
          bägge sina barn                            -
-         inga av mina barn (ingen av mitt barn?)    -
+         båda sina barn                             -
+         inga av sina barn (ingen av mitt barn?)    av
          samtliga av sina barn                      av
-         det ena av mina barn                       av
-Quants: no!  den av mina barn        
-             denna av mitt barn, hennes av mina barn..:(
+         det ena av sina barn                       av
+DetQuant : Quant -> Num -> Det
+Quants:  den av sina barn        
+         denna av sitt barn, hennes av sina barn..:(
+         inget av sina barn   
+       Quants get plural!
+  av -> accusative
+  (de flesta av dem)
 
 Difference: 'av' when Det chooses indefinite form. Harder for Predets.
 Maybe we can use the p-field for this. It is never used, but if we only 
-use it for PredetNP it would be nice. DetCN could look at the Def
-field and add "av" for if needed.
-But how do we keep Quants out?
- 
-DetCN does not work well for other examples either: 
+use it for PredetNP it would be nice. 
+Det: new function DetNP : Det -> NP -> NP 
+ which adds a field add p ("av") for. (will be weird for MassNP..) 
+    (= new field in det, p)
+
+Quant:
+When transformed to Dets, they will be handled by DetNP. Field p is
+automatically set to "av"
+
+Predet:
+Does not work well for other examples either: 
 > p "de flesta de gula hästarna"
   PhrUtt NoPConj (UttNP (PredetNP most_Predet (DetCN (DetQuant DefArt NumPl) (AdjCN (PositA yellow_A) (UseN horse_N))))) NoVoc
 But Predet does not know if the NP is modified or not. If it is, we would want
 "de flesta av de gula hästarna", otherwise "de flesta hästarna "
 If we just try to turn most_ into a Det, it can only be used for one Def.
+'av' can also be used for non-modified sentences : de flesta av barnen/de flesta barnen
 
 
 So: NP would need (NPAcc Agr) and isMod : Bool.
+    The new refl-form would cause isMod to be True.
+    Maybe another name for Mod, hasDet or similar, and
+    be effected by all denna, den, den här, sin osv. 
+    Pron should also set it to True, 'de flesta av dem'.
+
+How to use it as nominative? 'sina barn åt äpplen'
+ - have nonexisting field for Nom?
+ - have type that prevents it for being nom? (nice, but then we cant use it as NP)
 
 
+----- sig (själv)
+should sig be in this Refl?
+själv variant?
+IdRefl : NP ; -- sig (själv)
+'han gav sig till sig'
+
+Will be slightly overgenerating: 'han såg sig' already have 2 parse trees,
+                        now also 'jag ser mina barn' will be
+              but we can remove ReflVP and ReflSlash to get rid of somethings.
 

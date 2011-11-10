@@ -12,7 +12,7 @@ lincat
  RelVSCl = {s : Agr => RCase => Str};
  
  
-
+ lin Hej F =  F.$0 ;
 lin
  
   DetNP_utr = detNP utrum Sg ;
@@ -161,7 +161,7 @@ lin
     {s = \\_ => sub ++ neg ++ verb ++ compl };
     
 
-  PassV2 v2 = predV (depV v2);
+  PassV2 v2 = lin V (predV (depV v2));
 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
@@ -257,9 +257,6 @@ lin
                        sp = \\_ => genderForms ["varenda en"] ["vartenda ett"] ; 
                        n = Sg ; det = DDef Indef};
 
-    most_Det = {s,sp = \\ismod,_ => let av = case ismod of {True => "av" ; False = ""} in
-          detForms ["den mesta"] ["det mesta"] ["de flesta"] ; 
-                n = Sg ; det = DDef Indef} ;
 
     noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
