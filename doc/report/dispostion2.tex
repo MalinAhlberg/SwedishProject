@@ -1,0 +1,60 @@
+\documentclass{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\begin{document}
+% ska gå att förstå och locka till läsning
+%ska tydligt beskriva vad rapporten handlar om
+%ska innehålla vettiga sökord
+\title{Dispositon for master thesis \\
+             \small{A large scale grammar and parser for Swedish}}
+\author{Malin Ahlberg}
+\maketitle
+
+\section{Introduction} 
+Short introduction to parsing, GF, Swedish, controlled natural language vs.
+free language.
+Why we want a large scale grammar and a parser, what we can get from GF and
+what we can't get. Which parts we are focusing on and why.
+
+\section{Background}  
+Longer introduction to GF, Talbanken and Saldo. Other parsers and related work.
+
+\section{Progress}  
+\begin{itemize}
+\item{
+One part about how we have imported saldo, problems and results, how we deal
+with words that were not imported. Use of lexical aquisition tools. 
+}
+\item{
+One part about the mapping from Talbanken to GF, description. About the purpose.
+This part explains
+the tags in Talbanken and gives examples of how they are translated,
+examples of what can be parsed and what cannot.
+}
+\item{
+One part about the grammar. The state of the original grammar, what was covered and not. 
+What parts that I have been working on and why, 
+what constructions I wanted to add, examples of sentences that should work
+and of sentences that shouldn't be covered. How to separate Swedish from
+Scandinavian, bigger reconstructions in the grammar. 
+}
+\end{itemize}
+
+\section{Results and discussion}
+Evaluation methods and results from all parts. 
+
+Discussion of the results and methods, why are the results good, why are they not better.
+What other methods could have been used? What did we/I expect and what happend?
+
+
+\section{Future Work}
+What is still left to do? Description and direction of future work:
+how to make the parser robust, what is still needed in the grammar, 
+how to get valency information, make the parser faster.
+Getting and using probabilities.
+
+
+\section{Conclusion}
+My conclusions about the work.
+\end{document}

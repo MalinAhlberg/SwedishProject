@@ -1,0 +1,47 @@
+Vad jag lagt till:
+predeterminers: hela, samma
+determiners   : varenda, vardera, ena, bägge, båda, varannan
+                , somliga, dylika, övriga, åtskilliga, varenda, noll
+quantifiers   : själva
+AdvFoc        : bara 
+  "hon bara sov"
+  "bara katter kan sova"
+  "hon sov bara"
+PronAQ        : sådana
+  "en sådan katt"
+  "sådana katter"
+  "katten är sådan"
+PronAD        : flera
+  "flera katter"
+  "katterna är flera"
+
+jag har kollat igenom relativa satser och embedded clauses:
+följande finns redan:
+       frågan är var katterna sover någonstans
+       att hon äter äpplet är dåligt
+       att dö är dåligt
+       huset som hon tittar på är stort
+       katten , som är gul tänker
+       jag ser katten som är gul
+       jag vill ha en katt sådan att den leker
+       jag såg katten som tycker om honom
+       jag såg katten på vilken han väntar
+
+har fixat RelS  : hon sover , vilket är bra    (förut 'hov sover , som är bra)
+lagt till RelVP : hon har sovit, vilket han inte visste (S + (NP + VS))
+
+har lagt till 'kommer att'. kan användas på följande sätt:
+s SFutKommer Simul Pos Main : hon kommer att sova
+s SFutKommer Simul Pos Inv : kommer hon att sova
+s SFutKommer Simul Pos Sub : hon kommer att sova
+s SFutKommer Simul Neg Main : hon kommer inte att sova
+s SFutKommer Simul Neg Inv : kommer hon inte att sova
+s SFutKommer Simul Neg Sub : hon inte kommer att sova
+s SFutKommer Anter Pos Main : hon kommer att ha sovit
+s SFutKommer Anter Pos Inv : kommer hon att ha sovit
+s SFutKommer Anter Pos Sub : hon kommer att ha sovit
+s SFutKommer Anter Neg Main : hon kommer inte att ha sovit
+s SFutKommer Anter Neg Inv : kommer hon inte att ha sovit
+s SFutKommer Anter Neg Sub : hon inte kommer att ha sovit
+
+

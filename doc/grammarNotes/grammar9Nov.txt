@@ -14,8 +14,23 @@ Want to forbidd 'DetQuant (GenNP (DetNP (DetQuant'
 
 Since variants does not work, I use NONEXIST instead
 
+Made new function, GenCN instead, which seems to be less overgenerating.
+GenCN : NP -> Num -> CN -> NP
+GenCN  katten Sg     hund => kattens hund
+BigTest> p "kattens hunds hus"
+PhrUtt NoPConj (UttNP (GenCN (GenCN (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) NumSg (UseN dog_N))
+ NumPl (UseN house_N))) NoVoc
+"katternas hus är litet" gives 10 tables, but GenCN is not the reason. (5 trees are PredVPS, 5 PredVP.
+ of each five, four comes from parsing 'litet' as an adverb).
+"husens mössa är varm" gives two trees only (PredVPS/PredVP)
+gives six trees for 'sådan barn'. better than before, two has GenCN in them. 
+Acctually not better than GenNP?
+
+Maybe Dets and Quants should have fields for Gen to?
+
+
 ----
-QuantNP : when Quants are used alone as an NP, they do not necessarily have to
+DetNP : when Quants are used alone as an NP, they do not necessarily have to
 be in neutrum or utrum (de här, det där, den där is all ok). Have added
 functions for this,
 BigTest> p "den där"

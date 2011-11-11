@@ -118,3 +118,5 @@ definite form or not, whereas
  sp-field of varenda
  is 'varenda en').
 
+-- bara:
+AdvFoc needs dummy field, x, which is put in inf to avoid parsing metas.

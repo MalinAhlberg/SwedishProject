@@ -27,14 +27,15 @@ fun
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
+  AdvFocAdv : AdvFoc -> Adv     ;  -- (hon sover) bara
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
                               -- can remove FocAdv
 
+-- overgenerating, but useful
   DetNP_utr : Det -> NP ; -- den här
---  QuantNP_pl  : Quant -> NP ; -- de här
 
   DetPronAD : PronAD -> Det ;
   QuantPronAQ : PronAQ -> Quant ;
@@ -117,4 +118,6 @@ fun
   noll_Det : Det ;
 
 
+-- experiment
+   --sjaelv 
 }
