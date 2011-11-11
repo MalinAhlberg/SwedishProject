@@ -38,7 +38,8 @@ word declination and finally writes the grammar NameFinal.gf
    -}
 main = do
  (list:name:args) <- getArgs
- let n = getNum args
+ let n      = getNum args
+     unsure = getMode args
  vs     <- getVerbs list n
  state1 <- execStateT (loop vs) (firstState name)
  state2 <- execStateT (loop (retries state1)) (contState 1 name (code state1))
@@ -63,7 +64,8 @@ interactTest vs = do
   pgfF <- gets pgf 
   lng  <- gets lng
   let morpho = buildMorpho pgfF lng
-  res <- io $ execStateT (mapM (analyseAllSent morpho) vs) emptyCount
+  notstrict <- gets unsure
+  res <- io $ execStateT (mapM (analyseAllSent morpho) vs) (emptyCountStrict notstrict)
   mapM_ confirm (toKeep res)
   mapM_ updateRetries (toRetry res)
   --mapM_ (tryAddPrefs morpho) prefs
@@ -255,9 +257,11 @@ getVerbs :: String -> Int -> IO [[String]]
 getVerbs inp n = (take n . map words . lines) <$> readFile inp
 
 getNum :: [String] -> Int
-getNum args = case findArg "-n" args of
-  Just n  -> read n
-  Nothing -> 20
+getNum = maybe 20 read . (findArg "-n")
+
+getMode :: [String] -> Bool
+getMode = isJust . findArg "--unsure"
+
 
 abstractFile = (`addExtension` "gf")
 concreteFile = (`addExtension` "gf") . (++"Swe")
