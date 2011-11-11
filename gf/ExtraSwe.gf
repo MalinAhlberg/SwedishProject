@@ -10,11 +10,22 @@ lincat
  PronAD = A ; -- 'fler' 
  AdvFoc = Adv ;
  RelVSCl = {s : Agr => RCase => Str};
- 
- 
- lin Hej F =  F.$0 ;
+
+
 lin
- 
+    GenCN np num cn = let n = num.n in {
+      s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
+                  ++ num.s ! cn.g 
+                  ++ cn.s ! n ! DDef Indef ! (caseNP nf)  ; 
+      a = agrP3 (ngen2gen cn.g) n 
+      } ;
+
+  
+  PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
+   oper mkComp : NP -> Agr -> Comp = 
+    \gen,agr -> lin Comp {s = \\_ => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+
+lin 
   DetNP_utr = detNP utrum Sg ;
 
   oper detNP : NGender -> Number -> Det -> NP  =
@@ -29,7 +40,7 @@ lin
 
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
-  RelSlashVS t p vs np = let vpform = VPFinite t.t t.a ;
+  RelSlashVS t p np vs = let vpform = VPFinite t.t t.a ;
                           cl     = PredVP np (predV vs) ; 
                           vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
@@ -161,7 +172,7 @@ lin
     {s = \\_ => sub ++ neg ++ verb ++ compl };
     
 
-  PassV2 v2 = lin V (predV (depV v2));
+  PassV2 v2 = lin VP (predV (depV v2));
 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
