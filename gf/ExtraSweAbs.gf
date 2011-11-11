@@ -16,23 +16,26 @@ cat ReflNP ;
     
     RelVSCl ; 
 
+ 
 fun
- 
-  Hej : (NP -> NP) -> NP -> ReflNP ;
- 
+  ---GenCN : NP -> Num -> CN -> NP ;
+  PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
+
+
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
-  RelSlashVS : Temp -> Pol -> VS -> NP -> RelVSCl ;  -- vilket vi vet
+  RelSlashVS : Temp -> Pol -> NP -> VS -> RelVSCl ;  -- vilket vi vet
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
+  AdvFocAdv : AdvFoc -> Adv     ;  -- (hon sover) bara
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
                               -- can remove FocAdv
 
+-- overgenerating, but useful
   DetNP_utr : Det -> NP ; -- den här
---  QuantNP_pl  : Quant -> NP ; -- de här
 
   DetPronAD : PronAD -> Det ;
   QuantPronAQ : PronAQ -> Quant ;
@@ -66,9 +69,6 @@ fun
   PassV2   : V2 -> VP ; --VPSlash -> VP ;  -- äts 
   PassV2Be : V2 -> VP ;  -- bli äten
   
-  -- not needed, RelCN handles this
-  -- RelNP'   : Temp -> Pol ->  NP -> VP -> NP ; -- flickan som inte åt äpplen
-  ---- RelNP "flickan, sådan att hon inte åt äpplen"
  
   ComplSlash : VPSlash -> NP -> VP ;
   ReflVP   : VPSlash -> VP ;
@@ -118,4 +118,6 @@ fun
   noll_Det : Det ;
 
 
+-- experiment
+   --sjaelv 
 }

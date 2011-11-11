@@ -1,5 +1,5 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [GenNP, FocAdv] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -8,13 +8,24 @@ lincat
  ReflNP  = NP ;
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
- AdvFoc = Adv ;
+ AdvFoc = Adv ** {x : Str} ;  -- x dummy field to avoid metas
  RelVSCl = {s : Agr => RCase => Str};
- 
- 
- lin Hej F =  F.$0 ;
+
+
 lin
- 
+    GenCN np num cn = let n = num.n in {
+      s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
+                  ++ num.s ! cn.g 
+                  ++ cn.s ! n ! DDef Indef ! (caseNP nf)  ; 
+      a = agrP3 (ngen2gen cn.g) n 
+      } ;
+
+  
+  PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
+   oper mkComp : NP -> Agr -> Comp = 
+    \gen,agr -> lin Comp {s = \\_ => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+
+lin 
   DetNP_utr = detNP utrum Sg ;
 
   oper detNP : NGender -> Number -> Det -> NP  =
@@ -29,7 +40,7 @@ lin
 
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
-  RelSlashVS t p vs np = let vpform = VPFinite t.t t.a ;
+  RelSlashVS t p np vs = let vpform = VPFinite t.t t.a ;
                           cl     = PredVP np (predV vs) ; 
                           vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
@@ -37,13 +48,15 @@ lin
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
  
   -- maybe not the best way, but the adverb should always
-  -- be befor the finite verb
+  -- be before the finite verb
   -- needs changes in VP, fix
   AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ (vp.s ! vpf).fin ;
-                                 inf = (vp.s ! vpf).inf};
+                                   inf = adv.x ++ (vp.s ! vpf).inf};
                    a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
                    en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
   PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
+  AdvFocAdv adv = {s = adv.s} ;
+
   
   QuantPronAQ x =  
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
@@ -161,7 +174,7 @@ lin
     {s = \\_ => sub ++ neg ++ verb ++ compl };
     
 
-  PassV2 v2 = lin V (predV (depV v2));
+  PassV2 v2 = lin VP (predV (depV v2));
 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
@@ -169,7 +182,7 @@ lin
 
    
  
-  -- not adV, but for normal advers, 'han åt redan äpplet'
+-- not adV, but for normal advers, 'han åt redan äpplet'
   AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
                                              c2 = vp.c2} ;
 
@@ -229,7 +242,7 @@ lin
 ----------------- Predeterminers,Quantifiers,Determiners
 
   lin
-    bara_AdvFoc = mkAdv "bara" ;
+    bara_AdvFoc = (mkAdv "bara") ** {x = ""} ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
@@ -238,7 +251,7 @@ lin
     samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
 
     sjaelva_Quant = {s  = \\_,_,_,_ => "själva" ;
-                     sp = \\_,_,_,_ => variants {};
+                     sp = \\_,_,_,_ => NONEXIST;
                      det = DDef Def } ;
 
     vardera_Det  = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};

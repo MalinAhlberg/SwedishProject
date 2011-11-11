@@ -14,8 +14,23 @@ Want to forbidd 'DetQuant (GenNP (DetNP (DetQuant'
 
 Since variants does not work, I use NONEXIST instead
 
+Made new function, GenCN instead, which seems to be less overgenerating.
+GenCN : NP -> Num -> CN -> NP
+GenCN  katten Sg     hund => kattens hund
+BigTest> p "kattens hunds hus"
+PhrUtt NoPConj (UttNP (GenCN (GenCN (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) NumSg (UseN dog_N))
+ NumPl (UseN house_N))) NoVoc
+"katternas hus är litet" gives 10 tables, but GenCN is not the reason. (5 trees are PredVPS, 5 PredVP.
+ of each five, four comes from parsing 'litet' as an adverb).
+"husens mössa är varm" gives two trees only (PredVPS/PredVP)
+gives six trees for 'sådan barn'. better than before, two has GenCN in them. 
+Acctually not better than GenNP?
+
+Maybe Dets and Quants should have fields for Gen to?
+
+
 ----
-QuantNP : when Quants are used alone as an NP, they do not necessarily have to
+DetNP : when Quants are used alone as an NP, they do not necessarily have to
 be in neutrum or utrum (de här, det där, den där is all ok). Have added
 functions for this,
 BigTest> p "den där"
@@ -40,10 +55,17 @@ NP:
 I think that NPForm should be changed. NPAcc should have a field for Arg,
 so that we can have 's/m/din/tt/na brors barn' and 'alla sina/mina barn'.
 We could have
-  ReflCN : CN -> NP ; -- xs bilar
-and use functions like DetNP 
+  ReflCN : CN -> Num -> NP ; -- xs bilar
+and be able to use functions like DetNP 
   DetNP every_Det (xs bilar) -> var och en av xs bilar
                                            OBS
+but "sina barns katt"? DetQuant (GenNP (xs bilar)) (katt) = (xs barns) katt
+  so remember to give the np its arguments, but then Quant will need this info to.
+  special function for this? : GenReflNP : ReflNP -> Num -> CN -> ReflNP
+With new GenCN : NP -> Num -> CN 
+  GenNP 'xs barn' Sg katt => 'xs barns' katt       
+
+
 
   We will get another problem here, some Dets needs an extra word ('av')
 PredetNP : Predet -> NP -> NP
@@ -87,16 +109,21 @@ If we just try to turn most_ into a Det, it can only be used for one Def.
 'av' can also be used for non-modified sentences : de flesta av barnen/de flesta barnen
 
 
-So: NP would need (NPAcc Agr) and isMod : Bool.
+So: NP would need (NPAcc Agr) (? or for Nom as well since some functions use Nom)
+    and isMod : Bool.
     The new refl-form would cause isMod to be True.
     Maybe another name for Mod, hasDet or similar, and
     be effected by all denna, den, den här, sin osv. 
     Pron should also set it to True, 'de flesta av dem'.
 
-How to use it as nominative? 'sina barn åt äpplen'
+How to not use it as nominative? 'sina barn åt äpplen'
  - have nonexisting field for Nom?
  - have type that prevents it for being nom? (nice, but then we cant use it as NP)
-
+     -- tried higher order funcs, but all functions on NP are not of type (x -> .. -> np -> np)
+        and can't get even this to work
+   The only functions that shouldn't use it seems to be PredVP(S), ImpP3, ExistNP, CleftNP
+   ComparA uses Nom, not Acc.
+   Simply ignore that its wrong, since we only want parsing?
 
 ----- sig (själv)
 should sig be in this Refl?

@@ -1,0 +1,10 @@
+add as adV? but with new type that needs agreement
+'han ville själv sova'
+
+and as adv
+'han ville sova själv'
+
+'kungen själv', de båda, de alla, de fem?
+-kungen alla is parsable at the moment, with apposCn
+
+other: båda, alla
