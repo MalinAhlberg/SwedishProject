@@ -1,0 +1,5 @@
+redo saldo?
+fix all of verbguesser
+nounguesser
+refine mapping (look more at complement, less at verb)
+

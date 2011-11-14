@@ -1,0 +1,11 @@
+47 work on grammar and write about it, extract words for idioms and special
+                                       check konstruktionsväxlingar
+                                       fix PredVPS, maybe delete until we can handle conjunction nicely
+                                       den är bra, den
+
+Monday:    Meet Ramona, decide for reflexive, implment and test, make treebank
+Tuesday:   Add 'antalet' (ett stort antal), and 'själv' to show Elisabet, profiling test
+Wednesday: Meet Elisabet, 'den sjungande', VP (passive for more than V2).
+Thursday:  Make skeleton for report, write about grammar
+Friday:    Write report, read. 
+

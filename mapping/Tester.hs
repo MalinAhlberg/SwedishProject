@@ -9,6 +9,7 @@ import System.Exit (exitFailure, exitSuccess)
 import PGF
 import Data.Maybe
 
+---- Tests the parser
 
 type ParsedS = (Sent,[Tree]) 
 type Sent = (Id,String)

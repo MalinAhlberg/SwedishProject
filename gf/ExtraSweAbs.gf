@@ -18,6 +18,22 @@ cat ReflNP ;
 
  
 fun
+ 
+  VarandraVP : VPSlash -> VP ;
+  SlashV3Varandra : V3 -> VPSlash ;
+   
+  VS_it : VS -> VP ; -- hon vet det
+  VV_it : VV -> VP ; -- hon vill det
+  
+
+  SelfNP  : NP -> NP ; 
+  SelfAdV : AdV ;
+  {-
+  SelfVP  : VP -> VP ;
+  SelfFoc : Cl ;
+  SelfVPSlash : VPSlash -> VPSlash ;
+  -}
+
   GenCN : NP -> Num -> CN -> NP ;
   PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
 

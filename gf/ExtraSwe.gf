@@ -13,6 +13,21 @@ lincat
 
 
 lin
+
+  VS_it vs = insertObj (\\_ => it_Pron.s ! NPNom ) (predV vs) ; 
+  VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! NPNom ) (predV vs) ; 
+
+   SelfAdV   = mkAdV "själv" ; 
+   SelfNP np = {s = \\f => np.s ! f ++ sjaelv ! np.a ;
+                a = np.a } ;
+     oper sjaelv : Agr => Str =
+      \\a => case <a.g,a.n> of {
+                  <_  ,Pl > => "själva" ;
+                  <Neutr,_> => "självt" ;
+                  _         => "själv"  };
+
+
+ lin
     GenCN np num cn = let n = num.n in {
       s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
                   ++ num.s ! cn.g 
@@ -38,6 +53,12 @@ lin
 
 
 
+ lin
+  
+  VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
+  SlashV3Varandra v3 = Slash3V3 v3 varandra ;
+    oper varandra : NP = lin NP {s = \\_ => "varandra"; a = agrP3 Neutr Pl} ;
+                           
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
   RelSlashVS t p np vs = let vpform = VPFinite t.t t.a ;

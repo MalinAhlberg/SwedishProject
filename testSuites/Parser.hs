@@ -13,21 +13,25 @@ import Control.Applicative
 import Control.Monad.State
 import PGF
 import XMLHelp hiding (words,parse)
---import Parser hiding (pgfFile)
---import TheFixer
 
 -- use with tee -a outfile
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
   deriving Show
 
-data Count = C {ok :: Int, reject :: Int, total :: Int, lexErr :: Int, time :: Int}
+data Count = C {ok :: Int, reject :: Int, total :: Int, lexErr :: Int, time :: Int
+               ,strict :: Bool , outputFile :: FilePath}
 type CState = StateT Count IO
 type Sent = (Id,String)
 -- 40 s, maybe too much
-timeLimit =  20*10^6
+timeLimit =  30*10^6
 
 main = do
-  (file:_) <- getArgs
+  (file:arg) <- getArgs
+  let strict = isStrict arg
+  run file strict outFile
+
+
+run file strict out = do  
   putStr "Parsing input file..."
   sents <- mainF file (return . map getSentence)
   putStr " Ok\nReading PGF..."
@@ -35,46 +39,57 @@ main = do
   putStrLn " Ok\n"
   --absMap <- readAbbs 
   let morpho = buildMorpho pgf lang
-  c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) newCount
+  c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) (newCount strict out)
   print c
   return ()
 
 tryparse :: PGF -> Morpho -> Sent -> CState ()
 tryparse pgf morpho sents = do 
-  --count sents
+  count 
   parse' pgf morpho sents
 
 parse' :: PGF -> Morpho -> Sent -> CState ()
 parse' pgf morpho (s,"") = addEmpty >> putEmptyMsg (s,"")
 parse' pgf morpho s = do
-  let unknown = badWords morpho (snd s)
-  if null unknown then parseOk pgf s
+  let fix     = fixPunctuation $ replaceNumbers s 
+      unknown = badWords morpho (snd fix)
+  if null unknown then parseOk pgf fix
         else putLexMsg s unknown >> addBadLex
 
 parseOk :: PGF -> Sent-> CState ()        
 parseOk pgf s = do
-  tree <- io $ timeout timeLimit $ return $! parse pgf lang textType (map toLower $ snd s)
+  strict <- gets strict
+  let eval = if strict then ($!) else ($)
+  tree <- io $ timeout timeLimit $ return `eval` parse pgf lang textType (map toLower $ snd s)
   maybe (addTime >> putTimeMsg s) (getBestTree s) tree
 
 
 badWords :: Morpho -> String -> [String]
 badWords morpho s = [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
 
+replaceNumbers :: Sent -> Sent
+replaceNumbers = second (unwords . map exchangeNum . words)
+  where exchangeNum w | any isNumber w = "1" 
+                      | otherwise   = w
+fixPunctuation :: Sent -> Sent
+fixPunctuation (n,s) | isAlpha (last s) = (n,s++" .")
+                     | otherwise        = (n,s)
 getBestTree :: Sent -> [Tree] -> CState ()
 getBestTree s tree = do
-  let treelist = map (rank . toPars) tree
-  let newTrees = map t $ sortBy (comparing n) treelist
-  io $ putMsg s newTrees
-  unless (null newTrees) addOk
-  io $ appendFile outFile (formatRes (s,newTrees))
+  --let treelist = map (rank . toPars) tree
+  --let newTrees = map t $ sortBy (comparing n) treelist
+  io $ putMsg s tree
+  unless (null tree) addOk
+  strict <- gets strict
+  out    <- gets outputFile
+  io $ appendFile out (formatRes strict (s,tree))
 
 addOk,addEmpty, addBadLex :: CState ()
 addOk     = modify $ \s -> s {ok = succ (ok s)}
 addEmpty  = modify $ \s -> s {reject = succ (reject s)}
 addBadLex = modify $ \s -> s {lexErr = succ (lexErr s)}
 addTime   = modify $ \s -> s {time = succ (time s)}
-count :: [String] -> CState ()
-count ss = modify  $ \s -> s {total = length ss + total s}
+count     = modify $ \s -> s {total = 1 + total s}
 
 putTimeMsg s   = output s blue   " was timed out" 
 putEmptyMsg s  = output s turkos " was rejected"  
@@ -89,9 +104,9 @@ output s c str = do
 
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
-lang     = fromJust $ readLanguage "BigSwe" --"BigNewSwe"
-pgfFile =  "../gf/Big.pgf" -- "BigNew.pgf"
-outFile = "testis.txt"
+lang     = fromJust $ readLanguage "BigTestSwe" --"BigSwe" --"BigNewSwe"
+pgfFile =  "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
+outFile = "testisBeg.txt"
 
 
 toPars :: Tree -> Parsed
@@ -114,22 +129,27 @@ rules = [ ("GenNP"  , 2),("ApposCN" ,  2),("MassNP"   ,  1),("NumCard"   ,  1),
 io :: IO a -> CState a
 io = lift
 
-newCount :: Count
+newCount :: Bool -> Count
 newCount = C 0 0 0 0 0
 
 instance Show Count where
-  show (C ok rej tot lex time) 
+  show (C ok rej tot lex time _) 
      = "*******\n Result: passed: "++show ok++"\t rejected: "
        ++show rej++"\t timed out: "++show time++"\n\t of totally "
        ++show tot++" sentences."++"\n"++show lex++" had unknown words"
 
-
+isStrict (x:xs) = ("S" `isPrefixOf` x)
+isStrict []     = False
 
 
 -------
---formatRes :: ( -> String
-formatRes (s,[])  = show s ++ " was not Parsed"++"\n"
-formatRes (s,trs) = show s ++ "("++show (length trs)++" trees): \n" ++ unlines (map (showExpr []) trs) ++ "\n"
+formatRes strict (s,[])  = show s ++ " was not Parsed"++"\n"
+formatRes strict (s,trs) = show s ++ "("++show (length trs)++" trees)" 
+                           ++ if strict 
+                                 then ":\n" ++ unlines (map (showExpr []) trs) ++ "\n"
+                               else "\n"
+
+
 
 -- Terminal color output
 type Color = Int

@@ -1,0 +1,3 @@
+drop finite 'har/hade' in subordinate clause
+use 'sin katt' as object only
+'det sitter en katt på taket' - VP composed from V only

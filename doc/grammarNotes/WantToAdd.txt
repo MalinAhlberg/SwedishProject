@@ -17,9 +17,26 @@ ReflCN : CN -> Num -> NP ;  --xs bil
 IdRefl : NP ;               --sig
 IdReflSelf: NP ;            --sig själv
 
-själva/båda: adV (adv), SpecNP : själv -> NP -> NP
+---
+själva/båda: adV (adv? no),      SpecNP : NP -> själv -> NP
+                                 (kungen själv)
+             (själv tyckte han ..) 
+             (han tyckte själv att..)
+        jfr  (han sov själv - not this)
+  Used like AdV, but needs aggregation
 
-ta bort 'bara' only_Predet
+ta bort 'bara' only_Predet?
+
+formellt subjekt? 
+ 'det har suttit två katter där'
+ problem, needs to be V, but used like VP
+  
+VS + det : det vet jag redan
+VV + det : hon vill det
+
+VP:
+field for 'bara', before finite.
+agreement for AdV, for själv
 
 
 better DropAtt!

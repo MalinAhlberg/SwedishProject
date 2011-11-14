@@ -20,6 +20,7 @@ finns: frågan är var katterna sover någonstans
        jag vill ha en katt sådan att den leker
        jag såg katten som tycker om honom
        jag såg katten på vilken han väntar
+       det var dåligt att du sov
 
 kommer att:
 s SFutKommer Simul Pos Main : hon kommer att sova
@@ -41,9 +42,13 @@ GenCN : NP -> Num -> CN -> NP   instead of GenNP (grammar9Nov)
 another version of GenNP, with sp-field=NONEXIST
    better because it cannot be applied to itself : GenNP (DetNP (DetQuant (GenNP x
 
+PredGen : NP -> NP -> Cl ; -- det är hennes
+
 DetNP_utr : Det -> NP     allows 'den här' (grammar9Nov) as NP (jag vill ha den här, 
                                                                 den här är gul,
                                                                 var och en/vart och ett)
     extra parse trees when a Det has identical utr/neutr.
 
 
+VV_it : vill det
+VS_it : vet det

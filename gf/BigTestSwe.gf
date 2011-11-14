@@ -16,7 +16,7 @@ concrete BigTestSwe of BigTest =
   TextX - [Tense,Temp] ,
   TenseSwe,
   StructuralSwe, 
-  ExtraSwe,
+  ExtraSwe - [DropAttVV] ,
   LexiconSwe
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra

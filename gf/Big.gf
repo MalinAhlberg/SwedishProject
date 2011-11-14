@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian
 
 abstract Big = 
-  SaldoTot,
+  DictSweAbs,
   ExtraSweAbs,
   Noun ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
@@ -28,5 +28,4 @@ abstract Big =
   gallande_A : A ;
   johan_PN : PN ;
   do_VV : VV;
-  sadana_X : X ;
   } ;

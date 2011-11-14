@@ -52,8 +52,9 @@ res =
    -- de måste äta bil
    ,"s1107\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (ComplVV must_VV (ComplSlash (SlashV2a eat_V2) (MassNP (UseN car_N))))))) NoVoc"
    -- sådana resor tänker gult
-   ,"s1129\t? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (XDet sadana_X) (UseN ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc))) (? ?)"
+   ,"s1129\t? (? (? (PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant (QuantPronAQ sadana_PronAQ) NumPl) (UseN ?)) (AdvVP (UseV think_V) (PositAdvAdj yellow_A))))) NoVoc))) (? ?)"
    -- eller katten på bilen
+   -- is ok to not parse
    ,"s1150\t? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc))))) (? ?)"
    --,"s1150\t? (? (? (? (? (? (PhrUtt (PConjConj or_Conj) (UttNP (AdvNP (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) (PrepNP on_Prep (DetCN (DetQuant DefArt NumSg) (UseN car_N))))) NoVoc)))))) (? ?)"
    -- gå bakom en katt
@@ -100,7 +101,7 @@ res =
    -- två katter kan tänka
    ,"s5482\tPhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant IndefArt (NumCard (NumDigits (IDig D_1)))) (UseN cat_N)) (ComplVV can_VV (UseV think_V))))) NoVoc"
    -- den kommer att tänka
-   ,"s3\tPhrUtt NoPConj (UttS (UseCl (TTAnt TFut ASimul) PPos (PredVP (UsePron it8utr_Pron) (? think_V)))) NoVoc"
+   ,"s3\tPhrUtt NoPConj (UttS (UseCl (TTAnt TFutKommer ASimul) PPos (PredVP (UsePron it8utr_Pron) (UseV think_V)))) NoVoc"
    -- nu kan barnen rinna om de sväller
    -- obs, man vet ej hur den ska parsas!!
    ,"s5726\tPhrUtt NoPConj (UttS (AdvS now_Adv (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetCN (DetQuant DefArt NumPl) (UseN child_N)) (ComplVV can_VV (AdvVP (UseV flow_V) (SubjS if_Subj (UseCl (TTAnt TPres ASimul) PPos (PredVP (UsePron they_Pron) (UseV swell_V)))))))))) NoVoc"
