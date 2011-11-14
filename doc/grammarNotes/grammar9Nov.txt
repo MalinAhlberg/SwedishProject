@@ -1,0 +1,137 @@
+9/11
+today I've been cleaning the grammar, to be able to push it.
+I have completed FutKommer, and fixed GenNP, the sp-field is now put
+as NONEXIST, which means that you are not allowed to say 'kattens' by it self
+(eg. 'jag såg kattens'). This dramatically dercrease the number of parse trees:
+"kattens bils hus" got 100 parse trees before, now it get two (one says that the
+phrase 'kattens bils' is in plural and one that it's in singular. This should
+be fixed, but depends on the quantifier..)
+But is still overgenerating : 
+p "sådana barn"
+PhrUtt NoPConj (UttNP (DetCN (DetQuant (GenNP (DetNP (DetQuant (QuantPronAQ sadana_PronAQ) NumPl))) NumPl) (UseN child_N))) NoVoc
+Want to forbidd 'DetQuant (GenNP (DetNP (DetQuant'
+
+
+Since variants does not work, I use NONEXIST instead
+
+Made new function, GenCN instead, which seems to be less overgenerating.
+GenCN : NP -> Num -> CN -> NP
+GenCN  katten Sg     hund => kattens hund
+BigTest> p "kattens hunds hus"
+PhrUtt NoPConj (UttNP (GenCN (GenCN (DetCN (DetQuant DefArt NumSg) (UseN cat_N)) NumSg (UseN dog_N))
+ NumPl (UseN house_N))) NoVoc
+"katternas hus är litet" gives 10 tables, but GenCN is not the reason. (5 trees are PredVPS, 5 PredVP.
+ of each five, four comes from parsing 'litet' as an adverb).
+"husens mössa är varm" gives two trees only (PredVPS/PredVP)
+gives six trees for 'sådan barn'. better than before, two has GenCN in them. 
+Acctually not better than GenNP?
+
+Maybe Dets and Quants should have fields for Gen to?
+
+
+----
+DetNP : when Quants are used alone as an NP, they do not necessarily have to
+be in neutrum or utrum (de här, det där, den där is all ok). Have added
+functions for this,
+BigTest> p "den där"
+PhrUtt NoPConj (UttNP (QuantNP_utr that_Quant)) NoVoc
+Should it apply to Det too? 
+Yes : var och en 
+"jag tittade på var och en"
+"jag tittade på vart och ett"
+This causes overgeneration when utr and neutr are the same:
+> p "samtliga"
+  PhrUtt NoPConj (UttNP (DetNP samtliga_Det)) NoVoc
+  PhrUtt NoPConj (UttNP (DetNP_utr samtliga_Det)) NoVoc
+and for plurals
+> p "de där"
+  PhrUtt NoPConj (UttNP (DetNP (DetQuant that_Quant NumPl))) NoVoc
+  PhrUtt NoPConj (UttNP (DetNP_utr (DetQuant that_Quant NumPl))) NoVoc
+
+
+
+
+NP:
+I think that NPForm should be changed. NPAcc should have a field for Arg,
+so that we can have 's/m/din/tt/na brors barn' and 'alla sina/mina barn'.
+We could have
+  ReflCN : CN -> Num -> NP ; -- xs bilar
+and be able to use functions like DetNP 
+  DetNP every_Det (xs bilar) -> var och en av xs bilar
+                                           OBS
+but "sina barns katt"? DetQuant (GenNP (xs bilar)) (katt) = (xs barns) katt
+  so remember to give the np its arguments, but then Quant will need this info to.
+  special function for this? : GenReflNP : ReflNP -> Num -> CN -> ReflNP
+With new GenCN : NP -> Num -> CN 
+  GenNP 'xs barn' Sg katt => 'xs barns' katt       
+
+
+
+  We will get another problem here, some Dets needs an extra word ('av')
+PredetNP : Predet -> NP -> NP
+Predets: alla sina barn                             - 
+         bara sina barn                             -
+         de flesta av sina barn                     av
+         samma av mina barn (?)                     av
+DetCN : Det -> CN -> NP
+Dets:    några av sina barn                         av
+         bägge sina barn                            -
+         båda sina barn                             -
+         inga av sina barn (ingen av mitt barn?)    av
+         samtliga av sina barn                      av
+         det ena av sina barn                       av
+DetQuant : Quant -> Num -> Det
+Quants:  den av sina barn        
+         denna av sitt barn, hennes av sina barn..:(
+         inget av sina barn   
+       Quants get plural!
+  av -> accusative
+  (de flesta av dem)
+
+Difference: 'av' when Det chooses indefinite form. Harder for Predets.
+Maybe we can use the p-field for this. It is never used, but if we only 
+use it for PredetNP it would be nice. 
+Det: new function DetNP : Det -> NP -> NP 
+ which adds a field add p ("av") for. (will be weird for MassNP..) 
+    (= new field in det, p)
+
+Quant:
+When transformed to Dets, they will be handled by DetNP. Field p is
+automatically set to "av"
+
+Predet:
+Does not work well for other examples either: 
+> p "de flesta de gula hästarna"
+  PhrUtt NoPConj (UttNP (PredetNP most_Predet (DetCN (DetQuant DefArt NumPl) (AdjCN (PositA yellow_A) (UseN horse_N))))) NoVoc
+But Predet does not know if the NP is modified or not. If it is, we would want
+"de flesta av de gula hästarna", otherwise "de flesta hästarna "
+If we just try to turn most_ into a Det, it can only be used for one Def.
+'av' can also be used for non-modified sentences : de flesta av barnen/de flesta barnen
+
+
+So: NP would need (NPAcc Agr) (? or for Nom as well since some functions use Nom)
+    and isMod : Bool.
+    The new refl-form would cause isMod to be True.
+    Maybe another name for Mod, hasDet or similar, and
+    be effected by all denna, den, den här, sin osv. 
+    Pron should also set it to True, 'de flesta av dem'.
+
+How to not use it as nominative? 'sina barn åt äpplen'
+ - have nonexisting field for Nom?
+ - have type that prevents it for being nom? (nice, but then we cant use it as NP)
+     -- tried higher order funcs, but all functions on NP are not of type (x -> .. -> np -> np)
+        and can't get even this to work
+   The only functions that shouldn't use it seems to be PredVP(S), ImpP3, ExistNP, CleftNP
+   ComparA uses Nom, not Acc.
+   Simply ignore that its wrong, since we only want parsing?
+
+----- sig (själv)
+should sig be in this Refl?
+själv variant?
+IdRefl : NP ; -- sig (själv)
+'han gav sig till sig'
+
+Will be slightly overgenerating: 'han såg sig' already have 2 parse trees,
+                        now also 'jag ser mina barn' will be
+              but we can remove ReflVP and ReflSlash to get rid of somethings.
+

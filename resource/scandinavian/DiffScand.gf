@@ -42,7 +42,9 @@ interface DiffScand = open CommonScand, Prelude in {
 
     verbBecome : Verb ;
 
-    auxFut : Str ;
+    auxFut : Str  ; -- ska
+    auxFut' : Str ; --  "kommer" 
+    auxFutPart : Str ; --  "til" 
     auxCond : Str ;
 
     negation : Polarity => Str ;

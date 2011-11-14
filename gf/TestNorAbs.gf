@@ -16,6 +16,7 @@ abstract TestNorAbs =
   Phrase,
   Structural, 
   Text,
+  ExtraNorAbs,
   Tense
   ** {
   flags startcat=Phr ;

@@ -1,0 +1,54 @@
+Have
+
+predeterminers: hela, samma
+determiners   : varenda, vardera, ena, bägge, båda, varannan
+                , somliga, dylika, övriga, åtskilliga, varenda, noll
+quantifiers   : själva
+AdvFoc        : bara 
+PronAQ        : sådana
+PronAD        : flera
+
+changed RelS : hon sover , vilket är bra
+new RelVP    : hon har sovit, vilket han inte visste
+
+finns: frågan är var katterna sover någonstans
+       att hon äter äpplet är dåligt
+       att dö är dåligt
+       huset som hon tittar på är stort
+       katten , som är gul tänker
+       jag ser katten som är gul
+       jag vill ha en katt sådan att den leker
+       jag såg katten som tycker om honom
+       jag såg katten på vilken han väntar
+       det var dåligt att du sov
+
+kommer att:
+s SFutKommer Simul Pos Main : hon kommer att sova
+s SFutKommer Simul Pos Inv : kommer hon att sova
+s SFutKommer Simul Pos Sub : hon kommer att sova
+s SFutKommer Simul Neg Main : hon kommer inte att sova
+s SFutKommer Simul Neg Inv : kommer hon inte att sova
+s SFutKommer Simul Neg Sub : hon inte kommer att sova
+s SFutKommer Anter Pos Main : hon kommer att ha sovit
+s SFutKommer Anter Pos Inv : kommer hon att ha sovit
+s SFutKommer Anter Pos Sub : hon kommer att ha sovit
+s SFutKommer Anter Neg Main : hon kommer inte att ha sovit
+s SFutKommer Anter Neg Inv : kommer hon inte att ha sovit
+s SFutKommer Anter Neg Sub : hon inte kommer att ha sovit
+ + danish, norwegian.
+
+GenCN : NP -> Num -> CN -> NP   instead of GenNP (grammar9Nov)
+ or
+another version of GenNP, with sp-field=NONEXIST
+   better because it cannot be applied to itself : GenNP (DetNP (DetQuant (GenNP x
+
+PredGen : NP -> NP -> Cl ; -- det är hennes
+
+DetNP_utr : Det -> NP     allows 'den här' (grammar9Nov) as NP (jag vill ha den här, 
+                                                                den här är gul,
+                                                                var och en/vart och ett)
+    extra parse trees when a Det has identical utr/neutr.
+
+
+VV_it : vill det
+VS_it : vet det

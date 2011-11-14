@@ -13,8 +13,10 @@ concrete TestNor of TestNorAbs =
   RelativeNor,
   ConjunctionNor,
   PhraseNor,
-  TenseX,
+  TextX - [Tense,Temp] ,
+  TenseNor,
   StructuralNor,
+  ExtraNor,
   LexiconNor
   ** open IrregNor, ParamX, CommonScand in {
       -- Irreg needed for göra

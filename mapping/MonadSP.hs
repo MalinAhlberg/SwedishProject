@@ -165,7 +165,7 @@ lemmas cat0 an0 = P $ \gr pgf morpho ts -> do
    case ts of
      Node w [] : ts -> case magicLookup w cat0 an0 morpho pgf of
                           (id:ids) -> tell ["lemma ok"] >> return (Just (id:ids,ts))
-                          _        -> tell ["no word"]  >> return Nothing
+                          _        -> tell ["no word "++w++cat0++an0]  >> return Nothing
      _              -> tell ["tried to lemma a tag"]    >> return Nothing
 
 

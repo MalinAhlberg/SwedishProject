@@ -6,4 +6,6 @@ concrete ExtraNor of ExtraNorAbs = ExtraScandNor ** open CommonScand, ResNor, Pr
       a = np.a
       } ;
 
+    TFut' = {s = []} ** {t = SFut'} ;   --# notpresent
+
 }

@@ -48,6 +48,8 @@ instance DiffSwe of DiffScand = open CommonScand, Prelude in {
     noPart = {part = []} ;
 
     auxFut = "ska" ;      -- "skall" in ExtSwe
+    auxFut' = "kommer" ; 
+    auxFutPart = "" ; 
     auxCond = "skulle" ;
 
     negation : Polarity => Str = table {

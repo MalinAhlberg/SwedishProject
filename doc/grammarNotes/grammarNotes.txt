@@ -1,0 +1,122 @@
+sådana:
+started by reading in SAG, they only group sådana with likadan. extracted all
+pronouns from saldo which are used as both determiners and SP (subjective
+predicative complement). Got a list of six:
+ sådana, fler,något, mycket,ingen,annan,(likadan (not in talbanken, but by
+ saldo))
+ingen and någon is already in gf, by something, some_Pl osv.
+mycket is handled by much_Det, 'det är mycket'- mycket handled as Det->NP.
+ 'den är mycken' -> mycken is in saldo too? No, but do we need it as a PronAQ?
+need to decide what to do with annan?
+the rest can be split into two groups: the ones who take their number from the
+subject and the ones who don't
+ ex: 'en sådan bil, sådana bilar' -- 'fler bilar' . not 'fler bil'
+in the group of sådana we now have likadana and annat. annat is maybe not
+really good. det är annat?
+since någon/inget is already added, we are left with likadan and sådan (just
+like sag said...)
+maybe need another category for fler, mer. they can also be compared : 'flest
+bilar'
+
+can not be predeterminer: 'sådana de skogen' - 'sådana alla skogar'
+  even though this would allow the number to be handled
+decided to split into two categories, seems to work ok. likadan is not treated
+as a pronoun.. 
+becomes overgenerating, the resulting adjectives cannot be used in weak form:
+ 'de sådana katterna' in positive. many do not have compartive either.
+Does not allow comparing, neither as predicative nor as determiner.
+Can not use them as adverbs 'han springer sådan-t'
+Solved by allowing the category to be put directly into Comp. 
+The determiners are handled by tex most_Predet anyway, so maybe not needed.
+For the predicatives, gf never allows this atm, so I will skip it for now.
+
+problem with PronAQ/D -> Comp is that we miss:
+väldigt sådan (ok? a bit slangy)
+sådan av naturen (? AdvAP)
+måla den sådan  (?)
+hur sådan (ok)
+sådan och stor (ok? slangy)
+sådan, att hon är här (ok) (bra att hon är här)
+sådan är hon -- allowed
+de blev sådana (allow!) -- problem. cant allow 'han ser en katt ut'
+       so cannot have CompVA : Comp -> VA -> VP ; even though it would
+       be nice for become_VA. (han blir en katt/han blir sådan/han blir röd)
+       'han ser sådan ut' is ok, but 'han ser fler ut'. 'de ser fler ut' ok.
+       fler doesn't want singular!
+  solved: special rule for 'bli sådan' and one for 'bli fler' (<- comparA!!)
+          FocAdv takes Comp. nice, allows 'en katt är han'
+
+NPs allowed: 'sådana' or 'ett sådant'. not 'en sådan' or 'sådant'
+solved: sp : ett sådant, s: sådant
+
+PronADs is not used in singular. Bad grammar. Or maybe they can be.
+
+
+-------
+hela:
+simply added as a predeterminer.
+"hela skogen" , "hela bordet", ?"hela husen"
+                               *"alla hela husen"
+"inte hela katten"
+def or indef according to SAG.
+
+---
+others:
+based on how the pronouns from saldo are used in talbanken.
+see section pronomen in SAG.
+varenda:
+determiner
+"varenda katt"
+"inte varenda katt"
+want "varenda en är gul", but it refuses to have utr.
+ add extra field in Det for this?
+ 
+Things we want to say:
+den ena katten
+de log båda
+
+Don't want to say:
+den själva katten (and can't say it)
+samma katten (def)-- SAG 201: noun in indef --
+själva mat (indef) -- see SAG 230 , noun must be definite (are in exampels at least)
+  -- should be quant, but variants does not work
+
+in mail to Ramona:
+There seems to be at least three ways to divide the forms:
+- predeterminers cannot be put by them selves (turned into a NP by
+itself),  determiners can
+- determiners decide their number and if the noun should be in
+definite form or not, whereas
+ the predets don't.
+ - you can put 'de' after a predeterminer but before a determiner.
+
+ Is last rule is correct for English, when using 'the' instead of 'de'?
+ It seems to be working for
+ Swedish, 'alla de barnen' / 'de få barnen'
+ but you can't parse any of those sentences with the resource grammar.
+
+ My problem is that I have some words which doesn't really fit in
+ either category.
+ For example 'själv' (in the sense "själva kungen kom" ~ "even the king came").
+ It cannot be put alone, and it does not decide which number that should be used,
+ but I don't think you can use indefinite nouns with it: 'själva kung kom'.
+ If you want to add 'de', you should add it after 'själv': 'själva den kungen'
+
+ Another example is 'varenda'. It seems to be a determiner, the noun must be
+ in singular and in indefinite form. But you cannot say 'de(n) varenda skogen'.
+
+ Am I misunderstanding how the categories should  be used, or do I need to
+ modify the grammar? Or is it ok for the grammar to allow some constructions
+ that no one would really use (such as  'själva kung kom')?
+
+ Also, I have some questions about the field 'sp' in determiners. It seems to be
+ used when the determiner is used as a NP by the function DetNP, do you know if
+ that is the only use?
+ I would like it to have a field for gender, since it automatically is
+ set to neutrum, but for
+ 'varenda' it should be utrum: 'varenda en var gul' (not gult). (So the
+ sp-field of varenda
+ is 'varenda en').
+
+-- bara:
+AdvFoc needs dummy field, x, which is put in inf to avoid parsing metas.

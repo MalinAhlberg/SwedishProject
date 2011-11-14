@@ -13,10 +13,32 @@ import qualified Debug.Trace as DT
 talbanken = "../Talbanken05_20060604/FPS/P.tiger.xml" 
 test = "test.xml"
 
+findIt :: [(Id,String)] -> String -> Maybe Id
+findIt sents str = lookup (trim str) (map (\(id,s) -> (format s,id)) sents)
 
----------------------------------------------------------------------
--- Extracting parts of talbanken
----------------------------------------------------------------------
+mainText = do
+ sents <- mainF talbanken (return . map getSentence) 
+ old   <- readFile "Best.txt"
+ return $ map (findIt $ concat sents) (lines old)
+
+format = trim . (\\dots) .  map toLower  
+trim (x:xs) | isSpace x         = trim xs
+trim xs     | isSpace (last xs) = trim $ init xs
+trim xs                              = xs
+dots = ".,:!?,"
+swap (a,b) = (b,a)
+
+
+--- 
+getTrees :: [Sentence] -> [Sentence]
+getTrees = filter ((`elem` list) . idS) -- (concat trs)
+
+{-
+my = runX (xpickleDocument xpSentence
+                            [withIndent yes,
+                             withInputEncoding utf8] "testShort.xml")
+        -}
+
 main = mainEt talbanken
 mainEt 	:: String -> IO ()
 mainEt src
@@ -29,35 +51,13 @@ mainEt src
 	        >>>
             xpickleDocument xpSentences
                             [withIndent yes,
-                             withInputEncoding utf8] "TalbankenTestSuite.xml")
+                             withInputEncoding utf8] "TalbankenBeg.xml")
+
       return ()
 
--- Function for extracting nice sentences
-mappEvaluations x =
-  do pgf <- readPGF "../gf/Big.pgf"
-     let morpho  = buildMorpho pgf language
-         Just language = readLanguage "BigSwe"
-         nice  = filter (not . hasBadTag) x
---         short = sortBy (comparing ws) nice
---         good  = map (replaceWords morpho) short 
-     return $ take 100 $ take10th  $ drop 257 nice--drop 400 $ take 500 good
- where replaceWords morpho s = 
-          Sent (idS s) (rootS s) (map (g morpho) (XMLHelp.words s)) (info s) (ws s)
-       g morpho w = let smallW = map toLower (word w) 
-                        simpleW = if isKnown morpho smallW
-                                     then smallW
-                                     else fromMaybe smallW (lookup (pos w) simpleList)
-              in W (XMLHelp.id w) simpleW (pos w) 
- 
--- Collect trees by their id
 process :: IOSArrow [Sentence] [Sentence]
 process = arrIO (\x -> return $ getTrees x)
 
-getTrees :: [Sentence] -> [Sentence]
-getTrees = filter ((`elem` list) . idS) -- (concat trs)
-
--- Simplifies a sentence to a easier one. Is not totally correct, since
--- all information needed can't be extracted from Talbanken
 simplify :: IOSArrow [Sentence] [Sentence]
 simplify = arrIO (\x -> do putStrLn (show x)
                            return $ map f x)
@@ -65,64 +65,45 @@ simplify = arrIO (\x -> do putStrLn (show x)
        g w  = let simpleW = fromMaybe (word w) (lookup (pos w) simpleList) in
                 DT.trace (word w++pos w) $ W (XMLHelp.id w) simpleW (pos w) 
 
--- checks all tags in sentence for evil ones
+mappEvaluations x =
+  do pgf <- readPGF "../gf/Big.pgf"
+     let morpho  = buildMorpho pgf language
+         Just language = readLanguage "BigSwe"
+         nice  = filter (not . hasBadTag) x
+         short = sortBy (comparing ws) nice
+         good  = map (replaceWords morpho) short 
+     return $ take 100 nice --drop 400 $ take 500 good
+ where replaceWords morpho s = 
+          Sent (idS s) (rootS s) (map (g morpho) (XMLHelp.words s)) (info s) (ws s)
+       g morpho w = let smallW = map toLower (word w) 
+                        simpleW = if isKnown morpho smallW
+                                     then smallW
+                                     else fromMaybe smallW (lookup (pos w) simpleList)
+              in W (XMLHelp.id w) simpleW (pos w) 
+        
 hasBadTag :: Sentence -> Bool
 hasBadTag x = any (`elem` badTags) (ts x++cs x++ps x)
   where ts = map fst . concatMap tags . info
         cs = map cat . info
         ps = map pos . XMLHelp.words 
 
--- a list of unnice tags
-badTags = ["NAC","XP","AVP",
-           "PU" ,"CAP","CAVP","CNP","CONJP","CPP","CS"
-           ,"CVP","CXP"
-           ,"CJ"
-           ,"XX","XT","XF","XA","DB"
-           ,"IC","IG","IQ","IR","IS","IT"
-           ,"ID","ET","UK","++"
-          ]
-
--- a list of translations
 simpleList = Simplify.transl
-
-take10th :: [a] -> [a]
-take10th = unfoldr f
-  where f [] = Nothing
-        f x  = Just (head x,drop 10 x)
-
----------------------------------------------------------------------
--- Finds sentences in Talbanken
----------------------------------------------------------------------
-
-mainText = do
- sents <- mainF talbanken (return . map getSentence) 
- old   <- readFile "Best.txt"
- return $ map (findIt $ concat sents) (lines old)
-
-findIt :: [(Id,String)] -> String -> Maybe Id
-findIt sents str = lookup (trim str) (map (\(id,s) -> (format s,id)) sents)
-
-format = trim . (\\dots) .  map toLower  
-trim (x:xs) | isSpace x         = trim xs
-trim xs     | isSpace (last xs) = trim $ init xs
-trim xs                              = xs
-dots = ".,:!?,"
-swap (a,b) = (b,a)
-
-
 list = catMaybes best 
+
 
 extractSentences = do 
   ss <- mainF talbanken (return . map getSentence')
   return $ concat ss
 
--- allows words to contain a star, but not stars alone as a word
-isBad' = any (`elem` ["*"]) . snd
--- do not allow * inside of words
-isBad = any (`elem` ['*']) . concat . snd
+badTags = ["NAC","XP","AVP","PU"-- ,"CAP","CAVP","CNP","CONJP","CPP","CS","CVP","CXP",
+           -- "CJ"
+           ,"XX"--,"XT","XF","XA","DB",
+           ,"IC","IG","IQ","IR","IS","IT"]
+            --,"ID","ET","UK","++"]
+isBad = any (`elem` ["*"]) . snd
 prettyPrint (id,s) = id++"\t"++ Data.List.unwords s
 
----bad testsuite maker!!
+
 makeTestSuite = do
   ss <- extractSentences
   let goods = filter (not . isBad) ss
@@ -148,7 +129,7 @@ testa  str = do
 
 
 
--- generated list of my old testsuite
+
 best = [Just "s452",Just "s541",Just "s542",Just "s620",Just "s694",Just "s802",Just "s898"
        ,Just "s945",Just "s1001",Just "s1037",Just "s1103",Just "s1106",Just "s1107",Just "s1129"
        ,Just "s1150",Just "s1244",Just "s1246",Just "s1295",{-Just "s1296",-} Just "s1321"

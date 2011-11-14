@@ -33,6 +33,7 @@ cidAdvNP       = mkCId "AdvNP"
 cidTPres       = mkCId "TPres"
 cidTPast       = mkCId "TPast"
 cidTFut        = mkCId "TFut"
+cidTFutKommer  = mkCId "TFutKommer"
 cidTCond       = mkCId "TCond"
 cidTTAnt       = mkCId "TTAnt"
 cidPPos        = mkCId "PPos"
@@ -142,8 +143,8 @@ cidReflCN      = mkCId "ReflCN"
 cidReflSlash   = mkCId "ReflSlash"
 
 -- to implemented yet
-cidXDet        = mkCId "XDet"  -- 'sådana' -> determiner
-cidXAdj        = mkCId "XAdj"  -- 'sådana' -> adjective
+cidCompPronAQ  = mkCId "CompPronAQ"  -- 'sådana' -> adjective
+cidQuantPronAQ = mkCId "QuantPronAQ"  -- 'sådana' -> determiner
 cidSSubjS      = mkCId "SSubjS"
 cidCNNumNP     = mkCId "CNNumNP"
 cidDummy       = mkCId "dummy" -- for dummy objects
