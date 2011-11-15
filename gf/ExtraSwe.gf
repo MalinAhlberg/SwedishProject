@@ -10,9 +10,53 @@ lincat
  PronAD = A ; -- 'fler' 
  AdvFoc = Adv ** {x : Str} ;  -- x dummy field to avoid metas
  RelVSCl = {s : Agr => RCase => Str};
+ N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
+ N2' = N2 ** {det : DetSpecies ; num : Number} ;
 
 
 lin
+
+  --test
+  --ApposNP np1 np2 = {s = \\f => np1.s ! NPNom ++ np2.s ! f ; a = np2.a } ;
+
+  ComplN2P det n2 cn = 
+     let npdet = DetCN det n2 in 
+     {
+      s = \\nform => npdet.s ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
+      a = {g = cn.g ; n = n2.num ; p = P3 } 
+      } ;
+
+  AdjN2 ap n2 =  let g = n2.g in 
+   lin CN {
+      s = \\n,d,c =>
+            preOrPost ap.isPre 
+             (ap.s ! agrAdj (gennum (ngen2gen g) n) d) 
+             (n2.s ! n ! d ! c) ;
+      g = g ;
+      isMod = True ;
+      c2 = n2.c2 ;
+      det = n2.det ;
+      num = n2.num 
+      } ;
+
+   UseN2P n2 = lin CN {
+      s = \\n,d,c => n2.s ! n ! specDet d ! c ; 
+           ---- part app wo c shows editor bug. AR 8/7/2007
+      g = n2.g } ** {
+      isMod = False ;
+      c2 = n2.c2 ;
+      det = n2.det ;
+      num = n2.num 
+      } ;
+
+   N2N noun = {
+      s = \\n,d,c => noun.s ! n ! d ! c ; 
+      g = noun.g ;
+      isMod = False
+      } ;
+
+ 
+  --
 
   VS_it vs = insertObj (\\_ => it_Pron.s ! NPNom ) (predV vs) ; 
   VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! NPNom ) (predV vs) ; 
@@ -71,7 +115,8 @@ lin
   -- maybe not the best way, but the adverb should always
   -- be before the finite verb
   -- needs changes in VP, fix
-  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ (vp.s ! vpf).fin ;
+  -- problematic, try parse "sova ville han inte"
+  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ adv.x ++ (vp.s ! vpf).fin ;
                                    inf = adv.x ++ (vp.s ! vpf).inf};
                    a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
                    en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
@@ -294,5 +339,7 @@ lin
 
     noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
+    numberOf = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep **
+                {num = Pl; det = DDef Indef };
 }
 

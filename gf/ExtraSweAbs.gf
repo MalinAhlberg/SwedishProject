@@ -12,13 +12,23 @@ cat ReflNP ;
     PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
   
 
+   --still allows to parse "" - sova vill hon inte :((
     AdvFoc ; -- foucsing adverbs 'bara'. acts as predeterminers, normal adverbs or before finite verb
     
     RelVSCl ; 
 
+    N2P ;
+    N2' ;
  
 fun
  
+  --test
+  --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter
+  ComplN2P : Det -> N2P -> CN -> NP ;
+  AdjN2 : AP -> N2P -> N2P ;
+  UseN2P : N2' -> N2P ;
+  N2N    : N2' -> N ; 
+  ---
 
   VarandraVP : VPSlash -> VP ;
   SlashV3Varandra : V3 -> VPSlash ;
@@ -132,10 +142,8 @@ fun
   aatskilliga_Det : Det ;
   samtliga_Det : Det ;
 
--- remove 'noll'?
   noll_Det : Det ;
 
+  numberOf : N2' ;
 
--- experiment
-   --sjaelv 
 }
