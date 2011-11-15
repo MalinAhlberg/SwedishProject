@@ -1,0 +1,79 @@
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (ComplN2 numberOf_N2 (DetCN (DetQuant IndefArt NumPl)
+       (UseN cat_N))))) NoVoc
+
+BigTest> p "ett stort antal katter"
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A)
+  (ApposCN (UseN2 numberOf_N2) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))))
+   NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A)
+   (ComplN2 numberOf_N2 (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) 
+      (ApposCN (AdjCN (PositA big_A) (UseN2 numberOf_N2)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+BigTest> p "ett stort antal av gula katter"
+PhrUtt NoPConj (UttNP (AdvNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA
+     big_A) (UseN numberOf_N))) (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl)
+     (AdjCN (PositA yellow_A) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (AdvNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (UseN numberOf_N)))
+  (PrepNP possess_Prep (DetCN (DetQuant IndefArt
+    NumPl) (AdjCN (PositA yellow_A) (UseN cat_N)))))) NoVoc
+
+BigTest> p "ett stort antal av gula katter"
+PhrUtt NoPConj (UttNP (AdvNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (UseN2 numberOf_N2)))
+   (PrepNP part_Prep (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA yellow_A) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (AdvNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (UseN2 numberOf_N2)))
+    (PrepNP possess_Prep (DetCN (DetQuant IndefArt NumPl) (AdjCN (PositA yellow_A) (UseN cat_N)))))) NoVoc
+
+BigTest> p "det stora antalet katter"
+PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) 
+  (ApposCN (AdjCN (PositA big_A) (UseN2 numberOf_N2)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+BigTest> p "ett antal katter"
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (ApposCN (UseN2 numberOf_N2) (DetCN (DetQuant IndefArt NumPl) 
+   (UseN cat_N))))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) 
+   (ComplN2 numberOf_N2 (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+BigTest> p "ett stort antal katter"
+PhrUtt NoPConj (UttNP (ApposNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (UseN2 numberOf_N2))) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (ApposCN (UseN2 numberOf_N2) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (ComplN2 numberOf_N2 (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (ApposCN (AdjCN (PositA big_A) (UseN2 numberOf_N2)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+
+BigTest> p "jag får redan gul kvinna"
+PhrUtt NoPConj (UttNP (ApposNP (AdvNP (ApposNP (UsePron i_Pron) (DetCN
+  (DetQuant IndefArt NumPl) (UseN sheep_N))) already_Adv) (MassNP (AdjCN (PositA
+    yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (AdvNP (ApposNP (UsePron i_Pron) (MassNP (UseN
+  sheep_N))) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (ApposNP (UsePron i_Pron) (AdvNP (DetCN
+   (DetQuant IndefArt NumPl) (UseN sheep_N)) already_Adv)) (MassNP (AdjCN (PositA
+     yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (ApposNP (UsePron i_Pron) (AdvNP (MassNP (UseN sheep_N)) already_Adv)) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (ApposNP (UsePron i_Pron) (DetCN (DetQuant IndefArt NumPl) (AdvCN (UseN sheep_N) already_Adv))) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (ApposNP (UsePron i_Pron) (MassNP (AdvCN (UseN sheep_N) already_Adv))) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (ApposNP (AdvNP (DetCN (DetQuant IndefArt NumPl) (UseN sheep_N)) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (ApposNP (AdvNP (MassNP (UseN sheep_N)) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (ApposNP (DetCN (DetQuant IndefArt NumPl) (AdvCN (UseN sheep_N) already_Adv)) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (ApposNP (MassNP (AdvCN (UseN sheep_N) already_Adv)) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (DetCN (DetQuant IndefArt NumPl) (ApposCN (AdvCN (UseN sheep_N) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))))) NoVoc
+PhrUtt NoPConj (UttNP (ApposNP (UsePron i_Pron) (MassNP (ApposCN (AdvCN (UseN sheep_N) already_Adv) (MassNP (AdjCN (PositA yellow_A) (UseN woman_N))))))) NoVoc
+
+----------new----------
+BigTest> p "antalet katter"
+PhrUtt NoPConj (UttNP (ComplN2P (DetQuant DefArt NumSg) (UseN2P numberOf) (UseN cat_N))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant DefArt NumSg) (ApposCN (UseN (N2N numberOf)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+BigTest> p "ett stort antal katter"
+PhrUtt NoPConj (UttNP (ComplN2P (DetQuant IndefArt NumSg) (AdjN2 (PositA big_A) (UseN2P numberOf)) (UseN cat_N))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (AdjCN (PositA big_A) (ApposCN (UseN (N2N numberOf)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (DetCN (DetQuant IndefArt NumSg) (ApposCN (AdjCN (PositA big_A) (UseN (N2N numberOf))) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+
+BigTest> p "stort antal katter"
+-- all transformed to N
+PhrUtt NoPConj (UttCN (AdjCN (PositA big_A) (ApposCN (UseN (N2N numberOf)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+PhrUtt NoPConj (UttCN (ApposCN (AdjCN (PositA big_A) (UseN (N2N numberOf))) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))) NoVoc
+PhrUtt NoPConj (UttNP (MassNP (AdjCN (PositA big_A) (ApposCN (UseN (N2N numberOf)) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N)))))) NoVoc
+PhrUtt NoPConj (UttNP (MassNP (ApposCN (AdjCN (PositA big_A) (UseN (N2N numberOf))) (DetCN (DetQuant IndefArt NumPl) (UseN cat_N))))) NoVoc
+

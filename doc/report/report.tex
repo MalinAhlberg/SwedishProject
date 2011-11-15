@@ -181,6 +181,12 @@ To connect GF with other annotations, to evaluate. Identify missing constructs,
 missing words. More reasons from presentation.
 Similar for English and Penntree, but PennTree and Talbanken different, plus swedish
 makes a different. More possible word orders (or at least more commonly used).
+One deep and one flatter version of Talbanken, deep contains ca 5 more tags.
+The flat was used since the deep one
+isn't deep in the same way as GF. Example with CNP (s5). Some
+more info about VPs are given, but do not think this will give any relevant information.
+Talbanken also contains frequent .. tags XP, XX osv. We cannot expect to translate
+this to anything but metas.
 How we try to build up a 'parse tree', a S with a NP VP for example. 
 How verbs look for complements (or inverted order), how metas are added.
 Description of most important tags from Talbanken, their translation.
@@ -190,6 +196,10 @@ Developed by adding one mapping for each tag, and by examples.
 How we cannot cover all cases. The testing: regression testing again,
 very easy to destroy what was working before. 
 How we need valency information.
+If we don't take the verb valency into account, allow all verbs to have Gf category V,
+we get a slightly better result,
+from 62.5\% to 65.4\%.  (see EvalText). The complemnt of the verbs should tell which category
+they are anyway.
 Evaluation. 
 
 %One part about the mapping from Talbanken to GF, description. About the purpose.
@@ -208,6 +218,7 @@ results. Mostly compound nouns, which we can't expect in the dictionary.
 
 Grammar - hard to evaluate automatically, but Elibet is an expert who has been involved
 in the process to verify the solutions. Testing trees against talbanken.
+The big lexicon makes it very slow, eats all memory
 
 Discussion of the results and methods, why are the results good, why are they not better.
 What other methods could have been used? What did we/I expect and what happend?

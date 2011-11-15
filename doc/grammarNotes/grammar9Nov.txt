@@ -88,6 +88,7 @@ Quants:  den av sina barn
   av -> accusative
   (de flesta av dem)
 
+-- obs! already a field in Quant and Det for isMod
 Difference: 'av' when Det chooses indefinite form. Harder for Predets.
 Maybe we can use the p-field for this. It is never used, but if we only 
 use it for PredetNP it would be nice. 

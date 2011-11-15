@@ -35,6 +35,7 @@ all (almost) labels added
 
 -- for the 100 first sentences in Talbanken, with no simplification, we get
 50% restored tags
-63% with bigger lexicon
-65% without NAC,XP,DB,UP,XX and weird punctuation...
+63% with bigger lexicon (65.4 with bigger lex and no valency for verbs)
+65% without NAC,XP,DB,UP,XX and weird punctuation... or 72% with better lex and no valency
+    check for verbs.
 

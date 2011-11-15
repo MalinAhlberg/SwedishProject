@@ -6,7 +6,9 @@
 Monday:    Meet Ramona, decide for reflexive, implment and test, make treebank
 Tuesday:   Add 'antalet' (ett stort antal), and 'själv' to show Elisabet, profiling test
            start writing, try mapping on deep
-Wednesday: Meet Elisabet, 'den sjungande', VP (passive for more than V2).
+Wednesday: solve 'bara' problems, Meet Elisabet, 'den sjungande', 
+           VP (passive for more than V2).
 Thursday:  Make skeleton for report, write about grammar
+           fix mapping for new grammar
 Friday:    Write report, read paper coling. 
 
