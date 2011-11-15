@@ -107,6 +107,7 @@ fun
      but VPSlash does not hold information about this verbform
      You can also say 'de gågna åren','de tänkta bostäderna',
      so maybe there should be a function V -> AP too. -}
+  -- den nyligen funna.
   -- be callled PPartAP?
   PPartAP : V2 -> AP ; --VPSlash -> AP ;
    

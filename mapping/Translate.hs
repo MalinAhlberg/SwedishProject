@@ -23,6 +23,8 @@ import GraphTree
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
+-- rember to fix new NP2
+
 data SentenceType = Q | D | F
   deriving (Show,Eq)
 data VPForm  = Cop | Sup | VV | VA 
@@ -69,16 +71,20 @@ startState = S {_isReflGenVP = False, _isExist = False
 ------------------------------------------------------------------------------
 mapp f    = main' f >> return ()
 main      = main' "test.xml" >> return ()
-bigTest   = main' "../testSuites/testShortSimpleTwo.xml" 
-            >>= writeFile "mappingShort6.txt" . unlines
+bigTest   = do res <- main' "../testSuites/testShortSimpleTwo.xml" 
+               writeFile "mappingShort6.txt" $ unlines (getRes res)
 evaluation = evaluations "EvalMappSuite2.xml" "Evalresult.txt" 
-evaluations test to = 
-    main' test 
-    >>= writeFile to . unlines 
+evaluations test to = do 
+    res <- main' test 
+    writeFile to $ unlines (show (getQuote res) : getRes res)
 main2      = main' "test2.xml" >> return ()
-mainTest   = main' "testSimple.xml" >>= putStrLn . compareRes
-mainT2     = main' "testSimple.xml" >>= putStrLn . unlines
+mainTest   = main' "testSimple.xml" >>= putStrLn . compareRes . getRes
+mainT2     = main' "testSimple.xml" >>= putStrLn . unlines . getRes
 
+getRes :: [(Double,String)] -> [String]
+getRes = map snd
+getQuote :: [(Double,String)] -> Double
+getQuote = fst . last 
 
 -- Standard main
 main' fil  = do
@@ -107,9 +113,10 @@ main' fil  = do
                         , "-otrees/tree"++showAlign l'++"GFparsX.pdf"]
                         --, "-o"++dropExtension fil++"GF.pdf"]
         return ()
-      hPutStrLn stderr (show ((fromIntegral cn' / fromIntegral co') * 100))
+      let quote = (fromIntegral cn' / fromIntegral co') * 100
+      hPutStrLn stderr (show quote)
       --return (showExpr [] e)
-      return (idN++"\t"++showExpr [] e)
+      return (quote,idN++"\t"++showExpr [] e)
 
     count (cn,co) e = cn `seq` co `seq`
       case unApp e of
@@ -193,7 +200,8 @@ penn =
                    
       ,"PP" :-> do pr     <- write "PP!" >> inside "PR" pPrep
                    write "prep found"
-                   np <- pflatNP `mplus` inside "HD" (fst <$> pNP)
+                   np <- pflatNP `mplus` inside "HD" (fst <$> pNP) 
+                         `mplus` cat "PA"  -- this is for deep trees
                    write "prep noun found"
                    returnApp cidPrepNP [pr,np]
       ,"VP" :-> do write "in cat VP"
@@ -289,9 +297,21 @@ penn =
       --,"XT" -- sa kallad
       -- ,"XX" unclassifiable 
      --,"YY" :-> inside "YY" (lemma "ja,jo"  "") --fix!!
-     ,"CJ" :-> cat "S" `mplus` cat "PP" `mplus` cat "VP"
+     ,"BS" :-> cat "S" -- NP 'den är som katten'
+     ,"CJ" :-> cat "S" `mplus` cat "PP" `mplus` cat "VP"   --first conjunct
+                       `mplus` pAdj     `mplus` pflatNP
+     ,"C+" :-> cat "S" `mplus` cat "PP" `mplus` cat "VP"   --second conjuct
+                       `mplus` pAdj     `mplus` pflatNP
+     ,"CC" :-> cat "S" `mplus` cat "PP" `mplus` cat "VP"   --sister conjuct
                        `mplus` pAdj     `mplus` pflatNP
      ,"HD" :-> (fst3 <$> pCN) `mplus` pAdj `mplus` pIAdv `mplus` (fst <$> pNP)
+     ,"IF" :-> do (tpm,s,pol,v) <- pVP "IV"  -- for deep trees
+                  return v
+     ,"PA" :-> pflatNP `mplus` (fst <$> pNP)  -- for deep trees
+                       `mplus` cat "VP" `mplus` cat "S" 
+                       `mplus` cat "NP" `mplus` cat "CNP"
+       
+    ,"VG" :-> cat "VP"  -- for deep trees
    ] 
 
 (<$>) = liftM
@@ -619,7 +639,7 @@ pInfVP =
      -- to go
      im <- opt (word2 "IM" >> return True) False
      write $ "infinite marker? "++ show im
-     v  <- pVP "IV"
+     v  <- pVP "IV" `mplus` inside "IF" (pVP "IV")
      return (im,v)
 
 pComplVP V q vp tmp (pol,exps,_) = do 
@@ -867,19 +887,29 @@ pVerb = pVerb' "Act"
 pPassVerb = pVerb' "Pass"
 
 pVerb' act incat cat =
-        do v <- inside incat $ lemma cat $ "s (VF (VPres "++act++"))"
+        do v <- (inside incat $ lemma cat $ "s (VF (VPres "++act++"))")
+                `mplus`
+                (inside incat $ lemma "V" $ "s (VF (VPres "++act++"))")
            return (VTense cidTPres,v)
         `mplus`
-        do v <- inside incat $ lemma cat $ "s (VF (VImper "++ act++"))"
+        do v <- (inside incat $ lemma cat $ "s (VF (VImper "++ act++"))")
+                `mplus`
+                (inside incat $ lemma "V" $ "s (VF (VImper "++ act++"))")
            return (VImp,v)
         `mplus`
-        do v <- inside incat $ lemma cat $ "s (VI (VInfin "++ act++"))"
+        do v <- (inside incat $ lemma cat $ "s (VI (VInfin "++ act++"))")
+                `mplus`
+                (inside incat $ lemma "V" $ "s (VF (VInfin "++ act++"))")
            return (VInf,v)
         `mplus`
-        do v <- inside incat $ lemma cat $ "s (VF (VPret "++ act++"))"
+        do v <- (inside incat $ lemma cat $ "s (VF (VPret "++ act++"))")
+                `mplus`
+                (inside incat $ lemma "V" $ "s (VF (VPret "++ act++"))")
            return (VTense cidTPast,v)
         `mplus`
-        do v <- inside incat $ lemma cat $ "s (VI (VSupin "++ act++"))"
+        do v <- (inside incat $ lemma cat $ "s (VI (VSupin "++ act++"))")
+                `mplus`
+                (inside incat $ lemma "V" $ "s (VF (VSupin "++ act++"))")
            return (VSupin,v)
          {-      `mplus`     --careful here!
         (inside (incat++"PS") consume >> return (VTense cidTPres,meta))
@@ -950,7 +980,7 @@ pCompl V2 = do
          do write "look for np in sp"
             liftM (Just .fst) (inside "SP" pNP)
          `mplus`
-         do o <- inside "OA" (cat "PP" `mplus` cat "VP")  
+         do o <- inside "OA" (cat "PP") -- `mplus` cat "VP")  -- what was this for? without it we get unambigous parsing of Verb complment
             return (Just $ mkApp meta [o]) -- hard. the preposition may be part of the verb
          `mplus`  
          do det <- inside "FO" pItPron     -- funnit det attraktivt att (VP)
@@ -1014,7 +1044,11 @@ pCompl VV = do
                    `mplus`
                    do write "looking for complete verb phrase complement for vv"
                       v <- inside "OA" $ cat "VP"
-                      return (VInf,cidPPos,v,True)
+                      return (VInf,cidPPos,v,True)  -- can't be sure of Pos, need state
+                  `mplus`
+                  do write "looking for VV in VP"
+                     v <- inside "VG" $ cat "VP" 
+                     return (VInf,cidPPos,v,True) -- can't be sure of Pos, need state
   write ("iv found "++show iv)
   guard (t'==VInf)  
   guard (p==cidPPos)  -- you cannot say 'jag vill inte (inte tänka)'

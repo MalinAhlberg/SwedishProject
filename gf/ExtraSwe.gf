@@ -116,7 +116,7 @@ lin
   -- be before the finite verb
   -- needs changes in VP, fix
   -- problematic, try parse "sova ville han inte"
-  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ adv.x ++ (vp.s ! vpf).fin ;
+  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ (vp.s ! vpf).fin ;
                                    inf = adv.x ++ (vp.s ! vpf).inf};
                    a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
                    en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;

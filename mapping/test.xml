@@ -411,67 +411,31 @@
 		</annotation>
 	</head>
     <body>
-<s id="s1150">
-			<graph root="s1150_501">
+	<s id="s1955">
+			<graph root="s1955_501">
 				<terminals>
-					<t id="s1150_1" word="Eller" pos="++EL"/>
-					<t id="s1150_2" word="katten" pos="NNDDHS"/>
-					<t id="s1150_3" word="på" pos="PR"/>
-					<t id="s1150_4" word="bilen" pos="NNDDSS"/>
-					<t id="s1150_5" word="?" pos="I?"/>
+					<t id="s1955_1" word="Nu" pos="ABDA"/>
+					<t id="s1955_2" word="kunde" pos="VVPT"/>
+					<t id="s1955_3" word="katten" pos="NNDD"/>
+					<t id="s1955_4" word="flyga" pos="VVIV"/>
+					<t id="s1955_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s1150_507" cat="PP">
-						<edge label="PR" idref="s1150_3"/>
-						<edge label="HD" idref="s1150_4"/>
+					<nt id="s1955_503" cat="NAC">
+						<edge label="IV" idref="s1955_4"/>
 					</nt>
-					<nt id="s1150_506" cat="NP">
-						<edge label="HD" idref="s1150_2"/>
-						<edge label="ET" idref="s1150_507"/>
+					<nt id="s1955_502" cat="S">
+						<edge label="TA" idref="s1955_1"/>
+						<edge label="FV" idref="s1955_2"/>
+						<edge label="SS" idref="s1955_3"/>
+						<edge label="OO" idref="s1955_503"/>
+						<edge label="IP" idref="s1955_5"/>
 					</nt>
-					<nt id="s1150_505" cat="S">
-						<edge label="++" idref="s1150_1"/>
-						<edge label="SS" idref="s1150_506"/>
-					</nt>
-					<nt id="s1150_504" cat="NAC">
-						<edge label="+F" idref="s1150_505"/>
-					</nt>
-					<nt id="s1150_503" cat="NAC">
-						<edge label="ET" idref="s1150_504"/>
-					</nt>
-					<nt id="s1150_502" cat="XP">
-						<edge label="SP" idref="s1150_503"/>
-						<edge label="I?" idref="s1150_5"/>
-					</nt>
-					<nt id="s1150_501" cat="ROOT">
-						<edge label="MS" idref="s1150_502"/>
+					<nt id="s1955_501" cat="ROOT">
+						<edge label="MS" idref="s1955_502"/>
 					</nt>
 				</nonterminals>
 			</graph>
 		</s>
-<s id="s1458">
-			<graph root="s1458_501">
-				<terminals>
-					<t id="s1458_1" word="Man" pos="POZPHH"/>
-					<t id="s1458_2" word="äter" pos="VVPSSM"/>
-					<t id="s1458_3" word="redan" pos="ABOC"/>
-					<t id="s1458_4" word="äpplet" pos="NNDD"/>
-					<t id="s1458_5" word="." pos="IP"/>
-				</terminals>
-				<nonterminals>
-					<nt id="s1458_502" cat="S">
-						<edge label="SS" idref="s1458_1"/>
-						<edge label="FV" idref="s1458_2"/>
-						<edge label="+A" idref="s1458_3"/>
-						<edge label="OO" idref="s1458_4"/>
-						<edge label="IP" idref="s1458_5"/>
-					</nt>
-					<nt id="s1458_501" cat="ROOT">
-						<edge label="MS" idref="s1458_502"/>
-					</nt>
-				</nonterminals>
-			</graph>
-		</s>
-
 	</body>
 </corpus>

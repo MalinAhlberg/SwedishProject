@@ -11,13 +11,14 @@ import Control.Monad
 import qualified Debug.Trace as DT
 
 talbanken = "../Talbanken05_20060604/FPS/P.tiger.xml" 
+talbankenDeep = "../Talbanken05_20060604/DPS/P.deep.tiger.xml" 
 test = "test.xml"
 
 
 ---------------------------------------------------------------------
 -- Extracting parts of talbanken
 ---------------------------------------------------------------------
-main = mainEt talbanken
+main = mainEt talbankenDeep
 mainEt 	:: String -> IO ()
 mainEt src
     = do
@@ -29,7 +30,7 @@ mainEt src
 	        >>>
             xpickleDocument xpSentences
                             [withIndent yes,
-                             withInputEncoding utf8] "TalbankenTestSuite.xml")
+                             withInputEncoding utf8] "TalbankenBegDeep.xml")
       return ()
 
 -- Function for extracting nice sentences
@@ -40,7 +41,7 @@ mappEvaluations x =
          nice  = filter (not . hasBadTag) x
 --         short = sortBy (comparing ws) nice
 --         good  = map (replaceWords morpho) short 
-     return $ take 100 $ take10th  $ drop 257 nice--drop 400 $ take 500 good
+     return $ take 100 nice -- $ take10th  $ drop 257 nice--drop 400 $ take 500 good
  where replaceWords morpho s = 
           Sent (idS s) (rootS s) (map (g morpho) (XMLHelp.words s)) (info s) (ws s)
        g morpho w = let smallW = map toLower (word w) 
@@ -74,12 +75,15 @@ hasBadTag x = any (`elem` badTags) (ts x++cs x++ps x)
 
 -- a list of unnice tags
 badTags = ["NAC","XP","AVP",
-           "PU" ,"CAP","CAVP","CNP","CONJP","CPP","CS"
-           ,"CVP","CXP"
-           ,"CJ"
-           ,"XX","XT","XF","XA","DB"
-           ,"IC","IG","IQ","IR","IS","IT"
-           ,"ID","ET","UK","++"
+           "PU"
+           --,"CAP","CAVP","CNP","CONJP","CPP","CS"
+           --,"CVP","CXP"
+           --,"CJ"
+           ,"XX","XT","XF","XA"
+           ,"IC","IG","IQ","IR","IS","IT" -- from old Convert
+           --,"DB"
+           --,"IC","IG","IQ","IR","IS","IT"
+           --,"ID","ET","UK","++"
           ]
 
 -- a list of translations
