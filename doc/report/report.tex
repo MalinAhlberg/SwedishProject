@@ -1,0 +1,239 @@
+\documentclass{article} 
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\begin{document}
+% ska gå att förstå och locka till läsning
+%ska tydligt beskriva vad rapporten handlar om
+%ska innehålla vettiga sökord
+\title{A large scale grammar and parser for Swedish}
+\author{Malin Ahlberg}
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\abstract{
+% sf dream to be able to work with npl. Parser important, statistics working
+% on n-grams fail, closer to the human brain with rules? 
+% Describe the basic.. of Swedish, in a format compatible with 20 other languages.
+% Combine other resources, create free software.
+% Equivalent for English and other languages coming.
+}
+
+\newpage
+
+\section{Acknowledgements}
+% Ramona, Aarne, Elisabet, Markus, Peter?, Lars, Dan, Krasimir etc
+
+\newpage
+
+\section{Introduction} 
+What is parsing, flat strings to trees, what is deep parsing. What is controlled language,
+what is robust parsing and why we need it for free langugae, benefits of a grammar.
+GF is grammar formalism, many languages, many projects for controlled lang.
+GF grammar for Swedish, how big, not intended for parsing, but for building
+application grammars. Experiments of using the grammar for free parsing, methods
+being developped for this. Benefits of starting from GF. Free parsing is
+interesting. To do this, we need a better (bigger grammar), a large scale
+lexicon, and an evaluation method. This project has explored those things. The
+grammar also have other usages, important in itself, so we wanted to make it as
+covering as possible without being overallowing or too ambiguous.
+
+Other work exist, but none is freely available. We want to create a open source
+product, therefor can only use resources that allows this. Work can continue,
+will not disappear, be made use of in other projects.
+What we could not cover by this project, what have been covered before (in
+the spring project), and why we choose those parts.
+
+\section{Background}  
+Too long way to build a parser/grammar from scratch. Idea to combine existing parts. 
+The project is heavily dependening on three resources, will describe them here.
+\subsection{GF}
+Most important part. Been developed for ? years, inspiration from Haskell, ML,
+and also Prolog, Agda. Can be used with other programming langauges. 
+Main ideas, abstract and concrete, translation, parse- and abstract trees.
+What kind of linguistic analyse, what is the purpose to cover. Mention other uses,
+ideas of anaphores, montague? dependent types, ontologies.
+For this project, only (mostly) important to model Swedish without abandoning the
+resources too much. Use of the big grammar for translation, why it might be hard with
+semantics and lexicon.
+Research about how to parse with gf by Krasimir, experiments with English.
+Example of a piece with Swedish, the reader gets familiar with how it looks.
+
+\subsection{Talbanken}
+For evaluating and testing, comparing our parser we needed a reliable source.
+Talbanken manually anotade by ... in .. . Consists of four parts : ... . 
+Also used by Maltparser and was developed in 2005 by Nivre, deeper trees.
+Different parts (written, spoken) and deep/flat. Differences in mapping
+on flat/deep?
+Differences in analyse, do we want a similar? 
+Uses of Talbanken in project, mapping to evaluate and test.  
+Look at output from Maltparser, could also comparing our parse trees to this.
+
+\subsection{Saldo}
+The last(..) part is a big lexicon. The electronical Saldo is developped at GU.
+Built from sal,
+Contains much more information,
+graph, word relationships, semantics, but also morphological info.
+Example of a word, how the info looks.
+About size and being maintained. Other usages?
+Large, freely available and compatible with GF. 
+
+\section{Related work}
+Computational ling is active area for Swedish, there are many other Swedish parser,
+but grammars?
+Many of the parsers not ruled based, the most known one Malt ... .
+However has been two, about CLE and what happend to it. Logic and translation
+to Swedish, The spoken lang. translator.
+Other Sw. parsers and grammars, evaluation of them? 
+Other grammar frameworks.
+% related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
+% the multilingual treebank.
+
+\section{Progress}  
+ The purpose has been to prepare the grammar for large scale parsing.
+ Develop method used for English to fit Swedish, pynta the sw grammar with
+ language specific constructions and create methods for lexicon.
+ Earlier have done tool, but the lexicon was not big enough to be able
+ to fix it in this way. Tool may instead be used for complementing.
+
+\subsection{Saldo}
+Saldo has been imported before, ref, but the code needed updates to not miss words.
+Have also been made more robust, print logs and list of all words that wasn't
+imported together with a reason. Reson could be that it cannot construct all forms
+or that the word class shouldn't be in the gf lexicon.
+
+To understand this ... Example of gf and saldo table. Explanation of the algorithm,
+how the table will be calculated. How saldo is divided to save memory, one part fail, the others 
+wont, also possible to restart. Naming convention.
+There are a number of differences between and saldo Till skillnad från GF,
+saldo does not contain forms that aren't used gf generates all forms. A form
+needed to generate the gf table may not be given in saldo such as singular
+forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
+different grammatical analyse, a lot of pronouns. Example. 
+Other word classes we do not import and why.
+Those should not be in the standard gf lexicon but maybe somewhere else.
+The list can be used for adding other kinds of lexicons - idioms, have pos-tags.
+Also to analyse what's wrong, or use the words with a word guesser. The code
+has been adapted for this.
+For exapmle pronouns - dets, have combined information from Talbanken to add them in the correct
+category. How this works, look at tags. Small amount, can be done manually.
+
+The saddest thing: no valency info. Crucial for GF. Only reflexive and verbs with particles
+have any information. The earlier explained techniques may be used for this in Talbanken.
+To get even bigger material, use Korp, but then no guarantee.
+
+%see notes to add more about this, pronouns and the importing itself
+%choices for adjectives vs. verbs for particips
+The importing can be redone anytime.
+
+\subsection{The grammar}
+Although we can't expect to get a full coverage, we would like a tillfredsställande
+coverage of standard Swedish. May also be interesting for other purposes.
+Explain what's in the resources, constructions present in most languages. 
+Swedish shares with Nor and Dan. Extra module, covering things like sw is a
+v2-lang, focusing parts of sentences. Sw also makes use of passive s-form a lot.
+kommer att - for scand, extra tempus, example
+passiv s: but now need bigger change in the grammar. 
+embedded - relative
+pronouns/Quant
+Genitive -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form
+           fixing this include restructuring all
+Det-utr
+
+to change position of adv:
+normal: after verb 'han äpplet redan'
+now want: 'äter redan äpplet'
+          'har redan ätit äpplet' 
+          'har ätit redan äpplet' :(
+
+but have other words like 'bara' which can be put in other positions.
+  but needs to restruct whole of VP, since no field is befor fin.
+Also needed categories for 'pronouns' wich can act in different ways.
+and 'antal','sorter' - need indetermined, antal plural, sorter either.
+Should be able to modify by adjective, and they must be determined.
+
+The VP require many changes, to add passive, PPart, bara.
+About PPart, but do we need it with new Saldo? 'de är stuckna' , 'den nyligen funna'
+for the last one, we need VPSlash to allow adverb.
+
+varandra and sin/sitt/sig. Not subject, but NP.
+
+here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
+
+\subsubsection{Testing}
+Hard do test, can't verify. Regression testing. Talbanken is still too hard.
+Test how many parse trees that are generated.
+Some results.
+
+% One part about the grammar. The state of the original grammar, what was covered and not. 
+% What parts that I have been working on and why, 
+% what constructions I wanted to add, examples of sentences that should work
+% and of sentences that shouldn't be covered. How to separate Swedish from
+% Scandinavian, bigger reconstructions in the grammar. 
+% sammanhängande explanation of the swedish grammar, choices I have made, why
+% regression testing
+
+\subsection{Mapping}
+To connect GF with other annotations, to evaluate. Identify missing constructs,
+missing words. More reasons from presentation.
+Similar for English and Penntree, but PennTree and Talbanken different, plus swedish
+makes a different. More possible word orders (or at least more commonly used).
+How we try to build up a 'parse tree', a S with a NP VP for example. 
+How verbs look for complements (or inverted order), how metas are added.
+Description of most important tags from Talbanken, their translation.
+Description of the ones most hard to translate (particles, flat sentences)
+Example of nice translation and one with many metas, and one that doesn't work.
+Developed by adding one mapping for each tag, and by examples.
+How we cannot cover all cases. The testing: regression testing again,
+very easy to destroy what was working before. 
+How we need valency information.
+Evaluation. 
+
+%One part about the mapping from Talbanken to GF, description. About the purpose.
+%This part explains
+%the tags in Talbanken and gives examples of how they are translated,
+%examples of what can be parsed and what cannot.
+%about how to make the code work for swedish, differences
+%regression testing
+
+
+\section{Results and discussion}
+Results from mapping, can probably be improved, bit by bit, depends much on words.
+Valencys would therefor help.  
+Saldo, made a big difference to renew the lexicon. Tested what was missing now from talbanken,
+results. Mostly compound nouns, which we can't expect in the dictionary.
+
+Grammar - hard to evaluate automatically, but Elibet is an expert who has been involved
+in the process to verify the solutions. Testing trees against talbanken.
+
+Discussion of the results and methods, why are the results good, why are they not better.
+What other methods could have been used? What did we/I expect and what happend?
+
+
+\section{Future Work}
+What is still left to do? Description and direction of future work:
+how to make the parser robust, elipses and long sentences, names and numbers.
+What is still needed in the grammar, how important that is. 
+how to get valency information, description of extracting thise.
+make the parser faster by using smaller lexicon.
+Lexicon tool on the fly.
+Getting and using probabilities, to disambiguate.
+process list from saldo.
+Use multiligual treebank?
+
+
+\section{Conclusion}
+There is obviously a lot do still, will never get finish with NPL.
+Grammar may need even bigger changes, to allow enough but not too much.
+Different from writing a grammar for generation.
+Results from mapping shows that the translation is doable, but becomes harder
+since talbanken don't have formal rules.
+The saldo shows how easy to make use of utomstående resources, promising if
+we want to extract other information. 
+Hard, but not finished! 
+
+
+\end{document}
