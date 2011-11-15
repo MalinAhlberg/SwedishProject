@@ -165,7 +165,7 @@ red = 1
 green = 2
 yellow = 3
 blue = 4    -- correct this!
-turkos = 5    -- correct this!
+pink = 5
 
 putMsg :: Sent -> [Tree] -> IO ()
 putMsg s [] = putStrLn $ show s ++ color red " was not parsed"

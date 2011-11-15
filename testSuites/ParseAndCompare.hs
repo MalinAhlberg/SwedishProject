@@ -18,12 +18,13 @@ main = do
 compare = zipWithM_ rate `on` parseResult
   where rate (i,n) (j,m) | i /= j = putStrLn $ color red 
                                        $ "Not the same sentence! "++show i++" "++show j
+                         | n == m = putStrLn $ color green $ "Sentence "++show i++" ok."
+                         | n == 0 = putStrLn $ color turkos $ "Sentence "++show i++"can now be parsed."
                          | n <  m = putStrLn $ color turkos 
                                        $ "Sentence "++show i++" can be parsed in "++show m++" ways!"
-                                          ++ " (before only "++show m++")"
+                                          ++ " (before only "++show n++")"
 
-                         | n == m = putStrLn $ color green $ "Sentence "++show i++" ok."
-                         | n >  m = putStrLn $ color red   $ "Sentence "++show i++" not ok."
+                         | n >  m = putStrLn $ color blue  $ "Sentence "++show i++" can be parsed in less ways."
 
 
 parseResult :: String -> [(String,Int)]
