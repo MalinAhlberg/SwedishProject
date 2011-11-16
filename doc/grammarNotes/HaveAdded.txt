@@ -4,7 +4,7 @@ predeterminers: hela, samma
 determiners   : varenda, vardera, ena, bägge, båda, varannan
                 , somliga, dylika, övriga, åtskilliga, varenda, noll
 quantifiers   : själva
-AdvFoc        : bara 
+AdvFoc        : bara  -problematic
 PronAQ        : sådana
 PronAD        : flera
 
@@ -52,3 +52,11 @@ DetNP_utr : Det -> NP     allows 'den här' (grammar9Nov) as NP (jag vill ha den
 
 VV_it : vill det
 VS_it : vet det
+
+
+
+AdvFoc        : bara  -problematic
+before the finite verb sometimes: hon bara sover, but not 'bara sover hon' ('sover hon bara')
+         or 'bara har hon sovit'.
+         Also, since it doesn't have any marker expect for in fin, it parser empty string, whenever
+         the finite form is left out.

@@ -14,11 +14,14 @@ main = do
 
 main = do
   (file:arg) <- getArgs
-  run file False "tmp.tmp"
+  c <- run file False "tmp.tmp"
   correct <- readFile "newTreebank.txt"
   have    <- readFile "tmp.tmp"
   compare correct have
   rawSystem "rm" ["tmp.tmp"]
+  dat <- readProcess "date" [] []
+  appendFile "grammarLog.txt" $ dat ++ show c
+
 
 
 compare = zipWithM_ rate `on` parseResult
