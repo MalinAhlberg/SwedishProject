@@ -105,9 +105,8 @@ lin
                            
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
-  RelSlashVS t p np vs = let vpform = VPFinite t.t t.a ;
-                          cl     = PredVP np (predV vs) ; 
-                          vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
+  RelSlashVS t p np vs = let cl     = PredVP np (predV vs) ; 
+                             vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
 
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
@@ -116,10 +115,17 @@ lin
   -- be before the finite verb
   -- needs changes in VP, fix
   -- problematic, try parse "sova ville han inte"
-  AdvFocVP adv vp = {s = \\vpf => {fin = adv.s ++ (vp.s ! vpf).fin ;
-                                   inf = adv.x ++ (vp.s ! vpf).inf};
-                   a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
-                   en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
+  AdvFocVP  = insertAdvFoc ;
+  
+  oper insertAdvFoc : AdvFoc -> VP -> VP 
+   = \adv, vp -> lin VP {
+      s = \\vpf => {fin = (vp.s ! vpf).fin ;
+                    inf = (vp.s ! vpf).inf};
+      a0 = adv.s ;
+      a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
+      en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext; act = vp.act } ;
+
+ lin
   PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
   AdvFocAdv adv = {s = adv.s} ;
 
@@ -162,14 +168,14 @@ lin
         let
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
-          vps  = vp.s ! VPFinite t a ;  
+          vps  = vp.s ! VPFinite t a vp.act ;  
           vf = case <<t,a> : STense * Anteriority> of {
             <SPres,Simul> => vps.fin;
             <SPast,Simul> => vps.fin;
             <_    ,Simul> => vps.inf;
             <SPres,Anter> => vps.inf;
             <SPast,Anter> => vps.inf;
-            <_    ,Anter> => (vp.s ! VPFinite SPast Anter).inf
+            <_    ,Anter> => (vp.s ! VPFinite SPast Anter vp.act ).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
           comp = vp.n2 ! agr ++ vp.a2 ++ vp.ext     
@@ -183,7 +189,7 @@ lin
   FocAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
-       vps = vp.s ! VPFinite t a;
+       vps = vp.s ! VPFinite t a vp.act ;
        npAgr = np.a in
     vp.n2 ! npAgr ++ vps.fin ++ np.s ! NPNom 
     ++ negation ! p++ vps.inf };
@@ -191,9 +197,9 @@ lin
 
   FocVV vv vp np = 
   {s = \\t,a,p =>
-    let vps = vp.s ! VPInfinit Simul ;
+    let vps = vp.s ! VPInfinit Simul vp.act;
         vvp = UseV vv ;
-        vvs = vvp.s ! VPFinite t a ; 
+        vvs = vvp.s ! VPFinite t a vp.act ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ++ vvp.a2 in
    vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
@@ -234,13 +240,30 @@ lin
   DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
-                        verb = (vp.s ! VPFinite SPres Anter).inf ;
+                        verb = (vp.s ! VPFinite SPres Anter vp.act).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
     {s = \\_ => sub ++ neg ++ verb ++ compl };
     
 
-  PassV2 v2 = lin VP (predV (depV v2));
+  PassV3 v3 =
+      lin VPSlash (predV (depV v3)) ** 
+        {n3 = \\_ => [] ; c2 = v3.c3} ;  -- to preserve the order of args
+
+  PassV2 v2 = lin VP (predV (depV v2)); 
+  {-{
+    s = vp.s ;
+    a0 = vp.a0 ; 
+    a1 = \\b => vp.a1 ! b ;
+    n2 = \\a => vp.n2 ! a ++vp.n3 ! a ;
+    a2 = vp.a2 ;
+    ext = vp.ext ;
+    en2 = vp.en2 ;
+    ea2 = vp.ea2 ;
+    eext = vp.eext ;
+    act = Pass
+    } ;-}
+
 
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
@@ -249,7 +272,7 @@ lin
    
  
 -- not adV, but for normal advers, 'han åt redan äpplet'
-  AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n2;
+  AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n3;
                                              c2 = vp.c2} ;
 
   AdvComp comp adv = {s = \\agr => adv.s ++ comp.s ! agr} ;

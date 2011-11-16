@@ -86,7 +86,7 @@ addTime   = modify $ \s -> s {time = succ (time s)}
 count     = modify $ \s -> s {total = 1 + total s}
 
 putTimeMsg s   = output s blue   " was timed out" 
-putEmptyMsg s  = output s turkos " was rejected"  
+putEmptyMsg s  = output s pink " was rejected"  
 putLexMsg s ws strict | strict = output s red 
                                   (" was not parsed (unknown words: "
                                   ++unwords ws++")" )

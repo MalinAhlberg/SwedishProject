@@ -1,0 +1,13 @@
+added a field in VP to keep passive form, and a way to choose between them.
+is good, can say den ges till henne. But problem the other way around:
+ hon ges den till. (hon= subject). 
+Stupid! Just have PassV2 and V3, 
+
+BigTest> p "den ges till henne"
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP_utr (DetQuant DefArt NumSg)) (ComplSlash (PassV3 give_V3) (UsePron she_Pron))))) NoVoc
+BigTest> p "till henne ges den"
+PhrUtt NoPConj (UseFoc (TTAnt TPres ASimul) PPos (FocObj (UsePron she_Pron) (SlashVP (DetNP_utr (DetQuant DefArt NumSg)) (PassV3 give_V3)))) NoVoc
+
+can remove Pass from VP?
+
+ added field a0 to keep track of 'bara', seems to work.
