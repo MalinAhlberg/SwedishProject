@@ -8,6 +8,6 @@ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP_utr (DetQua
 BigTest> p "till henne ges den"
 PhrUtt NoPConj (UseFoc (TTAnt TPres ASimul) PPos (FocObj (UsePron she_Pron) (SlashVP (DetNP_utr (DetQuant DefArt NumSg)) (PassV3 give_V3)))) NoVoc
 
-can remove Pass from VP?
+can remove Pass from VP? (Have)
 
  added field a0 to keep track of 'bara', seems to work.

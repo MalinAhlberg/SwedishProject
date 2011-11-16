@@ -15,6 +15,25 @@ lincat
 
 
 lin
+{-
+  ReflCN cn num = {
+    s =\\a,f => let sin  = reflGenForm a  (agrP3 cn.g num.n) ;
+                           noun = cn.s ! num.n ! DDef Indef ! (caseNP f) 
+                                  ++ num.s ! Utr in
+                       sin ++ noun ;
+   a = agrP3 cn.g num.n} ;
+   -}
+
+  IdRefl = {
+    s = \\a => table {
+          NPPoss gn c => reflGenForm a gn ;
+          f           => reflForm a f}; 
+    a = agrP3 utrum Sg} ; --ajaj
+
+  {-IdReflSelf =  {  -- in genitive? should be 'sin', but then we do not need ReflCN
+     s =\\a,f => reflForm a f ++ sina; 
+     a = agrP3 Sg utrum } ; --ajaj
+-}
 
   --test
   --ApposNP np1 np2 = {s = \\f => np1.s ! NPNom ++ np2.s ! f ; a = np2.a } ;
@@ -22,7 +41,7 @@ lin
   ComplN2P det n2 cn = 
      let npdet = DetCN det n2 in 
      {
-      s = \\nform => npdet.s ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
+      s = \\a,nform => npdet.s ! a  ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
       a = {g = cn.g ; n = n2.num ; p = P3 } 
       } ;
 
@@ -58,11 +77,11 @@ lin
  
   --
 
-  VS_it vs = insertObj (\\_ => it_Pron.s ! NPNom ) (predV vs) ; 
-  VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! NPNom ) (predV vs) ; 
+  VS_it vs = insertObj (\\_ => it_Pron.s ! agrP3 utrum Sg ! NPNom ) (predV vs) ; 
+  VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! agrP3 utrum Sg ! NPNom ) (predV vs) ; 
 
    SelfAdV   = mkAdV "själv" ; 
-   SelfNP np = {s = \\f => np.s ! f ++ sjaelv ! np.a ;
+   SelfNP np = {s = \\a,f => np.s ! a ! f ++ sjaelv ! np.a ;
                 a = np.a } ;
      oper sjaelv : Agr => Str =
       \\a => case <a.g,a.n> of {
@@ -72,17 +91,17 @@ lin
 
 
  lin
-    GenCN np num cn = let n = num.n in {
-      s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
-                  ++ num.s ! cn.g 
-                  ++ cn.s ! n ! DDef Indef ! (caseNP nf)  ; 
-      a = agrP3 (ngen2gen cn.g) n 
-      } ;
+  --  GenCN np num cn = let n = num.n in {
+  --    s = \\a,nf => np.s ! a ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
+  --                ++ num.s ! cn.g 
+  --                ++ cn.s ! n ! DDef Indef ! (caseNP nf)  ; 
+  --    a = agrP3 (ngen2gen cn.g) n 
+  --    } ;
 
   
   PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
    oper mkComp : NP -> Agr -> Comp = 
-    \gen,agr -> lin Comp {s = \\_ => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+    \gen,agr -> lin Comp {s = \\_ => gen.s ! agrP3 utrum Sg ! (NPPoss (gennumAgr agr) Nom)} ; 
 
 lin 
   DetNP_utr = detNP utrum Sg ;
@@ -91,7 +110,7 @@ lin
    \g,num,det -> let 
           m = True ;  ---- is this needed for other than Art?
       in lin NP {
-        s = \\c => det.sp ! m ! g;
+        s = \\a,c => det.sp ! m ! g;
         a = agrP3 (ngen2gen g) num
       } ;
 
@@ -101,7 +120,7 @@ lin
   
   VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
   SlashV3Varandra v3 = Slash3V3 v3 varandra ;
-    oper varandra : NP = lin NP {s = \\_ => "varandra"; a = agrP3 Neutr Pl} ;
+    oper varandra : NP = lin NP {s = \\_,_ => "varandra"; a = agrP3 Neutr Pl} ;
                            
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
@@ -119,8 +138,7 @@ lin
   
   oper insertAdvFoc : AdvFoc -> VP -> VP 
    = \adv, vp -> lin VP {
-      s = \\vpf => {fin = (vp.s ! vpf).fin ;
-                    inf = (vp.s ! vpf).inf};
+      s = vp.s ;
       a0 = adv.s ;
       a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
       en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
@@ -158,15 +176,15 @@ lin
 
  ComplSlash vp np = 
        insertObjPost
-         (\\_ => vp.c2.s ++ np.s ! accusative ++ vp.n3 ! np.a) vp ;
+         (\\a => vp.c2.s ++ np.s ! a ! accusative ++ vp.n3 ! np.a) vp ;
 
- ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
+ --ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
 
 lin
   FocVP vp np = {
       s = \\t,a,p =>
         let
-          subj = np.s ! CommonScand.nominative ;
+          subj = np.s ! np.a ! CommonScand.nominative ;
           agr  = np.a ;
           vps  = vp.s ! VPFinite t a  ;  
           vf = case <<t,a> : STense * Anteriority> of {
@@ -191,7 +209,7 @@ lin
    let vp = UseComp ap ; --(CompAP ap);
        vps = vp.s ! VPFinite t a  ;
        npAgr = np.a in
-    vp.n2 ! npAgr ++ vps.fin ++ np.s ! NPNom 
+    vp.n2 ! npAgr ++ vps.fin ++ np.s ! np.a ! NPNom 
     ++ negation ! p++ vps.inf };
 
 
@@ -202,7 +220,7 @@ lin
         vvs = vvp.s ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ++ vvp.a2 in
-   vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
+   vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! np.a ! NPNom 
    ++ vv.c2.s ++ always ++ negation ! p ++ already ++ vvs.inf
    };  
 
@@ -239,7 +257,7 @@ lin
 
   DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
 
-  SupCl np vp pol = let sub = np.s ! nominative ;
+  SupCl np vp pol = let sub = np.s ! np.a ! nominative ;
                         verb = (vp.s ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
@@ -251,19 +269,7 @@ lin
         {n3 = \\_ => [] ; c2 = v3.c3} ;  -- to preserve the order of args
 
   PassV2 v2 = lin VP (predV (depV v2)); 
-  {-{
-    s = vp.s ;
-    a0 = vp.a0 ; 
-    a1 = \\b => vp.a1 ! b ;
-    n2 = \\a => vp.n2 ! a ++vp.n3 ! a ;
-    a2 = vp.a2 ;
-    ext = vp.ext ;
-    en2 = vp.en2 ;
-    ea2 = vp.ea2 ;
-    eext = vp.eext ;
-    } ;-}
-
-
+  
   PassV2Be v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
@@ -281,41 +287,44 @@ lin
     {s     = \\aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
 
-  ReflCN num cn = 
-        let g = cn.g ;
-            m = cn.isMod ;
-            dd = DDef Indef ;
-      in lin NP {
-      s = \\c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
-      a = agrP3 (ngen2gen g) num.n -- ?
-      } ;
+  --ReflCN num cn = 
+  --      let g = cn.g ;
+  --          m = cn.isMod ;
+  --          dd = DDef Indef ;
+  --    in lin NP {
+  --    s = \\a,c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
+  --    a = agrP3 (ngen2gen g) num.n -- ?
+  --    } ;
 
   ReflSlash vp np = let vp_l = lin VPSlash vp ;
                         np_l = lin NP np      ;
                         obj  = vp.n3 ! np.a   in
-    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
+    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! np.a ! NPNom++obj) vp) ; 
 
 
 
+ oper reflForm : Agr -> NPForm -> Str = 
+   \a,nf -> case a.p of {
+     P3  => "sig" ;
+     _   => (getPronoun a.p a.n).s ! agrP3 utrum Sg ! NPAcc } ;
 
- oper reflForm : Agr -> Agr -> Str = \aSub,aObj   ->
-    case <aSub.p,aObj.g,aObj.n> of {
-     <P3,Neutr,Sg> => "sitt" ;
-     <P3,Utr ,Sg>  => "sin" ;
-     <P3,_   ,Pl>  => "sina" ;
-     _             => reflGenPron aSub.p aSub.n aObj.n aObj.g};
+
+ oper reflGenForm : Agr -> GenNum -> Str = \aSub,aObj   ->
+    case <aSub.p,aObj> of {
+     <P3,GSg Neutr> => "sitt" ;
+     <P3,GSg Utr>  => "sin" ;
+     <P3,GPl>      => "sina" ;
+     _             => reflGenPron aSub.p aSub.n aObj};
   
-  oper reflGenPron : Person -> (subnum,objnum : ParadigmsSwe.Number)
-                     -> NGender -> Str =
-   \p,subnum,objnum,g -> let pn = getPronoun p subnum
-      in pn.s ! NPPoss (gennum g objnum) Nom ;
-
+  oper reflGenPron : Person -> Number -> GenNum -> Str =
+   \p,subnum,gn -> let pn = getPronoun p subnum
+      in pn.s ! agrP3 utrum Sg ! NPPoss gn Nom ;
 
 
       
   this_NP : Str -> Gender -> Number -> NP =
-  \denna,g,n -> lin NP {s = table {NPPoss gn c => denna+"s";
-                                   _           => denna};
+  \denna,g,n -> lin NP {s = \\a => table {NPPoss gn c => denna+"s";
+                                           _           => denna};
                            a = agrP3 g n};
 
   getPronoun : Person -> ParadigmsSwe.Number -> Pron = 

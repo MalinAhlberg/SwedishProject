@@ -24,6 +24,7 @@ type Sent = (Id,String)
 -- 40 s, maybe too much
 timeLimit =  30*10^6
 
+run :: String -> Bool -> FilePath -> IO Count
 run file strict out = do  
   putStr "Parsing input file..."
   sents <- mainF file (return . map getSentence)
@@ -34,7 +35,7 @@ run file strict out = do
   let morpho = buildMorpho pgf lang
   c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) (newCount strict out)
   print c
-  return ()
+  return c
 
 tryparse :: PGF -> Morpho -> Sent -> CState ()
 tryparse pgf morpho sents = do 

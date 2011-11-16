@@ -20,7 +20,7 @@ main = do
   compare correct have
   rawSystem "rm" ["tmp.tmp"]
   dat <- readProcess "date" [] []
-  appendFile "grammarLog.txt" $ dat ++ show c
+  appendFile "grammarLog.txt" $ dat ++ show c ++"\n\n"
 
 
 
@@ -38,3 +38,5 @@ compare = zipWithM_ rate `on` parseResult
 
 parseResult :: String -> [(String,Int)]
 parseResult = map (second read . read) . lines
+
+

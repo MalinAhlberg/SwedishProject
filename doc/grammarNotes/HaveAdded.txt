@@ -4,7 +4,7 @@ predeterminers: hela, samma
 determiners   : varenda, vardera, ena, bägge, båda, varannan
                 , somliga, dylika, övriga, åtskilliga, varenda, noll
 quantifiers   : själva
-AdvFoc        : bara  -problematic
+AdvFoc        : bara  -  special field
 PronAQ        : sådana
 PronAD        : flera
 

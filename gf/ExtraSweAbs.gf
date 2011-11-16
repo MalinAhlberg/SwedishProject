@@ -21,7 +21,7 @@ cat ReflNP ;
     N2' ;
  
 fun
- 
+
   --test
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter
   ComplN2P : Det -> N2P -> CN -> NP ;
@@ -83,9 +83,13 @@ fun
   this8denna_Quant : Quant ;
   
   -- alla sina syskon? sin brors bok?
-  ReflCN : Num -> CN -> ReflNP ;
-  ReflSlash : VPSlash -> ReflNP -> VP ;
-  
+ -- ReflCN : Num -> CN -> ReflNP ;
+ -- ReflSlash : VPSlash -> ReflNP -> VP ;
+  ReflCN : CN -> Num -> NP ;  --xs bil
+  IdRefl : NP ;               --sig
+  IdReflSelf: NP ;            --sig själv
+
+
   
   DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
