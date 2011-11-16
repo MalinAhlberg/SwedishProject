@@ -1,0 +1,10 @@
+Wed Nov 16 13:46:58 CET 2011
+*******
+   Result: passed: 97	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+
+Wed Nov 16 14:04:35 CET 2011
+*******
+ Result: passed: 99	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
