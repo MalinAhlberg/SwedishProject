@@ -215,12 +215,13 @@ lin
 
   FocVV vv vp np = 
   {s = \\t,a,p =>
-    let vps = vp.s ! VPInfinit Simul ;
+    let bara = vp.a0 ;
+        vps = vp.s ! VPInfinit Simul ;
         vvp = UseV vv ;
         vvs = vvp.s ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ++ vvp.a2 in
-   vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! aNPerson ! NPNom 
+   bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! aNPerson ! NPNom 
    ++ vv.c2.s ++ always ++ negation ! p ++ already ++ vvs.inf
    };  
 

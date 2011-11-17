@@ -11,8 +11,6 @@ cat ReflNP ;
              -- få sådana katter. not parsable, since få determiner.
     PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
   
-
-   --still allows to parse "" - sova vill hon inte :((
     AdvFoc ; -- foucsing adverbs 'bara'. acts as predeterminers, normal adverbs or before finite verb
     
     RelVSCl ; 
