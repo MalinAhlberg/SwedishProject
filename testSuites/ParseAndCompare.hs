@@ -6,14 +6,19 @@ import System.Environment (getArgs)
 import System.Process
 import Prelude hiding (compare)
 
-{-
 -- To create a new standard
-main = do
+create = do
+  putStrLn "will make a new standard of treebankTest in newTreebank"
   run "treebankTest.xml" False "newTreebank.txt"
-  -}
+  putStrLn "Done"
 
 main = do
-  (file:arg) <- getArgs
+  (func:arg) <- getArgs
+  case func of
+       "C" -> create
+       _   -> when (not $ null arg) $ test arg
+
+test (file:arg) = do
   c <- run file False "tmp.tmp"
   correct <- readFile "newTreebank.txt"
   have    <- readFile "tmp.tmp"
