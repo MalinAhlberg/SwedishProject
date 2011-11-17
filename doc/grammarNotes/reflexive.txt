@@ -1,0 +1,29 @@
+I'm implementing reflexive noun phrases, that should work for both 'sig' and 'sin/sitt/sina'.
+They are treated as NPs, to allow adding relative clauses ('hon såg sin katt som var svart'), 
+predeterminers ('alla sina barn'), using them in genitive ('sin bil') etc.
+So I get
+ 
+BigTest> p "han såg sig"
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a see_V2) IdRefl)))) NoVoc
+
+and
+BigTest> p "han såg sin brors bil"
+PhrUtt NoPConj (UttS (UseCl (TTAnt TPast ASimul) PPos (PredVP (UsePron he_Pron) (ComplSlash (SlashV2a see_V2) (DetCN (DetQuant (GenNP (DetCN (DetQuant (GenNP IdRefl) NumSg) (UseN2 brother_N2))) NumSg) (UseN car_N)))))) NoVoc
+
+This seems to work fine, but now every NP needs number and person as a parameter, so that we get
+'han såg sig' but 'jag såg mig', 'vi såg oss'. (I guess the normal ReflVP wouldn't be needed anymore). 
+But also every AP would need this information, to be able to handle
+'en katt var större än sina syskon', but 'jag var större än mina syskon'.
+
+The drawback obviously is that every AP and NP-table would be much bigger.
+To get FocObj right, ClSlash would also depend on number and person
+'sin katt såg han inte'
+
+Alternatively, it could ignore the number of person of the subject and always produce
+the third person variant and hence allow "jag såg sig".
+It could also check if the subject is in third person and otherwise produce nonexist-fields.
+
+Genitive could be handled by using GenCN instead of GenNP.
+
+Adverb? 'han leker oftare än sin katt'
+FunRP   'han ser sin katt under vilken en pöl finns'

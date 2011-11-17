@@ -1,6 +1,7 @@
-\documentclass{article} 
+\documentclass{report} 
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[margin=1.5in]{geometry}
 
 \begin{document}
 % ska gå att förstå och locka till läsning
@@ -18,17 +19,19 @@
 % sf dream to be able to work with npl. Parser important, statistics working
 % on n-grams fail, closer to the human brain with rules? 
 % Describe the basic.. of Swedish, in a format compatible with 20 other languages.
+% example of sentence and how it can be parsed, stepping out of the controlled lang.
 % Combine other resources, create free software.
 % Equivalent for English and other languages coming.
+% We aim for free parsing, this is preparation and up-scaling, finding difficulties.
 }
 
 \newpage
 
-\section{Acknowledgements}
+\section*{Acknowledgements}
 % Ramona, Aarne, Elisabet, Markus, Peter?, Lars, Dan, Krasimir etc
 
 \newpage
-
+\chapter{Introduction}
 \section{Introduction} 
 What is parsing, flat strings to trees, what is deep parsing. What is controlled language,
 what is robust parsing and why we need it for free langugae, benefits of a grammar.
@@ -50,10 +53,12 @@ the spring project), and why we choose those parts.
 \section{Background}  
 Too long way to build a parser/grammar from scratch. Idea to combine existing parts. 
 The project is heavily dependening on three resources, will describe them here.
+
 \subsection{GF}
 Most important part. Been developed for ? years, inspiration from Haskell, ML,
 and also Prolog, Agda. Can be used with other programming langauges. 
 Main ideas, abstract and concrete, translation, parse- and abstract trees.
+Categories, valency built in. Parameters, fields.
 What kind of linguistic analyse, what is the purpose to cover. Mention other uses,
 ideas of anaphores, montague? dependent types, ontologies.
 For this project, only (mostly) important to model Swedish without abandoning the
@@ -62,6 +67,12 @@ semantics and lexicon.
 Research about how to parse with gf by Krasimir, experiments with English.
 Example of a piece with Swedish, the reader gets familiar with how it looks.
 Also show how information 'disappears', become strings.
+
+\subsection{Swedish}
+Basic info about Swedish. V2 lang, inverted word order and subordinate clauses.
+Passive, reflexive 'sitt', 'det är', 'det sitter en katt där', prepare the reader
+for what will be written in the grammar part.
+
 
 \subsection{Talbanken}
 For evaluating and testing, comparing our parser we needed a reliable source.
@@ -91,29 +102,49 @@ to Swedish, The spoken lang. translator.
 Other Sw. parsers and grammars, evaluation of them? 
 Other grammar frameworks.
 % related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
-% the multilingual treebank.
+% the multilingual treebank, Homse&Hinchcliff, Aarne i LILT
 
-\section{Progress}  
+\chapter{Proceedings}
+%\section{Proceedings med bättre ord}  
  The purpose has been to prepare the grammar for large scale parsing.
  Develop method used for English to fit Swedish, pynta the sw grammar with
  language specific constructions and create methods for lexicon.
  Earlier have done tool, but the lexicon was not big enough to be able
  to fix it in this way. Tool may instead be used for complementing.
 
-\subsection{Saldo}
-Saldo has been imported before, ref, but the code needed updates to not miss words.
-Have also been made more robust, print logs and list of all words that wasn't
-imported together with a reason. Reson could be that it cannot construct all forms
-or that the word class shouldn't be in the gf lexicon.
+\section{Saldo}
+In saldo there is also semantic info, so
+We need the numbers from saldo if there are to lemmas with the same
+identifier. sluta\_V and sluta2\_V (slöt). However gf does not want more than one table
+if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
+We are just interested in morphology, so far. Dont want too big lexicon.
 
-To understand this ... Example of gf and saldo table. Explanation of the algorithm,
-how the table will be calculated. How saldo is divided to save memory, one part fail, the others 
-wont, also possible to restart. Naming convention.
+Saldo has been imported before, ref, but the code needed updates to not miss
+many important words.
+
+The basic algorith is the same. To understand this need to look at differences.
+Example of gf and saldo table.
+Explanation of the algorithm: map categories, try each paradigm, compare the table of forms
+created. If several forms in saldo, gf should pick on of them. Saldo has forms for
+compounds, gf does not. A grammar is written, the correct ones saved, the others 
+retried. Try all paradigms which can be formed from saldo. 
 There are a number of differences between and saldo Till skillnad från GF,
 saldo does not contain forms that aren't used gf generates all forms. A form
 needed to generate the gf table may not be given in saldo such as singular
 forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
 different grammatical analyse, a lot of pronouns. Example. 
+
+The new version have also been made more robust, print logs and list of all
+words that wasn't imported together with a reason. Reson could be that it
+cannot construct all forms or that the word class shouldn't be in the gf lexicon.
+Costs very much memory, the saldo file is big, the generated lexicon is big.
+Saldo is divided to save memory. Errors should just be reported, but if something oförutsett
+happens and one part fail, the separation ensures that the others wont, also
+possible to restart. Problems with naming convention, special
+characters (å,ä,ö,apostrop,entrecôte.) needs to be translated , but avoid
+classhes 'kaeltisk' 'kältisk', gf will crash by this, so we add a 1
+in the end whenever we have changed a letter.
+
 Other word classes we do not import and why.
 Those should not be in the standard gf lexicon but maybe somewhere else.
 The list can be used for adding other kinds of lexicons - idioms, have pos-tags.
@@ -130,7 +161,7 @@ To get even bigger material, use Korp, but then no guarantee.
 %choices for adjectives vs. verbs for particips
 The importing can be redone anytime.
 
-\subsection{The grammar}
+\section{The grammar}
 Although we can't expect to get a full coverage, we would like a tillfredsställande
 coverage of standard Swedish. Been working on a grammar fragment based on Talbanken,
 like cool people like Montague. May also be interesting for other purposes.
@@ -138,40 +169,73 @@ Explain what's in the resources, constructions present in most languages.
 Swedish shares with Nor and Dan. Extra module, covering things like sw is a
 v2-lang, focusing parts of sentences. Sw also makes use of passive s-form a lot.
 kommer att - for scand, extra tempus, example
-passiv s: but now need bigger change in the grammar. 
-embedded - relative
-pronouns/Quant
+passiv s: but wich verbs can be made passive? 
+embedded - relative, 'sådan att' not really nice for normal swedish, and no agreement
+between subject 'en katt sådan att det regnar'.
+pronouns/Quant. Many, created categories for 'sådan', and 'fler'. Not many in each,
+has to decide, one category for each?
 Genitive -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form
            fixing this include restructuring all
-Det-utr
+Det-utr. not effect for the some Dets, like 'sådan', no difference between utrum and neutrum.
+ Can vary in number, since is a NP. Do not want to cut connection to abstract but changing them,
+ so added one more. Leads to ambiguities in some cases, but considering that we would want to use
+ this for translation, neutr and utr may differ in the other language.
 
+-- or is this really just AdVs? 
 to change position of adv:
 normal: after verb 'han äpplet redan'
 now want: 'äter redan äpplet'
           'har redan ätit äpplet' 
-          'har ätit redan äpplet' :(
+          'har ätit redan äpplet' :( which doesn't work either
 
 but have other words like 'bara' which can be put in other positions.
   but needs to restruct whole of VP, since no field is befor fin.
+  Can also act before the noun or as AdV. Examples.
+\verb|s SPres Simul Neg Main : han bara sover inte alltid|
+  have added a field in VP, a0, show table.
+  makes some weird constructions when using modal verbs, 
+  \verb|s SPres Anter Pos Main : han bara har alltid sovit|
+  but rather than changing to 'han har bara sovit', we keep it. Is a possible
+  tolkning and the other case is covered by using it as an AdV, we don't want
+  ambiguities.
+
 Also needed categories for 'pronouns' wich can act in different ways.
 and 'antal','sorter' - need indetermined, antal plural, sorter either.
-Should be able to modify by adjective, and they must be determined.
+Should be able to modify by a godtyckligt antal adjective, and they must be determined.
+'(ett stort antal) människor' and not 'ett stort (antal människor)'
+Don't want them as a NPs or CNs since we don't want other Ns to be used this way
+'en flicka kaffe', this is then Appos? (Or do we?). Should also not be utsatta for what other
+NPs or CN can be. Dessutom, we want to make use of the comp-fiel. 'mamma till', but is this really
+the same??
 
 The VP require many changes, to add passive (no), PPart, bara.
 About PPart, but do we need it with new Saldo? 'de är stuckna' , 'den nyligen funna'
 for the last one, we need VPSlash to allow adverb.
 
 varandra and sin/sitt/sig. Not subject, but NP.
-work pretty well by letting all subject depend on the subject in the phrase.
-Extra info, but true 'han såg sin mammas bil', they same could be applied to
-APs for 'han är längre än sin kompis' or Adv for 'han leker oftare än sin kompis'. (ComparAdvAdj)
-The current version is nice and works for recursive genitivs, but atm you can't focus
-this kind of object, then a ClSlash need info about the subject. FunRP also tricky, in this
-case RP needs to give more information.
+do not want to copy all rules for another category. Would like depent types!
+work pretty well by letting all NP depend on the subject in the phrase.
+The current version is nice and works for recursive genitivs!
+Extra info, but maybe this is just the case about NPs.
+'han såg sin mammas bil', they same could be applied to
+APs for 'han är längre än sin kompis' or Adv for 'han leker oftare än sin
+kompis'. (ComparAdvAdj)
+Atm you can't focus this kind of object, then a ClSlash need info about the
+subject. FunRP also tricky, in this case RP needs to give more information.
+Kort sagt, the information about the subject must be spread
+in different parts of the sentence. 
+Could also decide to always produc 'sin' -> jag såg sin bil
+to avoid the dependence, but not nice. Or keep a flag in NP saying if it is
+in third person, and add nonexist for others. But this way we can also get rid
+of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
+'jag såg din bil'.
+
+In general, many categories need more parameters and fields, tex Quant can be used as NP
+and therefor needs to depend on Case, de -> dem.
 
 here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
 
-\subsubsection{Testing}
+\subsection{Testing}
 Hard do test, can't verify. Regression testing. Talbanken is still too hard.
 While developing: regression, 150 sentences to start with. Made longer, both good and bad,
 to see how many ways things can be parsed.
@@ -186,7 +250,7 @@ Some results.
 % sammanhängande explanation of the swedish grammar, choices I have made, why
 % regression testing
 
-\subsection{Mapping}
+\section{Mapping}
 To connect GF with other annotations, to evaluate. Identify missing constructs,
 missing words. More reasons from presentation.
 Similar for English and Penntree, but PennTree and Talbanken different, plus swedish
@@ -220,6 +284,7 @@ Evaluation.
 %regression testing
 
 
+\chapter{Summary}
 \section{Results and discussion}
 Results from mapping, can probably be improved, bit by bit, depends much on words.
 Valencys would therefor help.  
@@ -238,13 +303,15 @@ What other methods could have been used? What did we/I expect and what happend?
 What is still left to do? Description and direction of future work:
 how to make the parser robust, elipses and long sentences, names and numbers.
 What is still needed in the grammar, how important that is. 
-how to get valency information, description of extracting thise.
+how to get valency information 'sitter och läser', description of extracting this
+or handling it by the robust parser or the grammar itself.
 make the parser faster by using smaller lexicon.
 Lexicon tool on the fly.
 Getting and using probabilities, to disambiguate.
 process list from saldo.
 Use multiligual treebank?
-sTop ambiguities by fixing so that Gen of a quant isn't a quant.
+stop ambiguities by fixing so that Gen of a quant isn't a quant, or better, that all fields
+have a genitive field.
 
 
 \section{Conclusion}
