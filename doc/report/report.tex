@@ -6,7 +6,7 @@
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
-\title{A large scale grammar and parser for Swedish}
+\title{Scaling up a GF grammar and prepare it for cool stuff for Swedish}
 \author{Malin Ahlberg}
 \maketitle
 \newpage
@@ -61,6 +61,7 @@ resources too much. Use of the big grammar for translation, why it might be hard
 semantics and lexicon.
 Research about how to parse with gf by Krasimir, experiments with English.
 Example of a piece with Swedish, the reader gets familiar with how it looks.
+Also show how information 'disappears', become strings.
 
 \subsection{Talbanken}
 For evaluating and testing, comparing our parser we needed a reliable source.
@@ -131,7 +132,8 @@ The importing can be redone anytime.
 
 \subsection{The grammar}
 Although we can't expect to get a full coverage, we would like a tillfredsställande
-coverage of standard Swedish. May also be interesting for other purposes.
+coverage of standard Swedish. Been working on a grammar fragment based on Talbanken,
+like cool people like Montague. May also be interesting for other purposes.
 Explain what's in the resources, constructions present in most languages. 
 Swedish shares with Nor and Dan. Extra module, covering things like sw is a
 v2-lang, focusing parts of sentences. Sw also makes use of passive s-form a lot.
@@ -155,11 +157,17 @@ Also needed categories for 'pronouns' wich can act in different ways.
 and 'antal','sorter' - need indetermined, antal plural, sorter either.
 Should be able to modify by adjective, and they must be determined.
 
-The VP require many changes, to add passive, PPart, bara.
+The VP require many changes, to add passive (no), PPart, bara.
 About PPart, but do we need it with new Saldo? 'de är stuckna' , 'den nyligen funna'
 for the last one, we need VPSlash to allow adverb.
 
 varandra and sin/sitt/sig. Not subject, but NP.
+work pretty well by letting all subject depend on the subject in the phrase.
+Extra info, but true 'han såg sin mammas bil', they same could be applied to
+APs for 'han är längre än sin kompis' or Adv for 'han leker oftare än sin kompis'. (ComparAdvAdj)
+The current version is nice and works for recursive genitivs, but atm you can't focus
+this kind of object, then a ClSlash need info about the subject. FunRP also tricky, in this
+case RP needs to give more information.
 
 here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
 
@@ -236,6 +244,7 @@ Lexicon tool on the fly.
 Getting and using probabilities, to disambiguate.
 process list from saldo.
 Use multiligual treebank?
+sTop ambiguities by fixing so that Gen of a quant isn't a quant.
 
 
 \section{Conclusion}

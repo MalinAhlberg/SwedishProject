@@ -19,8 +19,16 @@ cat ReflNP ;
 
     N2P ;
     N2' ;
+    SimpleVP ;
  
 fun
+
+  FormalSub : SimpleVP -> NP -> Cl ;
+
+  SimpleV     : V -> SimpleVP ;
+  AdvSimpleVP : SimpleVP -> Adv -> SimpleVP ;
+  AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
+
 
   --test
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter
@@ -39,11 +47,6 @@ fun
 
   SelfNP  : NP -> NP ; 
   SelfAdV : AdV ;
-  {-
-  SelfVP  : VP -> VP ;
-  SelfFoc : Cl ;
-  SelfVPSlash : VPSlash -> VPSlash ;
-  -}
 
   GenCN : NP -> Num -> CN -> NP ;
   PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
@@ -55,7 +58,7 @@ fun
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
-  AdvFocAdv : AdvFoc -> Adv     ;  -- (hon sover) bara
+  AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
   FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
@@ -118,10 +121,12 @@ fun
    
   -- jag äter redan äpplet 
   -- does not work for Focused. 'det gör redan kvinnan' 632
+  -- is redan more a AdV anyway?
   AdvVPSlash : VPSlash -> Adv -> VPSlash ;
 
   -- jag är redan här
   -- add possibility of saying 'det är här som jag äter' (CleftAdv + som)?
+  -- is redan more a AdV anyway?
   AdvComp : Comp -> Adv -> Comp ;
 
 

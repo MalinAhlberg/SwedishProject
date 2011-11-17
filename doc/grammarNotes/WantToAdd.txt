@@ -12,7 +12,9 @@ QuantNP : Det -> NP
 whenever a 'av' is used (Predet or QuantNP), the NP is used in Acc
 
 A parameter for Agrument to NP. This would be used for 'sin/sina'
-
+But then AP too must contain Agr to fix "han var gulare än sin katt"
+                                                 |     AP          |
+                                      so AP will be much bigger!
 ReflCN : CN -> Num -> NP ;  --xs bil
 IdRefl : NP ;               --sig
 IdReflSelf: NP ;            --sig själv

@@ -4,7 +4,8 @@ predeterminers: hela, samma
 determiners   : varenda, vardera, ena, bägge, båda, varannan
                 , somliga, dylika, övriga, åtskilliga, varenda, noll
 quantifiers   : själva
-AdvFoc        : bara  -  special field
+AdvFoc        : bara  -  special field - can be used as AdV or before nouns or before finite
+                                             AdV makes ambig. 'han kan bara jaga katten'
 PronAQ        : sådana
 PronAD        : flera
 
