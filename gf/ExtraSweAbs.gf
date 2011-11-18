@@ -18,16 +18,21 @@ cat ReflNP ;
     N2P ;
     N2' ;
     SimpleVP ;
+  --  NPIn ;
  
 fun
 
   LeaveOutObj : VPSlash -> VP ;
-  FormalSub : SimpleVP -> NP -> Cl ;
+  FormalSub : SimpleVP -> NPIn -> Cl ;
 
   SimpleV     : V -> SimpleVP ;
   AdvSimpleVP : SimpleVP -> Adv -> SimpleVP ;
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
-
+{-
+ Meant for deciding wich determiners that are ok in egentliga subjekt
+  NumNPIn  : Num -> CN -> NPI ;
+  SomeNPIn : Num -> CN -> NPI ;
+  -}
 
   --test
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter
