@@ -63,3 +63,53 @@ ny RelS:
 
   skulle vilja ha: 'hon sover, vilket vi vet'
 
+
+\subsection{The clause-level}
+The resource grammar already provided a number of ways to express relative and embedded clauses, such as
+\enumberedsentence{Frågan är vilken färg den har\\
+                   Pojken, som är blyg, tystnar\\
+                   Han såg kunden som tyckte om sallad\\
+                   Jag tänkte på huset vilket hon såg} -- better example
+
+Since those constructions are inspired by other languages, some of them sounds quite
+non-natural in Swedish, such as the \verb|RelS|, combining a sentence \emph{`Hon sover'}
+and a relative sentence \emph{`som\vilket är bra'} which wrongly expressed 
+\enumberedsentence*{She sleeps, which is good} as
+\enumberedsentence*{Hon sover som är bra}. The error comes from the fact that \emph{`som'} is
+inbakad in the relative clause. To fix this, an extra parameter was needed to tell whether
+\emph{`som'} or \emph{`vilket'} should be used.
+
+Another complication stems from \verb|RelCl| which express the english \emph{`such that'}.
+The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of logic books.
+\enumberedsentence{Jag vill ha en katt sådan att den inte fäller}. 
+An more natural sounding alternative would be
+\enumbersentence{Jag vill ha en sådan katt som inte fäller}
+and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
+'en katt sådan att det regnar'. \\
+
+
+Formal subjects\ref{SAG-19} is often used in Swedish
+\enumbersentence{Det sitter en fågel på taket},
+\enumbersentence{There is a bird sitting on the roof}
+or, literally
+\enumbersentence{It sits a bird on the roof}.
+\emph{`Det'} has the position of the subject, and the egentligt subject, 
+\emph{`a bird'} the one of an object.
+Transitive verbs may not be used like this
+\enumbersentence*{*Det äter en fågel på taket.}
+unless their in passive form
+\enumbersentence*{Det äts en fågel på taket.}
+There are also restrictions on the nounphrase of the subject, it can only
+be determined in certain ways
+\enumbersentence*{*Det sitter den fågel på taket. \\
+                  *Det sitter fåglarna på taket.}
+This distinction is not easily captured in the formal rules of GF. 
+Quantifiers like \emph{`denna'} or Determiners like \emph{`samtliga'} may
+not be used, but the Determiners \emph{`många'}, \emph{`några'} and the Quantifier
+\emph{`ingen'} works well.
+Semantic difference, atm we allow any NP.
+
+Det har inte försvunnit spadarna! Either CN or några, två, inga, många, en del, vissa, 
+  inte: de där, samtliga, alla
+
+'det är kul att..'

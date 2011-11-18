@@ -2,12 +2,14 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage[margin=1.5in]{geometry}
+\usepackage{lingmacros}
+
 
 \begin{document}
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
-\title{Scaling up a GF grammar and prepare it for cool stuff for Swedish}
+\title{Scaling up a GF grammar and prepare it for cool stuff and for Swedish}
 \author{Malin Ahlberg}
 \maketitle
 \newpage
@@ -58,21 +60,22 @@ The project is heavily dependening on three resources, will describe them here.
 Most important part. Been developed for ? years, inspiration from Haskell, ML,
 and also Prolog, Agda. Can be used with other programming langauges. 
 Main ideas, abstract and concrete, translation, parse- and abstract trees.
-Categories, valency built in. Parameters, fields.
+Example of abstract.
+Categories, valency built in (problems with ställa - på, under, vid). Parameters, fields.
+Example of a piece with Swedish, the reader gets familiar with how it looks.
+Also show how information 'disappears', become strings.
 What kind of linguistic analyse, what is the purpose to cover. Mention other uses,
 ideas of anaphores, montague? dependent types, ontologies.
 For this project, only (mostly) important to model Swedish without abandoning the
 resources too much. Use of the big grammar for translation, why it might be hard with
 semantics and lexicon.
 Research about how to parse with gf by Krasimir, experiments with English.
-Example of a piece with Swedish, the reader gets familiar with how it looks.
-Also show how information 'disappears', become strings.
 
 \subsection{Swedish}
 Basic info about Swedish. V2 lang, inverted word order and subordinate clauses.
 Passive, reflexive 'sitt', 'det är', 'det sitter en katt där', prepare the reader
 for what will be written in the grammar part.
-
+Since the s-passive is the most common one in written Swedish \ref{SAG-34-1}, it has
 
 \subsection{Talbanken}
 For evaluating and testing, comparing our parser we needed a reliable source.
@@ -165,13 +168,99 @@ The importing can be redone anytime.
 Although we can't expect to get a full coverage, we would like a tillfredsställande
 coverage of standard Swedish. Been working on a grammar fragment based on Talbanken,
 like cool people like Montague. May also be interesting for other purposes.
+\subsection{What was in the resources}
 Explain what's in the resources, constructions present in most languages. 
 Swedish shares with Nor and Dan. Extra module, covering things like sw is a
-v2-lang, focusing parts of sentences. Sw also makes use of passive s-form a lot.
+v2-lang, focusing parts of sentences. 
+kommer att.
+
+\subsection{Added}
+Summary of what have been added and motivation.
+
 kommer att - for scand, extra tempus, example
-passiv s: but wich verbs can be made passive? 
-embedded - relative, 'sådan att' not really nice for normal swedish, and no agreement
-between subject 'en katt sådan att det regnar'.
+
+%%PASSIV
+Is passive also more used in Swedish?
+There are two ways of forming passive verb phrases in Swedish: the 
+periphrastic passive, formed by using a modale auxiliary verb 
+\enumsentence{Bilden blev tagen av  av rymdsonden Galileo}
+\enumsentence{The picture was taken by spacecraft Galileo.}
+or by adding an \emph{s} to
+the verb:
+\enumsentence{Bilden togs av rymdsonden Galileo}
+\enumsentence{The picture [took+s] by spacecraft Galileo.}
+This second variant, the s-passive, is commonly used in Swedish, some research
+suggest that it is used in more than 80\% of the times \ref{laanemets}.
+The other scandinavian languages prefers the periphrastic passive, especially in spoken langauge.
+\enumsentence{Bildet ble tatt av romsonden (NO)}
+The resource grammar for Scandinavian therefore allowed/expressed constructions using auxiliary verb. \\
+\verb|PassV2 : V2  -> VP | \\
+\verb|         äta -> blev äten| \\
+This rules allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
+turned into comlpete verb phrases; they no longer need an object.
+The s-passive has now been added as the standard case for the Swedish GF
+grammar. Periphrastics passive is still allowed, but as an alternative rather
+than the default.
+The grammar also allows using three-place verbs \verb|V3| , as \emph{give} to
+form passives:
+\enumsentence{Betyget 3 ges till många elever}
+\label{ex:passV3}
+by letting the first object be `removed' and given by the subject. 
+Sentences where the second object is put first in the sentence, like 
+\enumsentence{Till många elever ges betyget 3}
+is a variant of example \ref{ex:passV3}, \emph{`många elever'} is still the object but put in focus. The grammar
+parse this by applying \verb|FocObj|.
+%%
+
+%% Clauses
+\subsection{The clause-level}
+The resource grammar already provided a number of ways to express relative and embedded clauses, such as
+\enumsentence{Frågan är vilken färg den har\\
+                   Pojken, som är blyg, tystnar\\
+                   Han såg kunden som tyckte om sallad\\
+                   Jag tänkte på huset vilket hon bodde i} % better example!!
+
+Since those constructions are inspired by other languages, some of them may sound quite
+non-natural in Swedish, such as the \verb|RelS|. This combines a sentence \emph{`Hon sover'}
+and a relative sentence \emph{`som/vilket är bra'} which wrongly expressed 
+\emph{`She sleeps, which is good'} as
+\emph{`Hon sover som är bra'}. The error comes from the fact that \emph{`som'} is
+embedded in the relative clause. To fix this, an extra parameter was needed to tell whether
+\emph{`som'} or \emph{`vilket'} should be used. \\
+Another complication stems from \verb|RelCl| which express the english \emph{`such that'}.
+The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of logic books.
+\enumsentence{Jag vill ha en katt sådan att den inte fäller.} 
+An more natural sounding alternative would be
+\enumsentence{Jag vill ha en sådan katt som inte fäller.}
+and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
+'en katt sådan att det regnar'. \\
+
+
+Formal subjects \ref{SAG-19} is often used in Swedish
+\enumsentence{Det sitter en fågel på taket}
+\emph{`There is a bird sitting on the roof'}
+or, literally
+\emph{`It sits a bird on the roof'}.\\
+\emph{`Det'} has the position of the subject, and the egentligt subject, 
+\emph{`en fågel'} the one of an object.
+Transitive verbs may not be used like this
+\enumsentence{*Det äter en fågel på taket.}
+unless their in passive form
+\enumsentence{Det äts en fågel på taket.}
+There are also restrictions on the nounphrase of the subject, it can only
+be determined in certain ways
+\enumsentence{*Det sitter den fågel på taket. \\
+              **Det sitter fåglarna på taket.}
+This distinction is not easily captured in the formal rules of GF. 
+Quantifiers like \emph{`denna'} or determiners like \emph{`samtliga'} may
+not be used, but the determiners \emph{`många'}, \emph{`några'} and the quantifier
+\emph{`ingen'} work well.
+Semantic difference, atm we allow any NP. \\
+
+'det är kul att..'
+%%
+%embedded - relative, 'sådan att' not really nice for normal swedish, and no agreement
+%between subject 'en katt sådan att det regnar'.
 pronouns/Quant. Many, created categories for 'sådan', and 'fler'. Not many in each,
 has to decide, one category for each?
 Genitive -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form
@@ -218,8 +307,12 @@ work pretty well by letting all NP depend on the subject in the phrase.
 The current version is nice and works for recursive genitivs!
 Extra info, but maybe this is just the case about NPs.
 'han såg sin mammas bil', they same could be applied to
-APs for 'han är längre än sin kompis' or Adv for 'han leker oftare än sin
-kompis'. (ComparAdvAdj)
+APs for
+\enumsentence{Han är längre än sin kompis}
+\label{ex:ReflAP}
+ or Adv for
+\enumsentence{Han leker oftare än sin kompis}
+ (ComparAdvAdj)
 Atm you can't focus this kind of object, then a ClSlash need info about the
 subject. FunRP also tricky, in this case RP needs to give more information.
 Kort sagt, the information about the subject must be spread
@@ -229,6 +322,11 @@ to avoid the dependence, but not nice. Or keep a flag in NP saying if it is
 in third person, and add nonexist for others. But this way we can also get rid
 of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
 'jag såg din bil'.
+Unfortunaly, have to change ReflVP, this only allows this in object for VPSlash, not FocObj,
+not 'alla sina', usw. Want it to handle conjuction 
+\enumsentence{Han såg sin hund och sitt hus}
+etc.
+Test to example \ref{ex:ReflAP}
 
 In general, many categories need more parameters and fields, tex Quant can be used as NP
 and therefor needs to depend on Case, de -> dem.
@@ -312,6 +410,7 @@ process list from saldo.
 Use multiligual treebank?
 stop ambiguities by fixing so that Gen of a quant isn't a quant, or better, that all fields
 have a genitive field.
+More fields in the grammar? Or leave it all to the robust parser
 
 
 \section{Conclusion}

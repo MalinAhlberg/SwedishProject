@@ -17,6 +17,7 @@ lincat
 
 lin
 
+  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
   SimpleV v = predV v ;
   AdvSimpleVP vp = AdvVP (lin VP vp) ;
   AdVSimpleVP vp adv = AdVVP adv (lin VP vp) ;

@@ -8,6 +8,36 @@ PhrUtt NoPConj (UttS (UseCl (TTAnt TPres ASimul) PPos (PredVP (DetNP_utr (DetQua
 BigTest> p "till henne ges den"
 PhrUtt NoPConj (UseFoc (TTAnt TPres ASimul) PPos (FocObj (UsePron she_Pron) (SlashVP (DetNP_utr (DetQuant DefArt NumSg)) (PassV3 give_V3)))) NoVoc
 
-can remove Pass from VP? (Have)
+can remove Pass from VP? (done)
 
  added field a0 to keep track of 'bara', seems to work.
+
+
+There are two ways of forming passive verb phrases in Swedish: the 
+periphrastic passive, formed by using a modale auxiliary verb 
+\enumsentence{Bilden blev tagen av  av rymdsonden Galileo}
+\enumsentence{The picture was taken by spacecraft Galileo}.
+or by adding an \emph{s} to
+the verb:
+\enumsentence{Bilden togs av rymdsonden Galileo}
+\enumsentence{The picture took+s by spacecraft Galileo}.
+This second variant, the s-passive, is commonly used in Swedish, some research
+suggest that it is used in more than 80\% of the times \ref{laanemets}.
+The other scandinavian languages prefers the periphrastic passive, especially in spoken langauge.
+\enumsentence{Bildet ble tatt av romsonden}
+The resource grammar for Scandinavian therefore allowed/expressed constructions using auxiliary verb.
+\verb|PassV2 : V2 -> VP | \\
+\verb|äta -> blev äten| \\
+This rules allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
+turned into comlpete verb phrases; they no longer need an object.
+The s-passive has now been added as the standard case for the Swedish GF
+grammar. The auxiliary one is still allowed, but as an alternative rather than
+the default.
+The grammar also allows using three-place verbs, as \emph{give} \verb|V3| to form passives: \\
+\enumsentence{Betyget 3 ges till många elever}
+\label{ex:passV3}
+by letting the first object be `removed' and expressed in the subject. 
+Sentences where the second object is put first in the sentence, like \enumsentence{Till många elever ges betyget 3},
+is a variant of example \ref{ex:passV3}, \emph{många elever} is still the object but put in focus. The grammar
+parse this by applying \verb|FocObj|.
+

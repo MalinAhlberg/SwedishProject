@@ -21,6 +21,7 @@ cat ReflNP ;
  
 fun
 
+  LeaveOutObj : VPSlash -> VP ;
   FormalSub : SimpleVP -> NP -> Cl ;
 
   SimpleV     : V -> SimpleVP ;

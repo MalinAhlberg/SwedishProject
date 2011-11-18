@@ -33,11 +33,13 @@ Nov
             how to handle verbs? extract information about valency from Talbanken,
             korp? use lexin?
    remind everyone of meeting
+   report should be 20 pages
 
 Dec
 48 work on grammar, writing, plan meeting.
+   write 30 pages, mail Eliabet (in beginning of week)
    tried parsed test suite with new version - evaluated against mapped trees
-49 meeting with group,writing
+49 meeting with group, have first version of report send to Ramona
 50 writing, wrapping up
 Jan
 2 presentation
