@@ -48,8 +48,11 @@ parse' pgf morpho s = do
   let fix     = fixPunctuation $ replaceNumbers s 
       unknown = badWords morpho (snd fix)
   strict <- gets strict
+  out    <- gets outputFile
   if null unknown then parseOk pgf fix
-        else putLexMsg s unknown strict >> addBadLex
+        else do putLexMsg s unknown
+                io $ appendFile out (formatRes strict (s,[])++"\n")
+                addBadLex
 
 parseOk :: PGF -> Sent-> CState ()        
 parseOk pgf s = do
@@ -88,10 +91,9 @@ count     = modify $ \s -> s {total = 1 + total s}
 
 putTimeMsg s   = output s blue   " was timed out" 
 putEmptyMsg s  = output s pink " was rejected"  
-putLexMsg s ws strict | strict = output s red 
-                                  (" was not parsed (unknown words: "
-                                  ++unwords ws++")" )
-                      | otherwise =  io $ print (fst s,"0")
+putLexMsg s ws = output s red 
+                        (" was not parsed (unknown words: "
+                             ++unwords ws++")" )
 
 output :: Sent -> Color -> String -> CState ()
 output s c str = do

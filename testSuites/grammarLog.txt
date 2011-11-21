@@ -8,8 +8,16 @@ Wed Nov 16 14:04:35 CET 2011
  Result: passed: 99	 rejected: 0	 timed out: 0
 	 of totally 155 sentences.
 5 had unknown words
+
 Thu Nov 17 16:02:19 CET 2011
 *******
  Result: passed: 97	 rejected: 0	 timed out: 0
 	 of totally 155 sentences.
 5 had unknown words
+
+Mon Nov 21 14:41:35 CET 2011
+*******
+ Result: passed: 98	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+6 had unknown words
+

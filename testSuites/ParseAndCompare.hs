@@ -1,5 +1,6 @@
 import Parsing
 import Data.Function
+import Data.Maybe
 import Control.Monad
 import Control.Arrow
 import System.Environment (getArgs)
@@ -13,17 +14,18 @@ create = do
   putStrLn "Done"
 
 main = do
-  (func:arg) <- getArgs
-  case func of
-       "C" -> create
-       _   -> when (not $ null arg) $ test arg
+  arg <- getArgs
+  case take 1 arg of
+       ["C"] -> create
+       _   -> test arg
 
-test (file:arg) = do
+test args = do
+  let file = fromMaybe "treebankTest.xml" (listToMaybe args)
   c <- run file False "tmp.tmp"
   correct <- readFile "newTreebank.txt"
   have    <- readFile "tmp.tmp"
   compare correct have
-  rawSystem "rm" ["tmp.tmp"]
+  --rawSystem "rm" ["tmp.tmp"]
   dat <- readProcess "date" [] []
   appendFile "grammarLog.txt" $ dat ++ show c ++"\n\n"
 
