@@ -23,7 +23,7 @@ cat ReflNP ;
 fun
 
   LeaveOutObj : VPSlash -> VP ;
-  FormalSub : SimpleVP -> NPIn -> Cl ;
+  FormalSub : SimpleVP -> Det -> CN -> Cl ;
 
   SimpleV     : V -> SimpleVP ;
   AdvSimpleVP : SimpleVP -> Adv -> SimpleVP ;
@@ -35,7 +35,7 @@ fun
   -}
 
   --test
-  --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter
+  --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
   ComplN2P : Det -> N2P -> CN -> NP ;
   AdjN2 : AP -> N2P -> N2P ;
   UseN2P : N2' -> N2P ;
@@ -92,7 +92,7 @@ fun
   -- alla sina syskon? sin brors bok?
  -- ReflCN : Num -> CN -> ReflNP ;
  -- ReflSlash : VPSlash -> ReflNP -> VP ;
-  ReflCN : CN -> Num -> NP ;  --xs bil
+  --ReflCN : CN -> Num -> NP ;  --xs bil
   IdRefl : NP ;               --sig
   IdReflSelf: NP ;            --sig själv
 
