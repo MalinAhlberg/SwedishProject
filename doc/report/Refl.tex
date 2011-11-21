@@ -1,0 +1,49 @@
+varandra and sin/sitt/sig. Not subject, but NP.
+Want the following:
+\enumsentence{Han såg sina barns skor.}
+\enumsentence{Sina vantar hade han glömt på tåget.}
+but not
+\enumsentence{*Sina vantar var kvar på tåget.}
+\enumsentence{Han ger sina pengar till sina syskon.}
+\enumsentence{*Jag ger sina pengar till sina syskon.}
+\enumsentence{Han är längre än sin kompis.}
+\enumsentence{Hon tyckte om alla sina elever.}
+\enumsentence{Han såg sin hund och sitt hus}
+\label{ex:refGen}
+\enumsentence{Han är längre än sin kompis}
+\label{ex:ReflAP}
+
+Suggest a connection between the subject and the object.
+Could be combined with 'sig', a ReflNP without another noun.
+Make a distinction between objects and subjects?
+do not want to copy all rules for another category. Would like depent types!
+work pretty well by letting all NP depend on the subject in the phrase.
+The current version is nice and works for recursive genitivs!
+Extra info, but maybe this is just the case about NPs.
+Discuss how other solutions, NPR and Predet : Predet -> CN -> NPR ;
+*Slash* : VPSlash -> NPR -> VP ;
+Keep number of fields down, but introduces another category, and one more
+label to the parse tree, is it interesting? How to combine it with genitive 
+without making it ambiguous (Han såg barnens hund).
+What if we add alot of other rules that uses NP, will they all need to be
+duplicated then?
+
+'han såg sin mammas bil', they same could be applied to
+APs for \ref{ex:ReflAP} or Adv for
+\enumsentence{Han leker oftare än sin kompis}
+ (ComparAdvAdj)
+Atm you can't focus this kind of object, then a ClSlash need info about the
+subject. FunRP also tricky (and what does it mean, we can say
+Han såg sin katt i vilken musen låg), in this case RP needs to give more information.
+Kort sagt, the information about the subject must be spread
+in different parts of the sentence. 
+Could also decide to always produc 'sin' -> jag såg sin bil
+to avoid the dependence, but not nice. Or keep a flag in NP saying if it is
+in third person, and add nonexist for others. But this way we can also get rid
+of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
+'jag såg din bil'.
+Unfortunaly, have to change ReflVP, this only allows this in object for VPSlash, not FocObj,
+not 'alla sina', usw. Want it to handle conjuction as in \ref{ex:refGen}
+etc.
+
+

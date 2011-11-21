@@ -1,0 +1,10 @@
+Monday:    Meet Ramona, test new grammar against treebank, write 2 pages,
+           clean up grammar, test verb guesser
+Tuesday:   Write, extract idioms, fix Refl
+Wednesday: Continue 
+Thursday:  Write, fix Gen, organize grammar
+Friday:    Write, report should be at least 20 pages, finish GF section,
+           Remind about the meeting    
+
+själv
+antalet

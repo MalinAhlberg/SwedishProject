@@ -110,6 +110,7 @@ If we just try to turn most_ into a Det, it can only be used for one Def.
 'av' can also be used for non-modified sentences : de flesta av barnen/de flesta barnen
 
 
+
 So: NP would need (NPAcc Agr) (? or for Nom as well since some functions use Nom)
     and isMod : Bool.
     The new refl-form would cause isMod to be True.

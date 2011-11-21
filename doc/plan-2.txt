@@ -30,6 +30,9 @@ Nov
                                        find subordinate clauses!! 
                                        den är bra, den
                                        'den sjungande' -> 'att spela piano är kul'
+                                       'en sådan katt som ..'
+                    -- important: Fix Refl, and Formal
+                                  Fix Gen
             how to handle verbs? extract information about valency from Talbanken,
             korp? use lexin?
    remind everyone of meeting
@@ -39,7 +42,8 @@ Dec
 48 work on grammar, writing, plan meeting.
    write 30 pages, mail Eliabet (in beginning of week)
    tried parsed test suite with new version - evaluated against mapped trees
-49 meeting with group, have first version of report send to Ramona
+   have first version of report send to Ramona
+49 meeting with group
 50 writing, wrapping up
 Jan
 2 presentation

@@ -9,7 +9,7 @@
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
-\title{Scaling up a GF grammar and prepare it for cool stuff and for Swedish}
+\title{Scaling up a GF grammar and preparing it for cool stuff for Swedish}
 \author{Malin Ahlberg}
 \maketitle
 \newpage
@@ -18,6 +18,19 @@
 \newpage
 
 \abstract{
+% This is the report of the work of expanding a GF grammar and preparing
+% it for parsing of free Swedish. A lexicon consisting of more than 100 000 words
+% has been extracted and we have constructed an automatic mapping between the
+% annotation of the treebank Talbanken and GF. 
+% The goal is to build a robust parser dealing with uncontrolled natural
+% language, a parser which, for example, can parse all of Talbanken.
+% Outside of this project, an equivalent GF project for English is being worked upon,
+% as are theqniques for making the parser robust.
+% With this in mind, we have extended the current GF grammar to adapt it for
+% Swedish specifically so that it can parse the an extended set of basic
+% constructions. We have completed a method for importing the eletronical 
+% lexicon Saldo to a GF format and upprätat en connection mellan oss och Talbanken.
+
 % sf dream to be able to work with npl. Parser important, statistics working
 % on n-grams fail, closer to the human brain with rules? 
 % Describe the basic.. of Swedish, in a format compatible with 20 other languages.
@@ -53,48 +66,143 @@ What we could not cover by this project, what have been covered before (in
 the spring project), and why we choose those parts.
 
 \section{Background}  
-Too long way to build a parser/grammar from scratch. Idea to combine existing parts. 
-The project is heavily dependening on three resources, will describe them here.
+To build a parser or a grammar from scratch is a heavy work. The idea for this
+project is to combine already existing parts into a bigger and more expressive grammar
+as well as a large scale GF lexicon.
+As all GF grammars, this one can be used for parsing, and we develop it by getting
+examples, ideas and test material from a treebank.
+The project is hence heavily dependening on three resources, which will be described
+in the following sections.
 
 \subsection{GF}
-Most important part. Been developed for ? years, inspiration from Haskell, ML,
-and also Prolog, Agda. Can be used with other programming langauges. 
-Main ideas, abstract and concrete, translation, parse- and abstract trees.
-Example of abstract.
-Categories, valency built in (problems with ställa - på, under, vid). Parameters, fields.
-Example of a piece with Swedish, the reader gets familiar with how it looks.
-Also show how information 'disappears', become strings.
-What kind of linguistic analyse, what is the purpose to cover. Mention other uses,
-ideas of anaphores, montague? dependent types, ontologies.
-For this project, only (mostly) important to model Swedish without abandoning the
-resources too much. Use of the big grammar for translation, why it might be hard with
-semantics and lexicon.
-Research about how to parse with gf by Krasimir, experiments with English.
+The main component of the the project is the Grammatical Framework\ref{gfbok} (GF). It is
+a functional grammar formalism based on Martin-Löf type theory.
+It has been developed for about 20? years and are inspired by programming langauges
+like Haskell\footnote{}, ML\footnote{}, Prolog\footnote{} and Agda\footnote{}. Grammars written in GF can be used together with languages 
+like Java, Java script and Haskell and works for both parsing and generation.
+
+GF is developed with multilinguality in mind and makes an important distiction between
+\textit{abstract} and \textit{concrete} syntaxes. The abstract is meant to be
+shared by many languages, it models the semantics of the domain without blanda in
+language specific features such as agreement or word order.
+
+\begin{figure}[h]
+\begin{verbatim}
+ abstract TestGrammar {
+  cat N ; V ; S ;
+
+  fun 
+    Pred : N -> V -> S ;
+ }
+\end{verbatim}
+\caption{A small example of an abstract syntax}
+\end{figure}
+
+The example shows an abstract grammar defining three \textit{Categories},
+one for nouns, one for verbs and one for sentences. An abstract grammar also gives
+the types of functions. In this case we have \verb|Pred| which
+tells us that by taking a noun and a verb we can form a sentence. It does not
+give any information of how this is done, or how any of the categories should look.
+maybe continue example with swedish and english, have DetNP : N -> N wich
+gives 'the cat', 'katten'. Thereby introduce tables, parameters, fields.
+Show abstract tree.
+
+We now have two implementations of the abstract. The resulting GF grammar is able to
+both parse a string to the abstract tree and to go in the other direction; to produce
+a string of natural language given a abstract tree. This step is called linearization.
+Translation is a consequence of this. Picture of sw. string -> tree -> eng. tree.
+
+Valency information is normally built into the GF categories. Add V2 to the example.
+Point out how N + V can be glued together to a string, the components cannot be seen
+anymore.
+
+A GF grammar usually covers a very restricted set of language, where few ambiguities
+occur and much care can be taken to preserving the semantics between the different languages.
+By using a controlled language like this,  good and reliable translation can be
+ensured. Some examples of projects using GF are the math .. \cite{olga}, the
+Online Syllogism Solver\cite{malin!}.  The framework is also used in the
+european project MOLTO for online translation between upto 15 language.\\
+
+One of the best... features of the framework is the resource libraries. Provided in the 
+GF package, those gives a good start for all who want to write an application grammar.
+Instead of letting the users reimplementing the morphological and the fundamental
+syntactic structures of a language for each application, all this can be found
+as libraries. So far, 20 languages are implemented all sharing the same abstract syntax.
+They describe how to conjugate words, and how to construct phrases and sentences.
+There are also a small test lexicon included, containing some hundered of common words.\\
+
+As an open source-project, GF is constantely being developed and improved. New
+languges are added, the compiler is being improved, ways of använad det på ett
+lätt sätt are added and the possiblities to use GF in different environments
+increased. There are  research about how to make better use of the dependent
+types, for solving syllogism or generating natural language via Montague
+semantics.
+Further, experiments on using GF for free parsing has been conducted (Angelov,2010?).
+This is also a future goal for our project and one of the delmål has been to
+model an important part of Swedish in GF. The starting point was the resource
+grammar and the result should still have a strong connection to this.
+
+
+%Main ideas, abstract and concrete, translation, parse- and abstract trees.
+%Example of abstract.
+%We say that this is a function that takes as argument and returns..
+%Categories, valency built in (problems with ställa - på, under, vid). Parameters, fields.
+%Example of a piece with Swedish, the reader gets familiar with how it looks.
+%Also show how information 'disappears', become strings.
+%What kind of linguistic analyse, what is the purpose to cover. Mention other uses,
+%ideas of anaphores, montague? dependent types, ontologies, cool pictures by Krasse.
+%
+%The resources, why, how many, how to use, projects. functors.
+%
+%Still under big development, evolving, growing.
+%For this project, only (mostly) important to model Swedish without abandoning the
+%resources too much. Use of the big grammar for translation, why it might be hard with
+%semantics and lexicon.
+%Research about how to parse with gf by Krasimir, experiments with English.
+
 
 \subsection{Swedish}
 Basic info about Swedish. V2 lang, inverted word order and subordinate clauses.
 Passive, reflexive 'sitt', 'det är', 'det sitter en katt där', prepare the reader
 for what will be written in the grammar part.
-Since the s-passive is the most common one in written Swedish \ref{SAG-34-1}, it has
+Adjectives but not verbs congruate with nouns. De är stora, They are big, Jag är stor, I am big
+Since the s-passive is the most common one in written Swedish \cite{SAG-34-1}, it has
 
 \subsection{Talbanken}
-For evaluating and testing, comparing our parser we needed a reliable source.
-Talbanken manually anotade by ... in .. . Consists of four parts : ... . 
-Also used by Maltparser and was developed in 2005 by Nivre, deeper trees.
-Different parts (written, spoken) and deep/flat. Differences in mapping
-on flat/deep?
-Differences in analyse, do we want a similar? 
-Uses of Talbanken in project, mapping to evaluate and test.  
-Look at output from Maltparser, could also comparing our parse trees to this.
+For testing and evaluation of the grammar and lexicon, we needed to be able to
+compare them against a reliable source.
+Being an freely avaible, manually annotade, large scale treebank,
+Talbanken\cite{talbanken} was perfect for this ändamål.
+It was created in the 1970s at Lund University. In total it consists of four
+parts. Two of them are transcribitions of spoken language, one a collection of
+text written by high school (?) students, and the last one, section P,
+consists of professionally written Swedish gathered from newspapers and ... .\\
+Talbanken was also used to train the Swedish version of the Maltparser\cite{mal}
+and was därmed reutgiven in a more modern version\cite{nivre}. This work
+was done by Nivre and ... in 2005. They released it in some different XML-formats,
+where the trees had been made deeper and smt more. \\
+In this project, as well as for the Malt parser, the more than 6000 sentences
+in section P has been used.
+The treebank has served as an inspiration and an evaluation source throughout this
+project. An automatic mapping between its trees and the abstract trees from GF has been
+done, which will be explained in section \ref{sec:Mapping}.
+%Differences in analyse, do we want a similar? 
+%Uses of Talbanken in project, mapping to evaluate and test.  
+%Look at output from Maltparser, could also comparing our parse trees to this.
 
 \subsection{Saldo}
-The last(..) part is a big lexicon. The electronical Saldo is developped at GU.
-Built from sal,
-Contains much more information,
-graph, word relationships, semantics, but also morphological info.
-Example of a word, how the info looks.
-About size and being maintained. Other usages?
-Large, freely available and compatible with GF. 
+A good parser needs a good lexicon. We have used of Saldo\cite{saldo}, a
+large electronic lexicon developed and maintained at Gothenburg University. It is
+built upon Svenskt Associations Lexicon and contains information about modern
+Swedish and the words are equipped with both sematic and a morphological
+information. The user can find compounding analyses, examples of usage in corpora,
+and graphs of sematically connected words.\\
+Example of katt? \\
+For our purpose however, only the morphological data was needed.\\
+Example of morpho for katt.\\
+Saldo provides this in XML format under LPGL. The data can be processed and translated to GF format as described in 
+section \ref{sec:prog.saldo}.
+Other usages?
 
 \section{Related work}
 Computational ling is active area for Swedish, there are many other Swedish parser,
@@ -109,21 +217,22 @@ Other grammar frameworks.
 
 \chapter{Proceedings}
 %\section{Proceedings med bättre ord}  
- The purpose has been to prepare the grammar for large scale parsing.
- Develop method used for English to fit Swedish, pynta the sw grammar with
- language specific constructions and create methods for lexicon.
- Earlier have done tool, but the lexicon was not big enough to be able
- to fix it in this way. Tool may instead be used for complementing.
+The purpose has been to prepare the grammar for large scale parsing.
+Develop method used for English to fit Swedish, pynta the sw grammar with
+language specific constructions and create methods for lexicon.
+Earlier have done tool, but the lexicon was not big enough to be able
+to fix it in this way. Tool may instead be used for complementing.
 
 \section{Saldo}
+\label{sec:prog.saldo}
 In saldo there is also semantic info, so
 We need the numbers from saldo if there are to lemmas with the same
 identifier. sluta\_V and sluta2\_V (slöt). However gf does not want more than one table
 if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
 We are just interested in morphology, so far. Dont want too big lexicon.
 
-Saldo has been imported before, ref, but the code needed updates to not miss
-many important words.
+Saldo has been imported before (Krasimir, 2009?), but the code needed updates
+to not miss many important words.
 
 The basic algorith is the same. To understand this need to look at differences.
 Example of gf and saldo table.
@@ -166,18 +275,25 @@ The importing can be redone anytime.
 
 \section{The grammar}
 Although we can't expect to get a full coverage, we would like a tillfredsställande
+Explain what's in the resources, constructions present in most languages. 
+
+\subsection{GF for Swedish}
+What was in the resources
+description of the existing grammar, the types, the possibilities
+VP, NP.
+valency built in (problems with ställa - på, under, vid).
+Determiners, quants, predets, The difference from how pronouns are regarded. 
+Variants, nonexist.
 coverage of standard Swedish. Been working on a grammar fragment based on Talbanken,
 like cool people like Montague. May also be interesting for other purposes.
-\subsection{What was in the resources}
-Explain what's in the resources, constructions present in most languages. 
 Swedish shares with Nor and Dan. Extra module, covering things like sw is a
 v2-lang, focusing parts of sentences. 
-kommer att.
 
 \subsection{Added}
 Summary of what have been added and motivation.
 
 kommer att - for scand, extra tempus, example
+example table
 
 %%PASSIV
 Is passive also more used in Swedish?
@@ -190,7 +306,7 @@ the verb:
 \enumsentence{Bilden togs av rymdsonden Galileo}
 \enumsentence{The picture [took+s] by spacecraft Galileo.}
 This second variant, the s-passive, is commonly used in Swedish, some research
-suggest that it is used in more than 80\% of the times \ref{laanemets}.
+suggest that it is used in more than 80\% of the times \cite{laanemets}.
 The other scandinavian languages prefers the periphrastic passive, especially in spoken langauge.
 \enumsentence{Bildet ble tatt av romsonden (NO)}
 The resource grammar for Scandinavian therefore allowed/expressed constructions using auxiliary verb. \\
@@ -233,15 +349,16 @@ The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of lo
 An more natural sounding alternative would be
 \enumsentence{Jag vill ha en sådan katt som inte fäller.}
 and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
-'en katt sådan att det regnar'. \\
+'en katt sådan att det regnar'. It is relative but has on empty field, still congruation is
+needed.\\
 
 
-Formal subjects \ref{SAG-19} is often used in Swedish
+Formal subjects \cite{SAG-19} is often used in Swedish
 \enumsentence{Det sitter en fågel på taket}
 \emph{`There is a bird sitting on the roof'}
 or, literally
 \emph{`It sits a bird on the roof'}.\\
-\emph{`Det'} has the position of the subject, and the egentligt subject, 
+\emph{`Det'} has the position of the subject, and the real subject, 
 \emph{`en fågel'} the one of an object.
 Transitive verbs may not be used like this
 \enumsentence{*Det äter en fågel på taket.}
@@ -251,13 +368,22 @@ There are also restrictions on the nounphrase of the subject, it can only
 be determined in certain ways
 \enumsentence{*Det sitter den fågel på taket. \\
               **Det sitter fåglarna på taket.}
-This distinction is not easily captured in the formal rules of GF. 
-Quantifiers like \emph{`denna'} or determiners like \emph{`samtliga'} may
-not be used, but the determiners \emph{`många'}, \emph{`några'} and the quantifier
-\emph{`ingen'} work well.
-Semantic difference, atm we allow any NP. \\
+The distinction lays in the definitness of the noun itself, (not the whole noun phrase..)
+it must be indefinite, even though determiners are allowed. Jfr
+\enumsentence{Det sitter några fåglar på taket\\
+              **Det sitter samtliga fåglar på taket}
+%%Quantifiers like \emph{`denna'} or determiners like \emph{`samtliga'} may
+%%not be used, but the determiners \emph{`många'}, \emph{`några'} and the quantifier
+%%\emph{`ingen'} work well.
+%%Semantic difference, atm we allow any NP. \\
+The grammar handles this by looking at the determiner used
+\verb|FormalSub : SimpleVP -> Det -> NP -> Cl ;|
+The function combines a verb phrase a determiner and a noun phrase in to a clause.
+\verb|SimpleVP| is a normal VP, but with the restriction that the main verb must be
+intransitiv, a \verb|V|, (and passives?). If the  determiner requires a noun in determinened
+form, the clause is put to NONEXIST.
 
-'det är kul att..'
+'det är kul att..' Näst vanligaste två-ordskombinationen i talad svenska.
 %%
 %embedded - relative, 'sådan att' not really nice for normal swedish, and no agreement
 %between subject 'en katt sådan att det regnar'.
@@ -275,7 +401,7 @@ to change position of adv:
 normal: after verb 'han äpplet redan'
 now want: 'äter redan äpplet'
           'har redan ätit äpplet' 
-          'har ätit redan äpplet' :( which doesn't work either
+          'har ätit redan äpplet' :( which doesn't work either :)
 
 but have other words like 'bara' which can be put in other positions.
   but needs to restruct whole of VP, since no field is befor fin.
@@ -301,20 +427,46 @@ The VP require many changes, to add passive (no), PPart, bara.
 About PPart, but do we need it with new Saldo? 'de är stuckna' , 'den nyligen funna'
 for the last one, we need VPSlash to allow adverb.
 
+
+%% Refl 
+Could varandra be thought of as reflexive for 'oss'?
 varandra and sin/sitt/sig. Not subject, but NP.
+Want the following:
+\enumsentence{Han såg sina barns skor.}
+\enumsentence{Sina vantar hade han glömt på tåget.}
+but not
+\enumsentence{*Sina vantar var kvar på tåget.}
+\enumsentence{Han ger sina pengar till sina syskon.}
+\enumsentence{*Jag ger sina pengar till sina syskon.}
+\enumsentence{Han är längre än sin kompis.}
+\enumsentence{Hon tyckte om alla sina elever.}
+\enumsentence{Han såg sin hund och sitt hus}
+\label{ex:refGen}
+\enumsentence{Han är längre än sin kompis}
+\label{ex:ReflAP}
+
+Suggest a connection between the subject and the object.
+Could be combined with 'sig', a ReflNP without another noun.
+Make a distinction between objects and subjects?
 do not want to copy all rules for another category. Would like depent types!
 work pretty well by letting all NP depend on the subject in the phrase.
 The current version is nice and works for recursive genitivs!
 Extra info, but maybe this is just the case about NPs.
+Discuss how other solutions, NPR and Predet : Predet -> CN -> NPR ;
+*Slash* : VPSlash -> NPR -> VP ;
+Keep number of fields down, but introduces another category, and one more
+label to the parse tree, is it interesting? How to combine it with genitive 
+without making it ambiguous (Han såg barnens hund).
+What if we add alot of other rules that uses NP, will they all need to be
+duplicated then?
+
 'han såg sin mammas bil', they same could be applied to
-APs for
-\enumsentence{Han är längre än sin kompis}
-\label{ex:ReflAP}
- or Adv for
+APs for example \ref{ex:ReflAP} or Adv for
 \enumsentence{Han leker oftare än sin kompis}
  (ComparAdvAdj)
 Atm you can't focus this kind of object, then a ClSlash need info about the
-subject. FunRP also tricky, in this case RP needs to give more information.
+subject. FunRP also tricky (and what does it mean, we can say
+Han såg sin katt i vilken musen låg), in this case RP needs to give more information.
 Kort sagt, the information about the subject must be spread
 in different parts of the sentence. 
 Could also decide to always produc 'sin' -> jag såg sin bil
@@ -323,10 +475,9 @@ in third person, and add nonexist for others. But this way we can also get rid
 of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
 'jag såg din bil'.
 Unfortunaly, have to change ReflVP, this only allows this in object for VPSlash, not FocObj,
-not 'alla sina', usw. Want it to handle conjuction 
-\enumsentence{Han såg sin hund och sitt hus}
+not 'alla sina', usw. Want it to handle conjuction as in example \ref{ex:refGen}
 etc.
-Test to example \ref{ex:ReflAP}
+%%
 
 In general, many categories need more parameters and fields, tex Quant can be used as NP
 and therefor needs to depend on Case, de -> dem.
@@ -338,6 +489,7 @@ Hard do test, can't verify. Regression testing. Talbanken is still too hard.
 While developing: regression, 150 sentences to start with. Made longer, both good and bad,
 to see how many ways things can be parsed.
 Test how many parse trees that are generated.
+Look at tables for a VP tex.
 Some results.
 
 % One part about the grammar. The state of the original grammar, what was covered and not. 
@@ -349,6 +501,7 @@ Some results.
 % regression testing
 
 \section{Mapping}
+\label{sec:Mapping}
 To connect GF with other annotations, to evaluate. Identify missing constructs,
 missing words. More reasons from presentation.
 Similar for English and Penntree, but PennTree and Talbanken different, plus swedish
@@ -372,7 +525,7 @@ If we don't take the verb valency into account, allow all verbs to have Gf categ
 we get a slightly better result,
 from 62.5\% to 65.4\%.  (see EvalText). The complemnt of the verbs should tell which category
 they are anyway.
-Evaluation. 
+Evaluation. -> Works for both flat and deep, but with sligthly better results for the flat one.
 
 %One part about the mapping from Talbanken to GF, description. About the purpose.
 %This part explains

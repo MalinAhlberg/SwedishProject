@@ -1,0 +1,61 @@
+A reflexive NP can be constructed from
+-any CN
+-any NP where the noun is in indefinite form "sina många katter"
+  ('sina några barn' sounds bad, but maybe more of a semantic difference?)
+
+
+may change a reflexive NP 
+abstract/Conjunction.gf: ConjNP   : Conj -> [NP] -> NP ;     -- sin katt eller sitt hus/ sin mat eller ingenting , "she or we"
+abstract/Extra.gf:    GenNP       : NP -> Quant ;       -- should be left recursive: ((sin katts) bil), this man's
+abstract/Noun.gf:    PredetNP : Predet -> NP -> NP; -- alla sina barn, only the man 
+abstract/Noun.gf:    PPartNP : NP -> V2  -> NP ;    -- sin osedda kompis (?), the man seen
+abstract/Noun.gf:    ComplN2 : N2 -> NP -> CN ;    -- mamma till sin kompis, mother of the king
+
+for those, there are similair functions for CN, so if the reflexive NP is 
+considered as smt else than a NP, things can still be parsed using those 
+abstract/Noun.gf:    AdvNP   : NP -> Adv -> NP ;    -- Paris today          -> AdvCN
+abstract/Noun.gf:    RelNP   : NP -> RS  -> NP ;    -- Paris, which is here -> RelCN
+
+
+those may use a reflexive NP
+abstract/Extra.gf:    FocObj : NP  -> ClSlash -> Foc ;   -- sin mamma älskade han, her I love
+abstract/Verb.gf:    Slash2V3 : V3  -> NP -> VPSlash ;  -- ge sin katt, give it (to her)
+abstract/Verb.gf:    Slash3V3 : V3  -> NP -> VPSlash ;  -- ge den till sitt barn, give (it) to her
+abstract/Verb.gf:    ComplSlash : VPSlash -> NP -> VP ; -- älska sin katt, love it
+abstract/Verb.gf:    CompNP   : NP  -> Comp ;            -- vara sin egen fiende, (be) the man
+abstract/Phrase.gf:    UttNP     : NP   -> Utt ;         -- (vad letar hon efter?) - sin vante.
+                                                         --  (needs no agreement) 
+
+those can also use a reflexive NP, but then the AP/Adv/N2 needs info about the subject 
+abstract/Adjective.gf:    ComparA : A  -> NP -> AP ;  -- varmare än sin kompis , warmer than I
+abstract/Adjective.gf:    ComplA2 : A2 -> NP -> AP ;  -- gift med sin syster, married to her
+abstract/Adjective.gf:    CAdvAP  : CAdv -> AP -> NP -> AP ; -- lika cool som sin mamma, as cool as John
+abstract/Adverb.gf:    PrepNP      : Prep -> NP -> Adv ;        -- i sitt hus, in the house
+abstract/Adverb.gf:    ComparAdvAdj  : CAdv -> A -> NP -> Adv ; -- mer ofta (oftare) än sin kompis, more warmly than John
+abstract/Noun.gf:    ComplN3 : N3 -> NP -> N2 ;    -- avståndet från sin bil, distance from this city (to Paris)
+abstract/Sentence.gf:    SlashVP   : NP -> VPSlash -> ClSlash ;
+
+hence, the following categories would need to give information about the subject
+abstract/Cat.gf:    ClSlash; '(sin mamma) älskade han'   e.g. "she looks at"
+abstract/Cat.gf:    AP ;
+abstract/Cat.gf:    Adv ;
+
+
+may not use a reflexive NP
+abstract/Extra.gf:    PredVPS : NP -> VPS -> S ;
+abstract/Extra.gf:    FocAP  : AP  -> NP      -> Foc ;   -- green was the tree
+abstract/Extra.gf:    FocVP  : VP  -> NP      -> Foc ;   -- love her I do
+abstract/Extra.gf:    FocVV  : VV -> VP -> NP -> Foc ;   -- to love her I want
+abstract/Idiom.gf:    CleftNP   : NP  -> RS -> Cl ; -- it is I who did it
+abstract/Idiom.gf:    ExistNP   : NP -> Cl ;        -- there is a house
+abstract/Idiom.gf:    ImpP3     : NP -> VP -> Utt ; -- let John walk
+abstract/Phrase.gf:    VocNP   : NP -> Voc ;                   -- my friend
+abstract/Question.gf:    QuestIComp  : IComp -> NP -> QCl ;   -- where is John
+abstract/Sentence.gf:    PredVP    : NP -> VP -> Cl ;         -- John walks
+swedish/ExtraSweAbs :    SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
+abstract/Sentence.gf:    SlashVS   : NP -> VS -> SSlash -> ClSlash ; -- (whom) she says that he loves
+
+unsure..?
+abstract/Extra.gf:    CompIQuant : IQuant -> IComp ; -- which (is it) [agreement to NP]
+abstract/Relative.gf: FunRP : Prep -> NP -> RP -> RP ;  -- the mother of whom
+abstract/Verb.gf:    SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- (hon) ber mig att köpa sin katt??, beg me to buy
