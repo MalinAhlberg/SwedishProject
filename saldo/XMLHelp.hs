@@ -112,7 +112,7 @@ toTree' nr s@(Sent id root ws inf _) =
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
        _          -> error $ "Error in toTree' "++show nr++" could not be found"
-  where putWord (W i p w) = T.Node p [T.Node w []]
+  where putWord (W i w p) = T.Node p [T.Node w []] -- corrected 22/11, may cause confusion in old code
         putPhrase (Ph i c t) = T.Node c 
                                 $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
         lookup' y (w@(W x _ _):xs) | y ==x     = Just w

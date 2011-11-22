@@ -19,6 +19,7 @@ data Diff    = D {lemma  :: String, posTag :: String
   deriving (Eq,Ord)
 instance Show Diff where
   show (D w p c i) = w++"\t"++c++"\t"++p++"\t"
+
 data Fail = F {word' :: String, posT :: String, sid :: String}
   deriving (Eq,Ord)
 instance Show Fail where

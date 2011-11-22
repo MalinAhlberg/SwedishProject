@@ -1,0 +1,555 @@
+CA	bl. a.
+CA	t. ex.
+PR	i samband med
+PR	fr. o. m.
+PR	När det gäller
+PR	vid sidan av
+DT	Den här
+TA	så småningom
+CA	t ex
+PL	på spel
+AA	till synes
+CJ	m m
+CA	t ex
+UK	även om
+PL	till godo
+AA	I regel
+AA	i allmänhet
+UK	så att
+AA	i regel
+AA	mer än
+UK	För att
+CA	bl a
+XT	s k
+DT	de här
+DT	den här
+TA	redan i förväg
+PR	med hänsyn till
+SS	vem som helst
+RA	var som helst i Norden
+PR	på grund av
+UK	för att
+DT	en del
+AA	i så fall
+DT	det här
+PR	t o m
+PR	fr o m
+AA	till vänster
+PR	i förbindelse med
+PR	med hjälp av
+AA	i undantagsfall
+PL	i kontakt
+UK	Snarast möjligt efter det att
+AA	som regel
+XT	s. k.
+DT	ovan nämnda
+AA	högre än
+AA	Mindre än
+PR	beroende på
+UK	förutsatt att
+PL	till tjänst
+PR	oberoende av
+ET	i taget
+PR	på grundval av
+UK	Allt efter som
+AA	mindre än
+PR	i förhållande till
+PR	På grundval av
+PR	från och med
+TA	f n
+PR	inom ramen för
+AA	så här
+UK	samtidigt som
+TA	när som helst
+CJ	o s v
+CA	d v s
+DT	En del
+AA	totalt sett
+TA	i dag
+PR	För sedan
+AA	i huvudsak
+PR	vad beträffar
+TA	än så länge
+OA	för var och en
+UK	Trots att
+CA	t o m
++A	I övrigt
+CA	i huvudsak
+CA	bland annat
+DT	en och samma
+PR	när det gäller
+AA	upp till
+TA	tills vidare
+CA	T. ex.
+PR	med undantag för
+PR	t. o. m.
+MA	i stort sett
+AA	på nytt
+PR	i fråga om
+SP	var för sig
+CA	Bl. a.
+AA	så här
+UK	därför att
+DT	sådana här
+AA	i stället
+CJ	corn flakes
+UK	alltefter som
+TA	år från år
+CA	det vill säga
+PL	i kraft
+CA	till exempel
+DT	en halv
+DT	ett halvt
+TA	för det mesta
+PR	med tanke på
+CA	Till exempel
+AA	Mer än
+MA	utan tvekan
++A	för övrigt
+TA	då och då
+PR	I fråga om
+DT	var femte
+SS	var och en av oss
+TA	Undan för undan
+DT	var fjärde
+DT	De här
+PR	till höger om
+RA	till höger
+RA	till vänster
+PR	till skillnad mot
+CA	annat än
+PR	till vänster om
+PR	för skull
+PR	i form av
+NAC	mer än
+AA	lika med
+UK	Även om
+AA	i runt tal
+AA	I runda tal
+AA	Så här
++A	För övrigt
+SP	närmast till hands
+TA	då och då
+CA	i stort sett
+TA	Så småningom
+RA	på rygg
+AA	på rygg
+AA	i onödan
++A	i alla fall
+AA	På så sätt
+AA	fler än
+SP	på gång
+TA	I vintras
+AA	i första hand
+CJ	m m
+DT	ett eller annat
+CJ	m. m.
+PL	till stånd
+PR	I stället för
+CJ	i närheten av
+CJ	e. d.
+TA	i år
+TA	i fjol
+TA	i vår
+TA	på sikt
+TA	I dag
+PL	i gång
++A	till slut
+DT	vart och ett
++A	i sin tur
+AA	mer och mer
+TA	för närvarande
+TA	Efter hand
+FO	var för sig
+DT	ett par
+PL	i konflikt
+DT	allt flera
+FO	var och en
+ET	i söndags
+TA	I år
+TA	i söndags
+DT	En och annan
+PL	i ordning
+TA	i somras
+TA	så här års
+MA	helt enkelt
+MA	praktiskt taget
+TA	i våras
+NAC	o s v
+SS	Under motorhuven
+OO	det här
+TA	så småningom
+AA	på efterkälken
+ET	av i dag
+TA	vid det laget
+AA	så där
++A	å andra sidan
+PR	tack vare
+AA	så pass
+PR	i stället för
+RA	vart som helst
+UK	låt vara
+RA	var som helst
+AA	steg för steg
+UK	allt eftersom
+MA	utan vidare
+RA	till havs
+DT	några som helst
+PR	för sedan
+TA	i första hand
+CJ	till havs
+PR	med ledning av
+XA	så att säga
+TA	dag och natt
+ET	till havs
+TA	för alltid
+ET	i fråga
+AA	på egen hand
+DT	före detta
+DT	vad för slags
+DT	ett och ett halvt
+PL	i proportion
+DT	något av
+OO	i gång
+AA	i och för sig
+MA	nog så
+AA	Hur pass
+TA	f. n.
+PR	till följd av
+PR	För skull
+ET	t. v.
+ET	längst t. h.
++A	i stället
+XT	så kallad
+PT	en och en
+ET	från röstlängdsläsaren i följd
+AA	i hög
+CA	Bland annat
+MA	för all del
+SS	hålkorten - valsedlarna
+DT	högst ett par
+SS	Per-Ola Larsson
+AA	som vanligt
+TA	i fjol höst
+DT	Vad för
+PR	jämfört med
+PL	i skuggan
+CJ	( s )
+NAC	till vänster
+ET	till höger
+PL	i fatt
+PR	i takt med
+TA	i förtid
+TA	1980 i dag
+AA	över huvud taget
+PL	hand i hand
+TA	i går
+DT	allt fler
+PL	i kläm
+RA	i säng
+RA	till sängs
+PR	när det gällt
+PR	utan hänsyn till
+TA	ännu så länge
+DT	sån här
+AA	i hög grad
+PR	på tal om
+PR	i underkant av
+TA	i förväg
+PR	På grund av
++A	trots allt
+PR	på grund
+UK	så länge
+TA	i höst
+PR	för sen
+PT	var för sig
+AA	stick i stäv
+PR	när det gällde
+ET	i dag
+SP	på vippen
+PR	ifråga om
+AA	litet hur som helst
+OO	något som
+AA	I bästa fall
+AA	i sämsta fall
+CA	framför allt
+AA	i grunden
+UK	för att
+PR	Till skillnad från
+PR	i anslutning till
+PR	i jämförelse med
+PR	under loppet av
+UK	Så snart
+AA	i princip
+DT	sådan här
+PR	utan tanke på
+DT	minst ett halvt
+TA	i dag på eftermiddagen
+ET	i sak
+TA	på förhand
+AA	i sak
+TA	i dagsläget
+TA	I går
+SP	på det klara
+PL	på frågan
+OO	den här
+RA	i norr
+RA	i söder
+AA	ända upp till
+AA	på tok
+XA	med andra ord
+UK	under förutsättning att
+TA	för det mesta
+PR	i och med
+DT	sådan här
+TA	I morgon
+ET	på väg in mot stan
+SS	Det här
+CJ	o s v
+UK	Så att
+MA	strängt taget
+PR	Vad betråffar
+AA	på allvar
+CA	till och med
+RA	på väg mot en reform jämförbar med vår
+UK	samtidigt med att
+PL	på tal
+UK	Därför att
+UK	vare sig
+AA	utan vidare
+YY	Ha ha
+YY	Just det
+AA	på ett ungefär
+YY	Ho ho
+AA	i någon mån
+AA	i valet och kvalet
+DT	var sin
+CJ	och så vidare
+CA	i första hand
+CA	bland andra
+TA	i höst
+DT	vad för
+PR	Till skillnad mot
+PR	Vad beträffar
+AA	i stort
+SP	i stånd
++A	till sist
+AA	mer eller mindre
++A	vice versa
+OO	av inre ursprung
+CJ	m fl
+TA	efter hand
+MA	I själva verket
+CJ	och så vidare
+PR	med avseende på
+AA	så här i procent
+CA	Framför allt
+PL	till användning
+UK	trots att
+RA	på sina håll
+ET	på längre sikt
+PR	Med tanke på
+PR	med sikte på
+CA	inte minst
+AA	så gott som
+AA	på sin höjd
+MA	I varje fall
+AT	sist berörda
+MA	under alla förhållanden
+PR	I skydd av
+DT	som helst
+AA	mycket väl
+PR	Vid sidan av
+AA	mindre och mindre
+PR	I och med
+PR	I jämförelse med
+AA	i så måtto
+RA	till höger och vänster
+VA	vare sig
+AA	i stort sett
+AA	lägre än
+PL	vid handen
+SS	Per capita
+UK	I de fall
+SP	i gång
+CJ	e d
+SS	Var och en av oss
+PL	under debatt
+UK	så fort
++A	Icke desto mindre
+SS	Var och en
+SS	en i taget
+TA	till slut
+PR	i riktning mot
+DT	vilka som helst
+VA	För det första
++A	För det andra
+CA	i synnerhet
+TA	i förväg
++A	i övrigt
+PL	till uttryck
++A	i sin tur
+SS	var och en
+PR	fram t o m
+MA	med fog
+NA	minst av allt
+SS	något som
+OO	vad som helst
+TA	i längden
+AA	i andra hand
+DT	cirka en halv
+AA	i viss mån
+PL	ur spel
+AA	I runt tal
+DT	var tionde
+NAC	Drygt var tredje
+DT	Ett par
+MA	i och för sig
++A	i varje fall
+CA	t. o. m.
+ET	över huvud taget
+DT	en eller annan
+UK	så långt
+PL	i funktion
+PR	då det gäller
+CA	inget annat än
+MA	i huvudsak
+UK	Samtidigt som
+PL	i förgrunden
+MA	som synes
+NA	långt ifrån
+PL	till synes
+PR	i motsats till
+MA	som bekant
+PR	Tack vare
+DT	var sitt
+SS	termen ' biologiska klockor '
+AA	helt och hållet
++A	I stället
+PR	med utgångspunkt i
+VA	å ena sidan
++A	å den andra
+CJ	över huvud
+RA	i Gamla testamentet
+RA	i Nya testamentet
+AA	i regel
+UK	långt efter det att
+AA	allt mer
+MA	Som bekant
+MA	rent av
+ET	i allmänhet
+PR	i proportion till
+AA	allt mera
+PR	allt efter
+CJ	m. fl.
+PL	till ro
+AA	rätt så
+PR	i enlighet med
+MA	i all världen
+CA	lika med
+UK	från det
+PR	bortsett från
+PR	med hänvisning till
+UK	samtidigt som
+CA	d. v. s.
+MA	relativt sett
+AA	till fullo
+FO	var och en
+PL	till buds
+PR	Bortsett från
++A	å andra sidan
+AA	i vad mån
+PR	till förmån för
+PL	till rätta
+AA	hur som helst
++A	Å andra sidan
+PR	vid sidan om
+CJ	m. m.
+CA	i varje fall
+UK	på det
+CJ	o. s. v.
+UK	i den mån , som
+CA	först och främst
+UK	så långt
+SP	vad för något
+AA	en del
+CA	Först och främst
+PR	istället för
+AA	på så sätt
+ET	i och för sig
+AA	a priori
+PR	med utgångspunkt av
+TA	i tid
+UK	Samtidigt som
+OO	upp och nedvänt
+NAC	vad mera är
+DT	Vad för slags
+AA	i så fall
+PR	Med hjälp av
+PR	vad det gäller
+MA	mer än
+TA	förr eller senare
+CJ	vid sidan av
+AA	praktiskt taget
+PR	på basis av
+TA	allt fortfarande
+PR	utan avseende på
++A	Å andra sidan
+AA	nära nog
+TA	Allt fortfarande
+UK	efter hand som
+PL	för sed
+TA	sent omsider
+AA	fullt ut
+FO	var för sig
+TA	gång på gång
+CA	så värst
+CA	Till och med
+DT	vilket som helst
+OO	till låns
+MA	av allt att döma
+TA	inom kort
+TA	i natt
+MA	i själva verket
+SS	det där med barn och kvinnor
+UK	Så länge
+AA	överhuvud taget
+PR	i mån av
+CA	t. ex
+AA	nog så
+AA	ett dugg
+OO	ett dugg
+MA	så fan heller
+SS	kvinnor såväl som män
+XA	rättare sagt
+MA	Jo visst
+AA	aldrig så
+TA	på nytt
+UK	även om
+SS	Något som
++A	å andra sidan
+PL	till hands
+OO	Något av det samma
+RA	ur famn i famn
+TA	på sistone
+CA	vill säja
++A	i och för sej
+DT	allt mera
+MA	låt vara
+SP	Till storms mot äktenskapet
+CA	Bl a
+UK	J de fall
++A	i alla händelser
+TA	Förr eller senare
+PR	vad gäller
+PR	i förening med
+TA	förr i världen
+MA	lustigt nog
+UK	under det att
+AA	mer eller mindre
+AA	I så fall
++A	Detta till trots
++A	sist men inte minst
+ET	i stort
+CJ	med mera
+TA	i fortsättningen

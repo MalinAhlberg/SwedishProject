@@ -7,6 +7,8 @@ import Data.Tree
 import Data.Char
 import Data.Function
 import Data.ByteString.Char8 (pack)
+ 
+-- For extrating certian combination of tags from Talbanken
 
 mainet f src 
     = do
