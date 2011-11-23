@@ -1,5 +1,5 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv,GenNP] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -41,13 +41,7 @@ lin
                                   num = n.s ! cn.g ;
                                   np = cn.s ! n.n ! DDef Indef ! Nom 
                               in sin ++ num ++ np} ;
-    {-
-    ReflCN noun = {s = \\a => let sin = reflGenForm a (gennum noun.a.g noun.a.n) ;
-                                  np  = noun.s ! NPNom ;
-                                  x   = case noun.d of {DIndef => NONEXIST ; _ => ""}
-                              in sin ++ x ++ np} ;
                               
-    -}                          
 
     UseObj o = o ;
     ConjObj = conjunctDistrTable Agr ;
@@ -95,8 +89,7 @@ lin
      let npdet = DetCN det n2 in 
      {
       s = \\nform => npdet.s ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
-      a = {g = cn.g ; n = n2.num ; p = P3 } ;
-      d = det.det
+      a = {g = cn.g ; n = n2.num ; p = P3 } 
       } ;
 
   AdjN2 ap n2 =  let g = n2.g in 
@@ -136,8 +129,7 @@ lin
 
    SelfAdV   = mkAdV "själv" ; 
    SelfNP np = {s = \\f => np.s ! f ++ sjaelv ! np.a ;
-                a = np.a ;
-                d = np.d} ;
+                a = np.a } ;
      oper sjaelv : Agr => Str =
       \\a => case <a.g,a.n> of {
                   <_  ,Pl > => "själva" ;
@@ -166,8 +158,7 @@ lin
           m = True ;  ---- is this needed for other than Art?
       in lin NP {
         s = \\c => det.sp ! m ! g;
-        a = agrP3 (ngen2gen g) num ;
-        d = det.det 
+        a = agrP3 (ngen2gen g) num
       } ;
 
 
@@ -382,8 +373,7 @@ lin
   this_NP : Str -> Gender -> Number -> NP =
   \denna,g,n -> lin NP {s = table {NPPoss gn c => denna+"s";
                                    _           => denna};
-                        a = agrP3 g n ;
-                        d = DDef Def};
+                           a = agrP3 g n};
 
   getPronoun : Agr -> Pron = 
    \a ->  case <a.p,a.n> of {

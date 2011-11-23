@@ -33,13 +33,12 @@ fun
      SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
      Coercion : NP -> Obj ;
     ReflCN : CN -> Num -> Obj ;
-    Gen
     --ReflCN : NP -> Obj ;
     ReflIdNP : Obj ;
     --UseObj : BaseObj -> Obj ;
 
     --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
-    ConjBase : Conj -> ListObj -> Obj ;
+    ConjObj : Conj -> ListObj -> Obj ;
 
 
     ----
