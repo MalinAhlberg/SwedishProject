@@ -30,9 +30,16 @@ data SentenceType = Q | D | F
 data VPForm  = Cop | Sup | VV | VA 
              | V | V2 | V2A | V2Pass 
              | Fut | FutKommer
-             | VS         
-                                            
+             | VS  
+             | V3  | VQ | V2V | V2S  --new
+
+
+
   deriving (Eq,Show)
+vForms    = [Cop,Sup,Fut,FutKommer,VV,VA,V2A,V2,V2Pass,VS,V,  V3,VQ,V2V,V2S]
+gfvForms  = ["VV","VA","V2A","V2","VS","V","V3","VQ","V2V","V2S"] -- need more?
+
+
 data S = S { _isReflGenVP  :: Bool
            , _isExist      :: Bool
            , _iquant       :: Bool
@@ -45,7 +52,7 @@ data S = S { _isReflGenVP  :: Bool
 type PMonad = (RWS () [String] S)
 
 
-test = True
+test = False
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
@@ -559,8 +566,6 @@ isVTenseForm a (VTense t) = t == a
 isVTenseForm _ _          = False
 
 
-vForms     = [Cop,Sup,Fut,FutKommer,VV,VA,V2A,V2,V2Pass,VS,V]
-gfvForms  = ["VV","VA","V2A","V2","VS","V","V3"] -- need more?
 
 pSlashVP V typ =
  do (t,v) <-inside typ $ pVerb "VV" "V"
@@ -612,6 +617,9 @@ pSlashVP FutKommer typ =
     return (mkExpr meta,t)
 pSlashVP VS typ = 
  do (t,v) <- inside typ $ pVerb "VV" "VS"
+    return (mkExpr v,t)
+pSlashVP v typ = 
+ do (t,v) <- inside typ $ pVerb "VV" (show typ)
     return (mkExpr v,t)
 
 mkTmp = mkTmp' cidASimul 
@@ -775,16 +783,55 @@ pComplVP FutKommer q vp t (pol,exps,_) = do
   let vp1  = maybe vp0 (\a -> mkApp cidAdvVPSlash [vp0,a]) adv 
   return (mkTmp t,cidASimul,pol,vp1)
  
-pComplVP VS q vp t (pol,exps,_) = do
-  comp <- getComplement VS q exps
+pComplVP VS q vp t args = complVS VS q vp t args 
+
+pComplVP V3 q vp tmp (pol,exps,_) = do
+  comp <- getComplement V3 q exps
+  (adv,o1,o2,part) <-  case comp of
+                  (a:o1:o2:p:[]) -> return (a,o1,o2,p)  -- particles should handled them self..
+                  _              -> argErr "V3"
+  isRefl <- gets isReflGenVP 
+  --write $ "refl? : "++show isRefl
+  let vp0 = case (o1,o2) of
+       (Nothing,Nothing) -> mkApp cidReflVP [mkApp meta [vp]] -- meta 'ger sig till sig' 
+       (Nothing,Just o)  -> mkApp cidReflVP [mkApp cidSlash3V3 [vp,o]]
+       (Just o,Nothing)  -> mkApp cidReflVP [mkApp cidSlash2V3 [vp,o]]
+       (Just o1,Just o2) -> mkApp cidComplSlash [mkApp cidSlash2V3 [o1,o2]]
+  let vp1 = maybe vp0 (\a -> mkApp cidAdvVPSlash [vp0,a]) adv  
+  return (mkTmp tmp,cidASimul,pol,vp1)
+
+pComplVP VQ q vp t args = complVS VQ q vp t args 
+
+pComplVP V2V q vp t (pol,exps,_) = do
+  comp <- getComplement V2V q exps
+  (adv,obj,part,v,p) <-  case comp of
+                  (a:o:p:a':Just i:p':[]) -> return (a,o,p,i,p')  -- particles should handled them self..
+                  _                       -> argErr "V2V"
+
+  let vslash = mkApp cidSlashV2V [vp,v]
+      vp1    = if isNothing obj then mkApp cidReflSlash [vslash]
+                                else mkApp cidComplSlash [vslash,fromJust obj]
+      vp2  = maybe vp1 (\a -> mkApp cidAdvVP [vp1,a]) adv 
+  return (mkTmp t,cidASimul,pol,vp2)
+
+--to do V2S, V2Q test all from V3
+pComplVP v q vp t (pol,exps,_) = do
+  return (mkTmp t,cidASimul,pol,vp)
+
+complVS cat q vp t (pol,exps,_) = do
+  comp <- getComplement cat q exps
   (adv,s) <-  case comp of
                   (a:Just s:_) -> return (a,s)
-                  _            -> argErr "VS"
-  let vp0 = if q==D then mkApp cidComplVS [vp,s] 
+                  _            -> argErr $ show cat
+  let vp0 = if q==D then mkApp (gf cat) [vp,s] 
                     else vp
       vp1 = maybe vp0 (\a -> mkApp cidAdvVP [vp1,a]) adv
   when (q/=D) $ object =: Just s
   return (mkTmp t,cidASimul,pol,vp1)
+ where gf VS = cidComplVS
+       gf VQ = cidComplVQ
+
+ 
 
 getComplement v q exps | v `elem` [Fut,FutKommer,VV,Sup]
  = do write "looking for another complement"
@@ -887,29 +934,24 @@ pVerb = pVerb' "Act"
 pPassVerb = pVerb' "Pass"
 
 pVerb' act incat cat =
-        do v <- (inside incat $ lemma cat $ "s (VF (VPres "++act++"))")
-                `mplus`
-                (inside incat $ lemma "V" $ "s (VF (VPres "++act++"))")
+        do v <- msum [inside incat $ lemma cat $ "s (VF (VPres "++act++"))"
+                                   | v <- [cat,"V"]] 
            return (VTense cidTPres,v)
         `mplus`
-        do v <- (inside incat $ lemma cat $ "s (VF (VImper "++ act++"))")
-                `mplus`
-                (inside incat $ lemma "V" $ "s (VF (VImper "++ act++"))")
+        do v <- msum [inside incat $ lemma v $ "s (VF (VImper "++ act++"))"
+                                   | v <- [cat,"V"]] 
            return (VImp,v)
         `mplus`
-        do v <- (inside incat $ lemma cat $ "s (VI (VInfin "++ act++"))")
-                `mplus`
-                (inside incat $ lemma "V" $ "s (VF (VInfin "++ act++"))")
+        do v <- msum [inside incat $ lemma v $ "s (VI (VInfin "++ act++"))"
+                                   | v <- [cat,"V"]] 
            return (VInf,v)
         `mplus`
-        do v <- (inside incat $ lemma cat $ "s (VF (VPret "++ act++"))")
-                `mplus`
-                (inside incat $ lemma "V" $ "s (VF (VPret "++ act++"))")
+        do v <- msum [inside incat $ lemma v $ "s (VF (VPret "++ act++"))"
+                                   | v <- [cat,"V"]] 
            return (VTense cidTPast,v)
         `mplus`
-        do v <- (inside incat $ lemma cat $ "s (VI (VSupin "++ act++"))")
-                `mplus`
-                (inside incat $ lemma "V" $ "s (VF (VSupin "++ act++"))")
+        do v <- msum [inside incat $ lemma v $ "s (VI (VSupin "++ act++"))"
+                                   | v <- [cat,"V"]] 
            return (VSupin,v)
          {-      `mplus`     --careful here!
         (inside (incat++"PS") consume >> return (VTense cidTPres,meta))
@@ -1103,6 +1145,34 @@ pCompl VS = do
   write "s in vs ok"
   return (pol,[adv,Just s],[])
 
+pCompl V3 = do
+  write "v3 compl begins"
+  (pol,adv,part) <- pV2Compl
+  o1 <- inside "IO" findObj
+  write "o1 ok"
+  o2 <- inside "OO" findObj
+  write "o2 ok"
+  return (pol,[adv,o1,o2,part],[])
+ where findObj = do inside "OO" findIt
+                    `mplus`
+                    inside "IO" findIt
+       findIt  = do liftM (Just . fst) pNP
+                    `mplus`
+                    liftM Just (cat "PP")
+                    `mplus`
+                    (word "POXPHH" >> return Nothing) -- sig
+
+pCompl VQ = pCompl VS -- meta! should be smt of type QS, a subordinate question
+  
+pCompl V2V = do
+  (pol,exps,bs) <- pCompl V2
+  (_,exps',bs') <- pCompl VV
+  return (pol,exps++exps,bs++bs')
+ 
+  -- dummy
+pCompl v = do
+  inside "FAIL" $ pPredet
+  return undefined
 
 pV2Compl = do
   opt (word2 "FO") ""          -- dummy object, alla/själva. ?
@@ -1361,14 +1431,14 @@ findA2 =
 findNParticip = pNoun 
 
 
--- only V2 at the moment
-findAPerfParticip = 
- lemma "V" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
- `mplus`
- lemma "V" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
- `mplus`
- lemma "V" "s (VI (VPtPret (Strong GPl) Nom))"
- `mplus`
+-- äten
+findAPerfParticip =  
+ msum ([lemma v "s (VI (VPtPret (Strong (GSg Utr)) Nom))" | v <- gfvForms]
+      ++
+      [lemma v "s (VI (VPtPret (Strong (GSg Neutr)) Nom))" | v <- gfvForms]
+      ++
+      [lemma v "s (VI (VPtPret (Strong GPl) Nom))" | v <- gfvForms])
+ {-`mplus`
  lemma "V2" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
  `mplus`
  lemma "V2" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
@@ -1386,6 +1456,7 @@ findAPerfParticip =
  lemma "VS" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
  `mplus`
  lemma "VS" "s (VI (VPtPret (Strong GPl) Nom))"
+ -}
 
 -- akta optEat här!! om fler läggs till måste den flyttas ut!
 -- om inte adjektivet finns med blir det ett adA? kanske bättre tvärtom?
