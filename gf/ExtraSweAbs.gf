@@ -3,8 +3,8 @@
 -- Scandinavian languages.
 
 abstract ExtraSweAbs = ExtraScandAbs -[FocAdv,FocAP] ** {
-
-cat ReflNP ; 
+    
+cat --ReflNP ; 
     PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
              -- can be compared as both: de flesta katter, katterna är flest
              --                             Predet?
@@ -18,21 +18,41 @@ cat ReflNP ;
     N2P ;
     N2' ;
     SimpleVP ;
-  --  NPIn ;
+    --- objectives
+    Obj ;
+    [Obj]{2} ;
+--    BaseObj ;    --to prevent normal NPs to be conjuncted as Objs, but doesn't allow 'han ser sin katt och huset'
+--    [BaseObj]{2} ;
  
 fun
+-- override with Obj
+     Slash2V3 : V3 -> Obj -> VPSlash ;
+     Slash3V3 : V3  -> Obj -> VPSlash ;
+     --ComplSlash : VPSlash  -> Obj -> VP ; -- is below
+     CompNP : Obj -> Comp ;
+     SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
+     Coercion : NP -> Obj ;
+    ReflCN : CN -> Num -> Obj ;
+    Gen
+    --ReflCN : NP -> Obj ;
+    ReflIdNP : Obj ;
+    --UseObj : BaseObj -> Obj ;
 
+    --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
+    ConjBase : Conj -> ListObj -> Obj ;
+
+
+    ----
+
+  --tests
+  SuperlA : A -> AP ;
   LeaveOutObj : VPSlash -> VP ;
-  FormalSub : SimpleVP -> Det -> CN -> Cl ;
+  FormalSub : SimpleVP -> Det -> CN -> Cl ; -- det sitter en katt där
 
-  SimpleV     : V -> SimpleVP ;
+  SimpleV      : V -> SimpleVP ;            -- sitter
+  Pass2VSimple : V2 -> SimpleVP ;     -- skrivs 
   AdvSimpleVP : SimpleVP -> Adv -> SimpleVP ;
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
-{-
- Meant for deciding wich determiners that are ok in egentliga subjekt
-  NumNPIn  : Num -> CN -> NPI ;
-  SomeNPIn : Num -> CN -> NPI ;
-  -}
 
   --test
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
@@ -49,8 +69,8 @@ fun
   VV_it : VV -> VP ; -- hon vill det
   
 
-  SelfNP  : NP -> NP ; 
-  SelfAdV : AdV ;
+  SelfNP  : NP -> NP ;  --kungen själv
+  SelfAdV : AdV ;  -- han såg själv att ..
 
   GenCN : NP -> Num -> CN -> NP ;
   PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
@@ -93,8 +113,8 @@ fun
  -- ReflCN : Num -> CN -> ReflNP ;
  -- ReflSlash : VPSlash -> ReflNP -> VP ;
   --ReflCN : CN -> Num -> NP ;  --xs bil
-  IdRefl : NP ;               --sig
-  IdReflSelf: NP ;            --sig själv
+ -- IdRefl : NP ;               --sig
+ -- IdReflSelf: NP ;            --sig själv
 
 
   
@@ -110,8 +130,8 @@ fun
   PassV2Be : V2 -> VP ;  -- bli äten
   
  
-  ComplSlash : VPSlash -> NP -> VP ;
-  ReflVP   : VPSlash -> VP ;
+  ComplSlash : Obj -> VPSlash -> VP ;
+  -- ReflVP   : VPSlash -> VP ;
 
   {- here it would be nice with VPSlash -> AP
        'han är äten', 'han är given till henne', 
@@ -161,4 +181,6 @@ fun
 
   numberOf : N2' ;
 
+  likna_V2 : V2 ;
+  akta_V3 : V3 ;
 }
