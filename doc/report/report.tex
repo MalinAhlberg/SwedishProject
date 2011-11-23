@@ -48,19 +48,38 @@
 \newpage
 \chapter{Introduction}
 \section{Introduction} 
-What is parsing, flat strings to trees, what is deep parsing. What is controlled language,
-what is robust parsing and why we need it for free langugae, benefits of a grammar.
-GF is grammar formalism, many languages, many projects for controlled lang.
-GF grammar for Swedish, how big, not intended for parsing, but for building
-application grammars. Experiments of using the grammar for free parsing, methods
-being developped for this. Benefits of starting from GF. Free parsing is
-interesting. To do this, we need a better (bigger grammar), a large scale
-lexicon, and an evaluation method. This project has explored those things. The
-grammar also have other usages, important in itself, so we wanted to make it as
-covering as possible without being overallowing or too ambiguous.
+Computers want to 'understand' language. Not good with flat strings.
+We need to translate strings of natural language to a richer sturture,
+a parse tree. So far there is no
+freely availbe ruled-based parsing giving a deep analyse for Swedish.
+%There are parsers which put only put part-of-speach tags to
+%the text, and others that gives a deeper analyse. 
+There are statistical parser, and parser which only are deal with controlled language.
+The GF parser are one of those. 
+%What is parsing, flat strings to trees, example picture, what is deep parsing.
+So far stable and good when working with controlled languges, but recent experiments
+have showed that it is also possible to parse free language.
+To do this for Swedish, we need to  .. the resource grammar needed to covering
+the language specific constructions. Further a lagre lexicon is also needed, as well
+as a method for evaluation.
+During this project, we have worked on and explored those things and some problems identified.
+We have extended the Swedish resource grammar in GF, to give a better coverage and imported
+a large lexicon. Work to compare the trees from Talbanken to GF and to translate them.
+
+
+%What is controlled language,
+%what is robust parsing and why we need it for free langugae, benefits of a grammar.
+%GF is grammar formalism, many languages, many projects for controlled lang.
+%GF grammar for Swedish, how big, not intended for parsing, but for building
+%application grammars. Experiments of using the grammar for free parsing, methods
+%being developped for this. Benefits of starting from GF. Free parsing is
+%interesting. To do this, we need a better (bigger grammar), a large scale
+%lexicon, and an evaluation method. This project has explored those things. The
+%grammar also have other usages, important in itself, so we wanted to make it as
+%covering as possible without being overallowing or too ambiguous.
 
 Other work exist, but none is freely available. We want to create a open source
-product, therefor can only use resources that allows this. Work can continue,
+product, therefore can only use resources that allows this. Work can continue,
 will not disappear, be made use of in other projects.
 What we could not cover by this project, what have been covered before (in
 the spring project), and why we choose those parts.
@@ -540,6 +559,7 @@ but not
 
 Suggest a connection between the subject and the object.
 Could be combined with 'sig', a ReflNP without another noun.
+-- man ser sig!!
 Make a distinction between objects and subjects?
 do not want to copy all rules for another category. Would like depent types!
 work pretty well by letting all NP depend on the subject in the phrase.
@@ -619,6 +639,12 @@ we get a slightly better result,
 from 62.5\% to 65.4\%.  (see EvalText). The complemnt of the verbs should tell which category
 they are anyway.
 Evaluation. -> Works for both flat and deep, but with sligthly better results for the flat one.
+
+% hard examples like
+% ger sig till henne -> ReflSlash ge henne in gf
+% questions with objects that should be moved
+
+
 
 %One part about the mapping from Talbanken to GF, description. About the purpose.
 %This part explains
