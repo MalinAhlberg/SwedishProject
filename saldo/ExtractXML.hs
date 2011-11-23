@@ -32,8 +32,8 @@ main = do
   writeFile "ID.txt"  $ unlines $ map printSentences avps
 
 containTag :: String -> Tree String -> Bool
-containTag t (Node cat [Node  pos [Node w []]]) = pos == t
-containTag t _                                  = False
+containTag t (Node cat [tr]) = posIs t tr 
+containTag t _               = False
   
 -- returns the trees that returns words of type tag.
 -- the result contains the label, the cat, and then a tree containing the tag
@@ -57,7 +57,13 @@ printSentences (Node c ts) = c++"\t"++ unwords (concatMap getWords ts)
         getWords (Node w []) = [w]
         getWords (Node w ts) = concatMap getWords ts
 
-
+posIs,wordIs,wordCatIs :: String -> Tree String -> Bool
+wordIs t (Node w []) = t == w
+wordIs t _           = False
+posIs t (Node pos [Node _ []]) = t == pos
+posIs t _                      = False
+wordCatIs t (Node c [Node p [Node w []]]) = t == w
+wordCatIs t _                             = False
 
 test :: Tree String
 test = Node "S" [Node "UK" [Node "XP" [Node "HD" [Node "ID" [Node "ett" []]], Node "HD" [Node "två" []]]]
