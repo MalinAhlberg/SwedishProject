@@ -48,7 +48,7 @@ lin
                               in sin ++ x ++ np} ;
                               
     -}                          
-
+{-
     UseObj o = o ;
     ConjObj = conjunctDistrTable Agr ;
     BaseObj = twoTable Agr ;
@@ -74,7 +74,7 @@ lin
                     mkClause "det" (agrP3 neutrum Sg) (insertObj 
                        (\\a => np.s !  accusative) vp) ;
       DDef _ => {s = \\_,_,_,_ => NONEXIST }} ;
-
+-}
 
 {-
   IdRefl = {
@@ -145,7 +145,7 @@ lin
                   _         => "själv"  };
 
 
- lin
+-- lin
  --  GenCN np num cn = let n = num.n in {
  --    s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
  --                ++ num.s ! cn.g 
@@ -153,10 +153,11 @@ lin
  --    a = agrP3 (ngen2gen cn.g) n 
  --    } ;
 
-  
+ {- 
   PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
    oper mkComp : NP -> Agr -> Comp = 
     \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+    -}
 
 lin 
   DetNP_utr = detNP utrum Sg ;
@@ -171,19 +172,22 @@ lin
       } ;
 
 
-
+{-
  lin
   
   VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
   SlashV3Varandra v3 = Slash3V3 v3 varandra ;
     oper varandra : Obj = lin Obj {s = \\_ => "varandra" } ;
                            
+                           -}
+                           {-
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
   RelSlashVS t p np vs = let cl     = PredVP np (predV vs) ; 
                              vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
 
+-}
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
  
   -- maybe not the best way, but the adverb should always
@@ -200,6 +204,7 @@ lin
       en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
 
  lin
+ {-
   PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
   AdvFocAdV adv = {s = adv.s} ;
 
@@ -229,7 +234,7 @@ lin
  ComplVAPronAQ v ap = insertObj (\\a => (PositA ap).s ! agrAdjNP a DIndef) (predV v) ;
  -- de blev fler
  ComplVAPronAD v ap = insertObj (\\a => (UseComparA ap).s ! agrAdjNP a DIndef) (predV v) ;
-
+-}
  ComplSlash np vp = 
        insertObjPost
          (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
@@ -260,6 +265,7 @@ lin
   oper do_V : V = mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord" ;
 
 lin
+{-
   FocAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
@@ -268,7 +274,7 @@ lin
     vp.n2 ! npAgr ++ vps.fin ++ np.s !  NPNom 
     ++ negation ! p++ vps.inf };
 
-
+-}
   FocVV vv vp np = 
   {s = \\t,a,p =>
     let bara = vp.a0 ;
@@ -303,7 +309,7 @@ lin
 
   it8utr_Pron = MorphoSwe.regNP "den" "dess" Utr   Sg  ;
   
-  this8denna_Quant = 
+  this8denna_Quant _ = 
     {s,sp = table {
       Sg => \\_,_ => genderForms ["denna"] ["detta"] ; 
       Pl => \\_,_,_ => ["dessa"]
@@ -420,7 +426,7 @@ lin
     oovriga_Det  = {s,sp = \\_,_ => "övriga" ; n = Pl ; det = DDef Indef} ;
     samtliga_Det = {s,sp = \\_,_ => "samtliga" ; n = Pl ; det = DDef Indef} ;
     aatskilliga_Det = {s,sp = \\_,_ => "åtskilliga" ; n = Pl ; det = DDef Indef} ;
-    varenda_Det     = {s  = \\_ => genderForms ["varenda"] ["vartenda"] ; 
+    varenda_Det   x  = {s  = \\_ => genderForms ["varenda"] ["vartenda"] ; 
                        sp = \\_ => genderForms ["varenda en"] ["vartenda ett"] ; 
                        n = Sg ; det = DDef Indef};
 

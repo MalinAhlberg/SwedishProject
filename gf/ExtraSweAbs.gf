@@ -19,27 +19,26 @@ cat --ReflNP ;
     N2' ;
     SimpleVP ;
     --- objectives
-    Obj ;
-    [Obj]{2} ;
+    --Obj ;
+    --[Obj]{2} ;
 --    BaseObj ;    --to prevent normal NPs to be conjuncted as Objs, but doesn't allow 'han ser sin katt och huset'
 --    [BaseObj]{2} ;
  
 fun
 -- override with Obj
-     Slash2V3 : V3 -> Obj -> VPSlash ;
-     Slash3V3 : V3  -> Obj -> VPSlash ;
+--     Slash2V3 :  V3 -> Obj -> VPSlash ;
+--     Slash3V3 : V3  -> Obj -> VPSlash ;
      --ComplSlash : VPSlash  -> Obj -> VP ; -- is below
-     CompNP : Obj -> Comp ;
-     SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
-     Coercion : NP -> Obj ;
-    ReflCN : CN -> Num -> Obj ;
-    Gen
+     CompNP : (a : NPType) -> NP a -> Comp ;
+     --SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
+ --    Coercion : NP -> Obj ;
+    ReflCN : CN -> Num -> NP Obj ;
     --ReflCN : NP -> Obj ;
-    ReflIdNP : Obj ;
+    ReflIdNP : NP Obj ;
     --UseObj : BaseObj -> Obj ;
 
     --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
-    ConjBase : Conj -> ListObj -> Obj ;
+--    ConjBase : Conj -> ListObj -> Obj ;
 
 
     ----
@@ -47,7 +46,7 @@ fun
   --tests
   SuperlA : A -> AP ;
   LeaveOutObj : VPSlash -> VP ;
-  FormalSub : SimpleVP -> Det -> CN -> Cl ; -- det sitter en katt där
+  --FormalSub : SimpleVP -> Det -> CN -> Cl ; -- det sitter en katt där
 
   SimpleV      : V -> SimpleVP ;            -- sitter
   Pass2VSimple : V2 -> SimpleVP ;     -- skrivs 
@@ -56,7 +55,7 @@ fun
 
   --test
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
-  ComplN2P : Det -> N2P -> CN -> NP ;
+  --ComplN2P : Det -> N2P -> CN -> NP ;
   AdjN2 : AP -> N2P -> N2P ;
   UseN2P : N2' -> N2P ;
   N2N    : N2' -> N ; 
@@ -69,37 +68,37 @@ fun
   VV_it : VV -> VP ; -- hon vill det
   
 
-  SelfNP  : NP -> NP ;  --kungen själv
+  --SelfNP  : NP -> NP ;  --kungen själv
   SelfAdV : AdV ;  -- han såg själv att ..
 
-  GenCN : NP -> Num -> CN -> NP ;
-  PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
+ -- GenCN : NP -> Num -> CN -> NP ;
+ -- PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
 
 
-  RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
-  RelSlashVS : Temp -> Pol -> NP -> VS -> RelVSCl ;  -- vilket vi vet
+ -- RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
+ -- RelSlashVS : Temp -> Pol -> NP -> VS -> RelVSCl ;  -- vilket vi vet
 
 
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
-  FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
+ -- FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
                               -- can remove FocAdv
 
 -- overgenerating, but useful
-  DetNP_utr : Det -> NP ; -- den här
+ -- DetNP_utr : Det -> NP ; -- den här
 
-  DetPronAD : PronAD -> Det ;
-  QuantPronAQ : PronAQ -> Quant ;
-  CompPronAQ : PronAQ -> Comp ;
-  CompPronAD : PronAD -> Comp ;
+ -- DetPronAD : PronAD -> Det ;
+ -- QuantPronAQ : PronAQ -> Quant ;
+ -- CompPronAQ : PronAQ -> Comp ;
+ -- CompPronAD : PronAD -> Comp ;
   -- de blev sådana
-  ComplVAPronAQ : VA -> PronAQ -> VP ;
- -- de blev fler
-  ComplVAPronAD : VA -> PronAD -> VP ;
+ -- ComplVAPronAQ : VA -> PronAQ -> VP ;
+ ---- de blev fler
+ -- ComplVAPronAD : VA -> PronAD -> VP ;
 
 
   CompoundNomN : N -> N -> N ;  -- fot+boll
@@ -107,7 +106,7 @@ fun
   CompoundAdjN : A -> N -> N ;  -- vit+vin
  
   it8utr_Pron   : Pron ;
-  this8denna_Quant : Quant ;
+  this8denna_Quant : (a : NPType) -> Quant a ;
   
   -- alla sina syskon? sin brors bok?
  -- ReflCN : Num -> CN -> ReflNP ;
@@ -117,11 +116,12 @@ fun
  -- IdReflSelf: NP ;            --sig själv
 
 
-  
+ {- 
   DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
   -- needs to allow RelNP' to use it!
   
+  -}
   
  
   UseComparA  : A -> AP ;
@@ -130,7 +130,7 @@ fun
   PassV2Be : V2 -> VP ;  -- bli äten
   
  
-  ComplSlash : Obj -> VPSlash -> VP ;
+  ComplSlash : (a : NPType) -> NP a -> VPSlash -> VP ;
   -- ReflVP   : VPSlash -> VP ;
 
   {- here it would be nice with VPSlash -> AP
@@ -156,31 +156,31 @@ fun
 
 ----------------- Predeterminers,Quantifiers,Determiners
 
-   bara_AdvFoc : AdvFoc ;
-
-  sadana_PronAQ : PronAQ ;
-  fler_PronAD : PronAD ;
-  -- overgenerating: alla hela katter. should not be ok.
-  -- predets should be able to decide definites?
-  hela_Predet : Predet ;  --hela horder/hela katten  -- both
-  sjaelva_Quant : Quant ; -- själva kungen/själva öronen -- def
+--   bara_AdvFoc : AdvFoc ;
+--
+--  sadana_PronAQ : PronAQ ;
+--  fler_PronAD : PronAD ;
+--  -- overgenerating: alla hela katter. should not be ok.
+--  -- predets should be able to decide definites?
+--  hela_Predet : Predet ;  --hela horder/hela katten  -- both
+--  sjaelva_Quant : Quant ; -- själva kungen/själva öronen -- def
   samma_Predet : Predet ; -- samma katter/samma öra 
-  varenda_Det : Det ;
-  vardera_Det : Det ;
-  ena_Det : Det ;
-  baegge_Det : Det ;
-  baada_Det : Det ;
-  varannan_Det : Det ;
-  somliga_Det : Det ;
-  dylika_Det : Det ;
-  oovriga_Det : Det ;
-  aatskilliga_Det : Det ;
-  samtliga_Det : Det ;
-
-  noll_Det : Det ;
-
-  numberOf : N2' ;
-
-  likna_V2 : V2 ;
-  akta_V3 : V3 ;
+  varenda_Det : (a : NPType) -> Det a ;
+--  vardera_Det : Det ;
+--  ena_Det : Det ;
+--  baegge_Det : Det ;
+--  baada_Det : Det ;
+--  varannan_Det : Det ;
+--  somliga_Det : Det ;
+--  dylika_Det : Det ;
+--  oovriga_Det : Det ;
+--  aatskilliga_Det : Det ;
+--  samtliga_Det : Det ;
+--
+--  noll_Det : Det ;
+--
+--  numberOf : N2' ;
+--
+--  likna_V2 : V2 ;
+--  akta_V3 : V3 ;
 }
