@@ -1,5 +1,5 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv,GenNP] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -46,19 +46,19 @@ lin
     UseObj o = o ;
     ConjObj = conjunctDistrTable Agr ;
     BaseObj = twoTable Agr ;
-    -- twoTable : (P : Type) -> (_,_ : {s : P => Str}) -> ListTable P = \_,x,y -
     ConsObj = consrTable Agr comma ;
  lincat 
-    --[BaseObj] = {s1,s2 : Agr => Str } ; 
     [Obj] = {s1,s2 : Agr => Str } ; 
   --------
+
+
   lin
   SuperlA a = {
      s = \\ap => a.s ! AF (ASuperl SupStrong) Nom ;
      isPre = True
      };
 
-  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
+  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
   SimpleV v = predV v ;
   Pass2VSimple v2 = lin VP (predV (depV v2)); 
   AdvSimpleVP vp = AdvVP (lin VP vp) ;

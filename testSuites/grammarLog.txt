@@ -21,3 +21,17 @@ Mon Nov 21 14:41:35 CET 2011
 	 of totally 155 sentences.
 6 had unknown words
 
+-- new reflexive, without GenNP and LeaveOutObj
+Wed Nov 23 22:41:38 CET 2011
+*******
+ Result: passed: 95	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+-- with GenNP, and LeaveOutObj  New: 3022,2551,1991,1617      
+Wed Nov 23 22:43:43 CET 2011
+*******
+ Result: passed: 100	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+

@@ -23,6 +23,7 @@ abstract/Verb.gf:    Slash2V3 : V3  -> NP -> VPSlash ;  -- ge sin katt, give it 
 abstract/Verb.gf:    Slash3V3 : V3  -> NP -> VPSlash ;  -- ge den till sitt barn, give (it) to her
 abstract/Verb.gf:    ComplSlash : VPSlash -> NP -> VP ; -- älska sin katt, love it
 abstract/Verb.gf:    CompNP   : NP  -> Comp ;            -- vara sin egen fiende, (be) the man
+abstract/Verb.gf:    SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- (hon) ber mig att köpa sin katt, beg me to buy
 abstract/Phrase.gf:    UttNP     : NP   -> Utt ;         -- (vad letar hon efter?) - sin vante.
                                                          --  (needs no agreement) 
 
@@ -58,4 +59,3 @@ abstract/Sentence.gf:    SlashVS   : NP -> VS -> SSlash -> ClSlash ; -- (whom) s
 unsure..?
 abstract/Extra.gf:    CompIQuant : IQuant -> IComp ; -- which (is it) [agreement to NP]
 abstract/Relative.gf: FunRP : Prep -> NP -> RP -> RP ;  -- the mother of whom
-abstract/Verb.gf:    SlashV2VNP : V2V -> NP -> VPSlash -> VPSlash ; -- (hon) ber mig att köpa sin katt??, beg me to buy
