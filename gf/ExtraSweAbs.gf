@@ -25,10 +25,16 @@ cat --ReflNP ;
 --    [BaseObj]{2} ;
  
 fun
--- override with Obj
+
+ 
+   DetNP : Det -> NP ;
+-------------------------------------------------------------------------------
+-- For objects          
+-------------------------------------------------------------------------------
+-- put in VerbSwe and unimport there
      Slash2V3 : V3 -> Obj -> VPSlash ;
      Slash3V3 : V3  -> Obj -> VPSlash ;
-     --ComplSlash : VPSlash  -> Obj -> VP ; -- is below
+     ComplSlash : Obj -> VPSlash -> VP ;
      CompNP : Obj -> Comp ;
      SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
      Coercion : NP -> Obj ;
@@ -36,16 +42,28 @@ fun
     --ReflCN : NP -> Obj ;
     ReflIdNP : Obj ;
     --UseObj : BaseObj -> Obj ;
-
     --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
     ConjObj : Conj -> ListObj -> Obj ;
 
+  -- alla sina syskon? sin brors bok?
+ -- ReflCN : Num -> CN -> ReflNP ;
+ -- ReflSlash : VPSlash -> ReflNP -> VP ;
+  --ReflCN : CN -> Num -> NP ;  --xs bil
+ -- IdRefl : NP ;               --sig
+ -- IdReflSelf: NP ;            --sig själv
+  -- ReflVP   : VPSlash -> VP ;
 
-    ----
+
+-------------------------------------------------------------------------------
+
 
   --tests
   SuperlA : A -> AP ;
   LeaveOutObj : VPSlash -> VP ;
+
+-------------------------------------------------------------------------------
+-- Formal subjects
+-------------------------------------------------------------------------------
   FormalSub : SimpleVP -> Det -> CN -> Cl ; -- det sitter en katt där
 
   SimpleV      : V -> SimpleVP ;            -- sitter
@@ -53,7 +71,9 @@ fun
   AdvSimpleVP : SimpleVP -> Adv -> SimpleVP ;
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
 
-  --test
+-------------------------------------------------------------------------------
+-- Test for 'antalet'
+-------------------------------------------------------------------------------
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
   ComplN2P : Det -> N2P -> CN -> NP ;
   AdjN2 : AP -> N2P -> N2P ;
@@ -61,24 +81,41 @@ fun
   N2N    : N2' -> N ; 
   ---
 
+-------------------------------------------------------------------------------
+-- Varandra
+-------------------------------------------------------------------------------
   VarandraVP : VPSlash -> VP ;
   SlashV3Varandra : V3 -> VPSlash ;
    
+-------------------------------------------------------------------------------
+-- tests, doesn't work for Foc anyway
+-------------------------------------------------------------------------------
   VS_it : VS -> VP ; -- hon vet det
   VV_it : VV -> VP ; -- hon vill det
   
 
+-------------------------------------------------------------------------------
+-- tests, 'själv'. No good types.
+-------------------------------------------------------------------------------
   SelfNP  : NP -> NP ;  --kungen själv
   SelfAdV : AdV ;  -- han såg själv att ..
 
+-------------------------------------------------------------------------------
+-- tests, genetive
+-------------------------------------------------------------------------------
   GenCN : NP -> Num -> CN -> NP ;
   PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
 
-
+-------------------------------------------------------------------------------
+-- Relatives
+-------------------------------------------------------------------------------
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
   RelSlashVS : Temp -> Pol -> NP -> VS -> RelVSCl ;  -- vilket vi vet
 
 
+-------------------------------------------------------------------------------
+-- Focusing adverbs
+-------------------------------------------------------------------------------
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
@@ -88,6 +125,9 @@ fun
                               -- which might actually be good
                               -- can remove FocAdv
 
+-------------------------------------------------------------------------------
+-- For determiners and quantifiers
+-------------------------------------------------------------------------------
 -- overgenerating, but useful
   DetNP_utr : Det -> NP ; -- den här
 
@@ -100,24 +140,20 @@ fun
  -- de blev fler
   ComplVAPronAD : VA -> PronAD -> VP ;
 
+  it8utr_Pron   : Pron ;
+  this8denna_Quant : Quant ;
 
+
+---
   CompoundNomN : N -> N -> N ;  -- fot+boll
   CompoundGenN : N -> N -> N ;  -- yrkes+musiker
   CompoundAdjN : A -> N -> N ;  -- vit+vin
  
-  it8utr_Pron   : Pron ;
-  this8denna_Quant : Quant ;
   
-  -- alla sina syskon? sin brors bok?
- -- ReflCN : Num -> CN -> ReflNP ;
- -- ReflSlash : VPSlash -> ReflNP -> VP ;
-  --ReflCN : CN -> Num -> NP ;  --xs bil
- -- IdRefl : NP ;               --sig
- -- IdReflSelf: NP ;            --sig själv
-
-
-  
-  DropAttVV : VV -> VV ;      -- började att äta --> började äta. 
+-------------------------------------------------------------------------------
+-- Various functions
+-------------------------------------------------------------------------------
+  ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
   SupCl  : NP -> VP -> Pol -> S ; -- när jag sovit
   -- needs to allow RelNP' to use it!
   
@@ -129,8 +165,6 @@ fun
   PassV2Be : V2 -> VP ;  -- bli äten
   
  
-  ComplSlash : Obj -> VPSlash -> VP ;
-  -- ReflVP   : VPSlash -> VP ;
 
   {- here it would be nice with VPSlash -> AP
        'han är äten', 'han är given till henne', 
@@ -153,7 +187,9 @@ fun
   AdvComp : Comp -> Adv -> Comp ;
 
 
------------------ Predeterminers,Quantifiers,Determiners
+-------------------------------------------------------------------------------
+-- Predeterminers,Quantifiers,Determiners
+-------------------------------------------------------------------------------
 
    bara_AdvFoc : AdvFoc ;
 
@@ -177,6 +213,7 @@ fun
   samtliga_Det : Det ;
 
   noll_Det : Det ;
+  annan_Quant : Quant ;
 
   numberOf : N2' ;
 

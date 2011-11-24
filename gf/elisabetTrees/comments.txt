@@ -1,0 +1,31 @@
+(1)     En katt vill nästan alla flickor ha.
+Denna mening går att parsa (se 1.pdf), om man byter nästan till inte.
+'inte' tolkas då som en predeterminator, not_Predet, vilket 
+också 'alla' gör. not_Predet finns med i resursgrammatiken,
+jag kan tycka det är lite konstigt eftersom det tillåter 
+"Inte flickor vill ha en katt"
+Men jag antar att de finns en anledning till att det är så.
+Vad tycker du, är det en ok analys och kan man isf ha 'nästan'
+som en Predet?
+
+(2)     Viktigast var nog katten.
+Fungerar inte eftersom det inte (ännu) är tillåtet att använda superlativ såhär.
+Att tillåta det är i sig enkelt, och parseträd som 2.pdf kan då bli till.
+Som du ser är inte 'nog' med. Man använda ord av typen AdA, 
+men de läggs då till det fokuserade adjektivet, som i 2b.pdf.
+
+
+(3)       I de avgifter du betalar ingår skatt.
+Meningen "I äpplen du äter sitter maskar" kan parsas, 3a.pdf och 3b.pdf. Dock tillåts man inte
+att använda 'de', såvida inte substantivet modifieras av tex ett adjektiv.
+
+(4)     Andra frågor fick man akta sig för.
+Fungerar inte av en rad anledningar, tyvärr. Det närmaste man kan komma är träden
+4a.pdf och 4b.pdf. I 4a.pdf parsas 'man' som generiskt , det står inte med i parseträdet,
+men syns i det abstrakta trädet 4aAbs.pdf. Just nu kan man inte använda det reflexiva pronomet
+'sig', eftersom jag behöver göra om de tilläggen jag gjort tidigare, men 4b.pdf visar hur
+det ser ut för första person.
+
+(5)    Den liknar den nyckel som flickorna fått tag i.
+Här finns åter igen ett 'den' som inte tillåts. "Få tag i" finns heller inte med,
+det kanske kan läggas till som ett idiom. Se parseträd 5.pdf för en liknande mening.

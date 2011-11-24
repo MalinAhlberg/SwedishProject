@@ -3,8 +3,8 @@
 -- for testing grammar, using just the test lexicon
 abstract BigTest = 
   Lexicon,
-  ExtraSweAbs - [DropAttVV] ,
-  Noun, -- -[DetNP] ,
+  ExtraSweAbs,
+  Noun -[DetNP] ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], --,ComplVA],
   Adjective -[UseComparA],
   Adverb,
@@ -31,5 +31,6 @@ abstract BigTest =
   do_VV : VV;
 
   ---
+  uppskatta_V2 : V2; 
   } ;
 

@@ -2,7 +2,7 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
-  NounSwe, -- - [DetNP],
+  NounSwe- [DetNP],
   VerbSwe -[PassV2,ComplSlash,ReflVP,ComplNP], --,ComplVA], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -35,5 +35,6 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
 
+    uppskatta_V2 = dirV2 (mkV "uppskattar") ;
 
 } ;

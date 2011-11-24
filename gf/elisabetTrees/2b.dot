@@ -1,0 +1,28 @@
+graph {
+  rankdir=BU ;
+  node [shape = record, color = white] ;
+   
+  struct0[label = "<n19>Phr"] ;
+  struct1[label = "<n17>Utt"] ;
+  struct0:n19:s -- struct1:n17:n ;
+  struct2[label = "<n16>Foc"] ;
+  struct1:n17:s -- struct2:n16:n ;
+  struct3[label = "<n9>Comp | <n15>NP"] ;
+  struct2:n16:s -- struct3:n9:n ;
+  struct2:n16:s -- struct3:n15:n ;
+  struct4[label = "<n8>AP | <n14>CN"] ;
+  struct3:n9:s -- struct4:n8:n ;
+  struct3:n15:s -- struct4:n14:n ;
+  struct5[label = "<n5>AdA | <n7>AP | <n13>N"] ;
+  struct4:n8:s -- struct5:n5:n ;
+  struct4:n8:s -- struct5:n7:n ;
+  struct4:n14:s -- struct5:n13:n ;
+  struct6[label = "<n6>A"] ;
+  struct5:n7:s -- struct6:n6:n ;
+  struct7[label = ""] ;
+  struct8[label = "<n99990>nästan | <n99991>viktigast | <n99992>var | <n99993>katten"] ;
+  struct5:n5:s -- struct8:n99990:n ;
+  struct6:n6:s -- struct8:n99991:n ;
+  struct2:n16:s -- struct8:n99992:n ;
+  struct5:n13:s -- struct8:n99993:n ;
+}

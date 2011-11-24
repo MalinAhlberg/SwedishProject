@@ -1,0 +1,37 @@
+graph {
+  rankdir=BU ;
+  node [shape = record, color = white] ;
+   
+  struct0[label = "<n21>Phr"] ;
+  struct1[label = "<n19>Utt"] ;
+  struct0:n21:s -- struct1:n19:n ;
+  struct2[label = "<n18>S"] ;
+  struct1:n19:s -- struct2:n18:n ;
+  struct3[label = "<n17>Cl"] ;
+  struct2:n18:s -- struct3:n17:n ;
+  struct4[label = "<n16>VP"] ;
+  struct3:n17:s -- struct4:n16:n ;
+  struct5[label = "<n5>VV | <n15>VP"] ;
+  struct4:n16:s -- struct5:n5:n ;
+  struct4:n16:s -- struct5:n15:n ;
+  struct6[label = "<n7>VPSlash | <n14>NP"] ;
+  struct5:n15:s -- struct6:n7:n ;
+  struct5:n15:s -- struct6:n14:n ;
+  struct7[label = "<n6>V2 | <n11>Det | <n13>CN"] ;
+  struct6:n7:s -- struct7:n6:n ;
+  struct6:n14:s -- struct7:n11:n ;
+  struct6:n14:s -- struct7:n13:n ;
+  struct8[label = "<n9>Quant | <n12>N"] ;
+  struct7:n11:s -- struct8:n9:n ;
+  struct7:n13:s -- struct8:n12:n ;
+  struct9[label = "<n8>PronAQ"] ;
+  struct8:n9:s -- struct9:n8:n ;
+  struct10[label = ""] ;
+  struct11[label = "<n99990>man | <n99991>måste | <n99992>titta | <n99993>på | <n99994>sådana | <n99995>frågor"] ;
+  struct3:n17:s -- struct11:n99990:n ;
+  struct5:n5:s -- struct11:n99991:n ;
+  struct7:n6:s -- struct11:n99992:n ;
+  struct7:n6:s -- struct11:n99993:n ;
+  struct9:n8:s -- struct11:n99994:n ;
+  struct8:n12:s -- struct11:n99995:n ;
+}

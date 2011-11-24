@@ -1,0 +1,23 @@
+graph {
+n0[label = "UseCl : S", style = "solid", shape = "plaintext"] ;
+n0_0[label = "TTAnt : Temp", style = "solid", shape = "plaintext"] ;
+n0 -- n0_0 [style = "solid"];
+n0_0_0[label = "TPres : Tense", style = "solid", shape = "plaintext"] ;
+n0_0 -- n0_0_0 [style = "solid"];
+n1_0_0[label = "ASimul : Ant", style = "solid", shape = "plaintext"] ;
+n0_0 -- n1_0_0 [style = "solid"];
+n1_0[label = "PPos : Pol", style = "solid", shape = "plaintext"] ;
+n0 -- n1_0 [style = "solid"];
+n2_0[label = "GenericCl : Cl", style = "solid", shape = "plaintext"] ;
+n0 -- n2_0 [style = "solid"];
+n0_2_0[label = "ComplSlash : VP", style = "solid", shape = "plaintext"] ;
+n2_0 -- n0_2_0 [style = "solid"];
+n0_0_2_0[label = "UsePron : NP", style = "solid", shape = "plaintext"] ;
+n0_2_0 -- n0_0_2_0 [style = "solid"];
+n0_0_0_2_0[label = "they_Pron : Pron", style = "solid", shape = "plaintext"] ;
+n0_0_2_0 -- n0_0_0_2_0 [style = "solid"];
+n1_0_2_0[label = "SlashV2a : VPSlash", style = "solid", shape = "plaintext"] ;
+n0_2_0 -- n1_0_2_0 [style = "solid"];
+n0_1_0_2_0[label = "uppskatta_V2 : V2", style = "solid", shape = "plaintext"] ;
+n1_0_2_0 -- n0_1_0_2_0 [style = "solid"];
+}

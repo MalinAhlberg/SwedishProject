@@ -1,0 +1,48 @@
+graph {
+  rankdir=BU ;
+  node [shape = record, color = white] ;
+   
+  struct0[label = "<n37>Phr"] ;
+  struct1[label = "<n35>Utt"] ;
+  struct0:n37:s -- struct1:n35:n ;
+  struct2[label = "<n34>S"] ;
+  struct1:n35:s -- struct2:n34:n ;
+  struct3[label = "<n33>Cl"] ;
+  struct2:n34:s -- struct3:n33:n ;
+  struct4[label = "<n6>NP | <n32>VP"] ;
+  struct3:n33:s -- struct4:n6:n ;
+  struct3:n33:s -- struct4:n32:n ;
+  struct5[label = "<n5>Pron | <n8>VPSlash | <n31>NP"] ;
+  struct4:n6:s -- struct5:n5:n ;
+  struct4:n32:s -- struct5:n8:n ;
+  struct4:n32:s -- struct5:n31:n ;
+  struct6[label = "<n7>V2 | <n30>CN"] ;
+  struct5:n8:s -- struct6:n7:n ;
+  struct5:n31:s -- struct6:n30:n ;
+  struct7[label = "<n13>CN | <n29>RS"] ;
+  struct6:n30:s -- struct7:n13:n ;
+  struct6:n30:s -- struct7:n29:n ;
+  struct8[label = "<n12>N | <n28>RCl"] ;
+  struct7:n13:s -- struct8:n12:n ;
+  struct7:n29:s -- struct8:n28:n ;
+  struct9[label = "<n18>RP | <n27>ClSlash"] ;
+  struct8:n28:s -- struct9:n18:n ;
+  struct8:n28:s -- struct9:n27:n ;
+  struct10[label = "<n24>NP | <n26>VPSlash"] ;
+  struct9:n27:s -- struct10:n24:n ;
+  struct9:n27:s -- struct10:n26:n ;
+  struct11[label = "<n23>CN | <n25>V2"] ;
+  struct10:n24:s -- struct11:n23:n ;
+  struct10:n26:s -- struct11:n25:n ;
+  struct12[label = "<n22>N"] ;
+  struct11:n23:s -- struct12:n22:n ;
+  struct13[label = ""] ;
+  struct14[label = "<n99990>den | <n99991>liknar | <n99992>katten | <n99993>som | <n99994>flickorna | <n99995>tittar | <n99996>på"] ;
+  struct5:n5:s -- struct14:n99990:n ;
+  struct6:n7:s -- struct14:n99991:n ;
+  struct8:n12:s -- struct14:n99992:n ;
+  struct9:n18:s -- struct14:n99993:n ;
+  struct12:n22:s -- struct14:n99994:n ;
+  struct11:n25:s -- struct14:n99995:n ;
+  struct11:n25:s -- struct14:n99996:n ;
+}

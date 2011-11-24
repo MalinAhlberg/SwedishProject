@@ -3,8 +3,8 @@
 abstract Big = 
   DictSweAbs,
   ExtraSweAbs,
-  Noun ,
-  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
+  Noun -[DetNP] ,
+  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], 
   Adjective -[UseComparA],
   Adverb,
   Idiom,
