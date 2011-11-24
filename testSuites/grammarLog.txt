@@ -35,3 +35,9 @@ Wed Nov 23 22:43:43 CET 2011
 	 of totally 155 sentences.
 5 had unknown words
 
+Thu Nov 24 10:00:58 CET 2011
+*******
+ Result: passed: 100	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+

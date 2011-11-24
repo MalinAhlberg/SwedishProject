@@ -53,7 +53,7 @@ type PMonad = (RWS () [String] S)
 
 
 test = False
-usePGF = testGr
+usePGF = bigGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
@@ -1301,9 +1301,6 @@ metaNoun = (mkExpr meta,cidNumSg,NIndef)
 data NForm = NDef | NIndef | NOther -- NOther for reciprocs etc 
   deriving (Eq,Show)
 
---isDef :: NForm -> Bool
---isDef NIndef = True
---isDet _      = False
 getDef NDef = cidDefArt
 getDef NIndef = cidIndefArt
 getDef NOther = meta
@@ -1438,25 +1435,6 @@ findAPerfParticip =
       [lemma v "s (VI (VPtPret (Strong (GSg Neutr)) Nom))" | v <- gfvForms]
       ++
       [lemma v "s (VI (VPtPret (Strong GPl) Nom))" | v <- gfvForms])
- {-`mplus`
- lemma "V2" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
- `mplus`
- lemma "V2" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
- `mplus`
- lemma "V2" "s (VI (VPtPret (Strong GPl) Nom))"
- `mplus`
- lemma "VV" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
- `mplus`
- lemma "VV" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
- `mplus`
- lemma "VV" "s (VI (VPtPret (Strong GPl) Nom))"
- `mplus`
- lemma "VS" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
- `mplus`
- lemma "VS" "s (VI (VPtPret (Strong (GSg Neutr)) Nom))"
- `mplus`
- lemma "VS" "s (VI (VPtPret (Strong GPl) Nom))"
- -}
 
 -- akta optEat här!! om fler läggs till måste den flyttas ut!
 -- om inte adjektivet finns med blir det ett adA? kanske bättre tvärtom?
