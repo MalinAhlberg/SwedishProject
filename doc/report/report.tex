@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage[margin=1.5in]{geometry}
 \usepackage{lingmacros}
+\usepackage{subfig}
 
 
 \begin{document}
@@ -48,7 +49,7 @@
 \newpage
 \chapter{Introduction}
 \section{Introduction} 
-Computers want to 'understand' language. Not good with flat strings.
+Ultimate goal: want computers to 'understand' language. Not good with flat strings.
 We need to translate strings of natural language to a richer sturture,
 a parse tree. So far there is no
 freely availbe ruled-based parsing giving a deep analyse for Swedish.
@@ -257,7 +258,7 @@ text written by high school (?) students, and the last one, section P,
 consists of professionally written Swedish gathered from newspapers and ... .\\
 Talbanken was also used to train the Swedish version of the Maltparser\cite{mal}
 and was därmed reutgiven in a more modern version\cite{nivre}. This work
-was done by Nivre and ... in 2005. They released it in some different XML-formats,
+was done by Nivre and ... in 2005. They released it in Malt and Tiger XML-formats,
 where the trees had been made deeper and smt more. \\
 In this project, as well as for the Malt parser, the more than 6000 sentences
 in section P has been used.
@@ -615,38 +616,215 @@ Some results.
 
 \section{Mapping}
 \label{sec:Mapping}
-To connect GF with other annotations, to evaluate. Identify missing constructs,
-missing words. More reasons from presentation.
-Similar for English and Penntree, but PennTree and Talbanken different, plus swedish
-makes a different. More possible word orders (or at least more commonly used).
-One deep and one flatter version of Talbanken, deep contains ca 5 more tags.
-The flat was used since the deep one
-isn't deep in the same way as GF. Example with CNP (s5). Some
-more info about VPs are given, but do not think this will give any relevant information.
-Talbanken also contains frequent .. tags XP, XX osv. We cannot expect to translate
-this to anything but metas.
-How we try to build up a 'parse tree', a S with a NP VP for example. 
-How verbs look for complements (or inverted order), how metas are added.
-Description of most important tags from Talbanken, their translation.
-Description of the ones most hard to translate (particles, flat sentences)
-Example of nice translation and one with many metas, and one that doesn't work.
-Developed by adding one mapping for each tag, and by examples.
-How we cannot cover all cases. The testing: regression testing again,
-very easy to destroy what was working before. 
-How we need valency information.
-If we don't take the verb valency into account, allow all verbs to have Gf category V,
-we get a slightly better result,
-from 62.5\% to 65.4\%.  (see EvalText). The complemnt of the verbs should tell which category
-they are anyway.
-Evaluation. -> Works for both flat and deep, but with sligthly better results for the flat one.
+Talbanken contains much valuable information about phrase structures and word 
+usage. One part of this project has focused on extracting this information
+and to translate it to GF notaiton. We have constructed a mapping, which 
+automatically transforms trees in Talbanken format to GF abstract syntax trees.
+Figure \ref{fig:translationtrees} shows an exapmle of a visualized tree
+from Talbanken05 and the result of translating it to GF.
+Both the POS tags as well as the syntactic information are needed for the translation.
+
+\begin{figure}[h]
+\centering
+\subfloat[Talbanken tree]{\label{pic:tbtree}\includegraphics[width=60mm]{Talbankentree.pdf}}
+\subfloat[GF abstract tree]{\label{pic:gftree}\includegraphics[width=60mm]{gfTree.pdf}}
+\caption{Trees for the sentence ``Katten på bilen blir större".}
+\label{fig:translationtrees}
+\end{figure}
+
+The mapping connects GF with another annotations and gives us means to evaluate
+our parser. By both parsing a talbanken sentence and transforming its annotaded tree, we can
+easily inspect if the results are equal.
+The mapping also makes it clear which grammatical constructions that are still missing
+from the GF grammar and shows how the GF analysis differs from the one made
+in Talbanken.
+If there are words missing from our dictionary, the rich
+pos-tags may help us to automatically find the correct declination and add it to the
+lexicon. Further, our parser will need probabilities, see section
+\ref{sec:future}, of how often a function is used.\\
+%missing words. Lexical aquisation, probabilities, see section .
+%The mapping gives information about which form a word is
+%currently used in and this may be used by the lexical extraction
+%tools. % Those can be enhanced if they are given more data. 
+%The translated trees enable us to extract those probabilities. %The mapping gives us a source for this.
+%Furthermore, the translation makes it easy to identify grammatical constructions
+%missing from the GF grammar Another important use of the mapping is evaluation of the parser, which can be
+%accomplished by comparing the parse trees and the trees from the transformer.
+
+A program for translating trees to GF syntax has been done before (Angelov,).
+It translated trees from the English Penn Treebank. By starting this progam, we now have
+a translation that works for the quite differently annotated Talbanken. The differences between
+Swedish and English syntax also meant that many rules had to be changed.\\
+
+The mapping works for Talbanken05 in Tiger XML-format. There are three kinds of
+tags: categories, edge labels and pos tags. 
+The categories give syntactic information such as \verb|S|,\verb|NP| and \verb|VP|.
+The edge labels give similair information with tags as \verb|SS| for subject, 
+\verb|OO| for object. There are more than 300 different pos tags. The high
+number is due to the detailedness, for example there are almost 50 tags for
+nouns, excluding proper names. The tags show definitiness, case, whether the
+word is a compound. Some words also have their own tags.\\
+
+\begin{tabular}{lll}
+\textbf{Tag} & \textbf{Example} & \textbf{Explanation} \\
+\hline
+\textbf{SV} & ska & The verb \emph{shall}\\
+\textbf{WVIV} & vilja & The verb \emph{want} in infinitive\\
+\textbf{KVSP} & kommit att & The verb \emph{will} in supine\\
+\textbf{GVPT  PA} & gjordes & The verb \emph{do, make}, present, passive \\
+\textbf{NNDDHSGG} & familjemedlemmarnas & Noun, definite, compound (person), genitive \\
+\textbf{PU} & *, 1), a) & List item  ...\\
+\end{tabular}\\
+
+%Pos continues
+%to either new tree or a word. Example S -> PP -> (Hd -> Id , Hd -> Id). Show
+%corresponding GF tree.
+
+The translation works sectionwise, ie, if it finds a tree of category \verb|S|,
+it will start to look for a subject \verb|SS| and a finite verb \verb|FV|. If it
+can find those, they can be combine with the GF function \verb|PredVP|.
+At the lowest level in the tree we look up the word in the GF lexicon.
+It figure \ref{pic:tbtree}, the verb is followed by an adjective as a present
+participle, \verb|SP|. GF admits \emph{bli} to have type \verb|VA|, a verb
+with an adjective as complement, and the translator can apply the gf function
+\verb|ComplVA| to combine the verb with its object. \\
+It is not often the case that we can first find the subject, then the verb and 
+finally the objects. Often the order is Verb-Subject-Object or Object-Subject-Verb. \\
+During the mapping process, the translator also needs to find out whether the sentence is
+negated and what tempus is used. If it finds two trees of type, say, \verb|VP| but does not
+have any rules for combining them, the \textit{meta function} \emph{'?'} will be used. 
+Figure xx shows an exapmle of this.\\
+
+%How we try to build up a 'abstract syntax tree', a S with a NP VP for example. 
+%Continue with dividing VP into Verb Objs. More possible word orders (or at
+%least more commonly used). 'katten åt sin mat fort' 'åt katten sin mat fort' 'sin mat åt katten fort'
+% If can't find, add a '?', a meta.
+%This is also what happens when the translator finds a combination it doesn't know about.
+%Example of tree with meta.
+
+%Description of most important tags from Talbanken, their translation? appendix?
+The structural differences between GF and Talbanken cause some translation problems.
+On example is that Talbanken has no valencey information but for GF this is the key when
+constructing for example verb phrases. The grammar bestämmer that a transitive \verb|V2|
+needs by two objects. The distinction is not always clear in Swedish where 
+most transitive verbs can also be used as intransitive. Both sentences in
+example \ref{ex:mappTransitive}.
+\enumsentence{Han sitter och läser.\\ Han sitter och läser en bok.} \label{ex:mappTransitive}
+See section \ref{sec:futureValency} for a longer discussion about this.
+For this reason, the mapping will allow words to be used in other ways than their
+GF valencies prescribes.
+
+Another problem can be instantiated by sentence \ref{ex:mappMan}, containing the generic pronoun \emph{man}.
+\enumsentence{Man uppskattar dem.\\
+        \emph{They are appreciated}}\label{ex:mappMan} %  (s216).
+In talbanken, \emph{man} is simply a personal pronoun, 
+in GF it causes the whole clause to get the form \verb|GenericCl|, which has no
+subject visible in the abstract tree. See figure \ref{fig:mappMan}.
+\begin{figure}[h]
+\centering
+\includegraphics[width=80mm]{man.pdf}
+\caption{Abstract tree for ``Man uppskattar dem".}
+\label{fig:mappMan}
+\end{figure}
+In this case, it is not possible to simply glue the subject to the verb with \verb|PredVP|.
+%Therefore, the translator must change the type of the 
+%sentence when inside the SS.
+
+%förklara bättre eller ta bort??
+A similair issue arises form the use of verb particles. If a verb with a particle is considered
+as one klump in GF, which means that the particle has no effect on the abstract tree. Its presence
+is announced by the verb itself. The lexicon may contain a verb both with and without a particle,
+for example \emph{tänka} (think) and \emph{tänka till} (consider?).
+\begin{verbatim}
+taenka_V  : V ;
+taenka_till_V : V ;
+\end{verbatim}
+When the translator looks up a the form \emph{tänka}, both of the two verbs
+will be among the results. The first option will be selected, and if the
+particle isn't directly attatched to the verb
+%There is, at this point, no easy way of knowing which one of them wants a particle and the
+the transformation might confuse the two words. This is also the case when translating
+all sorts of idioms that GF considers to be just one bit.\\
+
+%Difficulties in looking up 'idioms' like this
+%in the gf lexicon. Therefore the translator might get confused.
+%Sentences are also differntly deep. Example of a conjuncted sentence.
+
+On of the reasons why \textit{metas} are put in the output, is the 
+use of tags like \\
+\begin{figure}[h]
+\begin{tabular}{ll}
+\textbf{NAC} & Not a constituent\\
+\textbf{XP} & Other (non-coordinated) phrase\\
+\textbf{DB} & Doubled function\\
+\textbf{PU} & List item\\
+\textbf{XX} & Unclassifiable part-of-speech\\
+\end{tabular}\label{fig:mapBadtag}
+\end{figure}
+
+They occure quite frequently in the treebank and are always translated
+to \emph{?}.
+%How we cannot cover all cases. 
+
+\subsection{Results and evalutaion}
+The flat version of Talbanken05 was used for developping the mapping, but
+the program works for both versions.
+The deeper contains six more tags, but they are not always useful for our       
+purpose. Figuer \ref{fig:mappDeepFlat} shows the difference for a conjunction.
+% show piece of s5 here!
+%\begin{figure}[h]
+%\centering
+%\subfloat[Talbanken tree]{\label{pic:tbtree}\includegraphics[width=60mm]{Talbankentree.pdf}}
+%\subfloat[GF abstract tree]{\label{pic:gftree}\includegraphics[width=60mm]{gfTree.pdf}}
+%\caption{Ttrees for the sentence ``Katten på bilen blir större".}
+%\label{fig:translationtrees}
+%\end{figure}
+
+Some more information about VP are given by the tag \verb|VG| (\emph{verb group}),
+which can group an infinite verb and an object abverbial together into a \verb|VP|.
+This information can however be extracted from the flat version, and the results
+get slightly better when using the flat version. \\
+
+
+%At least one rule  and also most of the
+The development was mostly example-driven, and at least one rule for each
+Talbanken-tag has been implemented.
+Shorter sentences have been prioritized in order to get a coverage of the most
+fudamental constructions. Further,  
+regression testing was used during the development. % in order to  very easy to destroy what was working before. 
+
+When evaluating the mapping, the results depend a lot on the restrictions on the
+input. 
+The focus has been on shorter sentences, with no idioms or conjunction. We are
+not interested in sentences made up by list, since they are meant for making
+a nice graphic look in folders etc.\\
+
+
+If we
+assure that the lexicon know the correct word class for all lemmas involved, we
+can restore more than 85\% of the nodes in the original tree.
+If we lift all the restrictions excluding the \verb|PU|, we get
+%When tested the 100 first sentences from Talbanken, we get
+65\% coverage.
+If we test randomly collected sentences that does not contain and any of the tags listed
+in figure \ref{fig:mapBadtag} 72\% can be restored. \\
+
+\begin{tabular}{ll}
+No list items & 65\%\\
+No special tags or punctiation & 72\%\\
+Short sentences with known words & 85\%\\
+\end{tabular}
+
+%If we don't take the verb valency into account, allow all verbs to have Gf category V,
+%we get a slightly better result,
+%from 62.5\% to 65.4\%.  (see EvalText). The complemnt of the verbs should tell which category
+%they are anyway.
+%Evaluation. -> Works for both flat and deep, but with sligthly better results for the flat one.
 
 % hard examples like
 % ger sig till henne -> ReflSlash ge henne in gf
 % questions with objects that should be moved
-
-
-
-%One part about the mapping from Talbanken to GF, description. About the purpose.
+% vilken katt såg du
 %This part explains
 %the tags in Talbanken and gives examples of how they are translated,
 %examples of what can be parsed and what cannot.
@@ -670,13 +848,21 @@ What other methods could have been used? What did we/I expect and what happend?
 
 
 \section{Future Work}
+\label{sec:future}
 What is still left to do? Description and direction of future work:
+Handling unknown words and , handling unknown grammar, 
 how to make the parser robust, elipses and long sentences, names and numbers.
 What is still needed in the grammar, how important that is. 
-how to get valency information 'sitter och läser', description of extracting this
-or handling it by the robust parser or the grammar itself.
+\subsection{Valency}
+\label{sec:futureValency}
+how to get valency information 'sitter och läser',
+is this doable for swedish?
+description of extracting this from talbanken/korp
+or handling it by the robust parser or the grammar itself (leaveout obj?).
 make the parser faster by using smaller lexicon.
 Lexicon tool on the fly.
+\subsection{Probabilites}
+\label{sec:futureProbabilities}
 Getting and using probabilities, to disambiguate.
 process list from saldo.
 Use multiligual treebank?
