@@ -1,0 +1,15 @@
+48 talk to aarne. dot, refl, pp, foc. work on grammar, writing, plan meeting.
+   write 30 pages, mail Eliabet (in beginning of week)
+   tried parsed test suite with new version - evaluated against mapped trees
+   have first version of report send to Ramona
+
+Monday:    Meet Ramona, talk ta Aarne, make short outline for plan, try import saldo again?
+           Write on GF section. 
+Tuesday:   Writing and fixing things that comes up
+Wednesday: Writing  
+Thursday:  Writing 
+Friday:    Read Gazdar, write, have 30 pages, send to Ramona and Elisabet
+           
+själv
+antalet
+hitta hur verb används

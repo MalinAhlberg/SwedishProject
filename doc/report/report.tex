@@ -98,30 +98,31 @@ The project is hence heavily dependening on three resources, which will be descr
 in the following sections.
 
 \subsection{Swedish}
-Swedish is a North-Germanic language spoken,
+Swedish\cite{SAG:intro} is a North-Germanic language,
 closely related to Norweigan and Danish. The languages share most of their
 grammatical structures and are mutual intelligibility. Swedish is also 
 an official language in Finland and spoken by approximately 10 million people.
-A list of things:
+Swedish syntax are often similair to English, but have some characteristics:
 \subsubsection*{Verb second}
 Swedish is a verb-second language: the
 second constituent of a declarative main clause must consist of a verb.
-The normal word order is Subject-Verb-Object, but any syntactic category can be fronted.
+The normal word order is subject-verb-object, but any syntactic category can be fronted\cite{H&H:1027}.
+Topicalisation is very common, especially for temporal and spatial adverbial phrases.
 The examples \ref{ex:swedish-svo} - \ref{ex:swedish-avso} all have the same propositional
-meaning, although the fronted part of sentence \ref{ex:swedish-ovs} are being emphasized.
+meaning, although the fronted part of sentence \ref{ex:swedish-ovs} and \ref{ex:swedish-avso} are being emphasized.
 \enumsentence{
 \shortex{4}
-{Jag & ser & dig & inte.}
-{I &  see & you & not.}
-{`I  don't see you'.}} \label{ex:swedish-svo}
+{Du & ser & mig & inte.}
+{You & see & me & not.}
+{`You  don't see me'.}} \label{ex:swedish-svo}
 \enumsentence{
 \shortexnt{4}
-{Dig  & ser &  jag & inte.}
-{You& I& see & not.}}\label{ex:swedish-ovs} 
+{Mig  & ser &  du & inte.}
+{Me & see & you & not.}}\label{ex:swedish-ovs} 
 \enumsentence{
 \shortexnt{4}
-{Inte & ser& jag &dig.}
-{Not&  see& I&   you.}} \label{ex:swedish-avso}
+{Inte & ser& du &mig.}
+{Not&  see& you& me.}} \label{ex:swedish-avso}
 
 %\shortexm{3}
 %{hej} {hi}{hhe} {bing}{bong}{salt}
@@ -143,9 +144,9 @@ meaning, although the fronted part of sentence \ref{ex:swedish-ovs} are being em
 Inverted word order marks questions
 \enumsentence{
 \shortex{4}
-{Såg & jag & dig & inte?}
-{Saw  & I&  you& not?}
-{`Didn't I see you?'}}
+{Såg & du & mig & inte?}
+{Saw  & you&  me& not?}
+{`Didn't you see me?'}}
 %\enumsentence{Gick Johan på gatan?\\
 %        \emph{Did Johan walk on the street?}}
 The word order in subordinate clauses in also slightly different,
@@ -172,15 +173,23 @@ The word order in subordinate clauses in also slightly different,
 \subsubsection*{Passive voice}
 Passive voice is often used in Swedish, especially the
 \textit{s-passive}, which is formed by adding an \emph{s} at the end of a verb.
-\enumsentence{
-\shortex{5}{Han & jagade\textbf{s} & av & ett & lejon.}
+\enumsentence{Passive \hspace{39mm} Active\\
+\shortexm{11}{Han & jagade\textbf{s} & av & ett & lejon.}
         {He & hunted+\textbf{s} & by & a & lion.}
-        {`He was hunted by a lion.'}}
-cf.
-\enumsentence{
-\shortex{5}{Ett & lejon & jagade & honom.}
+        {`He was hunted by a lion.'}
+{Ett & lejon & jagade & honom.}
         {A &lion &hunted &him.}
         {`A lion was hunting him.'}}
+
+
+
+
+
+%cf.
+%\enumsentence{
+%\shortex{5}{Ett & lejon & jagade & honom.}
+%        {A &lion &hunted &him.}
+%        {`A lion was hunting him.'}}
 
 \subsubsection*{Impersonal constructions}
 Constructions with 'det är/var' ('it is/was') is very common\cite{H&H309d}:
@@ -201,10 +210,10 @@ and special reflexive forms of the possessive pronouns for the 3rd
 person\cite{H&H319}. Those are distinct from the normal 3rd person forms.
 \enumsentence{
 \begin{tabular}{ll}
-Han slog sig. & Han såg sitt barn.\\
+Han slog \textbf{sig}. & Han såg \textbf{sitt} barn.\\
 \vspace{3mm}
 \emph{He hit him self.} & \emph{He saw his (own) child.}\\
-Han slog honom. & Han såg hans barn.\\
+Han slog \textbf{honom}. & Han såg \textbf{hans} barn.\\
 \emph{He hit him (another person).}&\emph{He saw his (another person's) child.}
 \end{tabular}}
 The 1st and 2nd persons use the normal personal pronoun in object form.
@@ -508,13 +517,43 @@ v2-lang, focusing parts of sentences.
 
 \subsection{GF for Swedish}
 The GF resource grammars contains a fundamental description of Swedish,
-covering the morphology, many phrases and clauses.
-Covers sentences like
-han har inte ätit två gula äpplen idag
-word order, agreement, tempus, adverbs, adjectivs...
-and relatives
-Also info in the Extra module, where more language specific constructions
-can be found.
+covering the morphology, many phrases and clauses. Most of the implementation
+is shared with the other scandinavian languages.
+Apart form descriping morphology, the resource grammar deals with
+word order, agreement, tempus, basic conjunction etc.
+Sentence \ref{gfSwe:parseable} produces the parse in figure \ref{gfSwe:parsetree}.
+%Covers sentences like
+% better sentence where the verb phrase is split up?
+\enumsentence{\shortexnt{8}
+{Har& han& inte& ätit& de & gula& äpplena& idag}
+{He& has& not& eaten& the& yellow& apples& today}} %correct!!!
+\label{gfSwe:parseable}
+\begin{figure}[h]
+\includegraphics[width=60mm]{gfTree.pdf}
+\caption{Parse tree for ``Han har inte ätit de gula äpplena idag".}%correct
+\label{gfSwe:parsetree}
+\end{figure}
+Even though the verb phrase \emph{``har inte ätit..} is discontinuous, the whole
+phrase is still treated as one constituent in GF. The parts
+are connected in the tree, and the subject \emph{``han"} is put between the
+finite verb and the rest of the phrase. In the code, this is implemented by using a record.
+The linearization rule for questions -- clauses with inverted order -- picks the 
+finite form: \\
+\verb|table { Inv => verb.fin ++ subj ++ neg ++ verb.inf ++ compl ; ... | \\
+Relative clauses are also covered: 
+\enumsentence{Hon ser pojken som sover\\
+              She sees the boy who sleeps}
+
+In addition to the basic resource grammar, additional constructions had been added
+to the module \verb|Extra|. The functions given here do not have to be translatable
+to all other language, but are meant to cover language specific constructions.
+The \verb|Extra| module included functions for topologication, although all
+of them were not implemented for Swedish.
+%word order, agreement, tempus, adverbs, adjectivs...
+%and relatives
+%Also info in the Extra module, where more language specific constructions
+%can be found.
+Check wich were here first:
 jag ser dig
 dig ser jag
 dig har jag inte sett

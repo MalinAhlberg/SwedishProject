@@ -39,11 +39,11 @@ Nov
    report should be 20 pages
 
 Dec
-48 work on grammar, writing, plan meeting.
+48 talk to aarne! dot, refl, pp, foc. work on grammar, writing, plan meeting.
    write 30 pages, mail Eliabet (in beginning of week)
    tried parsed test suite with new version - evaluated against mapped trees
    have first version of report send to Ramona
-49 meeting with group
+49 analysing slow sentence, write, meeting with group
 50 writing, wrapping up
 Jan
 2 presentation
