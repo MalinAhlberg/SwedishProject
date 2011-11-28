@@ -1,7 +1,8 @@
 A reflexive NP can be constructed from
 -any CN
 -any NP where the noun is in indefinite form "sina många katter"
-  ('sina några barn' sounds bad, but maybe more of a semantic difference?)
+  ('sina några barn' sounds bad (unless your from sandviken),
+    but maybe more of a semantic difference?)
 
 
 may change a reflexive NP 
