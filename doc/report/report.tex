@@ -517,53 +517,73 @@ v2-lang, focusing parts of sentences.
 
 \subsection{GF for Swedish}
 The GF resource grammars contains a fundamental description of Swedish,
-covering the morphology, many phrases and clauses. Most of the implementation
+covering the morphology and many phrase and clause constructions. Most of the implementation
 is shared with the other scandinavian languages.
 Apart form descriping morphology, the resource grammar deals with
 word order, agreement, tempus, basic conjunction etc.
-Sentence \ref{gfSwe:parseable} produces the parse in figure \ref{gfSwe:parsetree}.
+\enumsentence{\shortexnt{8}
+{Har& han& inte& ätit& de & gula& äpplena& idag?}
+{Has& he& not& eaten& the& yellow& apples& today?}} %correct!!!
+\label{gfSwe:parseable}
+The grammar can construct and parse the sentence in example \ref{gfSwe:parseable}
+and the parse tree is represented as in figure \ref{gfSwe:parsetree}.
 %Covers sentences like
 % better sentence where the verb phrase is split up?
-\enumsentence{\shortexnt{8}
-{Har& han& inte& ätit& de & gula& äpplena& idag}
-{He& has& not& eaten& the& yellow& apples& today}} %correct!!!
-\label{gfSwe:parseable}
 \begin{figure}[h]
 \includegraphics[width=60mm]{gfTree.pdf}
 \caption{Parse tree for ``Han har inte ätit de gula äpplena idag".}%correct
 \label{gfSwe:parsetree}
 \end{figure}
-Even though the verb phrase \emph{``har inte ätit..} is discontinuous, the whole
+Even though the verb phrase \emph{``har inte ätit.."} is discontinuous, the whole
 phrase is still treated as one constituent in GF. The parts
 are connected in the tree, and the subject \emph{``han"} is put between the
-finite verb and the rest of the phrase. In the code, this is implemented by using a record.
-The linearization rule for questions -- clauses with inverted order -- picks the 
-finite form: \\
-\verb|table { Inv => verb.fin ++ subj ++ neg ++ verb.inf ++ compl ; ... | \\
-Relative clauses are also covered: 
-\enumsentence{Hon ser pojken som sover\\
-              She sees the boy who sleeps}
+finite verb and the rest of the phrase. At the code level, this is implemented
+using records.
+The linearization rule for questions -- clauses with inverted order -- picks 
+the field for the finite verb and appends it to the subject followed by
+the negation, infinite part and the complement of the verb phrase: \\
+\verb|table { Inv => verb.fin ++ subj ++ verb.neg ++ verb.inf ++ verb.compl ; ... | \\
 
+Relative clauses are also covered: 
+\enumsentence{\shortexnt{5}{Hon & ser & pojken & som  &sover}
+              {She & sees & the boy & who & sleeps}}
+              %{`She sees the sleeping boy'}}
+
+\enumsentence{\shortexnt{6}{Han & ser &katten & han  &tycker & om}
+              {He & sees & the cat & he & likes &}}
+              %{`She sees the sleeping boy'}}
 In addition to the basic resource grammar, additional constructions had been added
 to the module \verb|Extra|. The functions given here do not have to be translatable
 to all other language, but are meant to cover language specific constructions.
-The \verb|Extra| module included functions for topologication, although all
-of them were not implemented for Swedish.
+%For example, the \verb|Extra| module included
+Among those were functions for topologication, although not all
+of them were implemented for Swedish.
 %word order, agreement, tempus, adverbs, adjectivs...
 %and relatives
 %Also info in the Extra module, where more language specific constructions
 %can be found.
-Check wich were here first:
-jag ser dig
-dig ser jag
-dig har jag inte sett
-jag har inte sett dig.
-how the parse tree is generated, the finite verb, the subject, the rest. usw.
-han såg katten han tyckte om
-för vem måste jag akta mig
-vem måste jag akta mig för
+For example, \verb|FocObj| fronted the object as in sentence \ref{gfSwe:apple}.
+\enumsentence{\shortex{6}
+{Det & äpplet & vill & jag & inte & ha}
+{That & apple & want & I & not &}
+{I don't want that apple}}\label{gfSwe:apple}
+The module provided functions for preposition stranding:
+\enumsentence{\begin{tabular}{ll}
+Stranded preposition & cf.\\
+Vem måste jag akta mig för? & För vem måste jag akta mig?\\
+Who do I need to watch out for? & For whom do I need to wath out?\\
+\end{tabular}}
 
-honom ville hon inte tänka på.
+%jag ser dig
+%dig ser jag
+%dig har jag inte sett
+%jag har inte sett dig.
+%how the parse tree is generated, the finite verb, the subject, the rest. usw.
+%han såg katten han tyckte om
+%för vem måste jag akta mig
+%vem måste jag akta mig för
+
+%honom ville hon inte tänka på.
 
 Before describing what has been added, will give a short introductions to the
 the cats of resource grammar and the sw ipmlementation in particular.
@@ -573,6 +593,7 @@ Starting from N, get to CN what is it, what can we do now.
 To turn in into a NP need to fix determination, by Det. Dets have .. fixed,
 but allow variantion in.. 
 What is the difference? Some words on differences for pronouns.
+To form \emph{`fågeln'}, the determiner (DetQuant DefArt NumSg) is used.
 Example, use vartiants {}.
 There are also Quants, which .... 
 Once we have a NP, can use Predets. What they are.
@@ -600,96 +621,106 @@ kommer att - for scand, extra tempus, example
 example table
 
 %%PASSIV
-Is passive also more used in Swedish?
+\subsubsection{Passive}
 There are two ways of forming passive verb phrases in Swedish: the 
-periphrastic passive, formed by using a modale auxiliary verb 
-\enumsentence{Bilden blev tagen av  av rymdsonden Galileo}
-\enumsentence{The picture was taken by spacecraft Galileo.}
+\textbf{periphrastic passive}, formed by using a modale auxiliary verb \\
+\enumsentence{ \shortexnt{6}
+{Bilden &blev& tagen& av & rymdsonden & Galileo}
+{The picture & was & taken & by & the spacecraft & Galileo}}
+\label{gfPass:peri-pass}
 or by adding an \emph{s} to
-the verb:
-\enumsentence{Bilden togs av rymdsonden Galileo}
-\enumsentence{The picture [took+s] by spacecraft Galileo.}
-This second variant, the s-passive, is commonly used in Swedish, some studies
+the verb: \\
+\enumsentence{\shortex{5}
+{Bilden & togs&  av & rymdsonden&  Galileo}
+{The picture&  took+\textbf{s}&  by&the  spacecraft& Galileo}
+{``The picture was taken by the spacecraft Galileo"}}
+\label{gfPass:s-pass}
+This second variant, the \textbf{s-passive}, is commonly used in Swedish, some studies
 suggest that it is used in more than 80\% of the times \cite{laanemets}.
-For the other scandinavian languages, the s-passive can not be used in all tenses for all words.
-The periphrastic passive is preferred, especially in spoken langauge.
-\enumsentence{Bildet ble tatt av romsonden (NO)}
-The resource grammar for Scandinavian therefore allowed/expressed constructions using auxiliary verb. \\
+It is not as common in the other scandinavian languages however, 
+and it can not be used in all tenses for all words. The norweigan 
+translation of both sentence \ref{gfPass:peri-pass} and sentence  \ref{gfPass:s-pass} is
+%The periphrastic passive is preferred, especially in spoken langauge.
+\enumsentence{Bildet ble tatt av romsonden Galileo}
+The resource grammar for Scandinavian therefore expressed the passive using auxiliary verb. \\
 \verb|PassV2 : V2  -> VP | \\
-\verb|         äta -> blev äten| \\
+\verb|         ta -> blev tagen| \\
 This rules allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
 turned into comlpete verb phrases; they no longer need an object.
 The s-passive has now been added as the standard case for the Swedish GF
 grammar. Periphrastics passive is still allowed, but as an alternative rather
 than the default.
-The grammar also allows using three-place verbs \verb|V3| , as \emph{give} to
+The grammar also allows using three-place verbs \verb|V3| , as \emph{give}, to
 form passives:
-\enumsentence{Betyget 3 ges till många elever}
+\enumsentence{\shortex{6}
+{Betyget & 3 &ges &till &många &elever}
+{Grade & 3 & give+\textbf{s}& to & many & students}
+{``Grade 3 is given to many students"}}
 \label{ex:passV3}
 by letting the first object be `removed' and given by the subject. 
-Sentences where the second object is put first in the sentence, like 
+A remark can be made about sentences where the second object is put first in the sentence, like 
 \enumsentence{Till många elever ges betyget 3}
-is a variant of example \ref{ex:passV3}, \emph{`många elever'} is still the object but put in focus. The grammar
+This is a variant of example \ref{ex:passV3}, \emph{`många elever'} is still the object but put in focus. The grammar
 parse this by applying \verb|FocObj|.
 %%
 
 %% Clauses
-\subsection{The clause-level}
-The resource grammar already provided a number of ways to express relative and embedded clauses, such as
-\enumsentence{Frågan är vilken färg den har\\
-                   Pojken, som är blyg, tystnar\\
-                   Han såg kunden som tyckte om sallad\\
-                   Jag tänkte på huset vilket hon bodde i} % better example!!
-
-Since those constructions are inspired by other languages, some of them may sound quite
-non-natural in Swedish, such as the \verb|RelS|. This combines a sentence \emph{`Hon sover'}
-and a relative sentence \emph{`som/vilket är bra'} which wrongly expressed 
-\emph{`She sleeps, which is good'} as
-\emph{`Hon sover som är bra'}. The error comes from the fact that \emph{`som'} is
-embedded in the relative clause. To fix this, an extra parameter was needed to tell whether
-\emph{`som'} or \emph{`vilket'} should be used. \\
-Another complication stems from \verb|RelCl| which express the english \emph{`such that'}.
-The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of logic books.
-\enumsentence{Jag vill ha en katt sådan att den inte fäller.} 
-An more natural sounding alternative would be
-\enumsentence{Jag vill ha en sådan katt som inte fäller.}
-and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
-'en katt sådan att det regnar'. It is relative but has on empty field, still congruation is
-needed.
-du är här, vilket jag vet.
-i de äpplen/det äpple du äter bor en mask/ som du ser.\\
-
-\subsection{Presentering, Impersonal constantiation(?), Topicalisering}
-Formal subjects \cite{SAG-19,H&H-309d} is often used in Swedish
-\enumsentence{Det sitter en fågel på taket}
-\emph{`There is a bird sitting on the roof'}
-or, literally
-\emph{`It sits a bird on the roof'}.\\
+\subsubsection*{Presentering, Impersonal constructions, Topicalisering}
+Formal subjects \cite{SAG-19,H&H-309d} is often used in Swedish.
+\enumsentence{\shortex{6}
+{Det & sitter & en & fågel & på & taket}
+{It & sits & a & bird & on & the roof}
+{``There is a bird sitting on the roof''}}
 \emph{`Det'} has the position of the subject, and the real subject, 
 \emph{`en fågel'} the one of an object.
 Transitive verbs may not be used like this
-\enumsentence{*Det äter en fågel på taket.}
+\enumsentence{
+*Det äter en fågel på taket\\
+ ''There is a bird eating on the roof"}
+
 unless their in passive form
-\enumsentence{Det äts en fågel på taket.}
-%det finns/saknas/fattas
+\enumsentence{
+Det äts en fågel på taket \\
+A bird is being eaten on the roof}
+A very common example of this is sentences with the verbs \emph{finnas},
+\emph{saknas} and \emph{fattas}.
+\enumsentence{\shortex{3}
+{Det & finns & kaffe}
+{It & exist & coffee}
+{''There is coffee"}}
+\enumsentence{\shortex{3}
+{Det & saknas&  kaffe}
+{It & misses & coffee}
+{''There is no coffee"}}
+\enumsentence{\shortex{3}
+{Det & fattas & kaffe}
+{It & misses & coffee}
+{''There is no coffee"}}
+A special GF category was needed for this, the \verb|SimpleVP|.
+
 There are also restrictions on the nounphrase of the subject, it can only
 be determined in certain ways
-\enumsentence{*Det sitter den fågel på taket. \\
-              **Det sitter fåglarna på taket.}
-The distinction lays in the definitness of the noun itself, (not the whole noun phrase..)
-it must be indefinite, even though determiners are allowed. Jfr
+\enumsentence{\begin{tabular}{ll}
+*Det sitter den fågel på taket. & **Det sitter fåglarna på taket.\\
+There are that bird sitting on the roof & There are the birds sitting on the roof \\
+\end{tabular}}
+The distinction lays in the definitness of the noun: 
+it must be indefinite, even though some determiners are allowed.
 \enumsentence{Det sitter några fåglar på taket\\
               **Det sitter vardera fåglarna på taket}
 %%Quantifiers like \emph{`denna'} or determiners like \emph{`samtliga'} may
 %%not be used, but the determiners \emph{`många'}, \emph{`några'} and the quantifier
 %%\emph{`ingen'} work well.
 %%Semantic difference, atm we allow any NP. \\
-The grammar handles this by looking at the determiner used
-\verb|FormalSub : SimpleVP -> Det -> NP -> Cl ;|
+The GF grammar does not make any distinction between indefinite and definite noun
+phrases. Therefore this is handled by looking at the determiner. \\
+\verb|FormalSub : SimpleVP -> Det -> NP -> Cl ;|\\
 The function combines a verb phrase a determiner and a noun phrase in to a clause.
-\verb|SimpleVP| is a normal VP, but with the restriction that the main verb must be
-intransitiv, a \verb|V|, (and passives?). If the  determiner requires a noun in determinened
-form, the clause is put to NONEXIST.
+If the determiner requires a noun in determinened form, the clause is put to NONEXIST.
+However, this is not an ideal solution. There are other examples of when we
+need to know the definitness of the noun phrase, for example when using
+the reflexive possessive pronoun `sin' (see section `Reflexive pronouns' below)
+or when using some predeterminers (see section `Quantifiers')
 
 finnas: här får man ha definit: det finns de som inte vill. Samma RelCl som
 jag just la till, de äppplen. (de + relsats)
@@ -702,7 +733,7 @@ jag just la till, de äppplen. (de + relsats)
 % 
 
 
-
+\subsubsection{Quantifiers}
 pronouns/Quant. Many, created categories for 'sådan', and 'fler'. Not many in each,
 has to decide, one category for each?
 Genitive -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form
@@ -711,6 +742,8 @@ Det-utr. not effect for the some Dets, like 'sådan', no difference between utru
  Can vary in number, since is a NP. Do not want to cut connection to abstract but changing them,
  so added one more. Leads to ambiguities in some cases, but considering that we would want to use
  this for translation, neutr and utr may differ in the other language.
+
+ 'de flesta de gula hästarna'
 
 -- or is this really just AdVs? 
 to change position of adv:
@@ -745,6 +778,7 @@ for the last one, we need VPSlash to allow adverb.
 
 
 %% Refl 
+\subsubsection*{Reflexive pronouns}
 Could varandra be thought of as reflexive for 'oss'?
 varandra and sin/sitt/sig. Not subject, but NP.
 Want the following:
@@ -803,6 +837,33 @@ In general, many categories need more parameters and fields, tex Quant can be us
 and therefor needs to depend on Case, de -> dem.
 
 here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
+\subsubsection*{Relative clauses}
+The resource grammar already provided a number of ways to express relative and embedded clauses, such as
+\enumsentence{Frågan är vilken färg den har\\
+                   Pojken, som är blyg, tystnar\\
+                   Han såg kunden som tyckte om sallad\\
+                   Jag tänkte på huset i vilket hon bodde} % better example!!
+
+Kanske mindre om detta, skriv om vad jag nu la till.
+om 'de äpplen'
+Since those constructions are inspired by other languages, some of them may sound quite
+non-natural in Swedish, such as the \verb|RelS|. This combines a sentence \emph{`Hon sover'}
+and a relative sentence \emph{`som/vilket är bra'} which wrongly expressed 
+\emph{`She sleeps, which is good'} as
+\emph{`Hon sover som är bra'}. The error comes from the fact that \emph{`som'} is
+embedded in the relative clause. To fix this, an extra parameter was needed to tell whether
+\emph{`som'} or \emph{`vilket'} should be used. \\
+Another complication stems from \verb|RelCl| which express the english \emph{`such that'}.
+The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of logic books.
+\enumsentence{Jag vill ha en katt sådan att den inte fäller.} 
+An more natural sounding alternative would be
+\enumsentence{Jag vill ha en sådan katt som inte fäller.}
+and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
+'en katt sådan att det regnar'. It is relative but has on empty field, still congruation is
+needed.
+du är här, vilket jag vet.
+i de äpplen/det äpple du äter bor en mask/ som du ser.\\
+
 
 \subsection{Testing}
 Hard do test, can't verify. Regression testing. Talbanken is still too hard.
