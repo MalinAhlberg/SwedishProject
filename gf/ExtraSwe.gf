@@ -2,7 +2,7 @@
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
-      NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe,AdverbSwe in {
+      NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
 
 lincat
  PronAQ = A ; -- 'en sådan' 
@@ -17,7 +17,7 @@ lincat
 
 
 lin
- 
+
   DetNP det = 
       let 
         g = neutrum ; ----
@@ -35,47 +35,47 @@ lin
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
---    Slash2V3 v np = 
---      insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
---        {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
---    Slash3V3 v np = predV v ** {
---      n3 = \\a => v.c3.s ++ np.s ! a ; 
---      c2 = v.c2
---      } ;
---
---    CompNP np = {s = \\a => np.s ! a} ;
---
---    SlashV2VNP v np vp = 
---      insertObj 
---        (\\a => v.c2.s ++ np.s ! a ++ v.c3.s ++ infVP vp a) (predV v) 
---        ** {n3 = vp.n3 ; c2 = v.c2} ;
---
---
+    Slash2V3 v np = 
+      insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
+        {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
+    Slash3V3 v np = predV v ** {
+      n3 = \\a => v.c3.s ++ np.s ! a ; 
+      c2 = v.c2
+      } ;
+
+    CompNP np = {s = \\a => np.s ! a} ;
+
+    SlashV2VNP v np vp = 
+      insertObj 
+        (\\a => v.c2.s ++ np.s ! a ++ v.c3.s ++ infVP vp a) (predV v) 
+        ** {n3 = vp.n3 ; c2 = v.c2} ;
+
+
      ComplSlash np vp = 
        insertObjPost
-         (\\a => vp.c2.s ++ np.s ! accusative ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
---
---
---
---    Coercion np = {s = \\_ => np.s ! NPAcc } ;
---  
---    ReflIdNP    = {s = \\a => reflForm a } ;
---    ReflCN cn n = {s = \\a => let sin = reflGenForm a (gennum cn.g n.n) ;
---                                  num = n.s ! cn.g ;
---                                  np = cn.s ! n.n ! DDef Indef ! Nom 
---                              in sin ++ num ++ np} ;
---                              
---
---    UseObj o = o ;
---    ConjObj = conjunctDistrTable Agr ;
---    BaseObj = twoTable Agr ;
---    ConsObj = consrTable Agr comma ;
--- lincat 
---    [Obj] = {s1,s2 : Agr => Str } ; 
+         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
 
+
+
+    Coercion np = {s = \\_ => np.s ! NPAcc } ;
+  
+    ReflIdNP    = {s = \\a => reflForm a } ;
+    ReflCN cn n = {s = \\a => let sin = reflGenForm a (gennum cn.g n.n) ;
+                                  num = n.s ! cn.g ;
+                                  np = cn.s ! n.n ! DDef Indef ! Nom 
+                              in sin ++ num ++ np} ;
+                              
+
+    UseObj o = o ;
+    ConjObj = conjunctDistrTable Agr ;
+    BaseObj = twoTable Agr ;
+    ConsObj = consrTable Agr comma ;
+ lincat 
+    [Obj] = {s1,s2 : Agr => Str } ; 
+
+{-
 
  ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
-{-
   IdRefl = {
     s = \\a => table {
           NPPoss gn c => reflGenForm a gn ;
@@ -105,7 +105,7 @@ lin
      isPre = True
      };
 
-  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
+  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
@@ -168,7 +168,7 @@ lin
 -------------------------------------------------------------------------------
   VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
   SlashV3Varandra v3 = Slash3V3 v3 varandra ;
-    oper varandra : NP = lin NP {s = \\_ => "varandra" ; a = {g = Utr ; n = Pl ; p = P2 }} ;
+    oper varandra : Obj = lin Obj {s = \\_ => "varandra" } ;
 
 -------------------------------------------------------------------------------
 -- tests, doesn't work for Foc anyway
@@ -214,9 +214,7 @@ lin
   RelSlashVS t p np vs = let cl     = PredVP np (predV vs) ; 
                              vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
-
--- 'det äpplet' or 'äpplet'?
-  RelCNNP num cn rs = let g = cn.g ; n = num.n in {
+ RelCNNP num cn rs = let g = cn.g ; n = num.n in {
       s = \\c => num.s ! g ++ det n g 
                  ++ cn.s ! n ! DIndef ! (caseNP c) ++ rs.s ! agrP3 (ngen2gen g) n ! RNom ;
       a = agrP3 (ngen2gen g) n
@@ -228,21 +226,12 @@ lin
                  <Pl,_>     => "de" };
 
 
---Cl = {s : STense => Anteriority => Polarity => Order => Str} ;
---mkClause : Str -> Agr -> VP -> Claus
---relPron : Gender => Number => RCase => Str 
-lin
-  RelX t p num cn vp = let np = DetCN (DetQuant (QuantPronAQ sadana_PronAQ) num) cn ;
-                           cl = mkClause (np.s ! nominative ++ relPron ! cn.g ! num.n ! RNom) np.a vp in
-   {s = \\c => num.s ! cn.g ++ t.s ++ p.s ++ cl.s ! t.t ! t.a ! p.p ! Sub ;
-    a = np.a };
-
 
 -------------------------------------------------------------------------------
 -- Focusing adverbs
 -------------------------------------------------------------------------------
 lin
-AdvFocVP  = insertAdvFoc ;
+ AdvFocVP  = insertAdvFoc ;
   
   oper insertAdvFoc : AdvFoc -> VP -> VP 
    = \adv, vp -> lin VP {
@@ -507,16 +496,5 @@ lin
 
    likna_V2 = dirV2 (mkV "liknar") ;
    akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
-
-{- dumhet, ta bort
-lin
-  ComplSlash2 np vp = 
-       insertObj 
-         (\\a => (PrepNP vp.c2 np).s ++ vp.n3 ! np.a) vp ; --vp.c2.s ++ np.s ! accusative ++ vp.n3 ! np.a) vp ;
-         -}
-
-
 }
-
-
 

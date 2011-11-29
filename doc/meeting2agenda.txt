@@ -1,0 +1,8 @@
+mapping - results
+saldo - results, plans
+grammar - results, elisabet evaluation, problems
+future work 
+ saldo - lexical tool, idioms
+ mapping - improving
+ valencys - extracting from saldo
+ parallell parsing/chunking 

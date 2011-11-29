@@ -24,6 +24,7 @@ cat --ReflNP ;
 --    BaseObj ;    --to prevent normal NPs to be conjuncted as Objs, but doesn't allow 'han ser sin katt och huset'
 --    [BaseObj]{2} ;
  
+  -- ExistNP :: CN or RelCNNP and add Adv AdV to verb!
 fun
 
  
@@ -111,7 +112,7 @@ fun
 -------------------------------------------------------------------------------
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
   RelSlashVS : Temp -> Pol -> NP -> VS -> RelVSCl ;  -- vilket vi vet
-
+  RelCNNP : Num -> CN -> RS -> NP ;  -- de äpplen du äter
 
 -------------------------------------------------------------------------------
 -- Focusing adverbs
