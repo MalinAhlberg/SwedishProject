@@ -115,10 +115,12 @@ meaning, although the fronted part of sentence \ref{ex:swedish-ovs} and \ref{ex:
 {Du & ser & mig & inte.}
 {You & see & me & not.}
 {`You  don't see me'.}} \label{ex:swedish-svo}
+\vspace{-3mm}
 \enumsentence{
 \shortexnt{4}
 {Mig  & ser &  du & inte.}
 {Me & see & you & not.}}\label{ex:swedish-ovs} 
+\vspace{-3mm}
 \enumsentence{
 \shortexnt{4}
 {Inte & ser& du &mig.}
@@ -182,9 +184,6 @@ Passive voice is often used in Swedish, especially the
         {`A lion was hunting him.'}}
 
 
-
-
-
 %cf.
 %\enumsentence{
 %\shortex{5}{Ett & lejon & jagade & honom.}
@@ -218,6 +217,8 @@ Han slog \textbf{honom}. & Han såg \textbf{hans} barn.\\
 \end{tabular}}
 The 1st and 2nd persons use the normal personal pronoun in object form.
 
+
+Could varandra be thought of as reflexive for 'oss'?
 %Basic info about Swedish. V2 lang, inverted word order and subordinate clauses.
 %Passive, reflexive 'sitt', 'det är', 'det sitter en katt där', prepare the reader
 %for what will be written in the grammar part.
@@ -530,7 +531,7 @@ and the parse tree is represented as in figure \ref{gfSwe:parsetree}.
 %Covers sentences like
 % better sentence where the verb phrase is split up?
 \begin{figure}[h]
-\includegraphics[width=60mm]{gfTree.pdf}
+\includegraphics[width=70mm,height=70mm]{apples.pdf}
 \caption{Parse tree for ``Han har inte ätit de gula äpplena idag".}%correct
 \label{gfSwe:parsetree}
 \end{figure}
@@ -696,36 +697,38 @@ A very common example of this is sentences with the verbs \emph{finnas},
 {Det & fattas & kaffe}
 {It & misses & coffee}
 {''There is no coffee"}}
-A special GF category was needed for this, the \verb|SimpleVP|.
 
-There are also restrictions on the nounphrase of the subject, it can only
-be determined in certain ways
+A special GF category, \verb|SimpleVP|, was needed for verb phrases of the type
+described above.
+
+There are also restrictions on the subject.
 \enumsentence{\begin{tabular}{ll}
-*Det sitter den fågel på taket. & **Det sitter fåglarna på taket.\\
-There are that bird sitting on the roof & There are the birds sitting on the roof \\
+*Det sitter den fågeln på taket. & *Det sitter fågeln på taket.\\
+``There are that bird sitting on the roof'' & ``There are the bird sitting on the roof'' \\
 \end{tabular}}
-The distinction lays in the definitness of the noun: 
-it must be indefinite, even though some determiners are allowed.
+The noun must be in indefinite form, even though some determiners are allowed.
 \enumsentence{Det sitter några fåglar på taket\\
-              **Det sitter vardera fåglarna på taket}
+              ``There are some birds on the roof''}
+\enumsentence{*Det sitter fåglarna på taket\\
+``There are the birds on the roof''}
 %%Quantifiers like \emph{`denna'} or determiners like \emph{`samtliga'} may
 %%not be used, but the determiners \emph{`många'}, \emph{`några'} and the quantifier
 %%\emph{`ingen'} work well.
 %%Semantic difference, atm we allow any NP. \\
 The GF grammar does not make any distinction between indefinite and definite noun
 phrases. Therefore this is handled by looking at the determiner. \\
-\verb|FormalSub : SimpleVP -> Det -> NP -> Cl ;|\\
+\verb|FormalSub : SimpleVP -> Det -> CN -> Cl ;|\\
 The function combines a verb phrase a determiner and a noun phrase in to a clause.
 If the determiner requires a noun in determinened form, the clause is put to NONEXIST.
 However, this is not an ideal solution. There are other examples of when we
 need to know the definitness of the noun phrase, for example when using
 the reflexive possessive pronoun `sin' (see section `Reflexive pronouns' below)
-or when using some predeterminers (see section `Quantifiers')
+or when using some predeterminers (see section `Quantifiers').
 
-finnas: här får man ha definit: det finns de som inte vill. Samma RelCl som
-jag just la till, de äppplen. (de + relsats)
+%finnas: här får man ha definit: det finns de som inte vill. Samma RelCl som
+%jag just la till, de äppplen. (de + relsats)
 
-'det är kul att..' Näst vanligaste två-ordskombinationen i talad svenska.
+%'det är kul att..' Näst vanligaste två-ordskombinationen i talad svenska.
 %%
 %embedded - relative, 'sådan att' not really nice for normal swedish, and no agreement
 %between subject 'en katt sådan att det regnar'. Kan säga 'en sån katt som sover, med 'sådan' + Rel
@@ -733,18 +736,44 @@ jag just la till, de äppplen. (de + relsats)
 % 
 
 
-\subsubsection{Quantifiers}
-pronouns/Quant. Many, created categories for 'sådan', and 'fler'. Not many in each,
-has to decide, one category for each?
-Genitive -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form
-           fixing this include restructuring all
-Det-utr. not effect for the some Dets, like 'sådan', no difference between utrum and neutrum.
+\subsubsection{Quantifiers, determiners and predeterminers}
+The GF analyse differs sometimes. Experiments of how to extract
+this information from Talbanken by using Saldo as a starting poin.
+One of the biggest differences between the GF analysis and the one made in Talbanken
+is related to pronouns. While GF only recognizes the personal pronouns, 
+`sådan', `fler`, `somliga' etc. are all regarded as pronouns in Talbanken and Saldo.
+In the GF analyse they may be quantifiers, determiners or predeterminers. 
+All pronouns from Saldo was listed and by searching Talbanken for which tags
+they got we could sort out the ones acting either as
+determiners, as `sådana' in sentence \ref{ex:QuantDet}, or as adjectives as
+`sådan' in sentence \ref{ex:QuantAdj}. 
+\enumsentence{Sådana katter vill jag ha}\label{ex:QuantDet}
+\vspace{-3mm}
+\enumsentence{Han är sådan}\label{ex:QuantAdj}
+\vspace{-3mm}
+\enumsentence{Sådant är inte bra}\label{ex:QuantDet2}
+Since all determiners can be used alone as noun phrases, sentence
+\ref{ex:QuantDet2} is also accepted.
+%what is the difference really???
+%The techniques of searching Talbanken can be used
+%for this purpose as well. 
+%combining the information in Saldo and Talbanken
+%pronouns/Quant. Many, created categories for 'sådan', and 'fler'. Not many in each,
+%has to decide, one category for each?
+
+\subsubsection{Other small things}
+
+\textbf{Genitive} -problem 1 cannot be alone (fixed) 2 some words have id. (no) gen form (fixed)
+           fixing this include restructuring all???
+\textbf{Det-utr}. not effect for the some Dets, like 'sådan', no difference between utrum and neutrum.
  Can vary in number, since is a NP. Do not want to cut connection to abstract but changing them,
  so added one more. Leads to ambiguities in some cases, but considering that we would want to use
  this for translation, neutr and utr may differ in the other language.
 
+\textbf{finitness}
  'de flesta de gula hästarna'
 
+\textbf{advs}
 -- or is this really just AdVs? 
 to change position of adv:
 normal: after verb 'han äpplet redan'
@@ -752,6 +781,7 @@ now want: 'äter redan äpplet'
           'har redan ätit äpplet' 
           'har ätit redan äpplet' :( which doesn't work either :)
 
+\textbf{bara}
 but have other words like 'bara' which can be put in other positions.
   but needs to restruct whole of VP, since no field is befor fin.
   Can also act before the noun or as AdV. Examples.
@@ -763,6 +793,7 @@ but have other words like 'bara' which can be put in other positions.
   tolkning and the other case is covered by using it as an AdV, we don't want
   ambiguities.
 
+\textbf{antalet}
 Also needed categories for 'pronouns' wich can act in different ways.
 and 'antal','sorter' - need indetermined, antal plural, sorter either.
 Should be able to modify by a godtyckligt antal adjective, and they must be determined.
@@ -772,15 +803,17 @@ Don't want them as a NPs or CNs since we don't want other Ns to be used this way
 NPs or CN can be. Dessutom, we want to make use of the comp-fiel. 'mamma till', but is this really
 the same??
 
-The VP require many changes, to add passive (no), PPart, bara.
+\textbf{VP}
+The VP require many changes PPart, bara.
 About PPart, but do we need it with new Saldo? 'de är stuckna' , 'den nyligen funna'
 for the last one, we need VPSlash to allow adverb.
 
+\textbf{SuperlA}
 
-%% Refl 
 \subsubsection*{Reflexive pronouns}
-Could varandra be thought of as reflexive for 'oss'?
-varandra and sin/sitt/sig. Not subject, but NP.
+%varandra and sin/sitt/sig.
+Both sig and sin
+Not subject, but NP.
 Want the following:
 \enumsentence{Han såg sina barns skor.}
 \enumsentence{Sina vantar hade han glömt på tåget.}
@@ -845,7 +878,7 @@ The resource grammar already provided a number of ways to express relative and e
                    Jag tänkte på huset i vilket hon bodde} % better example!!
 
 Kanske mindre om detta, skriv om vad jag nu la till.
-om 'de äpplen'
+om 'de äpplen', which are also used in 'finnas'
 Since those constructions are inspired by other languages, some of them may sound quite
 non-natural in Swedish, such as the \verb|RelS|. This combines a sentence \emph{`Hon sover'}
 and a relative sentence \emph{`som/vilket är bra'} which wrongly expressed 
