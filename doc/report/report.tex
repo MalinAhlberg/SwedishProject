@@ -204,6 +204,7 @@ with the real subject put in the position of an object.
 {`There is a moose on the field.'}}
 
 \subsubsection*{Reflexive pronouns}
+\label{swe:refl}
 The Scandinavian language have reflexive pronouns\cite{H&H310}
 and special reflexive forms of the possessive pronouns for the 3rd
 person\cite{H&H319}. Those are distinct from the normal 3rd person forms.
@@ -230,29 +231,39 @@ Could varandra be thought of as reflexive for 'oss'?
 \subsection{Saldo}
 A good parser needs a good lexicon. We have used of Saldo\cite{saldo}, a
 large electronic lexicon developed and maintained at Gothenburg University. It is
-built upon Svenskt Associations Lexicon and contains information about modern
-Swedish and the words are equipped with both sematic and a morphological
+built upon Svenskt Associations Lexicon and contains information about more than 
+120 000 modern Swedish words.
+The words are equipped with both sematic and a morphological
 information. The user can find compounding analyses, examples of usage in corpora,
 and graphs of sematically connected words.\\
-Example of katt? \\
-For our purpose however, only the morphological data was needed.\\
-Example of morpho for katt.\\
+\newpage % only until saldo can be on same page as the pic
+\begin{figure}[h!]
+\centering
+\subfloat[Morphological info for ``katt"]{\label{pic:saldoTab}\includegraphics[width=40mm]{saldotab.png}}
+\hspace{20mm}
+\subfloat[Graph showing the hyponyms of ``katt"]{\label{pic:saldoWheel}\includegraphics[width=70mm]{saldograph.png}}
+\caption{Information in Saldo}
+\label{fig:saldo}
+\end{figure}
+For our purpose however, only the morphological data was needed.
 Saldo provides this in XML format under LPGL. The data can be processed and
 translated to GF format as described in 
 section \ref{sec:prog.saldo}.
 %Other usages?
 
 
-\subsection{GF}
+\subsection{Grammatical Framework}
 The main component of the the project is the Grammatical Framework\ref{gfbok} (GF). It is
 a functional grammar formalism based on Martin-Löf type theory.
 It has been developed for about 20? years and are inspired by programming langauges
 like Haskell\footnote{}, ML\footnote{}, Prolog\footnote{} and Agda\footnote{}. Grammars written in GF can be used together with languages 
 like Java, Java script and Haskell and works for both parsing and generation.
 
-Being developed with multilinguality in mind, GF makes an important distiction between
+An important feature of GF is
+%Being developed with multilinguality in mind, GF makes an important 
+the distiction between
 \textit{abstract} and \textit{concrete} syntaxes. The abstract is meant to be
-shared by many languages, it models the semantics of the domain without blanda in
+shared by many languages, it models the semantics of the domain without concern for
 language specific features such as agreement or word order.
 
 \begin{figure}[h]
@@ -267,14 +278,15 @@ language specific features such as agreement or word order.
  }
 \end{verbatim}
 \caption{A small example of an abstract syntax}
+\label{fig:gfAbstract1}
 \end{figure}
 
-The example shows an abstract grammar defining three categories, % \verb|Categories|,
+The example in figure \ref{fig:gfAbstract1} shows an abstract grammar defining three categories, % \verb|Categories|,
 one for nouns, one for verbs and one for sentences. An abstract grammar also gives
-the types of functions. In this case we have \verb|Pred| which
+the types of functions. In our case we have \verb|Pred| which
 tells us that by taking a noun and a verb we can form a sentence. At this stage, 
 no information of how this is done is given. The grammars also defines two words,
-\verb|cat| and \verb|sleep|. 
+the noun \verb|cat| and the verb \verb|sleep|. 
 
 % or how any of the categories should look.
 \begin{figure}[h]
@@ -292,10 +304,10 @@ concrete TestGrammarSwe of TestGrammar = {
 \end{figure}
 
 Figure \ref{fig:gfSweCnc1} shows how the abstract grammar can be implemented
-for Swedish. Nouns, verbs and sentences are all defined as strings, \verb|Str|
+for Swedish. Nouns, verbs and sentences are all defined as strings, \verb|Str|,
 and \verb|Pred| simply glues the two strings ``katten" and ``sover" together:
 \verb|Pred cat sleep = "katten sover"|.\\
-Let's look at a more complicated example, where nouns can be used in both
+We get a more complicated example if we allow the nouns to be used in both
 plural and singular. To do this, we add a category \verb|NP| to the
 abstract. \verb|N| now means a noun
 in any of the number, and we introduce two funciton, \verb|NSg : N -> NP| and
@@ -336,11 +348,11 @@ concrete TestGrammarEng of TestGrammar = {
   lincat S = Str ;
          V = {s : Num => Str} ;
          N = {s : Num => Str} ;
-         NP = {s : Str ; num = Num} ;
+         NP = {s : Str ; num : Num} ;
   lin   
     Pred n v = n.s ++ v.s ! n.num ;
-    NPl n = {n.s ! Pl ; num = Pl} ;
-    NSg n = {n.s ! Sg ; num = Sp} ;
+    NPl n = {s = n.s ! Pl ; num = Pl} ;
+    NSg n = {s = n.s ! Sg ; num = Sg} ;
     cat_N = {s = table {Sg => "the cat" ;
                         Pl => "the cats"}};
     sleep_V = {s = table {Sg => "sleeps" ; 
@@ -357,14 +369,32 @@ concrete TestGrammarEng of TestGrammar = {
 %Show abstract tree.
 
 We now have two implementations of the abstract. The resulting GF grammar is able to
-both parse a string to the abstract tree and to go in the other direction; to produce
-a string of natural language given a abstract tree. This step is called linearization.
+both parse a string to a abstract tree and to go in the other direction; to produce
+a string of natural language given an abstract tree. This step is called linearization.
 Translation is a consequence of this, we can parse a Swedish string and then 
 linearize the resulting abstract tree to English. 
 
-Valency information is normally built into the GF categories. Add V2 to the example.
-Point out how N + V can be glued together to a string, the components cannot be seen
-anymore.
+Valency information is normally built into the GF categories. To indicate that
+a verb is transitive and needs an object, we use the category \verb_V2_.
+\begin{verbatim}
+abstract:
+cat V2 ; 
+eat_V2 : V2 ;
+rat_N ;
+UseV2 : V2 -> NP -> V ;
+
+concrete:
+eat_V2 = "äta" ;
+rat_N = {s = table {Sg => "råttan" ;
+                    Pl => "råttorna"}};
+UseV2 v np = v ++ np ;
+\end{verbatim}
+
+The example above now allows ``Katten äter råttan", but not ``Katten äter".
+\verb|UseV2| concatenate the strings ``äter" and ``råttan". Note that if we
+wanted to add negation, ``katten äter inte råttan", or question "äter katten råttan",
+we cannot glue the verb to the object at once. Instead we would have to use a table,
+with one field for the verb and one for the object. 
 
 A GF grammar usually covers a very restricted set of language where few ambiguities
 occur and much care can be taken to preserving the semantics of the
@@ -516,7 +546,7 @@ Swedish shares with Nor and Dan. Extra module, covering things like sw is a
 v2-lang, focusing parts of sentences. 
 
 
-\subsection{GF for Swedish}
+\subsection{The Swedish resource grammar}
 The GF resource grammars contains a fundamental description of Swedish,
 covering the morphology and many phrase and clause constructions. Most of the implementation
 is shared with the other scandinavian languages.
@@ -532,7 +562,7 @@ and the parse tree is represented as in figure \ref{gfSwe:parsetree}.
 % better sentence where the verb phrase is split up?
 \begin{figure}[h]
 \includegraphics[width=70mm,height=70mm]{apples.pdf}
-\caption{Parse tree for ``Han har inte ätit de gula äpplena idag".}%correct
+\caption{Parse tree for ``Har han inte ätit de gula äpplena idag".}%correct
 \label{gfSwe:parsetree}
 \end{figure}
 Even though the verb phrase \emph{``har inte ätit.."} is discontinuous, the whole
@@ -666,7 +696,8 @@ parse this by applying \verb|FocObj|.
 %%
 
 %% Clauses
-\subsubsection*{Presentering, Impersonal constructions, Topicalisering}
+\subsubsection{Impersonal constructions}%Presentering, , Topicalisering
+\label{sec:Formal}
 Formal subjects \cite{SAG-19,H&H-309d} is often used in Swedish.
 \enumsentence{\shortex{6}
 {Det & sitter & en & fågel & på & taket}
@@ -723,7 +754,7 @@ If the determiner requires a noun in determinened form, the clause is put to NON
 However, this is not an ideal solution. There are other examples of when we
 need to know the definitness of the noun phrase, for example when using
 the reflexive possessive pronoun `sin' (see section `Reflexive pronouns' below)
-or when using some predeterminers (see section `Quantifiers').
+or when using some predeterminers (see section `Quantifiers'). Not true, not the same :(
 
 %finnas: här får man ha definit: det finns de som inte vill. Samma RelCl som
 %jag just la till, de äppplen. (de + relsats)
@@ -810,67 +841,172 @@ for the last one, we need VPSlash to allow adverb.
 
 \textbf{SuperlA}
 
-\subsubsection*{Reflexive pronouns}
+\subsubsection{Reflexive pronouns}
 %varandra and sin/sitt/sig.
-Both sig and sin
-Not subject, but NP.
-Want the following:
-\enumsentence{Han såg sina barns skor.}
-\enumsentence{Sina vantar hade han glömt på tåget.}
+An important piece in a Swedish grammar is the reflexive pronouns and
+%both \emph{sin} and , eg. \emph{sin}.
+the possessive pronouns as described in section \ref{swe:refl}.
+Those make up noun phrases wich are not allowed in subjects, 
+and we want to be able to parse to following sentences:
+\enumsentence{Han såg sina barns skor.\\ \label{ex:ReflGen}
+He saw his children's shoes.}
+\enumsentence{Sina vantar hade han glömt på tåget.\\
+His gloves, he had forgotten on the train.}
+\enumsentence{Han ger sina pengar till sina syskon.\\
+He gives his money to his children.}
+\enumsentence{Han är längre än sin kompis.\\
+He is taller than his friend.} \label{ex:ReflAP}
+\vspace{-2mm}
+\enumsentence{Han är här oftare än sin kompis.\\
+He is here more often than his friend.} \label{ex:ReflAdv}
+\vspace{-2mm}
+\enumsentence{Hon tyckte om skolan och alla sina elever.\\
+She liked the school and all her students.}\label{ex:ReflConj}
+\enumsentence{Han såg sina få böcker och sin penna.\\
+He saw his few books and his pencil.}\label{ex:ReflConj2}
+\vspace{-2mm}
+\enumsentence{Hon ber alla sina kompisar att gå\\
+She asks all her friends to leave}\label{ex:ReflPredet}
+\enumsentence{Jag vill att han rakar sig.\\
+I want him to shave.}
 but not
-\enumsentence{*Sina vantar var kvar på tåget.}
-\enumsentence{Han ger sina pengar till sina syskon.}
-\enumsentence{*Jag ger sina pengar till sina syskon.}
-\enumsentence{Han är längre än sin kompis.}
-\enumsentence{Hon tyckte om alla sina elever.}
-\enumsentence{Han såg sin hund och sitt hus}
-\label{ex:refGen}
-\enumsentence{Han är längre än sin kompis}
-\label{ex:ReflAP}
-% hon ber sin katt gå - sin subject in clause.
+\enumsentence{*Sina vantar var kvar på tåget.\\
+Her gloves were left on the train.}\label{ex:ReflSubj}
+\enumsentence{*Jag ger sina pengar till sina syskon.\\
+I give his money to his siblings. }
+\enumsentence{*Han vill att jag rakar sig.\\
+He wants me to shave himself.}
 
-Suggest a connection between the subject and the object.
-Could be combined with 'sig', a ReflNP without another noun.
--- man ser sig!!
-Make a distinction between objects and subjects?
-do not want to copy all rules for another category. Would like depent types!
-work pretty well by letting all NP depend on the subject in the phrase.
-The current version is nice and works for recursive genitivs!
-Extra info, but maybe this is just the case about NPs.
-Discuss how other solutions, NPR and Predet : Predet -> CN -> NPR ;
-*Slash* : VPSlash -> NPR -> VP ;
-Keep number of fields down, but introduces another category, and one more
-label to the parse tree, is it interesting? How to combine it with genitive 
-without making it ambiguous (Han såg barnens hund).
-What if we add alot of other rules that uses NP, will they all need to be
-duplicated then?
+The reflexive pronouns require another subject whith which they agree in
+number and person. Apart from this restriction, they may be used as normal
+noun phrases and conjuncted (sentence \ref{ex:ReflConj} and \ref{ex:ReflConj2}),
+determined (sentence \ref{ex:ReflPredet}) and used as genitives (sentence
+\ref{ex:ReflGen}) as such.
+%Could be combined with 'sig', a ReflNP without another noun.
+In short, what is wanted can be summerized as follows:
+\begin{figure}
+\begin{enumerate}
+\item{
+Construct a noun phrase from a common noun phrase \\
+katt $\rightarrow$ sin katt} % \\
+\item{Modify it like a \verb|NP|\\
+sina katter $\rightarrow$ alla sina katter}
+\item{Use it only as object\\
+sin katt $\rightarrow$ han såg sin katt }
+\end{enumerate}
+\caption{Rules for noun phrases with reflexive possessive pronouns}
+\label{fig:reflrestrict}
+\end{figure}
+If we ignore the second requirement, special functions for using common nouns
+together with reflexive possessive pronouns could be introduced:
+\begin{verbatim}
+ReflVP: CN -> VPSlash -> VP ;
+        mat + äta     -> äta sin mat 
+\end{verbatim}
+This way, using the phrases as subject is excluded, but neither of sentence
+\ref{ex:ReflConj}, \ref{ex:ReflConj2} or \ref{ex:ReflPredet} is allowed.\\
+The simplest way of fixing this is to treat the phrases as normal \verb_NP_s.
+We can add a rule for using the possessives with common noun phrases:
+\begin{verbatim}
+ReflNP: CN -> NP ;
+        mat -> sin mat 
+PredetNP : Predet -> NP       -> NP ;
+           alla   + sina barn -> alla sina barn
+\end{verbatim}
+But by keeping them as \verb_NP_s we lose information, and there is no way of
+keeping them from being used as subjects. We have ignored the third restriction
+and are allowing sentences like \ref{ex:ReflSubj}.
 
-'han såg sin mammas bil', they same could be applied to
-APs for example \ref{ex:ReflAP} or Adv for
-\enumsentence{Han leker oftare än sin kompis}
- (ComparAdvAdj)
-Atm you can't focus this kind of object, then a ClSlash need info about the
-subject. FunRP also tricky (and what does it mean, we can say
-Han såg sin katt i vilken musen låg), in this case RP needs to give more information.
-Kort sagt, the information about the subject must be spread
-in different parts of the sentence. 
-Could also decide to always produc 'sin' -> jag såg sin bil
-to avoid the dependence, but not nice. Or keep a flag in NP saying if it is
-in third person, and add nonexist for others. But this way we can also get rid
-of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
-'jag såg din bil'.
-Unfortunaly, have to change ReflVP, this only allows this in object for VPSlash, not FocObj,
-not 'alla sina', usw. Want it to handle conjuction as in example \ref{ex:refGen}
-etc.
-varandra, works the same but has no case for Sg.
-Johan vill att jag rakar sig* -> honom  
+The solution introduces a new object type, \verb_Obj_, which is
+identical to normal \verb_NP_ except for that it depends on the agreement of
+the subject. All functions using noun phrase as objects are changed to dealing
+with objects instead.
+\begin{verbatim}
+ReflVP: Obj     -> VPSlash -> VP ;
+     -- sin mat +  äta     -> äta sin mat 
+NPtoObj : NP  -> Obj ;
+PredVP  : NP -> VP -> Cl ;  -- NP used as subject
+\end{verbatim}
+Any normal noun phrase may also be used as an object, whereas subjects only
+can be made up by \verb-NP-s.
+Since the resource grammar did not make any distinction between
+subjects and objects, the new Swedish grammar needed to be separated from the old
+structure. 
+Further, the dependence on the subject needs to be applied to adverbial phrases and
+adjective phrases as well. The adjetive phrase in sentence \ref{ex:ReflAP} and
+the adverbial phrase in sentence \ref{ex:ReflAdv} are examples of this; if the
+subject was changed to 2nd person, they  would need to change too.
+\enumsentence{\textbf{Du} är längre än \textbf{din} kompis.\\
+You are taller than your friend.} \label{ex:ReflAP2}
+\vspace{-2mm}
+\enumsentence{*Du är här oftare än sin kompis.\\
+You are here more often than his friend.} \label{ex:ReflAdv2}
+Adverbial phrases may also be parts of new noun phrases
+\enumsentence{\shortex{3}
+{Taket & på sitt hus &}
+{\scriptsize{\textbf{NP +}} & \scriptsize{\textbf{(Adv with Obj)}} & $\Rightarrow$ \scriptsize{\textbf{Obj}} }
+{The roof of his house}}
+\enumsentence{\shortex{3}
+{Sitt hus & på berget &}
+{\scriptsize{\textbf{Obj +}} & \scriptsize{\textbf{Adv}} & $\Rightarrow$ \scriptsize{\textbf{Obj}} }
+{His house on the mountain}}
+
+The first restriction in figure \ref{fig:reflrestrict} should be slightly
+modified, to allow certain kind of \verb|NP|s to be used.
+\begin{figure}[h]
+\begin{enumerate}
+\item{
+Construct a noun phrase from a common noun phrase or certain noun phrases \\
+få katter $\rightarrow$ sina få katter} 
+\end{enumerate}
+\caption{Modification of \ref{fig:reflrestrict}}
+\end{figure}
+
+The kind of noun phrases that can be used seems to coincide with the ones
+that can be used with formal subjects (see section `Impersonal constructions').
+
+% agreement to subj: Also good for double functions : Flickan, hon var inte dum, hon?
+% F1,2,3 : NP -> VP -> Cl ; NP needs gender (Masc,Fem,Utr,Neutr)
+
+
+%Make a distinction between objects and subjects?
+%do not want to copy all rules for another category. Would like depent types!
+%work pretty well by letting all NP depend on the subject in the phrase.
+%The current version is nice and works for recursive genitivs!
+%Extra info, but maybe this is just the case about NPs.
+%Discuss how other solutions, NPR and Predet : Predet -> CN -> NPR ;
+%*Slash* : VPSlash -> NPR -> VP ;
+%Keep number of fields down, but introduces another category, and one more
+%label to the parse tree, is it interesting? How to combine it with genitive 
+%without making it ambiguous (Han såg barnens hund).
+%What if we add alot of other rules that uses NP, will they all need to be
+%duplicated then?
+
+%'han såg sin mammas bil', they same could be applied to
+%APs for example \ref{ex:ReflAP} or Adv for
+%\enumsentence{Han leker oftare än sin kompis}
+% (ComparAdvAdj)
+%Atm you can't focus this kind of object, then a ClSlash need info about the
+%subject. FunRP also tricky (and what does it mean, we can say
+%Han såg sin katt i vilken musen låg), in this case RP needs to give more information.
+%Kort sagt, the information about the subject must be spread
+%in different parts of the sentence. 
+%Could also decide to always produc 'sin' -> jag såg sin bil
+%to avoid the dependence, but not nice. Or keep a flag in NP saying if it is
+%in third person, and add nonexist for others. But this way we can also get rid
+%of ReflVP and the possessive prons \verb|PossPron| should only be used for somebody else:
+%'jag såg din bil'.
+%Unfortunaly, have to change ReflVP, this only allows this in object for VPSlash, not FocObj,
+%not 'alla sina', usw. Want it to handle conjuction as in example \ref{ex:refGen}
+%etc.
+%varandra, works the same but has no case for Sg.
 %%
 
 In general, many categories need more parameters and fields, tex Quant can be used as NP
 and therefor needs to depend on Case, de -> dem.
 
 here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
-\subsubsection*{Relative clauses}
+\subsubsection{Relative clauses}
 The resource grammar already provided a number of ways to express relative and embedded clauses, such as
 \enumsentence{Frågan är vilken färg den har\\
                    Pojken, som är blyg, tystnar\\
