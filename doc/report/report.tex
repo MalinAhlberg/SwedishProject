@@ -5,6 +5,7 @@
 \usepackage{lingmacros}
 \usepackage{verbatim}
 \usepackage{subfig}
+\usepackage{wrapfig}
 % exempel: 2) Inte vet jag
 %              not know I
 %             I don't know
@@ -98,15 +99,15 @@ The project is hence heavily dependening on three resources, which will be descr
 in the following sections.
 
 \subsection{Swedish}
-Swedish\cite{SAG:intro} is a North-Germanic language,
+Swedish\cite[Inl. \textsection 3]{SAG}is a North-Germanic language,
 closely related to Norweigan and Danish. The languages share most of their
 grammatical structures and are mutual intelligibility. Swedish is also 
 an official language in Finland and spoken by approximately 10 million people.
 Swedish syntax are often similair to English, but have some characteristics:
 \subsubsection*{Verb second}
-Swedish is a verb-second language: the
+Swedish is a verb-second language\cite[p. 116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
-The normal word order is subject-verb-object, but any syntactic category can be fronted\cite{H&H:1027}.
+The normal word order is subject-verb-object, but any syntactic category can be fronted\cite[\textsection 1027]{H&H}.
 Topicalisation is very common, especially for temporal and spatial adverbial phrases.
 The examples \ref{ex:swedish-svo} - \ref{ex:swedish-avso} all have the same propositional
 meaning, although the fronted part of sentence \ref{ex:swedish-ovs} and \ref{ex:swedish-avso} are being emphasized.
@@ -191,7 +192,7 @@ Passive voice is often used in Swedish, especially the
 %        {`A lion was hunting him.'}}
 
 \subsubsection*{Impersonal constructions}
-Constructions with 'det är/var' ('it is/was') is very common\cite{H&H309d}:
+Constructions with 'det är/var' ('it is/was') is very common\cite[\textsection 309d]{H&H}:
 \enumsentence{
 \shortex{6}{Det & var & roligt & att & höra.}
 {It &was & nice &to &hear.}
@@ -205,9 +206,9 @@ with the real subject put in the position of an object.
 
 \subsubsection*{Reflexive pronouns}
 \label{swe:refl}
-The Scandinavian language have reflexive pronouns\cite{H&H310}
-and special reflexive forms of the possessive pronouns for the 3rd
-person\cite{H&H319}. Those are distinct from the normal 3rd person forms.
+The Scandinavian language have special reflexive pronouns
+and possessive pronouns for the 3rd
+person\cite[\textsection 310 \& 319]{H&H}. Those are distinct from the normal 3rd person forms.
 \enumsentence{
 \begin{tabular}{ll}
 Han slog \textbf{sig}. & Han såg \textbf{sitt} barn.\\
@@ -253,10 +254,13 @@ section \ref{sec:prog.saldo}.
 
 
 \subsection{Grammatical Framework}
-The main component of the the project is the Grammatical Framework\ref{gfbok} (GF). It is
+The main component of the the project is the Grammatical Framework\cite{gfbok} (GF). It is
 a functional grammar formalism based on Martin-Löf type theory.
 It has been developed for about 20? years and are inspired by programming langauges
-like Haskell\footnote{}, ML\footnote{}, Prolog\footnote{} and Agda\footnote{}. Grammars written in GF can be used together with languages 
+like Haskell\cite{haskell},
+ML\cite{ml}, Prolog\cite{bratko} and
+Agda\cite{agda}.
+Grammars written in GF can be used together with languages 
 like Java, Java script and Haskell and works for both parsing and generation.
 
 An important feature of GF is
@@ -400,9 +404,10 @@ A GF grammar usually covers a very restricted set of language where few ambiguit
 occur and much care can be taken to preserving the semantics of the
 different languages.
 By using a controlled language like this,  good and reliable translation can be
-ensured. Some examples of projects using GF are the math .. \cite{olga}, the
-Online Syllogism Solver\cite{malin!}.  The framework is also used in the
-european project MOLTO for online translation between upto 15 language.\\
+ensured. Some examples of projects using GF are WebAlt\cite{webalt} and something else.
+%, the Online Syllogism Solver\cite{malin!}. 
+The framework is also used in the
+european project MOLTO\cite{molto} for online translation between upto 15 language.\\
 
 \subsubsection{The resource library}
 The resource library\cite{gf-resource} is a very useful part of the framework. It is provided in the 
@@ -421,7 +426,7 @@ lätt sätt are added and the possiblities to use GF in different environments
 increased. There are  research about how to make better use of the dependent
 types, for solving syllogism or generating natural language via Montague
 semantics.
-Further, experiments on using GF for free parsing has been conducted (Angelov,2010?).
+Further, experiments on using GF for free parsing has been conducted \cite[\textsection 4.1]{gfMech} 
 This is also a future goal for our project and one of the delmål has been to
 model an important part of Swedish in GF. The starting point was the resource
 grammar and the result should still have a strong connection to this.
@@ -453,12 +458,12 @@ Being an freely avaible, manually annotade, large scale treebank,
 Talbanken\cite{talbanken} was perfect for this ändamål.
 It was created in the 1970s at Lund University. In total it consists of four
 parts. Two of them are transcribitions of spoken language, one a collection of
-text written by high school (?) students, and the last one, section P,
-consists of professionally written Swedish gathered from newspapers and ... .\\
-Talbanken was also used to train the Swedish version of the Maltparser\cite{mal}
-and was därmed reutgiven in a more modern version\cite{nivre}. This work
-was done by Nivre and ... in 2005. They released it in Malt and Tiger XML-formats,
-where the trees had been made deeper and smt more. \\
+text written by high school students, and the last one, section P,
+consists of professionally written Swedish gathered from newspapers, brochures and textbooks.\\
+Talbanken was also used to train the Swedish version of the Maltparser\cite{malt}
+and was thus redistributed in a more modern version\cite{talbanken05} This work
+was done by Nivre, Hall and Nilsson in 2005. They released it in Malt and Tiger XML-formats,
+where the trees had been made deeper and more detailed. \\
 In this project, as well as for the Malt parser, the more than 6000 sentences
 in section P has been used.
 The treebank has served as an inspiration and an evaluation source throughout this
@@ -471,9 +476,9 @@ done, which will be explained in section \ref{sec:Mapping}.
 \section{Related work}
 Computational ling is active area for Swedish, there are many other Swedish parser,
 but grammars?
-Many of the parsers not ruled based, the most known one Malt ... .
-However has been two, about CLE and what happend to it. Logic and translation
-to Swedish, The spoken lang. translator.
+Many of the parsers not ruled based, the most known one Malt\cite{malt} ... .
+However has been two, about CLE\cite{cle} and what happend to it. Logic and translation
+to Swedish, The spoken lang. translator\cite{cle2}. Wiren \cite{wiren}, cassSwe \cite{casswe}
 Other Sw. parsers and grammars, evaluation of them? 
 Other grammar frameworks.
 % related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
@@ -481,25 +486,40 @@ Other grammar frameworks.
 
 \chapter{Proceedings}
 %\section{Proceedings med bättre ord}  
-The purpose has been to prepare the grammar for large scale parsing.
-Develop method used for English to fit Swedish, pynta the sw grammar with
-language specific constructions and create methods for lexicon.
-Earlier have done tool, but the lexicon was not big enough to be able
-to fix it in this way. Tool may instead be used for complementing.
+The purpose of this project has been to prepare the grammar for free parsing.
+This has meant to develop earlier techniques to fit for Swedish, create methods
+for achieving and keeping a extensive lexicon and to adapt the existing
+resource grammar to fit for more language specific constrictions.
+The methodology and results will be presented in the following section.
 
 \section{Saldo}
 \label{sec:prog.saldo}
-In saldo there is also semantic info, so
-We need the numbers from saldo if there are to lemmas with the same
-identifier. sluta\_V and sluta2\_V (slöt). However gf does not want more than one table
-if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
-We are just interested in morphology, so far. Dont want too big lexicon.
+Saldo is compatible with GF, which makes it easy to transform the morphological
+lexicon into our format. The lexicon has been imported earlier (Krasimir,2009?)
+but the code needed updates to not miss many important words.
+Experiments have been made to use a interactive tool for lexical aquisation,
+but the dictionary was still much to small. The aquisation tool may still
+be used for complenting the lexicon.
 
-Saldo has been imported before (Krasimir, 2009?), but the code needed updates
-to not miss many important words.
+The basic algorithm for porting Saldo is the same as Angelov's. It makes use of
+the smart paradigms in GF : explanation.
+%Find the paper!
+%To understand it, we first need to look at differences between Saldo and a GF lexicon.
+The program will try to feed as few forms as possible to the GF smart paradigm.
+It starts from the easiest case, compare the results and either saves the code or 
+makes another try using more word forms.
+Figure \ref{pic:TabVax} shows a the information given by Saldo and by GF respectively.\\
+\begin{figure}[h]
+  \begin{center}
+\subfloat[Saldo]{\label{pic:saldoVax}\includegraphics[height=90mm]{saldoVax.png}}
+\hspace{5mm}
+\subfloat[GF]{\label{pic:gfVax}\includegraphics[height=60mm]{gfVax.png}}
+\caption{Inflection table for the verb ``växa" (grow)}
+\label{pic:TabVax}
+  \end{center}
+\end{figure}
+We can see that there are more saldo forms and some are only in GF.
 
-The basic algorith is the same. To understand this need to look at differences.
-Example of gf and saldo table.
 Explanation of the algorithm: map categories, try each paradigm, compare the table of forms
 created. If several forms in saldo, gf should pick on of them. Saldo has forms for
 compounds, gf does not. A grammar is written, the correct ones saved, the others 
@@ -509,6 +529,14 @@ saldo does not contain forms that aren't used gf generates all forms. A form
 needed to generate the gf table may not be given in saldo such as singular
 forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
 different grammatical analyse, a lot of pronouns. Example. 
+
+In Saldo there is also semantic info, so
+We need the numbers from saldo if there are to lemmas with the same
+identifier. växa (bli större), växa (vara en planta) vs. sluta\_V and sluta2\_V
+(slöt). However gf does not want more than one table
+if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
+We are just interested in morphology, so far. Dont want too big lexicon.
+
 
 The new version have also been made more robust, print logs and list of all
 words that wasn't imported together with a reason. Reson could be that it
@@ -537,7 +565,11 @@ To get even bigger material, use Korp, but then no guarantee.
 %choices for adjectives vs. verbs for particips
 The importing can be redone anytime.
 
+\subsection{Results}
+How many words, how many Talbanken words are not here now? Why?
+
 \section{The grammar}
+\label{sec:prog.grammar}
 Although we can't expect to get a full coverage, we would like a tillfredsställande
 Explain what's in the resources, constructions present in most languages. 
 Been working on a grammar fragment based on Talbanken,
@@ -634,6 +666,7 @@ Either directly to VP if V, or needs to be given arguments. Can then add adverbs
 Maybe talk about ställa.
 Particles and prepositions, can't be seen on the trees.
 tycka om /tycka om -> om vad tycker du inte. fast bra
+about slashes\cite{gazdar}
 
 %Besides the categories NP,VP,AP there are also the import Det and Quant, Predet.
 
@@ -698,7 +731,7 @@ parse this by applying \verb|FocObj|.
 %% Clauses
 \subsubsection{Impersonal constructions}%Presentering, , Topicalisering
 \label{sec:Formal}
-Formal subjects \cite{SAG-19,H&H-309d} is often used in Swedish.
+Formal subjects \cite[19]{SAG} is often used in Swedish.
 \enumsentence{\shortex{6}
 {Det & sitter & en & fågel & på & taket}
 {It & sits & a & bird & on & the roof}
@@ -841,6 +874,10 @@ for the last one, we need VPSlash to allow adverb.
 
 \textbf{SuperlA}
 
+In general, many categories need more parameters and fields, tex Quant can be used as NP
+and therefor needs to depend on Case, de -> dem.
+
+here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
 \subsubsection{Reflexive pronouns}
 %varandra and sin/sitt/sig.
 An important piece in a Swedish grammar is the reflexive pronouns and
@@ -1002,10 +1039,6 @@ that can be used with formal subjects (see section `Impersonal constructions').
 %varandra, works the same but has no case for Sg.
 %%
 
-In general, many categories need more parameters and fields, tex Quant can be used as NP
-and therefor needs to depend on Case, de -> dem.
-
-here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
 \subsubsection{Relative clauses}
 The resource grammar already provided a number of ways to express relative and embedded clauses, such as
 \enumsentence{Frågan är vilken färg den har\\
@@ -1087,8 +1120,8 @@ lexicon. Further, our parser will need probabilities, see section
 %missing from the GF grammar Another important use of the mapping is evaluation of the parser, which can be
 %accomplished by comparing the parse trees and the trees from the transformer.
 
-A program for translating trees to GF syntax has been done before (Angelov,).
-It translated trees from the English Penn Treebank. By starting this progam, we now have
+A translation of the English Penn Treebank to the GF syntax has previosly been done \cite{gfpenn}.
+By starting this progam, we now have
 a translation that works for the quite differently annotated Talbanken. The differences between
 Swedish and English syntax also meant that many rules had to be changed.\\
 
@@ -1321,4 +1354,6 @@ we want to extract other information.
 Hard, but not finished! 
 
 
+\bibliographystyle{ieeetr}
+\bibliography{masterbib}
 \end{document}
