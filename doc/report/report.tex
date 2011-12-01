@@ -416,8 +416,16 @@ Instead of letting the users of the framework reimplement the morphological and
 the fundamental syntactic structures of a language for each application, all
 this can be found as libraries. So far there are 20 languages in the library, and
 they all share the same abstract syntax.
-The resource grammars describe how to decline words and how to construct
-phrases and sentences.
+The resource grammars describe how to construct phrases and sentences and how to
+decline words. The latter is done by smart paradigms: functions that analyses
+some given forms of a word to find out how the inflection table should look.
+For example, the declination of many Swedish nouns can be determined by looking
+at the singular form only. This is the case for ``flicka"??, the correct declination
+can be guessed by noting that the word ends with an ``a". Like most Swedish nouns
+ending with an ``a", it follows the first?? declination. For others, like
+"hjärta", also the plural form "hjärtan" is needed, even though it ends
+with an ``a". The worst case is nouns that need four forms, both singular and
+plural in definite and indefinite form.
 There are also a small test lexicon included, containing some hundered of common words.\\
 
 As an open source-project, GF is constantely being developed and improved. New
@@ -492,7 +500,7 @@ for achieving and keeping a extensive lexicon and to adapt the existing
 resource grammar to fit for more language specific constrictions.
 The methodology and results will be presented in the following section.
 
-\section{Saldo}
+\section{Importing Saldo}
 \label{sec:prog.saldo}
 Saldo is compatible with GF, which makes it easy to transform the morphological
 lexicon into our format. The lexicon has been imported earlier (Krasimir,2009?)
