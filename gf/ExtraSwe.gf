@@ -496,5 +496,9 @@ lin
 
    likna_V2 = dirV2 (mkV "liknar") ;
    akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
+   flicka_N = mkN "flicka" ;
+   komma_V = mkV "komma" "kom" "kommit" ;
+   frysa_V = mkV "frysa" "frös" "frusit" ;
+
 }
 

@@ -14,7 +14,7 @@
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
-\title{Scaling up a GF grammar and preparing it for cool stuff for Swedish}
+\title{Title of the report} %A nice titleScaling up a GF grammar and preparing it for cool stuff for Swedish}
 \author{Malin Ahlberg}
 \maketitle
 \newpage
@@ -246,12 +246,24 @@ and graphs of sematically connected words.\\
 \caption{Information in Saldo}
 \label{fig:saldo}
 \end{figure}
-For our purpose however, only the morphological data was needed.
-Saldo provides this in XML format under LPGL. The data can be processed and
-translated to GF format as described in 
-section \ref{sec:prog.saldo}.
-%Other usages?
 
+If one word
+have different meanings, there will be separate entries for each of them.
+The word ``växa" (``grow") for example, has two meanings: \emph{getting bigger}
+\enumsentence{Gräset växte varje dag\\
+The grass grew each day}
+or \emph{being a plant}. 
+\enumsentence{Det växte en gammal ek där.\\
+There stood an old oak.}
+The word ``växa" is however declined the same way for both interpretations of the word.
+Hence Saldo's morpological lexicon, provided under LPGL in XML format,
+only keeps one entry of ``växa".
+For the homonyms that does not share the whole inflection tables, different entries are 
+kept in the morphological lexicon.
+
+For our purpose, only the morphological lexcion was needed.
+The data can be processed and translated to GF format as described in 
+section \ref{sec:prog.saldo}.
 
 \subsection{Grammatical Framework}
 The main component of the the project is the Grammatical Framework\cite{gfbok} (GF). It is
@@ -416,18 +428,35 @@ Instead of letting the users of the framework reimplement the morphological and
 the fundamental syntactic structures of a language for each application, all
 this can be found as libraries. So far there are 20 languages in the library, and
 they all share the same abstract syntax.
+There are also a small test lexicon included, containing some hundered of common words.
+
 The resource grammars describe how to construct phrases and sentences and how to
 decline words. The latter is done by smart paradigms: functions that analyses
 some given forms of a word to find out how the inflection table should look.
 For example, the declination of many Swedish nouns can be determined by looking
-at the singular form only. This is the case for ``flicka"??, the correct declination
-can be guessed by noting that the word ends with an ``a". Like most Swedish nouns
-ending with an ``a", it follows the first?? declination. For others, like
-"hjärta", also the plural form "hjärtan" is needed, even though it ends
-with an ``a". The worst case is nouns that need four forms, both singular and
+at the singular form only. 
+\begin{wrapfigure}{l}{0.4\textwidth}
+\begin{tabular}{| l | l |}
+\hline
+1st declination & 5th declination \\
+\hline
+flick\textbf{a}    &     hjärt\textbf{a}   \\
+flick\textbf{an}    &    hjärt\textbf{at}  \\
+flic\textbf{kor}    &    hjärt\textbf{an}  \\
+flic\textbf{korna}  &    hjärt\textbf{ana} \\
+\hline
+\end{tabular}
+\end{wrapfigure}
+This is the case for ``flicka", the correct declination
+can be guessed by using the first declination. % and noting that the word ends with an ``a". 
+%Like most Swedish nouns ending with an ``a", it follows the first declination.
+For others, like "hjärta", also the plural form "hjärtan" is needed.
+%, even though it ends with an ``a". 
+The worst case is nouns that need four forms, both singular and
 plural in definite and indefinite form.
-There are also a small test lexicon included, containing some hundered of common words.\\
 
+
+\vspace{5mm}
 As an open source-project, GF is constantely being developed and improved. New
 languges are added, the compiler is being improved, ways of använad det på ett
 lätt sätt are added and the possiblities to use GF in different environments
@@ -463,7 +492,7 @@ grammar and the result should still have a strong connection to this.
 For testing and evaluation of the grammar and lexicon, we needed to be able to
 compare them against a reliable source.
 Being an freely avaible, manually annotade, large scale treebank,
-Talbanken\cite{talbanken} was perfect for this ändamål.
+Talbanken\cite{talbanken} was perfect for our purpose.
 It was created in the 1970s at Lund University. In total it consists of four
 parts. Two of them are transcribitions of spoken language, one a collection of
 text written by high school students, and the last one, section P,
@@ -509,13 +538,16 @@ Experiments have been made to use a interactive tool for lexical aquisation,
 but the dictionary was still much to small. The aquisation tool may still
 be used for complenting the lexicon.
 
-The basic algorithm for porting Saldo is the same as Angelov's. It makes use of
-the smart paradigms in GF : explanation.
+The basic algorithm for porting Saldo is the same as Angelov's, it works by
+making use of the smart paradigms in GF.
 %Find the paper!
 %To understand it, we first need to look at differences between Saldo and a GF lexicon.
-The program will try to feed as few forms as possible to the GF smart paradigm.
-It starts from the easiest case, compare the results and either saves the code or 
-makes another try using more word forms.
+The program will try to create a lexicon by finding a number of forms for every
+word and feeding them to the smart paradigms. As few forms as possible should be
+used, and the resulting table generated by GF should be equivalent to the one found
+in Saldo. This process is done iteratively,
+starting from the easiest case. For each attempt the results are compared and when
+the correct way of using a word has been found, the code is saved.
 Figure \ref{pic:TabVax} shows a the information given by Saldo and by GF respectively.\\
 \begin{figure}[h]
   \begin{center}
@@ -526,67 +558,150 @@ Figure \ref{pic:TabVax} shows a the information given by Saldo and by GF respect
 \label{pic:TabVax}
   \end{center}
 \end{figure}
-We can see that there are more saldo forms and some are only in GF.
-
-Explanation of the algorithm: map categories, try each paradigm, compare the table of forms
-created. If several forms in saldo, gf should pick on of them. Saldo has forms for
-compounds, gf does not. A grammar is written, the correct ones saved, the others 
-retried. Try all paradigms which can be formed from saldo. 
-There are a number of differences between and saldo Till skillnad från GF,
-saldo does not contain forms that aren't used gf generates all forms. A form
-needed to generate the gf table may not be given in saldo such as singular
-forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
-different grammatical analyse, a lot of pronouns. Example. 
-
-In Saldo there is also semantic info, so
-We need the numbers from saldo if there are to lemmas with the same
-identifier. växa (bli större), växa (vara en planta) vs. sluta\_V and sluta2\_V
-(slöt). However gf does not want more than one table
-if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
-We are just interested in morphology, so far. Dont want too big lexicon.
+The tables does not overlap completely, there are some more forms in Saldo's table (eg. the 
+compounding form ``väx-")
+while the one generated in GF contains some that are not in Saldo (eg. ``vuxits").
+Saldo may also contain variats: ``växt" and ``vuxit" are both supine form.
+As far as possible, the program makes up for this by only comparing the overlapping forms
+and only requiring that GF generatens one variant whenever alternatives are given. 
+The program continues to generate new lexicons as long as there are more
+paradigms to choose from and compare the results after each run.
 
 
-The new version have also been made more robust, print logs and list of all
-words that wasn't imported together with a reason. Reson could be that it
-cannot construct all forms or that the word class shouldn't be in the gf lexicon.
-Costs very much memory, the saldo file is big, the generated lexicon is big.
-Saldo is divided to save memory. Errors should just be reported, but if something oförutsett
-happens and one part fail, the separation ensures that the others wont, also
-possible to restart. Problems with naming convention, special
-characters (å,ä,ö,apostrop,entrecôte.) needs to be translated , but avoid
-classhes 'kaeltisk' 'kältisk', gf will crash by this, so we add a 1
-in the end whenever we have changed a letter.
+The program has been made more robust than the previous version, it prints
+logs and finally lists of the words that were not imported. The logs provides
+information about which paradigms that were used for each word and the result
+from comparing the inflection tables.
+During the porting of Saldo, some renaming of the lemmas was needed.
+Special characters like \emph{å,ä,ö} should not occure in GF function names.
+Those are translated into \emph{aa,ae,oe} respectively. 
+The Saldo identifier \verb|äta..vb| is thus turned into the GF identifier \verb|aeta_V|.
+Since there might be two lemmas that share the same
+identifier after the translation, a number is added to the name whenever a translation
+have been done: 
+\begin{tabular}{lll}
+kältisk & $\rightarrow$ & kaeltisk\_1 \\
+kaeltisk & $\rightarrow$ & kaeltisk \\
+entrecôte &$\rightarrow$ & entrecoote\_1 \\ 
+\end{tabular}
 
-Other word classes we do not import and why.
-Those should not be in the standard gf lexicon but maybe somewhere else.
-The list can be used for adding other kinds of lexicons - idioms, have pos-tags.
-Also to analyse what's wrong, or use the words with a word guesser. The code
-has been adapted for this.
-For exapmle pronouns - dets, have combined information from Talbanken to add them in the correct
-category. How this works, look at tags. Small amount, can be done manually.
+%Problems with naming convention, special
+%characters (å,ä,ö,apostrop,entrecôte.) needs to be translated , but avoid
+%classhes 'kaeltisk' 'kältisk', gf will crash by this, so we add a 1
+%in the end whenever we have changed a letter.
+%,é
+%Costs very much memory, the saldo file is big, the generated lexicon is big.
+%Saldo is divided to save memory. Errors should just be reported, but if something oförutsett
+%happens and one part fail, the separation ensures that the others wont, also
+%possible to restart. 
 
-The saddest thing: no valency info. Crucial for GF. Only reflexive and verbs with particles
-have any information. The earlier explained techniques may be used for this in Talbanken.
-To get even bigger material, use Korp, but then no guarantee.
+%Explanation of the algorithm: map categories, try each paradigm, compare the table of forms
+%created. If several forms in saldo, gf should pick on of them. Saldo has forms for
+%compounds, gf does not. A grammar is written, the correct ones saved, the others 
+%retried. Try all paradigms which can be formed from saldo. 
+%In Saldo there is also semantic info, so
+%We need the numbers from saldo if there are to lemmas with the same
+%identifier. växa (bli större), växa (vara en planta) vs. sluta\_V and sluta2\_V
+%(slöt). However gf does not want more than one table
+%if the forms are identical, saldo's morpho neither, but there are five in big saldo. 
+%We are just interested in morphology, so far. Dont want too big lexicon.
 
 %see notes to add more about this, pronouns and the importing itself
 %choices for adjectives vs. verbs for particips
 The importing can be redone anytime.
 
 \subsection{Results}
-How many words, how many Talbanken words are not here now? Why?
+All words from Saldo were not be imported. There are a number of reasons
+for this, the most obvious one is that we do not want all categories from
+Saldo in the GF lexicon. Prepositions(\emph{pp}) and numerals(\emph{nl}) etc. are
+assumed to be known already,
+and are usually not kept in the standard lexicon, but in modules for the basic
+structures of the language. Categories involving several words(\emph{vbm,nnm})
+need to be handeld differently, usually as idioms. Pronouns(\emph{pn}) are not  
+analysed the same way, see section \ref{sec:swegf}. Some experiments on finding
+the right GF-category for those have been done, see \ref{sec:gf.quant}.
+Six categories were imported: \\
+\begin{tabular}{l|lll}
+& Saldo tag & GF category & Example \\
+\hline
+ Adverb & \textbf{ab} &\textbf{Adv} & ofta \\
+ Adjective&\textbf{av} &    \textbf{A} & gul\\
+ Noun & \textbf{nn} &\textbf{N} & hus\\
+ Verb & \textbf{vb} &\textbf{V} & springa\\
+ Reflexive verbs  &\textbf{vbm}& \textbf{V2} & raka sig\\
+ Verbs with particles &\textbf{vbm}& \textbf{V}  & hitta på\\
+\end{tabular}\\
+
+%
+%There are a number of differences between and saldo Till skillnad från GF,
+%saldo does not contain forms that aren't used gf generates all forms. A form
+%needed to generate the gf table may not be given in saldo such as singular
+%forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
+%different grammatical analyse, a lot of pronouns. Example. 
+One reason for why words of the categories listed above could not be imported
+is that Saldo does not contain information about word forms that are not used.
+In some cases those forms are needed by the smart paradigm. 
+This was a common reason why nouns could not be imported. 
+Consider for example
+the plural tantum %\cite[44]{SAG}
+noun ``glasögon" (``glasses"). Since the smart paradigm
+requires a singular form, this lemma could not be added to the lexicon. ``Glasögon" could
+be added manually, by using the somewhat incorrect singular form ``glasöga" (``glass-eye").
+The same problem occured for verbs that always are used in passive form:
+``andas" (``breathe"), ``frodas" (``flourish"), ``lyckas" (``succeeed"). This
+was the case for close to 80\% of the failing verbs of type \verb_vb_.
+
+In some cases the smart paradigms could not generate the correct declination,
+although this happend seldom. % frysa,fisa passive preterium 
+
+The resulting dictionary contains more than 100 000 entries, compared to the total size
+of Saldo this is approximately 80\%. When testing the coverage of Talbanken,
+we found that 3058 words were still missing. In addition, there were 1817 words
+which were given different labels in GF than in Talbanken. Many of those are
+acceptable, such as the ones in table \ref{tab:saldodiff} and reflects the difference 
+made in the analyses, but others are examples of words that are still missing from
+the lexicon.
+\begin{figure}[h]
+\begin{tabular}{lll}
+Word & Talbanken tag & GF category \\
+\hline
+måste & MVPS          & VV \\
+allting & POTP & N \\
+få & POZP & Det \\
+\end{tabular}
+\caption{}
+\label{tab:saldodiff}
+\end{figure}
+Among the words that were completely missing, more than 2000 was found to be nouns,
+many of which were compounds. 
+
+The lexicon does not contain any valency information since Saldo does not give any such
+information. Valencies are however crucial for GF, and by using the results from the mapping
+(see section \ref{sec:Mapping}) it should be possible to extract this information about this.
+%The saddest thing: no valency info. Crucial for GF. Only reflexive and verbs with particles
+%have any information. The earlier explained techniques may be used for this in Talbanken.
+%To get even bigger material, use Korp, but then no guarantee.
+
 
 \section{The grammar}
 \label{sec:prog.grammar}
-Although we can't expect to get a full coverage, we would like a tillfredsställande
-Explain what's in the resources, constructions present in most languages. 
-Been working on a grammar fragment based on Talbanken,
-like cool people like Montague. May also be interesting for other purposes.
-Swedish shares with Nor and Dan. Extra module, covering things like sw is a
-v2-lang, focusing parts of sentences. 
+Although we can't expect to get a full coverage, we aim for a high-quality 
+grammar with satisfactory coverage.
+We have been working on a grammar fragment which have been adapted to cover
+constructions used in Talbanken. The starting point has been the Swedish
+resource grammar and the new grammar should still be compatible with this.
+A description of the Swedish implementation of the resource grammar is given
+in the next section, while section \ref{sec:Added} shows and explains the
+development during this project.
+%Explain what's in the resources, constructions present in most languages. 
+%Been working on a grammar fragment based on Talbanken,
+%like cool people like Montague. May also be interesting for other purposes.
+%Swedish shares with Nor and Dan. Extra module, covering things like sw is a
+%v2-lang, focusing parts of sentences. 
 
 
 \subsection{The Swedish resource grammar}
+\label{sec:swegf}
 The GF resource grammars contains a fundamental description of Swedish,
 covering the morphology and many phrase and clause constructions. Most of the implementation
 is shared with the other scandinavian languages.
@@ -594,7 +709,7 @@ Apart form descriping morphology, the resource grammar deals with
 word order, agreement, tempus, basic conjunction etc.
 \enumsentence{\shortexnt{8}
 {Har& han& inte& ätit& de & gula& äpplena& idag?}
-{Has& he& not& eaten& the& yellow& apples& today?}} %correct!!!
+{Has& he& not& eaten& the& yellow& apples& today?}} 
 \label{gfSwe:parseable}
 The grammar can construct and parse the sentence in example \ref{gfSwe:parseable}
 and the parse tree is represented as in figure \ref{gfSwe:parsetree}.
@@ -602,7 +717,7 @@ and the parse tree is represented as in figure \ref{gfSwe:parsetree}.
 % better sentence where the verb phrase is split up?
 \begin{figure}[h]
 \includegraphics[width=70mm,height=70mm]{apples.pdf}
-\caption{Parse tree for ``Har han inte ätit de gula äpplena idag".}%correct
+\caption{Parse tree for ``Har han inte ätit de gula äpplena idag".}
 \label{gfSwe:parsetree}
 \end{figure}
 Even though the verb phrase \emph{``har inte ätit.."} is discontinuous, the whole
@@ -687,6 +802,7 @@ about slashes\cite{gazdar}
 %coverage of standard Swedish.
 
 \subsection{Added}
+\label{sec:Added}
 Summary of what have been added and motivation.
 
 kommer att - for scand, extra tempus, example
@@ -809,6 +925,7 @@ or when using some predeterminers (see section `Quantifiers'). Not true, not the
 
 
 \subsubsection{Quantifiers, determiners and predeterminers}
+\label{sec:gf.quant}
 The GF analyse differs sometimes. Experiments of how to extract
 this information from Talbanken by using Saldo as a starting poin.
 One of the biggest differences between the GF analysis and the one made in Talbanken
@@ -1311,18 +1428,18 @@ Short sentences with known words & 85\%\\
 
 \chapter{Summary}
 \section{Results and discussion}
-Results from mapping, can probably be improved, bit by bit, depends much on words.
-Valencys would therefor help.  
-Saldo, made a big difference to renew the lexicon. Tested what was missing now from talbanken,
-results. Mostly compound nouns, which we can't expect in the dictionary.
-Is too slow, can't be used for parsing right away
-
-Grammar - hard to evaluate automatically, but Elibet is an expert who has been involved
-in the process to verify the solutions. Testing trees against talbanken.
-The big lexicon makes it very slow, eats all memory
-
-Discussion of the results and methods, why are the results good, why are they not better.
-What other methods could have been used? What did we/I expect and what happend?
+%Results from mapping, can probably be improved, bit by bit, depends much on words.
+%Valencys would therefor help.  
+%Saldo, made a big difference to renew the lexicon. Tested what was missing now from talbanken,
+%results. Mostly compound nouns, which we can't expect in the dictionary.
+%Is too slow, can't be used for parsing right away
+%
+%Grammar - hard to evaluate automatically, but Elibet is an expert who has been involved
+%in the process to verify the solutions. Testing trees against talbanken.
+%The big lexicon makes it very slow, eats all memory
+%
+%Discussion of the results and methods, why are the results good, why are they not better.
+%What other methods could have been used? What did we/I expect and what happend?
 
 
 \section{Future Work}
@@ -1331,35 +1448,44 @@ What is still left to do? Description and direction of future work:
 Handling unknown words and , handling unknown grammar, 
 how to make the parser robust, elipses and long sentences, names and numbers.
 What is still needed in the grammar, how important that is. 
-\subsection{Lexicon/Parallell parsing}
-Speed up.
+\subsection{Parallell parsing/Chunk parsing}
+\subsection{Lexicon}
+%Speed up!
+%The list of not-imported can be used for adding other kinds of lexicons - idioms, have pos-tags.
+%Also to analyse what's wrong, or use the words with a word guesser. The code
+%has been adapted for this.
+%For exapmle pronouns - dets, have combined information from Talbanken to add them in the correct
+%category. How this works, look at tags. Small amount, can be done manually.
+
+
 \subsection{Valency}
 \label{sec:futureValency}
-how to get valency information 'sitter och läser',
-is this doable for swedish?
-description of extracting this from talbanken/korp
-or handling it by the robust parser or the grammar itself (leaveout obj?).
-make the parser faster by using smaller lexicon.
-Lexicon tool on the fly.
+%how to get valency information 'sitter och läser',
+%is this doable for swedish?
+%description of extracting this from talbanken/korp
+%or handling it by the robust parser or the grammar itself (leaveout obj?).
+%make the parser faster by using smaller lexicon.
+%Lexicon tool on the fly.
+
 \subsection{Probabilites}
 \label{sec:futureProbabilities}
-Getting and using probabilities, to disambiguate.
-process list from saldo.
-Use multiligual treebank?
-stop ambiguities by fixing so that Gen of a quant isn't a quant, or better, that all fields
-have a genitive field.
-More fields in the grammar? Or leave it all to the robust parser
+%Getting and using probabilities, to disambiguate.
+%process list from saldo.
+%Use multiligual treebank?
+%stop ambiguities by fixing so that Gen of a quant isn't a quant, or better, that all fields
+%have a genitive field.
+%More fields in the grammar? Or leave it all to the robust parser
 
 
 \section{Conclusion}
-There is obviously a lot do still, will never get finish with NPL.
-Grammar may need even bigger changes, to allow enough but not too much.
-Different from writing a grammar for generation.
-Results from mapping shows that the translation is doable, but becomes harder
-since talbanken don't have formal rules.
-The saldo shows how easy to make use of utomstående resources, promising if
-we want to extract other information. 
-Hard, but not finished! 
+%There is obviously a lot do still, will never get finish with NPL.
+%Grammar may need even bigger changes, to allow enough but not too much.
+%Different from writing a grammar for generation.
+%Results from mapping shows that the translation is doable, but becomes harder
+%since talbanken don't have formal rules.
+%The saldo shows how easy to make use of utomstående resources, promising if
+%we want to extract other information. 
+%Hard, but not finished! 
 
 
 \bibliographystyle{ieeetr}

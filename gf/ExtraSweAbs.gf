@@ -25,6 +25,7 @@ cat --ReflNP ;
 --    [BaseObj]{2} ;
  
   -- ExistNP :: CN or RelCNNP and add Adv AdV to verb!
+  -- ImpersonCl :: sin katt åt man??
 fun
 
  
@@ -220,4 +221,7 @@ fun
 
   likna_V2 : V2 ;
   akta_V3 : V3 ;
+  flicka_N : N ;
+  komma_V : V ;
+  frysa_V : V ;
 }
