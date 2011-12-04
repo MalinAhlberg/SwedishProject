@@ -2,25 +2,25 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigTestSwe of BigTest = 
-  NounSwe, -- - [DetNP],
-  VerbSwe -[PassV2,ComplSlash,ReflVP], --,ComplVA], -- [ComplVS],
+  ExtraSwe,
+  NounSwe- [DetNP] ,
+  VerbSwe -[PassV2,ComplSlash,ReflVP],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
   IdiomSwe,
   NumeralSwe,
   SentenceSwe, --[UseCl, UseRCl], 
   QuestionSwe,
-  RelativeSwe, -- [IdRP, RelSlash],
-  ConjunctionSwe,
-  PhraseSwe, -- [UttImpSg, UttImpPl],
-  TextX - [Tense,Temp] ,
+  RelativeSwe,
+  PhraseSwe,
+  TextX - [Tense,Temp,Adv] , --  src/compiler/GF/Compile/GrammarToPGF.hs:216:11-73: Irrefutable pattern failed for pattern GF.Data.ErrM.Ok ty_C
   TenseSwe,
-  StructuralSwe, 
-  ExtraSwe - [DropAttVV] ,
-  LexiconSwe
+--  ConjunctionSwe,
+  StructuralSwe 
+ -- LexiconSwe
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
-
+  
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
 

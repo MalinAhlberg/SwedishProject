@@ -2,10 +2,10 @@
 
 -- for testing grammar, using just the test lexicon
 abstract BigTest = 
-  Lexicon,
-  ExtraSweAbs - [DropAttVV] ,
-  Noun, -- -[DetNP] ,
-  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], --,ComplVA],
+ -- Lexicon,
+  ExtraSweAbs, 
+  Noun-[DetNP], 
+  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
   Adjective -[UseComparA],
   Adverb,
   Idiom,
@@ -13,11 +13,11 @@ abstract BigTest =
   Sentence,
   Question,
   Relative,
-  Conjunction,
+--  Conjunction,
   Phrase,
-  Structural, 
-  Tense,
-  Text
+  Structural,
+  Tense -[Adv],
+  Text - [Adv]
   ** {
   flags startcat=Phr ;
   
@@ -30,6 +30,5 @@ abstract BigTest =
   johan_PN : PN ;
   do_VV : VV;
 
-  ---
   } ;
 

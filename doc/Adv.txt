@@ -1,0 +1,41 @@
+using refl
+abstract/Adverb.gf:    ComparAdvAdj  : CAdv -> A -> NP -> Adv ; -- more warmly than John
+abstract/Adverb.gf:    PrepNP      : Prep -> NP -> Adv ;        --  i sitt hus --in the house
+
+
+-- not NP so ok
+abstract/Noun.gf:    AdjCN   : AP -> CN  -> CN ;   -- big house
+
+
+
+-ok
+abstract/Adverb.gf:    AdAdv  : AdA -> Adv -> Adv ;        ?  nästan i sitt hus   -- very quickly
+abstract/Conjunction.gf:    ConjAdv  : Conj -> [Adv] -> Adv ;  i sitt hus och i en båt -- "here or there"
+abstract/Extra.gf:    FocAdv : Adv -> Cl      -> Foc ;   i mitt hus vill jag bo -- today I will sleep
+abstract/Idiom.gf:    CleftAdv  : Adv -> S  -> Cl ;  det var i sitt hus hon sov -- it is here she slept
+abstract/Noun.gf:    AdvCN   : CN -> Adv -> CN ;   --(han köpte) hus i sin stad? not needed?  -- house on the hill
+abstract/Phrase.gf:    UttAdv    : Adv  -> Utt ;  --(var är han?) i sitt hus.             -- here
+abstract/Question.gf:    AdvIP     : IP -> Adv -> IP ;  vem i       -- who in Paris
+abstract/Sentence.gf:    AdvSlash  : ClSlash -> Adv -> ClSlash ;    -- (som) han ser i sitt hus -- (whom) he sees today
+abstract/Sentence.gf:    AdvS     : Adv -> S  -> S ;            -- i sitt hus äter hon soppa --then I will go home
+abstract/Sentence.gf:    ExtAdvS  : Adv -> S  -> S ;           ? same as above? -- next week, I will go home
+abstract/Verb.gf:    AdvVPSlash : VPSlash -> Adv -> VPSlash ;  -- äta (soppa) i sitt hus -- use (it) here
+abstract/Verb.gf:    AdvVP    : VP -> Adv -> VP ;        -- sova i sin soffa --sleep here
+abstract/Verb.gf:    CompAdv  : Adv -> Comp ;            --vara i sitt hus -- (be) here
+abstract/Noun.gf:    AdvNP   : NP -> Adv -> NP ;   not needed because of AdvCN: --(han såg) taket på sitt hus -- Paris today
+                                                   and not : en katt längre än sin kompis?
+
+-nej
+abstract/Question.gf:    PrepIP    : Prep -> IP -> IAdv ; med sitt hus bor du?    -- with whom
+                                                   but is anyway allowed with 'hans'
+
+-maybe? a bit weird any way..
+abstract/Extra.gf:    IAdvAdv : Adv -> IAdv ;   --? hur i sitt hus "how often"
+abstract/Phrase.gf:    UttIAdv   : IAdv -> Utt ;            -- hur i sitt hus?   -- why
+abstract/Question.gf:    AdvIAdv   : IAdv -> Adv -> IAdv ;   --? var i sitt hus (är han)?  -- where in Paris
+abstract/Conjunction.gf:    ConjIAdv : Conj -> [IAdv] -> IAdv ;  var och hur i sitt hus?-- "where and with whom"
+abstract/Question.gf:    QuestIAdv   : IAdv -> Cl -> QCl ;    -- hur i sitt hus bor han? why does John walk
+abstract/Question.gf:    CompIAdv  : IAdv -> IComp ;          -- var i sitt hus är han? where (is it)
+abstract/Question.gf:    AdvQVP        : VP  ->   IAdv -> QVP ;   -- -- lives where 
+abstract/Question.gf:    AddAdvQVP     : QVP ->   IAdv -> QVP ;   -- buys what where 
+

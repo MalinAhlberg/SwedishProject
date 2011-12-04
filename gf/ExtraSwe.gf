@@ -7,7 +7,7 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
 lincat
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
- AdvFoc = Adv ** {x : Str} ;  -- x dummy field to avoid metas
+ AdvFoc = {s : Str ; x : Str} ;  -- x dummy field to avoid metas
  RelVSCl = {s : Agr => RCase => Str};
  N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
@@ -17,7 +17,24 @@ lincat
 
 
 lin
---override with obj
+
+  DetNP _ det = 
+      let 
+        g = neutrum ; ----
+        m = True ;  ---- is this needed for other than Art?
+      in {
+        s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s" ;
+                   _          => det.sp ! a ! m ! g };
+        a = agrP3 (ngen2gen g) det.n
+      } ;
+
+
+
+
+  TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
+-------------------------------------------------------------------------------
+-- For objects          
+-------------------------------------------------------------------------------
     Slash2V3 v np = 
       insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
         {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
@@ -34,49 +51,34 @@ lin
         ** {n3 = vp.n3 ; c2 = v.c2} ;
 
 
+     ComplSlash np vp = 
+       insertObjPost
+         (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
+
+
+
     Coercion np = {s = \\_ => np.s ! NPAcc } ;
   
-    ReflIdNP    = {s = \\a => reflForm a } ;
-    ReflCN cn n = {s = \\a => let sin = reflGenForm a (gennum cn.g n.n) ;
-                                  num = n.s ! cn.g ;
-                                  np = cn.s ! n.n ! DDef Indef ! Nom 
-                              in sin ++ num ++ np} ;
-    {-
-    ReflCN noun = {s = \\a => let sin = reflGenForm a (gennum noun.a.g noun.a.n) ;
-                                  np  = noun.s ! NPNom ;
-                                  x   = case noun.d of {DIndef => NONEXIST ; _ => ""}
-                              in sin ++ x ++ np} ;
+    ReflIdNP    = {s = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
+                   sp = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
+                   det = DIndef} ;
+    --ReflCN cn n = {s = \\a,c => let sin = reflGenForm a (gennum cn.g n.n) ;
+    --                              num = n.s ! cn.g ;
+    --                              np = cn.s ! n.n ! DDef Indef ! Nom 
+    --                          in sin ++ num ++ np; 
+    --               a = agrP3 utrum Sg} ;
                               
-    -}                          
-{-
+
     UseObj o = o ;
     ConjObj = conjunctDistrTable Agr ;
     BaseObj = twoTable Agr ;
-    -- twoTable : (P : Type) -> (_,_ : {s : P => Str}) -> ListTable P = \_,x,y -
     ConsObj = consrTable Agr comma ;
  lincat 
-    --[BaseObj] = {s1,s2 : Agr => Str } ; 
     [Obj] = {s1,s2 : Agr => Str } ; 
-  --------
-  lin
-  SuperlA a = {
-     s = \\ap => a.s ! AF (ASuperl SupStrong) Nom ;
-     isPre = True
-     };
-
-  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
-  SimpleV v = predV v ;
-  Pass2VSimple v2 = lin VP (predV (depV v2)); 
-  AdvSimpleVP vp = AdvVP (lin VP vp) ;
-  AdVSimpleVP vp adv = AdVVP adv (lin VP vp) ;
-  FormalSub vp det cn = case det.det of {
-      DIndef => let np = DetCN det cn in
-                    mkClause "det" (agrP3 neutrum Sg) (insertObj 
-                       (\\a => np.s !  accusative) vp) ;
-      DDef _ => {s = \\_,_,_,_ => NONEXIST }} ;
--}
 
 {-
+
+ ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
   IdRefl = {
     s = \\a => table {
           NPPoss gn c => reflGenForm a gn ;
@@ -86,17 +88,52 @@ lin
   {-IdReflSelf =  {  -- in genitive? should be 'sin', but then we do not need ReflCN
      s =\\a,f => reflForm a f ++ sina; 
      a = agrP3 Sg utrum } ; --ajaj
--}
+  --ReflCN num cn = 
+  --      let g = cn.g ;
+  --          m = cn.isMod ;
+  --          dd = DDef Indef ;
+  --    in lin NP {
+  --    s = \\a,c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
+  --    a = agrP3 (ngen2gen g) num.n -- ?
+  --    } ;
 
-  --test
+
+-}
+  --------
+
+
+  lin
+  SuperlA _ a = {
+     s = \\ag,ap => a.s ! AF (ASuperl SupStrong) Nom ;
+     isPre = True
+     };
+
+  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
+-------------------------------------------------------------------------------
+-- Formal subjects
+-------------------------------------------------------------------------------
+  SimpleV v = predV v ;
+  Pass2VSimple v2 = lin VP (predV (depV v2)); 
+  AdvSimpleVP vp = AdvVP (lin VP vp) ;
+  AdVSimpleVP vp adv = AdVVP adv (lin VP vp) ;
+  FormalSub vp det cn = case det.det of {
+      DIndef => let np = detCN  det cn in
+                    mkClause "det" (agrP3 neutrum Sg) (insertObj    --agreement?!
+                       (\\a => np.s ! aNPerson ! accusative) vp) ;
+      DDef _ => {s = \\_,_,_,_ => NONEXIST ; agr = agrP3 utrum Sg}} ;
+
+
+
+-------------------------------------------------------------------------------
+-- Test for 'antalet'
+-------------------------------------------------------------------------------
   --ApposNP np1 np2 = {s = \\f => np1.s ! NPNom ++ np2.s ! f ; a = np2.a } ;
 
   ComplN2P det n2 cn = 
      let npdet = DetCN det n2 in 
      {
       s = \\nform => npdet.s ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
-      a = {g = cn.g ; n = n2.num ; p = P3 } ;
-      d = det.det
+      a = {g = cn.g ; n = n2.num ; p = P3 } 
       } ;
 
   AdjN2 ap n2 =  let g = n2.g in 
@@ -129,23 +166,40 @@ lin
       } ;
 
  
-  --
+-------------------------------------------------------------------------------
+-- Varandra
+-------------------------------------------------------------------------------
+--  VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
+--  SlashV3Varandra v3 = Slash3V3 v3 varandra ;
+--    oper varandra : NPObject = lin Obj {s = \\_ => "varandra" } ;
 
+  varandra = {s = table {Per1 Sg => \\_ => NONEXIST ; Per2 Sg => \\_ => NONEXIST ;
+                         _ => \\_ => "varandra"}  ;
+              a = {g = Utr ; n = Pl ; p = P2}};  -- obs!! fel
+-------------------------------------------------------------------------------
+-- tests, doesn't work for Foc anyway
+-------------------------------------------------------------------------------
+ lin
   VS_it vs = insertObj (\\_ => it_Pron.s ! NPNom ) (predV vs) ; 
   VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! NPNom ) (predV vs) ; 
 
+-------------------------------------------------------------------------------
+-- tests, 'själv'. No good types.
+-------------------------------------------------------------------------------
    SelfAdV   = mkAdV "själv" ; 
-   SelfNP np = {s = \\f => np.s ! f ++ sjaelv ! np.a ;
-                a = np.a ;
-                d = np.d} ;
+   SelfNP _ np = {s = \\a,f => np.s ! a ! f ++ sjaelv ! np.a ;
+                a = np.a } ;
      oper sjaelv : Agr => Str =
       \\a => case <a.g,a.n> of {
                   <_  ,Pl > => "själva" ;
                   <Neutr,_> => "självt" ;
                   _         => "själv"  };
 
+-------------------------------------------------------------------------------
+-- tests, genetive
+-------------------------------------------------------------------------------
 
--- lin
+ --lin
  --  GenCN np num cn = let n = num.n in {
  --    s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
  --                ++ num.s ! cn.g 
@@ -153,48 +207,37 @@ lin
  --    a = agrP3 (ngen2gen cn.g) n 
  --    } ;
 
- {- 
-  PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
-   oper mkComp : NP -> Agr -> Comp = 
-    \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
-    -}
-
-lin 
-  DetNP_utr = detNP utrum Sg ;
-
-  oper detNP : NGender -> Number -> Det -> NP  =
-   \g,num,det -> let 
-          m = True ;  ---- is this needed for other than Art?
-      in lin NP {
-        s = \\c => det.sp ! m ! g;
-        a = agrP3 (ngen2gen g) num ;
-        d = det.det 
-      } ;
-
-
-{-
- lin
   
-  VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
-  SlashV3Varandra v3 = Slash3V3 v3 varandra ;
-    oper varandra : Obj = lin Obj {s = \\_ => "varandra" } ;
-                           
-                           -}
-                           {-
+ -- PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
+ --  oper mkComp : NP -> Agr -> Comp = 
+ --   \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+
+-------------------------------------------------------------------------------
+-- Relatives
+-------------------------------------------------------------------------------
  lin
   RelVS s rvs = {s = \\o => s.s ! o ++ "," ++ rvs.s ! agrP3 Neutr Sg ! RPrep True} ; 
   RelSlashVS t p np vs = let cl     = PredVP np (predV vs) ; 
                              vilket = IdRP.s ! Neutr ! Sg ! (RPrep True) in
     {s = \\ag,rc => t.s ++ p.s ++ vilket ++ cl.s ! t.t ! t.a ! p.p ! Sub } ;
+ RelCNNP _ num cn rs = let g = cn.g ; n = num.n in {
+      s = \\a,c => num.s ! g ++ det n g 
+                 ++ cn.s ! n ! DIndef ! (caseNP c) ++ rs.s ! agrP3 (ngen2gen g) n ! RNom ;
+      a = agrP3 (ngen2gen g) n
+      } ;
+  oper det : Number -> Gender -> Str = 
+    \n,g -> case <n,g> of {
+                 <Sg,Utr>   => "den" ;
+                 <Sg,Neutr> => "det" ;
+                 <Pl,_>     => "de" };
 
--}
-  TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
- 
-  -- maybe not the best way, but the adverb should always
-  -- be before the finite verb
-  -- needs changes in VP, fix
-  -- problematic, try parse "sova ville han inte"
-  AdvFocVP  = insertAdvFoc ;
+
+
+-------------------------------------------------------------------------------
+-- Focusing adverbs
+-------------------------------------------------------------------------------
+lin
+ AdvFocVP  = insertAdvFoc ;
   
   oper insertAdvFoc : AdvFoc -> VP -> VP 
    = \adv, vp -> lin VP {
@@ -204,11 +247,27 @@ lin
       en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
 
  lin
- {-
   PredetAdvF adv = {s = \\_,_ => adv.s ; p = [] ; a = PNoAg} ;
   AdvFocAdV adv = {s = adv.s} ;
 
-  
+
+-------------------------------------------------------------------------------
+-- For determiners and quantifiers
+-------------------------------------------------------------------------------
+lin 
+  DetNP_utr _ = detNP utrum Sg ;
+
+  oper detNP : NGender -> Number -> Det -> NP  =
+   \g,num,det -> let 
+          m = True ;  ---- is this needed for other than Art?
+      in lin NP {
+        s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s";
+                   c      => det.sp ! a ! m ! g };
+        a = agrP3 (ngen2gen g) num
+      } ;
+
+ lin 
+ {-
   QuantPronAQ x =  
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
        ntr = x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
@@ -221,26 +280,36 @@ lin
    sp = table {Sg => \\_,_ => genderForms utr ntr;
                Pl => \\_,_,_ => pl};
      det = DDef Indef};
+     -}
 
  -- those cannot be compared 
   CompPronAQ x = CompAP (PositA (lin A x)) ; 
 
-  DetPronAD x = lin Det {s,sp = \\_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
+  DetPronAD x = lin Det {s,sp = \\a,_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
             n = Pl ; det = DDef Indef} ;
 
   CompPronAD x = CompAP (PositA (lin A x)) ; 
 
   -- de blev sådana
- ComplVAPronAQ v ap = insertObj (\\a => (PositA ap).s ! agrAdjNP a DIndef) (predV v) ;
+ ComplVAPronAQ v ap = insertObj (\\a => (PositA ap).s ! getNPerson a ! agrAdjNP a DIndef) (predV v) ;
  -- de blev fler
- ComplVAPronAD v ap = insertObj (\\a => (UseComparA ap).s ! agrAdjNP a DIndef) (predV v) ;
--}
- ComplSlash np vp = 
-       insertObjPost
-         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
+ ComplVAPronAD v ap = insertObj (\\a => (UseComparA ap).s !  getNPerson a ! agrAdjNP a DIndef) (predV v) ;
 
- ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
+ 
+  it8utr_Pron = regPron "den" "dess" Utr   Sg  ;
+  
+  this8denna_Quant = 
+    {s,sp = \\_ => table {
+      Sg => \\_,_ => genderForms ["denna"] ["detta"] ; 
+      Pl => \\_,_,_ => ["dessa"]
+      } ;
+    det = DDef Indef
+    } 
+    ;
 
+-------------------------------------------------------------------------------
+-- Implemented in ExtraScand
+-------------------------------------------------------------------------------
 lin
   FocVP vp np = {
       s = \\t,a,p =>
@@ -257,7 +326,7 @@ lin
             <_    ,Anter> => (vp.s ! VPFinite SPast Anter  ).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
-          comp = vp.n2 ! agr ++ vp.a2 ++ vp.ext     
+          comp = vp.n2 ! agr ++ vp.a2 ! np.a ++ vp.ext     
         in
         vf ++ comp ++ (verb.s ! t ! a ! p ! Inv) ++ vp.a1 ! Pos 
       } ;
@@ -265,7 +334,6 @@ lin
   oper do_V : V = mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord" ;
 
 lin
-{-
   FocAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
@@ -274,7 +342,7 @@ lin
     vp.n2 ! npAgr ++ vps.fin ++ np.s !  NPNom 
     ++ negation ! p++ vps.inf };
 
--}
+
   FocVV vv vp np = 
   {s = \\t,a,p =>
     let bara = vp.a0 ;
@@ -282,14 +350,14 @@ lin
         vvp = UseV vv ;
         vvs = vvp.s ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
-        already = vp.a2 ++ vvp.a2 in
+        already = vp.a2 ! np.a ++ vvp.a2 ! np.a in
    bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
    ++ vv.c2.s ++ always ++ negation ! p ++ already ++ vvs.inf
    };  
 
 
 lin
-  PrepCN prep cn = {s = prep.s ++ cn.s ! Sg ! DIndef ! Nom } ;
+  PrepCN prep cn = {s = \\a => prep.s ++ cn.s ! Sg ! DIndef ! Nom } ;
  
   CompoundNomN a b = {
     s = \\n,d,c => a.s ! Sg ! Indef ! Nom ++ BIND ++ b.s ! n ! d ! c ;
@@ -306,27 +374,19 @@ lin
     g = b.g
     } ;
 
-
-  it8utr_Pron = MorphoSwe.regNP "den" "dess" Utr   Sg  ;
   
-  this8denna_Quant _ = 
-    {s,sp = table {
-      Sg => \\_,_ => genderForms ["denna"] ["detta"] ; 
-      Pl => \\_,_,_ => ["dessa"]
-      } ;
-    det = DDef Indef
-    } 
-    ;
-
-  DropAttVV vv =  {s = vv.s ; part = vv.part ; vtype = vv.vtype ; c2 = mkComplement [] ; lock_VV = <>} ;
+-------------------------------------------------------------------------------
+-- Various functions
+-------------------------------------------------------------------------------
+  ComplBareVV vv vp =  insertObj (\\a => infVP vp a) (predV vv) ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
                         verb = (vp.s ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
-                        compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
+                        compl = vp.n2 ! np.a ++ vp.a2 ! np.a ++ vp.ext in
     {s = \\_ => sub ++ neg ++ vp.a0 ++ verb ++ compl };
     
-
+  
   PassV3 v3 =
       lin VPSlash (predV (depV v3)) ** 
         {n3 = \\_ => [] ; c2 = v3.c3} ;  -- to preserve the order of args
@@ -346,18 +406,9 @@ lin
   AdvComp comp adv = {s = \\agr => adv.s ++ comp.s ! agr} ;
  
   -- be callled PPartAP?
-  PPartAP v2 =
-    {s     = \\aform => v2.s ! VI (VPtPret aform Nom);
+  PPartAP _ v2 =
+    {s     = \\a,aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
-
-  --ReflCN num cn = 
-  --      let g = cn.g ;
-  --          m = cn.isMod ;
-  --          dd = DDef Indef ;
-  --    in lin NP {
-  --    s = \\a,c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
-  --    a = agrP3 (ngen2gen g) num.n -- ?
-  --    } ;
 
   ReflSlash vp np = let vp_l = lin VPSlash vp ;
                         np_l = lin NP np      ;
@@ -366,43 +417,48 @@ lin
 
 
 
- oper reflForm : Agr -> Str = 
-   \a -> case a.p of {
-     P3  => "sig" ;
+-------------------------------------------------------------------------------
+-- Operations
+-------------------------------------------------------------------------------
+
+ oper reflForm : NPerson -> Str = 
+   \a -> case a of {
+     Per3  => "sig" ;
      _   => (getPronoun a).s ! NPAcc } ;
 
 
- oper reflGenForm : Agr -> GenNum -> Str = \aSub,aObj   ->
-    case <aSub.p,aObj> of {
-     <P3,GSg Neutr> => "sitt" ;
-     <P3,GSg Utr>   => "sin" ;
-     <P3,GPl>       => "sina" ;
+ oper reflGenForm : NPerson -> GenNum -> Str = \aSub,aObj   ->
+    case <aSub,aObj> of {
+     <Per3,GSg Neutr> => "sitt" ;
+     <Per3,GSg Utr>   => "sin" ;
+     <Per3,GPl>       => "sina" ;
      _              => reflGenPron aSub aObj};
   
-  oper reflGenPron : Agr -> GenNum -> Str =
+  oper reflGenPron : NPerson -> GenNum -> Str =
    \sub,gn -> let pn = getPronoun sub
       in pn.s ! NPPoss gn Nom ;
 
 
       
   this_NP : Str -> Gender -> Number -> NP =
-  \denna,g,n -> lin NP {s = table {NPPoss gn c => denna+"s";
+  \denna,g,n -> lin NP {s = \\_ => table {NPPoss gn c => denna+"s";
                                    _           => denna};
-                        a = agrP3 g n ;
-                        d = DDef Def};
+                           a = agrP3 g n};
 
-  getPronoun : Agr -> Pron = 
-   \a ->  case <a.p,a.n> of {
-      <P1,Sg>   => i_Pron ;
-      <P2,Sg>  => youSg_Pron ;
-      <P1,Pl>  => we_Pron ;
-      <P2,Pl>  => youPl_Pron ;
+  getPronoun : NPerson -> Pron = 
+   \a ->  case a of {
+      Per1 Sg  => i_Pron ;
+      Per2 Sg  => youSg_Pron ;
+      Per1 Pl  => we_Pron ;
+      Per2 Pl  => youPl_Pron ;
       _         => they_Pron } ; -- this last case will not happen
 
------------------ Predeterminers,Quantifiers,Determiners
+-------------------------------------------------------------------------------
+-- Predeterminers,Quantifiers,Determiners
+-------------------------------------------------------------------------------
 
   lin
-    bara_AdvFoc = (mkAdv "bara") ** {x = ""} ;
+    bara_AdvFoc = (ss "bara") ** {x = ""} ;
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
@@ -410,34 +466,47 @@ lin
     hela_Predet    = {s  = \\_,_ => "hela" ; p = [] ; a = PNoAg} ;
     samma_Predet   = {s  = \\_,_ => "samma" ; p = [] ; a = PNoAg} ;
 
-    sjaelva_Quant = {s  = \\_,_,_,_ => "själva" ;
-                     sp = \\_,_,_,_ => NONEXIST;
+    sjaelva_Quant = {s  = \\_,_,_,_,_ => "själva" ;
+                     sp = \\_,_,_,_,_ => NONEXIST;
                      det = DDef Def } ;
 
-    vardera_Det  = {s,sp = \\_,_ => "vardera" ; n = Sg ; det = DDef Indef};
-    ena_Det      = {s  = \\_,_ => "ena" ; 
-                    sp = \\_ => genderForms ["den ena"] ["det ena"] ; 
+    vardera_Det  = {s,sp = \\_,_,_ => "vardera" ; n = Sg ; det = DDef Indef};
+    ena_Det      = {s  = \\_,_,_ => "ena" ; 
+                    sp = \\_,_ => genderForms ["den ena"] ["det ena"] ; 
                     n = Sg ; det = DDef Def};
-    baegge_Det   = {s,sp = \\_,_ => "bägge" ; n = Pl ; det = DDef Def} ;
-    baada_Det    = {s,sp = \\_,_ => "båda" ; n = Pl ; det = DDef Def} ;
-    varannan_Det = {s,sp = \\_,_ => "varannan" ; n = Sg ; det = DDef Indef} ;
-    somliga_Det  = {s,sp = \\_,_ => "somliga" ; n = Pl ; det = DDef Indef} ;
-    dylika_Det   = {s,sp = \\_,_ => "dylika" ; n = Pl ; det = DDef Indef} ;
-    oovriga_Det  = {s,sp = \\_,_ => "övriga" ; n = Pl ; det = DDef Indef} ;
-    samtliga_Det = {s,sp = \\_,_ => "samtliga" ; n = Pl ; det = DDef Indef} ;
-    aatskilliga_Det = {s,sp = \\_,_ => "åtskilliga" ; n = Pl ; det = DDef Indef} ;
-    varenda_Det   x  = {s  = \\_ => genderForms ["varenda"] ["vartenda"] ; 
-                       sp = \\_ => genderForms ["varenda en"] ["vartenda ett"] ; 
+    baegge_Det   = {s,sp = \\_,_,_ => "bägge" ; n = Pl ; det = DDef Def} ;
+    baada_Det    = {s,sp = \\_,_,_ => "båda" ; n = Pl ; det = DDef Def} ;
+    varannan_Det = {s,sp = \\_,_ => genderForms ["varannan"] ["varannat"] ; 
+                    n = Sg ; det = DDef Indef} ;
+    somliga_Det  = {s,sp = \\_,_,_ => "somliga" ; n = Pl ; det = DDef Indef} ;
+    dylika_Det   = {s,sp = \\_,_,_ => "dylika" ; n = Pl ; det = DDef Indef} ;
+    oovriga_Det  = {s,sp = \\_,_,_ => "övriga" ; n = Pl ; det = DDef Indef} ;
+    samtliga_Det = {s,sp = \\_,_,_ => "samtliga" ; n = Pl ; det = DDef Indef} ;
+    aatskilliga_Det = {s,sp = \\_,_,_ => "åtskilliga" ; n = Pl ; det = DDef Indef} ;
+    varenda_Det     = {s  = \\_,_ => genderForms ["varenda"] ["vartenda"] ; 
+                       sp = \\_,_ => genderForms ["varenda en"] ["vartenda ett"] ; 
                        n = Sg ; det = DDef Indef};
 
+   annan_Quant = { s,sp = \\_ => table {Sg => \\_,_ => genderForms ["en annan"] ["ett annat"] ;
+                               Pl => \\_,_,_ => "andra"} ;
+                   det = DIndef };
 
-    noll_Det = {s,sp = \\_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
-    --annnan/andra
+
+
+                    
+
+    noll_Det = {s,sp = \\_,_,_ => "noll" ; n = Pl ; det = DDef Indef};
+
+    --annnan/andra?
     numberOf = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep **
                 {num = Pl; det = DDef Indef };
 
    likna_V2 = dirV2 (mkV "liknar") ;
    akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
+   flicka_N = mkN "flicka" ;
+   komma_V = mkV "komma" "kom" "kommit" ;
+   frysa_V = mkV "frysa" "frös" "frusit" ;
+
 }
 
