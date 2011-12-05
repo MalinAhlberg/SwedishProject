@@ -15,9 +15,9 @@ concrete BigTestSwe of BigTest =
   PhraseSwe,
   TextX - [Tense,Temp,Adv] , --  src/compiler/GF/Compile/GrammarToPGF.hs:216:11-73: Irrefutable pattern failed for pattern GF.Data.ErrM.Ok ty_C
   TenseSwe,
---  ConjunctionSwe,
-  StructuralSwe 
- -- LexiconSwe
+  ConjunctionSwe,
+  StructuralSwe,
+  LexiconSwe
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
   

@@ -2,7 +2,7 @@
 
 -- for testing grammar, using just the test lexicon
 abstract BigTest = 
- -- Lexicon,
+  Lexicon,
   ExtraSweAbs, 
   Noun-[DetNP], 
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],

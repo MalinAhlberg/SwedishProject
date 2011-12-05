@@ -59,6 +59,10 @@ lin
 
     Coercion np = {s = \\_ => np.s ! NPAcc } ;
   
+  -- ReflIdGen should be 'sin'. sp-field : han ser sin. Or 'han ser sig'?
+  -- maybe just 'sin', since 'sig' not a quantifier
+  -- ReflIdNP shoud be 'sig'. Genitive form? Do not want 'sin' again, it
+  -- is not a NP. But then what? 'sigs'?
     ReflIdNP    = {s = \\a => table {NPPoss g _ => reflGenForm a g ;
                                      _          => reflForm a }; 
                    a = agrP3 utrum Sg} ;
