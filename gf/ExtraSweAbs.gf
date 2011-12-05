@@ -41,7 +41,8 @@ fun
 --     Coercion : NP -> Obj ;
     --ReflCN : CN -> Num -> NP Object ;
     --ReflCN : NP -> Obj ;
-    ReflIdNP : Quant Object ;
+    ReflIdNP    : NP Object ;
+    ReflIdNPGen : Quant Object ;
     --UseObj : BaseObj -> Obj ;
     --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
     --ConjObj : Conj -> ListObj -> Obj ;

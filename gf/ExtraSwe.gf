@@ -59,9 +59,12 @@ lin
 
     Coercion np = {s = \\_ => np.s ! NPAcc } ;
   
-    ReflIdNP    = {s = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
-                   sp = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
-                   det = DIndef} ;
+    ReflIdNP    = {s = \\a => table {NPPoss g _ => reflGenForm a g ;
+                                     _          => reflForm a }; 
+                   a = agrP3 utrum Sg} ;
+    ReflIdGen =  {s,sp = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
+                  det = DIndef} ;
+
     --ReflCN cn n = {s = \\a,c => let sin = reflGenForm a (gennum cn.g n.n) ;
     --                              num = n.s ! cn.g ;
     --                              np = cn.s ! n.n ! DDef Indef ! Nom 
@@ -262,7 +265,7 @@ lin
           m = True ;  ---- is this needed for other than Art?
       in lin NP {
         s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s";
-                   c      => det.sp ! a ! m ! g };
+                          c          => det.sp ! a ! m ! g };
         a = agrP3 (ngen2gen g) num
       } ;
 

@@ -13,7 +13,7 @@ abstract BigTest =
   Sentence,
   Question,
   Relative,
---  Conjunction,
+  Conjunction,
   Phrase,
   Structural,
   Tense -[Adv],
