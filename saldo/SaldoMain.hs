@@ -14,7 +14,7 @@ main = do
   arg <- fmap (fmap read . listToMaybe) getArgs 
   (fpaths,skip) <- case arg of
     Nothing -> do 
-	saldom <- readFile  "import2/saldoPart0.xml"
+	saldom <- readFile  "saldom.xml"
 	let parts = splits $ lines saldom
 	putStrLn "read saldo. Writing partitions"
 	fpaths <- writeFiles parts 0
