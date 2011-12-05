@@ -30,7 +30,6 @@ Translates saldom.xml into GF dictionary.
 To change input format, just replace parseDict
 The main fuction is extract, which could operate alone or together with
 SaldoMain
-Based on code by Krasimir.
 -----------------------------------------------------------------------------}
 
 inputFile = "lillsaldo.xml"
@@ -68,7 +67,7 @@ extract select name inputFile n  = do
   mst <- runErrorT $ execStateT (createGF saldo
                     >> compileGF
                     >> loop
-                    -- >> printGFFinal
+                    >> printGFFinal
                     >> cleanUp)  (initState n select name)
   er <- case mst of 
              Left er  -> return er
@@ -126,7 +125,7 @@ findGrammar (id,E pos table) =  do
 okCat "V2" = hasPrep  
 okCat "VR" = isRefl
 okCat _    = const True
-findA w | part `elem` preps = ")\""++part++"\"" --first paranthesis to close mkV
+findA w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
         | otherwise         = ""
  where part = findsndWord w
 
@@ -209,7 +208,7 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
         -- to do: if the comparative forms for an adjective doesn't exist, add compounda
            then do report ("all forms for "++id++" not found" )
                    getNextLemma (G id cat lemmas b f ps)
-           else replace (G id cat [catMaybes forms] a (specialF pre f) ps)
+           else replace (G id cat [catMaybes forms] a {-(specialF pre-} f ps)
       where
         specialF "mk3A" _ = ("mk3A","") --- to be done more nicely -- can probably be removed now, but test first
         specialF x           f = f
@@ -252,8 +251,10 @@ compileGF = do
 -------------------------------------------------------------------
 
 mkGFName :: String -> String -> String
-mkGFName id' cat = name++"_"++cat
+mkGFName id' cat = name++"_"++toGFcat cat
   where
+       toGFcat "VR" = "V"
+       toGFcat  v   = v
        dash2us '-' = '_'
        dash2us x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
@@ -263,7 +264,7 @@ mkGFName id' cat = name++"_"++cat
               $ map dash2us 
               $ takeWhile (/= '.')  -- in case there are unwanted (unintedned?) dots left
               $ undot (decodeUTF8 id')
-       transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
+      transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
                            | otherwise                 = concatMap trans w -- to be sure..
                            
        trans '\229' = "aa"
@@ -295,8 +296,7 @@ translated = ['\229', '\197', '\228', '\196', '\224', '\225', '\232', '\233', '\
 -------------------------------------------------------------------
 
 -- all word classes that should be imported should be listed here. 
-catMap  = prepCatMap
-{-
+catMap  = 
   [ (pack "ab", "Adv", map (first pack) advParamMap,  ("mkAdv",""), advParadigmList )
   , (pack "av",   "A", map (first pack) adjParamMap,  ("mkA",""), adjParadigmList )
   , (pack "vb",   "V", map (first pack) verbParamMap, ("mkV",""), verbParadigmList)
@@ -304,7 +304,7 @@ catMap  = prepCatMap
   , (pack "vbm", "V2", map (first pack) verb2ParamMap, ("dirV2 (partV (mkV",")"), verb2ParadigmList)
   , (pack "vbm", "VR", map (first pack) verbRParamMap, ("dirV2 (reflV (mkV","))"), verbRParadigmList)
   ]
-  -}
+  
 -- For prepositions, not run automatically
 prepCatMap =  [(pack "pp", "Prep", [(pack "invar","s")],("mkPrep",""),[("mkPrep",["s"],"")])]
 

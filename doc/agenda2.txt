@@ -1,0 +1,14 @@
+1. Follow-up
+    - results from importing Saldo, coverage of Talbanken       
+    - grammar: introducing objects,
+               discussion about tree repensentation, 
+               feedback from Elisabet
+
+2. Plans for January
+      - robust parsing:
+        extracting valency information, 
+        chunk parsing
+
+
+3. Presentation
+
