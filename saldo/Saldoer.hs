@@ -122,7 +122,7 @@ findGrammar (id,E pos table) =  do
                                               | (gf_cat,(f,f'),paradigms) <- xs]
                       modify $ \s -> s {retries = cnc++retries s}
 
-okCat "V2" = hasPrep  
+okCat "VP" = hasPrep  
 okCat "VR" = isRefl
 okCat _    = const True
 findA w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
@@ -254,6 +254,7 @@ mkGFName :: String -> String -> String
 mkGFName id' cat = name++"_"++toGFcat cat
   where
        toGFcat "VR" = "V"
+       toGFcat "VP" = "V"
        toGFcat  v   = v
        dash2us '-' = '_'
        dash2us x = x
@@ -264,7 +265,7 @@ mkGFName id' cat = name++"_"++toGFcat cat
               $ map dash2us 
               $ takeWhile (/= '.')  -- in case there are unwanted (unintedned?) dots left
               $ undot (decodeUTF8 id')
-      transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
+       transform_letters w | any (`elem` translated) w = (++"_1") $ concatMap trans w
                            | otherwise                 = concatMap trans w -- to be sure..
                            
        trans '\229' = "aa"
@@ -301,8 +302,10 @@ catMap  =
   , (pack "av",   "A", map (first pack) adjParamMap,  ("mkA",""), adjParadigmList )
   , (pack "vb",   "V", map (first pack) verbParamMap, ("mkV",""), verbParadigmList)
   , (pack "nn",   "N", map (first pack) nounParamMap, ("mkN",""), nounParadigmList)
-  , (pack "vbm", "V2", map (first pack) verb2ParamMap, ("dirV2 (partV (mkV",")"), verb2ParadigmList)
-  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("dirV2 (reflV (mkV","))"), verbRParadigmList)
+  -- particles were V2. Why? -"dirV2 (partV (mkV",")"
+  -- VR should not be V2 either.
+  , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
+  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",""), verbRParadigmList)
   ]
   
 -- For prepositions, not run automatically
@@ -414,10 +417,10 @@ verbParadigmList =
 
 -- could use normal verbParamMap if we are sure it is a preposition,
 -- and will look the same in all paradims
-verb2ParamMap = map (first (++" 1:1-2")) verbParamMap
+verbPParamMap = map (first (++" 1:1-2")) verbParamMap
               ++map (\(a,b) -> (a++" 1:2-2","part")) verbParamMap
 
-verb2ParadigmList =
+verbPParadigmList =
   [ ("", [v1], "" )                
   , ("", [v6, v3, v8], "")              
   , ("", [v6, v1, v5, v3, v8, v10], "") 
@@ -495,6 +498,7 @@ showAbs (G id cat lemmas a _ paradigms) = "  " ++ mkGFName id cat ++ " : "
                                         ++ find cat ++ " ;\n"
   where 
     find "VR" = "V"
+    find "VP" = "V"
     find x    = x
 showCnc (G id cat [[]] a _ paradigms)    = "--  " ++ mkGFName id cat ++ " has not enough forms \n" 
 showCnc (G id cat lemmas a (mk,end) paradigms) 
