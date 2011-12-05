@@ -1,6 +1,6 @@
 1. Follow-up
     - results from importing Saldo, coverage of Talbanken       
-    - grammar: introducing objects,
+    - grammar: introducing objects,  --kommer att, definitness of NP, antalet
                discussion about tree repensentation, 
                feedback from Elisabet
 
