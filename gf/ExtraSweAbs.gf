@@ -26,6 +26,14 @@ cat --ReflNP ;
  
   -- ExistNP :: CN or RelCNNP and add Adv AdV to verb!
   -- ImpersonCl :: sin katt åt man??
+  {-
+  --- notes from PPs---
+  PP ; 
+  Preppi ;
+ fun 
+  ObjPP : NPObject -> PP ;
+  ComplSlashPP : VPSlash -> PP -> VP ;
+  -}
 fun
 
  

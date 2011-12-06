@@ -15,7 +15,17 @@ lincat
  Obj = {s : Agr => Str };
  --BaseObj = {s : Agr => NForm => Str };
 
-
+{- Notes from PP
+  Preppi = Str -> Str ;
+  --PP = {p : Preppi ; np : NPObject }; 
+  param Prepp = Till | Paa ; --automatic??
+  oper getPrep : Prepp -> Str ;
+       getPrep p = case p of {Till => "till" ; Paa => "påå"};
+-- lin 
+--  ObjPP np = {p = \\prep => getPrep prep ; np = np };
+--  ComplSlashPP vp pp = 
+--       insertObjPost (\\a => (pp.p ! vp.c2.s).s ++ pp.np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ;
+-}
 lin
 
   DetNP _ det = 
@@ -35,25 +45,25 @@ lin
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
-    Slash2V3 v np = 
-      insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
-        {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
-    Slash3V3 v np = predV v ** {
-      n3 = \\a => v.c3.s ++ np.s ! a ; 
-      c2 = v.c2
-      } ;
+  --  Slash2V3 v np = 
+  --    insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
+  --      {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
+  --  Slash3V3 v np = predV v ** {
+  --    n3 = \\a => v.c3.s ++ np.s ! a ; 
+  --    c2 = v.c2
+  --    } ;
 
-    CompNP np = {s = \\a => np.s ! a} ;
+  --  CompNP np = {s = \\a => np.s ! a} ;
 
-    SlashV2VNP v np vp = 
-      insertObj 
-        (\\a => v.c2.s ++ np.s ! a ++ v.c3.s ++ infVP vp a) (predV v) 
-        ** {n3 = vp.n3 ; c2 = v.c2} ;
+  --  SlashV2VNP v np vp = 
+  --    insertObj 
+  --      (\\a => v.c2.s ++ np.s ! a ++ v.c3.s ++ infVP vp a) (predV v) 
+  --      ** {n3 = vp.n3 ; c2 = v.c2} ;
 
 
      ComplSlash np vp = 
-       insertObjPost
-         (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
+       insertObjPost (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ;
+         -- used to be vp.n3 ! np.a. Why?
 
 
 
@@ -119,7 +129,7 @@ lin
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
-  SimpleV v = predV v ;
+  SimpleV v = lin VP (predV v) ;
   Pass2VSimple v2 = lin VP (predV (depV v2)); 
   AdvSimpleVP vp = AdvVP (lin VP vp) ;
   AdVSimpleVP vp adv = AdVVP adv (lin VP vp) ;
