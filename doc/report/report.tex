@@ -57,6 +57,8 @@
 \section{Introduction} 
 >>This work is part of bigger project, spring and next spring.
 >>Connection between grammar & parser: GF, every grammar defines a parser.
+>> reusablilty, freely available.
+>> the big amount of data, need language technology, machine translation
 Ultimate goal: want computers to 'understand' language. Not good with flat strings.
 We need to translate strings of natural language to a richer structure,
 a parse tree. So far there is no
@@ -113,7 +115,8 @@ Swedish syntax are often similar to English, but have some characteristics:
 \subsubsection*{Verb second}
 Swedish is a verb-second language\cite[p. 116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
-The normal word order is subject-verb-object, but any syntactic category can be fronted\cite[\textsection 1027]{H&H}.
+The normal word order is subject-verb-object, but any syntactic category can be
+fronted\cite[\textsection 1027]{H&H}.
 Topicalisation is very common, especially for temporal and spatial adverbial phrases.
 The examples \ref{ex:swedish-svo} - \ref{ex:swedish-avso} all have the same propositional
 meaning, although the fronted part of sentence \ref{ex:swedish-ovs} and \ref{ex:swedish-avso} are being emphasized.
@@ -159,6 +162,7 @@ Inverted word order marks questions
 %\enumsentence{Gick Johan på gatan?\\
 %        \emph{Did Johan walk on the street?}}
 The word order in subordinate clauses in also slightly different,
+>> and stricter
 %\enumsentence{
 %\begin{tabular}{ll}
 %{\shortex{7}
@@ -275,7 +279,7 @@ section \ref{sec:prog.saldo}.
 
 \subsection{Grammatical Framework}
 >> more here. First: grammar formalism with Martin-Löf.
->> snd: programming language, type checking and logic: prolog (check this)
+>> snd: functional and programming language, type checking and logic: prolog (check this)
 >> dependent and implicit types : agda. (read gf book and krasses book)
 >> pgf\ref{}, runtime system with parsing, lin, random generation osv.
 The main component of the the project is the Grammatical Framework\cite{gfbok} (GF). It is
@@ -434,7 +438,10 @@ A GF grammar usually covers a very restricted set of language where few ambiguit
 occur and much care can be taken to preserving the semantics of the
 different languages.
 By using a controlled language like this,  good and reliable translation can be
-ensured. Some examples of projects using GF are WebAlt\cite{webalt} and something else.
+ensured. Some examples of projects using GF are WebAlt\cite{webalt},
+a project which aims to develop language independent material for mathematics problems,
+and the formal software verification tool KeY\cite{key}, in wich GF is used for translating specification
+to natural language.
 >> key, talk, hats, bom (see references in Ramonas thesis).
 %, the Online Syllogism Solver\cite{malin!}. 
 The framework is also used in the
@@ -486,8 +493,9 @@ languages are added, the compiler is being improved, ways of använad det på et
 lätt sätt are added and the possibilities to use GF in different environments
 increased. There are  research about how to make better use of the dependent
 types, for solving syllogism or generating natural language via Montague
-semantics.
-Further, experiments on using GF for free parsing has been conducted \cite[\textsection 4.1]{gfMech} 
+semantics\cite{montague}.
+Further, experiments on using GF for free parsing has been conducted
+\cite[\textsection 4.1]{gfMech} 
 This is also a future goal for our project and one of the delmål has been to
 model an important part of Swedish in GF. The starting point was the resource
 grammar and the result should still have a strong connection to this.
@@ -516,6 +524,8 @@ grammar and the result should still have a strong connection to this.
 For testing and evaluation of the grammar and lexicon, we needed to be able to
 compare them against a reliable source.
 Being an freely available, manually annotated, large scale treebank,
+>> cite mamba? annotation: well intergrated in sw. tradition, descriptive, used
+>> for large scale projects.
 Talbanken\cite{talbanken} was perfect for our purpose.
 It was created in the 1970s at Lund University. In total it consists of four
 parts. Two of them are transcribitions of spoken language, one a collection of
@@ -540,13 +550,23 @@ Computational ling is active area for Swedish, there are many other Swedish pars
 but grammars?
 Many of the parsers not ruled based, the most known one Malt\cite{malt} ... .
 However has been two, about CLE\cite{cle} and what happened to it. Logic and translation
-to Swedish, The spoken lang. translator\cite{cle2}. Wiren \cite{wiren}, cassSwe \cite{casswe}
+to Swedish, S-CLE (Gambäck,1997) full analyse but coverage is too limited (nivres papper), The
+spoken lang. translator\cite{cle2}. Wiren \cite{wiren}. bit more information than
+just pos: cassSwe \cite{casswe}
 Other Sw. parsers and grammars, evaluation of them? 
 Other grammar frameworks.
-HPSG\cite{hpsg} and lingo matrix\cite{lingomatrix}, English, Japanese, German, Greece, Spanish, Norweigan.
-also Swedish: BiTSE\cite{stymne}, Stymne 2006, Swedish English translation, focusing on verb phrames, built on HPSG.
+SweCG (birn) annotation, parser Swedish FDG (voultanien,2001) which is not freely available.
+finding subject, objects, suubject complements (SC) and
+to link them to their proper regents (main verbs) : over 90\% both precision and recall.
+uses a dependency grammar, but "The functional description of adverb phrases
+and prepositional phrases (e.g. agent, source, goal, benefactive, time) remains
+to be described in a future version." 
+HPSG\cite{hpsg} and lingo matrix\cite{lingomatrix}, English, Japanese, German,
+Greece, Spanish, Norweigan (NorSource, Hellan 2003),( not famous: SweCore
+(Ahrenberg) based on NorSource)
+also Swedish: BiTSE\cite{stymne}, Stymne 2006, Swedish English translation,
+focusing on verb phrames, built on HPSG.
 S\o rgaard and Haugereid, Scandinavian Grammar Matrix\cite{scandmatrix}
-SweCore ??
 Tag, Tree adjoining grammar, XTAG: English and Korean, Chinese? English: ongoing to get widecoverage grammar
 under GPL. Translation to Korean.
 % related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
@@ -822,7 +842,14 @@ Either directly to VP if V, or needs to be given arguments. Can then add adverbs
 Maybe talk about ställa.
 Particles and prepositions, can't be seen on the trees.
 tycka om /tycka om -> om vad tycker du inte. fast bra
-about slashes\cite{gazdar}
+'jag tar med mig den till Bo' : ta\_med\_V3 = dirV3 (reflV (partV (take\_V "med")) (mkPrep "till") ;
+but is really 'till' part of verb?
+VP is divided corresponding to satsschema (diderichsen) (renewed by SAG),
+otherwise use slash.
+"Speed up", instead of movement used slashes\cite{gazdar}.
+Slashes good for question (vilken katt ser du idag)
+relatives (katten som du tittar på) and topicalisation
+The grammar has VP,Cl, SSlash, all missing NP.
 
 %Besides the categories NP,VP,AP there are also the import Det and Quant, Predet.
 
