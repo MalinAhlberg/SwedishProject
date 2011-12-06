@@ -122,13 +122,16 @@ findGrammar (id,E pos table) =  do
                                               | (gf_cat,(f,f'),paradigms) <- xs]
                       modify $ \s -> s {retries = cnc++retries s}
 
-okCat "VP" = hasPrep  
+--- particles can be prepositions (hitta på), adverbs (åka hem), nouns (åka hem)... 
+--  we first check for reflexives, and accept the rest as particles.
+okCat "VP" = hasPart
 okCat "VR" = isRefl
 okCat _    = const True
 findA w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
         | otherwise         = ""
  where part = findsndWord w
 
+hasPart = all isAlpha . findsndWord
 hasPrep = (`elem` preps) . findsndWord
 isRefl  = (=="sig") . findsndWord
 
@@ -304,8 +307,8 @@ catMap  =
   , (pack "nn",   "N", map (first pack) nounParamMap, ("mkN",""), nounParadigmList)
   -- particles were V2. Why? -"dirV2 (partV (mkV",")"
   -- VR should not be V2 either.
-  , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
   , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",""), verbRParadigmList)
+  , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
   ]
   
 -- For prepositions, not run automatically
