@@ -5,7 +5,7 @@ import Data.Tree
 import Data.Maybe
 import Data.Char
 import Data.List
-import Data.Function
+import Data.Function as F
 import PGF hiding (parse,Tree)
 import Control.Monad
 import Control.Monad.Writer
@@ -32,6 +32,22 @@ testpgf = "../gf/BigTest.pgf"
 lang :: Language
 lang = read  "BigSwe" --"BigTestSwe" --
 
+-- count words
+count = do
+ putStrLn $ "Parsing talbanken "++talbanken++" ..."
+ trees <- (map snd . head) <$> parse talbanken
+ writeFile "counted" $ process F.id $ concatMap collectWords trees
+ 
+
+countWords :: Tree String -> Int
+countWords (Node w [])  = 1
+countWords (Node w ts)  = sum $ map countWords ts
+
+collectWords :: Tree String -> [(String,String)]
+collectWords (Node p [Node w []])  = [(w,p)]
+collectWords (Node w ts)  = concatMap collectWords ts
+
+-- test the number of unknown words
 main = do 
  putStrLn $ "Parsing talbanken "++talbanken++" ..."
  trees <- head <$> parse talbanken

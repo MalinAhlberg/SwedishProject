@@ -118,7 +118,7 @@ findGrammar (id,E pos table) =  do
                                    ++", word '"++id++"' rejected.")
                       isDead id
               else do let cnc = [G id gf_cat [[snd $ head' "createGF" table]]
-                                    "" (f,findA id++f') paradigms 
+                                    "" (f,findA gf_cat id++f') paradigms 
                                               | (gf_cat,(f,f'),paradigms) <- xs]
                       modify $ \s -> s {retries = cnc++retries s}
 
@@ -127,11 +127,13 @@ findGrammar (id,E pos table) =  do
 okCat "VP" = hasPart
 okCat "VR" = isRefl
 okCat _    = const True
-findA w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
-        | otherwise         = ""
+findA "VP" w =  ")\""++part++"\""
  where part = findsndWord w
+findA _  _ = ""
+--w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
+        -- | otherwise         = ""
 
-hasPart = all isAlpha . findsndWord
+hasPart = (\x -> all isAlpha x &&  x/="sig") . findsndWord
 hasPrep = (`elem` preps) . findsndWord
 isRefl  = (=="sig") . findsndWord
 
@@ -259,8 +261,8 @@ mkGFName id' cat = name++"_"++toGFcat cat
        toGFcat "VR" = "V"
        toGFcat "VP" = "V"
        toGFcat  v   = v
-       dash2us '-' = '_'
-       dash2us x = x
+       dash2us '-'  = '_'
+       dash2us    x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
        name =  undot -- $ (++ [last id']) 
               $ num 
@@ -307,7 +309,7 @@ catMap  =
   , (pack "nn",   "N", map (first pack) nounParamMap, ("mkN",""), nounParadigmList)
   -- particles were V2. Why? -"dirV2 (partV (mkV",")"
   -- VR should not be V2 either.
-  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",""), verbRParadigmList)
+  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",")"), verbRParadigmList)
   , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
   ]
   
