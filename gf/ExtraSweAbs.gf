@@ -4,7 +4,7 @@
 
 abstract ExtraSweAbs = ExtraScandAbs -[FocAdv,FocAP] ** {
     
-cat --ReflNP ; 
+cat
     PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
              -- can be compared as both: de flesta katter, katterna är flest
              --                             Predet?
@@ -18,22 +18,6 @@ cat --ReflNP ;
     N2P ;
     N2' ;
     SimpleVP ;
-    --- objectives
---    Obj ;
---    [Obj]{2} ;
---    BaseObj ;    --to prevent normal NPs to be conjuncted as Objs, but doesn't allow 'han ser sin katt och huset'
---    [BaseObj]{2} ;
- 
-  -- ExistNP :: CN or RelCNNP and add Adv AdV to verb!
-  -- ImpersonCl :: sin katt åt man??
-  {-
-  --- notes from PPs---
-  PP ; 
-  Preppi ;
- fun 
-  ObjPP : NPObject -> PP ;
-  ComplSlashPP : VPSlash -> PP -> VP ;
-  -}
 fun
 
  
@@ -41,35 +25,13 @@ fun
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
---     Slash2V3 : V3 -> Obj -> VPSlash ;
---     Slash3V3 : V3  -> Obj -> VPSlash ;
      ComplSlash : NPObject -> VPSlash -> VP ;
---     CompNP : Obj -> Comp ;
---     SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
---     Coercion : NP -> Obj ;
-    --ReflCN : CN -> Num -> NP Object ;
-    --ReflCN : NP -> Obj ;
-    --ReflIdNP    : NP Object ;
+    ReflIdNP    : NP Object ;
     ReflIdGen : Quant Object ;
-    --UseObj : BaseObj -> Obj ;
-    --ConjBaseObj : Conj -> ListBaseObj -> BaseObj ;
-    --ConjObj : Conj -> ListObj -> Obj ;
-
-  -- alla sina syskon? sin brors bok?
- -- ReflCN : Num -> CN -> ReflNP ;
- -- ReflSlash : VPSlash -> ReflNP -> VP ;
-  --ReflCN : CN -> Num -> NP ;  --xs bil
- -- IdRefl : NP ;               --sig
- -- IdReflSelf: NP ;            --sig själv
-  -- ReflVP   : VPSlash -> VP ;
 
 
 -------------------------------------------------------------------------------
-
-
-  --tests
   SuperlA : (a : Boolean) -> A -> AP a ;
-  --LeaveOutObj : VPSlash -> VP ;
 
 -------------------------------------------------------------------------------
 -- Formal subjects
@@ -82,40 +44,10 @@ fun
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
 
 -------------------------------------------------------------------------------
--- Test for 'antalet'
--------------------------------------------------------------------------------
-  --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
-  --ComplN2P : (a : Boolean) -> Det a -> N2P -> CN -> NP a ;
-  --AdjN2 : APSubject -> N2P -> N2P ; --obs!
-  --UseN2P : N2' -> N2P ;
-  --N2N    : N2' -> N ; 
-  ---
-
--------------------------------------------------------------------------------
 -- Varandra
 -------------------------------------------------------------------------------
   varandra : NPObject ; 
- -- VarandraVP : VPSlash -> VP ;
- -- SlashV3Varandra : V3 -> VPSlash ;
    
--------------------------------------------------------------------------------
--- tests, doesn't work for Foc anyway
--------------------------------------------------------------------------------
-  VS_it : VS -> VP ; -- hon vet det
-  VV_it : VV -> VP ; -- hon vill det
-  
-
--------------------------------------------------------------------------------
--- tests, 'själv'. No good types.
-
-  SelfAdV : AdV ;  -- han såg själv att ..
-
--------------------------------------------------------------------------------
--- tests, genetive
--------------------------------------------------------------------------------
-  --GenCN : NP -> Num -> CN -> NP ;
-  --PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
-
 -------------------------------------------------------------------------------
 -- Relatives
 -------------------------------------------------------------------------------
@@ -138,7 +70,6 @@ fun
 -------------------------------------------------------------------------------
 -- For determiners and quantifiers
 -------------------------------------------------------------------------------
--- overgenerating, but useful
   DetNP_utr : (a : Boolean) -> Det a -> NP a ; -- den här
 
   DetPronAD : PronAD -> Det Object ;
@@ -165,10 +96,8 @@ fun
 -------------------------------------------------------------------------------
   ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
   SupCl  : NPSubject -> VP -> Pol -> S ; -- när jag sovit
-  -- needs to allow RelNP' to use it!
   
   
- 
   UseComparA  : (a : Boolean) -> A -> AP a ;
   PassV2   : V2 -> VP ;  -- äts 
   PassV3   : V3 -> VPSlash ;  --ges till henne
@@ -176,27 +105,9 @@ fun
   
  
 
-  {- here it would be nice with VPSlash -> AP
-       'han är äten', 'han är given till henne', 
-       'han är ombedd att gå' 'den är tänkt att sitta där'
-     but VPSlash does not hold information about this verbform
-     You can also say 'de gågna åren','de tänkta bostäderna',
-     so maybe there should be a function V -> AP too. -}
-  -- den nyligen funna.
-  -- be callled PPartAP?
-  PPartAP : (a : Boolean) -> V2 -> AP a ; --VPSlash -> AP ;
+   PPartAP : (a : Boolean) -> V2 -> AP a ; --VPSlash -> AP ;
    
-  -- jag äter redan äpplet 
-  -- does not work for Focused. 'det gör redan kvinnan' 632
-  -- is redan more a AdV anyway?
-  --AdvVPSlash : VPSlash -> Adv -> VPSlash ;
-
-  -- jag är redan här
-  -- add possibility of saying 'det är här som jag äter' (CleftAdv + som)?
-  -- is redan more a AdV anyway?
- -- AdvComp : Comp -> Adv -> Comp ;
-
-
+ 
 -------------------------------------------------------------------------------
 -- Predeterminers,Quantifiers,Determiners
 -------------------------------------------------------------------------------
@@ -205,10 +116,8 @@ fun
 
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;
-  -- overgenerating: alla hela katter. should not be ok.
-  -- predets should be able to decide definites?
-  hela_Predet : Predet ;  --hela horder/hela katten  -- both
-  sjaelva_Quant : Quant Object ; -- själva kungen/själva öronen -- def
+  hela_Predet : Predet ;  --hela horder/hela katten 
+  sjaelva_Quant : Quant Object ; -- själva kungen/själva öronen
   samma_Predet : Predet ; -- samma katter/samma öra 
   varenda_Det : Det Object ;
   vardera_Det : Det Object ;

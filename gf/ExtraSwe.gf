@@ -7,31 +7,19 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
 lincat
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
- AdvFoc = {s : Str ; x : Str} ;  -- x dummy field to avoid metas
+ AdvFoc = {s : Str ; x : Str} ; 
  RelVSCl = {s : Agr => RCase => Str};
  N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
- --BaseObj = {s : Agr => NForm => Str };
 
-{- Notes from PP
-  Preppi = Str -> Str ;
-  --PP = {p : Preppi ; np : NPObject }; 
-  param Prepp = Till | Paa ; --automatic??
-  oper getPrep : Prepp -> Str ;
-       getPrep p = case p of {Till => "till" ; Paa => "påå"};
--- lin 
---  ObjPP np = {p = \\prep => getPrep prep ; np = np };
---  ComplSlashPP vp pp = 
---       insertObjPost (\\a => (pp.p ! vp.c2.s).s ++ pp.np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ;
--}
 lin
 
   DetNP _ det = 
       let 
-        g = neutrum ; ----
-        m = True ;  ---- is this needed for other than Art?
+        g = neutrum ; 
+        m = True ;
       in {
         s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s" ;
                    _          => det.sp ! a ! m ! g };
@@ -39,36 +27,13 @@ lin
       } ;
 
 
-
-
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
-  --  Slash2V3 v np = 
-  --    insertObj (\\a => v.c2.s ++ np.s ! a) (predV v) ** 
-  --      {n3 = \\_ => [] ; c2 = v.c3} ;  -- to preserve the order of args
-  --  Slash3V3 v np = predV v ** {
-  --    n3 = \\a => v.c3.s ++ np.s ! a ; 
-  --    c2 = v.c2
-  --    } ;
-
-  --  CompNP np = {s = \\a => np.s ! a} ;
-
-  --  SlashV2VNP v np vp = 
-  --    insertObj 
-  --      (\\a => v.c2.s ++ np.s ! a ++ v.c3.s ++ infVP vp a) (predV v) 
-  --      ** {n3 = vp.n3 ; c2 = v.c2} ;
-
-
      ComplSlash np vp = 
        insertObjPost (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ;
-         -- used to be vp.n3 ! np.a. Why?
 
-
-
-    Coercion np = {s = \\_ => np.s ! NPAcc } ;
-  
   -- ReflIdGen should be 'sin'. sp-field : han ser sin. Or 'han ser sig'?
   -- maybe just 'sin', since 'sig' not a quantifier
   -- ReflIdNP shoud be 'sig'. Genitive form? Do not want 'sin' again, it
@@ -79,46 +44,7 @@ lin
     ReflIdGen =  {s,sp = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
                   det = DIndef} ;
 
-    --ReflCN cn n = {s = \\a,c => let sin = reflGenForm a (gennum cn.g n.n) ;
-    --                              num = n.s ! cn.g ;
-    --                              np = cn.s ! n.n ! DDef Indef ! Nom 
-    --                          in sin ++ num ++ np; 
-    --               a = agrP3 utrum Sg} ;
-                              
-
-    UseObj o = o ;
-    ConjObj = conjunctDistrTable Agr ;
-    BaseObj = twoTable Agr ;
-    ConsObj = consrTable Agr comma ;
- lincat 
-    [Obj] = {s1,s2 : Agr => Str } ; 
-
-{-
-
- ReflVP vp = insertObjPost (\\a => vp.c2.s ++ reflPron a ++ vp.n3 ! a) vp ;
-  IdRefl = {
-    s = \\a => table {
-          NPPoss gn c => reflGenForm a gn ;
-          f           => reflForm a f}; 
-    a = agrP3 utrum Sg} ; --ajaj
--}
-  {-IdReflSelf =  {  -- in genitive? should be 'sin', but then we do not need ReflCN
-     s =\\a,f => reflForm a f ++ sina; 
-     a = agrP3 Sg utrum } ; --ajaj
-  --ReflCN num cn = 
-  --      let g = cn.g ;
-  --          m = cn.isMod ;
-  --          dd = DDef Indef ;
-  --    in lin NP {
-  --    s = \\a,c => cn.s ! num.n ! dd ! caseNP c ++ num.s ! g ; 
-  --    a = agrP3 (ngen2gen g) num.n -- ?
-  --    } ;
-
-
--}
-  --------
-
-
+------------------------------------------------------------------------------
   lin
   SuperlA _ a = {
      s = \\ag,ap => a.s ! AF (ASuperl SupStrong) Nom ;
@@ -135,10 +61,9 @@ lin
   AdVSimpleVP vp adv = AdVVP adv (lin VP vp) ;
   FormalSub vp det cn = case det.det of {
       DIndef => let np = detCN  det cn in
-                    mkClause "det" (agrP3 neutrum Sg) (insertObj    --agreement?!
+                    mkClause "det" (agrP3 neutrum Sg) (insertObj   
                        (\\a => np.s ! aNPerson ! accusative) vp) ;
       DDef _ => {s = \\_,_,_,_ => NONEXIST ; agr = agrP3 utrum Sg}} ;
-
 
 
 -------------------------------------------------------------------------------
@@ -186,48 +111,9 @@ lin
 -------------------------------------------------------------------------------
 -- Varandra
 -------------------------------------------------------------------------------
---  VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
---  SlashV3Varandra v3 = Slash3V3 v3 varandra ;
---    oper varandra : NPObject = lin Obj {s = \\_ => "varandra" } ;
-
   varandra = {s = table {Per1 Sg => \\_ => NONEXIST ; Per2 Sg => \\_ => NONEXIST ;
                          _ => \\_ => "varandra"}  ;
-              a = {g = Utr ; n = Pl ; p = P2}};  -- obs!! fel
--------------------------------------------------------------------------------
--- tests, doesn't work for Foc anyway
--------------------------------------------------------------------------------
- lin
-  VS_it vs = insertObj (\\_ => it_Pron.s ! NPNom ) (predV vs) ; 
-  VV_it vs = insertObj (\\_ => vs.c2.s ++ it_Pron.s ! NPNom ) (predV vs) ; 
-
--------------------------------------------------------------------------------
--- tests, 'själv'. No good types.
--------------------------------------------------------------------------------
-   SelfAdV   = mkAdV "själv" ; 
-   SelfNP _ np = {s = \\a,f => np.s ! a ! f ++ sjaelv ! np.a ;
-                a = np.a } ;
-     oper sjaelv : Agr => Str =
-      \\a => case <a.g,a.n> of {
-                  <_  ,Pl > => "själva" ;
-                  <Neutr,_> => "självt" ;
-                  _         => "själv"  };
-
--------------------------------------------------------------------------------
--- tests, genetive
--------------------------------------------------------------------------------
-
- --lin
- --  GenCN np num cn = let n = num.n in {
- --    s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
- --                ++ num.s ! cn.g 
- --                ++ cn.s ! n ! DDef Indef ! (caseNP nf)  ; 
- --    a = agrP3 (ngen2gen cn.g) n 
- --    } ;
-
-  
- -- PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
- --  oper mkComp : NP -> Agr -> Comp = 
- --   \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+              a = {g = Utr ; n = Pl ; p = P2}};  -- obs!! Person?
 
 -------------------------------------------------------------------------------
 -- Relatives
@@ -284,21 +170,6 @@ lin
       } ;
 
  lin 
- {-
-  QuantPronAQ x =  
-   let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
-       ntr = x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
-       pl  =  x.s ! AF (APosit (Strong GPl)) Nom 
-   in
-   {s =
-     table {Sg => \\_,_ => genderForms ("en"++utr) 
-                                       ("ett"++ntr) ;
-            Pl => \\_,_,_ => pl} ;
-   sp = table {Sg => \\_,_ => genderForms utr ntr;
-               Pl => \\_,_,_ => pl};
-     det = DDef Indef};
-     -}
-
  -- those cannot be compared 
   CompPronAQ x = CompAP (PositA (lin A x)) ; 
 
@@ -416,13 +287,6 @@ lin
 
    
  
--- not adV, but for normal advers, 'han åt redan äpplet'
-  AdvVPSlash vp adv = insertAdV adv.s vp ** {n3 = vp.n3;
-                                             c2 = vp.c2} ;
-
-  AdvComp comp adv = {s = \\agr => adv.s ++ comp.s ! agr} ;
- 
-  -- be callled PPartAP?
   PPartAP _ v2 =
     {s     = \\a,aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
