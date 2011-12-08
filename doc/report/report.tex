@@ -54,31 +54,42 @@
 % check references! lncs is good maybe. lnai
 \newpage
 \chapter{Introduction}
-\section{Introduction} 
->>This work is part of bigger project, spring and next spring.
->>Connection between grammar and parser: GF, every grammar defines a parser.
->> reusablilty, freely available.
->> the big amount of data, need language technology, machine translation
->> parsing: assingn of morph. and syntactic structures.
->>Connection between grammar and parser: GF, every grammar defines a parser.
-Ultimate goal: want computers to 'understand' language. Not good with flat strings.
-We need to translate strings of natural language to a richer structure,
-a parse tree. So far there is no
-freely available ruled-based parsing giving a deep analyse for Swedish.
-%There are parsers which put only put part-of-speach tags to
-%the text, and others that gives a deeper analyse. 
-There are statistical parser, and parser which only are deal with controlled language.
-The GF parser are one of those. 
-%What is parsing, flat strings to trees, example picture, what is deep parsing.
-So far stable and good when working with controlled languages, but recent experiments
-have showed that it is also possible to parse free language.
-To do this for Swedish, we need to  .. the resource grammar needed to covering
-the language specific constructions. Further a large lexicon is also needed, as well
+%\section{Introduction} 
+The grammar formalism GF has so far been succesfull used for 
+controlled languges, but recent experiments have showed
+that it is also possible to use the framework for parsing free language.
+Parsing, that is the task of automatically identifiyng morpohlogical and
+syntactical structures to text, is subject to increasing interest, especially
+considering the steadily growing amount of data available online. 
+So far there is no freely available ruled-based parser that gives a deep analyse for
+Swedish.  There are other parsers, but the fact that they are not freely available does not only
+restrict the usage but also their possiblities of being developed. Our goal is
+to create a open source Swedish grammar and parser that can be continuosly enhanced and
+be made use of in other projects.
+To build a parser or a grammar from scratch is a heavy work and we
+therefore combine already existing parts.
+We utgår från GF resource grammar and therefore have 
+The usage of GF allows us to start from
+a well-defined system for describing grammar, as well as a strong connection to
+more than 20 other langugages implentented in the framework.
+The grammar defines a parser, which accepts all constructions defined by the grammar.
+
+We hence needed to extend the Swedish grammar to cover
+the language specific constructions. Further a large lexicon needed, as well
 as a method for evaluation.
 During this project, we have worked on and explored those things and some problems identified.
-We have extended the Swedish resource grammar in GF, to give a better coverage and imported
-a large lexicon. Work to compare the trees from Talbanken to GF and to translate them.
+%We have extended the Swedish resource grammar in GF, to give a better coverage and imported
+%a large lexicon. Work to compare the trees from Talbanken to GF and to translate them.
 
+
+%Ultimate goal: want computers to 'understand' language. Not good with flat strings.
+%We need to translate strings of natural language to a richer structure,
+%a parse tree. 
+%There are parsers which put only put part-of-speach tags to
+%the text, and others that gives a deeper analyse. 
+%There are statistical parser, and parser which only are deal with controlled language.
+%The GF parser are one of those. 
+%What is parsing, flat strings to trees, example picture, what is deep parsing.
 
 %What is controlled language,
 %what is robust parsing and why we need it for free langugae, benefits of a grammar.
@@ -91,13 +102,8 @@ a large lexicon. Work to compare the trees from Talbanken to GF and to translate
 %grammar also have other usages, important in itself, so we wanted to make it as
 %covering as possible without being overallowing or too ambiguous.
 
-Other work exist, but none is freely available. We want to create a open source
-product, therefore can only use resources that allows this. Work can continue,
-will not disappear, be made use of in other projects.
 %What we could not cover by this project, what have been covered before (in
 %the spring project), and why we choose those parts.
-To build a parser or a grammar from scratch is a heavy work and we
-therefore combine already existing parts.
 
 \section{Background}  
 The work described in this is thesis is part of a bigger project which aims at
@@ -282,15 +288,18 @@ The data can be processed and translated to GF format as described in
 section \ref{sec:prog.saldo}.
 
 \subsection{Grammatical Framework}
+>> extensnion to CFG, same expressiveness as TAG and HG. parse in polynomial time.
+>> incremental parsing.
 The main component of the the project is the Grammatical Framework\cite{gfbok} (GF). It is
 a grammar formalism based on Martin-Löf type theory\cite{martinlof}. GF is
-designed for multilingual applications and is equivalent to Parallel Multiple
-Context-Free Grammars (Seki \& al. 1991), it is hence stronger than mildly
-contex-free grammars.
+designed for multilingual applications and the formalism is equivalent to
+Parallel Multiple Context-Free Grammars (Seki \& al. 1991), it is hence
+stronger than mildly contex-free grammars. 
 
 GF is a functional programming languages, inspired by programming languages
 like ML\cite{ml}, Haskell\cite{haskell}, Prolog\cite{bratko} and
 Agda\cite{agda}. 
+>> GF ~ 15 years. PGF= runtime systm
 It has been developed for about 20 years 
 >> snd: functional and programming language, type checking and logic: prolog (check this)
 >> dependent and implicit types : agda. (read gf book and krasses book)
@@ -302,6 +311,7 @@ you try and test your grammar by using commands for parsing, vizualization of pa
 random generation, word alignment, morphological quizzes etc.
 The compiler lets you compile your grammar into portable grammar format (PGF)\ref{pgf}.
 There are libraries for using PGF files with Java, Java script and Haskell. The grammars
+>> Haskell only complete, also or C\# and C. 
 may also be used in Android applications.
 and are inspired by.\\
 
@@ -531,7 +541,7 @@ languages are added, the compiler is being improved, ways of using it in more
 effecient and easier ways are added
 and the possibilities to use GF in different environments
 increased. There are  research about how to make better use of the dependent
-types, for using ontologies\cite{ramona}(>>check!!) or generating natural
+types, for using ontologies\cite{ramona} or generating natural
 language via Montague semantics\cite{montague}.
 Further, experiments on using GF for free parsing has been conducted
 \cite[\textsection 4.1]{gfMech}.
@@ -583,6 +593,7 @@ done, which will be explained in section \ref{sec:Mapping}.
 
 \section{Related work}
 >> Much more here, important!! comparisons.
+>> HPSG and LFG are context sensitive
 Computational ling is active area for Swedish, there are many other Swedish parser,
 but grammars?
 Many of the parsers not ruled based, the most known one Malt\cite{malt} ... .
@@ -1230,7 +1241,11 @@ få katter $\rightarrow$ sina få katter}
 
 The kind of noun phrases that can be used seems to coincide with the ones
 that can be used with formal subjects (see section `Impersonal constructions').
-
+>> subject controlling verbs
+>> why comlicated with doubled types, show simplicity (elegant) with dep.types, and
+>> some problems (many fields).
+>> samesame as Obj, but conjunction works too, sin is Quant but what i sig?
+>> (show circle (sig : NP -> GenNP sig -> sin??)
 % agreement to subj: Also good for double functions : Flickan, hon var inte dum, hon?
 % F1,2,3 : NP -> VP -> Cl ; NP needs gender (Masc,Fem,Utr,Neutr)
 
@@ -1652,6 +1667,7 @@ What is still needed in the grammar, how important that is.
 >> why is this significant, other grammars can use this Swedish grammar.
 >> well known (comp. ling) trade-off between depth and coverage. for now depth, robustness in in future
 >> work leads to coverage.
+>> reusablilty, freely available.
 %There is obviously a lot do still, will never get finish with NPL.
 %Grammar may need even bigger changes, to allow enough but not too much.
 %Different from writing a grammar for generation.
