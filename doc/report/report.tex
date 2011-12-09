@@ -241,8 +241,7 @@ Han slog \textbf{honom}. & Han såg \textbf{hans} barn.\\
 \end{tabular}}
 The 1st and 2nd persons use the normal personal pronoun in object form.
 
-
-Could varandra be thought of as reflexive for 'oss'?
+Mention varandra. Same idea.
 %Basic info about Swedish. V2 lang, inverted word order and subordinate clauses.
 %Passive, reflexive 'sitt', 'det är', 'det sitter en katt där', prepare the reader
 %for what will be written in the grammar part.
@@ -290,6 +289,9 @@ section \ref{sec:prog.saldo}.
 \subsection{Grammatical Framework}
 >> extensnion to CFG, same expressiveness as TAG and HG. parse in polynomial time.
 >> incremental parsing.
+>> how parse trees work, not correct complete representation.
+>> not a constituent structure. compare to lfg, fstructure, cstructure.
+>> explain how they are created, graphviz and how a user uses them.
 The main component of the the project is the Grammatical Framework\cite{gfbok} (GF). It is
 a grammar formalism based on Martin-Löf type theory\cite{martinlof}. GF is
 designed for multilingual applications and the formalism is equivalent to
@@ -318,6 +320,8 @@ and are inspired by.\\
 
 The key feature in GF is the distinction between
 \textit{abstract} and \textit{concrete} syntaxes. The abstract is meant to be
+>> internal structure
+>> compare fstructure in LFG
 shared by many languages and can be implemented by a numeber of concrete grammars,
 each representing one language. The abstract syntax models the semantics of the
 domain without concern for language specific features such as agreement or word
@@ -750,6 +754,7 @@ noun ``glasögon" (``glasses"). Since the smart paradigm
 requires a singular form, this lemma could not be added to the lexicon. ``Glasögon" could
 be added manually, by using the somewhat incorrect singular form ``glasöga" (``glass-eye").
 The same problem occurred for verbs that always are used in passive form:
+>> not passive!! deponent, s-verbs!!
 ``andas" (``breathe"), ``frodas" (``flourish"), ``lyckas" (``succeeed"). This
 was the case for close to 80\% of the failing verbs of type \verb_vb_.
 
@@ -946,6 +951,8 @@ translation of both sentence \ref{gfPass:peri-pass} and sentence  \ref{gfPass:s-
 The resource grammar for Scandinavian therefore expressed the passive using auxiliary verb. \\
 \verb|PassV2 : V2  -> VP | \\
 \verb|         ta -> blev tagen| \\
+>> frånta, erbjuda works. add. check vp in urdu
+>> how are they used with reflexives??
 This rules allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
 turned into complete verb phrases; they no longer need an object.
 The s-passive has now been added as the standard case for the Swedish GF
@@ -1246,6 +1253,8 @@ that can be used with formal subjects (see section `Impersonal constructions').
 >> some problems (many fields).
 >> samesame as Obj, but conjunction works too, sin is Quant but what i sig?
 >> (show circle (sig : NP -> GenNP sig -> sin??)
+>> how we can add dependent type for Num to use 'varandra'
+>> CN should have dettyp too, 'avståndet till sin bil'
 % agreement to subj: Also good for double functions : Flickan, hon var inte dum, hon?
 % F1,2,3 : NP -> VP -> Cl ; NP needs gender (Masc,Fem,Utr,Neutr)
 
@@ -1290,26 +1299,42 @@ The resource grammar already provided a number of ways to express relative and e
                    Han såg kunden som tyckte om sallad\\
                    Jag tänkte på huset i vilket hon bodde} % better example!!
 
-Kanske mindre om detta, skriv om vad jag nu la till.
-om 'de äpplen', which are also used in 'finnas'
-Since those constructions are inspired by other languages, some of them may sound quite
+A few problematic things can be illuminated:
+Since the constructions are inspired by other languages, some of them may sound quite
 non-natural in Swedish, such as the \verb|RelS|. This combines a sentence \emph{`Hon sover'}
 and a relative sentence \emph{`som/vilket är bra'} which wrongly expressed 
 \emph{`She sleeps, which is good'} as
 \emph{`Hon sover som är bra'}. The error comes from the fact that \emph{`som'} is
-embedded in the relative clause. To fix this, an extra parameter was needed to tell whether
-\emph{`som'} or \emph{`vilket'} should be used. \\
+embedded in the relative clause. This is easily fixed, by adding an extra
+parameter was needed to tell whether \emph{`som'} or \emph{`vilket'} should be used. \\
 Another complication stems from \verb|RelCl| which express the english \emph{`such that'}.
 The Swedish version \emph{`sådan att'} sounds stelbent, when used outside of logic books.
 \enumsentence{Jag vill ha en katt sådan att den inte fäller.} 
-An more natural sounding alternative would be
-\enumsentence{Jag vill ha en sådan katt som inte fäller.}
-and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
-'en katt sådan att det regnar'. It is relative but has on empty field, still congruation is
-needed.
-du är här, vilket jag vet.
-i de äpplen/det äpple du äter bor en mask/ som du ser.\\
+This relative clause in the sentence is, in GF, put together by two constituents: \emph{`` katt"}
+of type \verb-CN- and \emph{``den inte fäller} of type \verb-RCl- (relative clause). They are
+glued together by \emph{``sådan att"} and \emph{``katt"} should agree with \emph{``den"}. 
+\enumsentence{*Jag vill ha en katt sådan att \textbf{det} inte fäller.} \label{sent:detfaller}
+However, this is not the case and sentence \ref{sent:detfaller} is currently accepted by the grammar.
 
+The grammar has been extended to accept
+\enumsentence{\shortex{7}
+{\textbf{De uppfattningar}& som& förs& fram ...} 
+{The opinions& that& put & forward ...}
+{``The opinions presented ..."}}
+where \emph{``de"} is used together with a indefinite noun. This is only correct for 
+relative clauses or together with the verb \emph{``finnas"}.
+In other cases definitev form must be used, cf. sentence \ref{sent:debocker}.
+\enumsentence{\textbf{De uppfattningarna} förs fram.\\
+``The opinions are presented."}\label{sent:debocker}
+% also ok in finnas!!
+
+%An more natural sounding alternative would be
+%\enumsentence{Jag vill ha en sådan katt som inte fäller.}
+%and hopefully this will be implemented soon, otherwise: why is it hard and how we can say
+%'en katt sådan att det regnar'. It is relative but has on empty field, still congruation is
+%needed.
+%du är här, vilket jag vet.
+%i de äpplen/det äpple du äter bor en mask/ som du ser.\\
 
 \subsection{Testing}
 Hard do test, can't verify. Regression testing. Talbanken is still too hard.

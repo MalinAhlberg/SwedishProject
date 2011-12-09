@@ -1,0 +1,17 @@
+presentation: 9/1 kl 10-11
+report: aarne: before new years
+        ramoona: before christmas
+
+make webpage with grammar!
+parse trees: fix for my presentation, peter had new solution
+      that comes from abstract trees? latex and tiger xml also works.
+  generalized phrase structures have better parse trees?
+
+grammar:
+-Foc should be called Top. intersting when they can be used in subordinate clauses.
+should maybe not be Foc.
+-Passive, all VPSlashes, and how are they used with reflexives
+check Urdu for smarter VPs.
+-solve CN/NP problem with dep.types? exchange many, few to Num.
+
+read cooper 86
