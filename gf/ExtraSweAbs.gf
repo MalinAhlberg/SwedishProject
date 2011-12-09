@@ -61,7 +61,6 @@ fun
 
   --tests
   SuperlA : A -> AP ;
-  LeaveOutObj : VPSlash -> VP ;
 
 -------------------------------------------------------------------------------
 -- Formal subjects
@@ -224,4 +223,5 @@ fun
   flicka_N : N ;
   komma_V : V ;
   frysa_V : V ;
+  -- LeaveOutObj : VPSlash -> VP ;
 }

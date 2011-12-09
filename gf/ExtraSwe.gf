@@ -7,21 +7,20 @@ concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
 lincat
  PronAQ = A ; -- 'en sådan' 
  PronAD = A ; -- 'fler' 
- AdvFoc = Adv ** {x : Str} ;  -- x dummy field to avoid metas
+ AdvFoc = Adv ** {x : Str} ; 
  RelVSCl = {s : Agr => RCase => Str};
  N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
- --BaseObj = {s : Agr => NForm => Str };
 
 
 lin
 
   DetNP det = 
       let 
-        g = neutrum ; ----
-        m = True ;  ---- is this needed for other than Art?
+        g = neutrum ;
+        m = True ;  
       in {
         s = table {NPPoss _ _ => det.sp ! m ! g ++ BIND ++ "s" ;
                    _          => det.sp ! m ! g };
@@ -105,7 +104,6 @@ lin
      isPre = True
      };
 
-  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
@@ -500,5 +498,7 @@ lin
    komma_V = mkV "komma" "kom" "kommit" ;
    frysa_V = mkV "frysa" "frös" "frusit" ;
 
+
+  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 }
 
