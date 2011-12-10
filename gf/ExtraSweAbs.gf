@@ -220,4 +220,5 @@ fun
 
   likna_V2 : V2 ;
   akta_V3 : V3 ;
+  flicka_N : N ;
 }
