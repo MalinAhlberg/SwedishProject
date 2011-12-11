@@ -24,9 +24,7 @@ abstract/Verb.gf:    AdvVP    : VP -> Adv -> VP ;        -- sova i sin soffa --s
 abstract/Verb.gf:    CompAdv  : Adv -> Comp ;            --vara i sitt hus -- (be) here
 abstract/Noun.gf:    AdvNP   : NP -> Adv -> NP ;   not needed because of AdvCN: --(han såg) taket på sitt hus -- Paris today
                                                    and not : en katt längre än sin kompis?
-
--nej
-abstract/Question.gf:    PrepIP    : Prep -> IP -> IAdv ; med sitt hus bor du?    -- with whom
+abstract/Question.gf:    PrepIP    : Prep -> IP -> IAdv ; med vilket bor du?    -- with whom
                                                    but is anyway allowed with 'hans'
 
 -maybe? a bit weird any way..

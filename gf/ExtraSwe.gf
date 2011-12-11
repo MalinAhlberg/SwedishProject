@@ -13,15 +13,14 @@ lincat
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
- --BaseObj = {s : Agr => NForm => Str };
 
 
 lin
 
   DetNP det = 
       let 
-        g = neutrum ; ----
-        m = True ;  ---- is this needed for other than Art?
+        g = neutrum ;
+        m = True ;  
       in {
         s = table {NPPoss _ _ => det.sp ! m ! g ++ BIND ++ "s" ;
                    _          => det.sp ! m ! g };
@@ -105,7 +104,6 @@ lin
      isPre = True
      };
 
-  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
@@ -497,5 +495,10 @@ lin
    likna_V2 = dirV2 (mkV "liknar") ;
    akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
    flicka_N = mkN "flicka" ;
+   komma_V = mkV "komma" "kom" "kommit" ;
+   frysa_V = mkV "frysa" "frös" "frusit" ;
+
+
+  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 }
 

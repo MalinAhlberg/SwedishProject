@@ -1,0 +1,18 @@
+Monday:    Meet Ramona, comment report, mail Elisabet, read
+Tuesday:   Read Elisabet, Gazdar, LTAG,LFG
+Wednesday: Library, read Wiren and Scand. Matrix
+Thursday: Prepare meeting, info about saldo, prepare trees, 
+          how many words in talbanken? 18372 forms : 16% not covered, 10% different word class
+                               2/3 of the not covered are compounds
+          prepare demo
+Friday:   Meeting 
+
+Goal Saturday: abstract, introduction, Swedish section
+     Sunday: Both GF sections
+     Monday: Read through first two chapters, related work, read Cooper
+     Tuesday: Mapping, testing and results of grammar and mapping.
+     Wednesday: Importing Saldo, grammar section
+     Thursday: Evaluation in progress-sections
+     Friday: Future work, part I: consequenses
+     Saturday: Future work, part II: robust etc.
+     Sunday: Reading through it all, conclusions etc.

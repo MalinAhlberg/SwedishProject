@@ -10,20 +10,3 @@ i rapport:
  läs och referera Homse & Hinchcliff
                   Aarne i LILT
 working with grammar segment, as Montague.
-
-
-25/11
-difference Adv+S and FocAdv: Adv+S om man kan sätta dit en till Adv
-*i de äpplen du äter sitter maskar i päron
-men
-sen kom kalle (Adv+S)
-
-rik vill jag bli. _rik hoppas jag att du blir_.
-Generalisera alla Foc till S -> X S/X
-           where S is inverted
-läs Gazdar Gerald 1980, unbounded dependencies and coordinated structure
-    linguistic inquirng 
-
-change verbs with preposition to -> PP (PPSlash!!)
-Aarne om: refl, v+vald prep -> PP, snirkliga träd 
-

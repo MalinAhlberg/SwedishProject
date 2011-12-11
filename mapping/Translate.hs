@@ -1148,9 +1148,9 @@ pCompl VS = do
 pCompl V3 = do
   write "v3 compl begins"
   (pol,adv,part) <- pV2Compl
-  o1 <- inside "IO" findObj
+  o1 <- {- inside "IO"-} findObj
   write "o1 ok"
-  o2 <- inside "OO" findObj
+  o2 <- {-inside "OO"-} findObj
   write "o2 ok"
   return (pol,[adv,o1,o2,part],[])
  where findObj = do inside "OO" findIt
