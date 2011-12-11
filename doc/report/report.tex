@@ -57,7 +57,7 @@ and the grammar now covers ??\% of the xx part of Talbanken.
 \tableofcontents
 \newpage
 \chapter{Introduction}
->> short intro to GF
+%>> short intro to GF
 The grammar formalism GF has so far been succesfull used for 
 controlled languges, but recent experiments have showed
 that it is also possible to use the framework for parsing free language.
@@ -72,16 +72,16 @@ goal is
 to create a open source Swedish grammar and parser that can be continuosly enhanced and
 be made use of in other projects.\\
 To build a parser or a grammar from scratch is a heavy work ~~ and we
-therefore combine already existing parts of ??.
+therefore combine already existing resources.
 We start from GF resource grammar and thereby get
 %The usage of GF allows us to start from
 a well-defined system for describing grammar, as well as a strong connection to
 more than 20 other langugages implentented in the framework.
->>The grammar defines a parser, which accepts all constructions defined by the grammar.
+%>>The grammar defines a parser, which accepts all constructions defined by the grammar.
 
 
 \section{Aims}
->> enhance gf...
+%>> enhance gf...
 The purpose of this project has been to prepare the GF grammar for free parsing.
 This has meant to develop earlier techniques to fit for Swedish, create methods
 for achieving and keeping a extensive lexicon and to adapt the existing
@@ -364,29 +364,31 @@ section \ref{sec:prog.saldo}.
 \label{sec:gf}
 The main component of the the project is the Grammatical Framework (GF) \cite{gfbok}, %It is
 a grammar formalism based on Martin-Löf type theory \cite{martinlof}. GF is
-designed for multilingual applications and the formalism is equivalent to
-Parallel Multiple Context-Free Grammars (Seki \& al. 1991), it is hence
-stronger than mildly contex-free grammars and can express whatever tree
-adjoining grammars (Joshni,xx) and HG?? can.  --very confusing here!!
+designed for multilingual applications and the formalism is 
+%equivalent to Parallel Multiple Context-Free Grammars (Seki \& al. 1991), an instance of
+%generalized context free grammar (GCFG) it is hence
+stronger than mildly contex-free grammars and hence has the same expressiveness
+as Tree Adjoining Grammars (Joshi,1975) and Head Grammars (Pollard,1984).
 
 GF is a strongly typed functional programming languages, inspired by
 %programming languages like 
-ML \cite{ml} and Haskell \cite{haskell}. Its type
-checking system is inspired by \textlambda Prolog \cite{bratko} and the
-dependent types by Agda \cite{agda}. 
->> check this!!
-The first version of the framework was implemented in 19xx in xx and has
-since then fatt en trogen skara användare, med headquarter 
-at Gothenburg University. 
+ML \cite{ml} and Haskell \cite{haskell}. The logic and reasoning 
+are inspired by \textlambda Prolog \cite{prolog} and 
+by Agda \cite{agda}, with which GF also shares its type checking algorithm.
+The first version of the framework was implemented by the Xerox Research Center
+in Grenoble and is now mainly developed in Gothenburg. On of the biggest
+achivements is a library covering the 
+basic morphological and syntactical structures of more than
+20 languages (see section \ref{sec:resources}).
 
 
 %> dependent and implicit types : agda. (read gf book and krasses book)
 A grammar written in GF can be used for both parsing and generation.
 The parsing algorithm is incremental and has polynomial time and space
-complexity \cite{gfMech}. >>check!
+complexity \cite{gfMech}. 
 The GF package also provides various tools for working with and using the grammars:
 a compiler, an interpreter and a runtime system.
-The grammars can be compiled into portable grammar format (PGF)\ref{pgf},
+The grammars can be compiled into portable grammar format (PGF) \cite{pgf},
 which can be used with %There are libraries for using PGF files with
 Java, Java script, C and Haskell. 
 %>> Haskell only complete, also or C\# and C.  %may also be used in Android applications.
@@ -397,41 +399,46 @@ random generation, word alignment, morphological quizzes etc.
 %, by using the \textit{pipe} \verb-|-, sending the result to 
 \begin{figure}[h]
 \begin{verbatim} 
-> parse "jag ser katten" | visualize_parse
-> parse "jag ser katten" | visualize_tree
+> parse "jag ser katten" | visualize_parse -format=pdf -view=evince
+> parse "jag ser katten" | visualize_tree  -format=pdf -view=evince
 \end{verbatim}
 \caption{Example of how the GF shell can be used. The first command will parse the given
 sentence and visualize the resulting parse tree and the second will visualize the 
 abstract syntax tree.}
 \label{fig:shellvp}
 \end{figure}
->> test vp -format=pdf -view=evince
->> test vt -format=pdf -view=evince -nofun
+\begin{figure}[h]
+\centering
+\subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=100mm]{gfTree.pdf}}
+\subfloat[Swedish parse tree]{\label{pic:gfStree}\includegraphics[width=30mm]{gfSTree.png}}
+\caption{Parse tree and abstract tree for the sentence ``Jag ser katten".}
+\label{fig:gftree1}
+\end{figure}
+
+% nice: test vt -format=pdf -view=evince -nofun
+\begin{wrapfigure}{l}{0.3\textwidth}
+\includegraphics[width=20mm]{gfETree.png}
+\caption{English parse tree}
+\label{pic:gfEtree}
+\end{wrapfigure}
 
 The visualization of the trees is done with graphviz\footnote{http://www.graphviz.org/}.
 Figure \ref{fig:gftree1} shows the results from running the commands in figure \ref{fig:shellvp}
 A GF parse tree has two visualized representations, the \textit{parse tree} and
 the \textit{abstract tree}.
-\begin{figure}[h]
-\centering
-\subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=60mm]{gfTree.pdf}}
-\subfloat[GF parse tree]{\label{pic:gfStree}\includegraphics[width=50mm]{gfPTree.pdf}}
-\subfloat[GF parse tree]{\label{pic:gfEtree}\includegraphics[width=50mm]{gfETree.pdf}}
-\caption{Parse tree and abstract tree for the sentence ``Jag ser katten".}
-\label{fig:gftree1}
-\end{figure}
 The abstract trees shows all functions GF needs to use
 to parse the sentence.
 % do not know about abstract/concrete yet: and is consequently the same for all concrete syntaxes.
-The parse tree (\ref{pic:gfStree}) shows the words and which types the functions assign
-to them.
+The parse tree (\ref{pic:gfStree}) shows the words and which types
+the functions assign to them.
 The reader should keep in mind that the visualized parse trees is not a
 complete representation.
 If the end node of a  branch has no corresponding word, it is excluded from
 the visualized parse tree. This is the case for the definite article in Swedish,
 and the information \verb-DetQuant DefArt NumSg- is not shown in figure \ref{pic:gfStree}.
-In the corresponding English parse, figure \ref{pic:gfEtree},
-the article \emph{``the"} is explicit and therefore shown in the parse tree.
+
+In the corresponding English parse tree, figure \ref{pic:gfEtree},
+the article \emph{``the"} is explicit and therefore shown as a quantifier in the parse tree.\\
 
 %>> how parse trees work, not correct complete representation.
 %>> not a constituent structure. compare to lfg, fstructure, cstructure.
@@ -443,10 +450,10 @@ the article \emph{``the"} is explicit and therefore shown in the parse tree.
 The scope of GF grammars is usually controlled language. By
 restricting the coverage, the number of ambiguities
 can be limited and we can ensure that the semantics is preserved during
-translation. The ambiguities arising from multilinguality and the inherited will of
-course remain, but limited. %Example of domainspecific word?
+translation. The inhereted ambiguities and the ones arising from multilinguality will
+of course remain, but can be controlled more easily. %Example of domainspecific word?
 The use of controlled language gives a possibility of good and reliable translation.
-Some examples of projects using GF are WebAlt \cite{webalt},
+  Some examples of projects using GF are WebAlt \cite{webalt},
 a project which aims to develop language independent material for mathematics problems,
 and the formal software verification tool KeY \cite{key}, in wich GF is used for
 translating specification to natural language.
@@ -463,7 +470,7 @@ the internal structure and models the semantics without concern for language
 specific features such as agreement or word order.
 One abstract grammar can be implemented by a number of concrete grammars, each
 representing one language. As a comparison, the abstract and concrete syntax
-may be thought of as fstructures and cstructures in LFG (x,x).
+may be thought of as fstructures and cstructures in Lexical Functional Grammar (Bresnan and Kaplan, 1982).
 
 %Being developed with multilinguality in mind, GF makes an important 
 \begin{figure}[h]
@@ -600,6 +607,7 @@ we cannot glue the verb to the object at once. Instead we would have to use a ta
 with one field for the verb and one for the object. 
 
 \subsection{The resource library}
+\label{sec:resources}
 %>>Best part? Biggest library?
 %>>Most general resource, first large grammar, covers fundamental syntactics.
 The GF package provides a powerful resource library \cite{gf-resource}, which covers the
@@ -636,7 +644,6 @@ For others, like "hjärta", also the plural form "hjärtan" is needed.
 %, even though it ends with an ``a". 
 The worst case is nouns that need four forms, both singular and
 plural in definite and indefinite form.
-
 Section \ref{sec:swegf} will give a more thorough description of the Swedish resource grammar.
 
 \subsection{Frontiers of Grammatical Framework}
@@ -699,33 +706,76 @@ done, which will be explained in section \ref{sec:Mapping}.
 
 \section{Related work}
 \label{sec:related}
->> Much more here, important!! comparisons.
->> HPSG and LFG are context sensitive
-Computational ling is active area for Swedish, there are many other Swedish parser,
-but grammars?
-Many of the parsers not ruled based, the most known one Malt \cite{malt} ... .
-However has been two, about CLE \cite{cle} and what happened to it. Logic and translation
-to Swedish, S-CLE (Gambäck,1997) full analyse and semantics, translation,
-but coverage is too limited (nivres papper), The
-spoken lang. translator \cite{cle2}. Wiren \cite{wiren}?? chartparser, but for swedish. bit more information than
-just pos: cassSwe \cite{casswe}
-Other Sw. parsers and grammars, evaluation of them? 
-Other grammar frameworks.
-SweCG (birn) annotation, parser Swedish FDG (voultanien,2001) which is not freely available.
-finding subject, objects, suubject complements (SC) and
-to link them to their proper regents (main verbs) : over 90\% both precision and recall.
-uses a dependency grammar, but "The functional description of adverb phrases
-and prepositional phrases (e.g. agent, source, goal, benefactive, time) remains
-to be described in a future version." 
-HPSG \cite{hpsg} and lingo matrix \cite{lingomatrix}, English, Japanese, German,
-Greece, Spanish, Norweigan (NorSource, Hellan 2003),( not famous: SweCore
-(Ahrenberg) based on NorSource)
-also Swedish: BiTSE \cite{stymne}, Stymne 2006, Swedish English translation,
-and one for the common parts of scandinavian (Haugereid etc) in Nordisk sprog.
-focusing on verb phrames, built on HPSG.
-S\o rgaard and Haugereid, Scandinavian Grammar Matrix \cite{scandmatrix}
-Tag, Tree adjoining grammar, XTAG: English and Korean, Chinese? English: ongoing to get widecoverage grammar
-under GPL. Translation to Korean.
+There has been much research about parsing Swedish. One of the most well known
+parser is the data-driven Malt parser \cite{malt}, which has been trained on 
+Talbanken. 
+There are also a number of grammar-based parsers, although none is still freely avaible.
+CassSwe \cite{casswe} is a cascaded finite state parser giving a syntactic
+analysis.
+The Swedish Constraint Grammar 
+(Birn,1998) gives a shallow syntactic analysis.
+Swedish FDG (Voultanien,2001) uses the Functional Dependency Grammar
+(Tapanainen and Järvinen,1997), an extension of the Constraint Gramman
+formalism, and produces a dependecy structure focusing on finding the nominal
+arguments. \\
+%for the  finding subject, objects, suubject complements (SC) and
+%to link them to their proper regents (main verbs) : over 90\% both precision and recall.
+
+%Tag, Tree adjoining grammar, XTAG: English and Korean, Chinese? English:
+%ongoing to get widecoverage grammar
+%under GPL. Translation to Korean.
+
+The Lingo Matrix \cite{lingomatrix}, is a starter-kit for building Head-Driven Phrase
+Structure Grammars \cite{hpsg} (HPSG) providing comptability with tools for
+parsing, evaluation, semantic representations etc.
+There is a collection of implementations done in this framework?, describing ie.
+English, Japanese and German. %, Greece, Spanish etc. 
+The Scandinavian Grammar Matrix \cite{scandmatrix} covers common parts of
+Scandiavian, while Norsource (Hellan, 2003) describes Norweigan. A Swedish version
+was based upon this (SweCore, Ahrenberg) which covers the morphology and some
+differences between Swedish and Norweigan. Further, there is the BiTSE \cite{stymne}
+grammar, also implemented using the Lingo Matrix,
+which focuses on verb frames and translation of those by using Minimal Recursion
+Semantics \cite{mrs} as an interlingua. \\
+It should be pointed out that grammars implemented using Lingo Matrix
+do not share any common abstract, like the resources grammars of GF?\\
+
+The Swedish verison \cite{gamback} of the Core Language Enigne (CLE) \cite{cle}
+gives a full syntacitc analysis as well as semantics represented in xx. A
+translation for conversations?? to English was implemented. The work was further developed in the spoken
+language blabla (xx,xx), but is no longer available. The coverage of the Swedish
+CLE is also reported to be very limited (ref).\\
+
+In the TAG formalism (Joshi,1975), there are projects on getting open source, widecoverage grammars
+for ie. English and Korean, but, to our knowledge, not for Swedish.  
+%However has been two, about CLE \cite{cle} and what happened to it. Logic and translation
+%to Swedish, S-CLE (Gambäck,1997) full analyse and semantics, translation,
+%but coverage is too limited (nivres papper), The
+%spoken lang. translator \cite{cle2}. 
+
+%>> Much more here, important!! comparisons.
+%>> HPSG and LFG are context sensitive
+%Computational ling is active area for Swedish, there are many other Swedish parser,
+%but grammars?
+%Many of the parsers not ruled based, the most known one Malt \cite{malt} ... .
+%Wiren \cite{wiren}?? chartparser, but for
+%swedish. bit more information than just pos: cassSwe \cite{casswe}
+%Other Sw. parsers and grammars, evaluation of them? 
+%Other grammar frameworks.
+%SweCG (birn) annotation, parser Swedish FDG  (voultanien,2001)which is not
+%freely available.
+%finding subject, objects, subject complements (SC) and
+%to link them to their proper regents (main verbs) : over 90\% both precision and recall.
+%uses a dependency grammar, but "The functional description of adverb phrases
+%and prepositional phrases (e.g. agent, source, goal, benefactive, time) remains
+%to be described in a future version." 
+%HPSG \cite{hpsg} and lingo matrix , English, Japanese, German,
+%Greece, Spanish, Norweigan (NorSource, Hellan 2003),( not famous: SweCore
+%(Ahrenberg) based on NorSource)
+%also Swedish: BiTSE \cite{stymne}, Stymne 2006, Swedish English translation,
+%and one for the common parts of scandinavian (Haugereid etc) in Nordisk sprog.
+%focusing on verb phrames, built on HPSG.
+%S\o rgaard and Haugereid, Scandinavian Grammar Matrix \cite{scandmatrix}
 % related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
 % the multilingual treebank, Homse&Hinchcliff, Aarne i LILT
 
