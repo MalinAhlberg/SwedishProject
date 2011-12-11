@@ -151,7 +151,7 @@ in this section.
 \section{Swedish}
 \label{sec:swedish}
 >> move, have GF first?\\
-Swedish\cite[Inl. \textsection 3]{SAG}is a North-Germanic language,
+Swedish \cite[Inl. \textsection 3]{SAG}is a North-Germanic language,
 closely related to Norwegian and Danish. The languages share most of their
 grammatical structures and are mutually intelligible. Swedish is also 
 an official language in Finland and altogether spoken by approximately 10 ~~
@@ -200,10 +200,10 @@ a.& Katten sov. & b.& *Trötta katten sov &c. &Den trötta katten sov\\
 
 
 \subsection*{Verb second}
-Swedish is a verb-second language\cite[p.116]{gunlog}: the
+Swedish is a verb-second language \cite[p.116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
 The normal word order is subject-verb-object, but any syntactic category can be
-fronted\cite[\textsection 1027]{H&H}.
+fronted \cite[\textsection 1027]{H&H}.
 Topicalisation is very common, especially for temporal and spatial adverbial phrases.
 The examples \ref{ex:swedish-svo} - \ref{ex:swedish-avso} all have the same propositional
 meaning, but vary in how the content is presented.
@@ -301,7 +301,7 @@ the real subject is put in the position of an object.
 \label{swe:refl}
 The Scandinavian language have special reflexive pronouns
 and possessive pronouns for the 3rd
-person\cite[\textsection 310 \& 319]{H&H}. They are distinct from the normal 3rd person forms.
+person \cite[\textsection 310 \& 319]{H&H}. They are distinct from the normal 3rd person forms.
 \enumsentence{
 \begin{tabular}{llll}
 a. & Han slog \textbf{sig}.&\hspace{20mm}b. & Han såg \textbf{sitt} barn.\\
@@ -326,7 +326,7 @@ pronouns.
 
 \section{Saldo}
 \label{sec:saldo}
-A good parser needs a good lexicon. We have used of Saldo\cite{saldo}, a
+A good parser needs a good lexicon. We have used of Saldo \cite{saldo}, a
 large electronic lexicon developed and maintained at Gothenburg University. It is
 built on Svenskt Associations Lexicon and contains information about more than 
 120 000 modern Swedish words.
@@ -363,7 +363,7 @@ section \ref{sec:prog.saldo}.
 \section{Grammatical Framework}
 \label{sec:gf}
 The main component of the the project is the Grammatical Framework (GF) \cite{gfbok}, %It is
-a grammar formalism based on Martin-Löf type theory\cite{martinlof}. GF is
+a grammar formalism based on Martin-Löf type theory \cite{martinlof}. GF is
 designed for multilingual applications and the formalism is equivalent to
 Parallel Multiple Context-Free Grammars (Seki \& al. 1991), it is hence
 stronger than mildly contex-free grammars and can express whatever tree
@@ -372,8 +372,8 @@ adjoining grammars (Joshni,xx) and HG?? can.  --very confusing here!!
 GF is a strongly typed functional programming languages, inspired by
 %programming languages like 
 ML \cite{ml} and Haskell \cite{haskell}. Its type
-checking system is inspired by \textlambda Prolog\cite{bratko} and the
-dependent types by Agda\cite{agda}. 
+checking system is inspired by \textlambda Prolog \cite{bratko} and the
+dependent types by Agda \cite{agda}. 
 >> check this!!
 The first version of the framework was implemented in 19xx in xx and has
 since then fatt en trogen skara användare, med headquarter 
@@ -397,8 +397,8 @@ random generation, word alignment, morphological quizzes etc.
 %, by using the \textit{pipe} \verb-|-, sending the result to 
 \begin{figure}[h]
 \begin{verbatim} 
-> parse "jag ser dig" | visualize_parse
-> parse "jag ser dig" | visualize_tree
+> parse "jag ser katten" | visualize_parse
+> parse "jag ser katten" | visualize_tree
 \end{verbatim}
 \caption{Example of how the GF shell can be used. The first command will parse the given
 sentence and visualize the resulting parse tree and the second will visualize the 
@@ -410,18 +410,51 @@ abstract syntax tree.}
 
 The visualization of the trees is done with graphviz\footnote{http://www.graphviz.org/}.
 Figure \ref{fig:gftree1} shows the results from running the commands in figure \ref{fig:shellvp}
-%a visualization of a abstract syntax tree and a parse tree.
+A GF parse tree has two visualized representations, the \textit{parse tree} and
+the \textit{abstract tree}.
 \begin{figure}[h]
->> example, typ : i see you. 
-\caption{Visualized GF trees}
+\centering
+\subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=60mm]{gfTree.pdf}}
+\subfloat[GF parse tree]{\label{pic:gfStree}\includegraphics[width=50mm]{gfPTree.pdf}}
+\subfloat[GF parse tree]{\label{pic:gfEtree}\includegraphics[width=50mm]{gfETree.pdf}}
+\caption{Parse tree and abstract tree for the sentence ``Jag ser katten".}
 \label{fig:gftree1}
 \end{figure}
+The abstract trees shows all functions GF needs to use
+to parse the sentence.
+% do not know about abstract/concrete yet: and is consequently the same for all concrete syntaxes.
+The parse tree (\ref{pic:gfStree}) shows the words and which types the functions assign
+to them.
 The reader should keep in mind that the visualized parse trees is not a
 complete representation.
+If the end node of a  branch has no corresponding word, it is excluded from
+the visualized parse tree. This is the case for the definite article in Swedish,
+and the information \verb-DetQuant DefArt NumSg- is not shown in figure \ref{pic:gfStree}.
+In the corresponding English parse, figure \ref{pic:gfEtree},
+the article \emph{``the"} is explicit and therefore shown in the parse tree.
+
 %>> how parse trees work, not correct complete representation.
 %>> not a constituent structure. compare to lfg, fstructure, cstructure.
-%>> explain how they are created, graphviz and how a user uses them.
-%>> fotnoote that they are not complete
+
+%>>the scope is controlled language, but possible ambiguities (discuss this in future
+%>>work, saldo, conclusion). Ambiguities: from multilinguality, or inherited:
+%>>syntactical (man with the telescope), lexical (youSg/Pl, växa).
+%>> have ambiguity section. 
+The scope of GF grammars is usually controlled language. By
+restricting the coverage, the number of ambiguities
+can be limited and we can ensure that the semantics is preserved during
+translation. The ambiguities arising from multilinguality and the inherited will of
+course remain, but limited. %Example of domainspecific word?
+The use of controlled language gives a possibility of good and reliable translation.
+Some examples of projects using GF are WebAlt \cite{webalt},
+a project which aims to develop language independent material for mathematics problems,
+and the formal software verification tool KeY \cite{key}, in wich GF is used for
+translating specification to natural language.
+%>> key, talk, hats, bom (see references in Ramonas thesis).
+%>> use talk here and move key to other place??
+The framework is also used in the
+European project MOLTO \cite{molto} for online translation between up to 15 language.\\
+
 
 \subsection{Writing a GF grammar}
 The key feature in GF is the distinction between
@@ -470,15 +503,15 @@ concrete TestGrammarSwe of TestGrammar = {
 \label{fig:gfSweCnc1}
 \end{figure}
 
->> move much of this to Swedish GF part?
+%>> move much of this to Swedish GF part?
 Figure \ref{fig:gfSweCnc1} shows how the abstract grammar can be implemented
 for Swedish. Nouns, verbs and sentences are all defined as strings, \verb|Str|,
 and \verb|Pred| simply glues the two strings ``katten" and ``sover" together:\\
 \verb|Pred cat sleep = "katten sover"|.\\
 We get a more complicated example if we allow the nouns to be used in both
-plural and singular. To do this, we add a category \verb|NP| to the
->> reformulate so that I don't sound stupid
-abstract. \verb|N| now means a noun
+plural and singular. We add a category \verb|NP| to the
+abstract. Note that \verb-NP- is normally used for nouns with a fixed definitness, but for 
+now we concentrate on the number only. Hence \verb|N| now means a noun
 in any of the number, and we introduce two function, \verb|NSg : N -> NP| and
 \verb|NPl : N -> NP| which sets the number.
 \begin{figure}[h!]
@@ -501,8 +534,9 @@ in any of the number, and we introduce two function, \verb|NSg : N -> NP| and
 \end{figure}
 Figure \ref{fig:gfTest2} introduces some new concepts: records,tables and parameters.
 In the concrete syntax, \verb|N| is defined to be a record consisting of the field
-\verb|s|. The type of \verb|s| shows that it is a table, which given a parameter of type \verb|Num| returns
-a string. \verb|Num| is defined as a parameter, which can either have value \verb|Sg|
+\verb|s|. The type of \verb|s| shows that it is a table, which given a
+parameter of type \verb|Num| returns a string. \verb|Num| is defined as a
+parameter, which can either have value \verb|Sg|
 or \verb|Pl|. In \verb|NPl| and \verb|NSg|, \verb|n.s| means that we use the
 field \verb|s| of \verb|n|, and then the selection operator \verb|!| is used to
 select a branch in the table.
@@ -565,32 +599,10 @@ wanted to add negation, ``katten äter inte råttan", or question "äter katten 
 we cannot glue the verb to the object at once. Instead we would have to use a table,
 with one field for the verb and one for the object. 
 
-
-
-
->>not very restricted, not few ambiguities.
->>the scope is controlled language, but possible ambiguities (discuss this in future
->>work, saldo, conclusion). Ambiguities: from multilinguality, or inherited:
->>syntactical (man with the telescope), 
->>lexical (youSg/Pl, växa).
-A GF grammar usually covers a very restricted set of language where few ambiguities
-occur and much care can be taken to preserving the semantics of the
-different languages.
-By using a controlled language like this,  good and reliable translation can be
-ensured. Some examples of projects using GF are WebAlt\cite{webalt},
-a project which aims to develop language independent material for mathematics problems,
-and the formal software verification tool KeY\cite{key}, in wich GF is used for
-translating specification to natural language.
-%>> key, talk, hats, bom (see references in Ramonas thesis).
->> use talk here and move key to other place??
-%, the Online Syllogism Solver\cite{malin!}. 
-The framework is also used in the
-European project MOLTO\cite{molto} for online translation between up to 15 language.\\
-
 \subsection{The resource library}
 %>>Best part? Biggest library?
 %>>Most general resource, first large grammar, covers fundamental syntactics.
-The GF package provides a powerful resource library\cite{gf-resource}, which covers the
+The GF package provides a powerful resource library \cite{gf-resource}, which covers the
 fundamental morphology and syntactics for more than 20 languages. %is a very useful part of the framework. It is provided in the 
 %, they give a good start for all who want to write an application grammar.
 %of a language for each application, all
@@ -625,41 +637,21 @@ For others, like "hjärta", also the plural form "hjärtan" is needed.
 The worst case is nouns that need four forms, both singular and
 plural in definite and indefinite form.
 
-A GF parse tree has two visualized representations, the \textit{parse tree} and
-the \textit{abstract tree}, as shown in figure \ref{fig:gfPandAtrees}.
->> have other treees! One in english.
-\begin{figure}[h]
-\centering
-\subfloat[GF parse tree]{\label{pic:gfPtree}\includegraphics[width=50mm]{gfPTree.pdf}}
-\subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=60mm]{gfTree.pdf}}
-\caption{Parse tree and abstract tree for the sentence ``Katten på bilen blir större".}
-\label{fig:gfPandAtrees}
-\end{figure}
-The abstract trees shows all functions GF needs to use
-to parse the sentence and is consequently the same for all concrete syntaxes.
-The parse tree (\ref{pic:gftree}) shows the words and which types the functions assign
-to them.
-The abstract tree shows us that the function
-\verb_DetCN_ is applied the \verb-UseN cat_N- and the information
-definitive (\verb-DefArt-) and singular (\verb-NumSg-). In the Swedish parse tree
-we see that \emph{``katten"}, which is in definite form singular, is noun \verb-N-
-which is turned into a \verb-CN- and finally a \verb-NP-. In the English parse
-tree, the form of \emph{``cat"} expresses singular while the definite article
-\emph{``the"} is explicit and therefore shown in the parse tree.
+Section \ref{sec:swegf} will give a more thorough description of the Swedish resource grammar.
 
-\vspace{5mm}
+\subsection{Frontiers of Grammatical Framework}
 As an open source-project, GF is constantly being developed and improved. New
 languages are added, the compiler is being improved, ways of using it in more 
 effecient and easier ways are added
 and the possibilities to use GF in different environments
 increased. There are research on how to make better use of the dependent
-types, for using ontologies\cite{ramona} or generating natural
-language via Montague semantics\cite{montague}.
+types, for using ontologies for reasoning \cite{ramona} or generating natural
+language via Montague semantics \cite{montague}.
 Further, experiments on using GF for free parsing has been conducted
 \cite[\textsection 4.1]{gfMech}.
 This is also a future goal for our project and one of the subgoal has been to
 model an important part of Swedish in GF. The starting point was the resource
-grammar and the to which the result has a strong connection.
+grammar to which the result has a strong connection.
 
 %Functor
 %Main ideas, abstract and concrete, translation, parse- and abstract trees.
@@ -685,13 +677,13 @@ grammar and the to which the result has a strong connection.
 For testing and evaluation of the grammar and lexicon, we needed to be able to
 compare them against a reliable source.
 Being a freely available, manually annotated, large scale treebank,
-Talbanken\cite{talbanken} was perfect for our purpose.
+Talbanken \cite{talbanken} was perfect for our purpose.
 It was created in the 1970s at Lund University. In total it consists of four
 parts. Two of them are transcribitions of spoken language, one a collection of
 text written by high school students, and one, section P,
 consists of professionally written Swedish gathered from newspapers, brochures and textbooks.\\
-Talbanken was also used to train the Swedish version of the Maltparser\cite{malt}
-and was thus redistributed in a more modern version\cite{talbanken05}.
+Talbanken was also used to train the Swedish version of the Maltparser \cite{malt}
+and was thus redistributed in a more modern version \cite{talbanken05}.
 %This work was done by Nivre, Hall and Nilsson in 2005.
 It is released in Malt and Tiger
 XML-formats\footnote{http://www.ims.uni-stuttgart.de/projekte/TIGER/TIGERSearch/doc/html/TigerXML.html},
@@ -711,11 +703,11 @@ done, which will be explained in section \ref{sec:Mapping}.
 >> HPSG and LFG are context sensitive
 Computational ling is active area for Swedish, there are many other Swedish parser,
 but grammars?
-Many of the parsers not ruled based, the most known one Malt\cite{malt} ... .
-However has been two, about CLE\cite{cle} and what happened to it. Logic and translation
+Many of the parsers not ruled based, the most known one Malt \cite{malt} ... .
+However has been two, about CLE \cite{cle} and what happened to it. Logic and translation
 to Swedish, S-CLE (Gambäck,1997) full analyse and semantics, translation,
 but coverage is too limited (nivres papper), The
-spoken lang. translator\cite{cle2}. Wiren \cite{wiren}?? chartparser, but for swedish. bit more information than
+spoken lang. translator \cite{cle2}. Wiren \cite{wiren}?? chartparser, but for swedish. bit more information than
 just pos: cassSwe \cite{casswe}
 Other Sw. parsers and grammars, evaluation of them? 
 Other grammar frameworks.
@@ -725,13 +717,13 @@ to link them to their proper regents (main verbs) : over 90\% both precision and
 uses a dependency grammar, but "The functional description of adverb phrases
 and prepositional phrases (e.g. agent, source, goal, benefactive, time) remains
 to be described in a future version." 
-HPSG\cite{hpsg} and lingo matrix\cite{lingomatrix}, English, Japanese, German,
+HPSG \cite{hpsg} and lingo matrix \cite{lingomatrix}, English, Japanese, German,
 Greece, Spanish, Norweigan (NorSource, Hellan 2003),( not famous: SweCore
 (Ahrenberg) based on NorSource)
-also Swedish: BiTSE\cite{stymne}, Stymne 2006, Swedish English translation,
+also Swedish: BiTSE \cite{stymne}, Stymne 2006, Swedish English translation,
 and one for the common parts of scandinavian (Haugereid etc) in Nordisk sprog.
 focusing on verb phrames, built on HPSG.
-S\o rgaard and Haugereid, Scandinavian Grammar Matrix\cite{scandmatrix}
+S\o rgaard and Haugereid, Scandinavian Grammar Matrix \cite{scandmatrix}
 Tag, Tree adjoining grammar, XTAG: English and Korean, Chinese? English: ongoing to get widecoverage grammar
 under GPL. Translation to Korean.
 % related and references work: CLE, Krasimirs book, CassSwe, GF book,SAG, gunlög,
@@ -854,7 +846,7 @@ is that Saldo does not contain information about ~~word forms that are not used~
 In some cases those forms are needed by the smart paradigm. 
 This was a common reason why nouns could not be imported. 
 Consider for example
-the plural tantum %\cite[44]{SAG}
+the plural tantum % \cite[44]{SAG}
 noun ``glasögon" (``glasses"). Since the smart paradigm
 requires a singular form, this lemma could not be added to the lexicon. ``Glasögon" could
 be added manually, by using the ~~somewhat incorrect,annan betydelse~~ singular form ``glasöga" (``glass-eye").
@@ -963,7 +955,7 @@ Swedish verb may have up to five arguments according to Stymne
 but is really 'till' part of verb?
 VP is divided corresponding to satsschema (diderichsen) (renewed by SAG).
 If the object is not given immediatly, the grammar uses slash.
-"Speed up", instead of movement used slashes\cite{gazdar}.
+"Speed up", instead of movement used slashes \cite{gazdar}.
 Slashes good for question (vilken katt ser du idag)
 relatives (katten som du tittar på) and topicalisation
 The grammar has VP,Cl, SSlash, all missing NP.
@@ -1272,7 +1264,7 @@ positions and additionally, they may be used before the finite verb.
 \enumsentence{\shortex{3}
 {Han & bara & log }
 {he & only & smiles }
-{`He just smiles'}}\\
+{`He just smiles'}}
 
 In order to implement this, a new field was needed in the \verb-VP--table,
 which may be put before the finite verb.\\
@@ -1879,6 +1871,8 @@ What is still needed in the grammar, how important that is.
 
 \subsection{Probabilities}
 \label{sec:futureProbabilities}
+% discuss ambiguites, will always have some and the big lexicon will increase them.
+% exapmle 'vad händer under äktenskapet?'
 %Getting and using probabilities, to disambiguate.
 %process list from saldo.
 %Use multiligual treebank?
