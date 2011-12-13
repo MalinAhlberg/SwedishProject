@@ -86,15 +86,21 @@ the extensive lexicon Saldo and the treebank Talbanken.
 %>> enhance gf...
 The purpose of this project has been to prepare the GF grammar for free parsing.
 This has meant to develop earlier techniques to fit for Swedish, create methods
-for achieving and keeping a extensive lexicon and to adapt the existing
+for achieving and keeping a large-scale lexicon and to adapt the existing
 resource grammar to fit for more language specific constrictions.
-We hence needed to extend the Swedish grammar to cover
-the language specific constructions. Further a large lexicon was
-needed, as well as a method for evaluation.
-During this project, we have worked on and explored those things and
-while identifying problems and future work.
+Three subgoals has been identified:
+\begin{itemize}
+\item Enhancing the Swedish GF grammar
+\item Importing the lexicon Saldo
+\item Create a translation between Talbanken and GF
+\end{itemize}
+%We hence needed to extend the Swedish grammar to cover
+%the language specific constructions. Further a large lexicon was
+%needed, as well as a method for evaluation.
+%During this project, we have worked on and explored those things and
+%while identifying problems and future work.
 
-
+\newpage % until it looks nicer
 \section{Outline}
 The thesis is divided into 6 chapters. We start by giving some background
 information to areas relevant to the project. %Chapter \ref{sec:background} 
@@ -166,7 +172,7 @@ and the built functionality for logic and reasoning
 is inspired by \textlambda Prolog \cite{prolog} and 
 by Agda \cite{agda}, with which GF also shares its type checking algorithm.
 The first version of the framework was implemented by the Xerox Research Center
-in Grenoble and is now mainly developed in Gothenburg. On of the biggest
+in Grenoble and it is now mainly developed in Gothenburg. One of the biggest
 achivements is a library covering the 
 basic morphological and syntactical structures of more than
 20 languages (see section \ref{sec:resources}).
@@ -500,7 +506,8 @@ and graphs of semantically connected words.\\
 \label{fig:saldo}
 \end{figure}
 
-Words with multiple meanings are separated inte different entries.
+The semantical aspect of Saldo require that words with multiple meanings are
+separated into different entries.
 %If one word has different meanings, there will be separate entries for each of them. 
 The word ``växa" (``grow") for example, has two meanings: \emph{getting
 bigger}
@@ -509,13 +516,13 @@ bigger}
 or \emph{being a plant}. 
 \enumsentence{Det växte en gammal ek där.\\
 `There stood an old oak.'}
-The word ``växa" is however declined the same way for both interpretations of the word.
-Hence Saldo's morphological lexicon, provided under LPGL in XML format,
+``växa" is however declined the same way for both interpretations of the word.
+Hence \textit{Saldo's morphological lexicon}, provided under LPGL in XML format,
 only keeps one entry of ``växa".
 For the homonyms that do not share the whole inflection tables, different entries are 
-kept in the morphological lexicon.
+kept also in the morphological lexicon.
 
-For our purpose, only the morphological lexicon was needed.
+For our purpose, only this morphological section was needed.
 The data can be processed and translated to GF format as described in 
 section \ref{sec:prog.saldo}.
 
@@ -1016,11 +1023,13 @@ få & POZP & Det \\
 \label{tab:saldodiff}
 \end{figure}
 
-The lexicon does not contain any valency information since Saldo does not give any such
-information. Valencies are however crucial for GF, and it remains as future work to
-use the results from the mapping (see section \ref{sec:Mapping})
-to extract information about how words are normally used and how to automatically build
-this into the lexicon. 
+%Since Saldo does not give any valency information, neither does the imported lexicon.
+%The lexicon does not contain any information.
+Valency information, which is crucial for GF, is not given in Saldo and
+hence not in the imported lexicon. It remains as future work to find methods 
+%using the results from the mapping (see section \ref{sec:Mapping})
+to extract this information from Talbanken and to automatically build
+it into the lexicon. 
 %The saddest thing: no valency info. Crucial for GF. Only reflexive and verbs with particles
 %have any information. The earlier explained techniques may be used for this in Talbanken.
 %To get even bigger material, use Korp, but then no guarantee.
