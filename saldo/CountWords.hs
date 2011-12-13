@@ -56,9 +56,9 @@ main = do
  putStrLn $ "Testing words ..."
  let (f,n,d) = execWriter $ getUnknown pgf (buildMorpho pgf lang) trees 
  putStrLn $ "Done! Writing the files NamesT,FailsT,DiffsT"
- writeFile "NamesT"  $ process fst n
- writeFile "FailsT"  $ process word' f
- writeFile "DiffsT"  $ process lemma  d
+ writeFile "x/NamesT"  $ process fst n
+ writeFile "x/FailsT"  $ process word' f
+ writeFile "x/DiffsT"  $ process lemma  d
  
 process :: (Show a, Eq b, Ord a) => (a -> b) -> [a] -> String
 process x  = unlines . map show 
@@ -74,7 +74,8 @@ getUnknown pgf morpho = mapM_ (uncurry $ searchSentence pgf morpho)
         -- something weird with pos and w order.. Believe it is fixed now
         check :: PGF -> Morpho -> String -> String -> String -> WWriter
         check pgf morpho id pos w
-           | any (`isPrefixOf` pos) ["PN","MN"] = tellName (w,id)
+           | any (`isPrefixOf` pos) ["PN","MN","ID"] = tellName (w,id)
+           | any (not . isAlpha) w                   = tellName (w,id) -- only count words without numbers and - etc.
            | otherwise                          = do
              let-- ok  = findWord w 
                  (ok,cats) = findWord (map toLower w)
