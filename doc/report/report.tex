@@ -251,7 +251,7 @@ KeY \cite{key}, in wich GF is used for translating specification to natural lang
 %>> key, talk, hats, bom (see references in Ramonas thesis).
 %>> use talk here and move key to other place??
 The framework is also used in the
-European project MOLTO \cite{molto} for online translation between up to 15 language.\\
+European project MOLTO \cite{Molto} for online translation between up to 15 language.\\
 
 
 \subsection{Writing a GF grammar}
@@ -470,7 +470,8 @@ and was then redistributed in a more modern version, Talbanken05 \cite{talbanken
 It is released in Malt\footnote{http://w3.msi.vxu.se/~nivre/research/MaltXML.html} 
 and Tiger\footnote{http://www.ims.uni-stuttgart.de/projekte/TIGER/TIGERSearch/doc/html/TigerXML.html},
 XML-formats
-where the trees had been made deeper and more detailed. \\
+where the trees had been made deeper and more detailed while still containing
+the lexical MAMBA layer. \\
 In this project, as well as for the Malt parser, the more than 6000 sentences
 in section P has been used.
 The treebank has served as an inspiration and an evaluation source throughout this
@@ -707,14 +708,13 @@ pronouns.
 
 \section{Related work}
 \label{sec:related}
-There has been much research about parsing Swedish. One of the most well known
-parser is the data-driven Malt parser \cite{malt}, which has been trained on 
+%There has been much research about parsing Swedish. INTRO!!
+A well known parser is the data-driven Malt parser \cite{malt}, which has been trained on 
 Talbanken. 
 There are also a number of grammar-based parsers, although none is still freely avaible.
-CassSwe \cite{casswe} is a cascaded finite state parser giving a syntactic
-analysis.
-The Swedish Constraint Grammar 
-(Birn,1998) gives a shallow syntactic analysis.
+The cascaded finite state parser CassSwe \cite{casswe} and
+The Swedish Constraint Grammar (Birn,1998) 
+give syntactic analyses. %birn: shallow
 Swedish FDG (Voultanien,2001) uses the Functional Dependency Grammar
 (Tapanainen and Järvinen,1997), an extension of the Constraint Gramman
 formalism, and produces a dependecy structure focusing on finding the nominal
@@ -728,26 +728,26 @@ arguments. \\
 
 The LinGO Grammar Matrix \cite{matrix}, is a starter-kit for building Head-Driven Phrase
 Structure Grammars \cite{hpsg} (HPSG) providing comptability with tools for
-parsing, evaluation, semantic representations etc and  
-translation is supported by using Minimal Recursion
+parsing, evaluation, semantic representations etc.
+Translation is supported by using Minimal Recursion
 Semantics \cite{mrs} as an interlingua. \\
 There is a collection of grammars implemented in this framework, giving broad-coverage
-description to ie.  %broad-coverage
+description to %broad-coverage
 English, Japanese and German. %, Greece, Spanish etc. 
 The Scandinavian Grammar Matrix \cite{scandmatrix} covers common parts of
 Scandiavian, while Norsource (Hellan, 2003) describes Norweigan. A Swedish version
-was based upon this (SweCore, Ahrenberg) which covers the morphology and some
+was based upon this (SweCore, Ahrenberg) covering the morphology and some
 differences between Swedish and Norweigan. Further, there is the BiTSE \cite{stymne}
 grammar, also implemented using the Lingo Matrix,
-which focuses on verb frames and translation of those to English. \\
+which focuses on describing and translating verb frames.\\ % and translating them to English. \\
 
 %It should be pointed out that grammars implemented using Lingo Matrix
 %do not share any common abstract, like the resources grammars of GF?\\
 
-The Swedish verison \cite{gamback} of the Core Language Enigne (CLE) \cite{cle}
+The Swedish verison of the Core Language Enigne (CLE) \cite{gamback} % \cite{cle}
 gives a full syntacitc analysis as well as semantics represented in xx. A
 translation for conversations?? to English was implemented. The work was further developed in the spoken
-language blabla (xx,xx), but is no longer available. The coverage of the Swedish
+language blabla (xx,xx). Unfortunally, it is no longer available. The coverage of the Swedish
 CLE is also reported to be very limited (ref).\\
 
 In the TAG formalism (Joshi,1975), there are projects on getting open source, widecoverage grammars
@@ -900,24 +900,32 @@ The importing can be redone anytime.
 \section{Results}
 All words from Saldo were not be imported. There are a number of reasons
 for this, the most obvious one is that we do not want all categories from
-Saldo in the GF lexicon. Prepositions(\emph{pp}) and numerals(\emph{nl}) etc.
-~~are assumed to be known already~~,
-and are usually not kept in the standard lexicon, but in modules for the basic
-structures of the language. Categories involving several words(\emph{vbm,nnm})
-need to be handled differently, usually as idioms. Pronouns(\emph{pn}) are not  
-analysed the same way, see section \ref{sec:swegf}. Some experiments on finding
-the right GF-category for those have been done, see ~~~~~\ref{sec:gf.quant}.
-Six categories were imported: \\
->> english examples
-\begin{tabular}{l|lll}
+Saldo in the GF lexicon. Prepositions(\emph{pp}), numerals(\emph{nl}),
+personal pronouns etc.
+are assumed to be present in the resource grammars and should not be added again.
+Saldo contains may other pronouns,
+but they are not analysed the same way in GF (see section \ref{sec:swegf}) and
+can thus not simply be extracted -- we first need to find their correct GF category.
+Some experiments on finding
+the right GF-category for those have been done using Talbanken, see p. \pageref{sec:gf.quant}.
+
+%and are usually not kept in the standard lexicon, but in modules for the basic
+%structures of the language.
+Categories involving several words (\emph{vbm, nnm})
+are usuallly handled as idioms and should be given in a separate lexicon. In
+total six categories were imported: \\
+
+\begin{tabular}{|l|lll|}
+\hline
 & Saldo tag & GF category & Example \\
 \hline
- Adverb & \textbf{ab} &\textbf{Adv} & ofta \\
- Adjective&\textbf{av} &    \textbf{A} & gul\\
- Noun & \textbf{nn} &\textbf{N} & hus\\
- Verb & \textbf{vb} &\textbf{V} & springa\\
- Reflexive verbs  &\textbf{vbm}& \textbf{V} & raka sig\\
- Verbs with particles &\textbf{vbm}& \textbf{V}  &  piggna till\\
+ Adverb & \textbf{ab} &\textbf{Adv} & ofta (\emph{often})\\
+ Adjective&\textbf{av} &    \textbf{A} & gul (\emph{yellow})\\
+ Noun & \textbf{nn} &\textbf{N} & hus (\emph{house})\\
+ Verb & \textbf{vb} &\textbf{V} & springa (\emph{run})\\
+ Reflexive verbs  &\textbf{vbm}& \textbf{V} & raka sig (\emph{shave})\\
+ Verbs with particles &\textbf{vbm}& \textbf{V}  &  piggna till (\emph{perk})\\
+\hline
 \end{tabular}\\
 
 %
@@ -926,51 +934,93 @@ Six categories were imported: \\
 %needed to generate the gf table may not be given in saldo such as singular
 %forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
 %different grammatical analyse, a lot of pronouns. Example. 
-One reason for why words of the categories listed above could not be imported
-is that Saldo does not contain information about ~~word forms that are not used~~.
-In some cases those forms are needed by the smart paradigm. 
-This was a common reason why nouns could not be imported. 
+Most, but not all words of the categories listed above have been imported.
+One reason why the importing phase would fail 
+is that Saldo, unlike GF, only contains the acctually used word forms.
+% does not contain information about ~~word forms that are not used~~.
+For technical reasons, the smart paradigm might need forms never used.
+%for this is Deponent verbs
+%are for example given with their (often non-existing) active form, al
+%In some cases those forms are needed by the smart paradigm. 
 Consider for example
-the plural tantum % \cite[44]{SAG}
-noun ``glasögon" (``glasses"). Since the smart paradigm
-requires a singular form, this lemma could not be added to the lexicon. ``Glasögon" could
-be added manually, by using the ~~somewhat incorrect,annan betydelse~~ singular form ``glasöga" (``glass-eye").
-The same problem occurred for verbs that always are used in passive form:
->> not passive!! deponent, s-verbs!!
-``andas" (``breathe"), ``frodas" (``flourish"), ``lyckas" (``succeeed"). This
-was the case for close to 80\% of the failing verbs of type \verb_vb_.
+the plural tantum % \cite[44]{SAG} 
+noun \emph{``glasögon"} (\emph{``glasses"}).
+The smart paradigm requires a singular form, and since the program couldnot
+find this in Saldo, there was no way of adding the lemma to the lexicon. 
+When the program failed to import a noun, this was often the explanaiton.
+%bbMany nouns fai, \emph{``kläder"} (\emph{``clothes"} etc.
+Words of this type could be added manually, for \emph{``glasögon"} by using the
+ostensibly correct singular form ``glasöga", although this
+has another meaning (``glass-eye").
+The same problem occurred for the irregular s-verbs,
+(\emph{``synas"} \emph{(``show")} or \emph{umgås} \emph{(``socialize")})
+which made up 61.5\% of the failing verbs of type \verb_vb_.\\
+%``frodas" (``flourish"), ``lyckas" (``succeeed").
+In a few cases the smart paradigms could not generate the correct declination.\\
 
-In some cases the smart paradigms could not generate the correct declination,
-although this happened seldom. 
->> exapmles: % frysa,fisa passive preterium 
+%although this happened seldom. The passive preteritum is an exapmle of a form 
+%oftenly because the one form could not be generated. anbd for passive preteritum could not be guessed.
+%that seems hard to guess for some verb.
+% >> should we add smth for this?
+%\begin{tabular}{3}
+%&\textbf{Saldo}& \textbf{GF}
+%\textbf{Passive preteritum} & fryses & frys \\
+%\end{tabular}
+%>> exapmles: % frysa,fisa passive preterium 
 
-The resulting dictionary contains more than 100 000 entries, compared to the total size
-of Saldo this is approximately 80\%. When testing the coverage of Talbanken,
-we found that around 3000 words were still missing (excluding the one tagged as
-numerals and proper names, but some names are still there). In addition, there were 1817 words
->> give reasons! should look good, not bad!
-which were given different labels in GF than in Talbanken. Many of those are
+The resulting dictionary contains more than 100 000 entries, approximately 80\% (retest!)
+of the total size of Saldo.
+%compared to the total size of Saldo this is .
+When testing the coverage of Talbanken,
+we found that there are around 2500 wordforms were still missing, excluding the one
+tagged as names and numbers. This number may seem very high, but %considering that
+4/5 of the wordforms are compounds. We should also take into consideration that 
+we cannot automatically find out how many actually stem from the same word, or
+how many abbreviation that are present (Talbanken also contains a small number of 
+misspellings, probably are enumerated among our missing words). The majority
+of the words are only used once.\\
+
+\begin{tabular}{|l|l|}
+\hline
+Missing words & $\sim$ 2500 wordforms\\
+Missing words ignoring compounds & $\sim$ 500 wordforms\\
+Missing words used more than once & $\sim$ 500 wordforms\\
+Missing words used more than once ignoring compounds & $\sim$ 150 wordforms\\
+\hline
+\end{tabular}\\
+
+%       The table suggests that many 
+%       >> 2537 without IDs and only the ones built of Alpha,only 552 without compounds, still contains abbrev.
+%       >> 494 without abbr. spelling errors
+%       >> 142 more then one time.
+%       numerals and proper names, but some names are still there). In addition, there were 1817 words
+%       >> 223 were IDS.++146 HS.
+%       >> 426 more than one time, with compounds.
+%       >> give reasons! should look good, not bad!
+A list of words that were given different labels in GF than in Talbanken has been
+composed, consisting of about 1600 entries. Many of those are
 acceptable, such as the ones in table \ref{tab:saldodiff} and reflects the difference 
 made in the analyses, but others are examples of words that are still missing from
 the lexicon.
 \begin{figure}[h]
-\begin{tabular}{lll}
+\begin{tabular}{|lll|}
+\hline
 Word & Talbanken tag & GF category \\
 \hline
 måste & MVPS          & VV \\
 allting & POTP & N \\
 få & POZP & Det \\
+\hline
 \end{tabular}
 \caption{}
 \label{tab:saldodiff}
 \end{figure}
-Among the words that were completely missing, more than 2000 was found to be nouns,
-many of which were compounds, and this is hard because ...~~~
 
 The lexicon does not contain any valency information since Saldo does not give any such
-information. Valencies are however crucial for GF, and by using the results from the mapping
-(see section \ref{sec:Mapping}) it should be possible to extract this information about this.
->> about what? how? strategy?
+information. Valencies are however crucial for GF, and it remains as future work to
+use the results from the mapping (see section \ref{sec:Mapping})
+to extract information about how words are normally used and how to automatically build
+this into the lexicon. 
 %The saddest thing: no valency info. Crucial for GF. Only reflexive and verbs with particles
 %have any information. The earlier explained techniques may be used for this in Talbanken.
 %To get even bigger material, use Korp, but then no guarantee.
@@ -1657,50 +1707,50 @@ Some results.
 % regression testing
 
 \chapter{Mapping}
+\label{sec:Mapping}
 >> no subjects or object, analyse is more from the lexicon,
 >> compare to others, ask elisabet.
 >> diffs: valencies, pp (gf ingen skillnad direkt/indirekt i träd, pga multiling)
 >> mamba very used and tested for swedish, standard.
->> focus on what we DO cover.
-\label{sec:Mapping}
+>> focus on what we DO cover.\\
 Talbanken contains much valuable information about phrase structures and word 
 usage. It is analysed with the MAMBA annotation scheme (Telemann, 1974) which is 
 %>> cite mamba? annotation: well intergrated in sw. tradition, descriptive, used
 %>> for large scale projects.
 %annotation scheme
 commonly used, and hence very well-tested, for describing Swedish.
-The deepened analyse in Talbanken05 includes the lexical MAMBA layer. 
-One part of this project has focused translating trees from Talbanken to GF.
-We hence get a comparision between the two annotaitons and at the same time
-we get ways to extract and translate information to GF notation. We have
-constructed a mapping, which 
+One part of this project has focused translating trees from Talbanken to GF
+by constructing a mapping, which 
 automatically transforms trees in Talbanken format to GF abstract syntax trees.
+We hence get a comparision between the two annotaitons and at the same time
+we get methods to extract and translate information to GF notation. 
 Figure \ref{fig:translationtrees} shows an example of a visualized Talbanken05 tree
 of the sentence \emph{``The cat on the car gets bigger"} and the result of translating it to GF.
-During the translation all the information given in the abstract tree
-(\ref{pic:gftree}) needs to be extracted. We need to know that \emph{``katten"} is a noun
+Both the POS tags as well as the syntactic information are needed
+during the translation, so that all the information given in the abstract tree
+(\ref{pic:gftree}) can be extracted. We need to know that \emph{``katten"} is a noun
 used in definite form (\verb-DetArt-), singular (\verb-NumSg-). Even though the
-notation is changed by the transformation, the original analyse from Talbanken,
-that ``på bilen" forms a subtree which is attatched to ``katten" for example,
+notation is translated, the original analyse from Talbanken
 is preserved.
+\emph{``på bilen"} should still form a subtree attatched to \emph{``katten"}.
 %produces a \verb-NP- from ``katten" this means that
 %DetCN : Quant                  -> CN    -> NP
 %DetCN  (DetQuant DefArt NumSg)    cat_N = katten
-Both the POS tags as well as the syntactic information are needed.
 
 \begin{figure}[h]
 \hspace{-10mm}
 \subfloat[Talbanken tree]{\label{pic:tbtree}\includegraphics[width=60mm]{Talbankentree.pdf}}
 \subfloat[GF abstract tree]{\label{pic:gftree}\includegraphics[width=60mm]{gfTree.pdf}}
-\subfloat[GF parse tree]{\label{pic:gfptree}\includegraphics[width=50mm]{gfPTree.pdf}}
+\subfloat[The corresponding GF parse tree]{\label{pic:gfptree}\includegraphics[width=50mm]{gfPTree.pdf}}
 \caption{Trees for the sentence ``Katten på bilen blir större".}
 \label{fig:translationtrees}
 \end{figure}
 
-The mapping connects GF with another annotations and gives us means to evaluate
-our parser. By both parsing a Talbanken sentence and transforming its annotated tree, we can
-easily inspect if the results are equal.
-The mapping also makes it clear which grammatical constructions that are still missing
+The mapping %connects GF with another annotations and 
+gives us means to evaluate our parser. By both parsing a Talbanken sentence and
+transforming its annotated tree, we can easily inspect if the results are
+equal.
+Additionally, the mapping clearly shows which grammatical constructions that are still missing
 from the GF grammar and shows how the GF analysis differs from the one made
 in Talbanken.
 If there are words missing from our dictionary, the rich
@@ -1716,19 +1766,24 @@ lexicon. Further, our parser will need probabilities, see section
 %missing from the GF grammar Another important use of the mapping is evaluation of the parser, which can be
 %accomplished by comparing the parse trees and the trees from the transformer.
 
-A translation of the English Penn Treebank to the GF syntax has previously been done \cite{gfpenn}.
-By starting this from program, we now have
-a translation that works for the differently annotated Talbanken. The differences between
-Swedish and English syntax also meant that many rules had to be changed.\\
+The mapping is based on 
+a translation of the English Penn Treebank to the GF syntax \cite{gfpenn}.
+By modifying this program, we now have a translation that works for
+the Tiger XML-format of
+Talbanken. Adaption was required for the differences in annotation as well as 
+syntactic differences between Swedish and English.
 
-The mapping works for Talbanken05 in Tiger XML-format.
-There are three kinds of tags: categories, edge labels and POS tags. 
-The categories give syntactic information such as \verb|S|, \verb|NP| and \verb|VP|.
-The edge labels give similar information with tags as \verb|SS| for subject, 
-\verb|OO| for object. There are more than 300 different pos tags. The high
-number is due to the detailedness, for example there are almost 50 tags for
-nouns, excluding proper names. The tags show definiteness, case, whether the
-word is a compound. Some words also have their own tags.\\
+%The mapping works for Talbanken05 in Tiger XML-format.
+\section{The Talbanken annotation}
+Talbanken05 uses three kinds of tags: categories, edge labels and pos-tags. 
+While the pos-tags are reserved for words, the categories give syntactic information
+for phrases, such as \verb|S|, \verb|NP| and \verb|VP|.
+The edge labels give the grammatical functions with tags as \verb|SS| for subject, 
+\verb|OO| for object. Nearly 400 different tags are used, of which more than
+300 different are pos-tags. The high number is due to the detailedness, for
+example there are almost 50 tags for nouns, excluding proper names. The tags
+show definiteness, case and whether the word is a compound. Some words also have
+their own tags.\\
 
 \begin{tabular}{lll}
 \textbf{Tag} & \textbf{Example} & \textbf{Explanation} \\
@@ -1745,6 +1800,7 @@ word is a compound. Some words also have their own tags.\\
 %to either new tree or a word. Example S -> PP -> (Hd -> Id , Hd -> Id). Show
 %corresponding GF tree.
 
+\section{The translation process}
 The translation works section-wise, ie. if it finds a tree of category \verb|S|,
 it will start to look for a subject \verb|SS| and a finite verb \verb|FV|. If it
 can find those, they can be combine with the GF function \verb|PredVP|.
@@ -1768,7 +1824,7 @@ Figure xx shows an example of this.\\
 %Example of tree with meta.
 
 %Description of most important tags from Talbanken, their translation? appendix?
-\subsubsection{Differences in the notation}
+\subsection{Differences in the notation}
 Some structural differences between GF and Talbanken were made obvious during the
 translation. \\
 %Since the translation is done word by word, ambiguities may confuse the translator.\\
@@ -1782,9 +1838,10 @@ A sentence-complement verb has the type \verb-VS- and from this we know
 that the function \verb-ComplVS- should be used to combine the verb and with a 
 sentence.
 A similar issue arises form the use of verb particles. A verb with a
-particle is considered as one constituent in GF, which means that the particle
-has no effect on the abstract tree. Its presence is announced by the verb
-itself, while Talbanken treats them as separated units.
+particle is treated as two independent units in Talbanken but in GF they are
+considered to be one constituent. % which means that 
+The particle has therefore no effect on the abstract tree, its presence is
+announced by the verb itself.
 %In Talbanken, verbs and particles are treated as separate units,
 %and the particle is marked with the tag \verb-PL- and attached to. 
 %Talbanken has no valence information while this is crucial for GF.
@@ -1796,31 +1853,35 @@ itself, while Talbanken treats them as separated units.
 %If the GF lexicon assings different types to verb, the correct type 
 %should be showed by the complements.
 %This way %\enumsentence{Han gillar det\\He likes it} 
-The mapping cannot depend on the valencies given in GF only, however, 
-since the distinction between different types of verbs is not always clear in Swedish.
-The grammar rules becomes too strict for accepting most Talbanken sentences.
-For example, most transitive verbs can also be used as intransitive. Both sentences in
-example \ref{ex:mappTransitive} are grammatically correct.
-\enumsentence{
-\shortexm{11}
-{Han& sitter& och &läser.}
-{He& sits& and &reads.}{}
-{Han& sitter& och& läser& en& bok.}
-{He& sits& and& reads& a& book.}{}}
+When constructing the abstract trees, we must of course follow and use the
+GF analysis. However,
+the mapping cannot depend on the valencies given in GF only, 
+since the distinction between different types of verbs is not always clear in Swedish;
+most transitive verbs can also be used as intransitive. Both sentences in
+example \ref{ex:mappTransitive} are grammatically correct, and
+the grammar rules are simply too strict for accepting most Talbanken sentences.
+\enumsentence{\shortexm{13}
+{a. &Han& sitter& och &läser.}
+{&\emph{he}& \emph{sits}& \emph{and} &\emph{reads}}{}
+{b. &Han& sitter& och& läser& en& bok.}
+{&\emph{he}& \emph{sits}& \emph{and}& \emph{reads}& \emph{a}& \emph{book}}{}}
 \label{ex:mappTransitive}
 See section \ref{sec:futureValency} for a longer discussion about this.\\
 %the Talbankenwill allow words to be used in other ways than their
 %GF valencies prescribes.
-Another problem can be illustrated by sentence \ref{ex:mappMan}, containing
+
+Another annotational difference that turned out to be problematic for the
+translation can be illustrated by sentence \ref{ex:mappMan}, containing
 the generic pronoun \emph{``man"}.
 \enumsentence{
 \shortex{3}{Man & uppskattar & dem}
-{One & appreciates & them}
+{\emph{one} & \emph{appreciates} & \emph{them}}
 {``They are appreciated"}}\label{ex:mappMan} %  (s216).
+
 In Talbanken, \emph{``man"} is simply a personal pronoun, 
-in GF it is represented by using the function \verb|GenericCl|, which 
-turns a \verb-VP- into a clause and has no
-subject visible in the abstract tree. See figure \ref{fig:mappMan}.
+in GF it is represented by using the function \verb|GenericCl|, see figure
+\ref{fig:mappMan}. \verb|GenericCl| turns a \verb-VP- into a clause and has no
+subject visible in the abstract tree. 
 \begin{figure}[h]
 \centering
 \includegraphics[width=80mm]{man.pdf}
@@ -1828,7 +1889,7 @@ subject visible in the abstract tree. See figure \ref{fig:mappMan}.
 \label{fig:mappMan}
 \end{figure}
 When translating a senctence like this, it is thus not possible to simply glue the
-subject to the verb with \verb|PredVP|.\\
+subject to the verb with \verb|PredVP| and the normal top-down? approach fails.\\
 %Therefore, the translator must change the type of the 
 %sentence when inside the SS.
 
@@ -1850,36 +1911,19 @@ subject to the verb with \verb|PredVP|.\\
 %in the gf lexicon. Therefore the translator might get confused.
 %Sentences are also differntly deep. Example of a conjuncted sentence.
 
-One of the reasons why \textit{metas} are put in the output, is the 
-use of the tags show in table \ref{fig:mapBadtag}.
-\begin{figure}[h]
-\begin{tabular}{ll}
-\textbf{NAC} & Not a constituent\\
-\textbf{XP} & Other (non-coordinated) phrase\\
-\textbf{DB} & Doubled function\\
-\textbf{PU} & List item\\
-\textbf{XX} & Unclassifiable part-of-speech\\
-\end{tabular}
-\caption{}\label{fig:mapBadtag}
-\end{figure}
-The analyse in Talbanken makes a difference between subjects
-and objects, which is not needed in GF (see section \ref{sec:swegf}).
-Senctences like
-\enumsentence{För stora krav.\\
-``Too high demands."}
-hence makes use of the tags \textbf{XX} and \textbf{NP}, since it is not obvious whether
-the noun phrase is used as subject or an object.
-The tags shown above occur quite frequently in the treebank and are always translated
-to metas. 
-%How we cannot cover all cases. 
-
 \section{Results and evaluation}
 >> more! replace words, how much better results (both grammar and mapping) 
 >> more results
->> motivation, why so bad??
+>> motivation, why so bad??\\
+The development was mostly example-driven, and at least one rule for each
+Talbanken-tag has been implemented.
+Shorter sentences have been prioritized in order to get a coverage of the most
+fundamental constructions. 
+Regression testing was used to ensure that no blabla was lost during the development. % in order to  very easy to destroy what was working before. 
+
 The flat version of Talbanken05 was used for developing the mapping, but
-the program works for both versions.
-The deeper contains six more tags, but they are not always useful for our       
+the program works for both the flat and the deep Tiger-XML versions.
+The deeper contains six more tags, although they are not always useful for our       
 purpose. Figure \ref{fig:mappDeepFlat} shows the difference for a conjunction.
 % show piece of s5 here!
 \begin{figure}[h]
@@ -1896,22 +1940,40 @@ This information can however be extracted from the flat version, and the results
 get slightly better when using the flat version. \\
 
 
-%At least one rule  and also most of the
-The development was mostly example-driven, and at least one rule for each
-Talbanken-tag has been implemented.
-Shorter sentences have been prioritized in order to get a coverage of the most
-fundamental constructions. Further,  
-regression testing was used during the development. % in order to  very easy to destroy what was working before. 
+When evaluating the mapping, the results depend a lot on the restrictions we
+put on the input. 
+One of the reasons why a Talbanken node cannot be translated, is the 
+use of the tags show in table \ref{fig:mapBadtag}.
+The \textbf{PU} tag is used for graphic listings, and not for fluent text.
+In GF there is natuarally no corresponding function, since
+%We are not interested in sentences made up by list, since 
+the listings are meant for making the text look nice in
+folders etc. The tags \textbf{XX} and \textbf{NP} are often used since
+Talbanken (unlike GF) makes a difference between subjects
+and objects. %(which is not needed in GF (see section \ref{sec:swegf}))
+The analyse of senctences like
+\enumsentence{För stora krav.\\
+``Too high demands."}
+contains the tags \textbf{XX} and \textbf{NP}, since it is not obvious
+whether the noun phrase is used as subject or an object.
+The tags shown above occur quite frequently in the treebank and are always translated
+to metas, which lowers our result. \\
+%How we cannot cover all cases. 
+\begin{figure}[h]
+\begin{tabular}{ll}
+\textbf{NAC} & Not a constituent\\
+\textbf{XP} & Other (non-coordinated) phrase\\
+\textbf{DB} & Doubled function\\
+\textbf{PU} & List item\\
+\textbf{XX} & Unclassifiable part-of-speech\\
+\end{tabular}
+\caption{}\label{fig:mapBadtag}
+\end{figure}
 
-When evaluating the mapping, the results depend a lot on the restrictions on the
-input. 
-The focus has been on shorter sentences, with no idioms or conjunction. We are
-not interested in sentences made up by list, since they are meant for making
-a nice graphic look in folders etc.\\
 
-
-If we
-assure that the lexicon know the correct word class for all lemmas involved, we
+Our focus has been on shorter sentences, with no idioms or conjunction.
+If we assure that the lexicon know the correct word class for all lemmas
+involved, we
 can restore more than 85\% of the nodes in the original tree.
 If we lift all the restrictions excluding the \verb|PU|, we get
 %When tested the 100 first sentences from Talbanken, we get
@@ -1921,7 +1983,7 @@ in figure \ref{fig:mapBadtag} 72\% can be restored. \\
 
 \begin{tabular}{ll}
 No list items & 65\%\\
-No special tags or punctuation & 72\%\\
+No special punctuation or bad tags& 72\%\\
 Short sentences with known words & 85\%\\
 \end{tabular}
 
@@ -1970,6 +2032,7 @@ köpa bil
 object shift
 \subsection{Parallel parsing/Chunk parsing}
 \subsection{Lexicon}
+compounds
 %Speed up!
 %The list of not-imported can be used for adding other kinds of lexicons - idioms, have pos-tags.
 %Also to analyse what's wrong, or use the words with a word guesser. The code
