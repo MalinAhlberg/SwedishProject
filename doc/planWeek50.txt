@@ -1,9 +1,10 @@
 Monday:    Read through first two chapters, related work, read Cooper, insert nice 
            things to Swedish
 Tuesday:   Mapping, testing and results of grammar and mapping.
-Wednesday: Importing Saldo, grammar section. Meet Ramona, talk about title, results, write abstract for Martin.
-Thursday:  Evaluation in progress-sections
-Friday:    Future work, part I: consequenses
+Wednesday: Importing Saldo, grammar section. Meet Ramona, talk about title,
+           results, write abstract for Martin.
+Thursday:  Send abstract to Martin, finish grammar section, Evaluation in progress-sections
+Friday:    Future work, part I: consequenses, final results
 Saturday:  Future work, part II: robust etc.
 Sunday:    Reading through it all, conclusions etc.
 
