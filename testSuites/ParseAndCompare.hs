@@ -25,7 +25,7 @@ test args = do
   correct <- readFile "newTreebank.txt"
   have    <- readFile "tmp.tmp"
   compare correct have
-  --rawSystem "rm" ["tmp.tmp"]
+  rawSystem "rm" ["tmp.tmp"]
   dat <- readProcess "date" [] []
   appendFile "grammarLog.txt" $ dat ++ show c ++"\n\n"
 
@@ -36,6 +36,7 @@ compare = zipWithM_ rate `on` parseResult
                                        $ "Not the same sentence! "++show i++" "++show j
                          | n == m = putStrLn $ color green $ "Sentence "++show i++" ok."
                          | n == 0 = putStrLn $ color pink $ "Sentence "++show i++"can now be parsed."
+                         | m == 0 = putStrLn $ color red $ "Sentence "++show i++"can not be parsed anymore."
                          | n <  m = putStrLn $ color pink 
                                        $ "Sentence "++show i++" can be parsed in "++show m++" ways!"
                                           ++ " (before only "++show n++")"

@@ -68,7 +68,7 @@
           <t id="s81_2" word="kvinnor" pos="NN  HH"/>
           <t id="s81_3" word="är" pos="AVPS"/>
           <t id="s81_4" word="inte" pos="ABNA"/>
-          <t id="s81_5" word="sådan" pos="POKP"/>
+          <t id="s81_5" word="sådana" pos="POKP"/>
           <t id="s81_6" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -207,7 +207,7 @@
     <s id="s452y">
       <graph root="s452_501">
         <terminals>
-          <t id="s452_1" word="redan" pos="ABOC"/>
+          <t id="s452_1" word="alltid" pos="ABOC"/>
           <t id="s452_2" word="katt" pos="AN"/>
           <t id="s452_3" word="har" pos="HVPS"/>
           <t id="s452_4" word="katt" pos="VN"/>
@@ -235,7 +235,7 @@
         <terminals>
           <t id="s524_1" word="kvinnan" pos="NNDD"/>
           <t id="s524_2" word="har" pos="HVPS"/>
-          <t id="s524_3" word="redan" pos="ABKU"/>
+          <t id="s524_3" word="alltid" pos="ABKU"/>
           <t id="s524_4" word="två" pos="RO"/>
           <t id="s524_5" word="katter" pos="VN"/>
           <t id="s524_6" word="." pos="IP"/>
@@ -375,7 +375,7 @@
           <t id="s632_1" word="men" pos="++MN"/>
           <t id="s632_2" word="det" pos="POOP"/>
           <t id="s632_3" word="gör" pos="GVPS"/>
-          <t id="s632_4" word="redan" pos="ABOC"/>
+          <t id="s632_4" word="alltid" pos="ABOC"/>
           <t id="s632_5" word="kvinnan" pos="NNDDSS"/>
           <t id="s632_6" word="." pos="IP"/>
         </terminals>
@@ -705,7 +705,7 @@
         <terminals>
           <t id="s966_1" word="jag" pos="POPPHH"/>
           <t id="s966_2" word="får" pos="FVPS"/>
-          <t id="s966_3" word="redan" pos="ABOC"/>
+          <t id="s966_3" word="alltid" pos="ABOC"/>
           <t id="s966_4" word="gul" pos="AJ"/>
           <t id="s966_5" word="kvinna" pos="NN  SS"/>
           <t id="s966_6" word="." pos="IP"/>
@@ -1332,7 +1332,7 @@
           <t id="s1321_1" word="redan" pos="ABOC"/>
           <t id="s1321_2" word="tänker" pos="VVPS"/>
           <t id="s1321_3" word="kvinnan" pos="NNDD"/>
-          <t id="s1321_4" word="jagande" pos="SP  HH"/>
+          <t id="s1321_4" word="gällande" pos="SP  HH"/>
           <t id="s1321_5" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -1385,7 +1385,7 @@
         <terminals>
           <t id="s1458_1" word="jag" pos="POZPHH"/>
           <t id="s1458_2" word="äter" pos="VVPSSM"/>
-          <t id="s1458_3" word="redan" pos="ABOC"/>
+          <t id="s1458_3" word="alltid" pos="ABOC"/>
           <t id="s1458_4" word="kvinnan" pos="NNDD"/>
           <t id="s1458_5" word="." pos="IP"/>
         </terminals>
@@ -1410,7 +1410,7 @@
           <t id="s1496_2" word="är" pos="AVPS"/>
           <t id="s1496_3" word="på" pos="PR"/>
           <t id="s1496_4" word="tre" pos="RO"/>
-          <t id="s1496_5" word="kvinna" pos="NN"/>
+          <t id="s1496_5" word="kvinnor" pos="NN"/>
           <t id="s1496_6" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -1642,9 +1642,9 @@
         <terminals>
           <t id="s1767_1" word="det" pos="POOP"/>
           <t id="s1767_2" word="äter" pos="VVPS"/>
-          <t id="s1767_3" word="redan" pos="ABKS"/>
-          <t id="s1767_4" word="sådan" pos="POKP"/>
-          <t id="s1767_5" word="kvinna" pos="NN"/>
+          <t id="s1767_3" word="alltid" pos="ABKS"/>
+          <t id="s1767_4" word="sådana" pos="POKP"/>
+          <t id="s1767_5" word="kvinnor" pos="NN"/>
           <t id="s1767_6" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -2125,7 +2125,7 @@
         <terminals>
           <t id="s2241_1" word="det" pos="POOP"/>
           <t id="s2241_2" word="går" pos="VVPS"/>
-          <t id="s2241_3" word="redan" pos="ABOC"/>
+          <t id="s2241_3" word="alltid" pos="ABOC"/>
           <t id="s2241_4" word="dåligt" pos="ABZA"/>
           <t id="s2241_5" word="." pos="IP"/>
         </terminals>
@@ -3602,7 +3602,7 @@
 <s id="s1321">
 			<graph root="s1321_501">
 				<terminals>
-					<t id="s1321_1" word="Redan" pos="ABOC"/>
+					<t id="s1321_1" word="Alltid" pos="ABOC"/>
 					<t id="s1321_2" word="tänker" pos="VVPS"/>
 					<t id="s1321_3" word="antalet" pos="NNDD"/>
 					<t id="s1321_4" word="katter" pos="SP  HH"/>
@@ -3630,7 +3630,7 @@
 				<terminals>
 					<t id="s1458_1" word="Man" pos="POZPHH"/>
 					<t id="s1458_2" word="äter" pos="VVPSSM"/>
-					<t id="s1458_3" word="redan" pos="ABOC"/>
+					<t id="s1458_3" word="alltid" pos="ABOC"/>
 					<t id="s1458_4" word="äpplet" pos="NNDD"/>
 					<t id="s1458_5" word="." pos="IP"/>
 				</terminals>
@@ -3954,7 +3954,7 @@
 				<terminals>
 					<t id="s2241_1" word="Det" pos="POOP"/>
 					<t id="s2241_2" word="går" pos="VVPS"/>
-					<t id="s2241_3" word="redan" pos="ABOC"/>
+					<t id="s2241_3" word="alltid" pos="ABOC"/>
 					<t id="s2241_4" word="här" pos="ABZA"/>
 					<t id="s2241_5" word="." pos="IP"/>
 				</terminals>

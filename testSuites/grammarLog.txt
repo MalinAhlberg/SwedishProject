@@ -21,3 +21,15 @@ Mon Nov 21 14:41:35 CET 2011
 	 of totally 155 sentences.
 6 had unknown words
 
+Wed Dec 14 12:57:42 CET 2011
+*******
+ Result: passed: 82	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+ -- bug fix of malin errors, but we do not have antalet any more, so 2 sentences fail because of this
+Wed Dec 14 15:28:19 CET 2011
+*******
+ Result: passed: 99	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
