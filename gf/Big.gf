@@ -3,7 +3,7 @@
 abstract Big = 
   DictSweAbs,
   ExtraSweAbs,
-  Noun ,
+  Noun-[DetNP], 
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
   Adjective -[UseComparA],
   Adverb,
@@ -15,8 +15,8 @@ abstract Big =
   Conjunction,
   Phrase,
   Structural, 
-  Text,
-  Tense
+  Tense -[Adv],
+  Text - [Adv]
   ** {
   flags startcat=Phr ;
   

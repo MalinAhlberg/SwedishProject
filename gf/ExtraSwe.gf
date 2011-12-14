@@ -1,4 +1,5 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
+-- unnecessarily complicated type of AdvNP???
 concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
@@ -31,8 +32,8 @@ lin
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
-     ComplSlash np vp = 
-       insertObjPost (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! a) vp ;
+     ComplSlash vp np = 
+       insertObjPost (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! np.a) vp ;
 
   -- ReflIdGen should be 'sin'. sp-field : han ser sin. Or 'han ser sig'?
   -- maybe just 'sin', since 'sig' not a quantifier
@@ -169,11 +170,26 @@ lin
         a = agrP3 (ngen2gen g) num
       } ;
 
+ lin
+  QuantPronAQ _ x =
+   let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
+       ntr = x.s ! AF (APosit (Strong (GSg Neutr))) Nom ;
+       pl = x.s ! AF (APosit (Strong GPl)) Nom
+   in
+   {s = \\_ =>
+     table {Sg => \\_,_ => genderForms ("en"++utr)
+                                       ("ett"++ntr) ;
+            Pl => \\_,_,_ => pl} ;
+   sp = \\_ => table {Sg => \\_,_ => genderForms utr ntr;
+               Pl => \\_,_,_ => pl};
+     det = DDef Indef};
+
+
  lin 
  -- those cannot be compared 
   CompPronAQ x = CompAP (PositA (lin A x)) ; 
 
-  DetPronAD x = lin Det {s,sp = \\a,_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
+  DetPronAD _ x = lin Det {s,sp = \\a,_,_ => x.s ! AF (APosit (Strong GPl)) Nom ;
             n = Pl ; det = DDef Indef} ;
 
   CompPronAD x = CompAP (PositA (lin A x)) ; 
@@ -380,6 +396,8 @@ lin
     noll_Det = {s,sp = \\_,_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
     --annnan/andra?
+  boerja_med_VV = mkVV (partV (mkV "börjar") "med") ;
+  ge_V3' = mkV3 (irregV "ge" "gav" "gett")  ;
     numberOf = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep **
                 {num = Pl; det = DDef Indef };
 

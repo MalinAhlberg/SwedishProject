@@ -1,6 +1,6 @@
 --# -path=.:swedish/:scandinavian:common:abstract:prelude
 
-concrete LexiconVerbSwe of LexiconVerb = LexiconExtSwe **
+concrete LexiconVerbSwe of LexiconVerb = CatSwe **
    open  Prelude, CommonScand, ParadigmsSwe, GuessSwe, IrregSwe in {
 
 flags 

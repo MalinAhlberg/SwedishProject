@@ -1,5 +1,5 @@
 --# -path=.:swedish:prelude:alltenses:abstract
-abstract LexiconVerb = LexiconExt ** {
+abstract LexiconVerb = Cat ** {
 fun
 beroera_V : V ;
 bygga_V : V ;

@@ -25,7 +25,7 @@ fun
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
-     ComplSlash : NPObject -> VPSlash -> VP ;
+    ComplSlash :VPSlash ->  NPObject -> VP ;
     ReflIdNP    : NP Object ;
     ReflIdGen : Quant Object ;
 
@@ -72,8 +72,9 @@ fun
 -------------------------------------------------------------------------------
   DetNP_utr : (a : Boolean) -> Det a -> NP a ; -- den här
 
-  DetPronAD : PronAD -> Det Object ;
-  QuantPronAQ : PronAQ -> Quant Object ;
+  DetPronAD : (a : Boolean) -> PronAD -> Det a ;
+  -- not implented??
+  QuantPronAQ : (a : Boolean) -> PronAQ -> Quant a ;
   CompPronAQ : PronAQ -> Comp ;
   CompPronAD : PronAD -> Comp ;
   -- de blev sådana
@@ -82,7 +83,7 @@ fun
   ComplVAPronAD : VA -> PronAD -> VP ;
 
   it8utr_Pron   : Pron ;
-  this8denna_Quant : Quant Object ;
+  this8denna_Quant : Quant Subject ;
 
 
 ---
@@ -117,24 +118,26 @@ fun
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;
   hela_Predet : Predet ;  --hela horder/hela katten 
-  sjaelva_Quant : Quant Object ; -- själva kungen/själva öronen
+  sjaelva_Quant : Quant Subject ; -- själva kungen/själva öronen
   samma_Predet : Predet ; -- samma katter/samma öra 
-  varenda_Det : Det Object ;
-  vardera_Det : Det Object ;
-  ena_Det : Det Object ;
-  baegge_Det : Det Object ;
-  baada_Det : Det Object ;
-  varannan_Det : Det Object ;
-  somliga_Det : Det Object ;
-  dylika_Det : Det Object ;
-  oovriga_Det : Det Object ;
-  aatskilliga_Det : Det Object ;
-  samtliga_Det : Det Object ;
+  varenda_Det : Det Subject ;
+  vardera_Det : Det Subject ;
+  ena_Det : Det Subject ;
+  baegge_Det : Det Subject ;
+  baada_Det : Det Subject ;
+  varannan_Det : Det Subject ;
+  somliga_Det : Det Subject ;
+  dylika_Det : Det Subject ;
+  oovriga_Det : Det Subject ;
+  aatskilliga_Det : Det Subject ;
+  samtliga_Det : Det Subject ;
 
-  noll_Det : Det Object ;
-  annan_Quant : Quant Object ;
+  noll_Det : Det Subject ;
+  annan_Quant : Quant Subject ;
 
   numberOf : N2' ;
+  boerja_med_VV : VV ; 
+  ge_V3' : V3 ; 
 
   likna_V2 : V2 ;
   akta_V3 : V3 ;

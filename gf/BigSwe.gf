@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 
 concrete BigSwe of Big = 
-  NounSwe,
+  NounSwe- [DetNP] ,
   VerbSwe -[PassV2,ComplSlash,ReflVP],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -12,7 +12,7 @@ concrete BigSwe of Big =
   RelativeSwe,
   ConjunctionSwe,
   PhraseSwe, 
-  TextX - [Tense,Temp] ,
+  TextX - [Tense,Temp,Adv] ,
   TenseSwe,
   StructuralSwe, 
   ExtraSwe,
