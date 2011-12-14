@@ -12,7 +12,7 @@ lincat
  N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
- Obj = {s : Agr => Str };
+ Obj = {s : Agr => Str ; a : Agr };
 
 
 lin
@@ -50,27 +50,31 @@ lin
         ** {n3 = vp.n3 ; c2 = v.c2} ;
 
 
-     ComplSlash np vp = 
-       insertObjPost
-         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! a) vp ; -- used to be vp.n3 ! np.a. Why?
+--     ComplSlash np vp = 
+--       insertObjPost
+--         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! np.a) vp ; 
 
 
 
-    Coercion np = {s = \\_ => np.s ! NPAcc } ;
+    Coercion np = {s = \\_ => np.s ! NPAcc ; a = np.a} ;
   
-    ReflIdNP    = {s = \\a => reflForm a } ;
+    ReflIdNP    = {s = \\a => reflForm a ; a = agrP3 Utr Sg} ;
     ReflCN cn n = {s = \\a => let sin = reflGenForm a (gennum cn.g n.n) ;
                                   num = n.s ! cn.g ;
                                   np = cn.s ! n.n ! DDef Indef ! Nom 
-                              in sin ++ num ++ np} ;
+                              in sin ++ num ++ np ;
+                   a = agrP3 Utr Sg } ;
                               
 
     UseObj o = o ;
-    ConjObj = conjunctDistrTable Agr ;
-    BaseObj = twoTable Agr ;
-    ConsObj = consrTable Agr comma ;
+ 
+    ConjObj conj ss = conjunctDistrTable Agr conj ss
+                 ** {a = {g = ss.a.g ; n = conjNumber conj.n ss.a.n ; p = ss.a.p}} ;
+
+    BaseObj x y = twoTable Agr x y ** {a = conjAgr x.a y.a} ;
+    ConsObj xs x = consrTable Agr comma xs x ** {refl = x.refl ; a = conjAgr xs.a x.a} ;
  lincat 
-    [Obj] = {s1,s2 : Agr => Str } ; 
+    [Obj] = {s1,s2 : Agr => Str ; a : Agr } ; 
 
 {-
 
@@ -166,7 +170,7 @@ lin
 -------------------------------------------------------------------------------
   VarandraVP vp = insertObj (\\a => vp.c2.s ++ "varandra" ++ vp.n3 ! agrP3 Neutr Pl) vp  ;
   SlashV3Varandra v3 = Slash3V3 v3 varandra ;
-    oper varandra : Obj = lin Obj {s = \\_ => "varandra" } ;
+    oper varandra : Obj = lin Obj {s = \\_ => "varandra" ; a =  agrP3 Neutr Pl} ;
 
 -------------------------------------------------------------------------------
 -- tests, doesn't work for Foc anyway
