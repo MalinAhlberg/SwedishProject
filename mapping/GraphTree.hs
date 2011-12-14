@@ -22,3 +22,10 @@ dotTree t name = header ++ body ++ footer where
    correct '?' = 'Q'
    correct ' ' = '_'
    correct x   = x
+
+
+test :: Tree String
+test = Node "UseCl" [Node "TTAnt" [Node "TPres" [], Node "ASimul" []] , 
+                     Node "PPos" [],Node "PredVP" [Node "everybody_NP" [],
+                      Node "ComplSlash" [Node "SlashV2a" [Node "eat_V2" []]],
+                       Node "?" [Node "PrepNP" [Node "on_Prep" [], Node "?" []]]]]
