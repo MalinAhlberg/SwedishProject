@@ -36,7 +36,7 @@ fun
 -- put in VerbSwe and unimport there
      Slash2V3 : V3 -> Obj -> VPSlash ;
      Slash3V3 : V3  -> Obj -> VPSlash ;
-     ComplSlash : Obj -> VPSlash -> VP ;
+     ComplSlash : VPSlash -> Obj -> VP ;
      CompNP : Obj -> Comp ;
      SlashV2VNP : V2V -> Obj -> VPSlash -> VPSlash ;
      Coercion : NP -> Obj ;

@@ -50,9 +50,9 @@ lin
         ** {n3 = vp.n3 ; c2 = v.c2} ;
 
 
---     ComplSlash np vp = 
---       insertObjPost
---         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! np.a) vp ; 
+     ComplSlash vp np = 
+       insertObjPost
+         (\\a => vp.c2.s ++ np.s ! a ++ vp.n3 ! np.a) vp ; 
 
 
 
