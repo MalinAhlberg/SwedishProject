@@ -1900,13 +1900,27 @@ for the last one, we need VPSlash to allow adverb.
 
 \subsection{Miscellaneous}
 \subsubsection{Relative clauses}
-The resource grammar already provided a number of ways to express relative and embedded clauses, such as
+The resource grammar already gave a good coverage of relative clauses and embedded sentences.
+All sentences in example \ref{sent:relex} was accepted.
+%provided a number of ways to express relative and embedded clauses, such as
 \eenumsentence{
 \item[a.]Frågan är vilken färg den har
 \item[b.]Pojken, som är blyg, tystnar
 \item[c.]Han såg kunden som tyckte om sallad
-\item[d.]Jag tänkte på huset i vilket hon bodde} % better example!!
+\item[d.]Jag tänkte på huset i vilket hon bodde}\label{sent:relex} % better example!!
 
+The grammar has been extended to accept a few more constructions:
+\enumsentence{\shortex{7}
+{\textbf{De uppfattningar}& som& förs& fram ...} 
+{The opinions& that& put+{\sc s} & forward ...}
+{``The opinions presented ..."}}
+The definite artcile \emph{``de"} is used together with a indefinite
+noun. This is only correct for the definite articles and not determiners
+and requires that the noun phrase is followud by a restrictive
+relative clauses or together with the verb \emph{``finnas"}.
+In other cases definitev form must be used, cf. sentence \ref{sent:debocker}.
+\enumsentence{\textbf{De uppfattningarna} förs fram.\\
+``The opinions are presented."}\label{sent:debocker}
 
 A few problematic things can be illuminated:
 Since the constructions are inspired by other languages, some of them may sound quite
@@ -1926,18 +1940,6 @@ glued together by \emph{``sådan att"} and \emph{``katt"} should agree with \emp
 However, this is not the case and sentence \ref{sent:detfaller} is currently
 accepted by the grammar.
 
-The grammar has been extended to accept
-\enumsentence{\shortex{7}
-{\textbf{De uppfattningar}& som& förs& fram ...} 
-{The opinions& that& put+{\sc s} & forward ...}
-{``The opinions presented ..."}}
-where the definite artcile \emph{``de"} is used together with a indefinite
-noun. This is only correct for the definite articles and not determiners
-and requires that the noun phrase is followud by a restrictive
-relative clauses or together with the verb \emph{``finnas"}.
-In other cases definitev form must be used, cf. sentence \ref{sent:debocker}.
-\enumsentence{\textbf{De uppfattningarna} förs fram.\\
-``The opinions are presented."}\label{sent:debocker}
 % also ok in finnas!!
 
 %An more natural sounding alternative would be
@@ -2083,15 +2085,27 @@ intraspection or manually looking up each word.
 
 %here or in robust: SupCl, det as VP or VV or S for S (remember Foc)
 \section{Testing}
+Througout the project regression testing has been used. Every time the grammar was updated
+it was tested against a treebank consisting of 155 sentences, and the number of parse trees
+compared to a standard.
+The purpose was first of all to
+make sure that the coverage was not decrease, but also to be sure we would notice
+if new ambiguites or overgenerating functions were introduced.
+When possible, the ambiguities could be removed and when not we could at least know about
+them. The grammar will always contain ambiguities, but by being aware helps to
+handle them in other ways, such by statistical means.
+%notice if the grammar starts to overgenerate. Avoiding ambiguities is 
+New functions were also tested by random generating and by creating tables showing
+all forms, such as table \ref{fig:kommeratt}.
+
 >>evolution diagram? also removed unnecessary ambigutiies.
 >> how to handle ambigs: know them and controll them. using statistics or ontolgies.
 >> that is: disambiguitation by context or by meaning.
-For testing has been carried out by using a treebank, consisting of sentences used in 
-sub-testsuites. This way we make sure that we doesn't decrease the coverage and will
-notice if the grammar starts to overgenerate. Also have some sentences that should not
-be parsed. 
-When adding new constructions, the table-function is very helpful, shows how a word will
-turn out in differnet cases. all tenses, for komma.
+%For testing has been carried out by using a treebank, consisting of sentences used in 
+%sub-testsuites. Also have some sentences that should not
+%be parsed. 
+%When adding new constructions, the table-function is very helpful, shows how a word will
+%turn out in differnet cases. all tenses, for komma.
 
 
 % One part about the grammar. The state of the original grammar, what was covered and not. 
@@ -2422,6 +2436,14 @@ Short sentences with known words & 85\%\\
 \hline
 \end{tabular}\\
 
+These results are lower than the results of the mapping of Penn Treebank. The
+reason for this may lay in the fact that English is syntactically less complicated
+than Swedish. Also, the Penn Treebank contains a lower number of tags, 82 compared
+to more than 300 in Talbanken. Even if you exclude the tags describing the same word
+class as another tag, Talbanken still leaves us with more than 130 tags. The 
+number of ways to combine them are hence much increased, and so is the number of
+rules that would be needed to cover all constructions.
+
 We believe that the results could be enhanced by simply adding more rules 
 and in this way get a wider coverage. There are many special cases that require
 special rules. Since we are not aware of any formal specification of how the tags may be
@@ -2452,16 +2474,37 @@ robust, but the robustness must not interfere with the correctness.
 \chapter{Results and discussion}
 \label{sec:results}
 \section{Evaluation}
+The project has resulted in
+\begin{itemize}
+\item one large-scale GF lexicon and a program to redo the importation when needed
+\item a comparison between GF and other annotations
+\item a deeper testing of the Swedish resource grammar and an estimation
+of how well GF can be used to describe larger parts of a language
+\item a study of how dependent types can be used in the resource grammars
+\end{itemize}
+
+The increase of the grammatical coverage is hard to compare, since
 The grammar in it self is not at all robust, and one unknown word will cause a whole sentence to 
-fail. When parsing text, we get low results, for this reason. Not yet interesting to talk about
+fail. 
+An estimation can be given by looking at the results from running the test suite.
+The first grammar could parse almost halv of the sentences, and the final
+grammar could parse 65\%. 
+When parsing text, we get low results, for this reason. Not yet interesting to talk about
 coverage, but focus on quality and ability to scale up. Our goal standarn is so far Talbanken,
 but considering that the low coverage of the grammar without statisticts, a comparison would not be
 describing anything, to little indata.
 Instead we have the luck to have an expert and her presence has increased the standard.
+No syntactic theory will ever cover all language, and this should just be seen as an important
+fragment.
 
 
+From the renewed import of Saldo, we got a much better coverage especially considering
+that the old version was missing many of the most common words. Bo, göra, se.
+However, the lexicon is now to big to use as a normal GF lexicon, since it will request
+too much memory to parse most sentences. We will need to handle this in a clever way,
+see future work.
 %Results from mapping, can probably be improved, bit by bit, depends much on words.
-%Valencys would therefor help.  
+%Valencys would therefore help.  
 %Saldo, made a big difference to renew the lexicon. Tested what was missing now from talbanken,
 %results. Mostly compound nouns, which we can't expect in the dictionary.
 %Is too slow, can't be used for parsing right away
@@ -2475,27 +2518,49 @@ Instead we have the luck to have an expert and her presence has increased the st
 
 \section{Future Work}
 \label{sec:future}
->> divide into consequences and future plans.
-What is still left to do? Description and direction of future work:
+A part of the project is finished, but the project is not complete, and will never be.
+Many interesting future directions. We will first look at the ones which are 
+direct consequences of what we did so far. 
+\subsection{Enhancments and completitions}
+\subsubsection{Grammar}
+The are still many constructions that are not covered by the grammar.
+As example we can mention
+\textbf{object shift}
+\enumsentence{\begin{tabular}[t]{@{}*{11}{l@{\ }}}
+a. & jag & ser&  honom&  inte&~~ & b.&   * jag &ser &huset     &inte\\
+   & I   & see&  him  &  not & & b.&    I   &see &the house &not\\
+\end{tabular}}
+\textbf{bare indefinites}
+\enumsentence{\shortex{4}
+{Vi & ska & köpa & hund} 
+{we& will & buy & dog}
+{``We will buy a dog"}}
+\textbf{måttsattribut}
+\enumsentence{
+{Antalet bilar, ett antal bilar, ett stort antal}}
+Genitive; Not like 'sonen till mig' -> antalet bilars??\\
+
+Probably many more, interesting work, but also infinite.
+\subsubsection{Lexicon}
+The list of not-imported can be used for adding other kinds of lexicons - idioms, have pos-tags.
+Also to analyse what's wrong, or use the words with a word guesser. The code
+has been adapted for this.
+For exapmle pronouns - dets, have combined information from Talbanken to add them in the correct
+category. How this works, look at tags. Small amount, can be done manually.
+
+
+\subsection{Making the grammar robust}
+If we want to use the grammar for free parsing, this is now a very important part.
+Need to use stastics methods. The parser needs to be able to handle
+ellipses and long sentences, names and numbers.
 Handling unknown words and , handling unknown grammar, 
-how to make the parser robust, ellipses and long sentences, names and numbers.
-What is still needed in the grammar, how important that is. 
-\subsection{Grammar}
-köpa bil 
-object shift
-\subsection{Parallel parsing/Chunk parsing}
-\subsection{Lexicon}
+\subsubsection{Parallel parsing/Chunk parsing}
+\subsubsection{Lexicon}
 compounds
 Speed up! : perhaps have one lexicon for morph. analyse and one for parsing.
 exchange words.
-%The list of not-imported can be used for adding other kinds of lexicons - idioms, have pos-tags.
-%Also to analyse what's wrong, or use the words with a word guesser. The code
-%has been adapted for this.
-%For exapmle pronouns - dets, have combined information from Talbanken to add them in the correct
-%category. How this works, look at tags. Small amount, can be done manually.
-
-
-\subsection{Valency}
+%process list from saldo.
+\subsubsection{Valency}
 \label{sec:futureValency}
 %how to get valency information 'sitter och läser',
 %is this doable for swedish?
@@ -2504,16 +2569,18 @@ exchange words.
 %make the parser faster by using smaller lexicon.
 %Lexicon tool on the fly.
 
-\subsection{Probabilities}
+\subsubsection{Probabilities}
 \label{sec:futureProbabilities}
 % discuss ambiguites, will always have some and the big lexicon will increase them.
 % exapmle 'vad händer under äktenskapet?'
 %Getting and using probabilities, to disambiguate.
-%process list from saldo.
+% ontologies?
+
+
 %Use multiligual treebank?
-%stop ambiguities by fixing so that Gen of a quant isn't a quant, or better, that all fields
-%have a genitive field.
-%More fields in the grammar? Or leave it all to the robust parser
+
+
+
 
 
 \section{Conclusion}
