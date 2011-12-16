@@ -76,10 +76,10 @@ fun
 -- Test for 'antalet'
 -------------------------------------------------------------------------------
   --ApposNP : NP -> NP -> NP ;  -- ett mycket stort antal katter (add '(hennes katt) johan'?)
-  ComplN2P : Det -> N2P -> CN -> NP ;
-  AdjN2 : AP -> N2P -> N2P ;
-  UseN2P : N2' -> N2P ;
-  N2N    : N2' -> N ; 
+  --ComplN2P : Det -> N2P -> CN -> NP ;
+  --AdjN2 : AP -> N2P -> N2P ;
+  --UseN2P : N2' -> N2P ;
+  --N2N    : N2' -> N ; 
   ---
 
 -------------------------------------------------------------------------------
