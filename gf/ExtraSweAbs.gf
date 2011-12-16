@@ -105,7 +105,7 @@ fun
 -- tests, genetive
 -------------------------------------------------------------------------------
   GenCN : NP -> Num -> CN -> NP ;
-  PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
+  --PredGen : NP -> NP -> Cl ;      -- den är min, not needed atm, but maybe good if we try to avoid PossPron later
 
 -------------------------------------------------------------------------------
 -- Relatives
@@ -120,7 +120,7 @@ fun
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
-  FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc
+  FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc   -- det är katten is more ambigouos now!
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good

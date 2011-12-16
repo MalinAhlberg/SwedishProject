@@ -195,7 +195,7 @@ lin
 -- tests, genetive
 -------------------------------------------------------------------------------
 
- lin
+ --lin
  --  GenCN np num cn = let n = num.n in {
  --    s = \\nf => np.s ! NPPoss (gennum (ngen2gen cn.g) n) Nom 
  --                ++ num.s ! cn.g 
@@ -204,10 +204,10 @@ lin
  --    } ;
 
   
-  PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
-   oper mkComp : NP -> Agr -> Comp = 
-    \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
-
+--  PredGen sub gen = PredVP sub (UseComp (mkComp gen sub.a)) ;
+--   oper mkComp : NP -> Agr -> Comp = 
+--    \gen,agr -> lin Comp {s = \\a => gen.s ! (NPPoss (gennumAgr agr) Nom)} ; 
+--
 -------------------------------------------------------------------------------
 -- Relatives
 -------------------------------------------------------------------------------
