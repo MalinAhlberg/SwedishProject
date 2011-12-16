@@ -41,3 +41,10 @@ Thu Nov 24 10:00:58 CET 2011
 	 of totally 155 sentences.
 5 had unknown words
 
+-- oldest grammar from beginning of project
+Fri Dec 16 20:37:58 CET 2011
+*******
+ Result: passed: 75	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+17 had unknown words
+
