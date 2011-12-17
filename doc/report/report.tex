@@ -2476,33 +2476,50 @@ robust, but the robustness must not interfere with the correctness.
 \section{Evaluation}
 The project has resulted in
 \begin{itemize}
-\item one large-scale GF lexicon and a program to redo the importation when needed
+\item a large-scale GF lexicon and a program to redo the importation when needed
 \item a comparison between GF and other annotations
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
 \item a study of how dependent types can be used in the resource grammars
 \end{itemize}
 
-The increase of the grammatical coverage is hard to compare, since
-The grammar in it self is not at all robust, and one unknown word will cause a whole sentence to 
-fail. 
-An estimation can be given by looking at the results from running the test suite.
-The first grammar could parse almost halv of the sentences, and the final
-grammar could parse 65\%. 
-When parsing text, we get low results, for this reason. Not yet interesting to talk about
-coverage, but focus on quality and ability to scale up. Our goal standarn is so far Talbanken,
-but considering that the low coverage of the grammar without statisticts, a comparison would not be
-describing anything, to little indata.
-Instead we have the luck to have an expert and her presence has increased the standard.
-No syntactic theory will ever cover all language, and this should just be seen as an important
+The grammar has been extended and enhanced, and its current status is
+a specialized extension of the resource grammar. When it comes to parsing,
+however, we do not get far without robustness.
+The grammar in itself is by no means robust, and just one unknown word,
+unexpected punctuation
+or missing phrase will cause the parsing of the whole sentence to fail. 
+Our goal is to parse Talbanken, but considering that no syntactic theory is capable
+of covering a whole natural language, our grammar should just be seen as an important
 fragment.
+A comparison would not be of much value of this state since the coverage of Talbanken
+is too small to do be able to get any interesting analysis.\\
+
+An estimation of the improvement can be given by looking at the results from
+running the testsuite used for the grammar development.
+The sentences given in the testsuite are short and the words are in most cases known
+to the lexicon, but there are also constructions that have not been implemented 
+during this project.
+The first grammar could parse almost half of the sentences, the result for the final
+grammar was 65\%. 
+Parsing bigger parts of Talbanken would give very low results, for the reasons stated.
+% try NPs?
+It is thus not yet interesting to talk about coverage, but about the quality and
+the ability to scale up, which has so far proved to be good. The constructions
+that we have focused on have all been possible to implement, although the amount
+of work to get it ~~right has varied.
+I further believe that the presence of a Swedish expert has
+increased the standard substantially.\\
 
 
-From the renewed import of Saldo, we got a much better coverage especially considering
-that the old version was missing many of the most common words. Bo, göra, se.
-However, the lexicon is now to big to use as a normal GF lexicon, since it will request
-too much memory to parse most sentences. We will need to handle this in a clever way,
-see future work.
+By the renewed import of Saldo, we doubled the size of the lexicon and thereby
+added many of the commonly used irregular words that were missing from the older
+version. This is of course a big improvement.
+However, the lexical part still requires much work before it can be made use of.
+We need valency information to make a good analysis. The lexicon is also too
+big to use in a trivial manner, its size makes the incremental parsing algorithm
+use too much memory. To solve this, we need to use the lexicon data more cleverly.
+
 %Results from mapping, can probably be improved, bit by bit, depends much on words.
 %Valencys would therefore help.  
 %Saldo, made a big difference to renew the lexicon. Tested what was missing now from talbanken,
@@ -2518,9 +2535,13 @@ see future work.
 
 \section{Future Work}
 \label{sec:future}
-A part of the project is finished, but the project is not complete, and will never be.
-Many interesting future directions. We will first look at the ones which are 
-direct consequences of what we did so far. 
+Although this one part of the project is finished, there are many interesting future
+directions. As a natural language processing-project ~ it will hardely veer be entirely
+complete.
+The future work described in this section is divided into two categories:
+the ones aiming at making the parser robust and the ones that can be
+seen  as extensions of the work done so far.
+ 
 \subsection{Enhancments and completitions}
 \subsubsection{Grammar}
 The are still many constructions that are not covered by the grammar.
@@ -2581,14 +2602,29 @@ exchange words.
 
 
 
-
-
 \section{Conclusion}
 >> why is this significant, other grammars can use this Swedish grammar.
->> well known (comp. ling) trade-off between depth and coverage. for now depth, robustness in in future
->> work leads to coverage.
+>> well known (comp. ling) trade-off between depth and coverage. for now depth,
+>> robustness in in future work leads to coverage.
 >> reusablilty, freely available.
 >> have experiments of how to extract info from talbanken.
+By combining GF with a large lexicon, we acquire a deep parser for 
+Swedish. All parts, including the underlying grammar, are open-source and can be re-used.
+We have developed tools for extending the lexicon with words from Talbanken,
+and we show how to make use of the information in the manually tagged
+treebank.
+The usage of GF allows us to start from
+a well-defined system for describing grammar, as well as tools for
+parsing.
+
+
+We are building a parser which is based on grammatical rules rather than
+statistics. The parser will therefore validate that
+a given sentence is grammatically correct according to the rules defined.
+Chosen parts of the parser or grammar may be used in other applications
+which deal with controlled natural languages. Automatic language
+generation from the grammar is also provided by GF.
+
 %There is obviously a lot do still, will never get finish with NPL.
 %Grammar may need even bigger changes, to allow enough but not too much.
 %Different from writing a grammar for generation.
