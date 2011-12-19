@@ -768,8 +768,8 @@ which focuses on describing and translating verb frames.\\ % and translating the
 
 The Swedish version of the Core Language Engine (CLE) \cite{gamback} % \cite{cle}
 gives a full syntactic analysis as well as semantics represented in xx. A
-translation for conversations?? to English was implemented. The work was further developed in the spoken
-language blabla (xx,xx). Unfortunately, it is no longer available. The coverage of the Swedish
+translation for conversations to English was implemented. The work was further developed in the spoken
+language(xx,xx). Unfortunately, it is no longer available. The coverage of the Swedish
 CLE is also reported to be very limited (Nivre,2002).\\
 
 In the TAG formalism (Joshi,1975), there are projects on getting open source, wide-coverage grammars
@@ -2704,8 +2704,8 @@ of how well GF can be used to describe larger parts of a language
 The grammar has been extended and enhanced, and its current status is
 a specialized extension of the resource grammar. When it comes to parsing,
 however, we do not get far without robustness.
-The grammar in itself is by no means robust, and just one unknown word,
-unexpected punctuation
+The grammar in itself is by no means robust, and just one 
+unexpected punctuation mark, unknown word
 or missing phrase will cause the parsing of the whole sentence to fail. 
 Our goal is to parse Talbanken, but considering that no syntactic theory is capable
 of covering a whole natural language, our grammar when used without a
@@ -2731,13 +2731,14 @@ I further believe that the presence of a Swedish expert has
 increased the standard substantially.\\
 
 
-By the renewed import of Saldo, we doubled the size of the lexicon and thereby
-added many of the commonly used irregular words that were missing from the older
+By the renewed import of Saldo, we have doubled the size of the lexicon and thereby
+added many of the commonly used words that were missing from the older
 version. This is of course a big improvement.
 However, the lexical part still requires much work before it can be made use of.
 We need valency information to make a good analysis. The lexicon is also too
-big to use in a trivial manner, its size makes the incremental parsing algorithm
-use too much memory. To solve this, we need to use the lexicon data more cleverly.
+big to use trivially with the current techniques. Its size causes the
+incremental parsing algorithm use more heap memory than what normal computers
+allow. To solve this, we need to use the lexicon data more cleverly.
 
 %Results from mapping, can probably be improved, bit by bit, depends much on words.
 %Valencys would therefore help.  
@@ -2755,73 +2756,90 @@ use too much memory. To solve this, we need to use the lexicon data more cleverl
 \section{Future Work}
 \label{sec:future}
 Although this one part of the project is finished, there are many interesting future
-directions. As a natural language processing-project ~ it will hardely ever be entirely
-complete.
+directions. As a natural language processing-project it will probably never be
+entirely complete.
 The future work described in this section is divided into two categories:
 the ones aiming at making the parser robust and the ones that can be
-seen  as extensions of the work done so far.
+seen as extensions of the work done so far.
  
 \subsection{Enhancements and complements}
 \subsubsection{Grammar}
 All imaginable grammatical constructs cannot be cover by our grammar.
-Some work must be left for the robustness, but some specific constructions
-are desirable and interesting to implement. A few examples are listed here:\\
+Some work must be left for the robustness, but there are specific constructions
+that are desirable and interesting to implement. A few examples are listed here:\\
 
-In many Germanic? languages \textit{object shifts} are common.
+\begin{itemize}
+\item
+\textit{Pronomial object shifts} are common in Swedish.
 \enumsentence{\begin{tabular}[t]{@{}*{11}{l@{\ }}}
 a. & Jag & ser&  honom& \textbf{inte}&~~ & b.&Jag &ser &\textbf{inte} &honom\\
    & \emph{I} & \emph{see}&\emph{him}&\emph{not}&&& \emph{I} &\emph{see}&\emph{not}&\emph{him}\\
 \end{tabular}}
-Personal pronouns are allowed to shift position with the negation in main clauses.
-(read).
+Personal pronouns are allowed to shift position with the negation in main clauses, without
+the modal verbs.
+
 \enumsentence{\begin{tabular}[t]{@{}*{11}{l@{\ }}}
 a. & *Vi & ser&  varandra&  inte&~~ & b.& * Jag &ser &huset &inte\\
    & \emph{~we} & \emph{see}&  \emph{each other}&  \emph{not} && b.& \emph{~I}&\emph{see} &\emph{the house} &\emph{not}\\
 \end{tabular}}
 
-This is common in relaxed? language, but since it is rarely found in
-Talbanken's part P, which we have been using, it has not been highly prioritised.\\
+Although object shifts are frequently used, they are rarely found in
+Talbanken's part P, which have been the inspiration for this project.
+Therefore, it has so far not been prioritised.\\
 
 
-Sentences like
-'hon är inte dum, hon.' 'hon är inte dum, flickan' 'min syster, hon är inte dum, hon'
-'min syster är inte dum, hon'
-We have a clause of which we need to know the natural gender and number of the subject, since it
-must agree with the added pronoun. sag s 439. fullständigt outforskade!
+%Sentences like
+%'hon är inte dum, hon.' 'hon är inte dum, flickan' 'min syster, hon är inte dum, hon'
+%'min syster är inte dum, hon'
+%We have a clause of which we need to know the natural gender and number of the subject, since it
+%must agree with the added pronoun. sag s 439. fullständigt outforskade!
 
 %or just implement this and remove it here?
-The question is how many types we should give dependent types. CN could also need it,
-in order to say
-'han mäter avståndet från sitt hus till sitt jobb' but now `avståndet från sitt hus är stort'.
-The analysis of this sentence is that
-avståndet is a noun of type \verb-N3-, which chooses the prepositions ``från" and ``till"
-and needs to noun phrases to form a \verb-CN- -- ``avståndet från sitt hus till".
-Now also \verb-CN- needs to carry about whether it is possible to use it as a subject.
+%The question is how many types we should give dependent types. CN could also need it,
+%in order to say
+%'han mäter avståndet från sitt hus till sitt jobb' but now `avståndet från sitt hus är stort'.
+%The analysis of this sentence is that
+%avståndet is a noun of type \verb-N3-, which chooses the prepositions ``från" and ``till"
+%and needs to noun phrases to form a \verb-CN- -- ``avståndet från sitt hus till".
+%Now also \verb-CN- needs to carry about whether it is possible to use it as a subject.
 
-
-Nouns used without any explicit definitness can at this stage be parsed as mass
-nouns.
+\item
+\textit{Bare indefinites} are at this stage always parsed as mass nouns.
 \enumsentence{\shortexnt{3}
 {Jag & dricker& vatten}
 {\emph{I}&\emph{drink}&\emph{water} }
 }
-This is not the correct analyse for `hund' in sentence \ref{sent:hund}.
+This however is not the correct analyse for `hund' in sentence \ref{sent:hund}.
 \enumsentence{\shortex{4}
 {Vi & ska& köpa & hund}
 {\emph{we} &\emph{will}& \emph{buy} & \emph{dog} }
 {We are going to buy a dog}}\label{sent:hund}
-This sentence is instead an example of \textit{bare indefinites}, used for
-... what?\\
 
+\item
+The implementation of reflexive pronouns can be improved.  %both code-wise
+It should for example be possible to differenciate between 
+object and subject control verbs.
 
-\verb| X : NP x + CN + NP --better|\\
-\verb| X : CN x + CN + CN|
-check apposCN.
-\textbf{måttsattribut}
-\enumsentence{
-{Antalet bilar, ett antal bilar, ett stort antal}}
-Genitive; Not like 'sonen till mig' -> antalet bilars??\\
+\eenumsentence{
+\item[a]\shortex{7}
+{Han & ber & henne & att & städa & sitt & rum}
+{\emph{he} & \emph{begs} & \emph{her} & \emph{to} & \emph{clean} & {\sc self's} & \emph{room}}
+{He asks her clean her room}
+\item[b]\shortex{7}
+{Han& lovar& henne& att& städa &sitt & rum}
+{\emph{he}& \emph{promises}& \emph{her}& \emph{to}&  \emph{clean} &\sc self's&\emph{room}}
+  {He promises her to clean his room}}
 
+%
+%\verb| X : NP x + CN + NP --better|\\
+%\verb| X : CN x + CN + CN|
+%check apposCN.
+%\textbf{måttsattribut}
+%\enumsentence{
+%{Antalet bilar, ett antal bilar, ett stort antal}}
+%Genitive; Not like 'sonen till mig' -> antalet bilars??\\
+
+\end{itemize}
 \subsubsection{Lexicon}
 Our lexicon still lacks some part that can be imported from Saldo.
 The multipleword verbs (\verb-vbm-) and multiple word nouns (\verb-nm-) should
@@ -2843,11 +2861,11 @@ possible from our resources.
 To achieve our goal of free parsing, we need to use statistical methods.
 The parser needs to be able to handle
 ellipses and long sentences, names and numbers,
-compounds words and unknown constructions.
+compound words and unknown constructions.
 \subsubsection{Parallel parsing/Chunk parsing}
 Instead of parsing a whole sentence in one go, we would like to
 parallely parse parts of it and then try to combine the pieces.
-This method should be faster then traditional parsing and would
+This method should be faster then normal parsing and would
 at the same time give robustness.
 Components that cannot be combined by any grammar rule are combined by a 
 meta function. We might end up with partial parse trees, but we would
@@ -2860,20 +2878,20 @@ No matter how much we increase the size of our lexicon, we will
 never cover all compounds. We therefore need to be able to do
 compounding analyses.
 
-We need to come up with better methods for using the lexicon when
+As noted, we additionally need to come up with better methods for using the lexicon when
 parsing, since its time and memory consumption is very high.
 One possibility is of course to do 
 deeper refinements of the parsing source code, which would be a substantial 
 project. Other solutions are to to either
-adapt the lexicon for its domain and hence making it smaller and faster
-or to adapt the input sentences to a smaller lexicon, by preprocessing .
+adapt the automatically lexicon for its domain and hence making it smaller and
+faster, or to adapt the input sentences to a smaller lexicon, by preprocessing.
 
 Further, the lexicon needs valencies since this information lays the
 foundation for the GF analysis. We have already analysed how Talbanken
 annotates valency information, and by using the rules made for the mapping
 described in section \ref{sec:Mapping}, we could extract data from Talbanken,
 showing how words are normally used. There should also be algorithms for
-automatically adding the information to the lexicons. 
+automatically adding the information to the lexicon. \\
 Many Swedish verbs can be used with different number of arguments. Adding
 all this information to the lexicon does not seem to be a good idea considering
 the ambiguities it will lead to and the already high time usage.
@@ -2891,15 +2909,15 @@ implemented by using external resources.
 
 \subsubsection{Probabilities}
 \label{sec:futureProbabilities}
-The grammar will always contain ambiguities but before returing a parse result
-to the user, some analysis should be done to find the most likely tree.
+The grammar will always contain ambiguities but before returing the result
+to the user, some analysis should be done to find the most probable tree.
 When the size of the lexicon
 increases, so will the ambiguities as the number of word forms overlapping each other
 gets higher. Our new grammar also have many more rules which also will contribute
 to increase the number to interpret each sentence.
 
 GF already allows the lexicon to have probabilities, and by using our extracted
-GF treebank, we can get reliable statisics for our functions. 
+GF treebank, we can get more reliable statisics for our functions. 
 By implementing dependency probabilities, our results would be even better.
 
 
@@ -2926,7 +2944,7 @@ which allows us to start from a well-defined system for describing grammar.
 The parser is derived from the grammar and will therefore validate that
 a given sentence is grammatically correct according to the rules defined.
 All parts, including the underlying grammar, are open-source and 
-may thus be used in applications dealing with controlled natural languages.
+may thus be used in other applications.
 
 Even though the grammar will not be totally covering, we belive that
 the work done is both interesting and useful.

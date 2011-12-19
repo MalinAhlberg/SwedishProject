@@ -103,8 +103,8 @@ output s c str = do
 
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
-lang     = fromJust $ readLanguage "BigTestSwe" --"BigSwe" --"BigNewSwe"
-pgfFile =  "../gf/BigTestOldest.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
+lang     = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
+pgfFile =  "../gf/Big.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
 outFile = "testis.txt"
 
 
