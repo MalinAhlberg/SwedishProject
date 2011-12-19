@@ -502,6 +502,8 @@ lin
    komma_V = mkV "komma" "kom" "kommit" ;
    frysa_V = mkV "frysa" "frös" "frusit" ;
 
+   titta_pa_V = (partV (regV "titta") "på") ;
+ 
 
   --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 }

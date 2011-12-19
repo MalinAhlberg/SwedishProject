@@ -16,7 +16,8 @@ concrete BigSwe of Big =
   TenseSwe,
   StructuralSwe, 
   ExtraSwe,
-  DictSwe
+  SaldoMinCnc
+  --DictSwe
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
 

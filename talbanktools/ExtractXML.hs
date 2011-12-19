@@ -71,6 +71,8 @@ printSentences (Node c ts) = c++"\t"++ unwords (concatMap getWords ts)
         getWords (Node w []) = [w]
         getWords (Node w ts) = concatMap getWords ts
 
+countSentences :: [Sentence] -> Double
+countSentences = (\x -> toEnum (sum x)/toEnum (length x)) . map ws
 posIs,wordIs,wordCatIs :: String -> Tree String -> Bool
 wordIs t (Node w []) = t == w
 wordIs t _           = False

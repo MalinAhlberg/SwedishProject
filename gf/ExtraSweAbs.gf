@@ -223,5 +223,6 @@ fun
   flicka_N : N ;
   komma_V : V ;
   frysa_V : V ;
+  titta_pa_V : V ;
   -- LeaveOutObj : VPSlash -> VP ;
 }

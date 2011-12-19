@@ -1,7 +1,8 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian
 
 abstract Big = 
-  DictSweAbs,
+  SaldoMin,
+  --DictSweAbs,
   ExtraSweAbs,
   Noun -[DetNP] ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], 
