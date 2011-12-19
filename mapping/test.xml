@@ -411,31 +411,32 @@
 		</annotation>
 	</head>
     <body>
-	<s id="s1955">
-			<graph root="s1955_501">
+<s id="s5">
+			<graph root="s5_501">
 				<terminals>
-					<t id="s1955_1" word="Nu" pos="ABDA"/>
-					<t id="s1955_2" word="kunde" pos="VVPT"/>
-					<t id="s1955_3" word="katten" pos="NNDD"/>
-					<t id="s1955_4" word="flyga" pos="VVIV"/>
-					<t id="s1955_5" word="." pos="IP"/>
+					<t id="s5_4" word="för" pos="PR"/>
+					<t id="s5_5" word="oskifta" pos="AJ"/>
+					<t id="s5_6" word="dödsbon" pos="NN  SS"/>
+					<t id="s5_7" word="och" pos="++OC"/>
+					<t id="s5_8" word="familjestiftelser" pos="VN  SS"/>
+					<t id="s5_9" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s1955_503" cat="NAC">
-						<edge label="IV" idref="s1955_4"/>
+					<nt id="s5_505" cat="NP">
+						<edge label="AT" idref="s5_5"/>
+						<edge label="HD" idref="s5_6"/>
 					</nt>
-					<nt id="s1955_502" cat="S">
-						<edge label="TA" idref="s1955_1"/>
-						<edge label="FV" idref="s1955_2"/>
-						<edge label="SS" idref="s1955_3"/>
-						<edge label="OO" idref="s1955_503"/>
-						<edge label="IP" idref="s1955_5"/>
+					<nt id="s5_504" cat="CNP">
+						<edge label="CJ" idref="s5_505"/>
+						<edge label="++" idref="s5_7"/>
+						<edge label="CJ" idref="s5_8"/>
 					</nt>
-					<nt id="s1955_501" cat="ROOT">
-						<edge label="MS" idref="s1955_502"/>
+					<nt id="s5_501" cat="ROOT">
+						<edge label="MS" idref="s5_504"/>
 					</nt>
 				</nonterminals>
 			</graph>
 		</s>
+
 	</body>
 </corpus>

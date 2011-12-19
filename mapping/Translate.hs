@@ -53,7 +53,7 @@ type PMonad = (RWS () [String] S)
 
 
 test = False
-usePGF = bigGr
+usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
