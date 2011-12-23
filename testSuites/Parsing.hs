@@ -12,6 +12,7 @@ import Control.Applicative
 import Control.Monad.State
 import PGF
 import XMLHelp hiding (words,parse)
+import MkLex
 
 -- use with tee -a outfile
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
@@ -26,36 +27,39 @@ timeLimit =  30*10^6
 
 run :: String -> Bool -> FilePath -> IO Count
 run file strict out = do  
-  putStr "Parsing input file..."
-  sents <- mainF file (return . map getSentence)
-  putStr " Ok\nReading PGF..."
-  pgf <- readPGF pgfFile
+  putStrLn "Parsing input file..."
+  sents <- liftM head $ mainF file (return . map getSentence)
+  putStrLn " Creating new dictionary..."
+  (pgf',lang') <- mkDir (words $ concatMap (map toLower . snd) sents) lang pgfFile 
+  putStrLn " Ok\nReading PGF..."
+  pgf <- readPGF pgf' --File
   putStrLn " Ok\n"
-  --absMap <- readAbbs 
-  let morpho = buildMorpho pgf lang
-  c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) (newCount strict out)
+
+-- must compile a new grammar!! BigSwe with tempDict
+  let morpho = buildMorpho pgf lang'
+  c <- execStateT (mapM_ (tryparse pgf morpho lang) sents) (newCount strict out)
   print c
   return c
 
-tryparse :: PGF -> Morpho -> Sent -> CState ()
-tryparse pgf morpho sents = do 
+tryparse :: PGF -> Morpho -> Language -> Sent -> CState ()
+tryparse pgf morpho lang sents = do 
   count 
-  parse' pgf morpho sents
+  parse' pgf morpho lang sents
 
-parse' :: PGF -> Morpho -> Sent -> CState ()
-parse' pgf morpho (s,"") = addEmpty >> putEmptyMsg (s,"")
-parse' pgf morpho s = do
+parse' :: PGF -> Morpho -> Language -> Sent -> CState ()
+parse' pgf morpho lang (s,"") = addEmpty >> putEmptyMsg (s,"")
+parse' pgf morpho lang s = do
   let fix     = fixPunctuation $ replaceNumbers s 
       unknown = badWords morpho (snd fix)
   strict <- gets strict
   out    <- gets outputFile
-  if null unknown then parseOk pgf fix
+  if null unknown then parseOk pgf lang fix
         else do putLexMsg s unknown
                 io $ appendFile out (formatRes strict (s,[])++"\n")
                 addBadLex
 
-parseOk :: PGF -> Sent-> CState ()        
-parseOk pgf s = do
+parseOk :: PGF -> Language -> Sent-> CState ()        
+parseOk pgf lang s = do
   strict <- gets strict
   let eval = if strict then ($!) else ($)
   tree <- io $ timeout timeLimit $ return `eval` parse pgf lang textType (map toLower $ snd s)
@@ -105,7 +109,7 @@ textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
 lang     = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
 pgfFile =  "../gf/Big.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
-outFile = "testis.txt"
+outFile = "testisNP.txt"
 
 
 toPars :: Tree -> Parsed
