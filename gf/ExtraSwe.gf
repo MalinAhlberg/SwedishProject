@@ -15,35 +15,20 @@ lincat
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
 
+
 lin
-
-  DetNP _ det = 
-      let 
-        g = neutrum ; 
-        m = True ;
-      in {
-        s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s" ;
-                   _          => det.sp ! a ! m ! g };
-        a = agrP3 (ngen2gen g) det.n
-      } ;
-
-
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
-     ComplSlash vp np = 
+
+  ComplSlash vp np = 
        insertObjPost (\\a => vp.c2.s ++ np.s ! (getNPerson a) ! accusative ++ vp.n3 ! np.a) vp ;
 
-  -- ReflIdGen should be 'sin'. sp-field : han ser sin. Or 'han ser sig'?
-  -- maybe just 'sin', since 'sig' not a quantifier
-  -- ReflIdNP shoud be 'sig'. Genitive form? Do not want 'sin' again, it
-  -- is not a NP. But then what? 'sigs'?
-    ReflIdNP    = {s = \\a => table {NPPoss g _ => reflGenForm a g ;
+   ReflIdPron =  {s = \\a => table {NPPoss g _ => reflGenForm a g ;
                                      _          => reflForm a }; 
                    a = agrP3 utrum Sg} ;
-    ReflIdGen =  {s,sp = \\a,n,m,d,g => reflGenForm a (gennum g n) ;
-                  det = DIndef} ;
+
 
 ------------------------------------------------------------------------------
   lin
@@ -52,7 +37,8 @@ lin
      isPre = True
      };
 
-  LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
+  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
+
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
@@ -148,6 +134,7 @@ lin
       s = vp.s ;
       a0 = adv.s ;
       a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
+      voice = vp.voice ;
       en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
 
  lin
@@ -159,17 +146,17 @@ lin
 -- For determiners and quantifiers
 -------------------------------------------------------------------------------
 lin 
-  DetNP_utr _ = detNP utrum Sg ;
+  DetNP_utr _ = detNP utrum ;
+  DetNP     _ = detNP neutrum ;
 
-  oper detNP : NGender -> Number -> Det -> NP  =
-   \g,num,det -> let 
-          m = True ;  ---- is this needed for other than Art?
+ oper detNP : NGender -> Det -> NP  =
+   \g,det -> let 
+          m = True ; 
       in lin NP {
         s = \\a => table {NPPoss _ _ => det.sp ! a ! m ! g ++ BIND ++ "s";
                           c          => det.sp ! a ! m ! g };
-        a = agrP3 (ngen2gen g) num
+        a = agrP3 (ngen2gen g) det.n
       } ;
-
  lin
   QuantPronAQ _ x =
    let utr = x.s ! AF (APosit (Strong (GSg Utr))) Nom ;
@@ -220,14 +207,14 @@ lin
         let
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
-          vps  = vp.s ! VPFinite t a  ;  
+          vps  = vp.s ! vp.voice ! VPFinite t a  ;  
           vf = case <<t,a> : STense * Anteriority> of {
             <SPres,Simul> => vps.fin;
             <SPast,Simul> => vps.fin;
             <_    ,Simul> => vps.inf;
             <SPres,Anter> => vps.inf;
             <SPast,Anter> => vps.inf;
-            <_    ,Anter> => (vp.s ! VPFinite SPast Anter  ).inf
+            <_    ,Anter> => (vp.s ! vp.voice ! VPFinite SPast Anter  ).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
           comp = vp.n2 ! agr ++ vp.a2 ! np.a ++ vp.ext     
@@ -241,7 +228,7 @@ lin
   FocAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
-       vps = vp.s ! VPFinite t a  ;
+       vps = vp.s ! vp.voice ! VPFinite t a  ;
        npAgr = np.a in
     vp.n2 ! npAgr ++ vps.fin ++ np.s !  NPNom 
     ++ negation ! p++ vps.inf };
@@ -250,9 +237,9 @@ lin
   FocVV vv vp np = 
   {s = \\t,a,p =>
     let bara = vp.a0 ;
-        vps = vp.s ! VPInfinit Simul ;
+        vps = vp.s ! vp.voice ! VPInfinit Simul ;
         vvp = UseV vv ;
-        vvs = vvp.s ! VPFinite t a  ; 
+        vvs = vvp.s ! vvp.voice ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ! np.a ++ vvp.a2 ! np.a in
    bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
@@ -285,19 +272,25 @@ lin
   ComplBareVV vv vp =  insertObj (\\a => infVP vp a) (predV vv) ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
-                        verb = (vp.s ! VPFinite SPres Anter).inf ;
+                        verb = (vp.s ! vp.voice ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ! np.a ++ vp.ext in
     {s = \\_ => sub ++ neg ++ vp.a0 ++ verb ++ compl };
     
+   PassVP vp = {
+    s = vp.s ;
+    a0 = vp.a0 ; 
+    a1 = vp.a1 ;
+    n2 = vp.n2 ;
+    a2 = vp.a2 ;
+    ext = vp.ext ;
+    voice = Pass ;
+    en2 = vp.en2 ;
+    ea2 = vp.ea2 ;
+    eext = vp.eext
+   } ;   
   
-  PassV3 v3 =
-      lin VPSlash (predV (depV v3)) ** 
-        {n3 = \\_ => [] ; c2 = v3.c3} ;  -- to preserve the order of args
-
-  PassV2 v2 = lin VP (predV (depV v2)); 
-  
-  PassV2Be v = insertObj 
+  PassV2 v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
 
@@ -321,7 +314,7 @@ lin
  oper reflForm : NPerson -> Str = 
    \a -> case a of {
      Per3  => "sig" ;
-     _   => (getPronoun a).s ! NPAcc } ;
+     _   => (getPronoun a).s ! aNPerson ! NPAcc } ;
 
 
  oper reflGenForm : NPerson -> GenNum -> Str = \aSub,aObj   ->
@@ -333,7 +326,7 @@ lin
   
   oper reflGenPron : NPerson -> GenNum -> Str =
    \sub,gn -> let pn = getPronoun sub
-      in pn.s ! NPPoss gn Nom ;
+      in pn.s ! aNPerson ! NPPoss gn Nom ;
 
 
       
@@ -342,7 +335,7 @@ lin
                                    _           => denna};
                            a = agrP3 g n};
 
-  getPronoun : NPerson -> Pron = 
+  getPronoun : NPerson -> {s : NPerson => NPForm => Str ; a : Agr} = 
    \a ->  case a of {
       Per1 Sg  => i_Pron ;
       Per2 Sg  => youSg_Pron ;

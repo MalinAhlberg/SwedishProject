@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 
 concrete BigSwe of Big = 
-  NounSwe- [DetNP] ,
+  NounSwe- [DetNP,PossPron] ,
   VerbSwe -[PassV2,ComplSlash,ReflVP],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,

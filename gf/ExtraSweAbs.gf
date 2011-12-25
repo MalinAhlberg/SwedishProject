@@ -25,9 +25,9 @@ fun
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
+
     ComplSlash :VPSlash ->  NPObject -> VP ;
-    ReflIdNP    : NP Object ;
-    ReflIdGen : Quant Object ;
+    ReflIdPron : Pron Object ;  -- sig, sin 
 
 
 -------------------------------------------------------------------------------
@@ -82,7 +82,7 @@ fun
  -- de blev fler
   ComplVAPronAD : VA -> PronAD -> VP ;
 
-  it8utr_Pron   : Pron ;
+  it8utr_Pron   : Pron Object ;
   this8denna_Quant : Quant Subject ;
 
 
@@ -100,9 +100,8 @@ fun
   
   
   UseComparA  : (a : Boolean) -> A -> AP a ;
-  PassV2   : V2 -> VP ;  -- äts 
-  PassV3   : V3 -> VPSlash ;  --ges till henne
-  PassV2Be : V2 -> VP ;  -- bli äten
+  PassV2 : V2 -> VP ;  -- bli äten
+  PassVP : VPSlash -> VP ; -- ätas
   
  
 

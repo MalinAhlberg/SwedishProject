@@ -4,7 +4,7 @@
 abstract BigTest = 
   Lexicon,
   ExtraSweAbs, 
-  Noun-[DetNP], 
+  Noun-[DetNP,PossPron], 
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP],
   Adjective -[UseComparA],
   Adverb,
