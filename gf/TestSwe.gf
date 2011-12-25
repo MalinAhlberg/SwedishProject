@@ -16,7 +16,7 @@ concrete TestSwe of Test =
   TextX - [Tense,Temp] ,
   TenseScand,
   StructuralSwe,
-  -- ExtraSwe,
+--  -- ExtraSwe,
   LexiconSwe
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra

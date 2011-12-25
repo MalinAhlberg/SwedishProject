@@ -240,6 +240,7 @@ lin
       s = vp.s ;
       a0 = adv.s ;
       a1 = vp.a1 ; n2 = vp.n2 ; a2 = vp.a2 ; ext = vp.ext ;
+      voice = vp.voice ;
       en2 = vp.en2 ; ea2 = vp.ea2; eext = vp.eext } ;
 
  lin
@@ -310,14 +311,14 @@ lin
         let
           subj = np.s ! CommonScand.nominative ;
           agr  = np.a ;
-          vps  = vp.s ! VPFinite t a  ;  
+          vps  = vp.s ! vp.voice ! VPFinite t a  ;  
           vf = case <<t,a> : STense * Anteriority> of {
             <SPres,Simul> => vps.fin;
             <SPast,Simul> => vps.fin;
             <_    ,Simul> => vps.inf;
             <SPres,Anter> => vps.inf;
             <SPast,Anter> => vps.inf;
-            <_    ,Anter> => (vp.s ! VPFinite SPast Anter  ).inf
+            <_    ,Anter> => (vp.s ! vp.voice ! VPFinite SPast Anter  ).inf
             };
           verb = mkClause subj agr (predV do_V) ;                        
           comp = vp.n2 ! agr ++ vp.a2 ++ vp.ext     
@@ -331,7 +332,7 @@ lin
   FocAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
-       vps = vp.s ! VPFinite t a  ;
+       vps = vp.s ! vp.voice ! VPFinite t a  ;
        npAgr = np.a in
     vp.n2 ! npAgr ++ vps.fin ++ np.s !  NPNom 
     ++ negation ! p++ vps.inf };
@@ -340,9 +341,9 @@ lin
   FocVV vv vp np = 
   {s = \\t,a,p =>
     let bara = vp.a0 ;
-        vps = vp.s ! VPInfinit Simul ;
+        vps = vp.s ! vp.voice ! VPInfinit Simul ;
         vvp = UseV vv ;
-        vvs = vvp.s ! VPFinite t a  ; 
+        vvs = vvp.s ! vvp.voice ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ++ vvp.a2 in
    bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
@@ -375,19 +376,25 @@ lin
   ComplBareVV vv vp =  insertObj (\\a => infVP vp a) (predV vv) ;
 
   SupCl np vp pol = let sub = np.s ! nominative ;
-                        verb = (vp.s ! VPFinite SPres Anter).inf ;
+                        verb = (vp.s ! vp.voice ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ++ vp.ext in
     {s = \\_ => sub ++ neg ++ vp.a0 ++ verb ++ compl };
     
+   PassVP vp = {
+    s = vp.s ;
+    a0 = vp.a0 ; 
+    a1 = vp.a1 ;
+    n2 = vp.n2 ;
+    a2 = vp.a2 ;
+    ext = vp.ext ;
+    voice = Pass ;
+    en2 = vp.en2 ;
+    ea2 = vp.ea2 ;
+    eext = vp.eext
+   } ;   
   
-  PassV3 v3 =
-      lin VPSlash (predV (depV v3)) ** 
-        {n3 = \\_ => [] ; c2 = v3.c3} ;  -- to preserve the order of args
-
-  PassV2 v2 = lin VP (predV (depV v2)); 
-  
-  PassV2Be v = insertObj 
+  PassV2 v = insertObj 
         (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
         (predV verbBecome) ;
 

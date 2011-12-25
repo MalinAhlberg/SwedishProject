@@ -16,8 +16,8 @@ abstract TestDanAbs =
   Phrase,
   Structural, 
   Text,
-  ExtraDanAbs,
-  Tense
+  ExtraDanAbs - [TFutKommer],
+  Tense - [SFutKommer]
   ** {
   flags startcat=Phr ;
    } ;

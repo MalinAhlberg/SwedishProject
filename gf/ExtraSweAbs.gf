@@ -161,9 +161,10 @@ fun
   
  
   UseComparA  : A -> AP ;
-  PassV2   : V2 -> VP ;  -- äts 
-  PassV3   : V3 -> VPSlash ;  --ges till henne
-  PassV2Be : V2 -> VP ;  -- bli äten
+  PassVP : VPSlash -> VP ;
+--  PassV2   : V2 -> VP ;  -- äts 
+--  PassV3   : V3 -> VPSlash ;  --ges till henne
+  PassV2 : V2 -> VP ;  -- bli äten
   
  
 
