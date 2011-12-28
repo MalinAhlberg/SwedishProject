@@ -17,13 +17,28 @@
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
-\title{Towards a wide-coverage grammar for Swedish} %A nice titleScaling up a GF grammar and preparing it for cool stuff for Swedish}
+\title{Towards a wide-coverage grammar for Swedish using GF} %A nice titleScaling up a GF grammar and preparing it for cool stuff for Swedish}
 \author{Malin Ahlberg}
 \maketitle
 \newpage
 
 
 \abstract{
+This thesis describes the work to achieve a covering Swedish grammar implemented
+in GF -- to model natural language by functional programming. 
+The idea has been to combine existing language technology resources with
+new techniques, and the aim to obtain a system for analysing written text.
+To reach this goal, problems of computational as well as linguistic nature had to be solved.
+\\The thesis explains the methods and technologies used and further inspects the possibilities
+of reaching our long-term goal; to accomplish a parser for unrestricted Swedish, by
+combining our rule-based grammar with statistical methods.
+\\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
+to GF notation and we also give an implementation Swedish grammar. The grammar is based
+on the multilingual abstract syntax given in GF resource library, and now
+extends it to cover constructions specific to Swedish.
+We further give an example of the advantage of using dependent types when
+describing grammar and syntax, in this case reflexive pronouns.
+
 %This is the report of the work of expanding and enhancing a GF grammar and preparing
 %it for parsing free Swedish. The grammar is a result of combining resources,
 %we have extended the current GF grammar to adapt it for Swedish specifically so
@@ -54,16 +69,44 @@
 }
 
 \newpage
-
+\pagestyle{empty}
 \section*{Acknowledgments}
+\vspace{5mm}
+Many people have helped me during this work and made this thesis possible.
+I would first of all like to thank
+Center of Language Technology, that has funded the project.\\
+
+Further, thanks to my excellent 
+%(~~devoted~~) 
+supervisor Ramona Enache for all her help and guidence 
+%(encouragement)
+in every phase and all aspects of the work.
+Thanks to Elisabet Engdahl for sharing her seemingly unlimited knowledge
+of Swedish grammar. She has also has acted as a second supervisor, and given me
+very helpful comments and suggestions. Thanks to Aarne Ranta for all his great
+ideas and for letting me do this project.
+
+I am also grateful to Krasimir Angelov, Markus Forsberg, Peter Ljunglöf, Lars Borin
+and many others who have contributed with ideas and inspiration, and for their
+interest in this work.\\
+
+Finally, I would also like to thank my friends and family. Special thanks to Dan Rosén
+for all his support, advice and patience and, most importantly, for being such a good friend. %for having listened to 
+%my monologues about the daily progress. 
 % Ramona, Aarne, Elisabet, Markus, Peter?, Lars, Dan, Krasimir etc
 % Funding!
 
 % check references! lncs is good maybe. lnai
 \newpage
-
+%\pagestyle{empty}
+%\cleardoublepage
 \tableofcontents
+%
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+%\pagestyle{empty}
+%\cleardoublepage
 \newpage
+\setcounter{page}{1} %reset the page counter
 \chapter{Introduction}
 % more intro to gf. dependently typed...high-level formalism
 Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism,
