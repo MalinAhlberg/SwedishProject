@@ -33,7 +33,7 @@ To reach this goal, problems of computational as well as linguistic nature had t
 of reaching our long-term goal; to accomplish a parser for unrestricted Swedish, by
 combining our rule-based grammar with statistical methods.
 \\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
-to GF notation and we also give an implementation Swedish grammar. The grammar is based
+to GF notation and a Swedish grammar implementation. The grammar is based
 on the multilingual abstract syntax given in GF resource library, and now
 extends it to cover constructions specific to Swedish.
 We further give an example of the advantage of using dependent types when
@@ -74,7 +74,7 @@ describing grammar and syntax, in this case reflexive pronouns.
 \vspace{5mm}
 Many people have helped me during this work and made this thesis possible.
 I would first of all like to thank
-Center of Language Technology, that has funded the project.\\
+Center of Language Technology, that has funded the project.
 
 Further, thanks to my excellent 
 %(~~devoted~~) 
@@ -88,9 +88,9 @@ ideas and for letting me do this project.
 
 I am also grateful to Krasimir Angelov, Markus Forsberg, Peter Ljunglöf, Lars Borin
 and many others who have contributed with ideas and inspiration, and for their
-interest in this work.\\
+interest in this work.
 
-Finally, I would also like to thank my friends and family. Special thanks to Dan Rosén
+Finally, I would also like to thank my friends and family. Special thanks to Dan % Rosén
 for all his support, advice and patience and, most importantly, for being such a good friend. %for having listened to 
 %my monologues about the daily progress. 
 % Ramona, Aarne, Elisabet, Markus, Peter?, Lars, Dan, Krasimir etc
@@ -117,7 +117,7 @@ controlled languages \cite{cnl}, but recent experiments have showed
 that it is also possible to use the framework for parsing free language \cite{patent}.
 % >> although the success rate is going steeply down when using uncontrolled nl. Better with annotated.
 % --> sentence about connection GF - grammar based parser.
-This project focuses on implementing a wide-coverage Swedish grammar, which also
+This project focuses on implementing a wide-coverage Swedish grammar, which
 describes a parser accepting all sentences that can be expressed by the grammar.
 
 Parsing, that is the task of automatically identifying morphological and
@@ -128,17 +128,17 @@ analysis for Swedish. The fact that %the existing rule-based Swedish
 a parser or grammar is not freely available does not only restrict its
 usage but also its possibilities of being developed and our
 goal is
-to create a open source Swedish grammar. % from which we derive a parser
+to create an open source Swedish grammar. % from which we derive a parser
 %accepting all sentences described by the given rules.
 As a freely available resource, it can be continuously enhanced and
 made use of in other projects.\\
 To build the grammar from scratch would be not only time consuming but
-would also mean that already existing resources would reimplemented.
+would also mean that already existing resources would have to be reimplemented.
 In order to not reinvent the wheel we proceed from a combination of well-tested
 resources.
-We start from GF resource grammar and thereby get
+We start from a GF resource grammar and thereby get
 %The usage of GF allows us to start from
-a well-defined system for describing grammar, as well as a strong connection to
+a well-defined system for describing the grammar, as well as a strong connection to
 more than 20 other languages implemented in the framework. Further, we use
 the extensive lexicon Saldo and the treebank Talbanken.
 %>>The grammar defines a parser, which accepts all constructions defined by the grammar.
@@ -146,15 +146,16 @@ the extensive lexicon Saldo and the treebank Talbanken.
 
 \section{Aims}
 %>> enhance gf...
-The purpose of this project has been to prepare the GF grammar for free parsing.
+The purpose of this project has been to prepare the GF grammar for parsing of 
+unrestricted Swedish.
 This has meant to develop earlier techniques to fit for Swedish, create methods
 for achieving and keeping a large-scale lexicon and to adapt the existing
-resource grammar to fit for more language specific constrictions.
+resource grammar to fit more language specific constrictions.
 Three sub-goals has been identified:
 \begin{itemize}
-\item Enhancing the Swedish GF grammar
+\item Extending the Swedish GF grammar
 \item Importing the lexicon Saldo
-\item Create a translation between Talbanken and GF
+\item Creating translation between Talbanken and GF
 \end{itemize}
 %We hence needed to extend the Swedish grammar to cover
 %the language specific constructions. Further a large lexicon was
@@ -168,7 +169,7 @@ The thesis is divided into 6 chapters. We start by giving some background
 information to areas relevant to the project. %Chapter \ref{sec:background} 
 Grammatical Framework is presented in section \ref{sec:gf} while a more profound
 description of the Swedish resource grammar is given in section \ref{sec:swegf}.
-Section \ref{sec:swedish} gives an introduction Swedish, and
+Section \ref{sec:swedish} gives an introduction to the Swedish language, and
 brief presentations of Saldo and Talbanken are found in section \ref{sec:saldo} and
 \ref{sec:talbanken} respectively.
 A summary of related work can be found in section \ref{sec:related}.
@@ -183,7 +184,7 @@ trees to GF. %which enables us to extract a large GF treebank.
 
 
 Finally, the conclusion and evaluation are
-presented in chapter \ref{sec:results} together with a list of future work .
+presented in chapter \ref{sec:results} together with some areas of future work.
 
 %We have extended the Swedish resource grammar in GF, to give a better coverage and imported
 %a large lexicon. Work to compare the trees from Talbanken to GF and to translate them.
@@ -214,9 +215,9 @@ presented in chapter \ref{sec:results} together with a list of future work .
 
 \chapter{Background}  
 \label{sec:background}
-The work described in this is thesis is part of a bigger project which aims at
-using GF for parsing free Swedish. 
-In previous work\footnote{??}, a start was made to extending the Swedish GF grammar
+The work described in this thesis is part of a bigger project which aims at
+using GF for parsing unrestricted Swedish. 
+In previous work\footnote{??}, a start was made to extend the Swedish GF grammar
 and a tool for lexical acquisition was developed.
 We now construct a bigger
 and more expressive grammar as well as a large scale GF lexicon.
@@ -241,7 +242,7 @@ ML \cite{ml} and Haskell \cite{haskell}. It is also a logical framework,
 and the built-in functionality for logic and reasoning 
 is inspired by \textlambda Prolog \cite{prolog} and 
 by Agda \cite{agda}, with which GF also shares its type checking algorithm.
-The first version of the framework was implemented by Xerox Research Center
+The first version of the framework was implemented at Xerox Research Center
 in Grenoble and is now mainly developed in Gothenburg. One of the biggest
 achievements is a library covering the 
 basic morphological and syntactic structures of more than
@@ -262,22 +263,23 @@ The interpreter, the GF shell, allows
 the user to test grammars by commands for parsing, visualization of parse trees,
 random generation, word alignment, morphological quizzes etc.
 An interactive GF editor and the GF shell can be tried out online 
-\footnote{http://www.grammaticalframework.org/demos/gfse/}.
+\footnote{http://www.grammaticalframework.org/demos/gfse/}. See figure \ref{fig:shell},
+ The first command will parse the given
+sentence and visualize the resulting parse tree. The second will visualize the 
+abstract syntax tree. The trees will be showed in the pgf-format by the program evince.
 \begin{figure}[h]
 \begin{verbatim} 
 > parse "jag ser katten" | visualize_parse -format=pdf -view=evince
 > parse "jag ser katten" | visualize_tree  -format=pdf -view=evince
 \end{verbatim}
-\caption{Example of how the GF shell can be used. The first command will parse the given
-sentence and visualize the resulting parse tree. The second will visualize the 
-abstract syntax tree. The trees will be showed in the pgf-format by the program evince}
-\label{fig:shellvp}
+\label{fig:shell}
+\caption{Example of how the GF shell can be used.}\label{fig:shellvp}
 \end{figure}
 \begin{figure}[h]
 \centering
 \subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=100mm]{gfTree.pdf}}
 \subfloat[Swedish parse tree]{\label{pic:gfStree}\includegraphics[width=30mm]{gfSTree.png}}
-\caption{Parse tree and abstract tree for the sentence ``Jag ser katten".}
+\caption{Abstract tree and parse tree for the sentence ``Jag ser katten".}
 \label{fig:gftree1}
 \end{figure}
 
@@ -291,10 +293,10 @@ The visualization of the trees is done with graphviz\footnote{http://www.graphvi
 Figure \ref{fig:gftree1} shows the results from running the commands in figure \ref{fig:shellvp}
 %A GF parse tree has two visualized representations, the \textit{parse tree} and
 %the \textit{abstract tree}.
-The \textit{parse tree} (\ref{pic:gfStree}) shows which types
-that are assigned to the words and phrases. 
 The \textit{abstract tree} shows which functions GF uses
 to parse a sentence.
+The \textit{parse tree} (\ref{pic:gfStree}) shows which types
+that are assigned to the words and phrases. 
 % do not know about abstract/concrete yet: and is consequently the same for all concrete syntaxes.
 The reader should keep in mind that the visualized parse trees is not a
 complete representation. It does not reproduce all information from the abstract tree.
@@ -305,7 +307,7 @@ For example, the definiteness and number of the noun \emph{`katten'}, which is s
 %and the information \verb-DetQuant DefArt NumSg- is not shown in figure \ref{pic:gfStree}.
 In the corresponding English parse tree, figure \ref{pic:gfEtree},
 the noun is explicitly quantified by the article \emph{``the"},
-and the determiner is therefore shows in the parse tree.\\
+and the determiner is therefore shown in the parse tree.\\
 
 %>> how parse trees work, not correct complete representation.
 %>> not a constituent structure. compare to lfg, fstructure, cstructure.
@@ -315,7 +317,8 @@ and the determiner is therefore shows in the parse tree.\\
 %>>syntactical (man with the telescope), lexical (youSg/Pl, växa).
 %>> have ambiguity section. 
 \newpage %as long as english picture bråks.
-The scope of GF grammars is usually controlled language. By
+The scope of GF grammars is usually controlled language, a limited language used in
+a restricted domain. By
 restricting the coverage, the number of ambiguities
 can be limited and we can ensure that the semantics is preserved during
 translation. Inherited ambiguities as well as ambiguities arising from multilinguality will
@@ -323,11 +326,11 @@ remain, but can be controlled more easily. %Example of domainspecific word?
 The use of controlled language thus gives a possibility of good and reliable translation
 and GF has successfully been used in project like %Some examples of projects using GF are 
 WebAlt \cite{webalt}, a project which aims to develop language independent
-material for mathematics problems, and the formal software verification tool
+material for mathematics problems. The formal software verification tool
 KeY \cite{key}, in which GF is used for translating specification to natural language.
 %>> key, talk, hats, bom (see references in Ramonas thesis).
 %>> use talk here and move key to other place??
-The project talk \cite{talk} used GF to describe dialog grammars and
+GF can be used for describe dialog grammars see \cite{talk}, and
 the framework is further used in the
 European project MOLTO \footnote{http://www.molto-project.eu/} for online
 translation between up to 15 language.\\
@@ -424,11 +427,11 @@ The dot (\verb-.-) is used for projection and the bang (\verb-!-) as a selection
 field \verb|s| of \verb|n|.
 %, and then the selection operator \verb|!| is used to select a branch in the table.
 
-When implementing a English version of the grammar, we encounter another
+When implementing an English version of the grammar, we encounter another
 problem: the verb form depends on the number of the noun. We solve this by letting
 \verb|N'| carry
-information about which its number and letting \verb|Pred| pass this on to the
-verb. Finally, the type of \verb|V| is put to a table, showing the verbs forms for each
+information about its number and letting \verb|Pred| pass this on to the
+verb. Finally, the type of \verb|V| is put into a table, showing the verbs forms for each
 number.
 \begin{figure}[h!]
 \begin{verbatim}              
@@ -456,8 +459,9 @@ concrete TestGrammarEng of TestGrammar = {
 %gives 'the cat', 'katten'. Thereby introduce tables, parameters, fields.
 %Show abstract tree.
 
-We now have two implementations of the abstract. The resulting GF grammar is able both to
-parse a string to a abstract tree and to go in the other direction; to produce
+We now have two implementations of the abstract, one for Swedish and one for English.
+The resulting GF grammar is able both to
+parse a string to an abstract tree and to go in the other direction; to produce
 a string of natural language given an abstract tree. This step is called linearization.
 Translation is a consequence of this, we can parse a Swedish string and then 
 linearize the resulting abstract tree to English. 
@@ -466,7 +470,7 @@ linearize the resulting abstract tree to English.
 \label{sec:resources}
 %>>Best part? Biggest library?
 %>>Most general resource, first large grammar, covers fundamental syntactics.
-The GF package provides an advantageous resource library \cite{gf-resource}, covering the
+The GF package provides an useful resource library \cite{gf-resource}, covering the
 fundamental morphology and syntax of more than 20 languages.
 There is also a small test lexicon included, containing a few hundred common
 words.
@@ -474,9 +478,9 @@ words.
 %, they give a good start for all who want to write an application grammar.
 %of a language for each application, all
 %this can be found as libraries. So far there are 20 languages in the library, and
-The languages all share the same abstract and are valuable
+The languages all share the same abstract syntax which is  valuable
 %they constitute  a very useful resource 
-when implementing application grammars.
+when implementing multilingual application grammars.
 
 The resource grammars describe how to construct phrases and sentences and how to
 decline words. The latter is done by smart paradigms: functions that analyse
@@ -495,8 +499,8 @@ flick\textbf{orna}  &    hjärt\textbf{ana} \\
 \hline
 \end{tabular}
 \end{wrapfigure}
-This is the case for ``flicka", the correct declination
-can be guessed by using the first declination. % and noting that the word ends with an ``a". 
+This is the case for ``flicka", a noun belonging to the first declination. %the correct declination
+%can be guessed by using the first declination. % and noting that the word ends with an ``a". 
 %Like most Swedish nouns ending with an ``a", it follows the first declination.
 For others, like "hjärta", also the plural form "hjärtan" is needed.
 %, even though it ends with an ``a". 
@@ -509,7 +513,7 @@ As an open source-project, GF is constantly being developed and improved. New
 languages are added, the compiler is being improved, ways of using it in more 
 efficient and easy-going manners are added
 and the possibilities to use GF in different environments
-increased. There are research on how to make more use of the dependent
+increased. There is research on how to make more use of the dependent
 types, for reasoning by using ontologies \cite{ramona} or generating natural
 language via Montague semantics \cite{montague}.
 %Further, experiments on using GF for free parsing has been conducted
@@ -541,23 +545,26 @@ language via Montague semantics \cite{montague}.
 \label{sec:talbanken}
 For testing and evaluation of the grammar and lexicon, we needed to be able to
 compare them against a reliable source.
-Being a freely available, manually annotated, large-scale treebank,
-Talbanken \cite{talbanken} was perfect for our purpose.
+Talbanken \cite{talbanken} was perfect for our purpose,
+being a freely available, manually annotated, large-scale treebank.
 %It was created in the 1970s at Lund University.
-In total it consists of four
+It is analyzed with the MAMBA annotation scheme (Teleman, 1974) and 
+consists of four
 parts. Two of them are transcriptions of spoken language, one a collection of
 text written by high school students, and one, section P,
-consists of professionally written Swedish gathered from newspapers, brochures and textbooks.\\
-Talbanken was also used to train the Swedish version of the Maltparser \cite{malt}
-and was then redistributed in a more modern version, Talbanken05 \cite{talbanken05}.
+consists of professionally written Swedish gathered from newspapers, brochures and textbooks.
+\\
+Talbanken was also used to train the Swedish version of the Malt parser \cite{malt}
+and was then redistributed in an updated version,
+Talbanken05 \cite{talbanken05}.
 %This work was done by Nivre, Hall and Nilsson in 2005.
 It is released in Malt\footnote{http://w3.msi.vxu.se/~nivre/research/MaltXML.html} 
 and Tiger\footnote{http://www.ims.uni-stuttgart.de/projekte/TIGER/TIGERSearch/doc/html/TigerXML.html}
 XML-formats
 where the trees had been made deeper and more detailed while still containing
 the lexical MAMBA layer. \\
-In this project, as well as for the Malt parser, the more than 6000 sentences
-in section P has been used.
+The Malt parser was trained on section P of Talbanken, and these
+more than 6000 sentences have been used our project. 
 The treebank has served as an inspiration and an evaluation source throughout the
 project. An automatic mapping between its trees and the abstract trees from GF has been
 done, which will be explained in section \ref{sec:Mapping}.
@@ -570,11 +577,11 @@ done, which will be explained in section \ref{sec:Mapping}.
 \label{sec:saldo}
 A good parser needs a good lexicon. We have used of Saldo \cite{saldo}, a
 large electronic lexicon developed and maintained at Gothenburg University. It is
-built on Svenskt Associations Lexicon and contains information about more than 
+built on Svenskt Associationslexikon and contains information about more than 
 120 000 modern Swedish words.
 For each word there is semantic, syntactical and a morphological
-information. The user can find compounding analyses, examples of usage in corpora,
-and graphs of semantically connected words.\\
+information. The user can find examples of usage in corpora,
+graphs of semantically connected words and some suggestions for how to analyse compounds. \\
 \begin{figure}[h!]
 \centering
 \subfloat[Morphological info for ``katt"]{\label{pic:saldoTab}\includegraphics[width=40mm]{saldotab.png}}
@@ -584,7 +591,7 @@ and graphs of semantically connected words.\\
 \label{fig:saldo}
 \end{figure}
 
-The semantic aspect of Saldo require that words with multiple meanings are
+The semantic aspect of Saldo requires that words with multiple meanings are
 separated into different entries.
 %If one word has different meanings, there will be separate entries for each of them. 
 The word ``växa" (``grow") for example, has two meanings: \emph{getting
@@ -599,7 +606,7 @@ Hence \textit{Saldo's morphological lexicon} only keeps one entry of ``växa".
 For the homonyms that do not share the whole inflection tables, different entries are 
 kept also in the morphological lexicon.
 
-For our purpose, only this morphological section, provided under LPGL in XML
+For our purpose, only the morphological section, provided under LPGL in XML
 format, was needed.
 The data can be processed and translated to GF format as described in 
 section \ref{sec:prog.saldo}.
@@ -622,29 +629,29 @@ the definiteness of a noun by suffixes. The endings are decided by the noun's ge
 \textit{neuter} or \textit{non-neuter}.\\
 %(or \textit{utrum}) 
 \begin{tabular}{l|lll}
-&\textbf{Definite}& \textbf{Indefinite}& \textbf{Gender} \\
+                  &\textbf{Indefinite} & \textbf{Definite}& \textbf{Gender} \\
  \hline
-\textbf{Singular} & {en katt} & {katten} & \textit{non-neuter}\\
-& \emph{a cat} & \emph{the cat} &\\
-\textbf{Plural} & katter & katterna &\\
- &\emph{cats} & \emph{the cats} &\\
+\textbf{Singular} & {en katt}        & {katten}           & \textit{non-neuter}\\
+                  & \emph{a cat}     & \emph{the cat}     &\\
+\textbf{Plural}   & katter           & katterna           &\\
+                  &\emph{cats}       & \emph{the cats}    &\\
  \hline
-\textbf{Singular} & {ett hus} & {huset} & \textit{neuter}\\
- & \emph{a house} & \emph{the house} & \\
-\textbf{Plural} & hus & husen & \\
-& \emph{houses} & \emph{the houses} & \\
+\textbf{Singular} & {ett hus}        & {huset}            & \textit{neuter}\\
+                  & \emph{a house}   & \emph{the house}   & \\
+\textbf{Plural}   & hus              & husen              & \\
+                  & \emph{houses}    & \emph{the houses}  & \\
 \end{tabular}\\
 
-The definiteness can be accentuated by using the definite articles.\\
-\begin{tabular}{llll}
-den katten & det huset & de katterna & de husen \\
-\emph{the cat} & \emph{the house} & \emph{the cats} & \emph{the houses} \\
-\end{tabular}\\
+%The definiteness can be accentuated by using the definite articles.\\
+%\begin{tabular}{llll}
+%den katten & det huset & de katterna & de husen \\
+%\emph{the cat} & \emph{the house} & \emph{the cats} & \emph{the houses} \\
+%\end{tabular}\\
 
 A definite article or a determiner is necessary when the noun is modified by adjectival
-phrase; sentence \ref{sent:trottkatt}a is not grammatically correct.
+phrase; sentence (\ref{sent:trottkatt}a) is not grammatically correct.
 As adjectives also marks definiteness, this is marked on three places
-in sentence \ref{sent:trottkatt}b. %, the definiteness is 
+in sentence (\ref{sent:trottkatt}b). %, the definiteness is 
 %The definiteness in then marked by the article, on the noun and on the adjective.
 
 \enumsentence{\begin{tabular}[t]{@{}*{10}{l@{\ }}}   %\begin{tabular}[t]{@{}*{lllllll}}
@@ -657,8 +664,8 @@ However, for some determiners, ie. `min' (\emph{`my'}), the noun should be in in
 %like `min' , the noun should be used in indefinite form.
 
 \enumsentence{\longexnt{3}{3}
-{Min &trötta& katt.} %&& Den där & trötta &katten}
-{`My & tired & cat'}
+{min &trötta& katt} %&& Den där & trötta &katten}
+{`my & tired & cat'}
 { $[${\sc+def}$]$ &$[${\sc+def}$]$& $[${\sc-def}$]$} % . && $[${\sc+def}$]$  & $[${\sc+def}$]$ &$[${\sc+def}$]$}
 {}}
 
@@ -672,15 +679,15 @@ Swedish is a verb-second language \cite[p.116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
 The normal word order is subject-verb-object, but any syntactic category can be
 fronted \cite[\textsection 1027]{H&H}.
-This is called topicalisation and is very common, especially for temporal and spatial adverbial phrases.
+This is called topicalisation and is very common, especially for temporal and
+locative adverbial phrases.
 The examples \ref{ex:swedish-svo} - \ref{ex:swedish-avso} all have the same propositional
 meaning, but vary in how the content is presented.
-%~~ although the fronted part of sentence \ref{ex:swedish-ovs} and \ref{ex:swedish-avso} are being
+%~~ although the fronted part of sentence (\ref{ex:swedish-ovs}) and (\ref{ex:swedish-avso}) are being
 %emphasized.
 \enumsentence{
 \shortex{4}
 {Du & ser &  inte &mig.}
-%empha glossning!! ha samma överallt, ' eller ''
 {\emph{you} & \emph{see} & \emph{not} &\emph{ me}}
 {`You  don't see me'.}} \label{ex:swedish-svo}
 \vspace{-3mm}
@@ -726,7 +733,7 @@ The word order in subordinate clauses in also slightly modified,
 
 \subsection*{Passive voice}
 There are two ways of forming passive verb phrases in Swedish: the 
-\textbf{periphrastic passive}, formed by using a modal auxiliary verb \\
+\textbf{periphrastic passive}, formed by using the modal auxiliary verb `bli' (\emph{`become'}).\\
 %>> better with animate subjects
 \enumsentence{
 \shortex{5}
@@ -744,7 +751,7 @@ and the \textbf{s-passive} which is formed by adding an \emph{s} to the verb: \\
 {&&\emph{the police} & \emph{took} & \emph{the thief}}
 {\hspace{-9mm}`The police arrested the thief'}}
 \label{gfPass:s-pass}
-The s-passive is the more commonly used than periphrastic passive, for both written
+The s-passive is more commonly used than periphrastic passive, for both written
 and Swedish \cite[Pass. \textsection 1]{SAG} and dominates especially when the subject is inanimate.
 %cf.
 %\enumsentence{
@@ -753,7 +760,7 @@ and Swedish \cite[Pass. \textsection 1]{SAG} and dominates especially when the s
 %        {`A lion was hunting him.'}}
 
 \subsection*{Impersonal constructions}
-Constructions with `det är/var' (\emph{`it is/was'}) \\is very common in Swedish
+Constructions with `det är/var' (\emph{`it is/was'}) \\are very common in Swedish
 \cite[\textsection 309d]{H&H}:
 \enumsentence{
 \shortex{6}{Det & var & roligt & att & höra.}
@@ -797,7 +804,7 @@ pronouns.
 \section{Related work}
 \label{sec:related}
 %There has been much research about parsing Swedish. INTRO!!
-Many years of interesting research has lead to many interesting language
+Many years of research has lead to many interesting language
 technology tools for Swedish.
 An example is the well-known data-driven Malt parser \cite{malt},
 which has been trained on Talbanken. 
@@ -835,10 +842,10 @@ which focuses on describing and translating verb frames.\\ % and translating the
 %do not share any common abstract, like the resources grammars of GF?\\
 
 The Swedish version of the Core Language Engine (CLE) \cite{gamback} % \cite{cle}
-gives a full syntactic analysis as well as semantics represented in `quasi logical form'. A
+gives a full syntactic analysis as well as semantics represented in `Quasi logical form'. A
 translation to English  was implemented and the work was further developed in the spoken
-language translator (xx,xx). Unfortunately, it is no longer available. The coverage of the Swedish
-CLE is also reported to be very limited (Nivre,2002).\\
+language translator \cite{spoken}. Unfortunately, it is no longer available. The coverage of the Swedish
+CLE is also reported to be very limited \cite[p. 134]{nivretrees}.\\
 
 In the TAG formalism (Joshi,1975), there are projects on getting open source, wide-coverage grammars
 for English and Korean, but, to our knowledge, not for Swedish.  \\
@@ -895,27 +902,27 @@ and stable enough to be redone at any time.
 %>> syntactic information too. Mention that GF does not have this, only lexical or
 %>> semantic. Not 1-1.
 %TODO when??
-The basic algorithm for importing Saldo was implemented by Angelov (2009)
+The basic algorithm for importing Saldo was implemented by Angelov (2008)
 and  produces code for a GF lexicon.
 For each word in Saldo, it decides which forms should be used as input
 to the the GF smart paradigms. For a verb, this will in most cases mean giving
-the present form. \\
+the present tense form, see figure \ref{fig:saldoknyt}. \\
 
 \begin{figure}[h]
 \verb-mkV "knyter" ;-
-\caption{First code produced for the verb `knyta'}
+\caption{First code produced for the verb `knyta' (\emph{`tie'})}
 \label{fig:saldoknyt}
 \end{figure}
 
 All assumed paradigms are printed to a temporary lexicon, 
-which is when compiled produces an inflection table
-for every entry. The tables are compared to the information given
+which will produce an inflection table for every entry when compiled.
+The tables are compared to the information given
 in Saldo, if the tables are equal the code for the word is saved. If the table
 is erroneous, another try is made
 by giving more forms to the smart paradigm.
 For example \ref{fig:saldoknyt}, the smart paradigm will fail to calculate the
 correct inflection table. In the next try both the present and the past tense
-is given:\\
+are given:\\
 
 \begin{figure}[h]
 \verb-mkV "knyter" "knöt" ;-
@@ -936,7 +943,7 @@ will need tree forms:\\
 %starting from the easiest case. For each attempt the results are compared and when
 %the correct way of using a word has been found, the code is saved.
 
-Figure \ref{pic:TabVax} shows a the information given by Saldo and by GF respectively.\\
+Figure \ref{pic:TabVax} shows the information given by Saldo and by GF respectively.\\
 \begin{figure}[h]
   \begin{center}
 \subfloat[Saldo]{\label{pic:saldoVax}\includegraphics[height=90mm]{saldoVax.png}}
@@ -946,22 +953,25 @@ Figure \ref{pic:TabVax} shows a the information given by Saldo and by GF respect
 \label{pic:TabVax}
   \end{center}
 \end{figure}
-The tables does not overlap completely, there are some more forms in Saldo's table (eg. the 
+The tables does not overlap completely, there are some more forms in Saldo's table (e.g. the 
 compounding form ``väx-")
-while the one generated in GF contains some that are not in Saldo (eg. ``vuxits").
+while the one generated in GF contains some that are not in Saldo (e.g. ``vuxits").
+As GF concerns about grammar only, and not semantics, and  as the GF tables are automatically
+generated, they always contain all word forms, although some forms may never be
+used in the natural language.
 Saldo may also contain variants: ``växt" and ``vuxit" are both supine form.
 As far as possible, the program makes up for this by only comparing the overlapping forms
 and only requiring that GF generates one variant whenever alternatives are given. \\
 %The program continues to generate new lexicons as long as there are more
 %paradigms to choose from and compare the results after each run.
 
-The program has been made more robust than the previous version. It also prints
-log files providing
+During this project, the program has been made more robust than the previous
+version. It also prints log files providing
 information about the process of importing each word: which paradigms that have been
 tried, the results from the comparisons of the inflection tables and finally listings
 of the words that could not be imported.
 
-Each entry in Saldo has an identifier, eg. \verb-äta..vb-, which are used as 
+Each entry in Saldo has an identifier, e.g. \verb-äta..vb-, which is used as 
 constant names in the GF lexicon. However, the identifier may need some renaming since
 the there are special characters  in the Saldo identifiers
 that should be avoided in GF function names. The importation therefore
@@ -1008,8 +1018,8 @@ The resulting dictionary contains more than 100 000 entries, approximately 80 \%
 of the total size of Saldo.
 There are a number of reasons why some words were not imported,
 the most obvious one is that we do not want all categories from
-Saldo in the GF lexicon. Prepositions %(\emph{pp})
-, numerals %(\emph{nl}),
+Saldo in the GF lexicon. Prepositions, %(\emph{pp})
+numerals %(\emph{nl}),
 personal pronouns etc.
 are assumed to be present in the resource grammars and should not be added again.
 Saldo contains many pronouns which
@@ -1024,6 +1034,7 @@ Categories involving multiple words %(\emph{vbm, nnm})
 are usually handled as idioms and should be given in a separate lexicon. In
 total six categories were imported: \\
 
+\begin{figure}[h]
 \begin{tabular}{|l|lll|}
 \hline
 & Saldo tag & GF category & Example \\
@@ -1033,9 +1044,11 @@ total six categories were imported: \\
  Noun & \textbf{nn} &\textbf{N} & hus (\emph{house})\\
  Verb & \textbf{vb} &\textbf{V} & springa (\emph{run})\\
  Reflexive verbs  &\textbf{vbm}& \textbf{V} & raka sig (\emph{shave})\\
- Verbs with particles &\textbf{vbm}& \textbf{V}  &  piggna till (\emph{perk})\\
+ Verbs with particles &\textbf{vbm}& \textbf{V}  &  piggna till (\emph{perk up})\\
 \hline
-\end{tabular}\\
+\end{tabular}
+\caption{}
+\end{figure}
 
 %
 %There are a number of differences between and saldo Till skillnad från GF,
@@ -1043,7 +1056,7 @@ total six categories were imported: \\
 %needed to generate the gf table may not be given in saldo such as singular
 %forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
 %different grammatical analyse, a lot of pronouns. Example. 
-Most, but not all words of the categories listed above have been imported.
+Most but not all words of the categories listed above have been imported.
 One reason why the importing phase would fail 
 is that Saldo, unlike GF, only contains the actually used word forms.
 % does not contain information about ~~word forms that are not used~~.
@@ -1079,14 +1092,17 @@ In a few cases the smart paradigms could not generate the correct declination.\\
 
 %compared to the total size of Saldo this is .
 When testing the coverage of Talbanken,
-we found that there are around 2500 word forms still missing, excluding the one
+we found that there are around 2500 word forms still missing, excluding the ones
 tagged as names and numbers. This number may seem very high, but %considering that
-4/5 of the word forms are compounds. We should also take into consideration that 
+4/5 of the word forms are compounds and when performing the inteded parsing,
+these an additional analysis before being looked-up in the lexicon. We
+should also take into consideration that 
 we cannot automatically find out how many actually stem from the same word, or
 how many abbreviations that are present (Talbanken also contains a small number of 
 spelling errors, which probably are enumerated among our missing words). The majority
 of the missing words are only used once.\\
 
+\begin{figure}[h]
 \begin{tabular}{|l|l|}
 \hline
 Missing words & $\sim$ 2500 word-forms\\
@@ -1094,7 +1110,9 @@ Missing words, ignoring compounds & $\sim$ 500 word-forms\\
 Missing words used more than once & $\sim$ 500 word forms\\
 Missing words used more than once, ignoring compounds & $\sim$ 150 word-forms\\
 \hline
-\end{tabular}\\
+\end{tabular}
+\caption{}
+\end{figure}
 
 %       The table suggests that many 
 %       >> 2537 without IDs and only the ones built of Alpha,only 552 without compounds, still contains abbrev.
@@ -1113,11 +1131,11 @@ the lexicon.
 \begin{figure}[h]
 \begin{tabular}{|lll|}
 \hline
-Word & Talbanken tag & GF category \\
+Word    & Talbanken tag & GF category \\
 \hline
-måste & MVPS          & VV \\
-allting & POTP & N \\
-få & POZP & Det \\
+måste   & MVPS          & VV \\
+allting & POTP          & N \\
+få      & POZP          & Det \\
 \hline
 \end{tabular}
 \caption{}
@@ -1146,7 +1164,7 @@ full coverage of a language, we aim for a grammar fragment which gives a deep
 analysis of the most important Swedish constructions.
 The starting point has been the GF resource grammar and the new implementation is
 still compatible with this.
-Before describing the work progress in section \ref{sec:Added}, we will give an introduction to the
+Before describing the actual implementation in section \ref{sec:Added}, we will give an introduction to the
 resource grammars in general and to the Swedish implementation in particular.
 %This is found in section \ref{sec:swegf} while section \ref{sec:Added} shows and
 %explains the development during this project.
@@ -1199,20 +1217,22 @@ is shared with Norwegian and Danish. The modules that concern the lexical
 aspects are separate, while 85 \% of the syntax description is shared.
 There are about 80 functions, which describe the rules for building phrases and clauses.
 \begin{verbatim}
-PredVP       : NP -> VP -> Cl ; -- Prediciation
+PredVP       : NP -> VP -> Cl ; -- Predication
 ComplVPSlash : VPSlash  -> VP ; -- Complementation
 \end{verbatim}
 The analysis preformed by GF is driven by the parts of speech, which are combined into
 parts of sentences.
 Figure \ref{fig:gfpic} shows the different categories, or types, used in the
 resource grammars. 
-A lexicon normally consists of words from the open word-classes, shown in rectangular boxes in
-the picture. Each lexical entry is assigned with a type describing its word-class.
+%A lexicon normally consists of 
+Words from the open word-classes are shown in rectangular boxes in
+the picture. Each lexical entry is assigned a type describing its word-class.
 %and the abstract grammar can be viewed as a set rules showing
 %how the parts of speech can be used --
 %how the types relate to each other.
 \begin{figure}[h]
-\includegraphics[height=90mm]{categories.png}
+\hspace{-18mm}
+\includegraphics[height=130mm]{categories.png}
 \caption{The types of the GF resource grammars.}
 \label{fig:gfpic}
 \end{figure}
@@ -1223,14 +1243,15 @@ They may also
 carry information about inherent features that matter to other parts of the sentence.
 
            
+\newpage
 \subsection{Noun phrases}
 Section \ref{sec:writegf} contained an easy example with nouns. We used the categories \verb-N-
-and \verb-N'- to separated between nouns with respectively without a set number.
-The full analysis includes a separation between the categories \verb-N- -- simple nouns --
+and \verb-N'- to distinguish nouns with respectively without number information.
+The full analysis includes a distinction between the categories \verb-N- -- simple nouns --
 and 
 \verb-CN- -- common noun phrases -- and \verb-NP- -- noun phrases.
 The \verb-N- category is implemented as an inflection table, generated by the smart paradigm,
-and a field keeping information about the gender.
+and a field keeping information about the gender, see figure \ref{fig:gfflicka}.
 \begin{figure}[h]
 \begin{verbatim}
 flicka_N = {s = {Sg Indef Nom =>  flicka
@@ -1244,15 +1265,16 @@ flicka_N = {s = {Sg Indef Nom =>  flicka
             g = utr }
 \end{verbatim}
 \caption{Representation of the noun `flicka' (\emph{`girl'}) in GF}
-\label{fig:gfpic}
-\end{figure}
+\label{fig:gfflicka}
+\end{figure}\\
 When a noun is turned into a \verb-CN- %, this information is kept, and the noun may
-which may be modified by adjectival phrases or conjucted.
+which may be modified by adjectival phrases or conjoined.
 \begin{verbatim}
 AdjCN : AP -> CN -> CN ; 
 \end{verbatim}
 The function \verb-DetCN-, determination, creates a
-\verb-NP- by setting the number and definiteness of a \verb-CN-.
+\verb-NP- by setting the number and definiteness of a \verb-CN-, shown in figure
+\ref{gfcode:DetCN}.
 %may be turned into a \verb-NP- by the rule \verb-DetNP- which sets
 %the number and definitness.
 %Since all morphological information is generated by the smart paradigms and contained in the \verb-N-
@@ -1261,9 +1283,9 @@ The function \verb-DetCN-, determination, creates a
 
 \begin{figure}[h]
 \begin{verbatim}
-DetCN : Det                    -> CN     -> NP ;
+DetCN : Det                  -> CN     -> NP ;
         indefinite, singular -> flicka -> "en flicka"
-        definitive,singular    -> flicka -> "flickan"
+        definitive,singular  -> flicka -> "flickan"
 \end{verbatim}        
 \caption{}
 \label{gfcode:DetCN}
@@ -1290,10 +1312,10 @@ den &  lilla $[${\sc +Def}$]$& katten $[${\sc +Det}$]$& \textbf{ DDef Def} \\
 
 %Which combination that shoud be used is decided by the determiner. Hence all
 Hence, all determiners
-in our grammar must keep information of which definiteness they allow; the
-\verb-DetSpecies- parameter stored as an inherent 
+in our grammar must keep information about which definiteness they require; the
+\verb-DetSpecies- parameter is stored as an inherent 
 feature of the determiner.
-The resource grammar differentiates between quantifiers, 
+The resource grammar distinguishes between quantifiers, 
 determiners \verb-Det- and predeterminers. Predeterminers modify \verb-NP-s
 while the other to modifies \verb-CN-s. The differences are shown in table
 \ref{tab:detquant}. 
@@ -1310,7 +1332,13 @@ while the other to modifies \verb-CN-s. The differences are shown in table
 
 The definite article is considered to be a quantifier, which has the forms
 \emph{en} and \emph{ett} for singular. In plural it
-is the either \emph{``de"} or nothing, cf. sentence \ref{sent:trottkatt}a and \ref{sent:trottkatt}b.
+is the either \emph{``de"} or nothing, cf. sentence (\ref{sent:trottkatt2}a) and
+\ref{sent:trottkatt2}b.
+\enumsentence{\begin{tabular}[t]{@{}*{9}{l@{\ }}}   %\begin{tabular}[t]{@{}*{lllllll}}
+a. & Katten        &sov. &&b. &\textbf{Den}  &gamla & katten  &sov.\\
+   &\emph{cat}\small\sc+def &\emph{slept}&& &\emph{the} & \emph{old} & \emph{cat}\small\sc+def &\emph{slept}\\
+\end{tabular}}\label{sent:trottkatt2}
+
 We need to know if the common noun phrase 
 has been modified, that is, whether the function \verb_AdjCN_ has been used.
 However, once a category has been formed, there is no longer any information available
@@ -1343,13 +1371,12 @@ classified differently in GF.
 %TODO
 %>> compare NP to HPSG.
 %>> CN may be different in other theories.
----------
 
 
 
 \subsection{Verb phrases}
 In figure \ref{fig:gftree1} we saw the GF representation of the sentence ``Jag
-ser katten". The verb ``såg" (see) takes one object: ``katten".
+ser katten". The verb `ser' (\emph{`see'}) takes one object: `katten'.
 In GF, this can be seen on the type of the verb,
 valency information
 is encoded into the lexicon. Transitive verbs have the type \verb-V2-, ditransitive
@@ -1364,7 +1391,7 @@ ComplSlash : VPSlash -> NP -> VP ;
 \end{verbatim}
 
 The function \verb-SlashV2a- lets you create a \verb-VPSlash-, a verb phrase missing a
-noun phrase \cite{gazdar}. When combine the \verb-SlashVP- with the object we
+noun phrase \cite{gazdar}. When we combine the \verb-SlashVP- with the object we
 get a complete verb phrase.
 Both the verb and its complements are stored in the verb phrase category, \verb-VP-.
 %A simple idea would let the \verb-VP- consist of one field where the verb and object are
@@ -1386,22 +1413,37 @@ The fields may in turn be tables showing the different forms of the component.\\
 \end{tabular}\\
 
 \vspace{5mm}
-The verb phrase fields are not put in their correct order until the tense, type of clause etc is
-known, ie. when a sentence is created.\\
+The verb phrase fields are not put in their correct order until the tense and type
+of clause is determined, ie. when a sentence is created.\\
 
 Swedish verbs may take up to five arguments \cite[p. 53]{stymne}.
-\enumsentence{Jag tar med mig den till honom}\label{sent:tamed}
-These may be prepositions, particles, reflexive object, indirect objects and direct objects.
-In the grammar these will be encoded in different ways. The particles are
-given in the lexicon, as well as the prepositions that are chosen by the verbs.
-The entry for `\emph{ta med}' as used in sentence \ref{sent:tamed}, is described as follows:
+These may be prepositions, particles, reflexive object, indirect objects
+and direct objects. 
+\enumsentence{\shortex{7}
+{Jag &tar& med &mig& den& till& honom}
+{\emph{I} &\emph{take}&\emph{with} &\emph{me}& \emph{it}& \emph{to}& \emph{him}}
+{`I bring it to him'}
+\label{sent:tamed}}
+The verb `ta' in sentence (\ref{sent:tamed}) takes one particle (\emph{med}),
+one preposition (\emph{till}) and two objects: \emph{den} and \emph{honom}.
+
+In a GF lexicon this verb is given the
+category \verb-V3-, %classifing it as 
+a \textit{three-place verb}, taking two objects.
+The notion \verb-V3- is motivated by the formal translation: \verb-bring(I,it,him)-.\\
+%these will be encoded in different ways.
+Particles are given in the lexicon, as well as the prepositions that are
+chosen by the verb.
+The entry for `\emph{ta med}', as used in sentence (\ref{sent:tamed}), is
+described as follows:
 %, assuming that we already have an constant \verb-take_V- which produces the correct conjugation for ``ta":
 \begin{verbatim}
 ta_med_V3 = dirV3 (reflV (partV (take_V "med")) (mkPrep "till") ;
 \end{verbatim}
-The category \verb-V3- tells us that the verb takes two objects, % (``den" and ``honom").
-the second one is to be used with the preposition `\emph{till}'. \verb-reflV- shows
-that the verb always is used with a reflexive
+%The category \verb-V3- tells us that the verb takes two objects, % (``den" and ``honom").
+The function \verb-dirV3- creates a three-place verb, where the first object is direct and
+the second is to be used with the preposition given as the last argument: `\emph{till}'.
+\verb-reflV- shows that the verb always is used with a reflexive
 pronoun and \verb-partV- gives the particle \emph{`med'}.
 The fact that the chosen prepositions is attached to the verb in the lexicon
 causes the parse tree visualization algorithm to group them together.
@@ -1410,13 +1452,20 @@ and \ref{pic:tittapa}.
 As already stated, the visualized parse trees is not a complete representation,
 even if the verb phrases in the the visualizations look the same, the two cases
 are treated and represented differently internally. The fronting of the
-preposition as in of sentence \ref{sent:tittapa}a. is accepted but
-fronting of particles as in\ref{sent:tittapa}b. is not.
+preposition, as in of sentence (\ref{sent:tittapa}a)., is accepted but
+fronting of particles, as in \ref{sent:tittapa}b., is not.
+%TODO use png to get correct size
 \eenumsentence{
-\item[a]På pojken tittar du 
-\item[b] *På när du springer tittar jag}\label{sent:tittapa}.
+\item[a]\shortex{4}
+{På &pojken& tittar& du.}
+{\emph{on} &\emph{the boy}& \emph{look}& \emph{you}}
+{`You look at the boy.'}
+\item[b]\shortexnt{6}
+{*På& när& du& springer& tittar& jag}
+{\emph{~on}& \emph{when}& \emph{you}& \emph{run}& \emph{watch}& \emph{I}}
+\label{sent:tittapa}}
 \begin{figure}[h]
-\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=80mm]{tittapa.pdf}}
+\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=90mm]{tittapa.pdf}}
 \hspace{10mm}
 \subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=90mm]{tittapart.pdf}}
 \caption{The visualized parse trees do not show the internal difference of chosen prepositions and particles}
@@ -1424,12 +1473,14 @@ fronting of particles as in\ref{sent:tittapa}b. is not.
 \end{figure}
 
 
+\newpage
 %Categories as V,V2,VS...
 %Maybe talk about ställa.
 \subsection{Clauses}
 The category clause, \verb-Cl-, represents a pre-sentence, that does not yet have any tense, polarity
-or word order set.\\
+or word order set, see figure \ref{fig:clause}.\\
 
+\begin{figure}[h]
 \begin{tabular}{|lll|ll|}
 \hline
 \textbf{Tense} &\textbf{Polarity} &\textbf{Word order} &\textbf{Cl} &\textbf{S} \\
@@ -1438,15 +1489,19 @@ present &negative & main        & du ser mig & 'Du ser inte mig'\\
 perfect &positive & inverted    & du ser mig & 'Har du sett mig'\\
 perfect &negative & subordinate & du ser mig & 'Du har sett mig'\\
 \hline
-\end{tabular}\\
+\end{tabular}
+\caption{}
+\label{fig:clause}
+\end{figure}
 
 
 Like verb phrases, a clause may also be missing an object and then has the type
 \verb-ClSlash-. The \verb-ClSlash- is formed by a \verb-VPSlash- which is 
 given a subject.
 This is a convenient way to form questions, relative clauses
-and topicalized clauses.\\
+and topicalized clauses, as in figure \ref{fig:clause2}.\\
 
+\begin{figure}[h]
 \begin{tabular}{|l|ll|}
 \hline
 \textbf{Cl}& Johan + tittar på \\
@@ -1455,7 +1510,10 @@ and topicalized clauses.\\
 \textbf{Relative clauses} & Object + Relative pronoun & Katten som Johan tittar på \\
 \textbf{Topicalized clauses} & Object  & Henne tittar Johan på \\
 \hline
-\end{tabular}\\
+\end{tabular}
+\caption{}
+\label{fig:clause2}
+\end{figure}
 
 
 %
@@ -1499,7 +1557,7 @@ as the one in figure \ref{gfSwe:parsetree}.
 % better sentence where the verb phrase is split up?
 \begin{figure}[h]
 \includegraphics[width=70mm,height=70mm]{apples.pdf}
-\caption{Parse tree for ``Har han inte ätit de gula äpplena idag".}
+\caption{Parse tree for ``Har han inte ätit de gula äpplena idag?"}
 \label{gfSwe:parsetree}
 \end{figure}
 Even though the verb phrase \emph{``har inte ätit de gula äpplena idag"} is discontinuous, the whole
@@ -1515,7 +1573,7 @@ At the code level, This is done by putting the \verb-VP- fields in the correct o
 
 The resource grammar also covered relative clauses: 
 \eenumsentence{\item[a]\shortexnt{5}{Hon & ser & pojken & som  &sover}
-              {\emph{she} & \emph{sees} & \emph{the boy} & \emph{who} & \emph{sleeps}}
+              {\emph{she} & \emph{sees} & \emph{the boy} & \emph{that} & \emph{sleeps}}
               %{`She sees the sleeping boy'}}
 \item[b]\shortexnt{6}{Han & ser &katten & han  &tycker & om}
               {\emph{he} & \emph{sees} & \emph{the cat} & \emph{he} & \emph{likes} &}}
@@ -1534,16 +1592,24 @@ Among those were functions for topicalisation: %$ although not all
 %and relatives
 %Also info in the Extra module, where more language specific constructions
 %can be found.
-%For example, \verb|FocObj| fronted the object as in sentence \ref{gfSwe:apple}.
+%For example, \verb|FocObj| fronted the object as in sentence (\ref{gfSwe:apple}).
 \enumsentence{\shortex{6}
 {Det & äpplet & vill & jag & inte & ha}
-{that & apple & want & I & not &}
+{that & apple & want & I & not &have}
 {`I don't want that apple'}}\label{gfSwe:apple}
 and for preposition stranding:
-\enumsentence{\begin{tabular}{ll}
-Stranded preposition & cf.\\
-Vem måste jag akta mig \textbf{för}? & \textbf{För} vem måste jag akta mig?\\
-Who do I need to watch out \textbf{for}? & \textbf{For} whom do I need to watch out?\\
+\enumsentence{
+\begin{tabular}{ll}
+~~Stranded preposition &~ cf.\\
+{\begin{tabular}{llllll}
+Vem& måste& jag& akta& mig &\textbf{för}? \\
+\emph{who}& \emph{must}& \emph{I}& \emph{watch out}& \emph{me} &\textbf{\emph{for}}? \\
+\end{tabular}}&
+{\begin{tabular}{llllll}
+\textbf{För}& vem& måste& jag& akta& mig?\\
+\emph{\textbf}{for}& \emph{who}& \emph{must}& \emph{I}& \emph{watch out}& \emph{me}?\\
+\end{tabular}}\\
+~~`Who do I need to watch out \textbf{for}?' &~ `\textbf{For} whom do I need to watch out?'\\
 \end{tabular}}
 
 %jag ser dig
@@ -1574,9 +1640,9 @@ Our evaluations are based on Talbanken, and when first conducting tests,
  we found much room for improvement.
 From the topics listed in section \ref{sec:swedish}, the post-nominal articles
 and the verb-second property
-were covered by the resources, as well as the periphrastic passive.
-A start on topicalisation was implemented, while
-the others are examples of what has been added during this project.
+were covered by the resource grammar, as well as the periphrastic passive and
+a limited form of topicalisation. 
+The other constructions have been added during this project.
 %enough to be covered by the resources. The others have been added.
 %We have increased this by adding language specific
 %constructions. Talbanken has been our inspiration.
@@ -1591,7 +1657,7 @@ Passive voice is often used in Swedish, especially the
 \textit{s-passive}.
 \enumsentence{
 \shortex{5}{Uppsatsen & skrev\textbf{s} & av & en & student.}
-        {the essay & wrote+\textbf{s} & by & a & student}
+        {\emph{the essay} & \emph{wrote+\textbf{s}} & \emph{by} & \emph{a} & \emph{student}}
         {`The essay was written by a student.'}}\label{sent:skrevs}
 %{b. &En & student & skrev & uppsatsen.}
 %        {&a &student &wrote &the essay}
@@ -1600,14 +1666,14 @@ Some studies suggest that the s-passive is used in more than 80 \% of the times
 \cite{laanemets}.
 It is however not as common in the other Scandinavian languages, 
 where not all words have passive forms for all tenses. The Norwegian 
-translation of sentence \ref{sent:skrevs} is:
+translation of sentence (\ref{sent:skrevs}) is:
 %The periphrastic passive is preferred, especially in spoken langauge.
 \enumsentence{\shortexnt{7} %\begin{tabular}{ll}
 {Oppgaven &ble& skrevet& av& en& student & [NO]}
 {uppsatsen& blev& skriven& av& en & student& [SE]}}
 %\end{tabular}}
 The corresponding Swedish sentence is acceptable, but not as natural sounding as sentence
-\ref{sent:skrevs}.
+(\ref{sent:skrevs}).
 The resource grammar for Scandinavian therefore implemented the function for passive,
 \verb-PassV2-, by using auxiliary verb. \\
 \begin{verbatim}
@@ -1628,15 +1694,22 @@ PassVP : VPSlash -> VP ;
          ta      -> togs
          erbjöd  -> erbjöds
 \end{verbatim}
+A \verb-V3- like `give' in sentence (\ref{sent:give2pass}) gives rise to two
+passives, (\ref{ex:passV32}) and (\ref{ex:passV33}).
+\enumsentence{\textbf{Active use of two-place verb}\\\shortex{4}
+{Vi & erbjöd& henne& jobbet }
+{\emph{we} & \emph{offered}& her&\emph{the job}}
+{`We offered her the job'}}
+\label{sent:give2pass}
 \enumsentence{\textbf{First place in two-place verbs}\\\shortex{3}
 {Jobbet & erbjöds & henne }
-{\emph{the job} & \emph{offered+\textbf{s}}&\emph{ henne}}
-{``The job was offered to her"}}
+{\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
+{`The job was offered to her'}}
 \label{ex:passV32}
 \enumsentence{\textbf{Second place in two-place verbs}\\\shortex{3}
 {Hon & erbjöds & jobbet}
 {\emph{she} &\emph{ offered+\textbf{s}}&\emph{ the job}}
-{``She was offered the job"}}
+{`She was offered the job'}}
 \label{ex:passV33}
 \enumsentence{\textbf{V2A verb}\\\shortex{3}
 {Huset & målades & rött}
@@ -1646,7 +1719,7 @@ PassVP : VPSlash -> VP ;
 
 \subsection{Impersonal constructions}%Presentering, , Topicalisering
 \label{sec:Formal}
-Formal subjects \cite[\textsection 19]{SAG} is often used in Swedish.
+Formal subjects \cite[\textsection 19]{SAG} are often used in Swedish.
 \enumsentence{\shortex{6}
 {Det & sitter & en & fågel & på & taket}
 {\emph{it }& \emph{sits }& \emph{a} & \emph{bird} &\emph{ on} & \emph{the roof}}
@@ -1681,25 +1754,30 @@ c. &Det & fattas & kaffe \\
 
 To implement this construction, we needed a
 special GF category, \verb|SimpleVP|, to exclude other verb phrases
-like the one in sentence \ref{sent:fagelfron}. Any intransitive verb can form
+like the one in sentence (\ref{sent:fagelfron}). Any intransitive verb can form
 a \verb-SimpleVP-, as can transitive verbs without their objects. The \verb-SimpleVP-
 may be modified by adverbs.
 
 There are also restrictions on the real subject, which is not allowed to be in
 definite form.
-\enumsentence{\begin{tabular}{ll}
-*Det sitter \textbf{den fågeln} på taket. & *Det sitter \textbf{fågeln} på taket.\\
-``There are that bird sitting on the roof'' & ``There are the bird sitting on the roof'' \\
+\enumsentence{\begin{tabular}{llllll}
+*Det     & sitter     & \textbf{den}& \textbf{fågeln}& på       & taket. \\
+%& *Det sitter \textbf{fågeln} på taket.\\
+\emph{it}& \emph{sits}& \emph{the}  & \emph{bird}    & \emph{on}& \emph{the roof}\\
+%& ``There are the bird sitting on the roof'' \\
 \end{tabular}}
-Neither is sentence \ref{sent:dumfagel} correct.
-\enumsentence{
-*Det sitter \textbf{min fågel} på taket\\
-``There are my bird sitting on the roof''\\
+Neither is sentence (\ref{sent:dumfagel}) correct.
+\enumsentence{\begin{tabular}{llllll}
+*Det& sitter& \textbf{min}& \textbf{fågel}& på& taket\\
+\emph{it}&\emph{sits}&\emph{my}&\emph{bird}&\emph{on}&\emph{the roof}\\
+%``There are my bird sitting %on the roof''\\
+\end{tabular}
 }\label{sent:dumfagel}
-The distinction lays in the determiner. The different types of determiners are
-showed in figure \ref{tab:detdef}. 
-For real subjects, the determiner must be of type \verb-DIndef-,
-that requires both the noun and the adjective to be used in indefinite form.
+In order to implement this, we utilized the 
+%The distinction lays in the determiner. The
+different types of determiners shown in figure \ref{tab:detdef}. 
+For postverbal subjects, the determiner must be of type \verb-DIndef-,
+that requires both the noun and the adjective to be indefinite.
 %The quantifier must have determiner must havenoun must be in indefinite form,
 %even though some determiners are allowed.
 %\enumsentence{\begin{tabular}[t]{@{}*{5}{l@{\ }}}
@@ -1737,7 +1815,7 @@ implementation for reflexive objects  (see section \ref{sec:reflexives}),
 dependent types are used for showing if a noun phrase 
 needs an antecedent.
 We would also like to differentiate between the \verb-NP-s in sentence
-\ref{sent:mosthorses}a and b, where 
+(\ref{sent:mosthorses}a,b), where 
 `\emph{av}' should be used
 only when the noun has an explicit article or determiner.
 \enumsentence{\begin{tabular}[t]{@{}*{5}{l@{\ }}}
@@ -1760,7 +1838,7 @@ a. &De flesta hästarna  && b.& De flesta \textbf{av} de där hästarna.\\
 % 
 \subsection{Formalizing the rules for reflexive pronouns by using dependent types}
 \label{sec:reflexives}
-An important piece in a Swedish grammar is the reflexive pronouns and
+An important area in a Swedish grammar is the treatment of the reflexive pronouns and
 the reflexive possessive pronouns as described on p. \pageref{swe:refl}.
 The reflexives require an antecedent with which they agree in
 number and person.
@@ -1786,9 +1864,13 @@ a. & Hon tyckte om skolan och alla sina elever. & & b. & Han såg sina få böck
    & She liked the school and all {\sc self's} students. &&&
  He saw {\sc self's} few books and {\sc self's} pencil.\\ 
 \end{tabular}}\label{ex:ReflConj} \label{ex:ReflConj2}
-When a reflexive pronoun is used in a noun phrase, it is hence not
-allowed as subject. The antecedent must not be out of scope for the closest finite verb,
-as in sentence \ref{sent:sesig}.
+Reflexive pronouns can not be used in subject noun phrases of finite sentences,
+as shown by the ungrammatical examples in %, it is hence not
+%allowed as subject. The antecedent must not be out of scope for the closest finite verb,
+sentence (\ref{sent:sesig}) and (\ref{ex:ReflSubj}).
+The third person reflexives (`sig',`sin') requires a third person antecedent (see \ref{ex:refljag}).
+Furthermore, the antencedent must be within the same finite sentence as the reflexive
+pronoun, see (\ref{sent:sesig}).
 The grammar should not accept any of these sentences:
 \enumsentence{
 *Sina vantar var kvar på tåget.\\
@@ -1796,13 +1878,13 @@ The grammar should not accept any of these sentences:
 \enumsentence{*Hon och sin kompis läser en bok.\\
 She and {\sc self's} friend are reading a book. }
 \enumsentence{*Jag ger sina pengar till sina syskon.\\
-I give {\sc self's} money to {\sc self's} siblings. }
+I give {\sc self's} money to {\sc self's} siblings. }\label{ex:refljag}
 \enumsentence{*Han vill att jag ser på sig.\\
 He wants me to look at {\sc self}.}\label{sent:sesig}
 
 Apart from these restrictions, noun phrases containing reflexive pronouns
-may be used as any other \verb-NP-. They may be conjuncted (sentence
-\ref{ex:ReflConj} a and b) and determined (sentence \ref{ex:ReflPredet}).
+may be used as any other \verb-NP-. They may be conjoined 
+(\ref{ex:ReflConj} a,b) and used with other determiners (\ref{ex:ReflPredet}).
 %and used as genitives (sentence \ref{ex:ReflGen}) as such.
 %Could be combined with 'sig', a ReflNP without another noun.
 In short, what is wanted can be summarized as follows:\\
@@ -1826,8 +1908,8 @@ together with reflexive possessive pronouns are introduced:
 ReflVP: CN -> VPSlash -> VP ;
         mat + äta     -> äta sin mat 
 \end{verbatim}
-This way, using the phrases as subject is excluded, but neither of sentence
-\ref{ex:ReflConj}a, \ref{ex:ReflConj}b or \ref{ex:ReflPredet} are allowed.\\
+This way, using the phrases as subject is excluded, but none of sentence
+(\ref{ex:ReflConj} a,b) or (\ref{ex:ReflPredet}) are allowed.\\
 The simplest way to fix this is to treat the phrases as normal \verb_NP_s.
 We can add a rule that allows using the possessives with common noun phrases:
 \begin{verbatim}
@@ -1841,11 +1923,11 @@ PredetNP : Predet -> NP       -> NP ;
 \end{verbatim}
 But by keeping them as \verb_NP_s we lose information, and there is no way of
 keeping them from being used as subjects. We have ignored the third restriction
-and are allowing sentences like \ref{ex:ReflSubj}.
+and the grammar would generate and accept sentence (\ref{ex:ReflSubj}).
 
 We get closer to a satisfying solution by introducing new object type,
 \verb_Obj_, which is
-identical to normal \verb_NP_ except for that it depends on 
+identical to normal \verb_NP_ except that it depends on 
 the antecedent. All functions where objects are modified in the same way
 as other \verb-NP-s are duplicated, one version is dealing 
 with objects and one with \verb-NP-.
@@ -1865,22 +1947,22 @@ PredetObj : Det -> Obj -> Obj ;
 %We will need functions for conjugating objects with objects, 
 % say smt about overgeneration?
 The dependence on the antecedent needs to be applied to adverbial phrases and
-adjective phrases as well. The adjective phrase in sentence \ref{ex:ReflAP}a and
-the adverbial phrase in sentence \ref{ex:ReflAdv}b are examples of this; if the
+adjective phrases as well. The adjective phrase in (\ref{ex:ReflAP}a) and
+the adverbial phrase in (\ref{ex:ReflAdv}b) are examples of this; if the
 subject was changed to 2nd person, they  would need to change too.
-\enumsentence{\begin{tabular}{ll}
-\textbf{Du} är längre än \textbf{din} kompis. &*Du är här oftare än \textbf{sin} kompis.\\
-You are taller than your friend. &You are here more often than {\sc self's} friend.\\
+\enumsentence{\begin{tabular}{llll}
+a. &\textbf{Du} är längre än \textbf{din} kompis.& b. &*Du är här oftare än \textbf{sin} kompis.\\
+ & You are taller than your friend. &&You are here more often than {\sc self's} friend.\\
 \end{tabular}} \label{ex:ReflAP2} \label{ex:ReflAdv2}
-The dependency is spreading through the grammar and in order to avoid all code
+The dependency spreads through the grammar and in order to avoid all code
 duplication we use another approach.
 When looking at the type of
 the functions, we notice that they can be generalized:
 \begin{verbatim}
 PredetNP  : Det -> NP x  -> NP x;
 \end{verbatim}
-The solution given in this project is making use of this generalization and
-introduces the use of dependent types in a resource grammar.
+The solution chosen in this project is to make use of this generalization and
+introduce the use of dependent types in a resource grammar.
 Following the idea given above, we make a difference between subjects and objects, but not
 by giving them different types, but by % treating them as instances of the \verb-NP- category.
 letting the type \verb-NP- \textit{depend} on an argument, which may either be \verb-Subject- or
@@ -1893,35 +1975,36 @@ PredetNP   : (a : Boolean) -> Det -> NP a -> NP a ;
 \end{verbatim}
 
 The solution hence combines the-part-of-speech driven analyse normally preformed by
-GF with a part-of-sentence analyse.
+GF with a part-of-sentence analysis.
 
 The types for adverbial and adjectival phrases are also turned into dependent
 types.
 \enumsentence{\shortex{3}
-{Taket & på sitt hus &}
+{taket & på sitt hus &}
 {\scriptsize{\textbf{NP a +}} & \scriptsize{\textbf{(Adv Obj)}} & $\Rightarrow$ \scriptsize{\textbf{NP Obj}} }
-{\emph{The roof of {\sc self's} house}}}
+{\emph{the roof of {\sc self's} house}}}
 %{{\sc NP +} & {\sc (Adv with Obj)} & $\Rightarrow$ {\sc Obj}}
 \enumsentence{\shortex{3}
-{Sitt hus & på berget &}
+{sitt hus & på berget &}
 {\scriptsize{\textbf{NP Obj + }} & \scriptsize{\textbf{Adv a}} & $\Rightarrow$ \scriptsize{\textbf{NP Obj}} }
 {\emph{{\sc self's} house on the mountain}}}
 
 The use of dependent types separates our grammar from the other resource grammars. Such separation
-is not desirable in it self, but there are at least three reasons to why we
+is not desirable in itself, but there are at least two reasons why we
 believe it is appropriate in this case:
 \begin{itemize}
 \item The new grammar can be made compatible with the old implementation.
 \item The possibility for noun phrases to agree with an antecedent 
-      could be useful in other languages. For example, the Slavic languages
+      will be useful in other languages. For example, the Slavic languages
       have similar reflexive pronouns.
-\item The goal of the project is to make a language specific grammar, and it would be surprising if this could be
-      done while leaving the abstract grammar unchanged.
 \end{itemize}
+Moreover, the goal of the project is to make a language specific grammar, and it
+would be surprising if this could be done while leaving the abstract grammar unchanged.
 
 The use of dependent types is interesting for other problems.
 The rules for reciprocal pronouns could be formalized using the same idea. As reflexive pronouns, reciprocals
-must not be used as subject and further they may only be used when the number of the antecedent is plural.
+must not be used as subjects and furthermore they may only be used when the
+number of the antecedent is plural.
 %
 %Since the resource grammar did not make any distinction between
 %
@@ -1989,7 +2072,7 @@ must not be used as subject and further they may only be used when the number of
 %%
 
 \subsection{A second future tense: ``Kommer att"}
-Swedish and Norwegian have two modal verbs for future tense
+Swedish and Norwegian use two auxilirary verbs for future tense
 \cite[p. 246]{H&H}:
 %\cite[Tempus \textsection 28]{SAG}.
 \enumsentence{\begin{tabular}[t]{@{}*{5}{l@{\ }}}
@@ -2045,7 +2128,7 @@ s SFutKommer Anter Neg Main : jag kommer inte att ha sett henne
 s SFutKommer Anter Neg Inv  : kommer jag inte att ha sett henne
 s SFutKommer Anter Neg Sub  : jag inte kommer att ha sett henne
 \end{verbatim}
-\caption{The covered and accepted usage of the future modal verb `komma'}
+\caption{The covered and accepted usage of the future tense with `komma'}
   \label{fig:kommeratt}
 \end{figure}
 
@@ -2065,9 +2148,9 @@ s SFutKommer Anter Neg Sub  : jag inte kommer att ha sett henne
 \subsection{Modifying verb phrases}
 \subsubsection{Focusing adverbs}
 The GF analysis distinguishes between two categories of adverbs: \verb-Adv- 
-%eg. `nu' (\emph{`now'}) and
+%e.g. `nu' (\emph{`now'}) and
 and \verb-AdV-. %like `alltid' (\emph{`always'}).
-The \verb-AdV- (eg. `aldrig' (\emph{`never'}) and `inte' (\emph{`not'}))
+The \verb-AdV- (e.g. `aldrig' (\emph{`never'}) and `inte' (\emph{`not'}))
 attaches directly to the verb.
 %and have a special field in the \verb-VP--table.
 \enumsentence{Cf.\\\begin{tabular}[t]{@{}*{12}{l@{\ }}}
@@ -2095,7 +2178,8 @@ Main clause : subj ++ verb.fin ++ verb.adV ++ verb.inf ++ verb.adv
 %\end{wrapfigure}\\
 The adverb `bara' may be used as an \verb-AdV- but also before the finite verb,
 when emphasizing the verb itself.
-This is an example of a \textit{focusing adverb}, another example is `inte ens' (\emph{`not even'}).
+This is an example of a \textit{focusing adverb}, others examples are `inte ens' (\emph{`not even'})
+and `till och med' (\emph{`even'}).
 \enumsentence{\shortex{9}
 {a. & Han & bara & log  && &b. & Hon till och med visslar}
 {&\emph{he} & \emph{only} &\emph{ smiled} &  & & &  }
@@ -2124,9 +2208,14 @@ PredetAdvF : AdvFoc -> Predet ;
 
 
 
-The focusing adverbs are usually not combined with modal verbs, since the modal
-verbs rarely are focused.
-\enumsentence{\shortexnt{5}
+The focusing adverbs are usually not combined with modal verbs, the copula or temporal auxiliries. 
+% since the modal verbs rarely are focused.
+\eenumsentence{\item[a]
+\shortexnt{5}
+{?&Han & bara&  är&  dum}
+{&\emph{he} &\emph{ only} & \emph{ is}& \emph{ stupid}}
+\item[b]
+\shortexnt{5}
 {?&Han & bara&  har&  sovit}
 {&\emph{he} &\emph{ only} & \emph{ has}& \emph{ slept}}}
 We have however chosen to allow this, since it is grammatically correct although semantically
@@ -2184,7 +2273,7 @@ relative clause.
 {``The opinions presented ..."}}
 %or together with the verb \emph{``finnas"}.
 When no relative clause is present, the definitive form must be used, cf.
-sentence \ref{sent:debocker}.
+sentence (\ref{sent:debocker}).
 \enumsentence{De uppfattningar\textbf{na} förs fram.\\
 ``The opinions are presented."}\label{sent:debocker}
 
@@ -2226,7 +2315,7 @@ The dependent types introduced in section \ref{sec:reflexives} could probably be
 useful.
 However a carefully prepared analysis and motivation is needed. %ationamount in a bigger reconstruction which therefore
 %would require a. 
-Consequently, sentence \ref{sent:detfaller} is still
+Consequently, sentence (\ref{sent:detfaller}) is still
 accepted by the grammar.
 
 % also ok in finnas!!
@@ -2318,8 +2407,8 @@ could not be identified automatically. Therefore, some experiments were
 conducted on how to extract this 
 information from Talbanken. We were interested in words which can be used
 the same ways as `sådana' (\emph{`such'}) that acts either as a
-determiner, as in sentence \ref{ex:QuantDet}, or as an adjective as
- in sentence \ref{ex:QuantAdj}. 
+determiner, as in sentence (\ref{ex:QuantDet}), or as an adjective as
+ in sentence (\ref{ex:QuantAdj}). 
 \eenumsentence{\item[a.]Sådana \label{ex:QuantDet}katter vill jag ha
 \item[b.]Han är \label{ex:QuantAdj}sådan\toplabel{sent:Quant}}
 
@@ -2344,8 +2433,8 @@ by manually looking up each word or by using introspection.
 %In the GF analyse they may be quantifiers, determiners or predeterminers. 
 %All pronouns from Saldo was listed and by searching Talbanken for which tags
 %they got we could sort out the ones acting either as
-%determiners, as `sådana' in sentence \ref{ex:QuantDet}, or as adjectives as
-%`sådan' in sentence \ref{ex:QuantAdj}. 
+%determiners, as `sådana' in sentence (\ref{ex:QuantDet}), or as adjectives as
+%`sådan' in sentence (\ref{ex:QuantAdj}). 
 %Since all determiners can be used alone as noun phrases, sentence
 %\ref{ex:QuantDet2} is also accepted.
 %what is the difference really???
@@ -2592,7 +2681,7 @@ announced by the verb itself.
 \begin{wrapfigure}{l}{0.22\textwidth}
 \includegraphics[width=20mm]{metatree.pdf}
 \caption{Meta tree}
-\label{pic:gfEtree}
+\label{pic:gMetatree}
 \end{wrapfigure}
 %In Talbanken, verbs and particles are treated as separate units,
 %and the particle is marked with the tag \verb-PL- and attached to. 
@@ -2623,7 +2712,7 @@ See section \ref{sec:futureValency} for a longer discussion about this.\\
 %GF valencies prescribes.
 
 Another annotational difference that turned out to be problematic for the
-translation can be illustrated by sentence \ref{ex:mappMan}, containing
+translation can be illustrated by sentence (\ref{ex:mappMan}), containing
 the generic pronoun \emph{``man"}.
 \enumsentence{
 \shortex{3}{Man & uppskattar & dem}
@@ -2706,7 +2795,7 @@ the listings are meant for making the text look nice in
 folders etc and out of scope for the grammar itself. The tags \textbf{XX} and \textbf{NP} are often used since
 Talbanken -- unlike GF -- makes a difference between subjects
 and objects. %(which is not needed in GF (see section \ref{sec:swegf}))
-The analyse of sentence \ref{sent:krav}
+The analyse of sentence (\ref{sent:krav})
 \enumsentence{För stora krav.\\
 ``Too high demands."}\label{sent:krav}
 contains the tags \textbf{XX} and \textbf{NP}, since it is not obvious
@@ -2903,13 +2992,13 @@ Therefore, its implementation has so far not been prioritized.\\
 {Jag & dricker& vatten}
 {\emph{I}&\emph{drink}&\emph{water}}
 }\label{sent:water}
-The parse tree of sentence \ref{sent:water} looks as follows:
+The parse tree of sentence (\ref{sent:water}) looks as follows:
 \begin{verbatim}
 PredVP (UsePron i_Pron) (ComplSlash (SlashV2a drink_V2) 
                                       (MassNP (UseN water_N))) 
 \end{verbatim}
 
-This however is not the correct analysis for `hund' in sentence \ref{sent:hund}.
+This however is not the correct analysis for `hund' in sentence (\ref{sent:hund}).
 \enumsentence{\shortex{4}
 {Vi & ska& köpa & hund}
 {\emph{we} &\emph{will}& \emph{buy} & \emph{dog} }
@@ -2984,7 +3073,8 @@ No matter how much we increase the size of our lexicon, we will
 never cover all compounds. We therefore need to be able to do
 compounding analyses. Saldo has tools for this, which might be usable
 in this project as well \cite{}.
-
+ >> The many word forms in the gF tables, as seen in section \ref{saldo}.
+ >>This is a possible source for overgeneration.
 As noted, we additionally need to come up with better methods for using the lexicon when
 parsing, since its time and memory consumption is very high.
 One possibility is of course to do 
