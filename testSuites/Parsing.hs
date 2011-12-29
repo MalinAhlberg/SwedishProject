@@ -1,5 +1,6 @@
 module Parsing where
 import System.Timeout
+import System.Process
 import Data.Maybe
 import Data.Map hiding (map,null,filter)
 import Data.Ord
@@ -25,29 +26,51 @@ type Sent = (Id,String)
 -- 40 s, maybe too much
 timeLimit =  30*10^6
 
-run :: String -> Bool -> FilePath -> IO Count
-run file strict out = do  
-  putStrLn "Parsing input file..."
-  sents <- liftM head $ mainF file (return . map getSentence)
-  putStrLn " Creating new dictionary..."
-  (pgf',lang') <- mkDir (words $ concatMap (map toLower . snd) sents) lang pgfFile 
-  putStrLn " Ok\nReading PGF..."
-  pgf <- readPGF pgf' --File
-  putStrLn " Ok\n"
+play :: IO ()
+play = do
+  maps <- mkLexMap
+  pgf <- readPGF pgfFile
+  loop maps pgf
+ where loop maps pgf = do
+            putStrLn "Give a sentence"
+            str <- getLine 
+            (pgf',l') <- mkDir maps (prepare str) langOld pgf
+            pgfNew <- readPGF pgf'
+            let morpho = buildMorpho pgfNew l'
+            tree <- evalStateT (tryparse pgfNew morpho l' ("1",str)) (newCount False "pipfil")
+            case tree of
+                 Nothing -> putStrLn "no parse"
+                 Just t  -> do writeFile "tmptree" $ graphvizParseTree pgfNew l' t
+                               rawSystem "showdot" ["tmptree"]  
+                               putStrLn "hurray"
+            loop maps pgf
+       prepare = words . map toLower
 
--- must compile a new grammar!! BigSwe with tempDict
-  let morpho = buildMorpho pgf lang'
-  c <- execStateT (mapM_ (tryparse pgf morpho lang) sents) (newCount strict out)
-  print c
-  return c
 
-tryparse :: PGF -> Morpho -> Language -> Sent -> CState ()
+--run :: String -> Bool -> FilePath -> IO Count
+--run file strict out = do  
+--  putStrLn "Parsing input file..."
+--  sents <- liftM head $ mainF file (return . map getSentence)
+--  putStrLn " Creating new dictionary..."
+--  (pgf',lang') <- mkDir (words $ concatMap (map toLower . snd) sents) langOld pgfFile 
+--  putStrLn " Ok\nReading PGF..."
+--  pgf <- readPGF pgf' --File
+--  putStrLn " Ok\n"
+--  let morpho = buildMorpho pgf lang'
+--  c <- execStateT (mapM_ (tryparse pgf morpho lang') sents) (newCount strict out)
+--  print c
+--  return c
+
+tryparse :: PGF -> Morpho -> Language -> Sent -> CState (Maybe Tree)
 tryparse pgf morpho lang sents = do 
   count 
   parse' pgf morpho lang sents
 
-parse' :: PGF -> Morpho -> Language -> Sent -> CState ()
-parse' pgf morpho lang (s,"") = addEmpty >> putEmptyMsg (s,"")
+parse' :: PGF -> Morpho -> Language -> Sent -> CState (Maybe Tree)
+parse' pgf morpho lang (s,"") = do 
+   addEmpty
+   putEmptyMsg (s,"")
+   return Nothing
 parse' pgf morpho lang s = do
   let fix     = fixPunctuation $ replaceNumbers s 
       unknown = badWords morpho (snd fix)
@@ -57,14 +80,22 @@ parse' pgf morpho lang s = do
         else do putLexMsg s unknown
                 io $ appendFile out (formatRes strict (s,[])++"\n")
                 addBadLex
+                return Nothing
 
-parseOk :: PGF -> Language -> Sent-> CState ()        
+parseOk :: PGF -> Language -> Sent-> CState (Maybe Tree)        
 parseOk pgf lang s = do
   strict <- gets strict
   let eval = if strict then ($!) else ($)
   tree <- io $ timeout timeLimit $ return `eval` parse pgf lang textType (map toLower $ snd s)
   maybe (addTime >> putTimeMsg s) (getBestTree s) tree
+  return $ maybe Nothing (Just . head) tree
 
+testa :: String -> IO ()
+testa s = do
+  pgf <- readPGF "BigParse.pgf"
+  let morpho = buildMorpho pgf (read "BigParseSwe")
+  print $ lookupMorpho morpho $ map toLower s
+  --print [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
 
 badWords :: Morpho -> String -> [String]
 badWords morpho s = [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
@@ -85,6 +116,10 @@ getBestTree s tree = do
   strict <- gets strict
   out    <- gets outputFile
   io $ appendFile out (formatRes strict (s,tree)++"\n")
+  -- this is for play, remove
+ -- io $ rawSystem "dot -Tpdf"
+ -- graphvizParseTree 
+ -- io $ putStrLn (formatRes True (s,tree)++"\n")
 
 addOk,addEmpty, addBadLex :: CState ()
 addOk     = modify $ \s -> s {ok = succ (ok s)}
@@ -107,7 +142,7 @@ output s c str = do
 
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
-lang     = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
+langOld  = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
 pgfFile =  "../gf/Big.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
 outFile = "testisNP.txt"
 
@@ -178,5 +213,4 @@ putMsg :: Sent -> [Tree] -> IO ()
 putMsg s [] = putStrLn $ show s ++ color red " was not parsed"
 putMsg s ps = putStrLn $ show s ++ (color green " was parsed in "
                                       ++show (length ps)++" ways")
-
 
