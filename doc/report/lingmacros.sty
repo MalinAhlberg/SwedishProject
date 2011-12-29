@@ -225,9 +225,9 @@ width0pt depth0pt}}}
 %  \shortexdt  takes two gloss lines
 %  \shortexnt takes no gloss lines
 
-\def\shortex#1#2#3#4{\begin{tabular}[t]{@{}*{#1}{l@{\ }}}
-#2\\ #3\\ \multicolumn{#1}{@{}l@{}}{\parbox{\linewidth}{#4}}
-\end{tabular}}
+\def\shortex#1#2#3#4{\begin{tabular}[t]{@{}*{#1}{l@{\ }}}%
+#2\\ #3\\ %\multicolumn{#1}{@{}l@{}}{\parbox{\linewidth}{#4}}%
+\end{tabular}\\{#4}}
 
 \def\shortexm#1#2#3#4#5#6#7{\begin{tabular}[t]{@{}*{#1}{l@{\ }}}
 #2 & &#5\\ #3 & \hspace{8mm} & #6\\ \multicolumn{#1}{@{}l@{}}{\parbox
