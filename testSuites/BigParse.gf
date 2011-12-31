@@ -3,8 +3,8 @@
 -- for testing grammar, using just the test lexicon
 abstract BigParse = 
   TestLexAbs,
-  ExtraSweAbs,
-  Noun -[DetNP] ,
+  ExtraSweAbs - [PredVPS],
+  Noun -[DetNP,ApposCN] ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], --,ComplVA],
   Adjective -[UseComparA],
   Adverb,

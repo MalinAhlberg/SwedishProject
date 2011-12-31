@@ -41,11 +41,15 @@ play = do
             case tree of
                  Nothing -> putStrLn "no parse"
                  Just t  -> do writeFile "tmptree" $ graphvizParseTree pgfNew l' t
-                               rawSystem "showdot" ["tmptree"]  
+                               showPDF
                                putStrLn "hurray"
             loop maps pgf
        prepare = words . map toLower
 
+showPDF :: IO ()
+showPDF =  do
+  -- createHandle
+   readProcess "showdot" ["tmptree"]  []
 
 --run :: String -> Bool -> FilePath -> IO Count
 --run file strict out = do  

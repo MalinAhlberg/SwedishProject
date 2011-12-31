@@ -2,7 +2,7 @@
 
 -- for testing grammar, using just the test lexicon
 concrete BigParseSwe of BigParse = 
-  NounSwe- [DetNP],
+  NounSwe- [DetNP,ApposCN],
   VerbSwe -[PassV2,ComplSlash,ReflVP,ComplNP], --,ComplVA], -- [ComplVS],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -16,7 +16,7 @@ concrete BigParseSwe of BigParse =
   TextX - [Tense,Temp] ,
   TenseSwe,
   StructuralSwe, 
-  ExtraSwe - [DropAttVV] ,
+  ExtraSwe - [PredVPS] ,
   TestLex
   ** open IrregSwe, ParamX, CommonScand in {
       -- Irreg needed for göra
