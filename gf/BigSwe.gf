@@ -33,5 +33,9 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
     johan_PN = regPN "johan" ;
     do_VV = mkVV (mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord") ;
 
+    faa_VV = mkV "få" "får" "få" "fick" "fått" "fådd" ** 
+                    {c2 = mkComplement [] ; lock_VV = <>} ;
+    gaa_VV = mkVV (mkV "gå" "går" "gå" "gick" "gått" "gådd") ;
+
 
 } ;

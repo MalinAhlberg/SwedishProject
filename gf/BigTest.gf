@@ -28,7 +28,9 @@ abstract BigTest =
   numberOf_N2 : N2 ;
   gallande_A : A ;
   johan_PN : PN ;
-  do_VV : VV;
+  do_VV : VV ;
+  faa_VV : VV ;
+  gaa_VV : VV ;
 
   } ;
 

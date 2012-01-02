@@ -32,11 +32,16 @@ lin
 
 ------------------------------------------------------------------------------
   lin
-  SuperlA _ a = {
+  SuperlA a = {
      s = \\ag,ap => a.s ! AF (ASuperl SupStrong) Nom ;
      isPre = True
      };
 
+  ComparAP a = {
+     s = \\ag,ap => a.s ! AF ACompar Nom ;
+     isPre = True
+     };
+   
   --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 
 -------------------------------------------------------------------------------
@@ -205,7 +210,7 @@ lin
   FocVP vp np = {
       s = \\t,a,p =>
         let
-          subj = np.s ! CommonScand.nominative ;
+          subj = np.s ! aNPerson ! CommonScand.nominative ;
           agr  = np.a ;
           vps  = vp.s ! vp.voice ! VPFinite t a  ;  
           vf = case <<t,a> : STense * Anteriority> of {
@@ -230,7 +235,7 @@ lin
    let vp = UseComp ap ; --(CompAP ap);
        vps = vp.s ! vp.voice ! VPFinite t a  ;
        npAgr = np.a in
-    vp.n2 ! npAgr ++ vps.fin ++ np.s !  NPNom 
+    vp.n2 ! npAgr ++ vps.fin ++ np.s ! aNPerson !  NPNom 
     ++ negation ! p++ vps.inf };
 
 
@@ -242,7 +247,7 @@ lin
         vvs = vvp.s ! vvp.voice ! VPFinite t a  ; 
         always = vp.a1 ! Pos ++ vvp.a1 ! Pos ;
         already = vp.a2 ! np.a ++ vvp.a2 ! np.a in
-   bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! NPNom 
+   bara ++ vps.inf ++ vp.n2 ! np.a ++ vvs.fin ++ np.s ! aNPerson ! NPNom 
    ++ vv.c2.s ++ always ++ negation ! p ++ already ++ vvs.inf
    };  
 
@@ -271,7 +276,7 @@ lin
 -------------------------------------------------------------------------------
   ComplBareVV vv vp =  insertObj (\\a => infVP vp a) (predV vv) ;
 
-  SupCl np vp pol = let sub = np.s ! nominative ;
+  SupCl np vp pol = let sub = np.s ! aNPerson ! nominative ;
                         verb = (vp.s ! vp.voice ! VPFinite SPres Anter).inf ;
                         neg  = vp.a1 ! pol.p ++ pol.s ;
                         compl = vp.n2 ! np.a ++ vp.a2 ! np.a ++ vp.ext in
@@ -281,7 +286,7 @@ lin
     s = vp.s ;
     a0 = vp.a0 ; 
     a1 = vp.a1 ;
-    n2 = vp.n2 ;
+    n2 = \\a => vp.n2 ! a ++ vp.n3 ! a ++ vp.c2.s ;
     a2 = vp.a2 ;
     ext = vp.ext ;
     voice = Pass ;
@@ -291,12 +296,12 @@ lin
    } ;   
   
   PassV2 v = insertObj 
-        (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)) 
+        (\\a => v.s ! VI (VPtPret (agrAdjNP a DIndef) Nom)++v.part) 
         (predV verbBecome) ;
 
    
  
-  PPartAP _ v2 =
+  PPartAP v2 =
     {s     = \\a,aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
 

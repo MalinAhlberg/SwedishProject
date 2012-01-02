@@ -21,39 +21,40 @@ cat
 fun
 
  
-   DetNP : (a : Boolean) -> Det a -> NP a ;
+   DetNP : (a : Boolean) -> DetTyped a -> NPTyped a ;
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
 
-    ComplSlash :VPSlash ->  NPObject -> VP ;
-    ReflIdPron : Pron Object ;  -- sig, sin 
+    ComplSlash :VPSlash ->  NPTyped Object -> VP ;
+    ReflIdPron : PronTyped Object ;  -- sig, sin 
 
 
 -------------------------------------------------------------------------------
-  SuperlA : (a : Boolean) -> A -> AP a ;
+  SuperlA : A -> AP ;
+  ComparAP : A -> AP ;  -- en större katt
 
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
-  FormalSub : SimpleVP -> Det Subject -> CN -> Cl ; -- det sitter en katt där
+  FormalSub : SimpleVP -> DetTyped Subject -> CN -> Cl ; -- det sitter en katt där
 
   SimpleV      : V -> SimpleVP ;            -- sitter
   Pass2VSimple : V2 -> SimpleVP ;     -- skrivs 
-  AdvSimpleVP : SimpleVP -> AdvObject -> SimpleVP ;
+  AdvSimpleVP : SimpleVP -> AdvTyped Object -> SimpleVP ;
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
 
 -------------------------------------------------------------------------------
 -- Varandra
 -------------------------------------------------------------------------------
-  varandra : NPObject ; 
+  varandra : NPTyped Object ; 
    
 -------------------------------------------------------------------------------
 -- Relatives
 -------------------------------------------------------------------------------
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
-  RelSlashVS : Temp -> Pol -> NPSubject -> VS -> RelVSCl ;  -- vilket vi vet
-  RelCNNP : (a : Boolean) -> Num -> CN -> RS -> NP a  ;  -- de äpplen du äter
+  RelSlashVS : Temp -> Pol -> NPTyped Subject -> VS -> RelVSCl ;  -- vilket vi vet
+  RelCNNP : (a : Boolean) -> Num -> CN -> RS -> NPTyped a  ;  -- de äpplen du äter
 
 -------------------------------------------------------------------------------
 -- Focusing adverbs
@@ -61,7 +62,7 @@ fun
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
-  FocAP : Comp -> NPSubject -> Foc ; -- changed from AP -> NP -> Foc
+  FocAP : Comp -> NPTyped Subject -> Foc ; -- changed from AP -> NP -> Foc
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
@@ -70,11 +71,11 @@ fun
 -------------------------------------------------------------------------------
 -- For determiners and quantifiers
 -------------------------------------------------------------------------------
-  DetNP_utr : (a : Boolean) -> Det a -> NP a ; -- den här
+  DetNP_utr : (a : Boolean) -> DetTyped a -> NPTyped a ; -- den här
 
-  DetPronAD : (a : Boolean) -> PronAD -> Det a ;
+  DetPronAD : (a : Boolean) -> PronAD -> DetTyped a ;
   -- not implented??
-  QuantPronAQ : (a : Boolean) -> PronAQ -> Quant a ;
+  QuantPronAQ : (a : Boolean) -> PronAQ -> QuantTyped a ;
   CompPronAQ : PronAQ -> Comp ;
   CompPronAD : PronAD -> Comp ;
   -- de blev sådana
@@ -82,8 +83,8 @@ fun
  -- de blev fler
   ComplVAPronAD : VA -> PronAD -> VP ;
 
-  it8utr_Pron   : Pron Object ;
-  this8denna_Quant : Quant Subject ;
+  it8utr_Pron   : Pron  ;
+  this8denna_Quant : Quant ;
 
 
 ---
@@ -96,16 +97,16 @@ fun
 -- Various functions
 -------------------------------------------------------------------------------
   ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
-  SupCl  : NPSubject -> VP -> Pol -> S ; -- när jag sovit
+  SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
   
   
-  UseComparA  : (a : Boolean) -> A -> AP a ;
+  UseComparA  : A -> AP ;
   PassV2 : V2 -> VP ;  -- bli äten
   PassVP : VPSlash -> VP ; -- ätas
   
  
 
-   PPartAP : (a : Boolean) -> V2 -> AP a ; --VPSlash -> AP ;
+   PPartAP : V2 -> AP ; --VPSlash -> AP ;
    
  
 -------------------------------------------------------------------------------
@@ -117,22 +118,22 @@ fun
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;
   hela_Predet : Predet ;  --hela horder/hela katten 
-  sjaelva_Quant : Quant Subject ; -- själva kungen/själva öronen
+  sjaelva_Quant : Quant  ; -- själva kungen/själva öronen
   samma_Predet : Predet ; -- samma katter/samma öra 
-  varenda_Det : Det Subject ;
-  vardera_Det : Det Subject ;
-  ena_Det : Det Subject ;
-  baegge_Det : Det Subject ;
-  baada_Det : Det Subject ;
-  varannan_Det : Det Subject ;
-  somliga_Det : Det Subject ;
-  dylika_Det : Det Subject ;
-  oovriga_Det : Det Subject ;
-  aatskilliga_Det : Det Subject ;
-  samtliga_Det : Det Subject ;
+  varenda_Det : Det  ;
+  vardera_Det : Det  ;
+  ena_Det : Det  ;
+  baegge_Det : Det ;
+  baada_Det : Det  ;
+  varannan_Det : Det ;
+  somliga_Det : Det  ;
+  dylika_Det : Det  ;
+  oovriga_Det : Det  ;
+  aatskilliga_Det : Det ;
+  samtliga_Det : Det ;
 
-  noll_Det : Det Subject ;
-  annan_Quant : Quant Subject ;
+  noll_Det : Det  ;
+  annan_Quant : Quant  ;
 
   numberOf : N2' ;
   boerja_med_VV : VV ; 

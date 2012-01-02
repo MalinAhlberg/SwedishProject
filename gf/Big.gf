@@ -28,4 +28,6 @@ abstract Big =
   gallande_A : A ;
   johan_PN : PN ;
   do_VV : VV;
+  faa_VV : VV ;
+  gaa_VV : VV ;
   } ;
