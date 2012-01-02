@@ -1488,7 +1488,7 @@
         <terminals>
           <t id="s1617_1" word="kvinna" pos="NN"/>
           <t id="s1617_2" word="på" pos="PR"/>
-          <t id="s1617_3" word="jagande" pos="SP"/>
+          <t id="s1617_3" word="gällande" pos="SP"/>
           <t id="s1617_4" word="kvinna" pos="NN"/>
           <t id="s1617_5" word="." pos="IP"/>
         </terminals>
@@ -1671,7 +1671,7 @@
           <t id="s1819_1" word="men" pos="++MN"/>
           <t id="s1819_2" word="han" pos="PODPHH"/>
           <t id="s1819_3" word="äter" pos="VVPS"/>
-          <t id="s1819_4" word="än" pos="ABMN"/>
+          <t id="s1819_4" word="alltid" pos="ABMN"/>
           <t id="s1819_5" word="kvinna" pos="NN  SS"/>
           <t id="s1819_6" word="." pos="IP"/>
         </terminals>
@@ -1963,7 +1963,7 @@
       <graph root="s1988_501">
         <terminals>
           <t id="s1988_1" word="det" pos="POOP"/>
-          <t id="s1988_2" word="stänger" pos="VVPS"/>
+          <t id="s1988_2" word="stängs" pos="VVPS"/>
           <t id="s1988_3" word="bara" pos="ABZA"/>
           <t id="s1988_4" word="inte" pos="ABNA"/>
           <t id="s1988_5" word="av" pos="ABZA"/>
@@ -2453,9 +2453,9 @@
       <graph root="s3561_501">
         <terminals>
           <t id="s3561_1" word="den" pos="PODP"/>
-          <t id="s3561_2" word="jagande" pos="SP  SM"/>
+          <t id="s3561_2" word="gällande" pos="SP  SM"/>
           <t id="s3561_3" word="och" pos="++OC"/>
-          <t id="s3561_4" word="jagande" pos="SP  SM"/>
+          <t id="s3561_4" word="gällande" pos="SP  SM"/>
           <t id="s3561_5" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -2796,7 +2796,7 @@
           <t id="s5090_1" word="det" pos="POOP"/>
           <t id="s5090_2" word="blir" pos="VVPT"/>
           <t id="s5090_3" word="bara" pos="ABZA"/>
-          <t id="s5090_4" word="gul" pos="AJ"/>
+          <t id="s5090_4" word="gult" pos="AJ"/>
           <t id="s5090_5" word="." pos="IP"/>
         </terminals>
         <nonterminals>
@@ -3458,7 +3458,7 @@
 			<graph root="s1129_501">
 				<terminals>
 					<t id="s1129_1" word="Sådana" pos="POKP"/>
-					<t id="s1129_2" word="resor" pos="NN"/>
+					<t id="s1129_2" word="katter" pos="NN"/>
 					<t id="s1129_3" word="tänker" pos="VVPS  PA"/>
 					<t id="s1129_4" word="gult" pos="AJ"/>
 					<t id="s1129_5" word="." pos="IP"/>

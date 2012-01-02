@@ -33,3 +33,52 @@ Wed Dec 14 15:28:19 CET 2011
 	 of totally 155 sentences.
 5 had unknown words
 
+Mon Jan  2 16:46:36 CET 2012
+*******
+ Result: passed: 79	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+17 had unknown words
+
+Mon Jan  2 16:48:52 CET 2012
+*******
+ Result: passed: 69	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+Mon Jan  2 16:56:54 CET 2012
+*******
+ Result: passed: 87	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+Mon Jan  2 17:19:14 CET 2012
+*******
+ Result: passed: 94	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+Mon Jan  2 17:27:49 CET 2012
+*******
+ Result: passed: 96	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+Mon Jan  2 17:36:58 CET 2012
+*******
+ Result: passed: 99	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+Mon Jan  2 18:32:49 CET 2012
+*******
+ Result: passed: 100	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+5 had unknown words
+
+--with upgraded test suite and some more grammar
+Mon Jan  2 19:03:26 CET 2012
+*******
+ Result: passed: 105	 rejected: 0	 timed out: 0
+	 of totally 155 sentences.
+2 had unknown words
+
