@@ -2,7 +2,7 @@ module MkLex where
 import PGF
 import Control.Monad
 import System.Process
-import qualified Data.Map as M
+import qualified Data.HashMap as M
 
 type LexMap = (Lex,Lex)
 type Lex    = M.Map String String

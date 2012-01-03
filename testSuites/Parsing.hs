@@ -1,6 +1,10 @@
 module Parsing where
 import System.Timeout
 import System.Process
+import System.Console.ANSI hiding (Color)
+import System.IO
+import System.Exit
+import qualified Data.ByteString.Lazy as BS
 import Data.Maybe
 import Data.Map hiding (map,null,filter)
 import Data.Ord
@@ -11,6 +15,7 @@ import Control.Concurrent
 import Control.Arrow
 import Control.Applicative
 import Control.Monad.State
+import Control.Exception
 import PGF
 import XMLHelp hiding (words,parse)
 import MkLex
@@ -28,28 +33,56 @@ timeLimit =  30*10^6
 
 play :: IO ()
 play = do
-  maps <- mkLexMap
-  pgf <- readPGF pgfFile
+  (maps,pgf) <- play'
   loop maps pgf
  where loop maps pgf = do
             putStrLn "Give a sentence"
-            str <- getLine 
-            (pgf',l') <- mkDir maps (prepare str) langOld pgf
-            pgfNew <- readPGF pgf'
-            let morpho = buildMorpho pgfNew l'
-            tree <- evalStateT (tryparse pgfNew morpho l' ("1",str)) (newCount False "pipfil")
+            str <- input 
+            tree <- processparse str pgf langOld maps
             case tree of
                  Nothing -> putStrLn "no parse"
-                 Just t  -> do writeFile "tmptree" $ graphvizParseTree pgfNew l' t
-                               showPDF
-                               putStrLn "hurray"
+                 Just t  -> putStrLn "hurray"
             loop maps pgf
-       prepare = words . map toLower
+
+play' = do 
+  maps <- mkLexMap
+  pgf <- readPGF pgfFile
+  return (maps,pgf)
+
+processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe FilePath)
+processparse str pgf langOld maps = do
+  (pgf',l') <- mkDir maps (prepare str) langOld pgf
+  pgfNew <- readPGF pgf'
+  let morpho = buildMorpho pgfNew l'
+  tree <- evalStateT (tryparse pgfNew morpho l' ("1",str)) (newCount False "pipfil")
+  maybe (return Nothing) (createFile pgf) tree
+ where prepare    = words . map toLower
+       createFile pgf t = do
+           writeFile "tmptree" $ graphvizParseTree pgf (read "BigParseSwe") t
+           return (Just "tmptree")
+
+input :: IO String
+input = input' ""
+ where input' :: String -> IO String
+       input' inputStr = do
+            c <- getChar
+            unless (c == '\t' || c == '\DEL') $ putChar c
+            hSetEcho stdin False
+            case c of
+                '\n'   -> return inputStr
+                '\DEL' -> do
+                   setCursorColumn $ (length inputStr) - 1
+                   clearFromCursorToLineEnd
+                   input' (initSafe inputStr)
+                _      -> input' (inputStr ++ [c])
+       initSafe [] = []
+       initSafe xs = init xs
 
 showPDF :: IO ()
 showPDF =  do
   -- createHandle
-   readProcess "showdot" ["tmptree"]  []
+   putStrLn "There will be a tree"
+   --readProcess "showdot" ["tmptree"]  []
 
 --run :: String -> Bool -> FilePath -> IO Count
 --run file strict out = do  
@@ -217,4 +250,37 @@ putMsg :: Sent -> [Tree] -> IO ()
 putMsg s [] = putStrLn $ show s ++ color red " was not parsed"
 putMsg s ps = putStrLn $ show s ++ (color green " was parsed in "
                                       ++show (length ps)++" ways")
+
+--- graphviz, by Thomas
+pipeIt2graphviz :: String -> IO BS.ByteString
+pipeIt2graphviz code = do
+    (Just inh, Just outh, _, pid) <-
+        createProcess (proc "dot" ["-T","png"])
+                      { std_in  = CreatePipe,
+                        std_out = CreatePipe,
+                        std_err = Inherit }
+
+    hSetEncoding outh latin1
+    hSetEncoding inh  utf8
+
+    -- fork off a thread to start consuming the output
+    output  <- BS.hGetContents outh
+    outMVar <- newEmptyMVar
+    _ <- forkIO $ evaluate (BS.length output) >> putMVar outMVar ()
+
+    -- now write and flush any input
+    hPutStr inh code
+    hFlush inh
+    hClose inh -- done with stdin
+
+    -- wait on the output
+    takeMVar outMVar
+    hClose outh
+
+    -- wait on the process
+    ex <- waitForProcess pid
+
+    case ex of
+     ExitSuccess   -> return output
+     ExitFailure r -> fail ("pipeIt2graphviz: (exit " ++ show r ++ ")")
 
