@@ -2,7 +2,7 @@
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
-abstract ExtraSweAbs = ExtraScandAbs -[FocAdv,FocAP] ** {
+abstract ExtraSweAbs = ExtraScandAbs -[TopAdv,TopAP] ** {
     
 cat --ReflNP ; 
     PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
@@ -89,7 +89,7 @@ fun
   SlashV3Varandra : V3 -> VPSlash ;
    
 -------------------------------------------------------------------------------
--- tests, doesn't work for Foc anyway
+-- tests, doesn't work for Top anyway
 -------------------------------------------------------------------------------
   VS_it : VS -> VP ; -- hon vet det
   VV_it : VV -> VP ; -- hon vill det
@@ -120,11 +120,11 @@ fun
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
-  FocAP : Comp -> NP -> Foc ; -- changed from AP -> NP -> Foc   -- det är katten is more ambigouos now!
+  TopAP : Comp -> NP -> Top ; -- changed from AP -> NP -> Top   -- det är katten is more ambigouos now!
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
-                              -- can remove FocAdv
+                              -- can remove TopAdv
 
 -------------------------------------------------------------------------------
 -- For determiners and quantifiers
