@@ -2282,10 +2282,9 @@ All constructions used in examples \ref{sent:relex}a-d were accepted.
 
 The grammar has been extended to accept a definite article for
 nouns in indefinite form, whenever the noun phrase is followed by a restrictive
-relative clause.
+relative clause \cite[\textsection 329]{H&H}
 Talbanken contained several examples where the modified noun is in the 
 indefinite form as in (\ref{sent:uppfatt}).
-%TODO ref to H&H
 \enumsentence{\shortex{7}
 {de uppfattningar& som& förs& fram ...} 
 {\emph{the opinions}& \emph{that}&\emph{ put+{\sc passive}} & \emph{forward ...}}
@@ -2743,11 +2742,11 @@ most transitive verbs can also be used as intransitive. Both sentences in
 example \ref{ex:mappTransitive} are grammatically correct but only (\ref{ex:mappTransitive}b)
 is accepted by the GF grammar, and
 the grammar rules are simply too strict for accepting many Talbanken sentences.
-\enumsentence{\shortexm{13}
-{a. &Han& sitter& och &läser.}
-{&\emph{he}& \emph{sits}& \emph{and} &\emph{reads}}{}
-{b. &Han& sitter& och& läser& en& bok.}
-{&\emph{he}& \emph{sits}& \emph{and}& \emph{reads}& \emph{a}& \emph{book}}{}}
+\enumsentence{\begin{tabular}[t]{@{}*{14}{l@{\ }}}
+a. &Han& sitter& och &läser.&& & b. &Han& sitter& och& läser& en& bok.\\
+&\emph{he}& \emph{sits}& \emph{and} &\emph{reads} &&&
+&\emph{he}& \emph{sits}& \emph{and}& \emph{reads}& \emph{a}& \emph{book}\\
+\end{tabular}}
 \label{ex:mappTransitive}
 See section \ref{sec:futureValency} for a longer discussion about this.\\
 %the Talbankenwill allow words to be used in other ways than their
@@ -2950,11 +2949,54 @@ of how well GF can be used to describe larger parts of a language
 \end{itemize}
 
 The grammar has been extended and enhanced, and its current status is
-a specialized extension of the resource grammar. When it comes to parsing,
-however, we do not get far without robustness.
+a specialized extension of the resource grammar.
+Besides parsing, the grammar may well be used for language generation,
+which is fast even with an extensive lexicon.
+%TODO make nice!
+Although it cannot not been verified, we believe that the majority of the
+sentences generated are grammatically correct in a syntactical point of view.
+Without any semantical knowledge, nonsense phrases cannot be avoided in
+random generation. However, given that the abstract tree has a meaningful
+interpretation,
+the linearization should be correct. There are some cases when the correctness
+of the output has been put aside in order to increase the expressivity, such
+as \verb-ComplBareVV-, which use a verb-complement verb without the inifite mark, 
+as in sentence (\ref{sent:complVV1}b).
+\eenumsentence{\item\shortex{5}
+{Jag& börjar&\textbf{att}& bli& hungrig}
+{I& begin& \textbf{to}&become& hungry}
+{I'm getting hungry}
+\item
+\shortex{4}
+{Jag& börjar& bli& hungrig}
+{I& begin& become& hungry}
+{I'm getting hungry}}\label{sent:complVV1}
+Since there is no information about which verbs that allows the inifinite mark
+to be left out, it will also allow the more questionable sentence (\ref{sent:complVV2}b).
+\eenumsentence{
+\item \shortex{5}
+{Jag & vill & \textbf{att}& du & går} 
+{I & want & \textbf{to} &you & leave}
+{I want you to leave}
+\item \shortexnt{4}
+{Jag & vill & du & går} 
+{I & want &you & leave}}\label{sent:complVV2}
+%ComplBareVV, SupCl
+For random generation, the sentences generated may be next to impossible
+to interpret without looking at the abstract tree, since they may contain
+too many attributes, relative clauses etc. 
+%\enumsentence{Kommer övriga datorer idag som ska vara inte att ha målats?}
+%\label{sent:what}
+%Sentence (\ref{sent:what})
+%PredVP (DetCN Subject (DetSub oovriga_Det) (RelCN (AdvCN (UseN computer_N) (AdvSub today_Adv)) (UseRCl (TTAnt TFut ASimul) PPos (RelVP IdRP UseCopula)))) (PassVP (SlashV2A paint_V2A (ComparA Object red_A (UsePN Object johan_PN))))
+%The use of the NONEXIST pattern, as described in \ref{sec:Formal}. When using
+%the grammar for generation, an extra 
+
+When it comes to parsing, we do not get far without robustness.
 The grammar in itself is by no means robust, and just one 
 unexpected punctuation mark, unknown word
 or missing phrase will cause the parsing of the whole sentence to fail. 
+
 
 Parsing bigger parts of Talbanken would hence give very low results at this stage, 
 %, for the reasons stated.
