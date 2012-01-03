@@ -101,7 +101,7 @@ fun
   
   
   UseComparA  : A -> AP ;
-  PassV2 : V2 -> VP ;  -- bli äten
+  PassV2 : V2 -> VP ;  -- bli äten --shouldn't need to be here, but get irrefutable pattern
   PassVP : VPSlash -> VP ; -- ätas
   
  

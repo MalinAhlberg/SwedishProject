@@ -13,7 +13,7 @@ concrete BigTestSwe of BigTest =
   QuestionSwe,
   RelativeSwe,
   PhraseSwe,
-  TextX - [Tense,Temp,Adv] , --  src/compiler/GF/Compile/GrammarToPGF.hs:216:11-73: Irrefutable pattern failed for pattern GF.Data.ErrM.Ok ty_C
+  TextX - [Tense,Temp,Adv] , 
   TenseSwe,
   ConjunctionSwe,
   StructuralSwe,
