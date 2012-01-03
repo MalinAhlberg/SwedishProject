@@ -1,6 +1,6 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 -- unnecessarily complicated type of AdvNP???
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [FocAdv] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [TopAdv] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -207,7 +207,7 @@ lin
 -- Implemented in ExtraScand
 -------------------------------------------------------------------------------
 lin
-  FocVP vp np = {
+  TopVP vp np = {
       s = \\t,a,p =>
         let
           subj = np.s ! aNPerson ! CommonScand.nominative ;
@@ -230,7 +230,7 @@ lin
   oper do_V : V = mkV "göra" "gör" "gör" "gjorde" "gjort" "gjord" ;
 
 lin
-  FocAP ap np    = 
+  TopAP ap np    = 
   {s = \\t,a,p => 
    let vp = UseComp ap ; --(CompAP ap);
        vps = vp.s ! vp.voice ! VPFinite t a  ;
@@ -239,7 +239,7 @@ lin
     ++ negation ! p++ vps.inf };
 
 
-  FocVV vv vp np = 
+  TopVV vv vp np = 
   {s = \\t,a,p =>
     let bara = vp.a0 ;
         vps = vp.s ! vp.voice ! VPInfinit Simul ;
