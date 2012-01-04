@@ -33,11 +33,16 @@ lang :: Language
 lang = read  "BigSwe" --"BigTestSwe" --
 
 -- count words
-count = do
- putStrLn $ "Parsing talbanken "++talbanken++" ..."
- trees <- (map snd . head) <$> parse talbanken
- writeFile "counted" $ process F.id $ concatMap collectWords trees
- 
+count input = do
+ putStrLn $ "Parsing talbanken "++input++" ..."
+ trees <- (map snd . head) <$> parse input
+ print $ sum $ map countNodes trees
+ --writeFile "counted" $ process F.id $ concatMap collectWords trees
+
+
+countNodes :: Tree String -> Int
+countNodes (Node w [])  = 1
+countNodes (Node w ts)  = 1 + (sum $ map countNodes ts)
 
 countWords :: Tree String -> Int
 countWords (Node w [])  = 1
