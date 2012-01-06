@@ -145,7 +145,7 @@ In order to not reinvent the wheel we proceed from a combination of well-tested
 resources.
 %TODO verify this
 We start from a GF resource grammar, consisting of an abstract and a concrete syntax
-file defining a set of rules describing morpology and syntax.
+file defining a set of rules describing morphology and syntax.
 From now on, this is what we mean by grammar, as
 opposed to grammar in the traditional linguistic sense. 
 From GF, we get %and thereby get
@@ -282,7 +282,7 @@ An interactive GF editor and the GF shell can be tried out online
 \footnote{http://www.grammaticalframework.org/demos/gfse/}. See figure \ref{fig:shell},
  The first command will parse the given
 sentence and visualize the resulting parse tree. The second will visualize the 
-abstract syntax tree. The trees will be showed in the pgf-format by the program evince.
+abstract syntax tree. The trees will be showed in the pdf-format by the program evince.
 \begin{figure}[h]
 \begin{verbatim} 
 > parse "jag ser katten" | visualize_parse -format=pdf -view=evince
@@ -1047,7 +1047,7 @@ personal pronouns etc.
 are assumed to be present in the resource grammars and should not be added again.
 Saldo contains many pronouns which
 are not analysed the same way in GF (see section \ref{sec:swegf}).
-Befor adding them to our lexicon, we need to do more analysing to find their correct GF-category.
+Before adding them to our lexicon, we need to do more analysing to find their correct GF-category.
 %TODO read again
 %They can thus not simply be extracted -- we first need to find their correct GF category.
 Some experiments on finding the category
@@ -1922,7 +1922,7 @@ Apart from these restrictions, noun phrases containing reflexive pronouns
 may be used as any other \verb-NP-. They may be conjoined 
 (\ref{ex:ReflConj} a,b) and used with other determiners (\ref{ex:ReflPredet}).
 In the standard GF analysis, which is preformed bottom-up starting from the pos-tags, 
-all information about semantical roles are lost. There is no way
+all information about semantic roles are lost. There is no way
 of knowing whether a \verb-NP- acts as subject or object. For this reason,
 the formalization of reflexive pronouns required the use of a different analysis.
 %and used as genitives (sentence \ref{ex:ReflGen}) as such.
@@ -2029,7 +2029,7 @@ types.
 
 
 We hence combine the-part-of-speech driven analyse normally preformed by
-GF with a part-of-sentence analysis, where the dependent types gives the semantical
+GF with a part-of-sentence analysis, where the dependent types gives the semantic
 information we were missing.
 
 The use of dependent types separates our grammar from the other resource grammars. Such separation
@@ -3005,13 +3005,13 @@ which is fast even with an extensive lexicon.
 %TODO make nice!
 Although it cannot not been verified, we believe that the majority of the
 sentences generated are grammatically correct in a syntactical point of view.
-Without any semantical knowledge, nonsense phrases cannot be avoided in
+Without any semantic knowledge, nonsense phrases cannot be avoided in
 random generation. However, given that the abstract tree has a meaningful
 interpretation,
 %TODO move to Misc?
 the linearization should be correct. There are some cases when the correctness
 of the output has been put aside in order to increase the expressivity, such
-as \verb-ComplBareVV-, which use a verb-complement verb without the inifite mark, 
+as \verb-ComplBareVV-, which use a verb-complement verb without the infinitive mark, 
 as in sentence (\ref{sent:complVV1}b).
 \eenumsentence{\item\shortex{5}
 {Jag& börjar&\textbf{att}& bli& hungrig}
@@ -3022,7 +3022,7 @@ as in sentence (\ref{sent:complVV1}b).
 {Jag& börjar& bli& hungrig}
 {\emph{I}& \emph{begin}& \emph{become}& \emph{hungry}}
 {I'm getting hungry}}\label{sent:complVV1}
-Since there is no information about which verbs that allows the inifinite mark
+Since there is no information about which verbs that allows the infinitive mark
 to be left out, it will also allow the more questionable sentence (\ref{sent:complVV2}b).
 \eenumsentence{
 \item \shortex{5}
@@ -3118,7 +3118,7 @@ that are desirable and interesting to implement. A few examples are listed here:
 a. & Jag & ser&  honom& \textbf{inte}&~~ & b.&Jag &ser &\textbf{inte} &honom\\
    & \emph{I} & \emph{see}&\emph{him}&\emph{not}&&& \emph{I} &\emph{see}&\emph{not}&\emph{him}\\
 \end{tabular}}
-Personal pronouns are allowed to precede negation and some other sentence adverbials --\textit{satsadverbial} --
+Personal pronouns are allowed to precede negation and some other sentence adverbials % --\textit{satsadverbial} --
 in main clauses without auxiliary verbs.
 
 \enumsentence{\begin{tabular}[t]{@{}*{12}{l@{\ }}}
@@ -3316,7 +3316,7 @@ the grammar from the GF resource grammar.
 
 Our final goal is to be able to parse unrestricted text, but considering that
 no syntactic theory is yet capable
-of wholy covering a natural language, we are satisfied with %theconsider our grammar 
+of wholly covering a natural language, we are satisfied with %theconsider our grammar 
 %when used without a robust layer 
 the grammar implementation of an important fragment of Swedish.
 We have therefore focused on constructions that are frequent in Talbanken, 
