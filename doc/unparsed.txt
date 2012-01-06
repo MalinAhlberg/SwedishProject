@@ -1,4 +1,5 @@
 to fix in grammar:
+det dricks -> not predVP
 gräset växte _varje dag_
 _det_ äpplet vill jag inte ha
 han är här oftare (mer ofta) än sin kompis
