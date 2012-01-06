@@ -354,6 +354,9 @@ lin
 
   lin
     bara_AdvFoc = (ss "bara") ** {x = ""} ;
+    tillochmed_AdvFoc = (ss "till och med") ** {x = ""} ;
+
+
 
     sadana_PronAQ = mkA "sådan" ;
     fler_PronAD   = mkA "flera" "flera" "flera" "fler" "flest" ;
