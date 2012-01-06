@@ -1,0 +1,29 @@
+to fix in grammar:
+gräset växte _varje dag_
+_det_ äpplet vill jag inte ha
+han är här oftare (mer ofta) än sin kompis
+jag ska (tänka och sova)!
+men!
+pojken , som är blyg _,_ tystnar
+
+to add to program:
+add exception for &+ to showup
+han är sådan -> fel först
+han är sådan -> fel först
+en -> not 1
+generic -> not man
+
+to test:
+måla -test
+
+
+
+report:
+obs!! vill VS, ej VV!
+det Röda äpplet, de uppfattningarna
+mer ofta
+hon sover vilket är bra (with ,) add to report
+last parantes in ta med
+sina vantar ÄR kvar på tåget
+hAn och sin kompis
+
