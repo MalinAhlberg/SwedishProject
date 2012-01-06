@@ -12,9 +12,11 @@ mkDir :: LexMap -> [String] -> Language -> PGF -> IO (Maybe (FilePath,Language))
 mkDir lexs ws lang pgf = do
 --   putStrLn "Reading pgf..."
 --   pgf <- readPGF bigPGF  
-   let morpho = buildMorpho pgf lang
+   putStrLn $ "Lemmas wanted "++show ws
+   let morpho = buildMorpho pgf (read "DictSwe")
        allLemmas = map fst $ concatMap (lookupMorpho morpho) ws
    putStrLn "Extracting new lexicon..."
+   putStrLn $ "Lemmas "++show allLemmas
    (cnc,abs) <- extractLemmas lexs allLemmas
    putStrLn "Compiling new grammar..."
    (ex,res,err) <- readProcessWithExitCode "gf" ["--make",bigGF] []
@@ -25,7 +27,6 @@ mkDir lexs ws lang pgf = do
                             putStrLn err
                             return Nothing
 
--- do not add fun or lin if no words extracted!!
 extractLemmas :: LexMap -> [Lemma] -> IO (FilePath,FilePath)
 extractLemmas (cnc,abs) ws = do
   writeHeaders
@@ -45,11 +46,21 @@ extractLemmas (cnc,abs) ws = do
        headerCnc = "--# -path=.:abstract:alltenses:swedish:common:scandinavian\n"
                    ++"concrete TestLex of TestLexAbs = CatSwe **\n"
                    ++"open  Prelude, CommonScand, ParadigmsSwe, IrregSwe in {\n"
-                   ++" flags optimize=values ; coding=utf8 ;"
-                   ++"lin\n"
+                   ++" flags optimize=values ; coding=utf8 ;\n"
+                   ++"lin\n \n"
+                   ++"ta_med_V3 = dirV3 (reflV (partV"
+                   ++"(mkV \"ta\" \"tar\" \"ta\" \"tog\" \"tagit\" \"tagen\") \"med\"))"
+                   ++"(mkPrep \"till\");\n"
+                   ++"akta_sig_V2 = mkV2 (reflV (mkV \"aktar\")) (mkPrep \"för\") ;\n"
+                   ++"faa_VV = mkV \"få\" \"får\" \"få\" \"fick\" \"fått\" \"fådd\" ** "
+                   ++"{c2 = mkComplement [] ; lock_VV = <>} ;\n"
+ 
        headerAbs = "--# -path=.:abstract:prelude:alltenses\n"
                    ++"abstract TestLexAbs = Cat ** {\n fun \n"
-                   --smarter algorithm! have lexicon is lexical order
+                   ++ "ta_med_V3 : V3 ;\n"
+                   ++ "akta_sig_V2 : V2 ;\n"
+                   ++"faa_VV : VV ;\n "
+
 
 mkLexMap :: IO LexMap 
 mkLexMap = do 

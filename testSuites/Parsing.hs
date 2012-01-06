@@ -1,10 +1,5 @@
 module Parsing where
 import System.Timeout
-import System.Process
-import System.Console.ANSI hiding (Color)
-import System.IO
-import System.Exit
-import qualified Data.ByteString.Lazy as BS
 import Data.Maybe
 import Data.Map hiding (map,null,filter)
 import Data.Ord
@@ -15,10 +10,8 @@ import Control.Concurrent
 import Control.Arrow
 import Control.Applicative
 import Control.Monad.State
-import Control.Exception
 import PGF
 import XMLHelp hiding (words,parse)
-import MkLex
 
 -- use with tee -a outfile
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
@@ -31,108 +24,43 @@ type Sent = (Id,String)
 -- 40 s, maybe too much
 timeLimit =  30*10^6
 
-play :: IO ()
-play = do
-  (maps,pgf) <- play'
-  loop maps pgf
- where loop maps pgf = do
-            putStrLn "Give a sentence"
-            str <- input 
-            tree <- processparse str pgf langOld maps
-            case tree of
-                 Nothing -> putStrLn "no parse"
-                 Just t  -> putStrLn "hurray"
-            loop maps pgf
-
-play' = do 
-  maps <- mkLexMap
+run :: String -> Bool -> FilePath -> IO Count
+run file strict out = do  
+  putStr "Parsing input file..."
+  sents <- mainF file (return . map getSentence)
+  putStr " Ok\nReading PGF..."
   pgf <- readPGF pgfFile
-  return (maps,pgf)
+  putStrLn " Ok\n"
+  --absMap <- readAbbs 
+  let morpho = buildMorpho pgf lang
+  c <- execStateT (mapM_ (tryparse pgf morpho) (concat sents)) (newCount strict out)
+  print c
+  return c
 
-processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe FilePath)
-processparse str pgf langOld maps = do
-  (pgf',l') <- mkDir maps (prepare str) langOld pgf
-  pgfNew <- readPGF pgf'
-  let morpho = buildMorpho pgfNew l'
-  tree <- evalStateT (tryparse pgfNew morpho l' ("1",str)) (newCount False "pipfil")
-  maybe (return Nothing) (createFile pgf) tree
- where prepare    = words . map toLower
-       createFile pgf t = do
-           writeFile "tmptree" $ graphvizParseTree pgf (read "BigParseSwe") t
-           return (Just "tmptree")
-
-input :: IO String
-input = input' ""
- where input' :: String -> IO String
-       input' inputStr = do
-            c <- getChar
-            unless (c == '\t' || c == '\DEL') $ putChar c
-            hSetEcho stdin False
-            case c of
-                '\n'   -> return inputStr
-                '\DEL' -> do
-                   setCursorColumn $ (length inputStr) - 1
-                   clearFromCursorToLineEnd
-                   input' (initSafe inputStr)
-                _      -> input' (inputStr ++ [c])
-       initSafe [] = []
-       initSafe xs = init xs
-
-showPDF :: IO ()
-showPDF =  do
-  -- createHandle
-   putStrLn "There will be a tree"
-   --readProcess "showdot" ["tmptree"]  []
-
---run :: String -> Bool -> FilePath -> IO Count
---run file strict out = do  
---  putStrLn "Parsing input file..."
---  sents <- liftM head $ mainF file (return . map getSentence)
---  putStrLn " Creating new dictionary..."
---  (pgf',lang') <- mkDir (words $ concatMap (map toLower . snd) sents) langOld pgfFile 
---  putStrLn " Ok\nReading PGF..."
---  pgf <- readPGF pgf' --File
---  putStrLn " Ok\n"
---  let morpho = buildMorpho pgf lang'
---  c <- execStateT (mapM_ (tryparse pgf morpho lang') sents) (newCount strict out)
---  print c
---  return c
-
-tryparse :: PGF -> Morpho -> Language -> Sent -> CState (Maybe Tree)
-tryparse pgf morpho lang sents = do 
+tryparse :: PGF -> Morpho -> Sent -> CState ()
+tryparse pgf morpho sents = do 
   count 
-  parse' pgf morpho lang sents
+  parse' pgf morpho sents
 
-parse' :: PGF -> Morpho -> Language -> Sent -> CState (Maybe Tree)
-parse' pgf morpho lang (s,"") = do 
-   addEmpty
-   putEmptyMsg (s,"")
-   return Nothing
-parse' pgf morpho lang s = do
+parse' :: PGF -> Morpho -> Sent -> CState ()
+parse' pgf morpho (s,"") = addEmpty >> putEmptyMsg (s,"")
+parse' pgf morpho s = do
   let fix     = fixPunctuation $ replaceNumbers s 
       unknown = badWords morpho (snd fix)
   strict <- gets strict
   out    <- gets outputFile
-  if null unknown then parseOk pgf lang fix
+  if null unknown then parseOk pgf fix
         else do putLexMsg s unknown
                 io $ appendFile out (formatRes strict (s,[])++"\n")
                 addBadLex
-                return Nothing
 
-parseOk :: PGF -> Language -> Sent-> CState (Maybe Tree)        
-parseOk pgf lang s = do
+parseOk :: PGF -> Sent-> CState ()        
+parseOk pgf s = do
   strict <- gets strict
   let eval = if strict then ($!) else ($)
   tree <- io $ timeout timeLimit $ return `eval` parse pgf lang textType (map toLower $ snd s)
   maybe (addTime >> putTimeMsg s) (getBestTree s) tree
-  return $ maybe Nothing (Just . head) tree
 
-testa :: String -> IO ()
-testa s = do
-  pgf <- readPGF "BigParse.pgf"
-  let morpho = buildMorpho pgf (read "BigParseSwe")
-  print $ lookupMorpho morpho $ map toLower s
-  --print [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
 
 badWords :: Morpho -> String -> [String]
 badWords morpho s = [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
@@ -153,10 +81,6 @@ getBestTree s tree = do
   strict <- gets strict
   out    <- gets outputFile
   io $ appendFile out (formatRes strict (s,tree)++"\n")
-  -- this is for play, remove
- -- io $ rawSystem "dot -Tpdf"
- -- graphvizParseTree 
- -- io $ putStrLn (formatRes True (s,tree)++"\n")
 
 addOk,addEmpty, addBadLex :: CState ()
 addOk     = modify $ \s -> s {ok = succ (ok s)}
@@ -179,9 +103,9 @@ output s c str = do
 
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
-langOld  = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
-pgfFile =  "../gf/Big.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
-outFile = "testisNP.txt"
+lang     = fromJust $ readLanguage "BigTestSwe" --"BigSwe" --"BigNewSwe"
+pgfFile =  "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
+outFile = "testis.txt"
 
 
 toPars :: Tree -> Parsed
@@ -251,36 +175,4 @@ putMsg s [] = putStrLn $ show s ++ color red " was not parsed"
 putMsg s ps = putStrLn $ show s ++ (color green " was parsed in "
                                       ++show (length ps)++" ways")
 
---- graphviz, by Thomas
-pipeIt2graphviz :: String -> IO BS.ByteString
-pipeIt2graphviz code = do
-    (Just inh, Just outh, _, pid) <-
-        createProcess (proc "dot" ["-T","png"])
-                      { std_in  = CreatePipe,
-                        std_out = CreatePipe,
-                        std_err = Inherit }
-
-    hSetEncoding outh latin1
-    hSetEncoding inh  utf8
-
-    -- fork off a thread to start consuming the output
-    output  <- BS.hGetContents outh
-    outMVar <- newEmptyMVar
-    _ <- forkIO $ evaluate (BS.length output) >> putMVar outMVar ()
-
-    -- now write and flush any input
-    hPutStr inh code
-    hFlush inh
-    hClose inh -- done with stdin
-
-    -- wait on the output
-    takeMVar outMVar
-    hClose outh
-
-    -- wait on the process
-    ex <- waitForProcess pid
-
-    case ex of
-     ExitSuccess   -> return output
-     ExitFailure r -> fail ("pipeIt2graphviz: (exit " ++ show r ++ ")")
 

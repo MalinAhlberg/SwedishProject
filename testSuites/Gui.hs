@@ -9,15 +9,20 @@ main = do
   (maps,pgf) <- play'
   initGUI
   window <- windowNew
-  button <- buttonNew
-  hbox    <- hBoxNew True 10
+  bigbox  <- vBoxNew True 30 
+  hbox    <- vBoxNew True 6
+  ibox    <- vBoxNew True 20
   button1 <- buttonNewWithLabel "Parse"
   button2 <- buttonNewWithLabel "Delete"
   tree <- imageNewFromFile "gfETree.png"
+--  boxPackStart button1 button1 PackRepel 0
+--  boxPackStart button2 button2 PackRepel 0
 
-  boxPackStart hbox tree PackNatural 0
+  boxPackStart bigbox ibox PackNatural 0
+  boxPackStart bigbox hbox PackNatural 0
+  boxPackStart ibox tree PackNatural 0
   set window [windowDefaultWidth := 200, windowDefaultHeight := 200,
-              containerChild := hbox, containerBorderWidth := 10]
+              containerChild := bigbox, containerBorderWidth := 10]
   boxPackStart hbox button1 PackGrow 0
   boxPackStart hbox button2 PackGrow 0
 
