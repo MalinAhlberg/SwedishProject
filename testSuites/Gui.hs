@@ -57,7 +57,7 @@ myLabelWithFrameNew = do
 parseIt fld im resfld maps pgf = do
   txt <- entryGetText fld
   putStrLn $ "You typed: "++txt
-  tree <- processparse txt pgf (read "BigTestSwe") maps
+  tree <- processparse txt pgf (read "DictSwe") maps
   i <- case tree of
         Nothing      -> return 0 
         Just (pth,i) -> imageSetFromFile im pth
