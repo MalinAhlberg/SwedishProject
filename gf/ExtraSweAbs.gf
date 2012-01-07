@@ -21,7 +21,7 @@ cat
 fun
 
  
-   DetNP : (a : Boolean) -> DetTyped a -> NPTyped a ;
+   DetNP : (a : NPType) -> DetTyped a -> NPTyped a ;
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
@@ -54,7 +54,7 @@ fun
 -------------------------------------------------------------------------------
   RelVS : S -> RelVSCl -> S ; -- hon sover, vilket vi vet
   RelSlashVS : Temp -> Pol -> NPTyped Subject -> VS -> RelVSCl ;  -- vilket vi vet
-  RelCNNP : (a : Boolean) -> Num -> CN -> RS -> NPTyped a  ;  -- de äpplen du äter
+  RelCNNP : (a : NPType) -> Num -> CN -> RS -> NPTyped a  ;  -- de äpplen du äter
 
 -------------------------------------------------------------------------------
 -- Focusing adverbs
@@ -71,11 +71,11 @@ fun
 -------------------------------------------------------------------------------
 -- For determiners and quantifiers
 -------------------------------------------------------------------------------
-  DetNP_utr : (a : Boolean) -> DetTyped a -> NPTyped a ; -- den här
+  DetNP_utr : (a : NPType) -> DetTyped a -> NPTyped a ; -- den här
 
-  DetPronAD : (a : Boolean) -> PronAD -> DetTyped a ;
+  DetPronAD : (a : NPType) -> PronAD -> DetTyped a ;
   -- not implented??
-  QuantPronAQ : (a : Boolean) -> PronAQ -> QuantTyped a ;
+  QuantPronAQ : (a : NPType) -> PronAQ -> QuantTyped a ;
   CompPronAQ : PronAQ -> Comp ;
   CompPronAD : PronAD -> Comp ;
   -- de blev sådana

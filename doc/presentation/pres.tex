@@ -6,6 +6,8 @@
 %\usetheme{Pittsburgh}
 %\usetheme{Montpellier}
 \usepackage{colortbl}
+%\usepackage{synttree}
+\usepackage{parsetree}
 \usepackage{graphicx}
 \usepackage{tabularx}
 \usepackage[utf8]{inputenc}
@@ -24,22 +26,45 @@
 % John Hughes article How to give a good research presentation.
 \title{Towards a Wide-Coverage Grammar for Swedish Using GF}
 %\subtitle{\large }
-\author{Malin Ahlberg \\ Gothenburg University}
+\author{Malin Ahlberg}
 \date{}
 
 \begin{document}
 \maketitle
 
+\begin{frame}
+    \frametitle{~ }
+\framesubtitle{Jag vill äta äpplen}
+\includegraphics[width=30mm]{parse.pdf}
+ \end{frame}
+
+
  \begin{frame}
   \frametitle{Grammatical Framework}
   \framesubtitle{Introduction}
-  A grammar formalism based on functional programming 
-  based on Martin-Löf type theory
+  A grammar formalism for multilingual applications\\
+  \pause
   \vspace{5mm}
-  \pause
-  One abstract grammar \\
-  \pause
-  One concrete grammar for each language \\
+  A functional programming language  based on Martin-Löf type theory\\
+ \end{frame}
+
+
+\begin{frame}[containsverbatim]
+  \frametitle{Grammatical Framework}
+  \verb|PredVP : NP -> VP -> S|\\
+  Abstract syntax\\
+  %\pause PDF stupid
+  \vspace{5mm}
+  \verb|PredVP np vp = np ++ vp |\\
+  Concrete syntax
+ \end{frame}
+
+
+\begin{frame}
+  \frametitle{Grammatical Framework}
+\includegraphics[width=50mm,height=70mm]{gfTree.png}
+\includegraphics[width=30mm]{gfETree.png}
+\includegraphics[width=30mm]{gfSTree.png}
  \end{frame}
 
  \begin{frame}
@@ -51,88 +76,106 @@
   Extra module for language specific constructions
  \end{frame}
 
-\begin{frame}
-\frametitle{Swedish}
-\framesubtitle{} 
-\begin{itemize}
-\item{Postnominal determination}
-\item{Topicalization}
-\item{Passive}
-\item{Reflexive prononus}
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{The project}
-\framesubtitle{Future goal} 
-\begin{itemize}
-\item{To parse all Talbanken}
-\end{itemize}
-\end{frame}
-
 
 
 \begin{frame}
 \frametitle{The project}
 \framesubtitle{Aims} 
 \begin{itemize}
-\item{A large-scale lexicon}
-\item{A GF treebank}
-\item{An extended grammar}
+\item Extending the Swedish GF grammar
+\item Importing a large lexicon
+\item Creating translation between Talbanken and GF
 \end{itemize}
+%\begin{itemize}
+%\item{A large-scale lexicon}
+%\item{A GF treebank}
+%\item{An extended grammar}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{The project}
+\framesubtitle{Talbanken} 
+{$\sim$ 6000 manually tagged sentences}
+\pause
+\vspace{5mm}
+\begin{tabular}[t]{@{}*{2}{l@{\ }}}
+{\begin{parsetree}
+\ptbegtree
+\ptbeg \ptnode{S} 
+\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
+\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
+\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
+%\ptbeg \ptnode{OA} 
+%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
+%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
+\ptend
+\end{parsetree}}
+&
+\hspace{-10mm}
+{\begin{parsetree}
+\ptbegtree
+\ptbeg \ptnode{S} 
+\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
+\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
+\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
+%\ptbeg \ptnode{OA} 
+%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
+%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
+\ptend
+\end{parsetree}}\\
+\end{tabular}
+
+
+%\item Grammatical constructions, pos tags, syntactical tags,
 \end{frame}
 
 
 
 \begin{frame}
 \frametitle{A Treebank for GF}
-\framesubtitle{} 
-Talbanken\\
-~6000 sentences\\
-  \pause
-Mapping \\
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Mapping}
-\framesubtitle{Example} 
-\small{\textbf{Talbanken05}}\hspace{160pt}
-\small{\textbf{GF abstract tree}}
-\includegraphics[width=130pt,height=200pt]{taltree.pdf}
-\includegraphics[width=170pt,height=200pt]{gftree.pdf}
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Mapping}
-\framesubtitle{Benefits} 
+\framesubtitle{Translating Talbanken to GF} 
 \begin{itemize}
 \item{Evaluate the parser}
 \pause
-\item{Identify grammatical constructions not current in the GF grammar}
-\pause
-\item{Enable good lexical extraction}
+\item{Extract grammatical and lexical information}
 \pause
 \item{Extract probabilities for GF functions}
 \end{itemize}
 \end{frame}
 
+\begin{frame}[containsverbatim]
+\frametitle{A Treebank for GF}
+\framesubtitle{Mapping Talbanken to GF} 
+\begin{verbatim}
+translate S = do np <- translate SS
+                 vp <- translate FV
+              return (PredVP np vp)
+\end{verbatim}
+\end{frame}
+
 \begin{frame}
-\frametitle{Mapping}
+slide of: example-driven, cover most fundamental constructions
+\end{frame}
+
+
+\begin{frame}[containsverbatim]
+\frametitle{A Treebank for GF}
 \framesubtitle{Results} 
-\begin{tabular}{|ll|}
+\begin{tabular}{ll}
 No list items & 65 \%\\
 No special punctuation or bad tags& 72 \%\\
 Short sentences with known words & 85 \%\\
+XX, NAC
 \end{tabular}
 \end{frame}
+
 
 \begin{frame}
 \frametitle{Saldo}
 \framesubtitle{A large-scale lexicon}
+\includegraphics[width=60mm]{saldograph.png}
 \includegraphics[width=40mm]{saldotab.png}
-\includegraphics[width=70mm]{saldograph.png}
 %What is saldo \\
 %picture\\
 % why it's hard (396 hur och hur)
@@ -142,42 +185,155 @@ Short sentences with known words & 85 \%\\
 
 \begin{frame}[containsverbatim]
 \frametitle{A large-scale lexicon}
-\framesubtitle{Results} 
+\framesubtitle{} 
+GF lexicons are generated by smart paradigms: \\
+\vspace{5mm}
 \begin{tabular}{ll}
-\verb-mkV "hittar"- &
-\verb-mkV "knyter" "knöt" "knutit"-\\
+\textbf{Regular verb} & \verb-mkV "hittar"- \\
+\textbf{Irregular verb} &  \verb-mkV "knyter" "knöt" "knutit"- \\
+\end{tabular}\\
+
+\vspace{5mm}
+\hspace{5mm}
+\begin{small}
+\begin{tabular}{|l|}
+\hline
+VF (VPres Act) : hittar \\
+VF (VPret Act) : hittade \\
+VF (VImper Act) : hitta \\
+VI (VInfin Act) : hitta \\
+VI (VSupin Act) : hittat \\
+\hline
 \end{tabular}
+\end{small}
 \end{frame}
 
 \begin{frame}
 \frametitle{Importing Saldo}
+\begin{tabular} [t]{@{}*{5}{l@{\ }}}
+\verb-mkV "hittar"  &&&&\verb-mkV "knyter" \\
+\hline
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VF (VPres Act)  : hittar &&&&\verb-VF (VPres Act)  : knyter\\
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VF (VPres Pass) : hittas &&&&\verb-VF (VPres Pass)  : knyts\\   
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VF (VPret Act)  : hittade &&&&\verb-VF (VPret Act)  : knytte\\
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VF (VPret Pass) : hittades &&&&\verb-VF (VPret Pass)  : knyttes\\ 
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VI (VInfin Act) : hitta &&&&\verb-VI (VInfin Act)  : knyta\\
+\vspace{-2mm}
+\hspace{-3mm}
+\verb-VI (VSupin Act) : hittat &&&&\verb-VI (VSupin Act) : knytt\\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Importing Saldo}
 \framesubtitle{Results} 
+\vspace{5mm}
+\begin{tabular}{ll}
+\textbf{Result:} & Over 100 000 entries\\
+\pause
+&$\sim$500 missing words in Talbanken\\
+\end{tabular}
 \begin{tabular}{ll}
 Plural tantum nouns & Irregular s-verbs \\
 \emph{glasögon} & \emph{umgås}\\
+\end{tabular}\\
+\end{frame}
+
+\begin{frame}
+\frametitle{Grammar}
+\framesubtitle{Swedish} 
+\begin{tabular}{llll}
+\textbf{Topicalization}& && \textbf{Passive}\\
+Jag äter äpplet nu && &Äpplet blir ätet av mig \\
+Äpplet äter jag nu &&& Äpplet äts av mig \\
+\emph{``I eat the apple now"}& &&\emph{``The apple is eaten by me"}\\
+%Nu äter jag äpplet &  & Jag äter sitt äpple \\
 \end{tabular}
-\textbf{Result:} Over 100 000 entries
+\end{frame}
+
+\begin{frame}
+\frametitle{Grammar}
+\framesubtitle{Swedish} 
+\begin{tabular}{lll}
+ \textbf{Future tense}  &&\textbf{Impersonal constructions} \\
+Jag ska sova nu & &Det bor två barn i huset \\
+\emph{``I will sleep now"} && \emph{``There are two children living in the house"} \\
+Jag kommer somna snart &&Det dansas på borden  \\
+\emph{``I will fall asleep soon"} &&\emph{``People are dancing on the tables"}  \\
+\end{tabular}
+\end{frame}
+
+\begin{frame}
+\frametitle{Grammar}
+\framesubtitle{Swedish} 
+\textbf{Reflexive possessives prononus}\\
+\begin{tabular}{lll}
+Jag äter mitt äpple && Jag äter mitt äpple \\
+\emph{``I eat my apple"} && \emph{``I eat my apple"} \\
+Han äter sitt äpple && Han äter hans äpple \\
+\emph{``He eats his apple"} && \emph{``He eats his apple"} \\
+\end{tabular}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Grammar}
+\framesubtitle{Reflexive possessives prononus}
+\begin{tabular}{lll}
+sin frukt & sitt äpple &sina äpplen \\
+\emph{``{\sc self's} fruit"} & \emph{``{\sc self's} apple"} & \emph{``{\sc self's} apples"} \\
+\end{tabular}
+\\
+\vspace{5mm}
+\begin{tabular}{l}
+\pause
+*Jag äter sitt äpple \\
+\emph{``I eat {\sc self's} apple"} \\
+\end{tabular}
 \end{frame}
 
 
 %START OF DEMO
-\begin{frame}
-\frametitle{The grammar}
-\framesubtitle{} 
-intersting examples
-relate to gullmarsstrand
-Passive\\
-Formal subjects\\
-Topicalisation - with particles, prepositions\\
-Reflexives
-\end{frame}
+%\begin{frame}
+%\frametitle{The grammar}
+%\framesubtitle{} 
+%\begin{tabular}{ll}
+%\textbf{Aim}: & Implement constructions frequent in Talbanken\\
+%&Restrict overgeneration\\
+%\end{tabular}\\
+%%intersting examples
+%%relate to gullmarsstrand
+%Passive\\
+%Formal subjects\\
+%Topicalisation - with particles, prepositions\\
+%Genitives \\
+%Reflexives
+%\end{frame}
 
 
-\begin{frame}
+\begin{frame}%[containsverbatim]
 \frametitle{The grammar}
-\framesubtitle{} 
-Stop overgeneration
-Refine functions, get 
+\framesubtitle{Reflexive pronouns} 
+\begin{tabular}{lllll}
+\textbf{sitt äpple}\\
+\sc{NP (object)}\pause\\
+\textbf{sitt äpple} &\textbf{och}& \textbf{en banan}\\
+\sc{NP (object)}& +&\sc{NP}&  $\rightarrow$ &  \sc{NP (object)}\\
+\pause
+\textbf{sina äpplen} & +& \textbf{alla}& $\rightarrow$ &\textbf{alla sina äpplen}\\
+\sc{NP (object)}& &      & & \sc{NP (object)}\\
+\end{tabular}\\
 \end{frame}
 
 
@@ -228,10 +384,10 @@ Refine functions, get
 \begin{frame}
  \renewcommand{\baselinestretch}{1.0}
 \frametitle{Evaluation}
-\framesubtitle{} 
+\framesubtitle{Results} 
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
-\item a comparison between GF and another another annotation
+\item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
 \item a study of how dependent types can be used in the resource grammars
@@ -240,14 +396,71 @@ of how well GF can be used to describe larger parts of a language
 
 
 
+
+%\begin{frame}
+%\frametitle{Mapping}
+%\framesubtitle{Example} 
+%\small{\textbf{Talbanken05}}\hspace{160pt}
+%\small{\textbf{GF abstract tree}}
+%\includegraphics[width=130pt,height=200pt]{taltree.pdf}
+%\includegraphics[width=170pt,height=200pt]{gftree.pdf}
+%\end{frame}
+
+
 \begin{frame}
  \renewcommand{\baselinestretch}{1.0}
-\frametitle{}
-\framesubtitle{Future work} 
-Lexicon
-Probabilitis
-Chunk parsing
+\frametitle{Future work}
+\framesubtitle{Lexicon} 
+\begin{itemize}
+\item Idioms
+\item Faster and smaller
+\item Valencies
+\end{itemize}
 \end{frame}
+
+
+\begin{frame}
+ \renewcommand{\baselinestretch}{1.0}
+\frametitle{Future work}
+\framesubtitle{Lexicon} 
+A verb may have type V2 if it is followed by:
+\begin{itemize}
+\item {\verb OO} (other object)
+\item {\verb SS} (subjective predicative complement)
+\item {\verb IO} (indirect object)
+\item {\verb OA (PP ..)} (other adverbial with a prepositional phrase)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+\renewcommand{\baselinestretch}{1.0}
+\frametitle{Future work}
+\framesubtitle{Probabilities} 
+\center
+``Man sover"\\
+\includegraphics[width=170pt,height=200pt]{man1.pdf}
+\includegraphics[width=130pt,height=200pt]{man.pdf}
+\end{frame}
+
+\begin{frame}
+\renewcommand{\baselinestretch}{1.0}
+\frametitle{Future work}
+\framesubtitle{Probabilities} 
+\includegraphics[width=170pt,height=200pt]{mana1.pdf}
+\includegraphics[width=130pt,height=200pt]{mana.pdf}
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Future work}
+\framesubtitle{Robustness} 
+\begin{itemize}
+\item Named entity recognition\\
+\item Chunk parsing \\
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
     \frametitle{The end}

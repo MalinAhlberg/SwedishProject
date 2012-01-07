@@ -19,6 +19,7 @@
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
 %ska innehålla vettiga sökord
+%TODO page numbers!!
 \title{Towards a Wide-Coverage Grammar for Swedish Using GF} %A nice titleScaling up a GF grammar and preparing it for cool stuff for Swedish}
 \author{Malin Ahlberg}
 \maketitle
@@ -26,12 +27,18 @@
 
 
 \abstract{
-This thesis describes the work to achieve a covering Swedish grammar implemented
-in GF -- to model natural language by functional programming. 
+The thesis describes the work formalising an important fragment of Swedish
+in the GF formalism and to compare and evaluate the possibilities of using GF
+for modelling large-scale grammars. Grammatical constructions specific to and
+frequent in Swedish have been investigated and formalised in the functional
+programming language.
+%~~achieve a covering Swedish~~ grammar implemented
+%TODO first sentence should be more, no understatements!
+%in GF -- to model natural language by functional programming. 
 The idea has been to combine existing language technology resources with
 new techniques, and the aim to obtain a system for analysing written text.
 To reach this goal, problems of computational as well as linguistic nature had to be solved.
-\\The thesis explains the methods and technologies used and further inspects the possibilities
+\\We present the methods and technologies used and further inspects the possibilities
 of reaching our long-term goal; to accomplish a parser for unrestricted Swedish, by
 combining our rule-based grammar with statistical methods.
 \\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
@@ -39,7 +46,8 @@ to GF notation and a Swedish grammar implementation. The grammar is based
 on the multilingual abstract syntax given in GF resource library, and now
 extends it to cover constructions specific to Swedish.
 We further give an example of the advantage of using dependent types when
-describing grammar and syntax, in this case reflexive pronouns.
+describing grammar and syntax, in this case for dealing with reflexive pronouns.
+%the linguistic phenomena 
 
 %This is the report of the work of expanding and enhancing a GF grammar and preparing
 %it for parsing free Swedish. The grammar is a result of combining resources,
@@ -109,11 +117,12 @@ such a good friend. %for having listened to
 %\pagestyle{empty}
 %\cleardoublepage
 \newpage
+%\pagenumberingstyle{plain}
 \setcounter{page}{1} %reset the page counter
 \chapter{Introduction}
 % more intro to gf. dependently typed...high-level formalism
 Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism,
-developed for multilinguality. It is based on Martin-Löf type theory which allows
+with facilities for multilinguality. It is based on Martin-Löf type theory which allows
 reasoning within the programming language.
 GF has so far been successfully used for 
 controlled languages \cite{cnl}, but recent experiments have showed
@@ -129,7 +138,7 @@ considering the steadily growing amount of data available online.
 So far there is no freely available grammar-driven parser that gives a deep
 analysis for Swedish. The fact that %the existing rule-based Swedish
 a parser or grammar is not freely available does not only restrict its
-usage but also its possibilities of being developed and our
+usage but also its possibilities of being further developed and our
 goal is
 to create an open source Swedish grammar. % from which we derive a parser
 %accepting all sentences described by the given rules.
@@ -139,13 +148,19 @@ To build the grammar from scratch would be not only time consuming but
 would also mean that already existing resources would have to be reimplemented.
 In order to not reinvent the wheel we proceed from a combination of well-tested
 resources.
-We start from a GF resource grammar and thereby get
+We start from a GF resource grammar, consisting of an abstract and a concrete syntax
+file defining a set of rules describing morphology and syntax.
+%TODO verify this, check all occurences of grammar
+From now on, this is what we mean by grammar, as
+opposed to grammar in the traditional linguistic sense. 
+From GF, we get %and thereby get
 %The usage of GF allows us to start from
-a well-defined system for describing the grammar, as well as a strong connection to
+a well-defined system for describing language, as well as a strong connection to
 more than 20 other languages implemented in the framework. Further, we use
 the extensive lexicon Saldo and the treebank Talbanken.
 %>>The grammar defines a parser, which accepts all constructions defined by the grammar.
 
+\newpage % until it looks nicer
 
 \section{Aims}
 %>> enhance gf...
@@ -166,7 +181,6 @@ Three sub-goals has been identified:
 %During this project, we have worked on and explored those things and
 %while identifying problems and future work.
 
-\newpage % until it looks nicer
 \section{Outline}
 The thesis is divided into 6 chapters. We start by giving some background
 information to areas relevant to the project. %Chapter \ref{sec:background} 
@@ -220,6 +234,7 @@ presented in chapter \ref{sec:results} together with some areas of future work.
 \label{sec:background}
 The work described in this thesis is part of a bigger project which aims at
 using GF for parsing unrestricted Swedish. 
+%TODO LREC ref?
 In previous work\footnote{??}, a start was made to extend the Swedish GF grammar
 and a tool for lexical acquisition was developed.
 We now construct a bigger
@@ -240,7 +255,7 @@ stronger than mildly context-free grammars.
 The framework's %has hence the same
 expressiveness is hence stronger than 
 Tree Adjoining Grammars \cite{tag} and Head Grammars \cite{hg}, and shown
-equivalent to Parallel Multiple Context-Free Grammar \cite{pmcfg} by \cite{peter}.
+equivalent to Parallel Multiple Context-Free Grammar \cite{pmcfg} in \cite{peter}.
 
 GF is a strongly typed functional programming language, inspired by
 %programming languages like 
@@ -272,7 +287,7 @@ An interactive GF editor and the GF shell can be tried out online
 \footnote{http://www.grammaticalframework.org/demos/gfse/}. See figure \ref{fig:shell},
  The first command will parse the given
 sentence and visualize the resulting parse tree. The second will visualize the 
-abstract syntax tree. The trees will be showed in the pgf-format by the program evince.
+abstract syntax tree. The trees will be showed in the pdf-format by the program evince.
 \begin{figure}[h]
 \begin{verbatim} 
 > parse "jag ser katten" | visualize_parse -format=pdf -view=evince
@@ -325,8 +340,9 @@ and the determiner is therefore shown in the parse tree.\\
 \end{wrapfigure}
 
 
-The scope of GF grammars is usually controlled language, a limited language used in
-a restricted domain. By
+%TODO read again
+The scope of GF grammars has so far been controlled language, a limited
+language used in a restricted domain. By
 restricting the coverage, the number of ambiguities
 can be limited and we can ensure that the semantics is preserved during
 translation. Inherited ambiguities as well as ambiguities arising from multilinguality will
@@ -584,7 +600,7 @@ done, which will be explained in section \ref{sec:Mapping}.
 
 \section{Saldo}
 \label{sec:saldo}
-A good parser needs a good lexicon. We have used of Saldo \cite{saldo}, a
+A good parser needs a good lexicon. We have used Saldo \cite{saldo}, a
 large electronic lexicon developed and maintained at Gothenburg University. It is
 built on Svenskt Associationslexikon and contains information about more than 
 120 000 modern Swedish words.
@@ -602,7 +618,7 @@ graphs of semantically connected words and some suggestions for how to analyse c
 
 The semantic aspect of Saldo requires that words with multiple meanings are
 separated into different entries.
-%If one word has different meanings, there will be separate entries for each of them. 
+%TODO change word? uppskatta, känna, få
 The word ``växa" (``grow") for example, has two meanings: \emph{getting
 bigger}
 \enumsentence{Gräset växte varje dag\\
@@ -813,7 +829,7 @@ pronouns.
 \section{Related work}
 \label{sec:related}
 %There has been much research about parsing Swedish. INTRO!!
-Many years of research has lead to many interesting language
+Many years of research have lead to many interesting language
 technology tools for Swedish.
 An example is the well-known data-driven Malt parser \cite{malt},
 which has been trained on Talbanken. 
@@ -968,7 +984,7 @@ Figure \ref{pic:TabVax} shows the information given by Saldo and by GF respectiv
 The tables does not overlap completely, there are some more forms in Saldo's table (e.g. the 
 compounding form ``väx-")
 while the one generated in GF contains some that are not in Saldo (e.g. ``vuxits").
-As GF concerns about grammar only, and not semantics, and  as the GF tables are automatically
+As GF concerns about syntax only, and not semantics, and  as the GF tables are automatically
 generated, they always contain all word forms, although some forms may never be
 used in the natural language.
 Saldo may also contain variants: ``växt" and ``vuxit" are both supine form.
@@ -1036,9 +1052,12 @@ personal pronouns etc.
 are assumed to be present in the resource grammars and should not be added again.
 Saldo contains many pronouns which
 are not analysed the same way in GF (see section \ref{sec:swegf}).
-They can thus not simply be extracted -- we first need to find their correct GF category.
-Some experiments on finding
-the right GF-category for those have been done using Talbanken, see p. \pageref{sec:gf.quant}.
+Before adding them to our lexicon, we need to do more analysing to find their correct GF-category.
+%TODO read again
+%They can thus not simply be extracted -- we first need to find their correct GF category.
+Some experiments on finding the category
+%the right GF-category for those
+have been done using Talbanken, see p. \pageref{sec:gf.quant}.
 
 %and are usually not kept in the standard lexicon, but in modules for the basic
 %structures of the language.
@@ -1170,7 +1189,7 @@ it into the lexicon.
 \label{sec:prog.grammar}
 An important part of this project has been to develop the Swedish GF grammar and
 to adapt it to cover
-constructions used in Talbanken. As a grammar implementation never can be
+constructions used in Talbanken. As a grammar implementation can never be
 expected to give
 full coverage of a language, we aim for a grammar fragment which gives a deep
 analysis of the most important Swedish constructions.
@@ -1245,7 +1264,9 @@ the picture. Each lexical entry is assigned a type describing its word-class.
 \begin{figure}[h]
 \hspace{-18mm}
 \includegraphics[height=130mm]{categories.png}
-\caption{The types of the GF resource grammars.}
+\caption{The types of the GF resource grammars. }
+%TODO have footnote? where?
+%\footnote{Available at http://www.grammaticalframework.org/lib/doc/synopsis.html}
 \label{fig:gfpic}
 \end{figure}
 
@@ -1259,6 +1280,8 @@ carry information about inherent features that matter to other parts of the sent
 \subsection{Noun phrases}
 Section \ref{sec:writegf} contained an easy example with nouns. We used the categories \verb-N-
 and \verb-N'- to distinguish nouns with respectively without number information.
+%TODO read again
+The category \verb-N'- was a simplification and is not used in the resource grammar. and is not used in the resource grammar.
 The full analysis includes a distinction between the categories \verb-N- -- simple nouns --
 and 
 \verb-CN- -- common noun phrases -- and \verb-NP- -- noun phrases.
@@ -1374,11 +1397,15 @@ DetNP : Det              -> CN        -> NP ;
 %Additionally, we need to make sure that sentences as 
 %\ref{sent:trottkatt}a are not allowed.
 
-The GF category for pronouns \verb-PN- only contains personal pronouns.
-Many words which are considered to be pronouns in other analyses are hence
-classified differently in GF.
+%TODO review, verify
+Due syntax oriented analysis in GF, the GF category for pronouns \verb-PN- only
+contains personal pronouns.
+Many words which are considered to be pronouns in other analyses, such as The Swedish
+Academy Grammar \cite{SAG}, only exist in 3rd person and are 
+classified differently in GF, usually as determiners or quantifiers.
 %Only personal pronouns are of the type \verb-Pron-.
-
+ %TODO
+ % Adjectives? About weak - strong - indefinite..
 
 %TODO
 %>> compare NP to HPSG.
@@ -1453,7 +1480,7 @@ The entry for `\emph{ta med}', as used in sentence (\ref{sent:tamed}), is
 described as follows:
 %, assuming that we already have an constant \verb-take_V- which produces the correct conjugation for ``ta":
 \begin{verbatim}
-ta_med_V3 = dirV3 (reflV (partV (take_V "med")) (mkPrep "till") ;
+ta_med_V3 = dirV3 (reflV (partV (take_V "med"))) (mkPrep "till") ;
 \end{verbatim}
 %The category \verb-V3- tells us that the verb takes two objects, % (``den" and ``honom").
 The function \verb-dirV3- creates a three-place verb, where the first object is direct and
@@ -1607,7 +1634,7 @@ Among those were functions for topicalisation: %$ although not all
 %can be found.
 %For example, \verb|FocObj| fronted the object as in sentence (\ref{gfSwe:apple}).
 \enumsentence{\shortex{6}
-{Det & äpplet & vill & jag & inte & ha}
+{Det där & äpplet & vill & jag & inte & ha}
 {that & apple & want & I & not &have}
 {`I don't want that apple'}}\label{gfSwe:apple}
 and for preposition stranding:
@@ -1851,6 +1878,7 @@ a. &De flesta hästarna  && b.& De flesta \textbf{av} de där hästarna.\\
 \subsection{Formalizing the rules for reflexive pronouns by using dependent types}
 \label{sec:reflexives}
 An important area in a Swedish grammar is the treatment of the reflexive pronouns and
+%TODO fix page ref
 the reflexive possessive pronouns as described on p. \pageref{swe:refl}.
 The reflexives require an antecedent with which they agree in
 number and person.
@@ -1888,8 +1916,8 @@ The grammar should not accept any of these sentences:
 \enumsentence{
 *Sina vantar var kvar på tåget.\\
 {\sc self's} gloves were left on the train.}\label{ex:ReflSubj}
-\enumsentence{*Hon och sin kompis läser en bok.\\
-She and {\sc self's} friend are reading a book. }
+\enumsentence{*Han och sin kompis läser en bok.\\
+He and {\sc self's} friend are reading a book. }
 \enumsentence{*Jag ger sina pengar till sina syskon.\\
 I give {\sc self's} money to {\sc self's} siblings. }\label{ex:refljag}
 \enumsentence{*Han vill att jag ser på sig.\\
@@ -1898,6 +1926,10 @@ He wants me to look at {\sc self}.}\label{sent:sesig}
 Apart from these restrictions, noun phrases containing reflexive pronouns
 may be used as any other \verb-NP-. They may be conjoined 
 (\ref{ex:ReflConj} a,b) and used with other determiners (\ref{ex:ReflPredet}).
+In the standard GF analysis, which is preformed bottom-up starting from the pos-tags, 
+all information about semantic roles are lost. There is no way
+of knowing whether a \verb-NP- acts as subject or object. For this reason,
+the formalization of reflexive pronouns required the use of a different analysis.
 %and used as genitives (sentence \ref{ex:ReflGen}) as such.
 %Could be combined with 'sig', a ReflNP without another noun.
 In short, what is wanted can be summarized as follows:\\
@@ -1914,6 +1946,8 @@ sin katt $\rightarrow$ han såg sin katt }
 %\caption{Rules for noun phrases with reflexive possessive pronouns}
 %\label{fig:reflrestrict}
 %\end{figure}
+
+
 If we ignore the second requirement, we might come up with a solution where
 special functions for using common nouns
 together with reflexive possessive pronouns are introduced:
@@ -1986,10 +2020,6 @@ PredVP     : NP Obj  -> VP     -> Cl ;
 ComplSlash : VPSlash -> NP Obj -> VP ;
 PredetNP   : (a : Boolean) -> Det -> NP a -> NP a ;
 \end{verbatim}
-
-The solution hence combines the-part-of-speech driven analyse normally preformed by
-GF with a part-of-sentence analysis.
-
 The types for adverbial and adjectival phrases are also turned into dependent
 types.
 \enumsentence{\shortex{3}
@@ -2002,22 +2032,37 @@ types.
 {\scriptsize{\textbf{NP Obj + }} & \scriptsize{\textbf{Adv a}} & $\Rightarrow$ \scriptsize{\textbf{NP Obj}} }
 {\emph{{\sc self's} house on the mountain}}}
 
+
+We hence combine the-part-of-speech driven analyse normally preformed by
+GF with a part-of-sentence analysis, where the dependent types gives the semantic
+information we were missing.
+
 The use of dependent types separates our grammar from the other resource grammars. Such separation
 is not desirable in itself, but there are at least two reasons why we
 believe it is appropriate in this case:
 \begin{itemize}
 \item The new grammar can be made compatible with the old implementation.
+%TODO verify
 \item The possibility for noun phrases to agree with an antecedent 
-      will be useful in other languages. For example, the Slavic languages
+      will be useful in other languages. For example, the Slavic and Romance languages
       have similar reflexive pronouns.
 \end{itemize}
 Moreover, the goal of the project is to make a language specific grammar, and it
 would be surprising if this could be done while leaving the abstract grammar unchanged.
 
-The use of dependent types is interesting for other problems.
-The rules for reciprocal pronouns could be formalized using the same idea. As reflexive pronouns, reciprocals
+Dependent types are also interesting for other problems.
+The rules for reciprocal pronouns could be formalized using the same idea. As
+reflexive pronouns, reciprocals (sentence \ref{sent:varandra})
 must not be used as subjects and furthermore they may only be used when the
 number of the antecedent is plural.
+\enumsentence{
+\shortex{3}
+{De &ser& varandra}
+{\emph{they} &\emph{see}& \emph{each other}}
+{`They see each other'}}\label{sent:varandra}
+%\item \shortexnt{3}
+%{*Han &ser& varandra}
+%{~he &sees& each other}}
 %
 %Since the resource grammar did not make any distinction between
 %
@@ -2261,7 +2306,7 @@ adverbs as \verb-AdV-.
 %funna'
 %for the last one, we need VPSlash to allow adverb.
 
-
+\newpage
 \subsection{Miscellaneous}
 This section covers some minor changes of the grammar.
 They are described
@@ -2282,10 +2327,9 @@ All constructions used in examples \ref{sent:relex}a-d were accepted.
 
 The grammar has been extended to accept a definite article for
 nouns in indefinite form, whenever the noun phrase is followed by a restrictive
-relative clause.
+relative clause \cite[\textsection 329]{H&H}
 Talbanken contained several examples where the modified noun is in the 
 indefinite form as in (\ref{sent:uppfatt}).
-%TODO ref to H&H
 \enumsentence{\shortex{7}
 {de uppfattningar& som& förs& fram ...} 
 {\emph{the opinions}& \emph{that}&\emph{ put+{\sc passive}} & \emph{forward ...}}
@@ -2302,7 +2346,7 @@ sentence (\ref{sent:debocker}).
 Apart for this, only corrections have been done, exemplified in
 this sentence.
 \enumsentence{
-Hon sover \textbf{som} är bra ~ \textrightarrow ~ Hon sover \textbf{vilket} är bra\\
+Hon sover \textbf{som} är bra ~ \textrightarrow ~ Hon sover, \textbf{vilket} är bra\\
 ``She sleeps, which is good"}
 
 %{\emph{the opinions}& \emph{that}&\emph{ put+{\textbf s}} & \emph{forward ...}}
@@ -2369,7 +2413,7 @@ overgenerated when this project started, even
 though its implementation was not erroneous in itself. The cause of the overgeneration 
 was a combination of two things:
 \begin{itemize}
-\item \verb-Quantifiers- does not have any possessive
+\item \verb-Quantifiers- do not have any possessive
 forms, so when a quantifier is turned into
 a \verb-NP- (by the functions \verb-DetQuant- and \verb-DetNP-), its genitive field gets
 the same form as its nominative field.
@@ -2580,7 +2624,8 @@ is preserved.
 \begin{figure}[h]
 \hspace{-30mm}
 \subfloat[Talbanken tree]{\label{pic:tbtree}\includegraphics[width=60mm]{Talbankentree.pdf}}
-\subfloat[GF abstract tree]{\label{pic:gftree}\includegraphics[width=90mm]{gfTree.pdf}}
+\hspace{-10mm}
+\subfloat[GF abstract tree]{\label{pic:gftree}\includegraphics[width=100mm]{gfTree.pdf}}
 \subfloat[The corresponding GF parse tree]{\label{pic:gfptree}\includegraphics[width=50mm]{gfPTree.pdf}}
 \caption{Trees for the sentence ``Katten på bilen blir större".}
 \label{fig:translationtrees}
@@ -2743,11 +2788,11 @@ most transitive verbs can also be used as intransitive. Both sentences in
 example \ref{ex:mappTransitive} are grammatically correct but only (\ref{ex:mappTransitive}b)
 is accepted by the GF grammar, and
 the grammar rules are simply too strict for accepting many Talbanken sentences.
-\enumsentence{\shortexm{13}
-{a. &Han& sitter& och &läser.}
-{&\emph{he}& \emph{sits}& \emph{and} &\emph{reads}}{}
-{b. &Han& sitter& och& läser& en& bok.}
-{&\emph{he}& \emph{sits}& \emph{and}& \emph{reads}& \emph{a}& \emph{book}}{}}
+\enumsentence{\begin{tabular}[t]{@{}*{14}{l@{\ }}}
+a. &Han& sitter& och &läser.&& & b. &Han& sitter& och& läser& en& bok.\\
+&\emph{he}& \emph{sits}& \emph{and} &\emph{reads} &&&
+&\emph{he}& \emph{sits}& \emph{and}& \emph{reads}& \emph{a}& \emph{book}\\
+\end{tabular}}
 \label{ex:mappTransitive}
 See section \ref{sec:futureValency} for a longer discussion about this.\\
 %the Talbankenwill allow words to be used in other ways than their
@@ -2895,15 +2940,24 @@ Short sentences with known words & 85 \%\\
 \label{tab:mappres}
 \end{figure}
 
-A mapping between GF and Penn Treebank has earlier been conducted \cite{gfMech}.
+A mapping between GF and the Wall Street Journal of Penn Treebank has earlier been conducted \cite{gfMech}.
 The percentage of restored nodes from Peen Treebank is higher than our results.
-%Our results are lower than the results of the mapping of Penn Treebank.
+%TODO review
 The reason for this may be the fact that English is syntactically less complicated
-than Swedish. Also, the Penn Treebank contains a lower number of tags, 82 compared
+than Swedish.
+Furthermore, the text in Talbanken are from various brochures, newspapers and text books,
+where idiomatic expressions are more likely and the language presumably less strict than
+in Wall Street Journal.
+Also, the Penn Treebank contains a lower number of tags, 82 compared
 to more than 300 in Talbanken. Even if the tags describing the same word
+%TODO review
 class as another tag are excluded, Talbanken still leaves us with more than 130 tags.
-Thus the number of combinations are increased, and so is the number of
-rules that would be needed to cover all constructions.
+With more tags, we get more information, but as the number 
+%Thus the number of
+increase, so does the amount of work of finding the correct translation 
+for each combination of tags and writing rules that cover all constructions. 
+%iand so is the number of
+%rules that would be needed to cover all constructions.
 
 We believe that the results could be enhanced by simply adding more rules 
 and in this way get a wider coverage. There are many special cases that require
@@ -2943,34 +2997,61 @@ robust, but the robustness must not interfere with the correctness.
 The project has resulted in
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
-\item a comparison between GF and another another annotation
+\item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
 \item a study of how dependent types can be used in the resource grammars
 \end{itemize}
 
 The grammar has been extended and enhanced, and its current status is
-a specialized extension of the resource grammar. When it comes to parsing,
-however, we do not get far without robustness.
-The grammar in itself is by no means robust, and just one 
-unexpected punctuation mark, unknown word
-or missing phrase will cause the parsing of the whole sentence to fail. 
+a specialized extension of the resource grammar.
 Besides parsing, the grammar may well be used for language generation,
 which is fast even with an extensive lexicon.
 %TODO make nice!
 Although it cannot not been verified, we believe that the majority of the
 sentences generated are grammatically correct in a syntactical point of view.
-Without any semantical knowledge, nonsense phrases cannot be avoided in
-random generation. However, an abstract tree has a meaningful interpretation,
+Without any semantic knowledge, nonsense phrases cannot be avoided in
+random generation. However, given that the abstract tree has a meaningful
+interpretation,
+%TODO move to Misc?
 the linearization should be correct. There are some cases when the correctness
-of the output has been ignored in order to increase the expressivity, such
-as ComplBareVV, SupCl. These functions should be excluded or enhanced when doing
-careful generation...
-``övriga datorer idag som ska vara inte skulle ha målats rödare än johan"
-PredVP (DetCN Subject (DetSub oovriga_Det) (RelCN (AdvCN (UseN computer_N) (AdvSub today_Adv)) (UseRCl (TTAnt TFut ASimul) PPos (RelVP IdRP UseCopula)))) (PassVP (SlashV2A paint_V2A (ComparA Object red_A (UsePN Object johan_PN))))
-
+of the output has been put aside in order to increase the expressivity, such
+as \verb-ComplBareVV-, which use a verb-complement verb without the infinitive mark, 
+as in sentence (\ref{sent:complVV1}b).
+\eenumsentence{\item\shortex{5}
+{Jag& börjar&\textbf{att}& bli& hungrig}
+{\emph{I}& \emph{begin}& \textbf{\emph{to}}&\emph{become}& \emph{hungry}}
+{I'm getting hungry}
+\item
+\shortex{4}
+{Jag& börjar& bli& hungrig}
+{\emph{I}& \emph{begin}& \emph{become}& \emph{hungry}}
+{I'm getting hungry}}\label{sent:complVV1}
+Since there is no information about which verbs that allows the infinitive mark
+to be left out, it will also allow the more questionable sentence (\ref{sent:complVV2}b).
+\eenumsentence{
+\item \shortex{5}
+{Jag & låter bli & \textbf{att}& titta} 
+{I & let & be &\textbf{to} &watch}
+{I don't watch}
+\item \shortexnt{4}
+{*Jag & låter & bli & titta} 
+{I & leave &be & watch}}\label{sent:complVV2}
+%ComplBareVV, SupCl
+For random generation, the sentences generated may be next to impossible
+to interpret without looking at the abstract tree, since they may contain
+too many attributes, relative clauses etc. 
+%\enumsentence{Kommer övriga datorer idag som ska vara inte att ha målats?}
+%\label{sent:what}
+%Sentence (\ref{sent:what})
+%PredVP (DetCN Subject (DetSub oovriga_Det) (RelCN (AdvCN (UseN computer_N) (AdvSub today_Adv)) (UseRCl (TTAnt TFut ASimul) PPos (RelVP IdRP UseCopula)))) (PassVP (SlashV2A paint_V2A (ComparA Object red_A (UsePN Object johan_PN))))
 %The use of the NONEXIST pattern, as described in \ref{sec:Formal}. When using
 %the grammar for generation, an extra 
+
+When it comes to parsing, we do not get far without robustness.
+The grammar in itself is by no means robust, and just one 
+unexpected punctuation mark, unknown word
+or ellipsis will cause the parsing of the whole sentence to fail. 
 
 
 Parsing bigger parts of Talbanken would hence give very low results at this stage, 
@@ -2989,7 +3070,9 @@ grammar was 66 \%.
 % try NPs?
 It is thus not yet interesting to talk about coverage, but about the quality and
 the ability to scale up, which has so far proved to be good.
-I further believe that the presence of a Swedish expert has
+I further believe that the presence of a expert in Swedish, professor Elisabet
+Engdahl\footnote{http://svenska.gu.se/om-oss/personal/elisabet-engdahl},
+has
 increased the standard substantially.\\
 
 
@@ -3040,8 +3123,7 @@ that are desirable and interesting to implement. A few examples are listed here:
 a. & Jag & ser&  honom& \textbf{inte}&~~ & b.&Jag &ser &\textbf{inte} &honom\\
    & \emph{I} & \emph{see}&\emph{him}&\emph{not}&&& \emph{I} &\emph{see}&\emph{not}&\emph{him}\\
 \end{tabular}}
-%TODO Sats adverbials?
-Personal pronouns are allowed to precede negation and some other adverbials of place --\textit{satsadverbial} --
+Personal pronouns are allowed to precede negation and some other sentence adverbials % --\textit{satsadverbial} --
 in main clauses without auxiliary verbs.
 
 \enumsentence{\begin{tabular}[t]{@{}*{12}{l@{\ }}}
@@ -3143,7 +3225,7 @@ at the same time give robustness;
 components that cannot be combined by any grammar rule are combined by a 
 meta function. When an unknown construction is encountered, the parser
 will not fail but give a partial parse tree with the analysis for the rest of
-the sentence.
+the sentence \cite{gfMech}.
 The output given to the user will be more valuable, since partial parse
 trees are more interesting the no parse trees.
 %We might end up with partial parse trees, but we would
@@ -3207,7 +3289,7 @@ By implementing dependency probabilities, our results would be even better.
 %This is a possible source for overgeneration.
 \subsubsection{Named entity recognition}
 The parser should be able to identify names of persons, companies, countries etc.
-This can be done by the Haskell program executing the parsing.
+This can be done by the Haskell program executing the parsing \cite{patent}.
 
 % discuss ambiguites, will always have some and the big lexicon will increase them.
 % exapmle 'vad händer under äktenskapet?'
@@ -3231,27 +3313,31 @@ This can be done by the Haskell program executing the parsing.
 We have developed the main components
 for a deep Swedish parser; an extended grammar and lexicon and material for
 evaluation and disambiguation. %To abstract:  by combining resources.
-We started from a well-defined system for describing grammar as we built
-the grammar from the GF resource grammar.
+By starting from the GF resource grammar, we got a well-defined system for
+describing grammars. 
+%as we built the grammar from .
 
 %When parser is derived from the grammar and will therefore validate that
 %a given sentence is grammatically correct according to the rules defined.
 
 Our final goal is to be able to parse unrestricted text, but considering that
 no syntactic theory is yet capable
-of covering a whole natural language, we are satisfied with %theconsider our grammar 
+of wholly covering a natural language, we are satisfied with %theconsider our grammar 
 %when used without a robust layer 
-the grammar implementation of an important fragment of Swedish.
-We have therefor focused on constructions that are frequent in Talbanken, 
-and following methods for making the parser robust as described in section \ref{sec:future}
+the grammar implementation of an important fragment of Swedish and have
+focused on constructions that are frequent in Talbanken. 
+Being a natural language processing-project, it will probably never be
+entirely complete, but by combining the rule-based parser with statistical
+techniques, 
+%By following the methods for making the parser robust 
+as described in section \ref{sec:future},
 we still believe that it is possible to achieve the goal. 
 \\
 
-
-Being a natural language processing-project, it will probably never be
-entirely complete. Even so, we believe  
+%TODO more here
+%. Even so, we believe  
 %Even though the grammar will not be totally covering, we belive
-that the work done is both interesting and useful.
+%that the work done is both interesting and useful.
 All parts of the project are open-source and may thus be used in other applications.
 The grammar may be beneficial also when working with controlled languages,
 as it increases the coverage of the Swedish resource grammar.
@@ -3274,7 +3360,7 @@ grammatical theories in order to arrive at a good analysis.
 %we want to extract other information. 
 %Hard, but not finished! 
 
-
+%TODO Espana -> ~
 \bibliographystyle{apalikeurl}
 \bibliography{masterbib}
 \end{document}

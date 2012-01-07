@@ -121,9 +121,9 @@ langOld  = fromJust $ readLanguage "BigSwe" --"BigSwe" --"BigNewSwe"
 pgfFile =  "../gf/Big.pgf" -- "../gf/BigTest.pgf" -- "../gf/Big.pgf" -- "BigNew.pgf"
 outFile = "testisNP.txt"
 
-pgfBackUp = "../gf/Big.pgf"
+pgfBackUp = "../gf/BigTest.pgf"
 langBackUp :: Language
-langBackUp = read "BigSwe"
+langBackUp = read "BigTestSwe"
 
 pgfDict = "DictSweAbs.pgf"
 langDict :: Language

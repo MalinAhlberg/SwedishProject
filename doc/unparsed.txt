@@ -20,11 +20,7 @@ måla -test
 
 
 report:
-obs!! vill VS, ej VV!
-det Röda äpplet, de uppfattningarna
+de uppfattningarna
 mer ofta
-hon sover vilket är bra (with ,) add to report
-last parantes in ta med
 sina vantar ÄR kvar på tåget
-hAn och sin kompis
 
