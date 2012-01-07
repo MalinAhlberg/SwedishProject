@@ -97428,7 +97428,7 @@ fun
   alltemellanaat_ab_1_1_Adv : Adv ;
   alltfort_ab_1_Adv : Adv ;
   alltfoer_ab_1_1_Adv : Adv ;
-  alltid_ab_1_AdV : AdV ;
+  alltid_ab_1_Adv : Adv ;
   alltigenom_ab_1_Adv : Adv ;
   alltjaemt_ab_1_1_Adv : Adv ;
   alltmer_ab_1_Adv : Adv ;

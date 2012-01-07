@@ -398,7 +398,7 @@ lin
 
     --annnan/andra?
   boerja_med_VV = mkVV (partV (mkV "börjar") "med") ;
-  ge_V3' = mkV3 (irregV "ge" "gav" "gett")  ;
+  --ge_V3' = mkV3 (irregV "ge" "gav" "gett")  ;
     numberOf = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep **
                 {num = Pl; det = DDef Indef };
 
