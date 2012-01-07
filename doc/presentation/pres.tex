@@ -138,7 +138,7 @@
 \begin{itemize}
 \item{Evaluate the parser}
 \pause
-\item{Extracting grammatical and lexical information}
+\item{Extract grammatical and lexical information}
 \pause
 \item{Extract probabilities for GF functions}
 \end{itemize}
@@ -221,10 +221,10 @@ VI (VSupin Act) : hittat \\
 \verb-VF (VPres Pass) : hittas &&&&\verb-VF (VPres Pass)  : knyts\\   
 \vspace{-2mm}
 \hspace{-3mm}
-\verb-VF (VPret Act)  : hittad &&&&\verb-VF (VPret Act)  : knytte\\
+\verb-VF (VPret Act)  : hittade &&&&\verb-VF (VPret Act)  : knytte\\
 \vspace{-2mm}
 \hspace{-3mm}
-\verb-VF (VPret Pass) : hittad &&&&\verb-VF (VPret Pass)  : knyttes\\ 
+\verb-VF (VPret Pass) : hittades &&&&\verb-VF (VPret Pass)  : knyttes\\ 
 \vspace{-2mm}
 \hspace{-3mm}
 \verb-VI (VInfin Act) : hitta &&&&\verb-VI (VInfin Act)  : knyta\\
@@ -243,6 +243,8 @@ VI (VSupin Act) : hittat \\
 \textbf{Result:} & Over 100 000 entries\\
 \pause
 &$\sim$500 missing words in Talbanken\\
+\pause
+$\sim$ 150 word-forms are used more than once \\
 \end{tabular}
 \begin{tabular}{ll}
 Plural tantum nouns & Irregular s-verbs \\
@@ -387,7 +389,7 @@ sin frukt & sitt äpple &sina äpplen \\
 \framesubtitle{Results} 
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
-\item a comparison between GF and another another annotation
+\item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
 \item a study of how dependent types can be used in the resource grammars
@@ -417,6 +419,21 @@ of how well GF can be used to describe larger parts of a language
 \item Valencies
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}
+ \renewcommand{\baselinestretch}{1.0}
+\frametitle{Future work}
+\framesubtitle{Lexicon} 
+A verb may have type V2 if it is followed by:
+\begin{itemize}
+\item {\verb OO} (other object)
+\item {\verb SS} (subjective predicative complement)
+\item {\verb IO} (indirect object)
+\item {\verb OA (PP ..)} (other adverbial with a prepositional phrase)
+\end{itemize}
+\end{frame}
+
 
 \begin{frame}
 \renewcommand{\baselinestretch}{1.0}

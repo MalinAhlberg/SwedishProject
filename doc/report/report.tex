@@ -27,9 +27,14 @@
 
 
 \abstract{
-The thesis describes the work to ~~achieve a covering Swedish~~ grammar implemented
+The thesis describes the work formalising an important fragment of Swedish
+in the GF formalism and to compare and evaluate the possibilities of using GF
+for modelling large-scale grammars. Grammatical constructions specific to and
+frequent in Swedish have been investigated and formalised in the functional
+programming language.
+%~~achieve a covering Swedish~~ grammar implemented
 %TODO first sentence should be more, no understatements!
-in GF -- to model natural language by functional programming. 
+%in GF -- to model natural language by functional programming. 
 The idea has been to combine existing language technology resources with
 new techniques, and the aim to obtain a system for analysing written text.
 To reach this goal, problems of computational as well as linguistic nature had to be solved.
@@ -115,6 +120,7 @@ such a good friend. %for having listened to
 %\pagenumberingstyle{plain}
 \setcounter{page}{1} %reset the page counter
 \chapter{Introduction}
+\thispagestyle{plain}
 % more intro to gf. dependently typed...high-level formalism
 Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism,
 with facilities for multilinguality. It is based on Martin-Löf type theory which allows
@@ -143,21 +149,23 @@ To build the grammar from scratch would be not only time consuming but
 would also mean that already existing resources would have to be reimplemented.
 In order to not reinvent the wheel we proceed from a combination of well-tested
 resources.
-%TODO verify this
 We start from a GF resource grammar, consisting of an abstract and a concrete syntax
 file defining a set of rules describing morphology and syntax.
+%TODO verify this, check all occurences of grammar
 From now on, this is what we mean by grammar, as
 opposed to grammar in the traditional linguistic sense. 
 From GF, we get %and thereby get
 %The usage of GF allows us to start from
-a well-defined system for describing the language, as well as a strong connection to
+a well-defined system for describing language, as well as a strong connection to
 more than 20 other languages implemented in the framework. Further, we use
 the extensive lexicon Saldo and the treebank Talbanken.
 %>>The grammar defines a parser, which accepts all constructions defined by the grammar.
 
+\newpage % until it looks nicer
 
 \section{Aims}
 %>> enhance gf...
+\protect\thispagestyle{plain}
 The purpose of this project has been to prepare the GF grammar for parsing of 
 unrestricted Swedish.
 This has meant to develop earlier techniques to fit for Swedish, create methods
@@ -175,7 +183,6 @@ Three sub-goals has been identified:
 %During this project, we have worked on and explored those things and
 %while identifying problems and future work.
 
-\newpage % until it looks nicer
 \section{Outline}
 The thesis is divided into 6 chapters. We start by giving some background
 information to areas relevant to the project. %Chapter \ref{sec:background} 
@@ -283,6 +290,7 @@ An interactive GF editor and the GF shell can be tried out online
  The first command will parse the given
 sentence and visualize the resulting parse tree. The second will visualize the 
 abstract syntax tree. The trees will be showed in the pdf-format by the program evince.
+\thispagestyle{plain}
 \begin{figure}[h]
 \begin{verbatim} 
 > parse "jag ser katten" | visualize_parse -format=pdf -view=evince
@@ -633,7 +641,7 @@ section \ref{sec:prog.saldo}.
 
 \section{Swedish}
 \label{sec:swedish}
-Swedish \cite[Inl. \textsection 3]{SAG}is a North-Germanic language,
+Swedish \cite[Inl. \textsection 3]{SAG} is a North-Germanic language,
 closely related to Norwegian and Danish. The languages share most of their
 grammatical structures and are mutually intelligible. Swedish is also 
 one of the official languages in Finland and altogether spoken by approximately 9
@@ -641,7 +649,7 @@ million people.
 Swedish syntax is often similar to English, but the  morphology is richer and the
 word order slightly more intricate.
 
-\subsection*{Post-nominal articles} 
+\subsection{Post-nominal articles} 
 \label{sec:swedishnoun}
 Unlike most of the world's languages Swedish express not only the number but also
 the definiteness of a noun by suffixes. The endings are decided by the noun's gender,
@@ -694,7 +702,7 @@ However, for some determiners, ie. `min' (\emph{`my'}), the noun should be in in
 %  &`The cat& slept.'%example: den där boken
 
 
-\subsection*{Verb second}
+\subsection{Verb second}
 Swedish is a verb-second language \cite[p.116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
 The normal word order is subject-verb-object, but any syntactic category can be
@@ -751,7 +759,7 @@ The word order in subordinate clauses in also slightly modified,
             {\emph{I} &  \emph{understood} & \emph{that}& \emph{Anna}& \textbf{\emph{not}}& \emph{saw}& \emph{me}}
             {`I understood that Anna didn't see me'}} 
 
-\subsection*{Passive voice}
+\subsection{Passive voice}
 There are two ways of forming passive verb phrases in Swedish: the 
 \textbf{periphrastic passive}, formed by using the modal auxiliary verb `bli' (\emph{`become'}).\\
 %>> better with animate subjects
@@ -779,7 +787,7 @@ and Swedish \cite[Pass. \textsection 1]{SAG} and dominates especially when the s
 %        {A &lion &hunted &him.}
 %        {`A lion was hunting him.'}}
 
-\subsection*{Impersonal constructions}
+\subsection{Impersonal constructions}
 Constructions with `det är/var' (\emph{`it is/was'}) \\are very common in Swedish
 \cite[\textsection 309d]{H&H}:
 \enumsentence{
@@ -794,7 +802,7 @@ the real subject is put in the position of an object.
 { \emph{it} & \emph{stands} &\emph{a} & \emph{moose} &\emph{on} &\emph{the field}}
 {`There is a moose in the field.'}}
 
-\subsection*{Reflexive pronouns}
+\subsection{Reflexive pronouns}
 \label{swe:refl}
 The Scandinavian language have special reflexive pronouns
 and reflexive possessive pronouns for the 3rd
@@ -1475,7 +1483,7 @@ The entry for `\emph{ta med}', as used in sentence (\ref{sent:tamed}), is
 described as follows:
 %, assuming that we already have an constant \verb-take_V- which produces the correct conjugation for ``ta":
 \begin{verbatim}
-ta_med_V3 = dirV3 (reflV (partV (take_V "med")) (mkPrep "till") ;
+ta_med_V3 = dirV3 (reflV (partV (take_V "med"))) (mkPrep "till") ;
 \end{verbatim}
 %The category \verb-V3- tells us that the verb takes two objects, % (``den" and ``honom").
 The function \verb-dirV3- creates a three-place verb, where the first object is direct and
@@ -1502,9 +1510,9 @@ fronting of particles, as in \ref{sent:tittapa}b., is not.
 {\emph{~on}& \emph{when}& \emph{you}& \emph{run}& \emph{watch}& \emph{I}}
 \label{sent:tittapa}}
 \begin{figure}[h]
-\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=80mm]{tittapa.jpg}}
+\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=72mm]{tittapa.jpg}}
 \hspace{10mm}
-\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=80mm]{tittapart.pdf}}
+\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=72mm]{tittapart.pdf}}
 \caption{The visualized parse trees do not show the internal difference of chosen prepositions and particles}
 \label{fig:translationtrees}
 \end{figure}
@@ -1629,7 +1637,7 @@ Among those were functions for topicalisation: %$ although not all
 %can be found.
 %For example, \verb|FocObj| fronted the object as in sentence (\ref{gfSwe:apple}).
 \enumsentence{\shortex{6}
-{Det & äpplet & vill & jag & inte & ha}
+{Det där & äpplet & vill & jag & inte & ha}
 {that & apple & want & I & not &have}
 {`I don't want that apple'}}\label{gfSwe:apple}
 and for preposition stranding:
@@ -1873,8 +1881,7 @@ a. &De flesta hästarna  && b.& De flesta \textbf{av} de där hästarna.\\
 \subsection{Formalizing the rules for reflexive pronouns by using dependent types}
 \label{sec:reflexives}
 An important area in a Swedish grammar is the treatment of the reflexive pronouns and
-%TODO fix page ref
-the reflexive possessive pronouns as described on p. \pageref{swe:refl}.
+the reflexive possessive pronouns as described in section \ref{swe:refl} 
 The reflexives require an antecedent with which they agree in
 number and person.
 Our grammar should accept the following sentences:
@@ -1911,8 +1918,8 @@ The grammar should not accept any of these sentences:
 \enumsentence{
 *Sina vantar var kvar på tåget.\\
 {\sc self's} gloves were left on the train.}\label{ex:ReflSubj}
-\enumsentence{*Hon och sin kompis läser en bok.\\
-She and {\sc self's} friend are reading a book. }
+\enumsentence{*Han och sin kompis läser en bok.\\
+He and {\sc self's} friend are reading a book. }
 \enumsentence{*Jag ger sina pengar till sina syskon.\\
 I give {\sc self's} money to {\sc self's} siblings. }\label{ex:refljag}
 \enumsentence{*Han vill att jag ser på sig.\\
@@ -2125,7 +2132,7 @@ number of the antecedent is plural.
 %%
 
 \subsection{A second future tense: ``Kommer att"}
-Swedish and Norwegian use two auxiliary verbs for future tense
+Swedish and Norwegian use two auxiliary verbs for future tense \\
 \cite[p. 246]{H&H}:
 %\cite[Tempus \textsection 28]{SAG}.
 \enumsentence{\begin{tabular}[t]{@{}*{5}{l@{\ }}}
@@ -2301,7 +2308,6 @@ adverbs as \verb-AdV-.
 %funna'
 %for the last one, we need VPSlash to allow adverb.
 
-\newpage
 \subsection{Miscellaneous}
 This section covers some minor changes of the grammar.
 They are described
@@ -2333,6 +2339,7 @@ indefinite form as in (\ref{sent:uppfatt}).
 When no relative clause is present, the definite form with the postnominal
 definite article must be used, cf.
 sentence (\ref{sent:debocker}).
+\newpage %until behave
 \eenumsentence{
 \item de uppfattningar\textbf{na} förs fram.\\
 ``the opinions are presented."
@@ -2341,7 +2348,7 @@ sentence (\ref{sent:debocker}).
 Apart for this, only corrections have been done, exemplified in
 this sentence.
 \enumsentence{
-Hon sover \textbf{som} är bra ~ \textrightarrow ~ Hon sover \textbf{vilket} är bra\\
+Hon sover \textbf{som} är bra ~ \textrightarrow ~ Hon sover, \textbf{vilket} är bra\\
 ``She sleeps, which is good"}
 
 %{\emph{the opinions}& \emph{that}&\emph{ put+{\textbf s}} & \emph{forward ...}}
@@ -2419,6 +2426,7 @@ a \verb-NP- can be turned into a \verb-Quant-.\\
 \end{itemize}
 We had that a noun phrase, eg \emph{`katten'} could be turned into a quantifier,
 by using its genitive form, \emph{``kattens'}. This could be used as a determiner,
+\newpage % until behave
 \enumsentence{Det är kattens mat}
 and thus as a noun phrase:
 \enumsentence{Det är kattens.}
@@ -2658,7 +2666,7 @@ for the syntactic differences between Swedish and English.
 \section{The Talbanken annotation}
 Talbanken05 uses three kinds of tags: categories, edge labels and pos-tags. 
 %TODO part of speech??
-While the pos-tags are reserved for words, the categories give part-of-speech information,
+While the pos-tags are reserved for words, the categories give part-of-sentence information,
 such as \verb|S|, \verb|NP| and \verb|VP|.
 The edge labels give the grammatical functions: \verb|SS| for subject, 
 \verb|OO| for object etc. Nearly 400 different tags are used, of which more than
@@ -2992,7 +3000,7 @@ robust, but the robustness must not interfere with the correctness.
 The project has resulted in
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
-\item a comparison between GF and another another annotation
+\item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
 \item a study of how dependent types can be used in the resource grammars
@@ -3026,12 +3034,12 @@ Since there is no information about which verbs that allows the infinitive mark
 to be left out, it will also allow the more questionable sentence (\ref{sent:complVV2}b).
 \eenumsentence{
 \item \shortex{5}
-{Jag & vill & \textbf{att}& du & går} 
-{I & want & \textbf{to} &you & leave}
-{I want you to leave}
+{Jag & låter bli & \textbf{att}& titta} 
+{I & let & be &\textbf{to} &watch}
+{I don't watch}
 \item \shortexnt{4}
-{Jag & vill & du & går} 
-{I & want &you & leave}}\label{sent:complVV2}
+{*Jag & låter & bli & titta} 
+{I & leave &be & watch}}\label{sent:complVV2}
 %ComplBareVV, SupCl
 For random generation, the sentences generated may be next to impossible
 to interpret without looking at the abstract tree, since they may contain
@@ -3308,8 +3316,9 @@ This can be done by the Haskell program executing the parsing \cite{patent}.
 We have developed the main components
 for a deep Swedish parser; an extended grammar and lexicon and material for
 evaluation and disambiguation. %To abstract:  by combining resources.
-We started from a well-defined system for describing grammars as we built
-the grammar from the GF resource grammar.
+By starting from the GF resource grammar, we got a well-defined system for
+describing language. 
+%as we built the grammar from .
 
 %When parser is derived from the grammar and will therefore validate that
 %a given sentence is grammatically correct according to the rules defined.
@@ -3318,17 +3327,20 @@ Our final goal is to be able to parse unrestricted text, but considering that
 no syntactic theory is yet capable
 of wholly covering a natural language, we are satisfied with %theconsider our grammar 
 %when used without a robust layer 
-the grammar implementation of an important fragment of Swedish.
-We have therefore focused on constructions that are frequent in Talbanken, 
-and following methods for making the parser robust as described in section \ref{sec:future}
+the grammar implementation of an important fragment of Swedish and have
+focused on constructions that are frequent in Talbanken. 
+Being a natural language processing-project, it will probably never be
+entirely complete, but by combining the rule-based parser with statistical
+techniques, 
+%By following the methods for making the parser robust 
+as described in section \ref{sec:future},
 we still believe that it is possible to achieve the goal. 
 \\
 
 %TODO more here
-Being a natural language processing-project, it will probably never be
-entirely complete. Even so, we believe  
+%. Even so, we believe  
 %Even though the grammar will not be totally covering, we belive
-that the work done is both interesting and useful.
+%that the work done is both interesting and useful.
 All parts of the project are open-source and may thus be used in other applications.
 The grammar may be beneficial also when working with controlled languages,
 as it increases the coverage of the Swedish resource grammar.
