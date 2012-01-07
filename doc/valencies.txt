@@ -1,3 +1,4 @@
+Changed valencies:
 se V2
 förstå VS
 ta V2
@@ -18,8 +19,13 @@ ge V3
 få VV
 läser V2
 börjar VV
-till och med
-
+fånga_V2
+skriva_V2
+erbjuda_V3
+måla_V2A
+give -till
+bli_VA+V2
+aldrig AdV
 
 should be removed:
 ta bort: bara
@@ -29,11 +35,4 @@ kompare advs?
 de uppfattningarna är här (utpekning)
 (oftare)
 men
-förstå_VV
-fånga_V2
-skriva_V2
-erbjuda_V3
-måla_V2A
-give -till
-bli_VA
-alltid
+
