@@ -82,7 +82,6 @@ input = input' ""
        initSafe [] = []
        initSafe xs = init xs
 
---parse without state
 parseNormal pgf morpho lang s = do
   let fix     = fixPunctuation $ replaceNumbers s 
       unknown = badWords morpho (snd fix)
@@ -92,15 +91,24 @@ parseNormal pgf morpho lang s = do
          putStrLn $ "Parsing "++s
          tree <- timeout timeLimit $ return $ parse pgf lang textType (map toLower s)
          case tree of
-            Just xs@(x:_) -> return $ Just (x,length xs)
+            Just xs@(x:_) -> return $ Just (getBest xs,length xs)
             _             -> return Nothing
-       
+       getBest :: [Tree] -> Tree
+       getBest ts = fromMaybe (head ts) (rank ts) 
+       rank :: [Tree] -> Maybe Tree
+       rank = listToMaybe . filter (not .(\x -> any (`isInfixOf` x) bads) . showExpr [])
+       bads = ["NumCard","man_nn","faar_nn","en_nn","foer_nn"
+              ,"mycken_nn","nyy_nn","vill_ab","titt_nn","leva_nn","haer_nn"
+              ,"PrepCN"]
+ 
 
 testa :: String -> IO ()
 testa s = do
   pgf <- readPGF "BigParse.pgf"
   let morpho = buildMorpho pgf (read "BigParseSwe")
   print $ lookupMorpho morpho $ map toLower s
+  tree <- parseNormal pgf morpho (read "BigParseSwe") ("",s)
+  print tree 
   --print [w| w <- words s, null $ lookupMorpho morpho $ map toLower w]
 
 badWords :: Morpho -> String -> [String]

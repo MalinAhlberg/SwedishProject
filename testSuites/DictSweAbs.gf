@@ -965,7 +965,8 @@ fun
   bita_vb_1_V : V ;
   bitraeda_vb_1_1_V : V ;
   bjuda_vb_1_V : V ;
-  bli_vb_1_V : V ;
+  bli_vb_1_V2 : V2 ;
+  bli_vb_1_VA : VA ;
   blottlaegga_vb_1_1_V : V ;
   blaakoera_vb_1_1_V : V ;
   blaaljuga_vb_1_1_V : V ;
@@ -1014,7 +1015,7 @@ fun
   eftertraeda_vb_1_1_V : V ;
   emotse_vb_1_V : V ;
   enkelskriva_vb_1_V : V ;
-  erbjuda_vb_1_V : V ;
+  erbjuda_vb_1_V3 : V3 ;
   erfara_vb_1_V : V ;
   erhaalla_vb_1_1_V : V ;
   erkaenna_vb_1_1_V : V ;
@@ -1120,7 +1121,7 @@ fun
   foersluta_vb_1_1_V : V ;
   foerslaa_vb_1_1_V : V ;
   foerspoerja_vb_1_1_V : V ;
-  foerstaa_vb_1_1_VV : VV ;
+  foerstaa_vb_1_1_VS : VS ;
   foerstoera_vb_1_1_V : V ;
   foersvinna_vb_1_1_V : V ;
   foersaelja_vb_1_1_V : V ;
@@ -1425,7 +1426,7 @@ fun
   skrida_vb_1_V : V ;
   skrika_vb_1_V : V ;
   skrinlaegga_vb_1_1_V : V ;
-  skriva_vb_1_V : V ;
+  skriva_vb_1_V2 : V2 ;
   skryta_vb_1_V : V ;
   skraeda_vb_1_1_V : V ;
   skuldbelaegga_vb_1_1_V : V ;
@@ -5775,7 +5776,7 @@ fun
   faersera_vb_1_1_V : V ;
   faerska_vb_1_1_V : V ;
   faalla_vb_1_1_V : V ;
-  faanga_vb_1_1_V : V ;
+  faanga_vb_1_1_V2 : V2 ;
   faara_vb_1_1_V : V ;
   foena_vb_1_1_V : V ;
   foerakta_vb_1_1_V : V ;
@@ -6945,7 +6946,7 @@ fun
   maeska_vb_1_1_V : V ;
   maestra_vb_1_1_V : V ;
   maetta_vb_1_1_V : V ;
-  maala_vb_1_1_V : V ;
+  maala_vb_1_1_V2A : V2A ;
   maangdubbla_vb_1_1_V : V ;
   maangfaldiga_vb_1_1_V : V ;
   maatta_vb_1_1_V : V ;
@@ -97411,7 +97412,7 @@ fun
   akterut_ab_1_Adv : Adv ;
   akteroever_ab_1_1_Adv : Adv ;
   akut_ab_1_Adv : Adv ;
-  aldrig_ab_1_Adv : Adv ;
+  aldrig_ab_1_AdV : AdV ;
   alfresko_ab_1_Adv : Adv ;
   alias_ab_1_Adv : Adv ;
   allaredan_ab_1_Adv : Adv ;
@@ -97427,7 +97428,7 @@ fun
   alltemellanaat_ab_1_1_Adv : Adv ;
   alltfort_ab_1_Adv : Adv ;
   alltfoer_ab_1_1_Adv : Adv ;
-  alltid_ab_1_Adv : Adv ;
+  alltid_ab_1_AdV : AdV ;
   alltigenom_ab_1_Adv : Adv ;
   alltjaemt_ab_1_1_Adv : Adv ;
   alltmer_ab_1_Adv : Adv ;

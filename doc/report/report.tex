@@ -120,6 +120,7 @@ such a good friend. %for having listened to
 %\pagenumberingstyle{plain}
 \setcounter{page}{1} %reset the page counter
 \chapter{Introduction}
+\thispagestyle{plain}
 % more intro to gf. dependently typed...high-level formalism
 Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism,
 with facilities for multilinguality. It is based on Martin-Löf type theory which allows
@@ -164,6 +165,7 @@ the extensive lexicon Saldo and the treebank Talbanken.
 
 \section{Aims}
 %>> enhance gf...
+\protect\thispagestyle{plain}
 The purpose of this project has been to prepare the GF grammar for parsing of 
 unrestricted Swedish.
 This has meant to develop earlier techniques to fit for Swedish, create methods
@@ -288,6 +290,7 @@ An interactive GF editor and the GF shell can be tried out online
  The first command will parse the given
 sentence and visualize the resulting parse tree. The second will visualize the 
 abstract syntax tree. The trees will be showed in the pdf-format by the program evince.
+\thispagestyle{plain}
 \begin{figure}[h]
 \begin{verbatim} 
 > parse "jag ser katten" | visualize_parse -format=pdf -view=evince
@@ -638,7 +641,7 @@ section \ref{sec:prog.saldo}.
 
 \section{Swedish}
 \label{sec:swedish}
-Swedish \cite[Inl. \textsection 3]{SAG}is a North-Germanic language,
+Swedish \cite[Inl. \textsection 3]{SAG} is a North-Germanic language,
 closely related to Norwegian and Danish. The languages share most of their
 grammatical structures and are mutually intelligible. Swedish is also 
 one of the official languages in Finland and altogether spoken by approximately 9
@@ -646,7 +649,7 @@ million people.
 Swedish syntax is often similar to English, but the  morphology is richer and the
 word order slightly more intricate.
 
-\subsection*{Post-nominal articles} 
+\subsection{Post-nominal articles} 
 \label{sec:swedishnoun}
 Unlike most of the world's languages Swedish express not only the number but also
 the definiteness of a noun by suffixes. The endings are decided by the noun's gender,
@@ -699,7 +702,7 @@ However, for some determiners, ie. `min' (\emph{`my'}), the noun should be in in
 %  &`The cat& slept.'%example: den där boken
 
 
-\subsection*{Verb second}
+\subsection{Verb second}
 Swedish is a verb-second language \cite[p.116]{gunlog}: the
 second constituent of a declarative main clause must consist of a verb.
 The normal word order is subject-verb-object, but any syntactic category can be
@@ -756,7 +759,7 @@ The word order in subordinate clauses in also slightly modified,
             {\emph{I} &  \emph{understood} & \emph{that}& \emph{Anna}& \textbf{\emph{not}}& \emph{saw}& \emph{me}}
             {`I understood that Anna didn't see me'}} 
 
-\subsection*{Passive voice}
+\subsection{Passive voice}
 There are two ways of forming passive verb phrases in Swedish: the 
 \textbf{periphrastic passive}, formed by using the modal auxiliary verb `bli' (\emph{`become'}).\\
 %>> better with animate subjects
@@ -784,7 +787,7 @@ and Swedish \cite[Pass. \textsection 1]{SAG} and dominates especially when the s
 %        {A &lion &hunted &him.}
 %        {`A lion was hunting him.'}}
 
-\subsection*{Impersonal constructions}
+\subsection{Impersonal constructions}
 Constructions with `det är/var' (\emph{`it is/was'}) \\are very common in Swedish
 \cite[\textsection 309d]{H&H}:
 \enumsentence{
@@ -799,7 +802,7 @@ the real subject is put in the position of an object.
 { \emph{it} & \emph{stands} &\emph{a} & \emph{moose} &\emph{on} &\emph{the field}}
 {`There is a moose in the field.'}}
 
-\subsection*{Reflexive pronouns}
+\subsection{Reflexive pronouns}
 \label{swe:refl}
 The Scandinavian language have special reflexive pronouns
 and reflexive possessive pronouns for the 3rd
@@ -1507,9 +1510,9 @@ fronting of particles, as in \ref{sent:tittapa}b., is not.
 {\emph{~on}& \emph{when}& \emph{you}& \emph{run}& \emph{watch}& \emph{I}}
 \label{sent:tittapa}}
 \begin{figure}[h]
-\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=80mm]{tittapa.jpg}}
+\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=72mm]{tittapa.jpg}}
 \hspace{10mm}
-\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=80mm]{tittapart.pdf}}
+\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=72mm]{tittapart.pdf}}
 \caption{The visualized parse trees do not show the internal difference of chosen prepositions and particles}
 \label{fig:translationtrees}
 \end{figure}
@@ -1878,8 +1881,7 @@ a. &De flesta hästarna  && b.& De flesta \textbf{av} de där hästarna.\\
 \subsection{Formalizing the rules for reflexive pronouns by using dependent types}
 \label{sec:reflexives}
 An important area in a Swedish grammar is the treatment of the reflexive pronouns and
-%TODO fix page ref
-the reflexive possessive pronouns as described on p. \pageref{swe:refl}.
+the reflexive possessive pronouns as described in section \ref{swe:refl} 
 The reflexives require an antecedent with which they agree in
 number and person.
 Our grammar should accept the following sentences:
@@ -2130,7 +2132,7 @@ number of the antecedent is plural.
 %%
 
 \subsection{A second future tense: ``Kommer att"}
-Swedish and Norwegian use two auxiliary verbs for future tense
+Swedish and Norwegian use two auxiliary verbs for future tense \\
 \cite[p. 246]{H&H}:
 %\cite[Tempus \textsection 28]{SAG}.
 \enumsentence{\begin{tabular}[t]{@{}*{5}{l@{\ }}}
@@ -2306,7 +2308,6 @@ adverbs as \verb-AdV-.
 %funna'
 %for the last one, we need VPSlash to allow adverb.
 
-\newpage
 \subsection{Miscellaneous}
 This section covers some minor changes of the grammar.
 They are described
@@ -2338,6 +2339,7 @@ indefinite form as in (\ref{sent:uppfatt}).
 When no relative clause is present, the definite form with the postnominal
 definite article must be used, cf.
 sentence (\ref{sent:debocker}).
+\newpage %until behave
 \eenumsentence{
 \item de uppfattningar\textbf{na} förs fram.\\
 ``the opinions are presented."
@@ -2424,6 +2426,7 @@ a \verb-NP- can be turned into a \verb-Quant-.\\
 \end{itemize}
 We had that a noun phrase, eg \emph{`katten'} could be turned into a quantifier,
 by using its genitive form, \emph{``kattens'}. This could be used as a determiner,
+\newpage % until behave
 \enumsentence{Det är kattens mat}
 and thus as a noun phrase:
 \enumsentence{Det är kattens.}
@@ -2663,7 +2666,7 @@ for the syntactic differences between Swedish and English.
 \section{The Talbanken annotation}
 Talbanken05 uses three kinds of tags: categories, edge labels and pos-tags. 
 %TODO part of speech??
-While the pos-tags are reserved for words, the categories give part-of-speech information,
+While the pos-tags are reserved for words, the categories give part-of-sentence information,
 such as \verb|S|, \verb|NP| and \verb|VP|.
 The edge labels give the grammatical functions: \verb|SS| for subject, 
 \verb|OO| for object etc. Nearly 400 different tags are used, of which more than
@@ -3314,7 +3317,7 @@ We have developed the main components
 for a deep Swedish parser; an extended grammar and lexicon and material for
 evaluation and disambiguation. %To abstract:  by combining resources.
 By starting from the GF resource grammar, we got a well-defined system for
-describing grammars. 
+describing language. 
 %as we built the grammar from .
 
 %When parser is derived from the grammar and will therefore validate that
