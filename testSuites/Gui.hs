@@ -22,13 +22,15 @@ main = do
   containerAdd treeViewport treeImage
   containerAdd treeScroller treeViewport
 
+  scrolledWindowSetPolicy treeScroller PolicyAutomatic PolicyAlways
+
+
   set window [windowDefaultWidth := 200, windowDefaultHeight := 200,
               containerChild := bigbox, containerBorderWidth := 5]
 
   (resLabel,resFrame) <- myLabelWithFrameNew
   labelSetText resLabel ""
   frameSetLabel resFrame "Result"
---  labelSetPattern resLabel [3, 1, 3]
 
   inputField <- entryNew
   parseButton <- buttonNewWithLabel "  Parse  "
@@ -46,11 +48,15 @@ main = do
 
   boxSetHomogeneous bigbox False
 
-  boxPackStart bigbox treeScroller PackGrow 2
+  boxPackStart bigbox treeScroller PackGrow 0
   boxPackStart bigbox inputFrame PackNatural 2
   boxPackStart bigbox resFrame PackNatural 2
 
-  let parse = parseIt inputField treeImage resLabel maps pgf
+  let parse = do parseIt inputField treeImage resLabel maps pgf
+                 vadj <- get treeScroller scrolledWindowVAdjustment
+                 maxadj <- get vadj adjustmentUpper
+                 set vadj [ adjustmentValue := maxadj ]
+
   onEntryActivate inputField parse
   onClicked parseButton parse
 --  onClicked button2 (entrySetText inputField "")
