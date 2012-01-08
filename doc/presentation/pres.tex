@@ -33,9 +33,11 @@
 \maketitle
 
 \begin{frame}
-    \frametitle{~ }
-\framesubtitle{Jag vill äta äpplen}
-\includegraphics[width=30mm]{parse.pdf}
+    \frametitle{Parsing}
+%\framesubtitle{Jag vill äta äpplen}
+\begin{center}
+\includegraphics[width=80mm]{sentence.png}\\
+\end{center}
  \end{frame}
 
 
@@ -56,7 +58,46 @@
   %\pause PDF stupid
   \vspace{5mm}
   \verb|PredVP np vp = np ++ vp |\\
+  \verb|PredVP np vp = vp ++ np |\\
   Concrete syntax
+ \end{frame}
+
+\begin{frame}%[containsverbatim]
+  \frametitle{Grammatical Framework}
+  \framesubtitle{Abstract syntax}
+\textbf{Categories}\\
+\begin{tabular}{lll}
+  {\verb-NP}&  ``en liten katt"&(\emph{``a small katt"})\\
+  {\verb-VP}&  ``äter äpplen" &(\emph{``eats apples"})\\
+  {\verb-AP}&  ``ganska gott"& (\emph{``rather good"})\\
+  {\verb-V }& ``sitta" &(\emph{``sit"})\\
+  {\verb-V2}&  ``gilla" &(\emph{``like"})\\
+  {\verb-VA}&  ``bli"& (\emph{``become"})\\
+  {\verb-VPSlash}& ``gillade inte"&(\emph{``did not like"})\\
+  {\verb-ClSlash}& ``han gillade inte"&(\emph{``he did not like"})\\
+  \end{tabular}
+ \end{frame}
+
+\begin{frame}
+\frametitle{Grammatical Framework}
+\framesubtitle{Abstract syntax}
+\textbf{Function types}\\
+%\begin{tabular}{lll}
+{\verb-SlashV2a : V2 -> VPSlash} \\
+{\verb-ComplSlash : VPSlash -> NP -> VP }\\
+{\verb-PredVP : NP -> VP -> Cl}\\
+%\end{tabular}
+ \end{frame}
+
+\begin{frame}
+\frametitle{Grammatical Framework}
+\framesubtitle{Concrete syntax}
+\begin{itemize}
+\item\textbf{One concrete syntax for each grammar}\\
+\item\textbf{Linearization rules}\\
+{\verb-ComplSlash vp obj = vp ++ obj }\\
+{\verb-PredVP np vp = np ++ vp }\\
+ \end{itemize}
  \end{frame}
 
 
@@ -73,7 +114,10 @@
   The resource grammars covers about 20 languages \\
   \vspace{5mm}
   \pause
-  Extra module for language specific constructions
+  Extra module for language specific constructions\\
+  \vspace{5mm}
+  \pause
+  Controlled natural language
  \end{frame}
 
 
@@ -96,35 +140,42 @@
 \begin{frame}
 \frametitle{The project}
 \framesubtitle{Talbanken} 
-{$\sim$ 6000 manually tagged sentences}
+{$\sim$ 6000 manually tagged sentences}\\
+Developed at Lund university\\
 \pause
-\vspace{5mm}
-\begin{tabular}[t]{@{}*{2}{l@{\ }}}
-{\begin{parsetree}
-\ptbegtree
-\ptbeg \ptnode{S} 
-\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
-\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
-\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
-%\ptbeg \ptnode{OA} 
-%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
-%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
-\ptend
-\end{parsetree}}
-&
-\hspace{-10mm}
-{\begin{parsetree}
-\ptbegtree
-\ptbeg \ptnode{S} 
-\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
-\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
-\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
-%\ptbeg \ptnode{OA} 
-%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
-%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
-\ptend
-\end{parsetree}}\\
-\end{tabular}
+%\vspace{-35mm}
+%%\begin{tabular}[t]{@{}*{2}{l@{\ }}}
+%{\begin{parsetree}
+%\ptbegtree
+%\ptbeg \ptnode{S} 
+%\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
+%\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
+%\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
+%%\ptbeg \ptnode{OA} 
+%%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
+%%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
+%\ptend
+%\end{parsetree}}
+%%&
+%\pause
+%\vspace{45mm}
+\includegraphics[width=50mm]{motstaandTb.png}
+\pause
+\includegraphics[width=60mm]{motstand.png}
+%&
+%\hspace{-10mm}
+%{\begin{parsetree}
+%\ptbegtree
+%\ptbeg \ptnode{S} 
+%\ptbeg \ptnode{SS} \ptbeg \ptnode{NNDDHH}  \ptleaf{Motståndarna} \ptend \ptend
+%\ptbeg \ptnode{FV} \ptbeg \ptnode{AVPS}  \ptleaf{är} \ptend \ptend
+%\ptbeg \ptnode{SP} \ptbeg \ptnode{AJ}  \ptleaf{rädda} \ptend \ptend
+%%\ptbeg \ptnode{OA} 
+%%    \ptbeg \ptnode{PP} \ptbeg \ptnode{PR} \ptbeg \ptnode{PR} \ptleaf{för} \ptend \ptend
+%%                       \ptbeg \ptnode{HD} \ptbeg \ptnode{NN} \ptleaf{hundar} \ptend \ptend \ptend \ptend
+%\ptend
+%\end{parsetree}}\\
+%\end{tabular}
 
 
 %\item Grammatical constructions, pos tags, syntactical tags,
@@ -150,7 +201,7 @@
 \begin{verbatim}
 translate S = do np <- translate SS
                  vp <- translate FV
-              return (PredVP np vp)
+                 return (PredVP np vp)
 \end{verbatim}
 \end{frame}
 
@@ -259,7 +310,7 @@ VI (VSupin Act) : hittat \\
 \pause
 $\sim$ 500 missing words in Talbanken\\
 \pause
-$\sim$ 150 word-forms are used more than once \\
+$\sim$ 150 of them are used more than once \\
 \pause
 \vspace{4mm}
 \begin{tabular}{ll}
@@ -295,7 +346,7 @@ Jag kommer somna snart &&Det dansas på borden  \\
 \begin{frame}
 \frametitle{Grammar}
 \framesubtitle{Swedish} 
-\textbf{Reflexive possessives prononus}\\
+\textbf{Reflexive possessive pronous}\\
 \begin{tabular}{lll}
 Jag äter mitt äpple && Jag äter mitt äpple \\
 \emph{``I eat my apple"} && \emph{``I eat my apple"} \\
@@ -307,7 +358,7 @@ Han äter sitt äpple && Han äter hans äpple \\
 
 \begin{frame}
 \frametitle{Grammar}
-\framesubtitle{Reflexive possessives prononus}
+\framesubtitle{Reflexive possessive pronous}
 \begin{tabular}{lll}
 sin frukt & sitt äpple &sina äpplen \\
 \emph{``{\sc self's} fruit"} & \emph{``{\sc self's} apple"} & \emph{``{\sc self's} apples"} \\
@@ -321,30 +372,22 @@ sin frukt & sitt äpple &sina äpplen \\
 \end{tabular}
 \end{frame}
 
+\begin{frame}[containsverbatim]
+\frametitle{The grammar}
+\framesubtitle{Reflexive pronouns} 
+\verb|ReflVP : VPSlash -> VP ;| \\
+{\verb|         ser     -> ser sig;| }\\
+\vspace{2mm}
+\emph{``Han ger sina pengar till sina barn"}
+\end{frame}
 
-%START OF DEMO
-%\begin{frame}
-%\frametitle{The grammar}
-%\framesubtitle{} 
-%\begin{tabular}{ll}
-%\textbf{Aim}: & Implement constructions frequent in Talbanken\\
-%&Restrict overgeneration\\
-%\end{tabular}\\
-%%intersting examples
-%%relate to gullmarsstrand
-%Passive\\
-%Formal subjects\\
-%Topicalisation - with particles, prepositions\\
-%Genitives \\
-%Reflexives
-%\end{frame}
 
 
 \begin{frame}%[containsverbatim]
 \frametitle{The grammar}
 \framesubtitle{Reflexive pronouns} 
 \begin{tabular}{lllll}
-\textbf{sitt äpple}\\
+\textbf{sitt äpple} &&*Sitt äpple är stort\\
 \sc{NP (object)}\pause\\
 \textbf{sitt äpple} &\textbf{och}& \textbf{en banan}\\
 \sc{NP (object)}& +&\sc{NP}&  $\rightarrow$ &  \sc{NP (object)}\\
@@ -353,6 +396,27 @@ sin frukt & sitt äpple &sina äpplen \\
 \sc{NP (object)}& &      & & \sc{NP (object)}\\
 \end{tabular}\\
 \end{frame}
+
+
+\begin{frame}%[containsverbatim]
+\frametitle{The grammar}
+NP Subject/Object\\
+\pause 
+\verb-ConjunctionNP : (a : NPType) -> NP a -> NP a -> NP a ;\\
+\verb-PredVP : NP Subject -> VP -> Cl ; \\
+\verb-ComplSlash : VPSlash -> NP Object -> Cl ;\\
+\end{frame}
+
+\begin{frame}
+\frametitle{The grammar}
+\framesubtitle{Reflexive pronouns} 
+\begin{itemize}
+\item{The new grammar can be made compatible with the old one}
+\item{The separation of noun phrases needing an antecedent is
+also be needed for other languages}
+\end{itemize}
+\end{frame}
+
 
 
 %\begin{frame}
@@ -404,11 +468,11 @@ sin frukt & sitt äpple &sina äpplen \\
 \frametitle{Evaluation}
 \framesubtitle{Results} 
 \begin{itemize}
+\item a study of how dependent types can be used in the resource grammars
 \item a large-scale GF lexicon and a program to redo the importation when needed
 \item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
-\item a study of how dependent types can be used in the resource grammars
 \end{itemize}
 \end{frame}
 
@@ -431,7 +495,7 @@ of how well GF can be used to describe larger parts of a language
 \framesubtitle{Lexicon} 
 \begin{itemize}
 \item Idioms
-\item Faster and smaller
+\item Speed up
 \item Valencies
 \end{itemize}
 \end{frame}
@@ -443,10 +507,10 @@ of how well GF can be used to describe larger parts of a language
 \framesubtitle{Lexicon} 
 A verb may have type V2 if it is followed by:
 \begin{itemize}
-\item {\verb OO} (other object)
-\item {\verb SS} (subjective predicative complement)
-\item {\verb IO} (indirect object)
-\item {\verb OA (PP ..)} (other adverbial with a prepositional phrase)
+\item {\verb OOO } (other object)
+\item {\verb SSS } (subjective predicative complement)
+\item {\verb IIO} (indirect object)
+\item {\verb OOA (PP ..)} (other adverbial with a prepositional phrase)
 \end{itemize}
 \end{frame}
 
@@ -456,7 +520,7 @@ A verb may have type V2 if it is followed by:
 \frametitle{Future work}
 \framesubtitle{Probabilities} 
 \center
-``Man sover"\\
+``Jag såg en"\\
 \includegraphics[width=170pt,height=200pt]{man1.pdf}
 \includegraphics[width=130pt,height=200pt]{man.pdf}
 \end{frame}
@@ -483,6 +547,7 @@ A verb may have type V2 if it is followed by:
 \begin{frame}
     \frametitle{The end}
 \large\begin{center}Thanks for listening\end{center}
+\small{\url{clt.gu.se/seminar/2012-01-09/masters-seminar-malin-ahlberg}}
 \end{frame}
 \end{document}
 
