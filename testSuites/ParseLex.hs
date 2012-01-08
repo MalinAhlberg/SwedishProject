@@ -45,14 +45,14 @@ play = do
             loop maps pgf
 
 play' = do 
-  maps <- mkLexMap
-  pgf <- readPGF pgfDict
+  --maps <- mkLexMap
+  pgf <- readPGF pgfBackup
   return (maps,pgf)
 
 processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe (FilePath,Int))
 processparse str pgfDict langDict maps = do
-  res <- mkDir maps (prepare str) langDict pgfDict
-  let (pgf',l') = maybe (pgfBackUp,langBackUp) id res
+  --res <- mkDir maps (prepare str) langDict pgfDict
+  let (pgf',l') = maybe (pgfBackUp,langBackUp) id Nothing --res
   putStrLn "reading new PGF"
   pgfNew <- readPGF pgf'
   let morpho = buildMorpho pgfNew l'
