@@ -51,7 +51,7 @@ play' = do
   putStrLn "after pgf"
   return (error "undefined from play'",pgf)
 
-processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe (FilePath,Int))
+processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe ((FilePath,FilePath),Int))
 processparse str pgfDict langDict maps = do
 --  res <- mkDir maps (prepare str) langDict pgfDict
   let (pgf',l') = maybe (pgfBackUp,langBackUp) id Nothing
@@ -164,12 +164,15 @@ yellow = 3
 blue = 4    -- correct this!
 pink = 5
 
-
-pipeIt2graphviz :: PGF -> Language -> Tree -> IO FilePath
+pipeIt2graphviz :: PGF -> Language -> Tree -> IO (FilePath,FilePath)
 pipeIt2graphviz pgf lang t = do
-    let dotFile = "tmptree.dot"
-        pngFile = "tmptree.png"
-    writeFile dotFile $ graphvizParseTree pgf lang t
-    readProcess "dot" ["-Tpng",dotFile,"-o",pngFile] []
-    return pngFile
+    let dotFileP = "tmptreep.dot"
+        pngFileP = "tmptreep.png"
+        dotFileA = "tmptreea.dot"
+        pngFileA = "tmptreea.png"
+    writeFile dotFileP $ graphvizParseTree pgf lang t
+    readProcess "dot" ["-Tpng",dotFileP,"-o",pngFileP] []
+    writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
+    readProcess "dot" ["-Tpng",dotFileA,"-o",pngFileA] []
+    return (pngFileP,pngFileA)
 

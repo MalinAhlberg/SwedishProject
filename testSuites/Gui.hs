@@ -4,13 +4,14 @@ import Graphics.UI.Gtk
 import ParseLex
 import Control.Applicative
 import Control.Monad
+import Control.Concurrent
 
 maxScrollerV scroller = do
   vadj <- get scroller scrolledWindowVAdjustment
-  maxadj <- adjustmentGetLower vadj
-  adjustmentSetValue vadj maxadj
+  maxadj <- get vadj adjustmentUpper
+  set vadj [ adjustmentValue := maxadj ]
   adjustmentValueChanged vadj
-  adjustmentAdjChanged vadj
+  scrolledWindowSetVAdjustment scroller vadj
   putStrLn $ "Max scroller value is " ++ show maxadj
 
 makeNewImageScroller :: FilePath -> IO ScrolledWindow
@@ -19,21 +20,12 @@ makeNewImageScroller file = do
 
   scrolledWindowSetPolicy treeScroller PolicyAutomatic PolicyAlways
 
-  {-
-  scrollerHAdj <- scrolledWindowGetHAdjustment treeScroller
-  scrollerVAdj <- scrolledWindowGetVAdjustment treeScroller
-
-
--}
   treeImage <- imageNewFromFile file
 
   scrolledWindowAddWithViewport treeScroller treeImage
-{-
-  treeViewport <- viewportNew scrollerHAdj scrollerVAdj
 
-  containerAdd treeViewport treeImage
-  containerAdd treeScroller treeViewport
--}
+  maxScrollerV treeScroller
+
   return treeScroller
 
 main :: IO ()
@@ -71,6 +63,8 @@ main = do
   notebook <- notebookNew
   notebookSetShowTabs notebook True
   notebookSetTabPos notebook PosTop
+  notebookSetScrollable notebook True
+  notebookSetPopup notebook True
 
   boxPackStart bigbox notebook   PackGrow 0
   boxPackStart bigbox inputFrame PackNatural 2
@@ -79,22 +73,27 @@ main = do
   let parse = do
        txt <- entryGetText inputField
        mfile <- parseIt txt resLabel maps pgf
-       case mfile of
-           Just file -> do
-                putStrLn $ "File is " ++ file
-                scroller <- makeNewImageScroller file
-                widgetShowAll scroller
-                widgetQueueDraw scroller
-                maxScrollerV scroller
-                r <- notebookAppendPage notebook scroller txt
-                putStrLn $ "Appended to notebook: " ++ show r
-                notebookSetTabReorderable notebook scroller True
+       new <- case mfile of
+           Just (fileP,fileA) -> do
+                putStrLn $ "File is " ++ fileP ++ " and " ++ fileA
+                scrollerP <- makeNewImageScroller fileP
+                scrollerA <- makeNewImageScroller fileA
+                rP <- notebookAppendPage notebook scrollerP (txt ++ " (parse)")
+                rA <- notebookAppendPage notebook scrollerA (txt ++ " (abs)")
+                putStrLn $ "Appended to notebook: " ++ show rP ++ " and " ++ show rA
+                notebookSetTabReorderable notebook scrollerP True
+                notebookSetTabReorderable notebook scrollerA True
+                notebookSetCurrentPage notebook rP
                 widgetShowAll notebook
-                notebookSetCurrentPage notebook r
-                return ()
-           Nothing -> return ()
+                return [scrollerP,scrollerA]
+           Nothing -> return []
+       mapM_ maxScrollerV new
 
-  on notebook pageAdded $ \w i -> putStrLn $ "Page added: " ++ show i
+  on notebook pageAdded $ \w i -> do putStrLn $ "Page added: " ++ show i
+--                                     maxScrollerV (castToScrolledWindow w)
+
+--  on notebook switchPage $ \i -> do Just w <- notebookGetNthPage notebook i
+--                                    maxScrollerV (castToScrolledWindow w)
 
   on inputField entryActivate parse
   onClicked parseButton parse
@@ -114,11 +113,11 @@ myLabelWithFrameNew = do
 
 parseIt txt resfld maps pgf = do
   putStrLn $ "You typed: " ++ txt
-  treeImage <- processparse txt pgf (read "DictSwe") maps
-  let (n,img) = case treeImage of
+  treeImage <- processparse txt pgf (read "DictbSwe") maps
+  let (n,imgs) = case treeImage of
         Nothing      -> (0,Nothing)
         Just (pth,i) -> (i,Just pth)
   labelSetText resfld $ "Number of parse trees: " ++ show n
-  return img
+  return imgs
 
 
