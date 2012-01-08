@@ -9,41 +9,55 @@ main = do
   (maps,pgf) <- play'
   initGUI
   window <- windowNew
-  bigbox  <- vBoxNew True 30 
-  hbox    <- vBoxNew True 6
-  ibox    <- vBoxNew True 20
-  button1 <- buttonNewWithLabel "Parse"
-  button2 <- buttonNewWithLabel "Delete"
-  tree <- imageNewFromFile "gfETree.png"
---  boxPackStart button1 button1 PackRepel 0
---  boxPackStart button2 button2 PackRepel 0
+  bigbox  <- vBoxNew True 0
 
-  boxPackStart bigbox ibox PackNatural 0
-  boxPackStart bigbox hbox PackNatural 0
-  boxPackStart ibox tree PackNatural 0
+  treeScroller <- scrolledWindowNew Nothing Nothing
+
+  scrollerHAdj <- scrolledWindowGetHAdjustment treeScroller
+  scrollerVAdj <- scrolledWindowGetVAdjustment treeScroller
+
+  treeImage <- imageNewFromFile "gfETreeImage.png"
+  treeViewport <- viewportNew scrollerHAdj scrollerVAdj
+
+  containerAdd treeViewport treeImage
+  containerAdd treeScroller treeViewport
+
   set window [windowDefaultWidth := 200, windowDefaultHeight := 200,
-              containerChild := bigbox, containerBorderWidth := 10]
-  boxPackStart hbox button1 PackGrow 0
-  boxPackStart hbox button2 PackGrow 0
+              containerChild := bigbox, containerBorderWidth := 5]
 
-  (label6,frame6) <- myLabelWithFrameNew
-  boxPackStart hbox frame6 PackNatural 10
-  labelSetText label6 ""
-  frameSetLabel frame6 "Result:"
-  labelSetPattern label6 [3, 1, 3]
+  (resLabel,resFrame) <- myLabelWithFrameNew
+  labelSetText resLabel ""
+  frameSetLabel resFrame "Result"
+--  labelSetPattern resLabel [3, 1, 3]
 
-  txtfield <- entryNew
-  boxPackStart hbox txtfield PackNatural 5
-  let parse = parseIt txtfield tree label6 maps pgf
-  onEntryActivate txtfield parse 
+  inputField <- entryNew
+  parseButton <- buttonNewWithLabel "  Parse  "
 
-  onClicked button1 parse
-  onClicked button2 (entrySetText txtfield "")
+  entryBox <- hBoxNew True 0
+  boxSetHomogeneous entryBox False
+
+  boxPackStart entryBox inputField PackGrow 1
+  boxPackStart entryBox parseButton PackNatural 1
+
+  inputFrame <- frameNew
+  containerAdd inputFrame entryBox
+  frameSetShadowType inputFrame ShadowOut
+  frameSetLabel inputFrame "Input"
+
+  boxSetHomogeneous bigbox False
+
+  boxPackStart bigbox treeScroller PackGrow 2
+  boxPackStart bigbox inputFrame PackNatural 2
+  boxPackStart bigbox resFrame PackNatural 2
+
+  let parse = parseIt inputField treeImage resLabel maps pgf
+  onEntryActivate inputField parse
+  onClicked parseButton parse
+--  onClicked button2 (entrySetText inputField "")
 
   onDestroy window mainQuit
   widgetShowAll window
   mainGUI
-
 
 myLabelWithFrameNew :: IO (Label,Frame)
 myLabelWithFrameNew = do
@@ -53,15 +67,14 @@ myLabelWithFrameNew = do
   frameSetShadowType frame ShadowOut
   return (label, frame)
 
-
 parseIt fld im resfld maps pgf = do
   txt <- entryGetText fld
   putStrLn $ "You typed: "++txt
-  tree <- processparse txt pgf (read "DictSwe") maps
-  i <- case tree of
-        Nothing      -> return 0 
+  treeImage <- processparse txt pgf (read "DictSwe") maps
+  i <- case treeImage of
+        Nothing      -> return 0
         Just (pth,i) -> imageSetFromFile im pth
                         >> return i
-  labelSetText resfld $ "Number of parse trees"++show i
+  labelSetText resfld $ "Number of parse trees: "++show i
 
 
