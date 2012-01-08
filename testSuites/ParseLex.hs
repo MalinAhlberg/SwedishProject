@@ -46,15 +46,15 @@ play = do
 
 play' = do
   putStrLn "before pgf"
---  maps <- mkLexMap
-  pgf <- readPGF pgfBackUp --pgfDict
+  maps <- mkLexMap
+  pgf <- readPGF pgfDict
   putStrLn "after pgf"
-  return (error "undefined from play'",pgf)
+  return (maps,pgf)
 
 processparse :: String -> PGF -> Language -> LexMap -> IO (Maybe ((FilePath,FilePath),Int))
 processparse str pgfDict langDict maps = do
---  res <- mkDir maps (prepare str) langDict pgfDict
-  let (pgf',l') = maybe (pgfBackUp,langBackUp) id Nothing
+  res <- mkDir maps (prepare str) langDict pgfDict
+  let (pgf',l') = maybe (pgfBackUp,langBackUp) id res
   putStrLn "reading new PGF"
   pgfNew <- readPGF pgf'
   let morpho = buildMorpho pgfNew l'

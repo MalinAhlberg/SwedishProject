@@ -33,6 +33,7 @@ main = do
   (maps,pgf) <- play'
   initGUI
   window <- windowNew
+  widgetModifyBg window StateNormal (Color 25000 25000 45555)
   bigbox  <- vBoxNew True 0
 
   set window [windowDefaultWidth := 200, windowDefaultHeight := 200,
