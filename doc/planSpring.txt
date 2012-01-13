@@ -1,0 +1,33 @@
+Jan
+2 - presentation, fix report, build webpage
+3 - read paper, implement conjunction, send report, 
+    read opponent's thesis, speed up lexicon
+4 - be opponent, add valencies to lexicon, read about pgfs,
+    read about saldos conjunctions, import lexin
+Feb
+6 - chunk parsing
+7 - probabilities
+8 - named entity recognition
+9 - make it all work
+
+
+in planning:
+import valencies
+implement chunk parsing
+learn about pgf-fastification
+implement good datastructure for files (for looking up words)
+compound analyses
+named entities
+probabilities
+
+not in planning:
+import more words (prepositions, idioms)
+update mapping to new grammar
+clean code!!
+grammar
+noun guesser and import the failed nouns
+import pronouns in fancy way?
+revise nameing convention for saldo
+import verbs with verbguesser
+
+

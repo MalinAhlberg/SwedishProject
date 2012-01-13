@@ -2,92 +2,114 @@
  
 import Network.Wai
 import Network.Wai.Handler.Warp
-import Network.HTTP.Types (status200)
-import Network.Wai.Application.Static
 import Network.HTTP.Types
 import Blaze.ByteString.Builder (copyByteString)
 import qualified Data.ByteString.UTF8 as BU
+import qualified Data.ByteString.Char8 as BC
 import qualified Data.ByteString as B
-import System.Process
 import System.IO
-import Text.XHtml.Transitional
 import Text.XHtml
 import Data.Monoid
 import Data.Enumerator (run_, enumList, ($$))
-import Control.Monad
 import Data.Maybe
 import Control.Monad.IO.Class
+
+import ParseLex
  
 main = do
     let port = 3000
     putStrLn $ "Listening on port " ++ show port
-    --run port app
-    run port parseF
+    gr <- play
+    run port (parseF gr True)
 
---parseF :: Request -> IO Response
-parseF req = do
+mainSmall = do
+    let port = 3000
+    putStrLn $ "Listening on port " ++ show port
+    gr <- return (undefined,undefined)
+    run port (parseF gr False)
+
+
+parseF :: MonadIO m => ParseData -> Bool -> Request -> m Response
+parseF gr b req = do
   liftIO $ putStrLn "start"
   let mn = queryString req
-  x <- liftIO $ findText req mn 
+  x <- liftIO $ findText gr req mn b 
   liftIO $ putStrLn "have returned"
   return x
 
-findText :: Request -> Query -> IO Response
-findText req mn = 
-         do let im = lookup "img" mn
-            case im of
-                Just (Just x) -> do
---                                 putStrLn "read file"
---                                 fil <- B.readFile  "images/quote_1.gif" --Process "cat" ["images/bg.jpg"] []
---                                 putStrLn $ show fil
---                                 putStrLn "read file -done"
-                                 hSetEncoding stdin latin1
-                                 return $
-                                   ResponseFile status200 [("Content-Type", "image/gif")] 
-                                         "/home/malin/Swedishproject/webpage/images/quote_1.gif" Nothing
-                                   --ResponseBuilder status200 [("Content-Type", "image/gif")] 
-                                   --    $ copyByteString $ fil 
-                Nothing -> undefined
-            let txt = lookup "txt" mn
-            case im of
-                Just (Just x) -> do
-                                 fil <- readFile "images/bg.jpg"
-                                 return $
-                                   ResponseBuilder status200 [("Content-Type", "image/jpeg")] 
-                                       $ copyByteString $ BU.fromString $ show fil 
-
-  --          return $ staticApp defaultWebAppSettings req
---         `mplus`
---         do xm <- lookup "text" mn
---            return $ index xm 
---         `mplus`
---         return inputForm
-  --x <- liftIO $ parseIt tools mn
---  x <- maybe (return inputForm) (liftIO . parseIt) mn
---  output . renderHtml $ page "Input example" x
+findText :: ParseData -> Request -> Query -> Bool -> IO Response
+findText gr req mn b
+  | (Just (Just im)) <- lookup "img" mn = 
+      do
+       putStrLn $ "want image"++BC.unpack im
+       putStrLn $ "all:"++show mn
+       return $
+         ResponseFile status200 [("Content-Type", "image/png")] 
+               ("images/"++BC.unpack im) Nothing
+  | (Just (Just txt)) <- lookup "text" mn = do
+      putStrLn "have text, will show it"
+      parseIt gr txt b
+  | (Just (Just txt)) <- lookup "more" mn = do
+      putStrLn "want more trees!!"
+      parseMore txt
+  | otherwise = do
+      putStrLn "have nothing, will return textfield"
+      return inputForm
 
 inputForm :: Response
-inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ copyByteString
-              (BU.fromString $ show $ hej)
+inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
+              [BU.fromString $ show textInputField
+              ,"<p>Note that very few words are annoted with valency!\n"
+              ,BU.fromString verbInfo, "!</p>"]
               
-hej :: Html
-hej = form << [paragraph << (--"Parse bitte " 
-                        ((textarea noHtml  )  ! ([strAttr "name" "text"]))),
-                     submit "" "Submit"]
+textInputField :: Html
+textInputField = form << 
+      [paragraph << (textarea noHtml ! [strAttr "name" "text"])
+      ,submit "" "Submit"]
 
-pic :: Html
-pic = form << [(image )  ! ([strAttr "src" "http://localhost/cgi-bin/output/tmp.png"])]
- {-
-app req = return $
-    case pathInfo req of
-        ["yay"] -> yay
-        x -> index x
-        -}
- 
-yay = ResponseBuilder status200 [ ("Content-Type", "text/plain") ] $ mconcat $ map copyByteString
-    [ "yay" ]
- 
---index :: Show a => a -> Response
-index x = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
-    [ "<p>Hello from ", BU.fromString $ show x, "!</p>"
-    , "<p><a href='/yay'>yay</a></p>\n", BU.fromString $ show $ pic]
+parseIt :: ParseData -> B.ByteString -> Bool -> IO Response 
+parseIt (maps,pgf) txt b = do 
+  (i,res) <- if b then processparse (BC.unpack txt) pgf maps
+                  else smallparse (BC.unpack txt)
+  case res of
+    (Right (pt,at)) -> return $
+        ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
+           [ "<p>Parsed: \"",txt,results i, "!</p>"
+           , "<p><a href='/?img=",BU.fromString pt,"'>Parse tree</a></p>\n"
+           , "<p><a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"]++moreTrees i
+    Left xs            -> return $ 
+        ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
+          [ "<p>Parsed: \"",txt,results 0, "!</p>"
+          , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>\n"
+          , "<p><a href='/'>Back</a></p>\n"]
+ where results :: Int -> B.ByteString
+       results i = BU.fromString ("\" which resulted in "++show i++" trees")
+       moreTrees :: Int -> [B.ByteString]
+       moreTrees i | i>2 = ["<p><a href='/?more=",txt,"'>More trees</a></p>\n"]
+                   | i<3 = []
+
+parseMore :: B.ByteString -> IO Response
+parseMore txt = do
+  links <- reparse (BC.unpack txt)
+  putStrLn $ "have reparsed, got "++show (length links)++" trees"
+  let html = "<p>All trees</p>\n" : concatMap (\(i,(pt,at)) -> 
+              ["<p>",BU.fromString (show i),"<a href='/?img=",BU.fromString pt,"'>Parse tree</a>\n"
+              , "<a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"])
+                   (zip [0..] links)
+  return $
+    ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
+         $ map copyByteString html
+
+
+   
+verbInfo :: String
+verbInfo = concatMap (\(a,b) -> "Verbs of type "++a++":\n"++unlines b++"\n")
+             [("V3",v3),("V2",v2),("VV",vv) ,("VA",va),("V2V",v2v),("V2A",v2a)]
+
+v2 = ["tycka om", "raka", "fånga", "titta på"," se","ta","slå","akta sig för","äta","dricka"
+      ,"finnas", "saknas", "fattas", "glömma", "läsa", "skriva", "bli", "ha"]
+v3 = ["ta med sig till", "ge till", "ge", "erbjuda"]
+vv = ["börja", "måste", "vill", "kan"]
+va = ["bli"]
+v2v = ["be"]
+v2a = ["måla"]

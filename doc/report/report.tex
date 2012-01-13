@@ -26,28 +26,35 @@
 
 
 \abstract{
-The goal of this thesis is to enable open-domain parsing for Swedish
-by using the GF \\grammar formalism,
+This thesis describes the work to develop a wide-coverage grammar for
+parsing and generating Swedish text.
+We do this by using the dependently typed grammar formalism GF,
+a functional programming language specialized at describing grammars.
+The idea is to 
+%The goal of this thesis is to enable open-domain parsing for Swedish
+%by using the GF \\grammar formalism,
 %by %The idea has been to% 
-combining existing language technology resources with
-new techniques.
-The work includes the development of a covering grammar,
+combine existing language technology resources with
+new techniques and our motivation is the goal of achieving a parser
+for unrestricted Swedish.
+To reach this goal, problems of computational as well as linguistic nature had
+to be solved.  The work includes the development of the grammar,
 %in the GF formalism
-to identify and formalize \\
+to identify and formalize 
 grammatical constructions %specific to and
-frequent in Swedish. % have been investigated and formalised in the functional
+frequent in Swedish, as well as methods for importing a large-scale lexicon and to evaluate
+the parser. % have been investigated and formalised in the functional
 %programming language.
-We compare and evaluate the possibilities of using GF
-for modelling large-scale grammars and for 
-%and the aim to reaching our goal;
-obtaining a system for analysing written text.
-To reach this goal, problems of computational as well as linguistic nature had to be solved.
 %~~achieve a covering Swedish~~ grammar implemented
+%and the aim to reaching our goal;
 %TODO first sentence should be more, no understatements!
 %in GF -- to model natural language by functional programming. 
 \\We present the methods and technologies used and further inspect the possibilities
 of reaching our long-term goal; to accomplish a parser for unrestricted Swedish, by
-combining our rule-based grammar with statistical methods.
+combining our rule-based grammar with statistical means.
+We compare and discuss the advantages and problems of using GF
+for modeling large-scale grammars.
+%and for obtaining a system for analysing written text.
 \\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
 to GF notation and an extended Swedish grammar implementation. The grammar is based
 on the multilingual abstract syntax given in GF resource library, and now
@@ -328,7 +335,7 @@ functions and types used for parsing the sentence.
 Parse trees on the other hand show only the types assigned to the words and phrases.
 Information about tense, polarity etc. which are explicitly given in the abstract tree are
 not reproduced in the parse tree. Hence, parse trees do not give complete representations
-but model the parse resluts in a transparent manner. For our example, the definiteness and
+but model the parse results in a transparent manner. For our example, the definiteness and
 number of the noun `\emph{katten}' is shown as \verb-DetQuant DefArt NumSg- in
 the abstract tree while the parse tree only show that a the noun phrase consists of one noun. 
 % is used but not in the parse tree.
@@ -658,7 +665,7 @@ graphs of semantically connected words and some suggestions for how to analyse c
 The semantic aspect of Saldo requires that words with multiple meanings are
 separated into different entries.
 %TODO change word? uppskatta, känna, få
-The word `uppskatta' for example, has two entries, with sligthly
+The word `uppskatta' for example, has two entries, with slightly
 different semantics: \emph{enjoy}
 \enumsentence{Jag uppskattar teater. \\
 ``I enjoy theater."}
@@ -1657,7 +1664,7 @@ Even though the verb phrase \emph{``har inte ätit de gula äpplena idag"} is di
 phrase is still treated as one constituent in GF. The parts
 are connected in the tree, and the subject \emph{`han'} is put between the
 finite verb and the rest of the phrase.
-At the code level, this is done using the record type for \verb-VP-, wich
+At the code level, this is done using the record type for \verb-VP-, which
 consists of fields that can be put %the \verb-VP- fields 
 in different order.\\
 \verb|table { Inv => verb.fin ++ subj ++ verb.neg ++ verb.inf ++ verb.compl ; ... | \\
@@ -2745,7 +2752,7 @@ for the syntactic differences between Swedish and English.
 %The mapping works for Talbanken05 in Tiger XML-format.
 \section{The Talbanken annotation}
 Talbanken05 uses three kinds of tags: categories, edge labels and POS-tags. 
-While the POS-tags are reserved for words, the categories give grammatictal information,
+While the POS-tags are reserved for words, the categories give grammatical information,
 such as \verb|S|, \verb|NP| and \verb|VP|.
 The edge labels give the
 part of sentence: \verb|SS| for subject, 
@@ -3082,7 +3089,7 @@ robust, but the robustness must not interfere with the correctness.
 The project has resulted in
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
-\item an extended grammar covering an importand part of Swedish
+\item an extended grammar covering an important part of Swedish
 \item a comparison between GF and another annotation
 \item a deeper testing of the Swedish resource grammar and an estimation
 of how well GF can be used to describe larger parts of a language
@@ -3128,7 +3135,7 @@ questionable sentence (\ref{sent:complVV2}b).
 \item \shortexnt{4}
 {*Jag & låter & bli & titta} 
 {~~\emph{I} & \emph{leave} &\emph{be} & \emph{watch}}}\label{sent:complVV2}
-As these functions serve to provide stylistic flexiblity when parsing, they can be left out
+As these functions serve to provide stylistic flexibility when parsing, they can be left out
 when generating language, and the grammar then generates text of good
 grammatical quality. \\
 %ComplBareVV, SupCl
