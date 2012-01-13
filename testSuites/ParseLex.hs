@@ -99,7 +99,7 @@ parseNormal pgf morpho lang s = do
        getBest ts = fromMaybe (head ts) (rank ts)
        rank :: [Tree] -> Maybe Tree
        rank = listToMaybe . filter (not .(\x -> any (`isInfixOf` x) bads) . showExpr [])
-       bads = ["NumCard","man_nn","faar_nn","en_nn","foer_nn"
+       bads = ["NumCard","MassNP","Top","man_nn","faar_nn","en_nn","foer_nn"
               ,"mycken_nn","nyy_nn","vill_ab","titt_nn","leva_nn","haer_nn"
               ,"PrepCN"]
 

@@ -128,7 +128,7 @@
 \begin{itemize}
 \item Extending the Swedish GF grammar
 \item Importing a large lexicon
-\item Creating translation between Talbanken and GF
+\item Creating translation from Talbanken to GF
 \end{itemize}
 %\begin{itemize}
 %\item{A large-scale lexicon}
@@ -338,7 +338,7 @@ Jag äter äpplet nu && &Äpplet blir ätet av mig \\
  \textbf{Future tense}  &&\textbf{Impersonal constructions} \\
 Jag ska sova nu & &Det bor två barn i huset \\
 \emph{``I will sleep now"} && \emph{``There are two children living in the house"} \\
-Jag kommer somna snart &&Det dansas på borden  \\
+Jag kommer att somna snart &&Det dansas på borden  \\
 \emph{``I will fall asleep soon"} &&\emph{``People are dancing on the tables"}  \\
 \end{tabular}
 \end{frame}
@@ -348,10 +348,10 @@ Jag kommer somna snart &&Det dansas på borden  \\
 \framesubtitle{Swedish} 
 \textbf{Reflexive possessive pronous}\\
 \begin{tabular}{lll}
-Jag äter mitt äpple && Jag äter mitt äpple \\
-\emph{``I eat my apple"} && \emph{``I eat my apple"} \\
 Han äter sitt äpple && Han äter hans äpple \\
 \emph{``He eats his apple"} && \emph{``He eats his apple"} \\
+Jag äter mitt äpple && Jag äter mitt äpple \\
+\emph{``I eat my apple"} && \emph{``I eat my apple"} \\
 \end{tabular}
 \end{frame}
 
@@ -387,13 +387,24 @@ sin frukt & sitt äpple &sina äpplen \\
 \frametitle{The grammar}
 \framesubtitle{Reflexive pronouns} 
 \begin{tabular}{lllll}
-\textbf{sitt äpple} &&*Sitt äpple är stort\\
-\sc{NP (object)}\pause\\
+%\textbf{Conjunction}\\
 \textbf{sitt äpple} &\textbf{och}& \textbf{en banan}\\
-\sc{NP (object)}& +&\sc{NP}&  $\rightarrow$ &  \sc{NP (object)}\\
-\pause
+\uncover<4->
+{\sc{NP (object)}& +&\sc{NP}&  $\rightarrow$ &  \sc{NP (object)}\\}
+%\textbf{Predetermination}\\
 \textbf{sina äpplen} & +& \textbf{alla}& $\rightarrow$ &\textbf{alla sina äpplen}\\
-\sc{NP (object)}& &      & & \sc{NP (object)}\\
+\uncover<4->
+{\sc{NP (object)}& &      & & \sc{NP (object)}\\}
+%\textbf{Genitive}\\
+\textbf{sina äpplen} & +& \textbf{skal}& $\rightarrow$ &\textbf{sina äpplens skal}\\
+\uncover<4->
+{\sc{NP (object)}& &      & & \sc{NP (object)}\\}
+\uncover<2->
+{\textbf{sitt äpple} &&*Sitt äpple är stort\\
+\sc{NP (object)}\\}
+\uncover<3->
+{\textbf{sina äpplen} & +& \textbf{i}& $\rightarrow$ &\textbf{i sina äpplen}\\
+\sc{NP (object)}& &      & & \sc{Adv (object)}}\\
 \end{tabular}\\
 \end{frame}
 
@@ -520,7 +531,7 @@ A verb may have type V2 if it is followed by:
 \frametitle{Future work}
 \framesubtitle{Probabilities} 
 \center
-``Jag såg en"\\
+``Man sover"\\
 \includegraphics[width=170pt,height=200pt]{man1.pdf}
 \includegraphics[width=130pt,height=200pt]{man.pdf}
 \end{frame}

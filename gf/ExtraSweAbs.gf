@@ -18,9 +18,21 @@ cat
     N2P ;
     N2' ;
     SimpleVP ;
-fun
+    VPX ;
 
  
+ -- fun
+   --TensedVPI : Temp -> Pol -> [VPI] -> VP ;
+ --  MkVPX : Pol -> VP -> VPX ;
+ --  ConjVPX : Conj -> [VPX] -> VPX ;
+ --  PredVPX : XTense -> Order -> NP -> VPX -> S ;
+ --  ComplFut : Pol -> VPX -> VPS ;
+ --  ComplFutKommer : Pol -> VPX -> VPS ;
+ --  ComplSup : Pol -> VPX -> VPS ;
+----  ConjVP : Conj -> [VP] -> VP ;
+ --  cat [VPX]{2} ;
+
+ fun
    DetNP : (a : NPType) -> DetTyped a -> NPTyped a ;
 -------------------------------------------------------------------------------
 -- For objects          

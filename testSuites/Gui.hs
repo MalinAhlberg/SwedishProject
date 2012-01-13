@@ -84,8 +84,8 @@ main = do
                 putStrLn $ "Appended to notebook: " ++ show rP ++ " and " ++ show rA
                 notebookSetTabReorderable notebook scrollerP True
                 notebookSetTabReorderable notebook scrollerA True
-                notebookSetCurrentPage notebook rP
                 widgetShowAll notebook
+                notebookSetCurrentPage notebook rP
                 return [scrollerP,scrollerA]
            Nothing -> return []
        mapM_ maxScrollerV new

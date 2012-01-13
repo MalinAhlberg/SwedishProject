@@ -14,7 +14,78 @@ lincat
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
+ 
+-- VPX = --VP ** {pol : Polarity} ; -- {s : VPXTense => VPS } ; 
+--       --{s : XTense => Anteriority => Order => Agr => {preSub : Str ; vp : Str }} ;
+--       {s : VPIForm => Anteriority => Agr => Str} ;
+--
+-- [VPX] = {s1,s2 : VPIForm => Anteriority => Agr => Str } ;
+ --[VPX] = {s1,s2 : XTense => Anteriority => Order => Agr => {preSub : Str ; vp : Str }} ;
+ param XTense = XFut | XFutKommer | XSup ;
 
+{-
+lin
+   ConjVPX conj vpx = conjunctDistrTable2 VPIForm Agr ;
+  conjunctTable4 : 
+    (P,Q,R,T : PType) -> Conjunction -> ListTable4 P Q R T -> {s : P => Q => R => T => Str} = 
+    \P,Q,R,T,or,xs ->
+    {s = \\p,q,r,t => xs.s1 ! p ! q ! r ! t ++ or.s ++ xs.s2 ! p ! q ! r ! t} ;
+  conjunctDistrTable4 : 
+    (P,Q,R,T : PType) -> ConjunctionDistr -> ListTable4 P Q R T -> 
+       {s : P => Q => R => T => Str} = 
+    \P,Q,R,T,or,xs ->
+    {s = \\p,q,r,t => or.s1++ xs.s1 ! p ! q ! r ! t ++ or.s2 ++ xs.s2 ! p ! q ! r ! t} ;
+    -}
+ --  ComplFut pol vpi = MkVPS TFut pol  insertObj (\\a => vv.c2.s ++ vpi.s ! VPIInf ! a) (predV ska) ;
+ --  ComplFut : Pol -> VPI -> VPS ;
+ --  ComplFutKommer : Pol -> VPI -> VPS ;
+ --  ComplSup : Pol -> VPI -> VPS ;
+ --   oper ska : V = 
+ --  ComplFutKommer : VPI -> VP ;
+ --  ComplSup : VPI -> VP ;
+ {-
+    MkVPX p vp = {s = \\xt,ant,a =>
+          let inf = infform xt ant vp ;
+              fin = finform xt ant ;
+              att = attform xt ;
+              neg = vp.a1 ! p.p ;
+              compl = att ++ inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext ;
+            in {-xt.s ++ comment end here case o of {
+              Main => {preSub =  p.s ;
+                       vp = vp.a0 ++ fin ++ neg ++ compl } ;
+              Inv  => {preSub =  p.s ++ vp.a0 ++ fin ;
+                       vp =  neg ++ compl } ;
+              Sub  => {preSub =  p.s ;
+                       vp = neg ++ vp.a0 ++ fin ++ compl}
+              }};
+        oper finform : XTense -> Anteriority -> Str ;
+             finform xt ant = case <xt,ant> of 
+                           {<XSup,Simul> => "har" ;
+                            <XSup,Anter> => "hade" ;
+                            <XFut,_     > => "ska" ;
+                            <XFutKommer,_     > => "kommer" };
+             infform : XTense -> Anteriority -> VP -> Str ;
+             infform xt ant vp = case <xt,ant> of
+                         {<XSup,_> => (vp.s ! vp.voice ! VPFinite SPres Anter).inf ;
+                          <_   ,a> => (vp.s ! vp.voice ! VPInfinit a).inf } ;
+             attform : XTense -> Str ;
+             attform xt = case xt of {XFutKommer => "att" ; _ => ""} ;
+
+        mkTenseVPS : SpecialTense -> Pol -> VPS ;
+    mkTenseVPS t p vpi = {
+      s = \\o,a => 
+            let 
+              neg = negation ! p ;
+              vpfin = case t of ...
+              verb = vp.s ! vp.voice ! VPFinite t.t t.a ;
+              compl = verb.inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext ;
+            in t.s ++ p.s ++ case o of {
+              Main => vp.a0 ++ verb.fin ++ neg ++ compl ;
+              Inv  => verb.fin ++ vp.a0 ++ neg ++ compl ; ----
+              Sub  => neg ++ vp.a0 ++ verb.fin ++ compl
+              }
+      } ;
+-}
 
 lin
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
