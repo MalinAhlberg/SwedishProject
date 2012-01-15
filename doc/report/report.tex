@@ -15,6 +15,17 @@
 %              not know I
 %             I don't know
 
+\newenvironment{changemargin}[2]{%
+\begin{list}{}{%
+\setlength{\topsep}{0pt}%
+\setlength{\leftmargin}{#1}%
+\setlength{\rightmargin}{#2}%
+\setlength{\listparindent}{\parindent}%
+\setlength{\itemindent}{\parindent}%
+\setlength{\parsep}{\parskip}%
+}%
+\item[]}{\end{list}}
+
 \begin{document}
 % ska gå att förstå och locka till läsning
 %ska tydligt beskriva vad rapporten handlar om
@@ -26,7 +37,7 @@
 
 
 \abstract{
-This thesis describes the work to develop a wide-coverage grammar for
+This thesis describes work towards a wide-coverage grammar for
 parsing and generating Swedish text.
 We do this by using the dependently typed grammar formalism GF,
 a functional programming language specialized at describing grammars.
@@ -34,30 +45,34 @@ The idea is to
 %The goal of this thesis is to enable open-domain parsing for Swedish
 %by using the GF \\grammar formalism,
 %by %The idea has been to% 
-combine existing language technology resources with
-new techniques and our motivation is the goal of achieving a parser
+combine existing language resources with
+new techniques with an aim to achieve a parser
 for unrestricted Swedish.
 To reach this goal, problems of computational as well as linguistic nature had
-to be solved.  The work includes the development of the grammar,
+to be solved.  
+\\The work includes the development of the grammar --
 %in the GF formalism
 to identify and formalize 
 grammatical constructions %specific to and
-frequent in Swedish, as well as methods for importing a large-scale lexicon and to evaluate
+frequent in Swedish -- as well as methods for importing a large-scale lexicon and for evaluating
 the parser. % have been investigated and formalised in the functional
 %programming language.
 %~~achieve a covering Swedish~~ grammar implemented
 %and the aim to reaching our goal;
 %TODO first sentence should be more, no understatements!
 %in GF -- to model natural language by functional programming. 
-\\We present the methods and technologies used and further inspect the possibilities
-of reaching our long-term goal; to accomplish a parser for unrestricted Swedish, by
-combining our rule-based grammar with statistical means.
-We compare and discuss the advantages and problems of using GF
-for modeling large-scale grammars.
+We present the methods and technologies used 
+and discuss the advantages and problems of using GF
+for modeling large-scale grammars and 
+how our long-term goal can be reached 
+%the possibilities
+%of reaching our long-term goal % -- to accomplish a parser for unrestricted Swedish -- 
+by combining our rule-based grammar with statistical means.
+%We compare and discuss .
 %and for obtaining a system for analysing written text.
 \\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
-to GF notation and an extended Swedish grammar implementation. The grammar is based
-on the multilingual abstract syntax given in GF resource library, and now
+into the GF notation and an extended Swedish grammar implementation. The grammar is based
+on the multilingual abstract syntax given in the GF resource library, and now
 also covers constructions specific to Swedish.
 We further give an example of the advantage of using dependent types when
 describing grammar and syntax, in this case for dealing with reflexive pronouns.
@@ -140,7 +155,7 @@ Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism.
 %with facilities for multilinguality. 
 It is based on Martin-Löf type theory which allows
 reasoning within the programming language.
-GF has strong support for multilinguality and has so far been successfully used for 
+GF has strong support for multilinguality and has so far been used successfully for 
 controlled languages \cite{cnl}. Recent experiments have showed
 that it is also possible to use the framework for parsing free language \cite{patent}.
 % >> although the success rate is going steeply down when using uncontrolled nl. Better with annotated.
@@ -148,7 +163,7 @@ that it is also possible to use the framework for parsing free language \cite{pa
 %This project focuses on implementing a wide-coverage Swedish grammar, which
 %describes a parser accepting all sentences that can be expressed by the grammar.
 Parsing, that is the task of automatically identifying morphological and
-syntactical structures, is subject to increasing interest, especially
+syntactical structures, is receiving increasing interest, especially
 considering the steadily growing amount of data available online. 
 So far there is no freely available grammar-driven parser that gives a deep
 analysis for Swedish. The fact that %the existing rule-based Swedish
@@ -160,7 +175,7 @@ accepting all sentences described by the given rules.
 As a freely available resource, it can be continuously enhanced and
 made use of in other projects.\\
 
-To build the grammar from scratch would be not only time consuming but
+\noindent To build the grammar from scratch would be not only time consuming but
 would also mean that already existing systems would have to be reimplemented.
 In order to not reinvent the wheel we proceed from a combination of well-tested
 sources.
@@ -433,7 +448,7 @@ Grammar \cite{lfg}.
 \label{fig:gfAbstract1}
 \end{figure}
 
-The example in figure \ref{fig:gfAbstract1} shows an abstract grammar defining three categories, % \verb|Categories|,
+\noindent The example in figure \ref{fig:gfAbstract1} shows an abstract grammar defining three categories, % \verb|Categories|,
 one for nouns, one for verbs and one for sentences. The abstract grammar also gives
 the function types. In this case we have \verb|Pred|, which tells us that by
 taking a noun and a verb we can form a sentence.  No information of how this is
@@ -456,7 +471,7 @@ concrete TestGrammarSwe of TestGrammar = {
 \end{figure}
 
 %>> move much of this to Swedish GF part?
-Figure \ref{fig:gfSweCnc1} shows how the abstract grammar can be implemented
+\noindent Figure \ref{fig:gfSweCnc1} shows how the abstract grammar can be implemented
 for Swedish. Nouns, verbs and sentences are all defined as strings, \verb|Str|.
 The function \verb|Pred| simply glues the two strings `katten' and `sover' together:\\
 \verb|Pred cat sleep = "katten sover"|.\\
@@ -570,7 +585,8 @@ flick\textbf{orna}  &    hjärt\textbf{ana} \\
 \hline
 \end{tabular}
 \end{wrapfigure}
-This is the case for `flicka', a noun belonging to the first declination. %the correct declination
+
+\noindent This is the case for `flicka', a noun belonging to the first declination. %the correct declination
 %can be guessed by using the first declination. % and noting that the word ends with an `a'. 
 %Like most Swedish nouns ending with an `a', it follows the first declination.
 For others, like "hjärta", also the plural form "hjärtan" is needed.
@@ -579,6 +595,7 @@ The worst case for nouns is four needed forms, both singular and
 plural in definite and indefinite form.
 Section \ref{sec:swegf} will give a more thorough description of the Swedish resource grammar.
 
+\newpage
 \subsection{Frontiers of Grammatical Framework}
 As an open source-project, GF is constantly being developed and improved. New
 languages are added, the compiler is being improved, ways of using it in more 
@@ -625,7 +642,8 @@ parts. Two of them are transcriptions of spoken language, one a collection of
 text written by high school students, and one, section P,
 consists of professionally written Swedish gathered from newspapers, brochures and textbooks.
 \\
-Talbanken was also used to train the Swedish version of the Malt parser \cite{malt}
+
+\noindent Talbanken was also used to train the Swedish version of the Malt parser \cite{malt}
 and was then redistributed in an updated version,
 Talbanken05 \cite{talbanken05}.
 %This work was done by Nivre, Hall and Nilsson in 2005.
@@ -633,7 +651,7 @@ It is released in Malt\footnote{http://w3.msi.vxu.se/~nivre/research/MaltXML.htm
 and Tiger\footnote{http://www.ims.uni-stuttgart.de/projekte/TIGER/TIGERSearch/doc/html/TigerXML.html}
 XML-formats
 where the trees have been made deeper and more detailed while still containing
-the lexical MAMBA layer. \\
+the lexical MAMBA layer. 
 The Malt parser was trained on section P of Talbanken, and these
 more than 6000 sentences have been used our project. 
 The treebank has served as an inspiration and an evaluation source throughout the
@@ -662,7 +680,7 @@ graphs of semantically connected words and some suggestions for how to analyse c
 \label{fig:saldo}
 \end{figure}
 
-The semantic aspect of Saldo requires that words with multiple meanings are
+\noindent The semantic aspect of Saldo requires that words with multiple meanings are
 separated into different entries.
 %TODO change word? uppskatta, känna, få
 The word `uppskatta' for example, has two entries, with slightly
@@ -876,6 +894,7 @@ pronouns.
 %Since the s-passive is the most common one in written Swedish \cite{SAG-34-1}, it has
 
 
+\begin{changemargin}{0cm}{-2cm}
 \section{Related work}
 \label{sec:related}
 %There has been much research about parsing Swedish. INTRO!!
@@ -900,7 +919,7 @@ arguments. \\
 %ongoing to get widecoverage grammar
 %under GPL. Translation to Korean.
 
-The LinGO Grammar Matrix \cite{matrix}, is a starter-kit for building Head-Driven Phrase
+\noindent The LinGO Grammar Matrix \cite{matrix}, is a starter-kit for building Head-Driven Phrase
 Structure Grammars \cite{hpsg} (HPSG) providing compatibility with tools for
 parsing, evaluation, semantic representations etc.
 Translation is supported by using Minimal Recursion
@@ -913,26 +932,27 @@ Scandinavian, while Norsource (Hellan, 2003) describes Norwegian. A Swedish vers
 was based upon this (SweCore, Ahrenberg) covering the morphology and some
 differences between Swedish and Norwegian. Further, there is the BiTSE 
 grammar \cite{stymne}, also implemented using the Lingo Matrix,
-which focuses on describing and translating verb frames.\\ % and translating them to English. \\
+which focuses on describing and translating verb frames.\\ % and translating them to English. 
 
 %It should be pointed out that grammars implemented using Lingo Matrix
 %do not share any common abstract, like the resources grammars of GF?\\
 
-The Swedish version of the Core Language Engine (CLE) \cite{gamback} % \cite{cle}
+\noindent The Swedish version of the Core Language Engine (CLE) \cite{gamback} % \cite{cle}
 gives a full syntactic analysis as well as semantics represented in `Quasi logical form'. A
 translation to English  was implemented and the work was further developed in the spoken
 language translator \cite{spoken}. Unfortunately, it is no longer available. The coverage of the Swedish
 CLE is also reported to be very limited \cite[p. 134]{nivretrees}.\\
 
-In the TAG formalism \cite{tag}, there are projects on getting open source, wide-coverage grammars
+\noindent In the TAG formalism \cite{tag}, there are projects on getting open source, wide-coverage grammars
 for English and Korean, but, to our knowledge, not for Swedish.  \\
 
-The ParGram \cite{pargram} project aims at making wide coverage grammars using
+\noindent The ParGram \cite{pargram} project aims at making wide coverage grammars using
 the Lexical Functional Grammar approach \cite{lfg}.
 The grammars are implemented in parallel in order to coordinate the analyses of
 different languages and there are now grammars for English, German, Japanese and Norwegian. 
 
 
+\end{changemargin}
 %However has been two, about CLE \cite{cle} and what happened to it. Logic and translation
 %to Swedish, S-CLE (Gambäck,1997) full analyse and semantics, translation,
 %but coverage is too limited (nivres papper), The
@@ -1046,7 +1066,7 @@ and only requiring that GF generates one variant whenever alternatives are given
 %The program continues to generate new lexicons as long as there are more
 %paradigms to choose from and compare the results after each run.
 
-During this project, the program has been made more robust than the previous
+\noindent During this project, the program has been made more robust than the previous
 version. It also prints log files providing
 information about the process of importing each word: which paradigms that have been
 tried, the results from the comparisons of the inflection tables and finally listings
@@ -1175,7 +1195,7 @@ In a few cases the smart paradigms could not generate the correct declination.\\
 %>> exapmles: % frysa,fisa passive preterium 
 
 %compared to the total size of Saldo this is .
-When testing the coverage of Talbanken,
+\noindent When testing the coverage of Talbanken,
 we found that there are around 2500 word forms still missing, excluding the ones
 tagged as names and numbers. This number may seem very high, but %considering that
 4/5 of the word forms are compounds and when performing the intended parsing,
@@ -1439,7 +1459,7 @@ about how it was put together. This is a result of the functional approach
 of GF. Therefore, %that is, whether the function \verb|AdjCN| has been applied.
 this information
 has to be passed on by an inherent feature of the \verb-CN-, a flag set to tell
-if the \verb-AdjCN- was applied.
+if the \verb-AdjCN- was applied.\\
 \begin{figure}[h]
 \begin{verbatim}
 DetNP : Det              -> CN        -> NP ;
@@ -1456,7 +1476,7 @@ DetNP : Det              -> CN        -> NP ;
 %\ref{sent:trottkatt}a are not allowed.
 
 %TODO review, verify
-Due to the syntax oriented analysis in GF, the GF category for pronouns \verb-PN- only
+\noindent Due to the syntax oriented analysis in GF, the GF category for pronouns \verb-PN- only
 contains personal pronouns.
 Many words, like `somliga' (\emph{`some'}), are considered to be pronouns
 in other analyses, such as The Swedish
@@ -1520,7 +1540,7 @@ The fields may in turn be tables showing the different forms of the component.\\
 The verb phrase fields are not put in their correct order until the tense and type
 of clause is determined, ie. when a sentence is created.\\
 
-Swedish verbs may take up to five arguments \cite[p. 53]{stymne}.
+\noindent Swedish verbs may take up to five arguments \cite[p. 53]{stymne}.
 These may be prepositions, particles, reflexive object, indirect objects
 and direct objects. 
 \enumsentence{\shortex{7}
@@ -1660,7 +1680,7 @@ as the one in figure \ref{gfSwe:parsetree}.
 \caption{Parse tree for ``Har han inte ätit de gula äpplena idag?"}
 \label{gfSwe:parsetree}
 \end{figure}
-Even though the verb phrase \emph{``har inte ätit de gula äpplena idag"} is discontinuous, the whole
+\noindent Even though the verb phrase \emph{``har inte ätit de gula äpplena idag"} is discontinuous, the whole
 phrase is still treated as one constituent in GF. The parts
 are connected in the tree, and the subject \emph{`han'} is put between the
 finite verb and the rest of the phrase.
@@ -1787,7 +1807,7 @@ PassV2 : V2  -> VP ;
 The function allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
 turned into complete verb phrases; they no longer need an object.\\
 
-During this project, the s-passive was added although the
+\noindent During this project, the s-passive was added although the
 periphrastic passive is still allowed.
 The grammar further allows not only V2, but all verb phrases that misses an object, to 
 form passives:
@@ -1804,15 +1824,15 @@ passives, (\ref{ex:passV32}) and (\ref{ex:passV33}).
 {``We offered her the job"}}
 \label{sent:give2pass}
 \enumsentence{\textbf{First place in two-place verbs}\\\shortex{3}
-{Jobbet & erbjöds & henne }
-{\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
-{``The job was offered to her"}}
-\label{ex:passV32}
-\enumsentence{\textbf{Second place in two-place verbs}\\\shortex{3}
 {Hon & erbjöds & jobbet}
 {\emph{she} &\emph{ offered+\textbf{s}}&\emph{ the job}}
 {``She was offered the job"}}
 \label{ex:passV33}
+\enumsentence{\textbf{Second place in two-place verbs}\\\shortex{3}
+{Jobbet & erbjöds & henne }
+{\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
+{``The job was offered to her"}}
+\label{ex:passV32}
 \enumsentence{\textbf{V2A verb}\\\shortex{3}
 {Huset & målades & rött}
 {\emph{the house} & \emph{painted+\textbf{s}}& \emph{red}}
@@ -2421,13 +2441,12 @@ indefinite form as in (\ref{sent:uppfatt}).
 When no relative clause is present, the definite form with the postnominal
 definite article must be used, cf.
 sentence (\ref{sent:debocker}).
-\newpage %until behave
 \eenumsentence{
 \item de uppfattningar\textbf{na} förs fram\\
 ``the opinions are presented"
 \item *de uppfattningar förs fram}\label{sent:debocker}
 
-Apart for this, only corrections have been done, exemplified in
+Apart from this, only corrections have been done, exemplified in
 this sentence.
 \enumsentence{
 Hon sover \textbf{som} är bra ~ \textrightarrow ~ Hon sover, \textbf{vilket} är bra\\
@@ -2508,7 +2527,6 @@ a \verb-NP- can be turned into a \verb-Quant-.\\
 \end{itemize}
 We had that a noun phrase, eg \emph{`katten'} could be turned into a quantifier,
 by using its genitive form, \emph{``kattens'}. This could be used as a determiner,
-\newpage % until behave
 \enumsentence{Det är kattens mat.\\``It is the cat's food."}
 and thus as a noun phrase:
 \enumsentence{Det är kattens.\\``It is the cat's."}
@@ -2721,6 +2739,14 @@ is preserved.
 \label{fig:translationtrees}
 \end{figure}
 
+The mapping is based on 
+a translation of the English Penn Treebank \cite{gfpenn}.
+By modifying this program, we now have a translation that works for
+the Tiger XML-format of
+Talbanken. Adaption was required for the differences in annotation as well as 
+for the syntactic differences between Swedish and English.
+
+
 The mapping %connects GF with another annotations and 
 gives us means to evaluate our parser. By both parsing a Talbanken sentence and
 transforming its annotated tree, we can easily inspect if the results are
@@ -2741,13 +2767,6 @@ achieve from the translation is a good source for this information.\\
 %Furthermore, the translation makes it easy to identify grammatical constructions
 %missing from the GF grammar Another important use of the mapping is evaluation of the parser, which can be
 %accomplished by comparing the parse trees and the trees from the transformer.
-
-The mapping is based on 
-a translation of the English Penn Treebank \cite{gfpenn}.
-By modifying this program, we now have a translation that works for
-the Tiger XML-format of
-Talbanken. Adaption was required for the differences in annotation as well as 
-for the syntactic differences between Swedish and English.
 
 %The mapping works for Talbanken05 in Tiger XML-format.
 \section{The Talbanken annotation}
@@ -2795,9 +2814,9 @@ At every leaf a word is given. %When a leaf is reached,and ato see if
 It is looked-up in the GF lexicon and the result compared to the information of
 the POS-tag.
 If the word is not found in the lexicon
-a \textit{meta} variable will be put in its place, denoted `\verb-?-'.
-The meta variable is also used when we have found two translatable trees
-but no rule that allows them to be combined.
+a \textit{meta variable} will be put in its place, denoted `\verb-?-'.
+The meta variable is also used as a function, needed when we have found two
+translatable trees but no rule that allows them to be combined.
 
 %Lets look at the example 
 In figure \ref{pic:tbtree} the verb \emph{`bli'} is
@@ -2807,7 +2826,7 @@ adjective modifying the subject tagged with \verb|SP|. Our GF grammar admits
 and the translator can hence apply the GF function \verb|ComplVA| to combine the verb
 with its object. \\
 
-The translation covers complex noun phrases which may consist of pronouns,
+\noindent The translation covers complex noun phrases which may consist of pronouns,
 reflexive objects or common nouns and contain predeterminers, 
 determiners, quantifiers and adjectival modifiers. Special rules were needed
 for each verb category in order to find the right number of arguments.
@@ -2846,11 +2865,11 @@ that the function \verb-ComplVS- should be used to combine the verb and with a
 sentence.
 \begin{wrapfigure}{l}{0.52\textwidth}
 \includegraphics[width=80mm]{metatree.pdf}
-\caption{Abstract tree with meta}
+\caption{Abstract tree with meta variable}
 \label{pic:gMetatree}
 \end{wrapfigure}
 
-A similar issue arises from the use of verb particles. A verb with a
+\noindent A similar issue arises from the use of verb particles. A verb with a
 particle is treated as two independent units in Talbanken but in GF they are
 considered to be one constituent. % which means that 
 The particle has therefore no effect on the abstract tree, its presence is
@@ -2976,7 +2995,7 @@ This information can however be extracted from the flat implementation, and the 
 get slightly better when using this version. \\
 
 
-When evaluating the mapping, the results strongly depend on which restrictions we
+\noindent When evaluating the mapping, the results strongly depend on which restrictions we
 put on the input. 
 One of the reasons why a node cannot be translated, is the 
 use of the tags show in figure \ref{fig:mapBadtag}.
@@ -3150,7 +3169,7 @@ grammatical quality. \\
 %The use of the NONEXIST pattern, as described in \ref{sec:Formal}. When using
 %the grammar for generation, an extra 
 
-When it comes to parsing, we do not get far without robustness.
+\noindent When it comes to parsing, we do not get far without robustness.
 The grammar in itself is by no means robust, and just one 
 unexpected punctuation mark, unknown word
 or ellipsis will cause the parsing of the whole sentence to fail. 
@@ -3178,7 +3197,7 @@ has
 increased the standard substantially.\\
 
 
-By the renewed import of Saldo, we have doubled the size of the lexicon and thereby
+\noindent By the renewed import of Saldo, we have doubled the size of the lexicon and thereby
 added many of the commonly used words that were missing from the older
 version. This is of course a big improvement.
 However, the lexical part still requires much work before it can be made use of.
@@ -3200,6 +3219,7 @@ allow. To solve this, we need to use the lexicon data more cleverly.
 %Discussion of the results and methods, why are the results good, why are they not better.
 %What other methods could have been used? What did we/I expect and what happend?
 
+\newpage
 \section{Future Work}
 \label{sec:future}
 At the end of the current project,
@@ -3211,7 +3231,7 @@ The future work described in this section is divided into two categories:
 the ones aiming at making the parser robust and the ones that can be
 seen as extensions of the work done so far.
  
-\subsection{Enhancements and complements}
+\subsection{Enhancements and improvements}
 \subsubsection{Grammar}
 The grammar should cover the most prominent Swedish features.
 %All imaginable grammatical constructs cannot be cover by our grammar.
@@ -3357,8 +3377,12 @@ extract data from Talbanken,
 showing how words are normally used.
 Lexin\footnote{http://spraakbanken.gu.se/lexin/} provides list of valencies information,
 from which lexical information could be extracted, given that the data is freely available.
-We also need be algorithms for
-automatically adding the information to the lexicon. \\
+This is also a source of information helping us separate between verbs that can
+be used without an infinitive marker from the ones that cannot, cf. (\ref{sent:complVV2}a-b).
+However, Lexin is relatively small and does not contain more than 10 000 verbs.
+%Furthermore, we also need be algorithms for
+%automatically adding the information to the lexicon. \\
+
 Many Swedish verbs can be used with different number of arguments.
 Having one lexical entry for every possible usage of a verb
 %all this information to the lexicon 
@@ -3444,7 +3468,7 @@ we still believe that it is possible to achieve our goal.
 %. Even so, we believe  
 %Even though the grammar will not be totally covering, we belive
 %that the work done is both interesting and useful.
-All parts of the project are open-source and may thus be used in other applications.
+\noindent All parts of the project are open-source and may thus be used in other applications.
 The grammar and the lexicon may be beneficial also when working with controlled languages,
 as it increases the coverage of the Swedish resource grammar.
 
@@ -3465,7 +3489,8 @@ grammatical theories in order to arrive at a good analysis.
 %The saldo shows how easy to make use of utomstående resources, promising if
 %we want to extract other information. 
 %Hard, but not finished! 
-
+\begin{changemargin}{-0.1cm}{0cm}
 \bibliographystyle{apalikeurl}
 \bibliography{masterbib}
+\end{changemargin}
 \end{document}

@@ -1,0 +1,1816 @@
+LEXIN - SVENSKA ORD: Valenslexikon
+A, B = personer; x = saker; & = uppslagsordet
+& (att + INF)
+färdig, ivrig, lätt 1, lätt 1, snabb, svår, villig
+& (att+INF)
+fri, lämplig, ovillig
+& (att+SATS)
+ängslig
+& (av B/x)
+nytta
+& (av x)
+ointresserad
+& (av x/att +INF)
+behov
+& (av x/att+INF)
+intresserad
+& (av y)
+full
+& (från x)
+fri, ledig
+& (för B/x/att+SATS)
+orolig
+& (för b/x/att+INF)
+rädd
+& (för x)
+känd, känslig, likgiltig, lämpad, mottaglig, okänslig, upplagd, ängslig, öppen
+& (för x/att+INF)
+mogen
+& (för/ över x)
+entusiastisk
+& (för/till x)
+avpassad
+& (för/över x)
+oro
+& (i B)
+förälskad, kär, tokig
+& (i B/x/att+INF)
+förtjust
+& (i x)
+bra 1, duktig, dålig
+& (med B)
+bekant 1, gift 1
+& (med B/x)
+belåten, jämbördig, jämförbar, missbelåten, missnöjd, missnöje, nöjd
+& (med x)
+frikostig, försiktig, förtrogen, likvärdig, noggrann, obekant, oförenlig, slarvig, vårdslös
+& (med x/att + INF)
+oförsiktig
+& (med y)
+full
+& (mot A för/om x)
+anklagelse
+& (mot B)
+artig, dum, elak, fientlig, hövlig, ironisk, kritisk, lojal, oförskämd, orättvis, otrevlig, rar, snäll, sträng 1, stygg, uppriktig, vänlig, ärlig
+& (mot B/x)
+attentat, misstroende, motvilja
+& (mot b)
+fräck, generös, misstänksam, närgången
+& (om x)
+oense
+& (om x/att+INF)
+angelägen
+& (om x/att+SATS)
+medveten, okunnig, omedveten, oviss
+& (om+SATS)
+osäker
+& (på B)
+arg, ond, sur
+& (på B/x
+besviken, ursinnig
+& (på B/x)
+avundsjuk, nyfiken, osäker, trött
+& (på b/x)
+inverkan
+& (på x)
+fattig, rik, säker, tom, uppmärksam
+& (på x/att+INF)
+bra 1, duktig, dålig
+& (på/över x)
+lista
+& (till x)
+kritisk, negativ 1, positiv 1, skyldig, tveksam
+& (till x/att+SATS)
+orsak
+& (till/mot x)
+skeptisk
+& (vid x)
+ovan 1, van
+& (över x)
+glad, ledsen, sorgsen
+& (över x/att+SATS)
+förvånad
+& A/x + INF
+må
+& a
+mogen
+& att + INF
+oförmögen
+& i B/x
+glad
+& om x/ att + S
+misstanke
+& om x/att + INF
+order
+& om x/att +INF/S
+begäran
+& på x/att + INF
+pigg 1
+& på/ för x/ att + S
+bevis
+& på/ över x/b
+inflytande
+& till x
+oförmögen
+-tillstånd -et - -en
+körkortstillstånd
+A &
+abdikerar, abstraherar, acklimatiserar sig, affischerar, andas, auskulterar, avdunstar, avgår, avlider, avrustar, babblar, balanserar, bantar, bastar, baxnar, besinnar sig, bidar, bladdrar, bleknar, blinkar, blundar, blånekar, blåser, bläddrar, bockar, bosparar, bottnar, brassar på, brusar upp, bryr sig, bryter samman, brädseglar, bränner sig, bugar sig, busar, bänkar sig, bättrar sig, campar, checkar in, crawlar, cyklar, degar, deppar, dillar, dippar, doar, doktorerar, domderar, domnar av, dribblar, dricker, dräller, dröjer, duckar, dummar sig, dunstar, duschar, dåsar, emigrerar, etablerar sig, extraknäcker, faller, fastar, felar, festar, fikar, filmar, filmar, filosoferar, fintar, fiser, fjärtar, flabbar, flaggar, flanerar, flinar, flyger, flyr, flår, flåsar, fnissar, fnittrar, forskar, framträder, fryser, fuskar, fyndar, förblöder, föreläser, förgås, förivrar sig, förkyler sig, förolyckas, förstummas, försäger sig, förtar sig, förtvivlar, förvärvsarbetar, gallskriker, gapar, gapar, garvar, generaliserar, ger igen, ger med sig, ger sig, ger sig av, gestikulerar, gnider, gnolar, gnor, gormar, greppar, grimaserar, grinar, gråter, gurglar sig, gymnastiserar, går på, gäspar, gödslar, gör bort sig, gör sig till, hajar till, halkar, hamrar, handlar, hankar sig fram, harklar sig, hickar, hissnar, hojtar, hoppar av, hostar, hugger, hukar sig, huttrar, hänger med, idrottar, immigrerar, infinner sig, insjuknar, installerar sig, invandrar, irrar, jobbar, jobbar över, joggar, jollrar, jumpar, jäktar, jämrar sig, kandiderar, kapitulerar, kladdar, klampar, klappar ihop, kliver, knallar, knarkar, knegar, knixar, knogar, knorrar, knotar, knystar, knäar, kolar av, kontrar, kopplar av, kravlar, kroknar, kryar på sig, kryssar, krystar, kråmar sig, krånglar, krökar, kurar ihop sig, kutar, kutar, kverulerar, kvickar sig, kvicknar till, kvider, kvitterar, kvävs, köar, laddar upp, landstiga, latar sig, legitimerar sig, lever 2, lever ut, lider, ligger i, lipar, lismar, lufsar, lunkar, lyser, lägger sig, lägger ut, läspar, löper, magrar, manövrerar, marscherar, maskar, masturberar, mediterar, misstar sig, mognar, moraliserar, muckar, mulnar, mumlar, mumsar, muttrar, myglar, myser, myser, möblerar om, mönstrar, nolltaxerar, nyktrar till, nyser, nödlandar, ockrar, omkommer, onanerar, orienterar, pangar, passar på, piggnar till, pinglar, pinkar, pladdrar, plaskar, platsar, plogar, poserar, praktiserar, promenerar, prostituerar sig, pruttar, pryar, präntar, pusslar, pustar, raglar, rapar, rappar på, raskar på, rastar, rear, reder sig, reklamerar, replikerar, reser, resignerar, revanscherar sig, ringer på, ror, rosslar, rumlar, runkar, rutschar, rycker in, rymmer, ryser, råpluggar, räknar, ränner, röjer, seglar, semestrar, servar, shoppar, sitter emellan, sitter inne, sjåpar sig, skatteplanerar, skelar, skorrar, skrider, skriker, skriker, skriver, skrålar, skräller, skränar, skubbar, skyldrar, skär sig, skärper sig, sladdrar, slappar, slaskar, slavar, slinker, slocknar, sluddrar, slumrar, slår sig, slår till, släntrar, släpar, slöar, slöjdar, smackar, smaskar, smilar, småler, smälter, snackar, snarkar, snattar, snedtänder, snickrar, snitsar, snokar, snor sig, snorar, snusar, snusar, snyftar, snålar, snörvlar, solbadar, somnar, sover, spankulerar, speglar sig, spejar, spexar, spisar, spjärnar emot, spottar, spurtar, spyr, späker sig, spökar, stakar sig, stammar, stampar, stapplar, sticker upp, stiger upp, stimmar, stojar, storknar, streckar, strejkar, stressar, strippar, strosar, struttar, strövar, stultar, stupar, stupar, stålsätter sig, står, står ut, står över, ställer sig in, ställer upp, stökar, stönar, störtar, suckar, suddar, super, surar, surfar, sussar, svamlar, svetsar, svettas, svimmar, svälter, svänger om, svär, säger ifrån, säger upp sig, sölar, tar igen sig, tassar, tentar, tiger 2, tillfrisknar, tittar in, tittar på, tjafsar, tjallar, tjurar, trallar, traskar, tricksar, trilskas, trippar, trollar, trummar, träffas, tröskar, tröstäter, tröttnar, tuffar till sig, tullar, tuppar av, turnerar, tutar, tågar, täljer, tältar, tänker om, uppenbarar sig, urinerar, urskuldar sig, utvandrar, vadar, vaknar, vankar, vantrivs, veknar, velar, vimsar, vindar, vindsurfar, vittnar, vurpar, väsnas, växlar, åker dit, åker fast, ålar, åldras, återhämtar sig, ändrar sig
+A & ( ihop) x
+lappar
+A & ((i) x)
+vinner
+A & ((med) x)
+slösar
+A & ((på) x)
+rider, spelar
+A & (+ PLATS)
+stannar
+A & (+ RIKTNING)
+bilar, flyttar, vräker sig
+A & (B)
+badar, obducerar, smickrar, svindlar, tolkar
+A & (B) (för x)
+tackar
+A & (B) att + S
+hälsar
+A & (B) att +S
+meddelar
+A & (B) att+SATS
+säger till
+A & (B) med x
+hotar
+A & (B) om x/att + S
+påminner
+A & (B) vid/ med x
+assisterar
+A & (B/x)
+anfaller, fotograferar, hämnas, klämmer till, sörjer, vaktar
+A & (att + INF)
+skyndar, tvekar
+A & (att + SATS)
+svarar, tippar
+A & (att) + INF
+beslutar, lyckas, orkar, slipper, vägrar
+A & (att/hur etc) + SATS
+föreställer sig
+A & (av x)
+brinner, darrar, kiknar, njuter, är till sig
+A & (av) x
+klarar
+A & (b)
+bluffar
+A & (b) för x/c/att + INF
+varnar
+A & (b) x
+erbjuder
+A & (bakom B/x)
+sluter upp
+A & (bland x)
+sovrar
+A & (bort) x
+schaktar
+A & (bort) x/B
+rövar
+A & (bort) x/att+SATS/att+INF
+glömmer
+A & (efter B/x)
+draggar, spanar
+A & (efter x)
+annonserar, famlar, hungrar, törstar
+A & (efter x/att+INF)
+strävar
+A & (emot)
+käftar, stretar
+A & (fast) B/x
+kedjar
+A & (fast) x
+kletar
+A & (fast/ihop etc) x
+klistrar
+A & (fram) x
+destillerar
+A & (från B)
+norpar
+A & (från x)
+bryter upp, deserterar, firar, retirerar, skolkar, sticker, uteblir
+A & (från/efter x)
+hämtar sig
+A & (från/undan B/x)
+smiter
+A & (för B)
+fjäskar, niger, uppoffrar sig, vikarierar
+A & (för B) att + S
+nämner, påpekar, uppger
+A & (för B/x)
+hurrar, svärmar
+A & (för b (om x))
+ljuger
+A & (för x)
+betackar sig, bävar, engagerar sig, ger efter, kvalificerar sig
+A & (för x/att + INF)
+drar sig
+A & (för x/att +SATS)
+propagerar
+A & (för) B
+krusar, lussar
+A & (för) x
+drar av, planerar
+A & (för/ emot x)
+argumenterar
+A & (för/av x)
+dukar under
+A & (för/emot x)
+agiterar
+A & (för/mot/med B/x)
+kämpar
+A & (för/om/över x)
+bekymrar sig
+A & (förbi)
+defilerar
+A & (hos B)
+klagar
+A & (i B/x)
+sliter
+A & (i x)
+deltar, deltar, drunknar, framhärdar, frossar, fördjupar sig, investerar, pulsar, rotar, spekulerar, tenterar
+A & (i x/att + INF)
+fogar sig
+A & (i x/det)
+stökar till
+A & (i) x
+drar, håller, sågar
+A & (i/fast etc x)
+skruvar
+A & (i/ur) x
+tappar
+A & (igen) x
+pluggar
+A & (ihop/samman etc x)
+knåpar
+A & (ihop/samman etc. x)
+rafsar
+A & (ihop/samman) x
+buntar
+A & (in) x
+fryser, graverar, kodar, oljar, sparar, ympar
+A & (in) x med y
+dränker
+A & (in/upp) x
+köper
+A & (inte) + INF
+mäktar
+A & (kvar) x
+glömmer
+A & (med B)
+dansar, förlovar sig, krigar, skålar, slåss, träter, överlägger
+A & (med B) (om x/att+SATS)
+pratar
+A & (med B/x)
+fäktar, liftar, skojar, skämtar, trivs
+A & (med att + INF)
+envisas
+A & (med x)
+bollar, briljerar, bråkar, bänder, fifflar, fumlar, fuskar, färdas, grejar, hjälper till, hushållar, håller ut, kalkylerar, knusslar, pysslar, skyltar, slamrar, slarvar, sliter, smusslar
+A & (med x/ att + INF)
+lägger av, misslyckas
+A & (med x/att+INF)
+lyckas
+A & (med) B
+följer, knullar, pippar
+A & (med) att + INF
+håller på
+A & (med) att+INF
+hjälper till
+A & (med) x
+ställer till, tragglar, åker 2
+A & (med) x/att + INF
+fortsätter
+A & (med) x/att+INF
+sätter igång
+A & (mellan B och C)
+medlar
+A & (mot B)
+processar
+A & (mot x)
+ingriper, kisar
+A & (mot x/att + SATS)
+reserverar sig
+A & (mot x/att +SATS)
+opponerar sig, protesterar
+A & (mot) x
+bryter
+A & (ner) x
+firar, kyler
+A & (om B/x)
+skvallrar
+A & (om x)
+diktar, lottar, ordar, orienterar, predikar, voterar
+A & (om x/B)
+dagdrömmer
+A & (om x/att + INF)
+fantiserar
+A & (om x/att +SATS)
+yrar
+A & (om x/att+INF)
+misströstar
+A & (om x/att+SATS)
+skrävlar
+A & (om)
+rumsterar
+A & (om) B/x
+sköter
+A & (om) x
+avtalar, värnar
+A & (om) x/att + S
+tigger
+A & (om) x/att+SATS
+berättar, rapporterar, vet
+A & (omkring)
+flackar
+A & (på B)
+avreagerar sig, hejar, hyssjar, hälsar, lyssnar, ropar, snyltar
+A & (på B) (om x/att+SATS)
+tjatar
+A & (på B/x)
+blänger, röstar, spionerar, stirrar, tittar, tror
+A & (på x)
+bankar, bolmar, chansar, håller igen, klinkar, klottrar, knackar, kollar, kånkar, prenumererar, prutar, ruvar, sitter, slötittar, sneglar, sniffar
+A & (på x/ att + SATS)
+hoppas
+A & (på x/B)
+kikar
+A & (på x/att + INF)
+specialiserar sig
+A & (på x/att + SATS)
+pekar
+A & (på x/att+SATS)
+tänker
+A & (på) B/x
+ruskar, sparkar, väntar
+A & (på) att+SATS/att+INF
+svär
+A & (på) x
+amorterar, drar, filar, inskränker, lossar, lyfter, lättar, minskar, nynnar, samlar, skakar, skjuter, sliter, släpar, smetar, snurrar, sparar, tänjer, töjer, vrider, ändrar
+A & (på) x och y
+särar
+A & (på) x/att + S
+yrkar
+A & (på) x/sig
+rätar
+A & (på/ över x)
+grubblar
+A & (på/mot x) (+ SÄTT)
+reagerar
+A & (på/mot x/B)
+siktar
+A & (på/över x)
+funderar, snavar, snubblar
+A & (samman) x och y
+fogar
+A & (sig)
+solar
+A & (sig) + RIKTNING
+hasar
+A & (sig) fram
+tränger
+A & (sig) tillbaka/undan etc
+drar
+A & (sig) x
+skaffar
+A & (som + PRED)
+uppträder
+A & (som x)
+vickar
+A & (som) + PRED
+sitter
+A & (som+PRED)
+debuterar
+A & (sönder) x
+smular
+A & (till + PLATS)
+skyndar
+A & (till B)
+ber, telefonerar, telegraferar
+A & (till B) (att +SATS)
+viskar
+A & (till x)
+kvalar, lystrar, nekar, omvänder sig, rustar, samtycker
+A & (till) B
+ringer, smäller
+A & (till) att + INF
+nedlåter sig
+A & (till) x
+bucklar, stavar
+A & (till+PRED)
+avancerar
+A & (till/ med x)
+hinner
+A & (till/efter x)
+lyssnar
+A & (upp)
+räcker
+A & (upp) B/x
+spårar
+A & (upp) x
+dyrkar, dämmer, nystar, rustar, spolar, spärrar, tinar
+A & (upp/ner etc x)
+gräver
+A & (upp/ner) x
+halar
+A & (ur/ihop) x
+kramar
+A & (ut) x
+annonserar, kavlar, portionerar, raderar, späder, stakar
+A & (ut/fram) x
+spottar
+A & (ut/upp) x
+stegar
+A & (x med y)
+pliktar
+A & (x runt y)
+snor 2
+A & (x)
+applåderar, askar, avvaktar, begriper, bommar, borrar, borstar, breder, broderar, bäddar, bötar, dammar, dammsuger, devalverar, diskar, drejar, eldar, etsar, exemplifierar, fimpar, fiskar, författar, förfryser, förlorar, förskingrar, ger upp, halsar, hamstrar, handlar, hycklar, hyvlar, improviserar, kalkar, knypplar, knäpper, kopplar, krattar, kräks, kvitterar, kvoterar, käkar, kör 3, leder, lirar, metar, mobiliserar, mockar, murar, omorganiserar, packar, paddlar, parkerar, pluggar, programmerar, pröjsar, pyntar, pålar, ritar, räfsar, räknar, röker, simulerar, skottar, skräpar ner, slaktar, smider, snabbar på, sockrar, sopar, sotar, spacklar, spikar, spinner, sprejar, spår 2, stakar, stansar, stencilerar, stryker, studerar, stänker, svartmålar, svarvar, sväljer, syltar, syr, sår 2, sörplar, tankar, textar, textar, tillträder, tuggar, vandaliserar, vilar, virkar, väver, överklagar, översätter, övertrasserar
+A & (x) (till B)
+säljer
+A & (x) med B
+diskuterar
+A & (x) mot B
+hetsar
+A & (x) på B/y/att+SATS
+skyller
+A & (x) till B
+passar
+A & (x/B)
+grillar
+A & (x/att + INF)
+avböjer
+A & (x/sig)
+tvättar, vänder
+A & (åt B)
+nickar
+A & (åt B/x)
+buar, skrattar
+A & (åt x/B)
+fnyser
+A & (åt x/att + SATS)
+grinar
+A & (åt x/att+SATS/att+INF)
+gottar sig
+A & (åt) B
+snäser
+A & (över B)
+regerar, triumferar
+A & (över B/x)
+härskar
+A & (över x)
+grämer sig, spekulerar
+A & (över x/att + SATS)
+gnyr, gnäller
+A & (över x/att+SATS)
+jublar
+A & (över) B
+dominerar
+A & (över) x
+disponerar, täcker
+A & + FRÅGESATS
+frågar, hör efter, undrar, vet
+A & + INF
+behagar, behöver, bör, börjar, får 2, får 2, förmår, försöker, hinner, hoppas, låter, låtsas, må, måste 2, nödgas, ombedes, råkar, ska, söker, tänker, törs, vågar, ämnar, önskar
+A & + INF/att + S
+vill
+A & + PLATS
+befinner sig, bor, bosätter sig, håller till, ligger över, når, opererar, residerar, slår sig ner, uppehåller sig, vistas, övernattar, övervintrar
+A & + PRED
+agerar, blir, förhåller sig
+A & + RIKTNING
+blickar, ilar, kastar sig, stegar
+A & + S
+utbrister, utropar
+A & + SUMMA
+skattar
+A & + SUMMA (på x/för B)
+lägger ut
+A & + SUP
+har
+A & + SÄTT
+agerar, beter sig, bär sig åt, mår, resonerar, uppför sig, uppträder
+A & + TID (till + PLATS)
+anländer
+A & + TID + PLATS
+tillbringar
+A & B
+ackompanjerar, ackrediterar, adjungerar, adlar, adopterar, agar, aktiverar, ammar, anger, angriper, anhåller, anställer, antastar, apar efter, arkebuserar, arresterar, avbryter, avgudar, avhyser, avlar, avlönar, avlöser, avrättar, avskedar, avspisar, avsätter, avtackar, avvänjer, avväpnar, bakbinder, baktalar, balsamerar, bedrar, bedårar, befruktar, begråter, benådar, besegrar, beskyddar, bestraffar, betjänar, beväpnar, biktar, biter, biträder, blidkar, brås på, burar in, byltar på, bönhör, bötfäller, daddar, degraderar, diar, diskar, diskriminerar, diskvalificerar, drillar, dräper, dräper av, duar, dunkar, duperar, dödförklarar, efterträder, engagerar, entledigar, erkänner, ersätter, expedierar, fostrar, friger, frikallar, frikänner, frisläpper, friställer, fryser ut, frälser, fängslar, föder, förhör 2, förnedrar, förordnar, förpassar, förskjuter, förtalar, förtrycker, förvisar, förödmjukar, geniförklarar, genskjuter, ger sig på, golvar, grattar, gratulerar, griper, gästar, haffar, halshugger, handplockar, hudflänger, hunsar, hyllar, håller av, häktar, hänger, hänger efter, influerar, installerar, intervjuar, introducerar, jordfäster, justerar, jäktar, kidnappar, kittlar, klår, klämmer åt, knockar, knuffar, konfirmerar, kontaktar, korsfäster, kröner, kuggar, kuvar, känner, kör 3, larmar, lejer, lemlästar, likviderar, luggar, lynchar, löser, mantalsskriver, markerar, misshandlar, missleder, misstror, motar, motsäger, mutar, mästrar, mördar, nattar, niar, nyper, ofredar, omfamnar, omhändertar, omskolar, omskär, oroar, pensionerar, permitterar, petar, pikar, plåstrar om, prickar, prisar, promoverar, pryglar, prästviger, psykar, pucklar på, pussar, puttar, rankar, rehabiliterar, rekryterar, råkar, seedar, sekonderar, servar, skallar, skinnar, skjutsar, skolar, skämmer bort, slår, slår till, sminkar, smiskar, smutskastar, snoppar av, spöar, stenar, straffar, stressar, stämmer, stöter på, suspenderar, sveper, sysselsätter, säger upp, särbehandlar, tatuerar, tenterar, tillfångatar, tillintetgör, tillkallar, tillrättavisar, tilltalar, torterar, trakasserar, trotsar, tråkar, träffar, tränar, tränger, underhåller, underhåller, underkuvar, undsätter, uppehåller, uppfostrar, upprättar, uppvaktar, uppvaktar, uppviglar, utbildar, utklassar, utpekar, utvisar, vaccinerar, vaggar, vanhedrar, varvar, vilseleder, vräker, våldgästar, våldtar, värderar, värvar, åtföljer, åtrår, äktar, ärar, ömkar, överbeskyddar, överfaller, överglänser, överlever, övermannar, överraskar, överträffar
+A & B (+ PLATS)
+tar in
+A & B (att + INF)
+bemyndigar, instruerar
+A & B (att) + INF
+ber
+A & B (från x)
+friar, relegerar
+A & B (från x/att + INF)
+avråder
+A & B (för C/x)
+anmäler
+A & B (för x)
+beskyller, gottgör, opererar, åtalar
+A & B (för x/att +SATS)
+ersätter
+A & B (för) att + INF
+avdelar
+A & B (för) x
+debiterar
+A & B (i x)
+inkvarterar, inviger
+A & B (med att+INF)
+kommer på
+A & B (med x)
+bistår, bräcker, försörjer
+A & B (med x/att + INF)
+ertappar
+A & B (om x)
+frågar, underrättar
+A & B (om x/att + SATS)
+informerar, varskor
+A & B (om x/att +SATS)
+övertygar
+A & B (på x)
+skojar, snuvar, åderlåter
+A & B (som x)
+anlitar
+A & B (till + PRED)
+befordrar
+A & B (till C/x)
+remitterar
+A & B (till x)
+antar, dömer, döper, utmanar, återanpassar
+A & B (till) att + INF
+råder, tvingar
+A & B (till) att+INF
+eggar, uppmuntrar
+A & B + INF
+låter
+A & B + SÄTT
+bemöter
+A & B att + INF
+anmanar, anmodar, befaller, beordrar, förbjuder, förelägger, förmår, hjälper, nödgar, rekommenderar, uppmanar, övertalar
+A & B att + S
+anförtror
+A & B att + SATS
+förebrår, kommenderar
+A & B att+INF
+säger till
+A & B att+SATS
+trugar
+A & B från x
+utestänger
+A & B från x/att + INF
+förskonar
+A & B för x
+kompenserar, lastar
+A & B för x/att+INF
+anklagar
+A & B i x
+invaggar, undervisar
+A & B med x
+beslår, bombarderar, trakterar, överhopar, överöser
+A & B med x/att + INF
+hjälper
+A & B och C
+sammanför, sammankallar, trummar ihop, viger
+A & B om x
+tipsar
+A & B om x/att + S
+upplyser
+A & B om x/att + Sats
+ber
+A & B på x
+bjuder, kräver
+A & B till + PLATS
+deporterar
+A & B till + PRED
+utnämner, utser
+A & B till C/x
+hänvisar
+A & B till x
+dubbar, inbjuder, nominerar, upphöjer
+A & B till/som x
+korar
+A & B ur x
+utstöter
+A & B x
+anförtror, anvisar, avkräver, avundas, berövar, besparar, betygar, bibringar, delger, förespeglar, ger, lånar, missunnar, prackar på, pådyvlar, påför, räcker, skänker, sänder 2, tilldelar, tilldömer, tillerkänner, tillförsäkrar, tillskriver, tillägnar, tillönskar, visar
+A & B x (för y)
+betalar
+A & B x/ att + INF
+förvägrar, lär 2
+A & B x/att + INF
+unnar, ålägger
+A & B x/att+SATS
+förlåter
+A & B/ sig från x/ att + INF
+avhåller
+A & B/ sig med C
+förenar
+A & B/ x
+favoriserar, inregistrerar
+A & B/om att + SATS
+håller med
+A & B/sig
+dopar, isolerar, lugnar, lurar, rentvår, skämmer ut, snyter, ursäktar
+A & B/sig (för x)
+intresserar
+A & B/sig (med x)
+sysselsätter
+A & B/sig (vid) att + INF
+vänjer
+A & B/sig från x
+fritar
+A & B/sig i x
+försätter
+A & B/sig med y
+förser
+A & B/x
+anropar, anträffar, attackerar, auktoriserar, avfärdar, avskyr, avvisar, backar upp, bannlyser, bedömer, begraver, behandlar, behärskar, bekämpar, berömmer, besjunger, beskattar, beskjuter, beskriver, beskådar, bespottar, besvärjer, besöker, betraktar, betvingar, beundrar, bevakar, binder, bojkottar, botar, brännmärker, citerar, diggar, drämmer till, dränker, dänger till, dödar, efterapar, efterlämnar, efterspanar, eftertraktar, fixerar, fotar, fångar, föder, för 4, för 4, föraktar, förbannar, förbinder, föreslår, förföljer, förgiftar, förgör, förhör 2, förintar, förlöjligar, förråder, förändrar, föser, genomskådar, gillar, godkänner, grupperar, göder, gömmer, hatar, hittar, hyser, hånar, hämtar, härbärgerar, härmar, kastrerar, klandrar, klappar, konsulterar, korrigerar, kramar, kränker, kväser, kysser, känner igen, landsätter, lovordar, lyder, lämnar, masserar, matar, minns, missgynnar, missuppfattar, motarbetar, mottar, månar om, mättar, mönstrar, möter, nobbar, nonchalerar, omhuldar, omvärderar, oskadliggör, passar, plåtar, premierar, prickar av, puffar, raggar, rannsakar, rappar till, regisserar, registrerar, rekommenderar, representerar, ringaktar, rosar, rånar, räddar, röntgar, saknar, saluterar, serverar, skingrar, skjuter, skonar, skymfar, skyndar på, skyr, skållar, slår, släpper, smyckar, smädar, snärtar till, sponsrar, springer efter, stoppar, stryper, stympar, stöder, stöter på, stöttar, suger ut, sviker, svärtar ner, söker, tacklar, tar efter, tar emot, tar sig an, testar, tillber, tillsätter, transporterar, träffar, tyglar, tystar, underskattar, undertrycker, undkommer, uppbådar, uppmärksammar, uppskattar, uppsöker, utesluter, utrotar, vanvårdar, vidrör, vårdar, välkomnar, välsignar, vördar, åkallar, åsyftar, återser, ömmar för, överger, överskattar
+A & B/x (från y till z)
+överför
+A & B/x (från y)
+avlägsnar, befriar
+A & B/x (från) att+INF
+hindrar
+A & B/x (för y)
+exponerar
+A & B/x (för) + PRED
+kallar
+A & B/x (med y)
+assimilerar, belönar, sticker
+A & B/x (på y)
+plundrar
+A & B/x (på/i y)
+placerar
+A & B/x (som + PRED)
+framställer, uppfattar
+A & B/x (som y)
+omnämner
+A & B/x (till C)
+överlämnar
+A & B/x + PLATS
+stationerar
+A & B/x + PRED
+anser, gör
+A & B/x + RIKTNING
+driver, flyger
+A & B/x efter C/y
+uppkallar
+A & B/x med C/y
+förväxlar, jämställer
+A & B/x och C/y
+rangordnar
+A & B/x som + PRED
+bedömer, betecknar, betraktar, räknar, upplever, utmålar
+A & B/x y
+tillfogar, tillmäter
+A & B/x/FRÅGESATS
+undersöker
+A & B/x/att + INF
+försmår, försummar, älskar
+A & B/x/att + S
+kontrollerar, litar på, misstänker, tolererar
+A & B/x/att + SATS
+ser, sörjer för
+A & B/x/att+INF
+ägnar sig åt
+A & B/x/att+S
+förlitar sig på
+A & B/x/att+SATS
+avslöjar, förordar, förstår, negligerar, tycker om, tål
+A & B/x/sig
+kammar, klär, värmer
+A & B/x/sig mot C/y
+skyddar
+A & B/x/sig mot c/y
+försvarar
+A & att + INF
+dristar sig, erbjuder sig, förbinder sig, ger sig till, hatar, håller på, lovar, planerar, underlåter
+A & att + S
+anmärker, antar, betvivlar, drömmer, förmodar, hemställer, inbillar sig, invänder, menar, tror, yttrar
+A & att + SATS
+besinnar, bestyr 2, framhåller, föreslår, förkunnar, försäkrar, förtäljer, hävdar, inskjuter, omtalar, poängterar, påstår, rekommenderar
+A & att +INF/SATS
+avskyr
+A & att +S
+beslutar, intygar
+A & att+SATS
+anser, döljer, finner, förklarar, låtsas, säger, tycker, upplever
+A & att+SATS/FRÅGESATS
+hör
+A & att+SATS/att+INF
+föredrar, föresätter sig, uthärdar
+A & att+SATS/hur+SATS
+demonstrerar
+A & att/när/hur+SATS
+minns
+A & av
+slappnar
+A & av B/x
+äcklas
+A & av x
+kokar, sprudlar, styckar
+A & b (till) att+INF
+lockar
+A & b + RIKTNING
+leder
+A & b x
+lovar
+A & bort x
+slarvar
+A & bort/på etc x
+kopplar
+A & bort/undan etc B/x
+jagar
+A & bort/ut etc x
+vräker
+A & efter
+halkar
+A & efter B/x
+suktar
+A & efter B/x/att + S
+längtar
+A & efter x
+forskar, snappar, traktar, trevar, trängtar
+A & efter x/B
+letar
+A & fram x
+skaffar, tvingar
+A & fram/in etc
+stiger
+A & fram/upp etc.
+masar sig
+A & från B
+separerar
+A & från B/x
+fjärmar sig
+A & från x
+stammar, viker
+A & från x till y
+växlar
+A & från x/ att + INF
+avstår
+A & från x/ att + S
+bortser
+A & från x/B
+härstammar
+A & från x/att + S
+utgår
+A & för B
+står tillbaka, ställer upp
+A & för B/x
+basar 2
+A & för x
+binder sig, pallar, pläderar, ryggar, står, väjer, värjer sig
+A & för x/ att + INF
+aktar sig, fasar
+A & för x/att + S
+ansvarar, gruvar sig, verkar
+A & för x/hur+SATS
+redogör
+A & hos B
+kinesar
+A & i B x
+trugar
+A & i B/x
+förälskar sig
+A & i B/x/att + INF
+struntar
+A & i sig x
+proppar
+A & i x
+brister, förkovrar sig, försjunker, inordnar sig, klär, medverkar, möblerar om, påtar, sätter sig in
+A & i/om etc x
+biter
+A & i/på x
+karvar
+A & i/ur x
+stiger
+A & ihop x
+joxar, snörper
+A & ihop x med/och y
+häftar
+A & ihop x och/med y
+parar
+A & ihop/undan x
+sopar
+A & in sig (i x)
+trasslar
+A & in x
+matar
+A & in/ner (x)
+saktar
+A & in/ut/iväg etc
+stövlar
+A & inte + INF
+gitter, ids
+A & inte B (med) x
+bevärdigar
+A & med (för/på) x
+arbetar
+A & med B
+beblandar sig, brevväxlar, bryter, daltar, fajtas, förhandlar, försonas, gifter sig, hånglar, instämmer, kelar, kivas, kuttrar, lierar sig, munhuggs, nojsar, pjoskar, rådslår, samarbetar, sammanbor, sammansvärjer sig, sammanträffar, samtalar, samverkar, samåker, stöter sig, superar, sällskapar, turas om, tvistar, umgås, underhandlar, vänslas, återförenas
+A & med B (om x)
+dividerar, grälar, konkurrerar, resonerar, rådgör, samsas
+A & med B/x
+befattar sig, bekantar sig, brottas, konfronteras, raljerar, solidariserar sig, tampas
+A & med b
+alternerar
+A & med b/x
+driver, hinner
+A & med x
+dinglar, garderar, handlar, håller på, hänger efter, jonglerar, joxar, klämmer i, kryddar, pillar, prålar, pungar ut, sjabblar, skramlar, skrevar, ståtar, sysslar, trutar, överser
+A & med x (åt B)
+hytter
+A & med x + SÄTT
+förfar
+A & med x/ att + INF
+experimenterar, nöjer sig
+A & med x/B
+lirkar, sympatiserar
+A & med x/att + INF
+börjar, förlikar sig, slutar, svarar, tar sig till, upphör
+A & med x/att + SATS
+stoltserar
+A & med x/att+INF
+laborerar, orkar
+A & med x/att+SATS
+räknar
+A & med/ mot B
+boxas
+A & med/mot B (om x)
+tävlar
+A & med/om x/att + SATS
+skryter
+A & med/på x
+vickar
+A & mellan x och y
+väljer
+A & mellan/på x och y
+skiljer
+A & mot B
+förgår sig, konspirerar, ler
+A & mot B/x
+demonstrerar, polemiserar
+A & mot x/att + S
+erinrar
+A & mot/med B
+strider
+A & ner B
+bryter
+A & ner sig
+väter
+A & ner x
+sågar
+A & ner x/sig
+sölar
+A & ner/upp/ut/loss B/x
+rycker
+A & om B/x
+uttalar sig
+A & om att + INF
+bemödar sig
+A & om x
+beslutar, bönar, bönfaller, drömmer, förhandlar, hemställer, interpellerar, köpslår, lagstiftar, raljerar, varslar
+A & om x/FRÅGESATS
+förhör sig
+A & om x/att + SATS
+siar
+A & om x/att få + INF
+ansöker
+A & om x/att+SATS
+erinrar
+A & om x/att+SATS/att+INF
+anhåller, vinnlägger sig
+A & på B
+förgriper sig, grälar, hejar, hämnas, kallar, kladdar, rackar ner, skor sig, tafsar
+A & på B x
+trugar
+A & på B/x
+missräknar sig, pillar, profiterar, syftar, tar miste, våldför sig
+A & på B/x/att + INF
+tröttnar
+A & på att+SATS/att+INF
+insisterar, vinner
+A & på sig
+ruskar
+A & på x
+abonnerar, aspirerar, bryter, drar in, dunkar, gläntar, hakar upp sig, inlåter sig, jämkar, kalasar, klämmer, känner, lockar, luktar, läppjar, ruckar, runkar, smakar, smuttar, snörper, spekulerar, suger, tar in, tjänar, trampar, tronar, tullar, tummar, tänder 2, vaggar
+A & på x/ att + INF
+inställer sig
+A & på x/B/att + S
+anmärker
+A & på x/att + INF
+inriktar sig, koncentrerar sig, satsar
+A & på x/att + S
+tvivlar
+A & på x/att + SATS/INF
+propsar
+A & på x/att+INF
+pockar
+A & på x/att+SATS
+ställer in sig
+A & på x/sig
+makar
+A & på/ i x
+petar
+A & på/ över B/x
+klagar
+A & på/över x/FRÅGESATS
+grunnar
+A & rätt på x/B
+letar
+A & samman x och y
+jämkar
+A & sig
+anstränger, bedrar, doppar, dränker, försörjer, hejdar, omskolar, pudrar, reser, ruinerar, ångrar
+A & sig (B/x)
+underordnar
+A & sig (från x)
+avlägsnar, frigör
+A & sig (för x)
+böjer, meriterar
+A & sig (för x/att+SATS/att+INF)
+bestämmer
+A & sig (för/över x/att +SATS)
+oroar
+A & sig (med x/att + INF)
+roar
+A & sig (med x/att+SATS/att+INF)
+tröstar
+A & sig (till x)
+anmäler
+A & sig + INF
+påstår, tror, tycker
+A & sig + PRED
+förklarar
+A & sig + RIKTNING
+släpar, vågar
+A & sig att+SATS/att+INF
+tänker
+A & sig av x
+använder
+A & sig emot x
+garderar
+A & sig fram
+trevar
+A & sig från x
+avskärmar
+A & sig för B/x
+offrar
+A & sig för x
+antecknar
+A & sig för x/ att + INF
+förbereder
+A & sig i x
+begraver
+A & sig in/ut
+bryter
+A & sig med B
+identifierar
+A & sig mot x
+skubbar
+A & sig om/över x/B
+yttrar
+A & sig på B/x/att + SATS
+retar
+A & sig på x
+begriper, grundar
+A & sig på x/ att + S
+bereder
+A & sig själv
+överträffar
+A & sig till B/x
+ansluter
+A & sig till att + INF
+inskränker
+A & sig till x
+anpassar, gissar
+A & sig till x/att +INF
+begränsar
+A & sig x
+önskar
+A & sig x/ att + SATS
+förväntar
+A & sig x/att+INF
+förbehåller
+A & sig/ x
+maskerar
+A & sig/B
+sjukanmäler
+A & sig/x
+biktar, snaggar
+A & sig/x med y
+läskar
+A & sig/x/B
+steriliserar
+A & som om+SATS
+låtsas
+A & som x
+kvackar
+A & som+PRED
+arbetar
+A & till + PLATS
+beger sig, längtar, återvänder
+A & till B
+förklär sig, sluter sig, vänder sig
+A & till B att + INF
+överlåter
+A & till B/x
+sällar sig, tyr sig, vädjar
+A & till att + INF
+siktar
+A & till b
+friar
+A & till sig x
+skojar
+A & till x
+associerar, hänvisar, jakar, kallar, konverterar, manar, rättar, snitsar, trasslar, återkommer
+A & till x/att + INF
+återgår
+A & till x/att + SATS
+sluter sig
+A & till x/att+SATS
+känner
+A & till x/sig
+snyggar
+A & till/igen x
+täpper
+A & till/åt sig x
+snappar
+A & undan x
+makar
+A & upp
+snyggar
+A & upp B
+ringer
+A & upp x
+kräks, lättar, löser
+A & upp x/b
+eldar
+A & upp/av x
+torkar
+A & upp/fram etc x
+plockar
+A & upp/i/ut etc x
+slår
+A & upp/in/ihop x
+samlar
+A & upp/ner x
+vevar
+A & upp/ut x
+reder, rätar
+A & ut för x
+råkar
+A & ut x
+löser, suddar
+A & ut x/att + SATS
+räknar
+A & ut x/sig
+sliter
+A & ut/in etc x
+släpper
+A & ut/till x
+slätar
+A & vid x
+klamrar sig fast, uppehåller sig
+A & x
+accentuerar, ackumulerar, adderar, administrerar, ajournerar, aktar, aktualiserar, analyserar, anammar, anför, anlägger, annekterar, annullerar, anordnar, anrikar, anrättar, ansar, anskaffar, anslår, anstiftar, anstränger, antecknar, apterar, arbetar in, arbetar in, armerar, arrangerar, arrenderar, artikulerar, asfalterar, attesterar, automatiserar, avbalkar, avbeställer, avbryter, avdelar, avdramatiserar, avfyrar, avger, avhjälper, aviserar, avklarar, avkunnar, avlivar, avlossar, avlägger, avlägger, avlämnar, avläser, avregistrerar, avrundar, avskaffar, avskärmar, avslår, avspärrar, avstavar, avstyr, avstyrker, avsynar, avsäger sig, avsätter, avträder, avvarar, avvecklar, avverkar, avverkar, avvärjer, avyttrar, axlar, backar, baddar, bakar, banar, bandar, bantar, basunerar ut, bearbetar, bebor, bebygger, bebådar, bedriver, befruktar, begagnar, begrundar, begränsar, begår, behandlar, behåller, behöver, beivrar, bejakar, bekläder, bekostar, belastar, belånar, belägger, belägger, belägrar, bemannar, bemäktigar sig, bemästrar, benar, benar, beordrar, bereder, beriktigar, berör, besiktigar, besitter, beslagtar, beslår, besprutar, bestiger, bestrider, bestryker, bestrålar, beställer, besvarar, besätter, besätter, besätter, betar, betsar, bevarar, bevattnar, beviljar, bevistar, bevittnar, bibehåller, bifaller, bifogar, bilägger, bilägger, blandar sig i, bleker, blir av med, blockerar, blottar, blöter, bockar, bokar, bokför, bokstaverar, bollar, bombar, bombarderar, bonar, bordar, bordlägger, bortförklarar, bottenskrapar, breddar, brukar, brygger, bryner, bryter, bryter, bryter, bryter, bräcker, bräcker, bränner, bränner, bränner vid, bygger, bär 2, bärgar, böjer, censurerar, centraliserar, centrifugerar, daterar, datoriserar, datummärker, decentraliserar, definierar, deformerar, deklamerar, deklarerar, delar, desinficerar, detonerar, diagnostiserar, diktar, dikterar, disponerar, djupfryser, dockar, dramatiserar, drar, drar igång, drar in, drar åt, dras med, dresserar, dricker, driver, dubbar, dubbar, dubblar, dubblerar, dukar, dukar upp, dumpar, duplicerar, dämpar, dömer, effektiviserar, efterfrågar, efterlyser, efterskänker, eftersträvar, eftersänder, eliminerar, emotser, erhåller, erlägger, erövrar, etablerar, evakuerar, expedierar, exploaterar, exporterar, fabricerar, fattar, fejar, fejkar, fernissar, filtrerar, finansierar, fingerar, fingrar på, finkammar, finslipar, fixar, fixerar, flamberar, flottar, flyttar, flår, flätar, forcerar, formar, formulerar, fraktar, framför 2, framhåller, framkallar, framkastar, framlägger, framställer, frankerar, fridlyser, friköper, friterar, fräschar upp, fräser, fuktar, fullbordar, fullföljer, fullgör, fållar, får 2, fäller, fäller, färdigställer, färgar, färglägger, fäster, föder upp, följer, följer, följer, följer upp, förankrar, förbereder, förbiser, förbrukar, förbättrar, fördelar, fördriver, fördubblar, fördärvar, fördömer, föredrar, föredrar, föreger, förespråkar, förestår, föreställer sig, förfalskar, förfuskar, förhalar, förkastar, förklarar, förkortar, förkromar, förkroppsligar, förkunnar, förlorar, förlägger, förlägger, förlänger, förmedlar, förmår, förnyar, förpackar, förringar, förråder, förrättar, försakar, förseglar, försitter, förskjuter, försnillar, förspiller, förstatligar, förstorar, förstärker, förstör, försvenskar, försäkrar, försäkrar, förtjänar, förtjänar, förtränger, förtullar, förtydligar, förtär, förtöjer, förutser, förvanskar, förvarar, förverkar, förverkligar, förvränger, förväller, förvärvar, föryngrar, förädlar, förövar, gallrar, galvaniserar, garnerar, genomarbetar, genomdriver, genomför, genomgår, genomsöker, ger ut, gestaltar, gillrar, gipsar, gjuter, glödgar, gnor, gnuggar, gravar, grejar, grenslar, griper, grundar, grundar, gräddar, går igenom, går in för, går med på, gängar, gömmer, gör, gör om, gör om, hackar, halstrar, halvsular, handhar, handskas med, hanterar, har, har, hemlighåller, hemligstämplar, hittar på, hoppar över, hyr, håller, håvar in, hänger, häver, höjer, hörsammar, iakttar, iakttar, idkar, illustrerar, importerar, impregnerar, infiltrerar, infriar, inför 2, inhägnar, inhämtar, injicerar, inkasserar, inleder, innehåller, inreder, inrättar, inspekterar, installerar, inställer, intar, intar, intecknar, intensifierar, introducerar, invaderar, inviger, iscensätter, isolerar, justerar, justerar, jämnar av, jämnar till, kalhugger, kalkerar, kanaliserar, kapar, kapar, kartlägger, kasserar, kastar, kastar, kemtvättar, kilar fast, klackar, klackar, klappar, klargör, klassificerar, klipper, klubbar, klyver, kläcker, K-märker, kniper, knipsar av, knycker, knycklar ihop, knyter, knäpper, knäpper på, kokar, kollar, kommenderar, kommenterar, kommer på, kommer åt, kommer över, komprimerar, kondenserar, konfirmerar, konfiskerar, konserverar, konserverar, konstruerar, kopplar, korsar, kriminaliserar, kringgår, krusar, kryssar för, kränger, kränker, kulturminnesmärker, kvaddar, kväver, lackar, lackerar, laddar, laddar, lagar, lagar, lagfäster, lagrar, lanserar, larmar, lastar, leder, likviderar, limmar, lindar, linjerar, listar ut, lokaliserar, lossar, lossar, lotsar, luckrar, luftar, luskar ut, lyfter, låser, lägger fram, lägger ner, lägger om, lägger om, läker, länsar, läser, läser, löder, löser, magnetiserar, makulerar, mal 2, manglar, manövrerar, markerar, meddelar, medför, mejar, mejslar, mildrar, missbrukar, missköter, moderniserar, modifierar, mosar, motiverar, motstår, mottar, muddrar, myntar, märker, mäter, möblerar, mönstrar, nackar, nagelfar, namnar, nationaliserar, nickar, normaliserar, normaliserar, noterar, numrerar, nyanserar, nydanar, nyttjar, ockuperar, offentliggör, ogillar, ombildar, omdanar, omintetgör, omprövar, omstörtar, optimerar, ordinerar, pajar, paketerar, panerar, pangar, pantar, pantsätter, parerar, patrullerar, pejlar, penslar, pimplar, pimplar, planlägger, planterar, plockar, plockar, plöjer, polerar, polletterar, postar, poängterar, praktiserar, preciserar, pressar, presterar, prickar, prioriterar, privatiserar, projekterar, projicerar, prospekterar, provar, prånglar ut, publicerar, pulvriserar, pumpar, putsar, påbörjar, påkallar, påtalar, rabblar, radar upp, raffinerar, ramar in, rammar, ransonerar, rappar, rastar, ratar, ratificerar, rationaliserar, rattar, realiserar, realiserar, recenserar, reciterar, redigerar, redovisar, reducerar, refererar, reformerar, refuserar, reglar, reglerar, reglerar, reklamerar, rekommenderar, rekonstruerar, rekvirerar, relaterar, renar, rengör, renodlar, renoverar, rensar, repar, reparerar, repeterar, reser, reser, reserverar, restaurerar, restituerar, returnerar, retuscherar, revalverar, reviderar, riktar, rimmar, rispar, ristar, river, river, rostar, rubbar, rufsar, rullar, rullar, ryktar, rymmer ut, rynkar, rår om, rättar, röjer, röjer, rör 2, rör 2, sabbar, sablar ner, saboterar, sadlar, saktar, saltar, saluför, sammanfattar, sammanställer, sandar, sanerar, sargar, satsar, sauterar, selar, seminerar, senarelägger, signerar, siktar, siktar, silar, sjösätter, skadskjuter, skalar, skanderar, skarvar, skeppar, skiftar, skippar, skisserar, skitar ner, skivar, skjuter till, skor, skrapar, skrinlägger, skrotar, skrubbar, skrynklar, skräddarsyr, skummar, skurar, skvätter, skyfflar, skyler, skådar, skändar, skär 3, skärper, skärper, skärskådar, sköljer, skönmålar, skördar, skövlar, slickar, slipar, slipar, slipper, slopar, slukar, slussar, slutar, sluter, sluter, slutför, slår, slår igen, slår in, slår upp, slår upp, släcker, slänger, smakar av, smaksätter, smugglar, smäller upp, smälter, snedvrider, snidar, snitslar, snoppar, snor 2, snör, socialiserar, sonar, sonderar, sorterar, specificerar, spelar, spelar in, spenderar, spetsar, spetsar, spetsar, spiller, spjälkar, splittrar, spolar, spolar, spolierar, sprutar, spränger, sprättar upp, spänner 2, spänner 2, stabiliserar, stadfäster, standardiserar, stannar, staplar, startar, stegrar, steker, steriliserar, stickar, stiftar, stiger av, stiliserar, stjäl, stoppar, stoppar, stoppar undan, stormar, strandar, strimlar, stryker, stryker, sträckläser, strör, studerar, studsar, stukar, stuvar, stuvar, styckar, styr 2, städar, ställer, ställer, ställer in, ställer in, ställer samman, ställer till, ställer upp, ställer ut, stämmer, stänger 2, stänger 2, stänger av, stärker, stävjar, stöper, störtar, stöter, subventionerar, summerar, sumpar, surrar, sveper, svänger, svärtar, syr ihop, sållar, sållar bort, säger upp, säkerställer, sänker, sänker, sätter, sätter, sätter i sig, sätter på, sätter upp, sätter ut, söker, sötar, tappar, tar, tar, tar på sig, tar upp, tar upp, tar åt sig, tar över, tecknar, tecknar, tejpar, tillbakavisar, tillfogar, tillgodogör sig, tillgriper, tillgriper, tillhandahåller, tillhör, tillreder, tillryggalägger, tillrättalägger, tillskansar sig, tillsluter, tillsätter, tillvaratar, tillverkar, tillägnar sig, tillämpar, tippar, tjänar, tolkar, tonar, tonar ned, torrlägger, trafikerar, trakterar, transfererar, transplanterar, trappar ner, travar, trimmar, trimmar, trissar upp, trycker, trär, tufsar till, tvinnar, tyder, tål, täcker, tämjer, tänder 2, tänker ut, tänker över, tärnar, tätar, tömmer, undanber sig, undandrar sig, undanhåller, undanröjer, underbygger, underförstår, undergår, underhåller, underkastar sig, underskrider, undertecknar, undvarar, uppbjuder, uppbär, uppdagar, uppdaterar, uppehåller, uppfinner, uppfyller, uppför 2, uppför 2, upphäver, upplivar, upplöser 2, uppnår, upprättar, upprätthåller, upptäcker, uppvisar, urholkar, urringar, utarbetar, utbringar, utelämnar, utesluter, utformar, utforskar, utfärdar, utför 2, uthyr, uthärdar, utjämnar, utlyser, utreder, utropar, utrymmer, uträttar, utsmyckar, utstrålar, utstår, utstöter, utvecklar, utverkar, utvärderar, utökar, utövar, vadderar, vallar, vallar, vanhelgar, varierar, varseblir, vattnar, vaxar, veckar, vecklar ihop, vecklar upp, vederfars, ventilerar, vidarebefordrar, vidgar, vidimerar, vidmakthåller, vidtar, viker, viker, vinklar, vinner, vinner, vinterbonar, vippar, vippar, vispar, vittjar, vrakar, vrakar bort, vrickar, vränger, vädrar, vädrar, väger, välter, välver, värderar, vässar, väter, växlar, växlar, åberopar, ådrar sig, åker på, åsidosätter, åskådliggör, åstadkommer, återberättar, återfår, återger, återgäldar, återställer, återvinner, återvinner, åtgärdar, åtnjuter, äger, ältar, äntrar, äskar, äventyrar, ögnar igenom, ökar, öppnar, öppnar, öppnar, öser, överblickar, överbringar, överbryggar, överdriver, överlever, övertar, överträder, övervarar, övervinner, utvidgar, lägger sig i
+A & x (+ SÄTT)
+bemöter, uttalar
+A & x (+ TID)
+uppskjuter
+A & x (+PRED)
+målar
+A & x (av B)
+lånar
+A & x (av/från B)
+ärver
+A & x (från B)
+nallar
+A & x (från y)
+avskiljer
+A & x (för B)
+demonstrerar, dikterar, döljer, nämner, uppger
+A & x (hos/i B)
+inpräntar
+A & x (i y)
+doppar, dumpar, indelar, lägger in, omsätter
+A & x (med B)
+gör upp, leker, utkämpar
+A & x (med y)
+beströr, fyller, gnider, kringgärdar, kryddar, tapetserar
+A & x (med y/att + INF)
+avslutar
+A & x (med y/att+INF)
+kompletterar
+A & x (mot y)
+balanserar, byter, värdesäkrar
+A & x (och y)
+koordinerar
+A & x (omkring sig)
+dräller
+A & x (på B)
+amputerar
+A & x (på B/y)
+offrar
+A & x (på y)
+krafsar, lassar, lägger ner, ställer, ödslar
+A & x (som/till y)
+andrar
+A & x (till + PLATS)
+koncentrerar
+A & x (till + SUMMA)
+skattar
+A & x (till B)
+adresserar, langar, langar, levererar, remitterar, sänder 2, återbetalar
+A & x (till b)
+girerar
+A & x (till y)
+ansluter, kopplar, lägger in
+A & x (till/som y)
+använder
+A & x (ur y)
+utvinner
+A & x (ur/av y)
+drar
+A & x (över y)
+välver
+A & x + PLATS
+deponerar, droppar, gör av, lägger, lägger
+A & x + PRED
+finner, lämnar
+A & x + RIKTNING
+forslar, häver, sticker, stoppar
+A & x från y
+separerar, skiljer
+A & x för B
+visar
+A & x för y
+ger
+A & x i (B)
+ingjuter
+A & x i y
+häller, inlemmar, proppar
+A & x i/på y
+sätter
+A & x kring/ om y
+lindar
+A & x med B
+delar, ingår, utbyter
+A & x med y
+associerar, belägger, belägger, berikar, delar, dividerar, förbinder, förenar, förknippar, införlivar, kombinerar, multiplicerar, pryder, rättfärdigar, subtraherar
+A & x med/ i y
+inkorporerar, integrerar
+A & x med/och y
+synkroniserar
+A & x mot B/y
+riktar
+A & x mot y
+invänder, kvittar
+A & x och y
+polariserar, samordnar, särskiljer, varvar
+A & x och/med y
+blandar
+A & x om/kring etc y
+virar
+A & x på B
+bussar, gipsar
+A & x på B/y
+applicerar
+A & x på y
+anbringar, grundar, klickar
+A & x på/i y
+sätter in
+A & x på/till B
+överlåter
+A & x som + PRED
+rubricerar, tolkar
+A & x som y
+klassar
+A & x till + PLATS
+förlägger, lokaliserar
+A & x till + SUMMA
+uppskattar
+A & x till + TID
+daterar
+A & x till B
+dedicerar, delegerar, lämnar
+A & x till B/y
+distribuerar, donerar, skänker
+A & x till y
+anknyter, fogar, hänför, omvandlar, relaterar
+A & x till/ för y
+anvisar
+A & x till/ åt B
+ger
+A & x till/efter y
+anpassar
+A & x till/åt B
+upplåter
+A & x y
+benämner, underordnar
+A & x åt B/y
+ägnar
+A & x åt y
+viger
+A & x över y
+kränger
+A & x/ att + INF
+lär sig
+A & x/ att + S
+anar, anbefaller, beaktar, bekänner, bestrider, bestyrker, betonar, bevisar, deklarerar, dokumenterar, driver igenom, finner, firar, framhäver, garanterar, konstaterar, medger, menar, motsätter sig
+A & x/ sig
+hävdar, mjukar upp, repar
+A & x/B
+betygsätter, dirigerar, duschar, dyrkar, granskar, identifierar, ignorerar, imiterar, jagar, knådar, kopierar, missförstår, mister, når, organiserar, permanentar, piskar, plattar till, respekterar, skickar, stämplar, synar, taxerar, undantar, underkänner, understödjer, understödjer, urskiljer, utlämnar, utlämnar, utplånar, vederlägger, visiterar, återfinner, återför
+A & x/B (för C)
+presenterar
+A & x/B (som + PRED)
+skildrar, utnyttjar
+A & x/B (till y)
+utnyttjar
+A & x/B + RIKTNING
+tar
+A & x/B med y
+utrustar
+A & x/B med y/C
+jämför
+A & x/B/att + INF
+undviker
+A & x/B/att + S
+övervakar
+A & x/B/att+SATS/att+INF
+accepterar
+A & x/B/sig
+preparerar, övar
+A & x/FRÅGESATS
+uppfattar, utröner
+A & x/INF
+kan
+A & x/att + INF
+prövar, tar sig för, undgår, väljer, åtar sig, överväger
+A & x/att + S
+anför, befarar, beräknar, dementerar, erfar, erinrar sig, erkänner, förnimmer, gissar, hajar, insinuerar, kungör, känner, noterar, ogillar, tar fasta på, tillkännager, tillstyrker, tillåter, tillägger, understryker, upplever, upprepar, upptäcker, utlovar, verifierar, vitsordar, väntar, värdesätter, yppar, ångrar, önskar
+A & x/att + SATS
+bedyrar, betänker, fastställer, förnekar, proklamerar, påbjuder, registrerar, rår för, skriver, slår fast, snappar upp, stryker under, styrker, svarar för, sätter sig över, vidhåller
+A & x/att + SATS/FRÅGESATS
+utläser
+A & x/att + SATS/INF
+begär 2
+A & x/att +SATS
+beklagar
+A & x/att+INF
+avser
+A & x/att+INF/SATS
+riskerar
+A & x/att+SATS
+anmäler, bestämmer, bryr sig om, checkar, fruktar, förebygger, förhindrar, förtiger, förutsäger, godtar, inser, klarlägger, repeterar
+A & x/att+SATS/FRÅGESATS
+fattar, märker, observerar, tar reda på
+A & x/att+SATS/att+INF
+finner sig i
+A & x/hur+SATS
+bevittnar
+A & x/om+SATS
+ifrågasätter
+A & x/sig
+företar, kliar, kröker, rehabiliterar, skrubbar, ställer om, stöder, svingar, torkar, tränar, vältrar, överanstränger
+A & x/sig (+ RIKTNING)
+förflyttar
+A & x/sig (mot y)
+lutar
+A & x/sig + SÄTT
+uttrycker
+A & x/så att+SATS
+ordnar
+A & åt B
+hemfaller, hushållar
+A & åt B att+SATS/att+INF
+tecknar
+A & åt B/x
+fräser
+A & åt x
+hänger sig
+A & åt x/B
+ler
+A & åt/över x
+gläder sig
+A & över B
+bestämmer, förbarmar sig, leder, vinner
+A & över B/x
+kastar sig, utgjuter sig, vakar
+A & över x
+förfogar, ondgör sig, reflekterar, undrar, utbreder sig
+A & över x/att + SATS
+häpnar
+A (och B) &
+knuffas, retas
+A blir & (på x)
+bestulen
+A kan (inte) uppbringa x
+uppbringar
+A kan mäta sig med B/x
+mäter
+A och B &
+förlikas, församlas, försonas, gifter sig, hånglar, kivas, knullar, munhuggs, möts, pippar, sammanbor, sammansvärjer sig, sammanträder, sammanträffar, samtalar, samverkar, samåker, separerar, skils, slåss, språkas vid, superar, träffas, tvistar, umgås, vänslas, återförenas, älskar
+A och B & (att +INF)
+turas om
+A och B & (mot C)
+gaddar ihop sig, sammangaddar sig
+A och B & (om x)
+grälar, kompromissar, samsas, tävlar
+A och B & (om) x/att+INF
+diskuterar
+A och B & sig (om x/att+SATS/att+INF)
+enar
+A och B & x
+debatterar, dryftar, ingår, samordnar, utbyter, utkämpar, utväxlar
+A och B är &
+osams, sams
+A och B är & om x/att+SATS
+ense
+A räcker ut/upp/fram etc x
+räcker
+A är &
+bakom 2, nere 1, skakis
+A är & att+INF
+redo
+A är & med B
+osams
+A är & med B/x
+tillfreds
+A är & med x/att+INF
+noga 1
+A är & om x
+aktsam
+A är & om x/ att + INF/S
+mån 1
+A är & till B
+mamma
+A/ x &
+hoppar, inställer sig, tvärstannar
+A/ x & + INF
+brukar
+A/ x & B
+irriterar
+A/x & med B/y
+krockar
+A/x &
+accelererar, bits, blöder, brummar, buklandar, bullrar, bultar, domnar, dreglar, dråsar, dyker, dör, existerar, faller, fattas, flyttar sig, flämtar, fortplantar sig, föds, förökar sig, galopperar, girar, glider, gnisslar, grymtar, grånar, gungar, går 2, haltar, håller, hörs, inträder, kanar, kantrar, kissar, klänger, klättrar, konstrar, kraschar, kryper, larmar, lever 2, lättnar, piper, pöser, ramlar, rasar, rivs, rodnar, rotar sig, rusar, ryter, räknas, rör sig, sackar efter, saknas, simmar, sjunger, skenar, skiner, skumpar, skuttar, skälver, sladdar, slinter, slår igenom, slår runt, smyger, spatserar, sprattlar, springer, stannar, stelnar, storspelar, stryker med, strålar, stånkar, står, störtar, surrar, svajar, sveper, svänger, svävar, syns, säckar ihop, sätter sig, tjattrar, tjuter, tredskas, trillar, tumlar, tystnar, vacklar, vandrar, vinglar, visslar, vrålar, väger, väser, växer
+A/x & (+ PLATS)
+strandar
+A/x & (+ RIKTNING)
+kilar
+A/x & (+ SÄTT)
+utvecklas
+A/x & (B)
+bländar, chockerar
+A/x & (B)y
+inger
+A/x & (B/y)
+bromsar, närmar sig
+A/x & (att+INF)
+duger
+A/x & (av y)
+dryper
+A/x & (bort)
+tvinar, tynar
+A/x & (från y)
+försvinner
+A/x & (i y)
+figurerar, plumsar
+A/x & (i/på) y
+dominerar
+A/x & (kring B/y)
+kretsar, skockar sig, skockas
+A/x & (med B/y)
+trängs
+A/x & (ner, ihop etc)
+sjunker
+A/x & (på B)
+imponerar
+A/x & (på y)
+guppar
+A/x & (på) y/sig
+sträcker
+A/x & (till y/att + INF)
+syftar
+A/x & (till) B/y
+stöter
+A/x & (till/för B/y)
+passar
+A/x & (till/som B/y)
+duger
+A/x & (upp)
+tinar
+A/x & (vid) B/y
+nuddar, snuddar
+A/x & (y)
+signalerar, stinker, äter
+A/x & + INF
+bör, kan, kan, lär 1, må, må, måste 2, ska, slutar, tycks, visar sig
+A/x & + MÅTT
+mäter, väger
+A/x & + PLATS
+landar, ligger, mellanlandar, sprätter, är
+A/x & + PRED
+förblir, förefaller, heter, låter, verkar, är
+A/x & + SÄTT
+artar sig
+A/x & + TID (till + PLATS)
+ankommer
+A/x & B
+avlastar, bedrövar, behagar, besvärar, chockar, distraherar, engagerar, fascinerar, fjättrar, frestar, fäller, fängslar, förargar, förbluffar, förbryllar, förför, förvillar, förvånar, generar, gläder, hetsar, hänför, massakrerar, muntrar upp, peppar upp, piggar upp, pinar, roar, skrämmer, smittar, sporrar, sårar, söver, tilltalar, tjusar, trollbinder, tråkar ut, tröstar, uppbygger, upplivar, väcker, vägleder, överraskar, överrumplar
+A/x & B (att + INF)
+förleder, provocerar
+A/x & B (från y/att+INF)
+avskräcker
+A/x & B (om y)
+förvarnar
+A/x & B/att + INF
+hotar
+A/x & B/y
+attraherar, avbildar, befordrar, belastar, beledsagar, berikar, bogserar, fördröjer, föreställer, förkväver, försenar, förskönar, förvirrar, hejdar, håller, hämmar, inspirerar, inväntar, krossar, kurerar, liknar, omger, omringar, passerar, plågar, pressar, präglar, påverkar, retar, river, rår på, skadar, skuggar, skymmer, slungar, smeker, smutsar ner, stimulerar, stärker, stör 2, suggererar, söndrar, tillfredsställer, touchar, överröstar
+A/x & B/y för z
+utsätter
+A/x & B/y z
+tillför
+A/x & B/y/att+SATS
+hindrar
+A/x & att + INF
+kommer, tenderar
+A/x & att + SATS
+föreskriver, gör
+A/x & att+SATS
+antyder
+A/x & fram y
+matar
+A/x & från B/y
+skiljer sig 2
+A/x & från y
+avviker
+A/x & för y
+borgar, skyggar
+A/x & i y
+fastnar
+A/x & i/på y
+hamnar
+A/x & in/fram etc
+tränger
+A/x & med B/y
+kolliderar, kommunicerar, rivaliserar
+A/x & med y
+viftar
+A/x & mellan y och z
+pendlar
+A/x & om B/y
+påminner
+A/x & på B/y
+trycker
+A/x & på y
+anspelar, gnager, inkräktar, knaprar
+A/x & sig
+sluter
+A/x & sig mot/till B/y
+riktar
+A/x & sig på y
+baserar
+A/x & som + PRED
+fungerar, tjänar, tjänstgör
+A/x & som+PRED
+framstår
+A/x & till
+spritter
+A/x & till B
+appellerar
+A/x & till y/ att + S
+bidrar, medverkar
+A/x & under/av y
+dignar
+A/x & y
+antänder, befolkar, befäster, belyser, bildar, blottlägger, bringar, driver fram, frambringar, framkallar, framtvingar, främjar, förbränner, föregriper, förenklar, förgyller, förorenar, förpestar, förrycker, försvårar, försämrar, förvärrar, grundlägger, grusar, halverar, härjar, lindrar, motverkar, orsakar, penetrerar, perforerar, producerar, punkterar, påskyndar, ramponerar, raserar, rundar, räfflar, röner, saknar, skapar, smörjer, sprider, spräcker, späder på, spärrar, stillar, stjälper, styr 2, svarar mot, säkrar, tangerar, tillgodoser, toppar, tryggar, underblåser, underminerar, vidkänns, vållar, väcker, ödelägger, ömsar, överskrider
+A/x & y (för B)
+underlättar
+A/x & y (i B)
+injagar
+A/x & y från z
+avleder
+A/x & y för B/z
+betyder
+A/x & y till z
+förvandlar
+A/x & y/ att + Sats
+bekräftar
+A/x & y/B
+förlöser
+A/x & y/FRÅGESATS
+avgör
+A/x & y/SÄTT
+doftar, luktar
+A/x & y/att + S
+anger, fordrar, kräver
+A/x & y/att + SATS
+förutsätter, möjliggör, stadgar, stipulerar
+A/x & över B/y
+segrar
+A/x är &
+förbi 2, klar
+A/x/det &
+finns
+A/x/det & som om+SATS
+ser ut
+A/x/det ser + PRED + ut
+ser ut
+B &
+diar
+a & att+SATS/att+INF
+gillar
+a kan inte hjälpa att + SATS
+hjälper
+a låtsas inte om x/att + S
+låtsas om
+a är & (som x)
+verksam
+a är & om b/x
+rädd
+benägen (att+INF)
+benägen
+det &
+blåser, dagas, duggar, kittlar, knackar, kvittar, ljusnar, mulnar, regnar, skymmer, snöar, spökar, stormar, töar, åskar
+det & (från x)
+drar
+det & (i x)
+pirrar, spritter
+det & A att + INF
+åligger
+det & att + S
+visar sig
+det & att + SATS
+ryktas
+det & att+INF
+gäller
+det & av A/x
+vimlar
+det & av x
+dräller
+det & för a
+lossnar
+det & i x
+smärtar, spränger
+det & mellan x och y
+väger
+det & på A
+ankommer
+det & sig
+ordnar
+det & sig om x
+rör 2
+det & som om+SATS
+förefaller, verkar
+det & x
+stundar, vankas
+det/ x &
+haglar, nappar
+det/x &
+blixtrar, dammar, dröjer, känns, svartnar
+det/x & A
+angår
+det/x & A/y
+gäller
+färdig (med x)
+färdig
+hjärtlig (mot b)
+hjärtlig
+hygglig (mot B)
+hygglig
+häpen (över x/att+SATS)
+häpen
+inbegripen i
+inbegripen
+obevandrad i x
+obevandrad
+observant (på x)
+observant
+råkar i x
+råkar
+vad & x/A
+beträffar
+vad x/A &
+beträffar
+vad x/A & ((så)+SATS)
+anbelangar
+x &
+ambulerar, avdunstar, avfolkas, avtar, backar, bedarrar, består, betar, blinkar, blir av, blir över, blommar, blomstrar, blånar, blänker, bolmar, brakar, breder ut sig, brinner, briserar, brister, brister, brusar, bryter ut, bräcker, bräker, bränner vid, bubblar, buktar, bunkrar, böljar, cirkulerar, dalar, dallrar, detonerar, drar sig, drillar, dunstar, dånar, ekar, expanderar, faller, falnar, fjädrar, fladdrar, flagar, flagnar, flammar, flaxar, flimrar, florerar, fluktuerar, flyger, flyter, flödar, forsar, fortgår, fortskrider, fortsätter, framkommer, framträder, frasar, frodas, fryser, fräser, fungerar, funkar, förekommer, föreligger, förestår, förfaller, förflyter, förgrenar sig, förgår, förklingar, förliser, förpliktar, försiggår, förslummas, förslår, förtvinar, gal, gassar, ger efter, glappar, glimmar, glittrar, gläfser, glöder, gnistrar, gror, gryr, grönskar, gulnar, går 2, går an, går ned, går upp, går åt, går över, gäller, hakar upp sig, havererar, hugger, håller, häckar, hägrar, händer 2, hänger, härsknar, idisslar, ilar, inträffar, jamar, jäser, kallnar, kladdar, klaffar, klappar, kliar, klibbar, klickar, klickar, klimpar sig, klirrar, kluckar, klämtar, knackar, knakar, knallar, knarrar, knastrar, knattrar, kniper, knäpper, koagulerar, kokar, kommer bort, kommer upp, kommer ut, kryllar, krymper, krånglar, kränger, kröker, kurrar, kvarstår, kväker, levrar sig, ljuder, lossnar, lurar, lutar, lyckas, lyfter, lägger sig, läker, lättar, lättar, löddrar, lönar sig, löper, mankerar, mattas, minskar, mjuklandar, mognar, mojnar, molar, multnar, möglar, nalkas, nosar, osar, pajar, pickar, pinglar, porlar, prasslar, prunkar, puffar, pulserar, puttrar, pyr, pyser, pågår, randas, rasar, raspar, rasslar, resterar, ringer, ringlar, rinner, rostar, roterar, rullar, ruttnar, ruvar, ryker, ryker, råmar, räcker, rämnar, sinar, singlar, sipprar, sitter åt, sjuder, sjunker, skallar, skallrar, sker, skiftar, skimrar, skjuter ut, skramlar, skrymmer, skräller, skummar, skvalar, skvalpar, skär 3, slamrar, slappnar, slaskar, slirar, slocknar, slutar, sluttar, slår igen, slår in, slänger, släpar efter, släpper, släpper, smalnar, smattrar, smiter åt, smäller, smälter, smärtar, snor sig, sorlar, spinner, spirar, sprakar, spretar, spricker, spricker ut, sprutar, spränger, spårar ur, stagnerar, stegrar sig, sticker, sticks, stiger, stockar sig, stoppar, stramar, strandar, strilar, strömmar, studsar, stundar, stupar, styvnar, stångas, står, står sig, stämmer, surnar, susar, svalkar, svallar, svalnar, svider, sviker, sviktar, sviktar, svindlar, svullnar, sväller, svärmar, tickar, tillkommer, tillkommer, tillstöter, tilltar, tindrar, tippar, torkar, tornar upp sig, tryter, tuffar, tåras, tänder 2, upphör, uppkommer, uppstår, uppträder, urartar, utbreder sig, utbryter, uteblir, utgår, utgår, utkommer, vajar, valpar, varierar, vattnas, verkar, vickar, vidtar, vindlar, viner, vittrar, vittrar, välter, värmer, växer, växlar, ylar, ynglar, yr 2, åker 2, ångar, ångar, återkommer, återstår, ökar, ömmar, överväger
+x & (+ PLATS)
+skymtar
+x & (+ TID)
+kulminerar
+x & (+ TIDPUNKT)
+utgår
+x & (B) till y
+berättigar
+x & (av sig)
+kletar
+x & (av y)
+bågnar, vibrerar
+x & (bort, undan etc) y
+sköljer
+x & (mot y)
+hjälper
+x & (omkring)
+driver
+x & (omkring/runt etc)
+virvlar
+x & (på y)
+fräter, krafsar, lyser
+x & (sig)
+slingrar
+x & (till)
+knycker
+x & (till) y
+leder, når
+x & (upp)
+blossar
+x & (ut)
+putar
+x & (ut) i y
+mynnar
+x & (ut) sig
+töjer
+x & (ut/fram etc)
+väller
+x & (y)
+läcker 2, stänker, vädrar, värper
+x & (över B/y)
+cirklar
+x & + PLATS
+härskar, tilldrar sig
+x & + PRED
+synes
+x & + RIKTNING
+stävar
+x & + SUMMA
+betingar, går på, kostar
+x & + SÄTT
+avlöper, förhåller sig, lyder, låter, sitter
+x & + TID
+löper, tar, varar
+x & + TIDPUNKT
+går 2
+x & A
+absorberar, anfäktar, anstår, ansätter, avtrubbar, berör, besjälar, betungar, beveker, drabbar, frapperar, föresvävar, gastkramar, griper, går ut över, influerar, klämmer, klär, kväljer, paralyserar, passiverar, passiviserar, ruinerar, slår, stöter, sysselsätter, tillfaller, tillhör, tillkommer, tynger, uppfyller, upprör, äcklar, överväldigar
+x & A från y/ att + INF
+avhåller
+x & A y
+renderar
+x & A/y
+befläckar, försvagar, rör 2, utmärker
+x & B
+tröttar
+x & B + SÄTT
+bekommer
+x & B/y
+adlar, hemsöker, höljer, ursäktar
+x & B/y /att + SATS
+hänger på
+x & a
+lockar, rör 2
+x & att + S
+visar
+x & av y
+består, framgår
+x & från + PLATS + TID
+avgår
+x & från y
+härrör, utgår
+x & för y
+bäddar, lämpar sig
+x & i att + S
+består
+x & i y
+bottnar, drunknar
+x & i y/att + SATS
+resulterar, utmynnar
+x & i/från y
+dinglar
+x & med y
+alternerar, rimmar, rimmar, sammanfaller, överensstämmer
+x & med y/att + SATS
+sammanhänger
+x & mot y
+skyddar, strider
+x & ner
+vräker, öser
+x & ner A
+bryter
+x & om y
+handlar, vittnar
+x & om y/att + SATS
+skvallrar
+x & på + SUMMA
+lyder
+x & på B/y
+inverkar, tär
+x & på y
+vilar, vippar
+x & på y/att + S
+bygger
+x & sig
+fixar, gestaltar, håller, jämnar ut, straffar, sänker, veckar, öppnar
+x & sig på y
+fördelar
+x & sig till y
+hänför, inskränker
+x & till + SUMMA
+uppgår
+x & till y
+artar sig, gränsar, hör, inbjuder, manar, relaterar, återgår
+x & till/igen y
+proppar
+x & under y
+sorterar
+x & upp y
+suger
+x & ut
+skvalpar
+x & y
+absorberar, ackompanjerar, aktualiserar, alstrar, andas, angriper, anlöper, avger, avlar, avlöser, avspeglar, avsätter, avsöndrar, bebådar, befrämjar, belastar, besannar, beseglar, betecknar, betjänar, betäcker, blir, blockerar, bryter, danar, driver upp, erbjuder, erfordrar, ersätter, framhäver, fyller, färgar, föder, följer, föranleder, förebygger, förebådar, föregår, förhöjer, genomsyrar, illustrerar, inbegriper, innefattar, innehåller, kantar, kläcker, komplicerar, korsar, kröner, kullkastar, kväver, lamslår, lapar, lovar, matchar, medföljer, medför, motsvarar, motsäger, omfattar, omvälver, omöjliggör, pryder, pudrar, reflekterar, revolutionerar, rymmer, slukar, speglar, spyr, symboliserar, tarvar, trafikerar, tål, täcker, undandrar sig, underbygger, understiger, uppenbarar, uppvisar, uppväger, urholkar, utarmar, utstrålar, åstadkommer, återspeglar, åtföljer, äger, överglänser, överskuggar, överstiger, översvämmar, överträffar
+x & y/ att + S
+beror på, indikerar, innebär, markerar, medger, motiverar
+x & y/A
+belyser
+x & y/SÄTT
+smakar
+x & y/a
+kännetecknar
+x & y/att + S
+tyder på, utvisar
+x & y/att + SATS
+förorsakar
+x & y/att+SATS
+betyder
+x & åt y
+vetter
+x & över y
+välver sig
+x dunkar
+dunkar
+x får/kan &
+anstå
+x och y &
+sammanfaller, samverkar, skär sig, överensstämmer
+x är &
+inne 1, sönder
+x är baserad på y
+baserar
+x är ägnad att +INF
+ägnar
+x/ A & i y
+ingår
+x/A &
+bölar, dundrar, dyker upp, exploderar, faller, flyter, frustar, glänser, gnäggar, gör sig, hårdnar, kacklar, kapsejsar, klingar, kommer, kraxar, krälar, kvittrar, ljusnar, mjuknar, morrar, sjunker, skakar, slokar, snattrar, snurrar, svämmar över, travar, vegeterar, vitnar
+x/A & (i y)
+bökar
+x/A & (på B)
+skäller
+x/A & (på) sig
+vrider
+x/A & + RIKTNING
+dimper
+x/A & + TID
+drar ut
+x/A & B
+förströr, snärjer
+x/A & B med y
+begåvar
+x/A & B/y
+hedrar, klöser
+x/A & i/mot y
+dunsar
+x/A & mot x
+avtecknar sig
+x/A & y
+drar, inkluderar, motsvarar, undergräver, utgör, utlöser 2
+x/A & y/b
+knäcker
+x/A är &
+slut 1
+x/det &
+bränns, droppar, klarnar, mörknar, värker
+x/det & (som) + PRED
+ter sig
+x/det råder
+råder
+x/det är skoj
+skoj 2
+över x)
+besviken, ursinnig 
