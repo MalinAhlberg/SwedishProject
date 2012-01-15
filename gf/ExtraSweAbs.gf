@@ -2,8 +2,9 @@
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
-abstract ExtraSweAbs = ExtraScandAbs -[TopAdv,TopAP] ** {
-    
+abstract ExtraSweAbs = ExtraScandAbs -[TopAdv,TopAP] ** 
+   open CommonScand, ResScand in {
+
 cat
     PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
              -- can be compared as both: de flesta katter, katterna är flest
@@ -18,22 +19,29 @@ cat
     N2P ;
     N2' ;
     SimpleVP ;
-    VPX ;
 
+-------------------------------------------------------------------------------
+-- For conjunction of verb phrases
+-------------------------------------------------------------------------------
+    VPX ;       -- like VPI, but also works for future tense, topicalisation etc
+    [VPX]{2} ;
+    XTense ;    -- the tenses that can be used with VPX
  
- -- fun
-   --TensedVPI : Temp -> Pol -> [VPI] -> VP ;
- --  MkVPX : Pol -> VP -> VPX ;
- --  ConjVPX : Conj -> [VPX] -> VPX ;
- --  PredVPX : XTense -> Order -> NP -> VPX -> S ;
- --  ComplFut : Pol -> VPX -> VPS ;
- --  ComplFutKommer : Pol -> VPX -> VPS ;
- --  ComplSup : Pol -> VPX -> VPS ;
-----  ConjVP : Conj -> [VP] -> VP ;
- --  cat [VPX]{2} ;
+ fun
+
+  XFut : Ant -> XTense ;        -- jag ska sova och äta / ha sovit och ätit
+  XFutKommer : Ant -> XTense ;  -- jag kommer att sova och äta / ha sovit och ätit
+  XSupPres : XTense ;           -- jag har sovit och ätit
+  XSupPast : XTense ;           -- jag hade sovit och ätit
+  
+  MkVPX : Pol -> VP -> VPX ;     
+  ConjVPX : Conj -> [VPX] -> VPX ; 
+  ComplVPX : XTense -> VPX -> VPS ; 
+
 
  fun
    DetNP : (a : NPType) -> DetTyped a -> NPTyped a ;
+
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------

@@ -1,6 +1,6 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 -- unnecessarily complicated type of AdvNP???
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [TopAdv] ,
+concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [TopAdv,PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] ,
                                    ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -15,77 +15,93 @@ lincat
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
  
--- VPX = --VP ** {pol : Polarity} ; -- {s : VPXTense => VPS } ; 
---       --{s : XTense => Anteriority => Order => Agr => {preSub : Str ; vp : Str }} ;
---       {s : VPIForm => Anteriority => Agr => Str} ;
---
--- [VPX] = {s1,s2 : VPIForm => Anteriority => Agr => Str } ;
- --[VPX] = {s1,s2 : XTense => Anteriority => Order => Agr => {preSub : Str ; vp : Str }} ;
- param XTense = XFut | XFutKommer | XSup ;
 
-{-
-lin
-   ConjVPX conj vpx = conjunctDistrTable2 VPIForm Agr ;
-  conjunctTable4 : 
-    (P,Q,R,T : PType) -> Conjunction -> ListTable4 P Q R T -> {s : P => Q => R => T => Str} = 
-    \P,Q,R,T,or,xs ->
-    {s = \\p,q,r,t => xs.s1 ! p ! q ! r ! t ++ or.s ++ xs.s2 ! p ! q ! r ! t} ;
-  conjunctDistrTable4 : 
-    (P,Q,R,T : PType) -> ConjunctionDistr -> ListTable4 P Q R T -> 
-       {s : P => Q => R => T => Str} = 
-    \P,Q,R,T,or,xs ->
-    {s = \\p,q,r,t => or.s1++ xs.s1 ! p ! q ! r ! t ++ or.s2 ++ xs.s2 ! p ! q ! r ! t} ;
-    -}
- --  ComplFut pol vpi = MkVPS TFut pol  insertObj (\\a => vv.c2.s ++ vpi.s ! VPIInf ! a) (predV ska) ;
- --  ComplFut : Pol -> VPI -> VPS ;
- --  ComplFutKommer : Pol -> VPI -> VPS ;
- --  ComplSup : Pol -> VPI -> VPS ;
- --   oper ska : V = 
- --  ComplFutKommer : VPI -> VP ;
- --  ComplSup : VPI -> VP ;
- {-
-    MkVPX p vp = {s = \\xt,ant,a =>
-          let inf = infform xt ant vp ;
-              fin = finform xt ant ;
-              att = attform xt ;
-              neg = vp.a1 ! p.p ;
-              compl = att ++ inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext ;
-            in {-xt.s ++ comment end here case o of {
-              Main => {preSub =  p.s ;
-                       vp = vp.a0 ++ fin ++ neg ++ compl } ;
-              Inv  => {preSub =  p.s ++ vp.a0 ++ fin ;
-                       vp =  neg ++ compl } ;
-              Sub  => {preSub =  p.s ;
-                       vp = neg ++ vp.a0 ++ fin ++ compl}
-              }};
-        oper finform : XTense -> Anteriority -> Str ;
-             finform xt ant = case <xt,ant> of 
-                           {<XSup,Simul> => "har" ;
-                            <XSup,Anter> => "hade" ;
-                            <XFut,_     > => "ska" ;
-                            <XFutKommer,_     > => "kommer" };
-             infform : XTense -> Anteriority -> VP -> Str ;
-             infform xt ant vp = case <xt,ant> of
-                         {<XSup,_> => (vp.s ! vp.voice ! VPFinite SPres Anter).inf ;
-                          <_   ,a> => (vp.s ! vp.voice ! VPInfinit a).inf } ;
-             attform : XTense -> Str ;
-             attform xt = case xt of {XFutKommer => "att" ; _ => ""} ;
+-------------------------------------------------------------------------------
+-- For conjunction of verb phrases
+-------------------------------------------------------------------------------
+ VPS   = {a0, adV, fin : Str; inf : Agr => Str } ;    --redefined in order to allow questions, topicalisation etc
+ [VPS] = {a0, adV, fin : Str ; inf1, s2 : Agr => Str} ;
+ VPX   = {a0, adV : Str ; inf : XTmp => Agr => Str } ;  -- like VPI, but also works for future tense, topicalisation etc
+ [VPX] = {a0, adV : Str ; s1,s2 : XTmp => Agr => Str } ;
+ XTense  = {s : Str ; tmp : XTmp } ;  -- the tenses that can be used with VPX
+ 
+ param XTmp = XFutur Anteriority | XFuturKommer Anteriority | XSupin SupTense ;
+       SupTense = SupPres | SupPast ; 
 
-        mkTenseVPS : SpecialTense -> Pol -> VPS ;
-    mkTenseVPS t p vpi = {
-      s = \\o,a => 
-            let 
-              neg = negation ! p ;
-              vpfin = case t of ...
-              verb = vp.s ! vp.voice ! VPFinite t.t t.a ;
-              compl = verb.inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext ;
-            in t.s ++ p.s ++ case o of {
-              Main => vp.a0 ++ verb.fin ++ neg ++ compl ;
-              Inv  => verb.fin ++ vp.a0 ++ neg ++ compl ; ----
-              Sub  => neg ++ vp.a0 ++ verb.fin ++ compl
-              }
-      } ;
--}
+ lin
+
+ XFut a       = {s = a.s ; tmp = XFutur a.a } ;       -- jag ska sova och äta
+ XFutKommer a = {s = a.s ; tmp = XFuturKommer a.a } ; -- jag kommer att sova och äta
+ XSupPres     = {s = [] ; tmp = XSupin SupPres } ;    -- jag har sovit och ätit
+ XSupPast     = {s = [] ; tmp = XSupin SupPast } ;    -- jag hade sovit och ätit
+
+-- Base, Cons and Conj must be defined manually since the types are complexer
+ BaseVPS vp1 vp2 = {a0 = vp1.a0 ; adV = vp1.adV ; fin = vp1.fin ; inf1 = vp1.inf ;
+                    s2 = \\a => vp2.a0 ++ vp2.fin ++ vp2.adV ++ vp2.inf ! a }; 
+ ConjVPS conj vps = {a0 = vps.a0 ; adV = vps.adV ; fin = conj.s1 ++ vps.fin ;  
+                     inf = \\a => vps.inf1 ! a ++ conj.s2 ++ vps.s2 ! a } ; ---- conj.s1 ?
+
+ ConsVPS vp1 vps = {a0   = vp1.a0 ; adV = vp1.adV ; fin = vp1.fin ;
+                    inf1 = \\a => vp1.inf ! a ++ "," ++ vps.a0 ++ vps.fin ++ vps.adV ++ vps.inf1 ! a ;
+                    s2   = vps.s2} ;
+
+ BaseVPX vp1 vp2 = {a0 = vp1.a0 ; adV = vp1.adV ; s1 = vp1.inf ; s2 = \\x,a => vp2.adV ++ vp2.a0 ++ vp2.inf ! x ! a }; 
+
+ ConjVPX conj vps = {a0 = vps.a0 ; adV = conj.s1 ++ vps.adV ;  ---- conj.s1 ?
+                     inf = \\xt,a => vps.s1 ! xt ! a ++ conj.s2 ++ vps.s2 ! xt ! a } ;
+
+ ConsVPX vp1 vps = {a0   = vp1.a0 ; adV = vp1.adV ; 
+                    s1 = \\xt,a => vp1.inf ! xt ! a ++ "," ++ vps.adV ++ vps.a0 ++ vps.s1 ! xt ! a ;
+                    s2   = vps.s2} ;
+                    
+ -- Questions etc shoulb be implemented
+
+ ComplVPX xt vpx = 
+     {a0 = vpx.a0 ; adV = vpx.adV ; 
+      fin = xt.s ++ getFin xt.tmp; inf = vpx.inf ! xt.tmp } ;
+ MkVPS t p vp =
+      let verb = vp.s ! vp.voice ! VPFinite t.t t.a in
+      {
+      a0   = vp.a0 ; adV = vp.a1 ! p.p ; fin = verb.fin ;  -- adV med nu?
+      inf  = \\a => t.s ++ p.s ++ verb.inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext 
+                } ;
+
+ MkVPX p vp = 
+  {a0 = vp.a0 ;
+   adV = vp.a1 ! p.p ;
+   inf = \\xt,a => p.s ++ (getInf xt vp) ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext 
+  } ;
+  oper toTemp : SupTense -> STense ;
+       toTemp s = case s of {SupPres => SPres ; SupPast => SPast } ;
+       getInf : XTmp -> VP -> Str ;
+       getInf xt vp = (case xt of 
+               {XFutur a       => vp.s ! vp.voice ! VPFinite SFut a ;
+                XFuturKommer a => vp.s ! vp.voice ! VPFinite SFutKommer a ;
+                XSupin t       => vp.s ! vp.voice ! VPFinite (toTemp t) Anter 
+               }).inf ;
+       getFin : XTmp -> Str ;
+       getFin xt = case xt of 
+               {XFutur       a   => "ska" ;
+                XFuturKommer a   => "kommer" ;
+                XSupin SupPres   => "har" ;
+                XSupin SupPast   => "hade" 
+               } ;
+
+ lin
+ PredVPS np vps =
+      let
+        subj = np.s ! aNPerson ! nominative ;
+        agr  = np.a 
+      in {s = \\o => case o of { 
+            Main => subj ++ vps.a0 ++ vps.fin ++ vps.adV ++ vps.inf ! agr ;
+            Inv  => vps.a0 ++ vps.fin ++ subj ++ vps.adV ++ vps.inf ! agr ; ----
+            Sub  => subj ++ vps.a0 ++ vps.adV ++ vps.fin ++ vps.inf ! agr
+          }} ;
+
+
+-------------------------------------------------------------------------------
+-- For future tense 'kommer att'
+-------------------------------------------------------------------------------
 
 lin
   TFutKommer = {s = []} ** {t = SFutKommer} ;   --# notpresent
