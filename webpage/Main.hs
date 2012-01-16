@@ -37,7 +37,8 @@ parseF gr b req = do
   liftIO $ putStrLn "start"
   let mn = queryString req
   id <- return "theMap" --get userid somehow! mkDir theMap, images/theMap
-  liftIO $ print (pathInfo req)
+  liftIO $ print ("pathinfo: "++show (pathInfo req))
+  liftIO $ print ("query: "++show mn)
   x <- liftIO $ findText id gr req mn b 
   liftIO $ putStrLn "have returned"
   return x
@@ -46,7 +47,7 @@ parseF gr b req = do
 findText :: UserId -> ParseData -> Request -> Query -> Bool -> IO Response
 findText id gr req mn b
   | (Just (Just im)) <- lookup "img" mn = do
-     putStrLn $ "want image"++BC.unpack im
+     putStrLn $ "want image "++BC.unpack im
      putStrLn $ "all:"++show mn
      return $
        ResponseFile status200 [("Content-Type", "image/png")] 
@@ -93,7 +94,7 @@ textInputField = form <<
 parseIt :: UserId -> ParseData -> B.ByteString -> Bool -> IO Response 
 parseIt id (maps,pgf) txt b = do 
   (t,results) <- timeItT $ if b then processparse id (BC.unpack txt) pgf maps
-                           else smallparse id (BC.unpack txt)
+                           else do print ("smallparse "++ BC.unpack txt) >> smallparse id (BC.unpack txt)
   putStrLn $ "It took "++show t++" seconds "
   let html = map getHtml results
   return $
