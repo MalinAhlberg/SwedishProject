@@ -1,7 +1,8 @@
 Jan
 2 - presentation, fix report, build webpage
-3 - read paper, implement conjunction, send report, 
-    read opponent's thesis, speed up lexicon
+3 - read paper (inari+chunk), implement conjunction, send report, 
+    read opponent's thesis, speed up lexicon -> ask about new pgf
+    parse more than one sentence
 4 - be opponent, add valencies to lexicon, read about pgfs,
     read about saldos conjunctions, import lexin
 Feb
