@@ -8,10 +8,13 @@ import qualified Data.ByteString.UTF8 as BU
 import qualified Data.ByteString.Char8 as BC
 import qualified Data.ByteString as B
 import System.IO
+import System.FilePath
+import System.TimeIt
 import Text.XHtml
 import Data.Monoid
 import Data.Enumerator (run_, enumList, ($$))
 import Data.Maybe
+import Data.List
 import Control.Monad.IO.Class
 
 import ParseLex
@@ -33,28 +36,48 @@ parseF :: MonadIO m => ParseData -> Bool -> Request -> m Response
 parseF gr b req = do
   liftIO $ putStrLn "start"
   let mn = queryString req
-  x <- liftIO $ findText gr req mn b 
+  id <- return "theMap" --get userid somehow! mkDir theMap, images/theMap
+  liftIO $ print (pathInfo req)
+  x <- liftIO $ findText id gr req mn b 
   liftIO $ putStrLn "have returned"
   return x
 
-findText :: ParseData -> Request -> Query -> Bool -> IO Response
-findText gr req mn b
-  | (Just (Just im)) <- lookup "img" mn = 
-      do
-       putStrLn $ "want image"++BC.unpack im
-       putStrLn $ "all:"++show mn
-       return $
-         ResponseFile status200 [("Content-Type", "image/png")] 
-               ("images/"++BC.unpack im) Nothing
+
+findText :: UserId -> ParseData -> Request -> Query -> Bool -> IO Response
+findText id gr req mn b
+  | (Just (Just im)) <- lookup "img" mn = do
+     putStrLn $ "want image"++BC.unpack im
+     putStrLn $ "all:"++show mn
+     return $
+       ResponseFile status200 [("Content-Type", "image/png")] 
+             ("images/"++BC.unpack im) Nothing
   | (Just (Just txt)) <- lookup "text" mn = do
       putStrLn "have text, will show it"
-      parseIt gr txt b
+      parseIt id gr txt b
   | (Just (Just txt)) <- lookup "more" mn = do
       putStrLn "want more trees!!"
-      parseMore txt
-  | otherwise = do
+      parseMore id txt
+  | (Just _) <- lookup "firstform" mn = do
       putStrLn "have nothing, will return textfield"
       return inputForm
+findText id gr req mn b = do
+  let path = map (filter (/='\"')) $ map show $ pathInfo req
+  liftIO $ print (pathInfo req)
+  liftIO $ print path
+  case path of
+     ("static":x)   -> do
+         let typ = takeExtension $ last path
+         return $
+           ResponseFile status200 [("Content-Type", getTyp typ)] 
+               (intercalate "/" path) Nothing
+     _              -> do
+         return $
+           ResponseFile status200 [("Content-Type", "text/html")] 
+               ("static/index.html") Nothing
+ where getTyp ".js"  = "application/javascript"
+       getTyp ".css" = "text/css"
+       getTyp ".html" = "text/html"
+     
 
 inputForm :: Response
 inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
@@ -67,30 +90,35 @@ textInputField = form <<
       [paragraph << (textarea noHtml ! [strAttr "name" "text"])
       ,submit "" "Submit"]
 
-parseIt :: ParseData -> B.ByteString -> Bool -> IO Response 
-parseIt (maps,pgf) txt b = do 
-  (i,res) <- if b then processparse (BC.unpack txt) pgf maps
-                  else smallparse (BC.unpack txt)
-  case res of
-    (Right (pt,at)) -> return $
+parseIt :: UserId -> ParseData -> B.ByteString -> Bool -> IO Response 
+parseIt id (maps,pgf) txt b = do 
+  (t,results) <- timeItT $ if b then processparse id (BC.unpack txt) pgf maps
+                           else smallparse id (BC.unpack txt)
+  putStrLn $ "It took "++show t++" seconds "
+  let html = map getHtml results
+  return $
         ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
-           [ "<p>Parsed: \"",txt,results i, "!</p>"
-           , "<p><a href='/?img=",BU.fromString pt,"'>Parse tree</a></p>\n"
-           , "<p><a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"]++moreTrees i
-    Left xs            -> return $ 
-        ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
-          [ "<p>Parsed: \"",txt,results 0, "!</p>"
-          , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>\n"
-          , "<p><a href='/'>Back</a></p>\n"]
- where results :: Int -> B.ByteString
-       results i = BU.fromString ("\" which resulted in "++show i++" trees")
-       moreTrees :: Int -> [B.ByteString]
-       moreTrees i | i>2 = ["<p><a href='/?more=",txt,"'>More trees</a></p>\n"]
-                   | i<3 = []
+        concat html
+ where getHtml (s,n,res) = case res of
+              Right (pt,at) ->
+                     [ "<p>Parsed: ",pretty s,results n, "!</p>"
+                     , "<p><a href='/?img=",BU.fromString pt,"'>Parse tree</a></p>\n"
+                     , "<p><a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"]++moreTrees n (snd s)
+              Left xs        -> 
+                    [ "<p>Parsed: ",pretty s,results 0, "!</p>"
+                    , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>\n"
+                    , "<p><a href='/'>Back</a></p>\n"]
+       results :: Int -> B.ByteString
+       results i = BU.fromString (" which resulted in "++show i++" trees")
+       pretty :: (String,String) -> B.ByteString
+       pretty (i,s) = BU.fromString ("Sentence "++i++" \""++s++"\"")
+       moreTrees :: Int -> String -> [B.ByteString]
+       moreTrees i s | i>1 = ["<p><a href='/?more=",BU.fromString s,"'>More trees</a></p>\n"]
+                     | i<2 = []
 
-parseMore :: B.ByteString -> IO Response
-parseMore txt = do
-  links <- reparse (BC.unpack txt)
+parseMore :: UserId -> B.ByteString -> IO Response
+parseMore id txt = do
+  links <- reparse id (BC.unpack txt)
   putStrLn $ "have reparsed, got "++show (length links)++" trees"
   let html = "<p>All trees</p>\n" : concatMap (\(i,(pt,at)) -> 
               ["<p>",BU.fromString (show i),"<a href='/?img=",BU.fromString pt,"'>Parse tree</a>\n"

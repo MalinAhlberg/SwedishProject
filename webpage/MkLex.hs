@@ -1,47 +1,51 @@
 module MkLex where
 import PGF
 import Control.Monad
+import Control.DeepSeq
 import System.Process
+import System.TimeIt
 import System.Exit
-import qualified Data.HashMap as M
+import qualified Data.TrieMap as M
+import ReadCommand
 
 type LexMap = (Lex,Lex)
-type Lex    = M.Map String String
+type Lex    = M.TMap String String
+type UserId = String
 
-mkDir :: LexMap -> [String] -> Language -> PGF -> IO (Maybe (FilePath,Language))
-mkDir lexs ws lang pgf = do
---   putStrLn "Reading pgf..."
---   pgf <- readPGF bigPGF  
+mkDir :: UserId -> LexMap -> [String] -> Language -> PGF -> IO (Maybe (FilePath,Language))
+mkDir id lexs ws lang pgf = do
+   putStrLn $ "User "++show id
    putStrLn $ "Lemmas wanted "++show ws
    let morpho = buildMorpho pgf (read "DictSwe")
        allLemmas = map fst $ concatMap (lookupMorpho morpho) ws
    putStrLn "Extracting new lexicon..."
    putStrLn $ "Lemmas "++show allLemmas
-   (cnc,abs) <- extractLemmas lexs allLemmas
+   putStrLn "Extracing begins..."
+   (cnc,abs) <- timeIt $ extractLemmas id lexs allLemmas
    putStrLn "Compiling new grammar..."
-   (ex,res,err) <- readProcessWithExitCode "gf" ["--make",bigGF] []
+   (ex,res,err) <- timeIt $ readProcessWithExitCode' id "gf" ["--new-comp","-i",inDir ".." id,"--make",inDir ".." bigGF] []
    case ex of
         ExitSuccess   -> do putStrLn "Done"
-                            return $ Just (newPGF,newLang)
+                            return $ Just (inDir id newPGF,newLang)
         ExitFailure _ -> do putStrLn "PGF error"
                             putStrLn err
                             return Nothing
 
-extractLemmas :: LexMap -> [Lemma] -> IO (FilePath,FilePath)
-extractLemmas (cnc,abs) ws = do
-  writeHeaders
-  mapM_ (extract newLexCnc cnc) ws
-  mapM_ (extract newLexAbs abs) ws
-  writeEnd
+extractLemmas :: UserId -> LexMap -> [Lemma] -> IO (FilePath,FilePath)
+extractLemmas id (cnc,abs) ws = do
+  writeHeaders id
+  mapM_ (extract id newLexCnc cnc) ws
+  mapM_ (extract id newLexAbs abs) ws
+  writeEnd id
   return (newLexCnc,newLexAbs)
   where
-       extract newFile lex w
+       extract id newFile lex w
                | Just a <- M.lookup (showCId w) lex =
-                         liftM Just $ appendFile newFile (a++"\n")
-       extract _ _ _ = return Nothing
-       writeHeaders  = writeGF writeFile [headerCnc,headerAbs]
-       writeEnd      = writeGF appendFile (repeat "}\n")
-       writeGF f = zipWithM_ f [newLexCnc,newLexAbs]
+                         liftM Just $ appendFile (inDir id newFile) (a++"\n")
+       extract _ _ _ _ = return Nothing
+       writeHeaders id = writeGF id writeFile [headerCnc,headerAbs]
+       writeEnd  id    = writeGF id appendFile (repeat "}\n")
+       writeGF id f = zipWithM_ f [inDir id newLexCnc,inDir id newLexAbs]
 
        headerCnc = "--# -path=.:abstract:alltenses:swedish:common:scandinavian\n"
                    ++"concrete TestLex of TestLexAbs = CatSwe **\n"
@@ -61,6 +65,7 @@ extractLemmas (cnc,abs) ws = do
                    ++ "akta_sig_V2 : V2 ;\n"
                    ++"faa_VV : VV ;\n "
 
+inDir id path = id++"/"++path
 
 mkLexMap :: IO LexMap 
 mkLexMap = do 
@@ -69,9 +74,10 @@ mkLexMap = do
   return (cnc,abs)
  where ex file newFile = liftM mkMap $ readFile file
        mkMap :: String -> Lex
-       mkMap lex = M.fromList [(head ws, l) | l <- lines lex
+       mkMap lex = M.fromList [force (head ws, l) | l <- lines lex
                                                  , let ws = words l
                                                  , not $ null ws]
+       force x = x `deepseq` x
 
 bigGF     = "BigParseSwe.gf"
 bigLexCnc = "DictSwe.gf"
@@ -96,3 +102,5 @@ keep _   _   _    = return ()
 
 -- implement a fast nubbing to get better time
 nubIt = undefined
+
+

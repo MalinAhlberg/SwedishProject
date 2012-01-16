@@ -1,0 +1,61 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100);
+
+html {
+	height : 100%;
+	
+	background: #666f7c; /* Old browsers */
+	background: -moz-linear-gradient(top, #666f7c 0%, #dbe0e7 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#666f7c), color-stop(100%,#dbe0e7)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #666f7c 0%,#dbe0e7 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #666f7c 0%,#dbe0e7 100%); /* Opera11.10+ */
+	background: -ms-linear-gradient(top, #666f7c 0%,#dbe0e7 100%); /* IE10+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666f7c', endColorstr='#dbe0e7',GradientType=0 ); /* IE6-9 */
+	background: linear-gradient(top, #666f7c 0%,#dbe0e7 100%); /* W3C */
+	background-repeat: no-repeat;
+	
+	font-size : 13px;
+	font-family : helvetica,sans-serif;
+}
+
+h2 {
+	
+	font-size : 1em;
+}
+
+ol, ul {
+	list-style: none;
+	padding : 0;
+}
+
+textarea {
+	width : 40%;
+	height : 10em;
+}
+
+#header h1 {
+	font-family : Lato,sans-serif;
+	font-size : 4em;
+	margin-top : 0;
+}
+.first #header h1 {
+	float : right;
+}
+
+.first #result > p {
+}
+
+.first #result > p > div {
+	display : inline-block;
+	vertical-align: top;
+	margin-right : 1em;
+	
+}
+body {
+	width : 70%;
+	margin : 0 auto;
+	background-color : white;
+	height : 94%;
+	padding : 3em;
+	padding-bottom : 0;
+	
+}
