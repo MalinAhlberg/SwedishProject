@@ -46,11 +46,11 @@ The idea is to
 %by using the GF \\grammar formalism,
 %by %The idea has been to% 
 combine existing language resources with
-new techniques with an aim to achieve a parser
+new techniques, with an aim to achieve a parser
 for unrestricted Swedish.
 To reach this goal, problems of computational as well as linguistic nature had
 to be solved.  
-\\The work includes the development of the grammar --
+The work includes the development of the grammar -- \;
 %in the GF formalism
 to identify and formalize 
 grammatical constructions %specific to and
@@ -63,8 +63,8 @@ the parser. % have been investigated and formalised in the functional
 %in GF -- to model natural language by functional programming. 
 We present the methods and technologies used 
 and discuss the advantages and problems of using GF
-for modeling large-scale grammars and 
-how our long-term goal can be reached 
+for modeling large-scale grammars.
+We further discuss how our long-term goal can be reached
 %the possibilities
 %of reaching our long-term goal % -- to accomplish a parser for unrestricted Swedish -- 
 by combining our rule-based grammar with statistical means.
@@ -111,7 +111,7 @@ describing grammar and syntax, in this case for dealing with reflexive pronouns.
 \pagestyle{empty}
 \section*{Acknowledgments}
 \vspace{5mm}
-Many people have helped me during this project and made work thesis possible.
+Many people have helped me during this project and made this work possible.
 I would first of all like to thank
 Center of Language Technology, that has funded the project.
 
@@ -417,7 +417,7 @@ natural language.
 %>> use talk here and move key to other place??
 GF has further been used for describing dialogue grammars \cite{talk}, and
 the framework is one of the main component in the
-European project MOLTO \footnote{http://www.molto-project.eu/}, which develop
+European project MOLTO\footnote{http://www.molto-project.eu/}, which develop
 online translation between to 15 languages.\\
 
 \vspace{10mm}
@@ -447,6 +447,7 @@ Grammar \cite{lfg}.
 \caption{A small example of an abstract syntax}
 \label{fig:gfAbstract1}
 \end{figure}
+\newpage % until behave
 
 \noindent The example in figure \ref{fig:gfAbstract1} shows an abstract grammar defining three categories, % \verb|Categories|,
 one for nouns, one for verbs and one for sentences. The abstract grammar also gives
@@ -544,7 +545,7 @@ concrete TestGrammarEng of TestGrammar = {
 %gives 'the cat', 'katten'. Thereby introduce tables, parameters, fields.
 %Show abstract tree.
 
-We now have two implementations of the abstract, one for Swedish and one for English.
+\noindent We now have two implementations of the abstract, one for Swedish and one for English.
 The resulting GF grammar is able both to
 parse a string to an abstract tree and to go in the other direction; to produce
 a string of natural language given an abstract tree. This step is called linearization.
@@ -687,7 +688,8 @@ The word `uppskatta' for example, has two entries, with slightly
 different semantics: \emph{enjoy}
 \enumsentence{Jag uppskattar teater. \\
 ``I enjoy theater."}
-or \emph{estimate}. 
+\newpage % until behave
+or \emph{estimate}: 
 \enumsentence{Värdet uppskattades till 5 miljoner.\\
 ``The value was estimated to 5 million."}
 %\enumsentence{Barnen växte varje dag\\
@@ -1160,7 +1162,7 @@ total six types of words were considered for the extraction: \\
 %needed to generate the gf table may not be given in saldo such as singular
 %forms for 'byxor'. Also contains idioms, 'hålla huvudet kallt' and has
 %different grammatical analyse, a lot of pronouns. Example. 
-Most but not all words of these categories have been imported.
+\noindent Most but not all words of these categories have been imported.
 One reason why the importing phase would fail 
 is that Saldo, unlike GF, only contains the actually used word forms.
 % does not contain information about ~~word forms that are not used~~.
@@ -1227,7 +1229,7 @@ Missing words used more than once, ignoring compounds & $\sim$ 150 word-forms\\
 %       >> 223 were IDS.++146 HS.
 %       >> 426 more than one time, with compounds.
 %       >> give reasons! should look good, not bad!
-A list of words that were given different labels in GF than in Talbanken has been
+\noindent A list of words that were given different labels in GF than in Talbanken has been
 composed, consisting of about 1600 entries. Many of those are
 acceptable and reflects the difference 
 made in the analyses, such as the examples in table \ref{tab:saldodiff}.
@@ -1249,7 +1251,7 @@ få      & POZP          & Det \\
 
 %Since Saldo does not give any valency information, neither does the imported lexicon.
 %The lexicon does not contain any information.
-Valency information, which is crucial for GF, is not given in Saldo and
+\noindent Valency information, which is crucial for GF, is not given in Saldo and
 hence not in the imported lexicon. It remains as future work to find methods 
 %using the results from the mapping (see section \ref{sec:Mapping})
 to extract this information from Talbanken and to automatically build
@@ -1404,7 +1406,7 @@ DetCN : Det                  -> CN     -> NP ;
 \newpage
 %The two basic articles are \verb-IndefArt- and \verb-DefArt- which
 %uses the post-modified form of the noun: katten.
-Some rules for determination were described in section \ref{sec:swedishnoun};
+\noindent Some rules for determination were described in section \ref{sec:swedishnoun};
 if we have a common noun phrase consisting of the parts \emph{`liten'}
 (\emph{`small'}) and \emph{`katt'} (\emph{`cat'}), there are three ways they
 can be combined, as shown in figure \ref{tab:detdef}. The noun may be used in
@@ -1580,7 +1582,7 @@ and \ref{pic:tittapa}.
 \label{fig:translationtrees}
 \end{figure}
 \newpage
-As already stated, the visualized parse trees is not a complete representation,
+\noindent As already stated, the visualized parse trees is not a complete representation,
 even if the verb phrases in the visualizations look the same, the two cases
 are treated and represented differently internally. The fronting of the
 preposition, as in of sentence (\ref{sent:tittapa}a)., is accepted but
@@ -1617,7 +1619,7 @@ perfect &negative & subordinate & du ser mig & 'Du har sett mig'\\
 \end{figure}
 
 
-Like verb phrases, a clause may also be missing an object and then has the type
+\noindent Like verb phrases, a clause may also be missing an object and then has the type
 \verb-ClSlash-.
 The \verb-ClSlash- is formed by a \verb-VPSlash- which is given a subject.
 This is a convenient way to form questions, relative clauses
@@ -1751,7 +1753,7 @@ Vem& måste& jag& akta& mig &\textbf{för}? \\
 %valency built in (problems with ställa - på, under, vid).
 %Variants, nonexist.
 %coverage of standard Swedish.
-
+\newpage % until behave
 \section{Development of the grammar}
 \label{sec:Added}
 %The resource grammar is meant to cover the most important grammatical structures
@@ -2232,7 +2234,7 @@ number of the antecedent is plural.
 %etc.
 %varandra, works the same but has no case for Sg.
 %%
-
+\newpage %until behave
 \subsection{A second future tense: ``Kommer att"}
 Swedish and Norwegian use two auxiliary verbs for future tense \\
 \cite[p. 246]{H&H}:
@@ -2747,7 +2749,7 @@ Talbanken. Adaption was required for the differences in annotation as well as
 for the syntactic differences between Swedish and English.
 
 
-The mapping %connects GF with another annotations and 
+The translation %connects GF with another annotations and 
 gives us means to evaluate our parser. By both parsing a Talbanken sentence and
 transforming its annotated tree, we can easily inspect if the results are
 equal.
@@ -2873,7 +2875,7 @@ sentence.
 particle is treated as two independent units in Talbanken but in GF they are
 considered to be one constituent. % which means that 
 The particle has therefore no effect on the abstract tree, its presence is
-announced by the verb itself.
+announced by the verb \\itself.
 
 %In Talbanken, verbs and particles are treated as separate units,
 %and the particle is marked with the tag \verb-PL- and attached to. 
@@ -2988,8 +2990,12 @@ purpose. Figure \ref{fig:mappDeepFlat} shows the difference for a conjunction.
 \caption{An example of the difference in the two analyses}
 \label{fig:mappDeepFlat}
 \end{figure}
-
-Some more information about VP are given by the tag \verb|VG| (\emph{verb group}),
+The focus on the mapping has been simple sentences, in order to cover the most
+fundamental structures. If the program is extended and adapted to cover complex
+conjunction, a deeper evaluation should be preformed to see which version that
+suits our needs the best.
+The deeper implementation also gives 
+some more information about verb phrases, by the tag \verb|VG| (\emph{verb group}),
 which groups an infinitival verb and its object together into a \verb|VP|.
 This information can however be extracted from the flat implementation, and the results
 get slightly better when using this version. \\
@@ -3027,7 +3033,8 @@ to metas, which lowers our result. \\
 \end{figure}
 
 
-Our focus has been on shorter sentences, with no idioms or conjunction.
+The main goal has been to be able to translate shorter sentences, with no
+idioms or conjunction.
 If we assure that the lexicon contains the correct word class for all lemmas
 involved, we
 can restore more than 85 \% of the nodes in the original tree.
@@ -3379,7 +3386,7 @@ Lexin\footnote{http://spraakbanken.gu.se/lexin/} provides list of valencies info
 from which lexical information could be extracted, given that the data is freely available.
 This is also a source of information helping us separate between verbs that can
 be used without an infinitive marker from the ones that cannot, cf. (\ref{sent:complVV2}a-b).
-However, Lexin is relatively small and does not contain more than 10 000 verbs.
+However, Lexin is relatively small and does not contain more than 10 000 entries.
 %Furthermore, we also need be algorithms for
 %automatically adding the information to the lexicon. \\
 
