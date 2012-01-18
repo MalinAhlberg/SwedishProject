@@ -67,7 +67,7 @@ for modeling large-scale grammars.
 We further discuss how our long-term goal can be reached
 %the possibilities
 %of reaching our long-term goal % -- to accomplish a parser for unrestricted Swedish -- 
-by combining our rule-based grammar with statistical means.
+by combining our rule-based grammar with statistical methods.
 %We compare and discuss .
 %and for obtaining a system for analysing written text.
 \\Our contribution is a wide-coverage GF lexicon, a translation of a Swedish treebank
@@ -156,7 +156,7 @@ Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism.
 It is based on Martin-Löf type theory which allows
 reasoning within the programming language.
 GF has strong support for multilinguality and has so far been used successfully for 
-controlled languages \cite{cnl}. Recent experiments have showed
+controlled languages \cite{cnl}. Recent experiments have  however showed
 that it is also possible to use the framework for parsing free language \cite{patent}.
 % >> although the success rate is going steeply down when using uncontrolled nl. Better with annotated.
 % --> sentence about connection GF - grammar based parser.
@@ -334,7 +334,7 @@ Figure \ref{fig:shell} shows commands for parsing, where the results are shown a
 in figure \ref{fig:gftree1}. 
 GF uses Graphviz\footnote{http://www.graphviz.org/}
 to visualize the trees and the given commands (fig. \ref{fig:shell}) specify that the
-output format should be PDF-files and that these should be opened by the program
+output format should be PDF and that these files should be opened by the program
 Evince. The user can choose to see the \textit{parse tree} (fig. \ref{pic:gfStree})
 or the \textit{abstract tree} (fig. \ref{pic:gfAtree}). Abstract trees are more verbose and show all
 functions and types used for parsing the sentence. 
@@ -348,11 +348,11 @@ functions and types used for parsing the sentence.
 \vspace{10mm}
 
 Parse trees on the other hand show only the types assigned to the words and phrases.
-Information about tense, polarity etc. which are explicitly given in the abstract tree are
+Information about tense, polarity etc., which are explicitly given in the abstract tree, are
 not reproduced in the parse tree. Hence, parse trees do not give complete representations
 but model the parse results in a transparent manner. For our example, the definiteness and
 number of the noun `\emph{katten}' is shown as \verb-DetQuant DefArt NumSg- in
-the abstract tree while the parse tree only show that a the noun phrase consists of one noun. 
+the abstract tree while the parse tree only shows that the noun phrase consists of one noun. 
 % is used but not in the parse tree.
 In the corresponding English parse tree, figure \ref{pic:gfEtree},
 the noun is explicitly quantified by the article \emph{`the'},

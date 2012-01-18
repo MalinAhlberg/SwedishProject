@@ -38,7 +38,7 @@ parseF gr b req = do
   let mn = queryString req
   id <- return "theMap" --get userid somehow! mkDir theMap, images/theMap
   liftIO $ print ("pathinfo: "++show (pathInfo req))
-  liftIO $ print ("query: "++show mn)
+  liftIO $ print ("all requst: "++show req)
   x <- liftIO $ findText id gr req mn b 
   liftIO $ putStrLn "have returned"
   return x
