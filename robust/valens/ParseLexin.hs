@@ -5,6 +5,8 @@ import Control.Applicative
 import Data.ByteString.Char8 as B 
 import Data.ByteString.UTF8 as BU
 
+
+-- need to use lexer? gottar sig (åt x/att + INF)  should be V2: gottar sig åt and VV : gottar sig åt att
 parseValency = tryp verbValency 
 parseWords = tryp wlist
 tryp p = parseOnly p . BU.fromString
@@ -12,56 +14,74 @@ tryp p = parseOnly p . BU.fromString
 verbValency = do
   xorA
   theWord
-  v <- v2
-  sepBy moreVal (char' '/')
+  v <- sepBy (v2 <|> v3 <|> vv <|> moreVal) (char' '/')
   return v
 
-moreVal = A.anyChar  -- to be implemented properly
+moreVal = A.anyChar >> return (VT X [] []) -- to be implemented properly
 subject = xorA
 
-xorA = do
-    char' 'A' <|> char' 'x' <|> char' 'y' <|> char' 'B' <|> (char' 'b' >> char ' ')
-    mone (char' '/' >> (char' 'A' <|> char' 'x'))
+xorA = 
+  skip (do char' 'A' <|> char' 'x' <|> char' 'y' <|> char' 'B' 
+           mone (char' '/' >> (char' 'A' <|> char' 'x')))
+  <|> skip littleb -- a small b is ok if it is not part of a word
+ where littleb = string' "b/x" <|> string' "b " <|> string' "b)"
+        
 
 theWord = do
    char' '&' 
 
-type V2Arg = ([Argument],[Preposition])
-type V3Arg = V2Arg
-data Argument = Part ByteString | Refl -- | Prep ByteString
+data VerbType = VT {vtype :: V , argument :: [Argument], preps :: [Preposition]}
   deriving (Show)
-type Preposition = ByteString
+   -- X is unparseble type
+data V = V2 | V3 | X | VV Bool --VS VV VQ VA V2V V2S V2Q V2A
+  deriving (Show)
+data Argument = Part ByteString  --particles
+              | Refl             --is reflexive
+              -- | Inf Bool         --infinitival verb, True if inifinitive marker is used
+  deriving (Show)
+type Preposition = Maybe ByteString
 
-v2 :: Parser V2Arg
+v2 :: Parser VerbType
 v2 = do
   xs <- A.many (particle True <|> sig) 
-  pr <- preposition
   mone (char' '(')   -- verbs that can be used as both V and V2 will assigned V2
+  pr <- preposition
   xorA
   mone (char' ')')
-  return (xs,[pr])
+  return $ VT V2 xs [pr]
 
-v3 :: Parser V3Arg
+v3 :: Parser VerbType
 v3 = do
   xs <- A.many (particle True <|> sig)
   pr1 <- preposition
+  mone (char' '(')   -- verbs that can be used as both V2 and V3 will assigned V3
   xorA
+  mone (char' ')')
   pr2 <- preposition
   xorA
-  return (xs,[pr1,pr2])
+  return $ VT V3 xs [pr1,pr2]
 
-
+vv :: Parser VerbType
+vv = do
+  ps <- A.many (particle True <|> sig)
+  b <- (mone (char' '(') >> string' "att" >> mone (char' ')') >> return True) -- ignores facts about whether infinitive marker can be left out. improve!
+        <|> 
+        return False
+  char' '+'
+  skipSpace
+  string' "INF"
+  return $ VT (VV b) ps []
 
 preposition :: Parser Preposition
-preposition = do
- mone (char' '(')   -- paranthesis to bind the preposition to the verb
+preposition = maybeP $ do
+ --mone (char' '(')   -- paranthesis to bind the preposition to the verb
  skipSpace
- pr <- A.takeWhile1 $ notInClass "yzxAB/)(, " -- no prepositions with yzx..
+ pr <- A.takeWhile1 $ notInClass nowords -- no prepositions with yzx..
  skipMany alternative -- ignore alternatives (should be improved)
  return pr
  where alternative = do
         char '/'
-        A.takeWhile1 $ notInClass "xyzABC/)( "
+        A.takeWhile1 $ notInClass nowords
         maybeP $ string' " etc"
 
   
@@ -77,15 +97,26 @@ sig = do
 
 particle par = do
   when par $ skip (char' '(')
-  p <- A.takeWhile1 $ notInClass "xyzABC/)(, "
+  p <- part
   skipMany alternative  -- ignore alternatives (should be improved)
   when par $ skip (char ')')
   return $ Part p
  where alternative = do
-        char' '/'
-        A.takeWhile1 $ notInClass "xyzABC/)( "
-        maybeP $ string' " etc"
+          char' '/'
+          A.takeWhile1 $ notInClass nowords
+          maybeP $ string' " etc"
+       part = do  -- makes sure that we do not interpret 'b' as a particle
+          skipSpace
+          (x,xs) <- do a    <- satisfy (notInClass $ 'b':nowords)
+                       rest <- A.takeWhile $ notInClass nowords
+                       return (a,rest)
+                    <|> 
+                    do b <- char 'b'
+                       rest <- A.takeWhile1 $ notInClass nowords 
+                       return (b,rest)
+          return (x `cons` xs)
 
+nowords = "xyzABC/)(, "
 
 -- Parse word lists
 wlist :: Parser [(ByteString,[Argument])]
