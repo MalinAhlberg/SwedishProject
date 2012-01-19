@@ -4,6 +4,7 @@ module ParseLex
   ,processparse
   ,testa
   ,smallparse
+  ,getNextWord
   ,ParseData
   ,UserId) where
 import System.Timeout
@@ -17,6 +18,8 @@ import Control.Arrow
 import PGF
 import XMLHelp hiding (words,parse,id)
 import MkLex
+import qualified Data.Map as Map     
+import Data.Function
 
 -- use with tee -a outfile
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
@@ -154,4 +157,44 @@ pipeIt2graphviz id pgf lang t i = do
     writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
     readProcess "dot" ["-Tpng",dotFileA,"-o","images/"++pngFileA] []
     return (pngFileP,pngFileA)
+ 
+----------------------
 
+complete' :: PGF -> Language -> Type -> Maybe Int -> String
+         -> (BracketedString, String, [String])
+complete' pgf from typ mlimit input =
+  let (ws,prefix) = tokensAndPrefix input
+      ps0 = PGF.initState pgf from typ
+      (ps,ws') = loop ps0 ws
+      bs       = snd (PGF.getParseOutput ps typ Nothing)
+  in if not (null ws')
+       then (bs, unwords (if null prefix then ws' else ws'++[prefix]), [])
+       else (bs, prefix, maybe id takeBest mlimit $ order $ Map.keys (PGF.getCompletions ps prefix))
+  where
+    order = delete nonExist . sortBy (compare `on` nicety)
+    takeBest i xs | last input == ' ' = take i $ map head $ groupBy ((==) `on` (take 1)) xs
+                  | otherwise         = take i xs
+
+    tokensAndPrefix :: String -> ([String],String)
+    tokensAndPrefix s | not (null s) && isSpace (last s) = (ws, "")
+                      | null ws = ([],"")
+                      | otherwise = (init ws, last ws)
+        where ws = words s
+
+    loop ps []     = (ps,[])
+    loop ps (w:ws) = case PGF.nextState ps (PGF.simpleParseInput w) of
+                       Left  es -> (ps,w:ws)
+                       Right ps -> loop ps ws
+
+    nonExist = "#\191@\167X?X&%/"
+    nicety (i:xs) | not (isAlpha i)  = ('\247':i:xs)
+                  | otherwise        = map toLower (i:xs)
+
+getNextWord str i = do
+  pgf <- readPGF pgfBackUp
+  let (_,_,x) = complete' pgf langBackUp textType (Just i) str
+  return x
+
+tryComplete str = do
+  w <- getNextWord str 10
+  print w

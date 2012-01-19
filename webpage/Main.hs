@@ -61,6 +61,10 @@ findText id gr req mn b
   | (Just _) <- lookup "firstform" mn = do
       putStrLn "have nothing, will return textfield"
       return inputForm
+  | (Just (Just txt)) <- lookup "input" mn = do
+       putStrLn $ "will complete "++ show txt
+       autoComplete txt
+
 findText id gr req mn b = do
   let path = map (filter (/='\"')) $ map show $ pathInfo req
   liftIO $ print (pathInfo req)
@@ -128,6 +132,14 @@ parseMore id txt = do
   return $
     ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
          $ map copyByteString html
+
+
+autoComplete :: B.ByteString -> IO Response
+autoComplete txt = do
+  w <- getNextWord (BU.toString txt) 10
+  putStrLn $ "autoComplet returns" ++ unwords w
+  return $ ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
+              ["<p>",BU.fromString "Alternatives:",BU.fromString $ unwords w,"</p>"]
 
 
    
