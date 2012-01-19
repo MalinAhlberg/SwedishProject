@@ -156,7 +156,7 @@ Grammatical Framework \cite{gfbok} is a dependently typed grammar formalism.
 It is based on Martin-Löf type theory which allows
 reasoning within the programming language.
 GF has strong support for multilinguality and has so far been used successfully for 
-controlled languages \cite{cnl}. Recent experiments have  however showed
+controlled languages \cite{cnl}, while recent experiments have showed
 that it is also possible to use the framework for parsing free language \cite{patent}.
 % >> although the success rate is going steeply down when using uncontrolled nl. Better with annotated.
 % --> sentence about connection GF - grammar based parser.
@@ -2013,8 +2013,9 @@ In the standard GF analysis, which is preformed bottom-up starting from the
 %TODO verify
 POS-tags, information about semantic roles are given by the functions, not by the
 categories. That is,
-we know that the first argument of the function \verb-PredVP- acts as the subject.
-The noun phrase itself does not carry information about its semantic role.
+we know that the first argument of the function \verb-PredVP- acts as the
+subject, but
+the noun phrase itself does not carry information about its semantic role.
 Until it is given as an argument to a clause level function, no difference
 is made between subject and object noun phrases.
 For this reason,
