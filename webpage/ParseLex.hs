@@ -7,13 +7,14 @@ module ParseLex
   ,getNextWord
   ,ParseData
   ,UserId) where
+import qualified System.IO.Strict as SIO
 import System.Timeout
 import System.TimeIt
 import System.Process
 import Data.Maybe
 import Data.Char
 import Data.List
-import Data.List.Utils
+import Data.List.Utils as LU
 import Control.Arrow
 import PGF
 import XMLHelp hiding (words,parse,id)
@@ -41,12 +42,14 @@ play = do
 
 reparse :: UserId -> String -> IO [(FilePath,FilePath)]
 reparse id str = do
-  pgf <- readPGF $ inDir id reusedPGF
+  pgf <- readPGF pgfBackUp -- $ inDir id reusedPGF for big dict
   let inp = map toLower $ snd $ fixPunctuation $ replaceNumbers ("",str)
+  pid <- runCommand $ "rm "++id++"/*"
+  waitForProcess pid
   putStrLn $ "try to reparse "++inp
-  let trees = parse pgf reusedLang textType inp
+  let trees = parse pgf langBackUp textType inp -- reusedlang for big dict
   putStrLn $ "got "++show (length trees)
-  mapM (uncurry $ pipeIt2graphviz id pgf reusedLang) (zip trees $ map show [1..])
+  mapM (uncurry $ pipeIt2graphviz id pgf langBackUp) (zip trees $ map show [1..]) --reusedlang for big dict
 
 -- id to find out which user, which map
 processparse :: UserId -> String -> PGF -> LexMap -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
@@ -108,10 +111,10 @@ parseNormal pgf morpho lang x@(i,s) = do
 
 testa :: String -> UserId ->  IO ()
 testa s id = do
-  pgf <- readPGF "BigParse.pgf"
-  let morpho = buildMorpho pgf (read "BigParseSwe")
+  pgf <- readPGF pgfBackUp --"BigParse.pgf"
+  let morpho = buildMorpho pgf langBackUp --(read "BigParseSwe")
   print $ lookupMorpho morpho $ map toLower s
-  tree <- parseNormal pgf morpho (read "BigParseSwe") ("",s)
+  tree <- parseNormal pgf morpho langBackUp ("",s)
   ls <- reparse id s
   print tree
   print ls
@@ -131,13 +134,14 @@ fixPunctuation (n,s) | isAlpha (last s) = (n,s++" .")
 textType = fromJust $ readType "Text"
 uttType  = fromJust $ readType "Phr"
 langOld  = fromJust $ readLanguage "BigSwe" 
-pgfFile =  "../gf/Big.pgf" 
-outFile = "testisNP.txt"
+--pgfFile =  "../gf/Big.pgf" 
+--outFile = "testisNP.txt"
+--
+--reusedPGF = "BigParse.pgf"
+--reusedLang :: Language
+--reusedLang = read "BigParseSwe"
 
-reusedPGF = "BigParse.pgf"
-reusedLang = read "BigParseSwe"
-
-pgfBackUp = "../gf/Test.pgf"
+pgfBackUp = "../gf/BigTest.pgf"
 langBackUp :: Language
 langBackUp = read "BigTestSwe"
 
@@ -149,27 +153,28 @@ langDict = read "DictSwe"
 pipeIt2graphviz :: UserId -> PGF -> Language -> Tree -> Id -> IO (FilePath,FilePath)
 pipeIt2graphviz id pgf lang t i = do
     let dotFileP = inDir id "tmptreep.dot"
-        pngFileP = inDir id "tmptreep"++i++".png"
+        pngFileP = inDir id "tmptreep"++i++".svg"
         dotFileA = inDir id "tmptreea.dot"
-        pngFileA = inDir id "tmptreea"++i++".png"
-    writeFile dotFileP $ graphvizParseTree pgf lang t
-    readProcess "dot" ["-Tpng",dotFileP,"-o","images/"++pngFileP] []
-    writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
-    readProcess "dot" ["-Tpng",dotFileA,"-o","images/"++pngFileA] []
+        pngFileA = inDir id "tmptreea"++i++".svg"
+    SIO.run $ SIO.writeFile dotFileP $ graphvizParseTree pgf lang t
+    readProcess "dot" ["-Tsvg",dotFileP,"-o","images/"++pngFileP] []
+    SIO.run $ SIO.writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
+    pid <- runCommand $ "dot -Tsvg "++ dotFileA++ " -o images/"++pngFileA
+    waitForProcess pid
+    --readProcess "dot" ["-Tpng",dotFileA,"-o","images/"++pngFileA] []
     return (pngFileP,pngFileA)
  
 ----------------------
 
 complete' :: PGF -> Language -> Type -> Maybe Int -> String
-         -> (BracketedString, String, [String])
+         -> [String]
 complete' pgf from typ mlimit input =
   let (ws,prefix) = tokensAndPrefix input
       ps0 = PGF.initState pgf from typ
       (ps,ws') = loop ps0 ws
-      bs       = snd (PGF.getParseOutput ps typ Nothing)
   in if not (null ws')
-       then (bs, unwords (if null prefix then ws' else ws'++[prefix]), [])
-       else (bs, prefix, maybe id takeBest mlimit $ order $ Map.keys (PGF.getCompletions ps prefix))
+       then []
+       else maybe id takeBest mlimit $ order $ Map.keys (PGF.getCompletions ps prefix)
   where
     order = delete nonExist . sortBy (compare `on` nicety)
     takeBest i xs | last input == ' ' = take i $ map head $ groupBy ((==) `on` (take 1)) xs
@@ -192,7 +197,7 @@ complete' pgf from typ mlimit input =
 
 getNextWord str i = do
   pgf <- readPGF pgfBackUp
-  let (_,_,x) = complete' pgf langBackUp textType (Just i) str
+  let x = complete' pgf langBackUp textType (Just i) str
   return x
 
 tryComplete str = do

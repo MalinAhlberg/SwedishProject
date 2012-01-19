@@ -1,63 +1,73 @@
 {-# LANGUAGE OverloadedStrings #-}
  
 import Network.Wai
+import Network.Wai.Parse
 import Network.Wai.Handler.Warp
 import Network.HTTP.Types
+import Network.HTTP.Headers
 import Blaze.ByteString.Builder (copyByteString)
 import qualified Data.ByteString.UTF8 as BU
-import qualified Data.ByteString.Char8 as BC
+--import qualified Data.ByteString.Char8 as BC
 import qualified Data.ByteString as B
 import System.IO
 import System.FilePath
 import System.TimeIt
+import System.Process
 import Text.XHtml
 import Data.Monoid
 import Data.Enumerator (run_, enumList, ($$))
 import Data.Maybe
 import Data.List
+import Data.List.Utils
 import Control.Monad.IO.Class
+import Control.Monad.State
+import Control.Concurrent.MVar
 
 import ParseLex
  
-main = do
-    let port = 3000
-    putStrLn $ "Listening on port " ++ show port
-    gr <- play
-    run port (parseF gr True)
+--type CState = StateT Cookies IO
+--data Cookies = C {count ::  Int }
+--
+--main = do
+--    let port = 3000
+--    putStrLn $ "Listening on port " ++ show port
+--    gr <- play
+--    run port (parseF gr True newC)
 
 mainSmall = do
     let port = 3000
     putStrLn $ "Listening on port " ++ show port
+    hSetEncoding stdin utf8
+    hSetEncoding stdout utf8
+    mvar <- newMVar 0
     gr <- return (undefined,undefined)
-    run port (parseF gr False)
+    run port (parseF gr False mvar)
 
-
-parseF :: MonadIO m => ParseData -> Bool -> Request -> m Response
-parseF gr b req = do
+parseF :: MonadIO m => ParseData -> Bool -> MVar Int -> Request -> m Response
+parseF gr b i req = do
   liftIO $ putStrLn "start"
   let mn = queryString req
-  id <- return "theMap" --get userid somehow! mkDir theMap, images/theMap
   liftIO $ print ("pathinfo: "++show (pathInfo req))
   liftIO $ print ("all requst: "++show req)
-  x <- liftIO $ findText id gr req mn b 
+  x <- liftIO $ findText gr req mn b i
   liftIO $ putStrLn "have returned"
   return x
 
 
-findText :: UserId -> ParseData -> Request -> Query -> Bool -> IO Response
-findText id gr req mn b
+findText :: ParseData -> Request -> Query -> Bool -> MVar Int -> IO Response
+findText gr req mn b i
   | (Just (Just im)) <- lookup "img" mn = do
-     putStrLn $ "want image "++BC.unpack im
+     putStrLn $ "want image "++BU.toString im
      putStrLn $ "all:"++show mn
      return $
-       ResponseFile status200 [("Content-Type", "image/png")] 
-             ("images/"++BC.unpack im) Nothing
+       ResponseFile status200 [("Content-Type", "image/svg+xml"),("Cache-Control","no-cache")] 
+             ("images/"++BU.toString im) Nothing
   | (Just (Just txt)) <- lookup "text" mn = do
       putStrLn "have text, will show it"
-      parseIt id gr txt b
+      parseIt (getCookie req) gr txt b
   | (Just (Just txt)) <- lookup "more" mn = do
       putStrLn "want more trees!!"
-      parseMore id txt
+      parseMore (getCookie req) txt
   | (Just _) <- lookup "firstform" mn = do
       putStrLn "have nothing, will return textfield"
       return inputForm
@@ -65,7 +75,7 @@ findText id gr req mn b
        putStrLn $ "will complete "++ show txt
        autoComplete txt
 
-findText id gr req mn b = do
+findText gr req mn b mvar = do
   let path = map (filter (/='\"')) $ map show $ pathInfo req
   liftIO $ print (pathInfo req)
   liftIO $ print path
@@ -76,29 +86,60 @@ findText id gr req mn b = do
            ResponseFile status200 [("Content-Type", getTyp typ)] 
                (intercalate "/" path) Nothing
      _              -> do
-         return $
-           ResponseFile status200 [("Content-Type", "text/html")] 
+         cokh <- case getCookie req of
+              Just id -> do 
+                          putStrLn "found cookie"
+                          return []
+              Nothing -> do 
+                         i <- takeMVar mvar
+                         putMVar mvar (i+1)
+                         runCommand $ "mkdir "++usermap (show i)
+                         runCommand $ "mkdir "++"images/"++usermap (show i)
+                         putStrLn $ "have created "++"mkdir "++usermap (show i)
+                         return [("Set-Cookie",BU.fromString ("gfswedish="++show i))]
+         return  $
+           ResponseFile status200 ([("Content-Type", "text/html")]++cokh)
                ("static/index.html") Nothing
  where getTyp ".js"  = "application/javascript"
        getTyp ".css" = "text/css"
        getTyp ".html" = "text/html"
-     
+       getTyp ".svg"  = "image/svg+xml"
+
+usermap :: String -> String
+usermap = ("usermap"++)
+getCookie :: Request -> Maybe String
+getCookie = maybe Nothing parseCookies . findCookie
+  where findCookie = lookup "Cookie" . requestHeaders 
+        parseCookies :: B.ByteString -> Maybe String
+        parseCookies = listToMaybe . map (usermap . show . fst) . parseInt . drop 10 
+                     . dropWhileList (not . ("gfswedish" `isPrefixOf`)) . BU.toString 
+          where parseInt :: String -> [(Int,String)]
+                parseInt = reads
+           
 
 inputForm :: Response
 inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
               [BU.fromString $ show textInputField
-              ,"<p>Note that very few words are annoted with valency!\n"
-              ,BU.fromString verbInfo, "!</p>"]
+              ,"<p>This is a grammar-driven parser for Swedish, using the grammar formalism GF. "
+              ,"The parser and grammar is under development, and currently uses a very small lexicon.</p>"
+              ,"<p><a href='http://www.grammaticalframework.org'>Grammatical Framework</a></p>"
+              ,"<p><a href='https://github.com/MalinAhlberg/SwedishProject'>Source code</a></p>"
+              ]
+             -- ,BU.fromString verbInfo, "!</p>"]
               
 textInputField :: Html
 textInputField = form << 
-      [paragraph << (textarea noHtml ! [strAttr "name" "text"])
+      [paragraph << (input ! [strAttr "name" "text", strAttr "autocomplete" "off" ])
+      ,paragraph  ! [strAttr "id" "completion"] << noHtml
       ,submit "" "Submit"]
 
-parseIt :: UserId -> ParseData -> B.ByteString -> Bool -> IO Response 
+parseIt :: Maybe String -> ParseData -> B.ByteString -> Bool -> IO Response 
 parseIt id (maps,pgf) txt b = do 
-  (t,results) <- timeItT $ if b then processparse id (BC.unpack txt) pgf maps
-                           else do print ("smallparse "++ BC.unpack txt) >> smallparse id (BC.unpack txt)
+  let dir = fromJust id
+  (t,results) <- timeItT $ if b then processparse dir (BU.toString txt) pgf maps
+                           else do print ("smallparse "++ BU.toString txt)
+                                   smallparse dir (BU.toString txt)
+  putStrLn $ "parse trees "++show results
   putStrLn $ "It took "++show t++" seconds "
   let html = map getHtml results
   return $
@@ -107,28 +148,28 @@ parseIt id (maps,pgf) txt b = do
  where getHtml (s,n,res) = case res of
               Right (pt,at) ->
                      [ "<p>Parsed: ",pretty s,results n, "!</p>"
-                     , "<p><a href='/?img=",BU.fromString pt,"'>Parse tree</a></p>\n"
-                     , "<p><a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"]++moreTrees n (snd s)
+                     , "<div><a href='?img=",BU.fromString pt,"'><img src='?img=",BU.fromString pt,"'> </a>"
+                     , "<a href='?img=",BU.fromString at,"'><img src='?img=",BU.fromString at,"'> </a></div>"]++moreTrees n (snd s)
               Left xs        -> 
                     [ "<p>Parsed: ",pretty s,results 0, "!</p>"
-                    , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>\n"
-                    , "<p><a href='/'>Back</a></p>\n"]
+                    , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>" ]
        results :: Int -> B.ByteString
        results i = BU.fromString (" which resulted in "++show i++" trees")
        pretty :: (String,String) -> B.ByteString
        pretty (i,s) = BU.fromString ("Sentence "++i++" \""++s++"\"")
        moreTrees :: Int -> String -> [B.ByteString]
-       moreTrees i s | i>1 = ["<p><a href='/?more=",BU.fromString s,"'>More trees</a></p>\n"]
+       moreTrees i s | i>1 = ["<p><a href='?more=",BU.fromString s,"'>Show more trees </a></p>\n"]
                      | i<2 = []
 
-parseMore :: UserId -> B.ByteString -> IO Response
+parseMore :: Maybe String -> B.ByteString -> IO Response
 parseMore id txt = do
-  links <- reparse id (BC.unpack txt)
+  let user = fromJust id --fail otherwis
+  links <- reparse user (BU.toString txt)
   putStrLn $ "have reparsed, got "++show (length links)++" trees"
-  let html = "<p>All trees</p>\n" : concatMap (\(i,(pt,at)) -> 
-              ["<p>",BU.fromString (show i),"<a href='/?img=",BU.fromString pt,"'>Parse tree</a>\n"
-              , "<a href='/?img=",BU.fromString at,"'>Abstract tree</a></p>\n"])
-                   (zip [0..] links)
+  let html = "<p>All trees</p>\n" : concatMap (\(pt,at) -> 
+              ["<p>","<a href='?img=",BU.fromString pt,"'><img src='?img=",BU.fromString pt,"'></a>\n"
+              ,      "<a href='?img=",BU.fromString at,"'><img src='?img=",BU.fromString at,"'></a></p>\n"])
+                     links
   return $
     ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
          $ map copyByteString html
@@ -137,20 +178,21 @@ parseMore id txt = do
 autoComplete :: B.ByteString -> IO Response
 autoComplete txt = do
   w <- getNextWord (BU.toString txt) 10
+  let res  = if null w then [] 
+                else ["<p>",BU.fromString "Some alternatives: ",BU.fromString $ unwords w,"</p>"]
   putStrLn $ "autoComplet returns" ++ unwords w
   return $ ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
-              ["<p>",BU.fromString "Alternatives:",BU.fromString $ unwords w,"</p>"]
-
+             res
 
    
-verbInfo :: String
-verbInfo = concatMap (\(a,b) -> "Verbs of type "++a++":\n"++unlines b++"\n")
-             [("V3",v3),("V2",v2),("VV",vv) ,("VA",va),("V2V",v2v),("V2A",v2a)]
-
-v2 = ["tycka om", "raka", "fånga", "titta på"," se","ta","slå","akta sig för","äta","dricka"
-      ,"finnas", "saknas", "fattas", "glömma", "läsa", "skriva", "bli", "ha"]
-v3 = ["ta med sig till", "ge till", "ge", "erbjuda"]
-vv = ["börja", "måste", "vill", "kan"]
-va = ["bli"]
-v2v = ["be"]
-v2a = ["måla"]
+--verbInfo :: String
+--verbInfo = concatMap (\(a,b) -> "Verbs of type "++a++":\n"++unlines b++"\n")
+--             [("V3",v3),("V2",v2),("VV",vv) ,("VA",va),("V2V",v2v),("V2A",v2a)]
+--
+--v2 = ["tycka om", "raka", "fånga", "titta på"," se","ta","slå","akta sig för","äta","dricka"
+--      ,"finnas", "saknas", "fattas", "glömma", "läsa", "skriva", "bli", "ha"]
+--v3 = ["ta med sig till", "ge till", "ge", "erbjuda"]
+--vv = ["börja", "måste", "vill", "kan"]
+--va = ["bli"]
+--v2v = ["be"]
+--v2a = ["måla"]

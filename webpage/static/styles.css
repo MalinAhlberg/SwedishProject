@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:100);
 
 html {
-	height : 100%;
+	min-height : 100%;
 	
 	background: #666f7c; /* Old browsers */
 	background: -moz-linear-gradient(top, #666f7c 0%, #dbe0e7 100%); /* FF3.6+ */
@@ -13,9 +13,24 @@ html {
 	background: linear-gradient(top, #666f7c 0%,#dbe0e7 100%); /* W3C */
 	background-repeat: no-repeat;
 	
-	font-size : 13px;
+	font-size : 14px;
 	font-family : helvetica,sans-serif;
 }
+
+.first a {
+    color : #1C4257 !important;
+    text-decoration: none;
+}
+
+.first a:hover {
+    color : #B9E0F5;
+    border-bottom : 1px dotted #B9E0F5;
+}
+.first > #result > p {
+    max-width : 45%;
+    line-height : 1.4em;
+}
+
 
 h2 {
 	
@@ -27,18 +42,19 @@ ol, ul {
 	padding : 0;
 }
 
-textarea {
+input[name=text] {
 	width : 40%;
-	height : 10em;
 }
 
 #header h1 {
 	font-family : Lato,sans-serif;
 	font-size : 4em;
 	margin-top : 0;
+	cursor : pointer;
+	margin-bottom : 2em;
 }
 .first #header h1 {
-	float : right;
+
 }
 
 .first #result > p {
@@ -50,12 +66,40 @@ textarea {
 	margin-right : 1em;
 	
 }
+
+.first p {
+    
+}
+
+#result {
+    padding-bottom : 1em;
+}
 body {
 	width : 70%;
 	margin : 0 auto;
 	background-color : white;
-	height : 94%;
+	min-height : 94%;
 	padding : 3em;
 	padding-bottom : 0;
-	
+	opacity : 0;
+	margin-top : 0.5em;
+}
+.second #result div img{
+        max-height : 460px;
+}
+.more  #result img{
+        max-height : 460px;
+}
+
+#completion {
+    background-color: #D0D7F0;
+    margin: 0 5px;
+    padding: 5px 0;
+    padding-left : 5px;
+    width : 39%;
+    margin-bottom : 5px;
+}
+
+#completion:empty {
+    display : none;
 }
