@@ -11,6 +11,7 @@ import qualified System.IO.Strict as SIO
 import System.Timeout
 import System.TimeIt
 import System.Process
+import System.Random
 import Data.Maybe
 import Data.Char
 import Data.List
@@ -152,10 +153,12 @@ langDict = read "DictSwe"
 
 pipeIt2graphviz :: UserId -> PGF -> Language -> Tree -> Id -> IO (FilePath,FilePath)
 pipeIt2graphviz id pgf lang t i = do
+    tag <- randomIO :: IO Int
+    putStrLn $ "have made a random number! "++show tag
     let dotFileP = inDir id "tmptreep.dot"
-        pngFileP = inDir id "tmptreep"++i++".svg"
+        pngFileP = inDir id "tmptreep"++i++show tag++".svg"
         dotFileA = inDir id "tmptreea.dot"
-        pngFileA = inDir id "tmptreea"++i++".svg"
+        pngFileA = inDir id "tmptreea"++i++show tag++".svg"
     SIO.run $ SIO.writeFile dotFileP $ graphvizParseTree pgf lang t
     readProcess "dot" ["-Tsvg",dotFileP,"-o","images/"++pngFileP] []
     SIO.run $ SIO.writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t

@@ -15,11 +15,10 @@ import System.TimeIt
 import System.Process
 import Text.XHtml
 import Data.Monoid
-import Data.Enumerator (run_, enumList, ($$))
 import Data.Maybe
 import Data.List
 import Data.List.Utils
-import Control.Monad.IO.Class
+--import Control.Monad.IO.Class
 import Control.Monad.State
 import Control.Concurrent.MVar
 
@@ -34,8 +33,8 @@ import ParseLex
 --    gr <- play
 --    run port (parseF gr True newC)
 
-mainSmall = do
-    let port = 3000
+main = do
+    let port = 3001
     putStrLn $ "Listening on port " ++ show port
     hSetEncoding stdin utf8
     hSetEncoding stdout utf8
@@ -60,7 +59,8 @@ findText gr req mn b i
      putStrLn $ "want image "++BU.toString im
      putStrLn $ "all:"++show mn
      return $
-       ResponseFile status200 [("Content-Type", "image/svg+xml"),("Cache-Control","no-cache")] 
+       ResponseFile status200 [("Content-Type", "image/svg+xml")
+                              ,("Cache-Control","no-cache")] 
              ("images/"++BU.toString im) Nothing
   | (Just (Just txt)) <- lookup "text" mn = do
       putStrLn "have text, will show it"
@@ -96,7 +96,8 @@ findText gr req mn b mvar = do
                          runCommand $ "mkdir "++usermap (show i)
                          runCommand $ "mkdir "++"images/"++usermap (show i)
                          putStrLn $ "have created "++"mkdir "++usermap (show i)
-                         return [("Set-Cookie",BU.fromString ("gfswedish="++show i))]
+                         return 
+                           [("Set-Cookie",BU.fromString ("gfswedish="++show i))]
          return  $
            ResponseFile status200 ([("Content-Type", "text/html")]++cokh)
                ("static/index.html") Nothing
@@ -111,14 +112,16 @@ getCookie :: Request -> Maybe String
 getCookie = maybe Nothing parseCookies . findCookie
   where findCookie = lookup "Cookie" . requestHeaders 
         parseCookies :: B.ByteString -> Maybe String
-        parseCookies = listToMaybe . map (usermap . show . fst) . parseInt . drop 10 
-                     . dropWhileList (not . ("gfswedish" `isPrefixOf`)) . BU.toString 
+        parseCookies = listToMaybe . map (usermap . show . fst) . parseInt 
+                     . drop 10 . dropWhileList (not . ("gfswedish" `isPrefixOf`))
+                     . BU.toString 
           where parseInt :: String -> [(Int,String)]
                 parseInt = reads
            
 
 inputForm :: Response
-inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString
+inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat
+             $ map copyByteString
               [BU.fromString $ show textInputField
               ,"<p>This is a grammar-driven parser for Swedish, using the grammar formalism GF. "
               ,"The parser and grammar is under development, and currently uses a very small lexicon.</p>"
@@ -143,13 +146,15 @@ parseIt id (maps,pgf) txt b = do
   putStrLn $ "It took "++show t++" seconds "
   let html = map getHtml results
   return $
-        ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
-        concat html
+        ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
+          $ map copyByteString $ concat html
  where getHtml (s,n,res) = case res of
               Right (pt,at) ->
                      [ "<p>Parsed: ",pretty s,results n, "!</p>"
-                     , "<div><a href='?img=",BU.fromString pt,"'><img src='?img=",BU.fromString pt,"'> </a>"
-                     , "<a href='?img=",BU.fromString at,"'><img src='?img=",BU.fromString at,"'> </a></div>"]++moreTrees n (snd s)
+                     , "<div><a href='?img=",BU.fromString pt,"'><img src='?img="
+                     ,BU.fromString $ pt,"'> </a>"
+                     , "<a href='?img=",BU.fromString at,"'><img src='?img="
+                     ,BU.fromString at,"'> </a></div>"]++moreTrees n (snd s)
               Left xs        -> 
                     [ "<p>Parsed: ",pretty s,results 0, "!</p>"
                     , "<p>Unknown words: ",BU.fromString $ show xs,"!</p>" ]
@@ -158,7 +163,8 @@ parseIt id (maps,pgf) txt b = do
        pretty :: (String,String) -> B.ByteString
        pretty (i,s) = BU.fromString ("Sentence "++i++" \""++s++"\"")
        moreTrees :: Int -> String -> [B.ByteString]
-       moreTrees i s | i>1 = ["<p><a href='?more=",BU.fromString s,"'>Show more trees </a></p>\n"]
+       moreTrees i s | i>1 = ["<p><a href='?more=",BU.fromString s
+                             ,"'>Show more trees </a></p>\n"]
                      | i<2 = []
 
 parseMore :: Maybe String -> B.ByteString -> IO Response
@@ -167,8 +173,10 @@ parseMore id txt = do
   links <- reparse user (BU.toString txt)
   putStrLn $ "have reparsed, got "++show (length links)++" trees"
   let html = "<p>All trees</p>\n" : concatMap (\(pt,at) -> 
-              ["<p>","<a href='?img=",BU.fromString pt,"'><img src='?img=",BU.fromString pt,"'></a>\n"
-              ,      "<a href='?img=",BU.fromString at,"'><img src='?img=",BU.fromString at,"'></a></p>\n"])
+              ["<p>","<a href='?img=",BU.fromString pt
+              ,"'><img src='?img=",BU.fromString pt,"'></a>\n"
+              ,"<a href='?img=",BU.fromString at,"'><img src='?img="
+              ,BU.fromString at,"'></a></p>\n"])
                      links
   return $
     ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
@@ -179,10 +187,11 @@ autoComplete :: B.ByteString -> IO Response
 autoComplete txt = do
   w <- getNextWord (BU.toString txt) 10
   let res  = if null w then [] 
-                else ["<p>",BU.fromString "Some alternatives: ",BU.fromString $ unwords w,"</p>"]
+                else ["<p>",BU.fromString "Some alternatives: "
+                     ,BU.fromString $ unwords w,"</p>"]
   putStrLn $ "autoComplet returns" ++ unwords w
-  return $ ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat $ map copyByteString $
-             res
+  return $ ResponseBuilder status200 [("Content-Type", "text/html")]
+         $ mconcat $ map copyByteString $ res
 
    
 --verbInfo :: String
