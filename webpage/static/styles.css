@@ -86,9 +86,11 @@ body {
 }
 .second #result div img{
         max-height : 460px;
+        max-width : 100%;
 }
 .more  #result img{
         max-height : 460px;
+        max-width : 100%;
 }
 
 #completion {

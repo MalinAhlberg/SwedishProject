@@ -6,10 +6,12 @@ module ParseLex
   ,smallparse
   ,getNextWord
   ,ParseData
-  ,UserId) where
+  ,UserId
+  ,FileType) where
 import qualified System.IO.Strict as SIO
 import System.Timeout
 import System.TimeIt
+import System.FilePath
 import System.Process
 import System.Random
 import Data.Maybe
@@ -23,10 +25,13 @@ import MkLex
 import qualified Data.Map as Map     
 import Data.Function
 
--- use with tee -a outfile
+import Log as L
+-- stderr -> err.log
+
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
   deriving Show
 
+type FileType = String
 type ParseData = (LexMap,PGF)
 type Sent = (Id,String)
 -- 40 s, maybe too much
@@ -34,33 +39,41 @@ timeLimit =  30*10^6
 
 
 play = do
-  putStrLn "will make dictMap"
-  maps <- timeIt $! mkLexMap
-  putStrLn "will compile Dictpgf"
-  pgf <- timeIt $ readPGF pgfDict
-  putStrLn "after pgf"
+  L.log "will make dictMap"
+  (t,maps) <- timeItT $! mkLexMap
+  L.log $ "will compile Dictpgf: "++show t
+  (t',pgf) <- timeItT $ readPGF pgfDict
+  L.log $ "after pgf: "++show t'
   return (maps,pgf)
 
-reparse :: UserId -> String -> IO [(FilePath,FilePath)]
-reparse id str = do
+reparse :: UserId -> String -> FileType ->  IO [(FilePath,FilePath)]
+reparse id str svg = do
   pgf <- readPGF pgfBackUp -- $ inDir id reusedPGF for big dict
   let inp = map toLower $ snd $ fixPunctuation $ replaceNumbers ("",str)
-  pid <- runCommand $ "rm "++id++"/*"
+  runCommand $ "rm "++id++"/*"
+  pid <- runCommand $ "rm "++"images/"++id++"/*"
   waitForProcess pid
-  putStrLn $ "try to reparse "++inp
+  logA id $ "try to reparse "++inp
   let trees = parse pgf langBackUp textType inp -- reusedlang for big dict
-  putStrLn $ "got "++show (length trees)
-  mapM (uncurry $ pipeIt2graphviz id pgf langBackUp) (zip trees $ map show [1..]) --reusedlang for big dict
+  logA id $ "got "++show (length trees)
+  mapM (uncurry $ pipeIt2graphviz id pgf langBackUp svg)
+                             (zip trees $ map show [1..]) --reusedlang for big dict
 
--- id to find out which user, which map
-processparse :: UserId -> String -> PGF -> LexMap -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
-processparse id str pgfDict maps = do
-  putStrLn $ "Begins with "++str
+processparse :: UserId -> String -> PGF -> LexMap -> FileType 
+                -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
+processparse id str pgfDict maps svg = do
+  L.log $ id ++ " Begins with "++str
   res <- mkDir id maps (prepare str) langDict pgfDict
   let (pgf',l') = fromMaybe (pgfBackUp,langBackUp) res
-  putStrLn "reading new PGF"
-  realParse id pgf' l' (splitUp str)
+  logA id "reading new PGF"
+  cleanFiles id
+  realParse id pgf' l' svg (splitUp str)
  where prepare = words . map toLower
+
+cleanFiles id = do
+   L.log $ "clean "++inDir id "/*"
+   runCommand $ "rm "++inDir id "/*"
+   runCommand $ "rm "++"images/"++inDir id "/*"
 
 -- the mighty function for splitting up indata
 splitUp [] = []
@@ -68,36 +81,40 @@ splitUp (w:ws) | w `elem` "\n.?!" = splitUp ws
 splitUp ws = let (x,xs) = break (`elem` "\n.?!") ws
              in x:splitUp (drop 1 xs)
 
-realParse :: UserId -> FilePath -> Language -> [String] -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
-realParse id pgf l str = do
-  putStrLn "read new pgf"
-  pgfNew <- timeIt $ readPGF pgf
+realParse :: UserId -> FilePath -> Language -> FileType -> [String]  
+             -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
+realParse id pgf l svg str = do
+  logA id "read new pgf"
+  (t,pgfNew) <- timeItT $ readPGF pgf
+  logA id $ "read new pgf, "++show t 
   let morpho = buildMorpho pgfNew l
       input  = zip (map show [1..] ) str
-  putStrLn "parsing"
-  pars <- timeIt $ mapM (parseNormal pgfNew morpho l) input
-  print pars
-  putStrLn "creates png files"
-  timeIt $ mapM (createFile pgfNew l) pars
+  logA id "parsing"
+  (t',pars) <- timeItT $ mapM (parseNormal pgfNew morpho l) input
+  logA id (show pars)
+  logA id "creates png files"
+  mapM (createFile pgfNew l) pars
  where
-       createFile :: PGF -> Language -> (Sent,Int,Either [String] Tree) -> IO (Sent,Int,Either [String] (FilePath,FilePath)) 
+       createFile :: PGF -> Language -> (Sent,Int,Either [String] Tree) 
+                     -> IO (Sent,Int,Either [String] (FilePath,FilePath)) 
        createFile _   _  (s,i,Left x)    = return (s,0,Left x)
        createFile pgf l (s,i,Right tree) = do
-          png <- pipeIt2graphviz id pgf l tree (fst s)
+          png <- pipeIt2graphviz id pgf l svg tree (fst s)
           return (s,i,Right png)
 
-smallparse :: UserId -> String ->  IO [(Sent,Int, Either [String] (FilePath,FilePath))]
-smallparse id = realParse id pgfBackUp langBackUp . splitUp
+smallparse :: UserId -> FileType -> String 
+              -> IO [(Sent,Int, Either [String] (FilePath,FilePath))]
+smallparse id svg = realParse id pgfBackUp langBackUp svg . splitUp
   
 
 parseNormal :: PGF -> Morpho -> Language -> Sent -> IO (Sent,Int, Either [String] Tree)
 parseNormal pgf morpho lang x@(i,s) = do
   let fix     = fixPunctuation $ replaceNumbers x
       unknown = badWords morpho (snd fix)
-  putStrLn $ "Unknown: " ++show unknown
+  logA "" $ "Unknown: " ++show unknown
   if null unknown then parseOkNormal fix else return (x,0,Left unknown)
  where parseOkNormal (i,s) = do
-         putStrLn $ "Parsing "++s
+         L.log $ "Parsing "++s
          tree <- timeout timeLimit $ return $ parse pgf lang textType (map toLower s)
          case tree of
             Just xs@(x:_) -> return ((i,s),length xs,Right (getBest xs))
@@ -116,7 +133,7 @@ testa s id = do
   let morpho = buildMorpho pgf langBackUp --(read "BigParseSwe")
   print $ lookupMorpho morpho $ map toLower s
   tree <- parseNormal pgf morpho langBackUp ("",s)
-  ls <- reparse id s
+  ls <- reparse id s "pdf"
   print tree
   print ls
 
@@ -151,21 +168,21 @@ langDict :: Language
 langDict = read "DictSwe"
 
 
-pipeIt2graphviz :: UserId -> PGF -> Language -> Tree -> Id -> IO (FilePath,FilePath)
-pipeIt2graphviz id pgf lang t i = do
+pipeIt2graphviz :: UserId -> PGF -> Language -> FileType -> Tree 
+                   -> Id -> IO (FilePath,FilePath)
+pipeIt2graphviz id pgf lang svg t i = do
     tag <- randomIO :: IO Int
-    putStrLn $ "have made a random number! "++show tag
+    logA id $ "have made a random number! "++show tag
     let dotFileP = inDir id "tmptreep.dot"
-        pngFileP = inDir id "tmptreep"++i++show tag++".svg"
+        pngFileP = fileName "tmptreep" tag 
         dotFileA = inDir id "tmptreea.dot"
-        pngFileA = inDir id "tmptreea"++i++show tag++".svg"
+        pngFileA = fileName "tmptreea" tag
     SIO.run $ SIO.writeFile dotFileP $ graphvizParseTree pgf lang t
-    readProcess "dot" ["-Tsvg",dotFileP,"-o","images/"++pngFileP] []
+    readProcess "dot" ["-T",svg,dotFileP,"-o","images/"++pngFileP] []
     SIO.run $ SIO.writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
-    pid <- runCommand $ "dot -Tsvg "++ dotFileA++ " -o images/"++pngFileA
-    waitForProcess pid
-    --readProcess "dot" ["-Tpng",dotFileA,"-o","images/"++pngFileA] []
+    readProcess "dot" ["-T",svg,dotFileA,"-o","images/"++pngFileA] []
     return (pngFileP,pngFileA)
+  where fileName name tag = inDir id $ addExtension (name ++show tag) svg
  
 ----------------------
 

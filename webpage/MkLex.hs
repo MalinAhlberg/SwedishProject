@@ -7,6 +7,7 @@ import System.TimeIt
 import System.Exit
 import qualified Data.TrieMap as M
 import ReadCommand
+import Log as L
 
 type LexMap = (Lex,Lex)
 type Lex    = M.TMap String String
@@ -14,16 +15,18 @@ type UserId = String
 
 mkDir :: UserId -> LexMap -> [String] -> Language -> PGF -> IO (Maybe (FilePath,Language))
 mkDir id lexs ws lang pgf = do
-   putStrLn $ "User "++show id
-   putStrLn $ "Lemmas wanted "++show ws
+   L.log $ "mkDir for user "++show id
+   logA id $ "Lemmas wanted "++show ws
    let morpho = buildMorpho pgf (read "DictSwe")
        allLemmas = map fst $ concatMap (lookupMorpho morpho) ws
-   putStrLn "Extracting new lexicon..."
-   putStrLn $ "Lemmas "++show allLemmas
-   putStrLn "Extracing begins..."
-   (cnc,abs) <- timeIt $ extractLemmas id lexs allLemmas
-   putStrLn "Compiling new grammar..."
-   (ex,res,err) <- timeIt $ readProcessWithExitCode' id "gf" ["--new-comp","-i",inDir ".." id,"--make",inDir ".." bigGF] []
+   logA id "Extracting new lexicon..."
+   logA id $ "Lemmas "++show allLemmas
+   logA id "Extracing begins..."
+   (t,(cnc,abs)) <- timeItT $ extractLemmas id lexs allLemmas
+   logA id $ "Compiling new grammar, extraction: "++ show t
+   (t',(ex,res,err)) <- timeItT $ readProcessWithExitCode' id "gf"
+                              ["--new-comp","-i",inDir ".." id,"--make",inDir ".." bigGF] []
+   logA id $ "compilation: "++ show t'
    case ex of
         ExitSuccess   -> do putStrLn "Done"
                             return $ Just (inDir id newPGF,newLang)

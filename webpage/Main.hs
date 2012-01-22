@@ -7,7 +7,6 @@ import Network.HTTP.Types
 import Network.HTTP.Headers
 import Blaze.ByteString.Builder (copyByteString)
 import qualified Data.ByteString.UTF8 as BU
---import qualified Data.ByteString.Char8 as BC
 import qualified Data.ByteString as B
 import System.IO
 import System.FilePath
@@ -18,93 +17,109 @@ import Data.Monoid
 import Data.Maybe
 import Data.List
 import Data.List.Utils
---import Control.Monad.IO.Class
 import Control.Monad.State
 import Control.Concurrent.MVar
 
 import ParseLex
+import Log as L
  
---type CState = StateT Cookies IO
---data Cookies = C {count ::  Int }
---
+
 --main = do
 --    let port = 3000
 --    putStrLn $ "Listening on port " ++ show port
 --    gr <- play
 --    run port (parseF gr True newC)
 
+data = S {errlock, loglock, cookie :: MVar Int,
+          mode :: Bool, user :: Maybe String}
 main = do
-    let port = 3001
-    putStrLn $ "Listening on port " ++ show port
+    let port = 3000
+    L.log $ "Listening on port " ++ show port
     hSetEncoding stdin utf8
     hSetEncoding stdout utf8
     mvar <- newMVar 0
-    gr <- return (undefined,undefined)
+    log  <- newMVar 0
+    err  <- newMVar 0
+    gr   <- return (undefined,undefined)
     run port (parseF gr False mvar)
 
 parseF :: MonadIO m => ParseData -> Bool -> MVar Int -> Request -> m Response
 parseF gr b i req = do
-  liftIO $ putStrLn "start"
+  liftIO $ L.log $ "new start" ++show req
   let mn = queryString req
-  liftIO $ print ("pathinfo: "++show (pathInfo req))
-  liftIO $ print ("all requst: "++show req)
-  x <- liftIO $ findText gr req mn b i
-  liftIO $ putStrLn "have returned"
+      wb = findbrowser req
+  liftIO $ logA "" ("pathinfo: "++show (pathInfo req))
+  liftIO $ logA "" ("picturetype: "++wb)
+  liftIO $ logA "" ("all requst: "++show req)
+  x <- liftIO $ findText gr req mn b i wb
+  liftIO $ L.log "have returned"
   return x
 
 
-findText :: ParseData -> Request -> Query -> Bool -> MVar Int -> IO Response
-findText gr req mn b i
+findText :: ParseData -> Request -> Query -> Bool -> MVar Int -> String -> IO Response
+findText gr req mn b i wb
   | (Just (Just im)) <- lookup "img" mn = do
-     putStrLn $ "want image "++BU.toString im
-     putStrLn $ "all:"++show mn
+     logA "" $ "want image "++BU.toString im
+     logA "" $ "all:"++show mn
      return $
-       ResponseFile status200 [("Content-Type", "image/svg+xml")
+       ResponseFile status200 [("Content-Type", getTyp wb)
                               ,("Cache-Control","no-cache")] 
              ("images/"++BU.toString im) Nothing
   | (Just (Just txt)) <- lookup "text" mn = do
-      putStrLn "have text, will show it"
-      parseIt (getCookie req) gr txt b
+      logA "" "have text, will show it"
+      parseIt (getCookie req) gr txt b wb
   | (Just (Just txt)) <- lookup "more" mn = do
-      putStrLn "want more trees!!"
-      parseMore (getCookie req) txt
+      logA "" "want more trees!!"
+      parseMore (getCookie req) txt wb
   | (Just _) <- lookup "firstform" mn = do
-      putStrLn "have nothing, will return textfield"
+      logA "" "have nothing, will return textfield"
       return inputForm
   | (Just (Just txt)) <- lookup "input" mn = do
-       putStrLn $ "will complete "++ show txt
+       logA "" $ "will complete "++ show txt
        autoComplete txt
 
-findText gr req mn b mvar = do
+findText gr req mn b mvar wb = do
   let path = map (filter (/='\"')) $ map show $ pathInfo req
   liftIO $ print (pathInfo req)
   liftIO $ print path
   case path of
      ("static":x)   -> do
-         let typ = takeExtension $ last path
+         let typ = drop 1 $ takeExtension $ last path
          return $
            ResponseFile status200 [("Content-Type", getTyp typ)] 
                (intercalate "/" path) Nothing
      _              -> do
          cokh <- case getCookie req of
               Just id -> do 
-                          putStrLn "found cookie"
+                          L.log $ "User with cookie"++id
+                          runCommand $ "mkdir "++ id
+                          runCommand $ "mkdir "++"images/"++ id
                           return []
               Nothing -> do 
                          i <- takeMVar mvar
                          putMVar mvar (i+1)
                          runCommand $ "mkdir "++usermap (show i)
                          runCommand $ "mkdir "++"images/"++usermap (show i)
-                         putStrLn $ "have created "++"mkdir "++usermap (show i)
+                         L.log $ "New user: have created cookie and directories for "
+                               ++usermap (show i)
                          return 
-                           [("Set-Cookie",BU.fromString ("gfswedish="++show i))]
+                           [("Set-Cookie",BU.fromString ("gfswedish0="++show i))]
          return  $
            ResponseFile status200 ([("Content-Type", "text/html")]++cokh)
                ("static/index.html") Nothing
- where getTyp ".js"  = "application/javascript"
-       getTyp ".css" = "text/css"
-       getTyp ".html" = "text/html"
-       getTyp ".svg"  = "image/svg+xml"
+
+getTyp "js"  = "application/javascript"
+getTyp "css" = "text/css"
+getTyp "html" = "text/html"
+getTyp "svg"  = "image/svg+xml"
+getTyp "png"  = "image/png"
+
+findbrowser :: Request -> FilePath
+findbrowser req = maybe "svg" fileType 
+                    (lookup "User-Agent" $ requestHeaders req)
+       where fileType x | "MSIE" `B.isPrefixOf` x = "png"
+             fileType _                           = "svg"
+
 
 usermap :: String -> String
 usermap = ("usermap"++)
@@ -113,7 +128,7 @@ getCookie = maybe Nothing parseCookies . findCookie
   where findCookie = lookup "Cookie" . requestHeaders 
         parseCookies :: B.ByteString -> Maybe String
         parseCookies = listToMaybe . map (usermap . show . fst) . parseInt 
-                     . drop 10 . dropWhileList (not . ("gfswedish" `isPrefixOf`))
+                     . drop 11 . dropWhileList (not . ("gfswedish0=" `isPrefixOf`))
                      . BU.toString 
           where parseInt :: String -> [(Int,String)]
                 parseInt = reads
@@ -128,7 +143,6 @@ inputForm = ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat
               ,"<p><a href='http://www.grammaticalframework.org'>Grammatical Framework</a></p>"
               ,"<p><a href='https://github.com/MalinAhlberg/SwedishProject'>Source code</a></p>"
               ]
-             -- ,BU.fromString verbInfo, "!</p>"]
               
 textInputField :: Html
 textInputField = form << 
@@ -136,14 +150,16 @@ textInputField = form <<
       ,paragraph  ! [strAttr "id" "completion"] << noHtml
       ,submit "" "Submit"]
 
-parseIt :: Maybe String -> ParseData -> B.ByteString -> Bool -> IO Response 
-parseIt id (maps,pgf) txt b = do 
+parseIt :: Maybe String -> ParseData -> B.ByteString -> Bool -> FileType -> IO Response 
+parseIt id (maps,pgf) txt b svg = do 
+  L.log $ "parse request from user "++show id++" :"++BU.toString txt
   let dir = fromJust id
-  (t,results) <- timeItT $ if b then processparse dir (BU.toString txt) pgf maps
-                           else do print ("smallparse "++ BU.toString txt)
-                                   smallparse dir (BU.toString txt)
-  putStrLn $ "parse trees "++show results
-  putStrLn $ "It took "++show t++" seconds "
+      str = BU.toString txt
+  (t,results) <- timeItT $ if b then processparse dir str pgf maps svg 
+                                else do logA dir ("smallparse "++ str)
+                                        smallparse dir svg str 
+  logA dir $ "parse trees "++show results
+  logA dir $ "Parsing for user "++dir++"took "++show t++" seconds "
   let html = map getHtml results
   return $
         ResponseBuilder status200 [("Content-Type", "text/html")] $ mconcat 
@@ -167,11 +183,11 @@ parseIt id (maps,pgf) txt b = do
                              ,"'>Show more trees </a></p>\n"]
                      | i<2 = []
 
-parseMore :: Maybe String -> B.ByteString -> IO Response
-parseMore id txt = do
+parseMore :: Maybe String -> B.ByteString -> FileType -> IO Response
+parseMore id txt svg = do
   let user = fromJust id --fail otherwis
-  links <- reparse user (BU.toString txt)
-  putStrLn $ "have reparsed, got "++show (length links)++" trees"
+  links <- reparse user (BU.toString txt) svg
+  logA user $ "have reparsed, got "++show (length links)++" trees"
   let html = "<p>All trees</p>\n" : concatMap (\(pt,at) -> 
               ["<p>","<a href='?img=",BU.fromString pt
               ,"'><img src='?img=",BU.fromString pt,"'></a>\n"
@@ -189,11 +205,10 @@ autoComplete txt = do
   let res  = if null w then [] 
                 else ["<p>",BU.fromString "Some alternatives: "
                      ,BU.fromString $ unwords w,"</p>"]
-  putStrLn $ "autoComplet returns" ++ unwords w
+  logA "" $ "autoComplet returns" ++ unwords w
   return $ ResponseBuilder status200 [("Content-Type", "text/html")]
          $ mconcat $ map copyByteString $ res
 
-   
 --verbInfo :: String
 --verbInfo = concatMap (\(a,b) -> "Verbs of type "++a++":\n"++unlines b++"\n")
 --             [("V3",v3),("V2",v2),("VV",vv) ,("VA",va),("V2V",v2v),("V2A",v2a)]
