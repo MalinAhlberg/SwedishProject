@@ -1,0 +1,22 @@
+First of all, I think your thesis is very well-written and also
+explains your work well, withou leaving any loose ends.
+
+It seams as one of the biggest problems during the simulations
+was concurrency problems; when two airplanes are reaching a one-way
+taxiways, they might be kept in a deadlock, waiting for each other.
+Did you use any concurrency strategies, like semaphores, to avoid this,
+and if not, would it be useful to implement in the future, or do you
+think that using other path-finding algorithms would prevent this behavoir?
+
+My second question is about your research question number 5, found on
+page 7, "How robust can a solving algorithm be, i.e. how well can it deal with
+last moment unforeseeable changes?". Did you find any answer to this?
+
+Finally, I have a question regarding research question number 6,
+"What is the traffic limit for a specific airport, after which the
+system crashes, i.e. is unable to recover to a normal operation?". 
+For the simulation on Arlanda, you get many blockings of airplanes for
+some runway usage patterns. Does this mean that the
+traffic limit for Arlanda is reached, or closed to reached, for these
+patterns?
+
