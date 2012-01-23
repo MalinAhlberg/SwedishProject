@@ -1,4 +1,5 @@
 module ParseLexin where
+import Prelude as Pr
 import Data.Attoparsec.Char8 as A
 import Control.Monad
 import Control.Applicative
@@ -14,17 +15,24 @@ tryp p = parseOnly p . BU.fromString
 verbValency = do
   xorA
   theWord
-  v <- sepBy (v2 <|> v3 <|> vv <|> moreVal) (char' '/')
-  return v
+  xs <- A.many (particle True <|> sig) --outside of the paranthesis, in order to avoid
+                                       -- confusion
+  mone $ char' '('  --- should make sure they match!!
+  pr1 <- preposition
+  vs <- sepBy (v2s <|> v3 <|> v2a <|> va <|> vv <|> vs <|> vq <|> v2 <|> v <|> moreVal) (char '/')
+  mone $ char' ')' --- should make sure they match!!
+  return $ Pr.map (\v -> VT (vtype v) (xs++argument v) (pr1:preps v)) vs
 
 moreVal = A.anyChar >> return (VT X [] []) -- to be implemented properly
 subject = xorA
 
 xorA = 
-  skip (do char' 'A' <|> char' 'x' <|> char' 'y' <|> char' 'B' 
-           mone (char' '/' >> (char' 'A' <|> char' 'x')))
-  <|> skip littleb -- a small b is ok if it is not part of a word
- where littleb = string' "b/x" <|> string' "b " <|> string' "b)"
+  do char' 'A' <|> char' 'x' <|> char' 'y' <|> char' 'B' 
+     mone (skip orlittleb <|> skip (char' '/' >> (char' 'A' <|> char' 'x' <|> char' 'c')))
+  <|> 
+  skip littleb -- a small b is ok if it is not part of a word
+ where littleb = string' "b/x" <|> string' "b " <|> string' "b)" <|> string' "b/y"
+       orlittleb = string' "/b"
         
 
 theWord = do
@@ -33,13 +41,18 @@ theWord = do
 data VerbType = VT {vtype :: V , argument :: [Argument], preps :: [Preposition]}
   deriving (Show)
    -- X is unparseble type
-data V = V2 | V3 | X | VV Bool --VS VV VQ VA V2V V2S V2Q V2A
+data V = V | V2 | V3 | X | VV Bool | VS | VQ | VA | V2S | V2Q | V2A -- V2V, very uncommon 
   deriving (Show)
 data Argument = Part ByteString  --particles
               | Refl             --is reflexive
               -- | Inf Bool         --infinitival verb, True if inifinitive marker is used
   deriving (Show)
 type Preposition = Maybe ByteString
+
+v :: Parser VerbType
+v = do
+ xs <- A.many (particle True <|> sig) 
+ return (VT V xs [])
 
 v2 :: Parser VerbType
 v2 = do
@@ -50,6 +63,9 @@ v2 = do
   mone (char' ')')
   return $ VT V2 xs [pr]
 
+{- Assigns V3 also two verbs with a counjunction as argument
+   Eg. 'särar på x och y'
+   RunProg could handle this in a clever way -}
 v3 :: Parser VerbType
 v3 = do
   xs <- A.many (particle True <|> sig)
@@ -64,24 +80,81 @@ v3 = do
 vv :: Parser VerbType
 vv = do
   ps <- A.many (particle True <|> sig)
+  pp <- preposition
+  skipSpace
   b <- (mone (char' '(') >> string' "att" >> mone (char' ')') >> return True) -- ignores facts about whether infinitive marker can be left out. improve!
         <|> 
         return False
+  skipSpace
   char' '+'
   skipSpace
   string' "INF"
-  return $ VT (VV b) ps []
+  mone $ char' ')'
+  return $ VT (VV b) ps [pp]
+
+vs :: Parser VerbType
+vs = do
+  ps <- A.many (particle True <|> sig)
+  skipSpace
+  mone $ char' '('
+  --ignores which one, should be improved
+  sepBy ((string' "att" <|> string' "hur" <|> string' "när") 
+                                          >> mone (string' " etc")) (char' '/') 
+  mone $ char' ')'
+  char' '+'
+  skipSpace
+  skip (string' "SATS") <|> (string' "S" >> endOfInput)
+  return $ VT VS ps []
+
+vq :: Parser VerbType
+vq = do
+  ps <- A.many (particle True <|> sig)
+  mone $ char' '+'
+  skipSpace
+  string' "FRÅGESATS"
+  return $ VT VQ ps [] 
+
+{- Accepts predicative verbs, which may not be VA
+   Eg. 'avancerar som (till) PRED' -> when finding 'som' use as V2? 
+        (to be done in RunProg)
+   See SAG Verbfraser: Predikativ $ 23, Talbanken 4440,4438 -}
+va :: Parser VerbType
+va = do
+  ps <- A.many (particle True <|> sig)
+  mone $ char' '+'
+  skipSpace
+  string' "PRED"
+  return $ VT VA ps [] 
+
+v2s :: Parser VerbType
+v2s = do
+  mone $ char' '('
+  v  <- v2
+  mone $ char' ')'
+  mone $ char' '('
+  v' <- vs
+  mone $ char' ')'
+  return $ VT V2S  (argument v ++ argument v') (preps v ++ preps v')
+
+v2a :: Parser VerbType
+v2a = do
+  mone $ char' '('
+  v  <- v2
+  mone $ char' ')'
+  mone $ char' '('
+  v' <- va
+  mone $ char' ')'
+  return $ VT V2A  (argument v ++ argument v') (preps v ++ preps v')
 
 preposition :: Parser Preposition
 preposition = maybeP $ do
- --mone (char' '(')   -- paranthesis to bind the preposition to the verb
  skipSpace
- pr <- A.takeWhile1 $ notInClass nowords -- no prepositions with yzx..
+ pr <- getOneWord
  skipMany alternative -- ignore alternatives (should be improved)
  return pr
  where alternative = do
         char '/'
-        A.takeWhile1 $ notInClass nowords
+        getOneWord
         maybeP $ string' " etc"
 
   
@@ -92,31 +165,29 @@ sig = do
          char' '('
          string' "sig"
          char ')'
-       sig2 = string' "sig" >> return 's'
+       sig2 = skipSpace >> string' "sig" >> return 's'
 
 
 particle par = do
   when par $ skip (char' '(')
-  p <- part
+  p <- getOneWord
   skipMany alternative  -- ignore alternatives (should be improved)
   when par $ skip (char ')')
   return $ Part p
  where alternative = do
           char' '/'
-          A.takeWhile1 $ notInClass nowords
+          getOneWord 
           maybeP $ string' " etc"
-       part = do  -- makes sure that we do not interpret 'b' as a particle
-          skipSpace
-          (x,xs) <- do a    <- satisfy (notInClass $ 'b':nowords)
-                       rest <- A.takeWhile $ notInClass nowords
-                       return (a,rest)
-                    <|> 
-                    do b <- char 'b'
-                       rest <- A.takeWhile1 $ notInClass nowords 
-                       return (b,rest)
-          return (x `cons` xs)
 
-nowords = "xyzABC/)(, "
+-- gets one word, not 'b' and not 'att' or others, as specified in notparticles
+getOneWord = do  
+  skipSpace
+  part <- A.takeWhile1 $ notInClass nowords
+  guard $ not $ part `Pr.elem` notparticles 
+  return part
+
+notparticles = Pr.map BU.fromString ["att","b","sig"]
+nowords = "xyzABCFPS/)+(, "
 
 -- Parse word lists
 wlist :: Parser [(ByteString,[Argument])]
@@ -130,6 +201,10 @@ wlist = sepBy entry (string' ", ")
 
 
 -- help functions  
+(+++) :: B.ByteString -> B.ByteString -> B.ByteString 
+(+++) = B.append
+
+
 char' c = do
   skipSpace
   char c
