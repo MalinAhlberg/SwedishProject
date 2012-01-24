@@ -20,7 +20,6 @@ import Data.List
 import Data.List.Utils as LU
 import Control.Arrow
 import PGF
-import XMLHelp hiding (words,parse,id)
 import MkLex
 import qualified Data.Map as Map     
 import Data.Function
@@ -33,7 +32,7 @@ data Parsed = Pars {t :: Tree, s :: String, n :: Int}
 
 type FileType = String
 type ParseData = (LexMap,PGF)
-type Sent = (Id,String)
+type Sent = (String,String)
 -- 40 s, maybe too much
 timeLimit =  30*10^6
 
@@ -169,7 +168,7 @@ langDict = read "DictSwe"
 
 
 pipeIt2graphviz :: UserId -> PGF -> Language -> FileType -> Tree 
-                   -> Id -> IO (FilePath,FilePath)
+                   -> String -> IO (FilePath,FilePath)
 pipeIt2graphviz id pgf lang svg t i = do
     tag <- randomIO :: IO Int
     logA id $ "have made a random number! "++show tag

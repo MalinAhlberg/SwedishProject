@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
  
 import Network.Wai
-import Network.Wai.Parse
 import Network.Wai.Handler.Warp
 import Network.HTTP.Types
 import Network.HTTP.Headers
@@ -18,7 +17,9 @@ import Data.Maybe
 import Data.List
 import Data.List.Utils
 import Control.Monad.State
+import Control.Concurrent
 import Control.Concurrent.MVar
+import qualified Control.Exception as Exc
 
 import ParseLex
 import Log as L
@@ -30,7 +31,7 @@ import Log as L
 --    gr <- play
 --    run port (parseF gr True newC)
 
-data = S {errlock, loglock, cookie :: MVar Int,
+data State = S {errlock, loglock, cookie :: MVar Int,
           mode :: Bool, user :: Maybe String}
 main = do
     let port = 3000
@@ -38,18 +39,27 @@ main = do
     hSetEncoding stdin utf8
     hSetEncoding stdout utf8
     mvar <- newMVar 0
-    log  <- newMVar 0
-    err  <- newMVar 0
     gr   <- return (undefined,undefined)
-    run port (parseF gr False mvar)
+    forkIO writeMsg
+    run port (operate gr False mvar) --(parseF gr False mvar) 
+
+
+operate gr bool mvar req = liftIO $ Exc.catch  (parseF gr bool mvar req) handler
+ where
+     handler :: Exc.ErrorCall -> IO Response
+     handler e = do
+         err $ "Bad error: "++show e
+         return  $
+           ResponseFile status200 [("Content-Type", "text/html")]
+               ("static/index.html") Nothing
 
 parseF :: MonadIO m => ParseData -> Bool -> MVar Int -> Request -> m Response
 parseF gr b i req = do
   liftIO $ L.log $ "new start" ++show req
   let mn = queryString req
       wb = findbrowser req
-  liftIO $ logA "" ("pathinfo: "++show (pathInfo req))
-  liftIO $ logA "" ("picturetype: "++wb)
+ -- liftIO $ logA "" ("pathinfo: "++show (pathInfo req))
+ -- liftIO $ logA "" ("picturetype: "++wb)
   liftIO $ logA "" ("all requst: "++show req)
   x <- liftIO $ findText gr req mn b i wb
   liftIO $ L.log "have returned"
