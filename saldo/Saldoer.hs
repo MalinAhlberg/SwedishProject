@@ -118,7 +118,7 @@ findGrammar (id,E pos table) =  do
                                    ++", word '"++id++"' rejected.")
                       isDead id
               else do let cnc = [G id gf_cat [[snd $ head' "createGF" table]]
-                                    "" (f,findA id++f') paradigms 
+                                    "" (f,findA gf_cat id++f') paradigms 
                                               | (gf_cat,(f,f'),paradigms) <- xs]
                       modify $ \s -> s {retries = cnc++retries s}
 
@@ -127,11 +127,13 @@ findGrammar (id,E pos table) =  do
 okCat "VP" = hasPart
 okCat "VR" = isRefl
 okCat _    = const True
-findA w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
-        | otherwise         = ""
+findA "VP" w =  ")\""++part++"\""
  where part = findsndWord w
+findA _  _ = ""
+--w | part `elem` preps = ")\""++part++"\"" --paranthesis to close mkV
+        -- | otherwise         = ""
 
-hasPart = all isAlpha . findsndWord
+hasPart = (\x -> all isAlpha x &&  x/="sig") . findsndWord
 hasPrep = (`elem` preps) . findsndWord
 isRefl  = (=="sig") . findsndWord
 
@@ -181,22 +183,24 @@ checkWord gf t entry@(G id cat lemmas _ _ _) = do
                                       , gf_cat == cat]
   checkForms paramMap t gf_t entry
 
-
+checkForms
+  :: Eq a => [(a, [String])] -> [(a, [Char])] -> [([Char], [Char])] -> GrammarInfo -> Convert ()
 checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
   | null diffs = accept entry
   | otherwise  = do c <- gets changes 
                     modify $ \s -> s {changes = c+1}
                     report $ "redo word "++id
-                    report (show [(lookup f fm_t,lookup g gf_t) | (f,g) <- paramMap])
+                    report (show [[(lookup f fm_t,lookup g' gf_t) | g' <- g ] | (f,g) <- paramMap])
                     getNextLemma $!  entry 
   where
-    diffs = [(fm_p,fm_v,gf_p,gf_v) | (fm_p,gf_p) <- paramMap
+    diffs = [(fm_p,fm_v,gf_p,gf_v)  -- | gf_p' <- gf_p
+                                   | (fm_p,gf_p) <- paramMap
                                    , fm_vs      <- [lookup' fm_p fm_t]
-                                   , Just gf_v  <- [lookup gf_p gf_t]
+                                   , let gf_v  = catMaybes $ map (`lookup` gf_t) gf_p 
                                    , Just fm_v  <- [isDiff gf_v fm_vs]]
    -- if there is no information about the form in saldo, we chose to accept it
     isDiff  _ [] = Nothing
-    isDiff  x xs | x `elem` xs = Nothing
+    isDiff ys xs | any (`elem` xs) ys = Nothing
                  | otherwise   = Just $ head xs
  
     getNextLemma x@(G id cat lemmas _ _ []) = do
@@ -223,7 +227,7 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
                           x         -> do report ("form "++gf_p++" do not exist "++id)
                                           return Nothing
           where
-            fm_p = head' ("getLemma "++gf_p++"."++" Word: "++id) [fm_p | (fm_p,gf_p') <- paramMap, gf_p'==gf_p]
+            fm_p = head' ("getLemma "++gf_p++"."++" Word: "++id) [fm_p | (fm_p,gf_p') <- paramMap, gf_p `elem` gf_p']
 -------------------------------------------------------------------
 -- Compile with GF
 -------------------------------------------------------------------
@@ -259,8 +263,8 @@ mkGFName id' cat = name++"_"++toGFcat cat
        toGFcat "VR" = "V"
        toGFcat "VP" = "V"
        toGFcat  v   = v
-       dash2us '-' = '_'
-       dash2us x = x
+       dash2us '-'  = '_'
+       dash2us    x = x
        num x = if isDigit (head' "isDigit" x) then 'x':x else x
        name =  undot -- $ (++ [last id']) 
               $ num 
@@ -306,16 +310,16 @@ catMap  =
   , (pack "vb",   "V", map (first pack) verbParamMap, ("mkV",""), verbParadigmList)
   , (pack "nn",   "N", map (first pack) nounParamMap, ("mkN",""), nounParadigmList)
   -- particles were V2. Why? -"dirV2 (partV (mkV",")"
-  -- VR should not be V2 either.
-  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",""), verbRParadigmList)
-  , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
+--  , (pack "vbm", "VR", map (first pack) verbRParamMap, ("reflV (mkV",")"), verbRParadigmList)
+--  , (pack "vbm", "VP", map (first pack) verbPParamMap, ("partV (mkV",""), verbPParadigmList)
   ]
   
 -- For prepositions, not run automatically
 prepCatMap =  [(pack "pp", "Prep", [(pack "invar","s")],("mkPrep",""),[("mkPrep",["s"],"")])]
 
+advParamMap :: [(String,[String])]
 advParamMap =
-  [("pos", "s"),("invar","s")] -- is invar needed?
+  [("pos", ["s"]),("invar",["s"])] -- is invar needed?
 
 advParadigmList =
   [("mkAdv", ["s"], "") ]
@@ -340,22 +344,22 @@ a16 = "s (AF (ASuperl SupWeak) Gen)"
 
 
 adjParamMap =
-  [("pos indef sg u nom",      a1 )
-  ,("pos indef sg u gen",      a2 )
-  ,("pos indef sg n nom",      a3 )
-  ,("pos indef sg n gen",      a4 )
-  ,("pos indef pl nom",        a5 )
-  ,("pos indef pl gen",        a6 )
-  ,("pos def sg no_masc nom",  a7 )
-  ,("pos def sg no_masc gen",  a8 )
-  ,("pos def pl nom",          a9 )
-  ,("pos def pl gen",          a10)
-  ,("komp nom",                a11)
-  ,("komp gen",                a12)
-  ,("super indef nom",         a13)
-  ,("super indef gen",         a14)
-  ,("super def no_masc nom",   a15)
-  ,("super def no_masc gen",   a16)
+  [("pos indef sg u nom",      [a1] )
+  ,("pos indef sg u gen",      [a2] )
+  ,("pos indef sg n nom",      [a3] )
+  ,("pos indef sg n gen",      [a4] )
+  ,("pos indef pl nom",        [a5] )
+  ,("pos indef pl gen",        [a6] )
+  ,("pos def sg no_masc nom",  [a7] )
+  ,("pos def sg no_masc gen",  [a8] )
+  ,("pos def pl nom",          [a9] )
+  ,("pos def pl gen",          [a10])
+  ,("komp nom",                [a11])
+  ,("komp gen",                [a12])
+  ,("super indef nom",         [a13])
+  ,("super indef gen",         [a14])
+  ,("super def no_masc nom",   [a15])
+  ,("super def no_masc gen",   [a16])
   ]
 
 
@@ -374,6 +378,7 @@ v2  = "s (VF (VPres Pass))"
 v3  = "s (VF (VPret Act))"  
 v4  = "s (VF (VPret Pass))" 
 v5  = "s (VF (VImper Act))" 
+v5a  = "s (VF (VImper Pass))" 
 v6  = "s (VI (VInfin Act))" 
 v7  = "s (VI (VInfin Pass))" 
 v8  = "s (VI (VSupin Act))" 
@@ -391,25 +396,25 @@ v19 = "s (VI (VPtPret (Weak Pl) Gen))"
 
 --"s (VF (VImper Pass))")   "part")
 verbParamMap =
-  [("pres ind aktiv",               v1 )  
-  ,("pres ind s-form",              v2 ) 
-  ,("pret ind aktiv",               v3 )  
-  ,("pret ind s-form",              v4 ) 
-  ,("imper",                        v5 ) 
-  ,("inf aktiv",                    v6 ) 
-  ,("inf s-form",                   v7 ) 
-  ,("sup aktiv",                    v8 ) 
-  ,("sup s-form",                   v9 ) 
-  ,("pret_part indef sg u nom",     v10)  
-  ,("pret_part indef sg u gen",     v11)  
-  ,("pret_part indef sg n nom",     v12)
-  ,("pret_part indef sg n gen",     v13) 
-  ,("pret_part indef pl nom",       v14)        
-  ,("pret_part indef pl gen",       v15)        
-  ,("pret_part def sg no_masc nom", v16)           
-  ,("pret_part def sg no_masc gen", v17)           
-  ,("pret_part def pl nom",         v18)           
-  ,("pret_part def pl gen",         v19)
+  [("pres ind aktiv",               [v1] )  
+  ,("pres ind s-form",              [v2] ) 
+  ,("pret ind aktiv",               [v3] )  
+  ,("pret ind s-form",              [v4] ) 
+  ,("imper",                        [v5,v5a] ) 
+  ,("inf aktiv",                    [v6] ) 
+  ,("inf s-form",                   [v7] ) 
+  ,("sup aktiv",                    [v8] ) 
+  ,("sup s-form",                   [v9] ) 
+  ,("pret_part indef sg u nom",     [v10])  
+  ,("pret_part indef sg u gen",     [v11])  
+  ,("pret_part indef sg n nom",     [v12])
+  ,("pret_part indef sg n gen",     [v13]) 
+  ,("pret_part indef pl nom",       [v14])        
+  ,("pret_part indef pl gen",       [v15])        
+  ,("pret_part def sg no_masc nom", [v16])           
+  ,("pret_part def sg no_masc gen", [v17])           
+  ,("pret_part def pl nom",         [v18])           
+  ,("pret_part def pl gen",         [v19])
   ]                                                                  
 
 verbParadigmList =
@@ -421,7 +426,7 @@ verbParadigmList =
 -- could use normal verbParamMap if we are sure it is a preposition,
 -- and will look the same in all paradims
 verbPParamMap = map (first (++" 1:1-2")) verbParamMap
-              ++map (\(a,b) -> (a++" 1:2-2","part")) verbParamMap
+              ++map (\(a,b) -> (a++" 1:2-2",["part"])) verbParamMap
 
 verbPParadigmList =
   [ ("", [v1], "" )                
@@ -447,14 +452,14 @@ n7 = "s Pl Def Nom"
 n8 = "s Pl Def Gen"   
 
 nounParamMap =
-  [ ("sg indef nom", n1)
-  , ("sg indef gen", n2)
-  , ("sg def nom",   n3)
-  , ("sg def gen",   n4)
-  , ("pl indef nom", n5)
-  , ("pl indef gen", n6)
-  , ("pl def nom",   n7)
-  , ("pl def gen",   n8)
+  [ ("sg indef nom", [n1])
+  , ("sg indef gen", [n2])
+  , ("sg def nom",   [n3])
+  , ("sg def gen",   [n4])
+  , ("pl indef nom", [n5])
+  , ("pl indef gen", [n6])
+  , ("pl def nom",   [n7])
+  , ("pl def gen",   [n8])
   ]
 
 nounParadigmList =
