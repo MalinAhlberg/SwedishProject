@@ -1,21 +1,20 @@
 module ParseLexin where
 import Prelude as Pr
-import Data.Attoparsec.Char8 as A
+import Data.Attoparsec.Text as A
+import Data.Text as T
 import Control.Monad
 import Control.Applicative
-import Data.ByteString.Char8 as B 
-import Data.ByteString.UTF8 as BU
 
 
 -- need to use lexer? gottar sig (åt x/att + INF)  should be V2: gottar sig åt and VV : gottar sig åt att
 parseValency = tryp verbValency 
 parseWords = tryp wlist
-tryp p = parseOnly p . BU.fromString
+tryp p = parseOnly p . T.pack
 
 verbValency = do
   xorA
   theWord
-  xs <- A.many (particle True <|> sig) --outside of the paranthesis, in order to avoid
+  xs <- many (particle True <|> sig) --outside of the paranthesis, in order to avoid
                                        -- confusion
   mone $ char' '('  --- should make sure they match!!
   pr1 <- preposition
@@ -28,9 +27,9 @@ subject = xorA
 
 xorA = 
   do char' 'A' <|> char' 'x' <|> char' 'y' <|> char' 'B' 
-     mone (skip orlittleb <|> skip (char' '/' >> (char' 'A' <|> char' 'x' <|> char' 'c')))
+     mone (ignore orlittleb <|> ignore (char' '/' >> (char' 'A' <|> char' 'x' <|> char' 'c')))
   <|> 
-  skip littleb -- a small b is ok if it is not part of a word
+  ignore littleb -- a small b is ok if it is not part of a word
  where littleb = string' "b/x" <|> string' "b " <|> string' "b)" <|> string' "b/y"
        orlittleb = string' "/b"
         
@@ -43,20 +42,20 @@ data VerbType = VT {vtype :: V , argument :: [Argument], preps :: [Preposition]}
    -- X is unparseble type
 data V = V | V2 | V3 | X | VV Bool | VS | VQ | VA | V2S | V2Q | V2A -- V2V, very uncommon 
   deriving (Show)
-data Argument = Part ByteString  --particles
+data Argument = Part Text  --particles
               | Refl             --is reflexive
               -- | Inf Bool         --infinitival verb, True if inifinitive marker is used
   deriving (Show)
-type Preposition = Maybe ByteString
+type Preposition = Maybe Text
 
 v :: Parser VerbType
 v = do
- xs <- A.many (particle True <|> sig) 
+ xs <- many (particle True <|> sig) 
  return (VT V xs [])
 
 v2 :: Parser VerbType
 v2 = do
-  xs <- A.many (particle True <|> sig) 
+  xs <- many (particle True <|> sig) 
   mone (char' '(')   -- verbs that can be used as both V and V2 will assigned V2
   pr <- preposition
   xorA
@@ -68,7 +67,7 @@ v2 = do
    RunProg could handle this in a clever way -}
 v3 :: Parser VerbType
 v3 = do
-  xs <- A.many (particle True <|> sig)
+  xs <- many (particle True <|> sig)
   pr1 <- preposition
   mone (char' '(')   -- verbs that can be used as both V2 and V3 will assigned V3
   xorA
@@ -79,7 +78,7 @@ v3 = do
 
 vv :: Parser VerbType
 vv = do
-  ps <- A.many (particle True <|> sig)
+  ps <- many (particle True <|> sig)
   pp <- preposition
   skipSpace
   b <- (mone (char' '(') >> string' "att" >> mone (char' ')') >> return True) -- ignores facts about whether infinitive marker can be left out. improve!
@@ -94,7 +93,7 @@ vv = do
 
 vs :: Parser VerbType
 vs = do
-  ps <- A.many (particle True <|> sig)
+  ps <- many (particle True <|> sig)
   skipSpace
   mone $ char' '('
   --ignores which one, should be improved
@@ -103,12 +102,12 @@ vs = do
   mone $ char' ')'
   char' '+'
   skipSpace
-  skip (string' "SATS") <|> (string' "S" >> endOfInput)
+  ignore (string' "SATS") <|> (string' "S" >> endOfInput)
   return $ VT VS ps []
 
 vq :: Parser VerbType
 vq = do
-  ps <- A.many (particle True <|> sig)
+  ps <- many (particle True <|> sig)
   mone $ char' '+'
   skipSpace
   string' "FRÅGESATS"
@@ -120,7 +119,7 @@ vq = do
    See SAG Verbfraser: Predikativ $ 23, Talbanken 4440,4438 -}
 va :: Parser VerbType
 va = do
-  ps <- A.many (particle True <|> sig)
+  ps <- many (particle True <|> sig)
   mone $ char' '+'
   skipSpace
   string' "PRED"
@@ -167,12 +166,16 @@ sig = do
          char ')'
        sig2 = skipSpace >> string' "sig" >> return 's'
 
-
+{- We parse a word as a particle if it is in parathesis,
+   or if we some other reason know that it is a particle
+   (this is marked by given False as argument).
+   The destinction is not clear, stava and buckla share the
+   same type : A & (till) b -}
 particle par = do
-  when par $ skip (char' '(')
+  when par $ ignore (char' '(')
   p <- getOneWord
   skipMany alternative  -- ignore alternatives (should be improved)
-  when par $ skip (char ')')
+  when par $ ignore (char ')')
   return $ Part p
  where alternative = do
           char' '/'
@@ -186,35 +189,35 @@ getOneWord = do
   guard $ not $ part `Pr.elem` notparticles 
   return part
 
-notparticles = Pr.map BU.fromString ["att","b","sig"]
+notparticles = Pr.map T.pack ["att","b","sig"]
 nowords = "xyzABCFPS/)+(, "
 
 -- Parse word lists
-wlist :: Parser [(ByteString,[Argument])]
+wlist :: Parser [(Text,[Argument])]
 wlist = sepBy entry (string' ", ")
  where entry = do
           wd <- A.takeWhile1 $ notInClass ", "  
-          A.many (skipSpace >> digit)       -- ignore numbers (sår 2)
-          ags <- A.many ((char ' '>> sig) <|> (char ' ' >> particle False))
+          many (skipSpace >> digit)       -- ignore numbers (sår 2)
+          ags <- many ((char ' '>> sig) <|> (char ' ' >> particle False))
           return (wd,ags)
 
 
 
 -- help functions  
-(+++) :: B.ByteString -> B.ByteString -> B.ByteString 
-(+++) = B.append
+(+++) :: Text -> Text -> Text 
+(+++) = T.append
 
 
 char' c = do
   skipSpace
   char c
 
-string' = string . BU.fromString 
+string' = string . T.pack 
 
-skip :: Parser a -> Parser ()
-skip p = p >> return ()
+ignore :: Parser a -> Parser ()
+ignore p = p >> return ()
 
-mone p = (skip p) <|> return ()
+mone p = (ignore p) <|> return ()
 
 maybeP :: Parser a -> Parser (Maybe a)
 maybeP p = do
@@ -222,10 +225,10 @@ maybeP p = do
    <|>
    return Nothing
 
-trimJust :: Maybe ByteString -> Maybe ByteString
-trimJust (Just x) | B.null x = Nothing
+trimJust :: Maybe Text -> Maybe Text
+trimJust (Just x) | T.null x = Nothing
 trimJust x         = x
 
-trimArg :: ByteString -> (ByteString -> Argument) -> [Argument]
-trimArg b p | B.null b  = []
+trimArg :: Text -> (Text -> Argument) -> [Argument]
+trimArg b p | T.null b  = []
             | otherwise = [p b]
