@@ -117,7 +117,7 @@ cat
 -- Various functions
 -------------------------------------------------------------------------------
   ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
-  SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
+--  SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
   
   
   UseComparA  : A -> AP ;

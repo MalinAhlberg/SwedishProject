@@ -47,6 +47,14 @@ getSentence' :: Sentence -> (Id, [String])
 getSentence' s = let sent = map word . words in
       (idS s,sent s)
 
+getSentenceTagged :: Sentence -> (Id,[(Tag,String)])
+getSentenceTagged s = let wds = map word $ words s
+                          tgs = map pos $ words s 
+                      in (idS s,zip tgs wds)
+  where  readId i | null n    = 1000 
+                  | otherwise = fst $ head n
+            where n = reads (tail $ dropWhile (/='_') i) :: [(Int,String)]
+
 -- gets the trees into a nice format
 showa :: String -> Sentence -> String
 showa nr s@(Sent id root ws inf _) = 

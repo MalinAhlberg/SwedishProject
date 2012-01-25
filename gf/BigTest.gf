@@ -32,5 +32,8 @@ abstract BigTest =
   faa_VV : VV ;
   gaa_VV : VV ;
 
+  -- for ne
+  X1_PN : PN ; 
+  X2s_PN : PN ; --same genitive as nominative
   } ;
 

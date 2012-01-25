@@ -25,7 +25,6 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
 
   lin
-   
     begin_VV    = mkVV (mkV "börja") ;
     tankaTill_V = partV (mk2V "tänka" "tänkte") "till" ;
     become_V2 = mkV2 (mkV "bli" "blir""bli" "blev" "blivit" "bliven") ;
@@ -38,4 +37,7 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
                     {c2 = mkComplement [] ; lock_VV = <>} ;
     gaa_VV = mkVV (mkV "gå" "går" "gå" "gick" "gått" "gådd") ;
 
+  -- for ne
+  X1_PN = mkPN "X1" (variants {utrum | neutrum}) ;
+  X2s_PN  = mkPN "X2" "X2" (variants {utrum | neutrum}) ;
 } ;

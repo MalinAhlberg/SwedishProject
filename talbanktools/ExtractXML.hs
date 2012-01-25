@@ -1,3 +1,4 @@
+module ExtractXML where
 import XMLHelp hiding (id,words)
 import qualified XMLHelp as X
 --import SaldoXML
