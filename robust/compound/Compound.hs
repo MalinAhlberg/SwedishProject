@@ -1,9 +1,26 @@
-module Compound where
+module Main where
+import qualified Data.HashMap as M
+--import Data.List
+import Data.Text (Text,pack,isPrefixOf)
+import Data.Maybe
 
---annotate outPrefix outSuffix word msd model = 
+import ParseSaldo
+
+-- Freely translated after compound.py
+
+-- TODO binde-s if more than two words
+
+main = try "glasskålar havregrynsgröt gatubokmaskin jättefina gatuhörnstriumf"
+
+
+try str = do
+   lex <- getSaldo 
+   print $ map (compound lex) (words str) 
+
+
 
 prefixes_suffixes :: String -> [(String,String)]
-prefixes_suffixes w = [(take n w,drop n w) | n <- [1..length (w-1)]]
+prefixes_suffixes w = [(take n w,drop n w) | n <- [1..(length w)-1]]
 
 exception = (`elem`
    [ "il", "ör", "en", "ens", "ar", "ars"
@@ -15,26 +32,39 @@ exception = (`elem`
 
 
 -- ("glas", "skål") --> ("glas", "skål"), ("glass", "skål")
-sandhi :: String -> String -> [(String,String)]
-sandhi prefix suffix 
+sandhi :: Bool -> (String,Text) -> (String,Text) -> [(String,Text)]
+sandhi b (prefix,e) (suffix,_) 
   | last prefix == head suffix && last prefix `elem` "bdfgjlmnprstv"
-    = [(prefix,suffix),(prefix++[last prefix],suffix)]
-  | otherwise = [(prefix,suffix)] 
+    = [(prefix,e),(prefix++[last prefix],e)]
+  | b && last prefix == 's'      -- drops binde-s
+    = [(prefix,e),(init prefix,e)]
+  | otherwise = [(prefix,e)] 
 
---compound :: Lex -> String -> [[(String,String)]]
-compound saldoLex w  = 
-  [ [p,s] | (p,s) <- prefixes_suffixes w, not (exception s)
-                  , isInLex saldoLex p
-                  , isInLex saldoLex s]
-  ++
-  [ map (\(x:xs) -> map (second tail ys) . (sandhi p x)) ys  | (p,s) <- prefixes_suffixes w, not (exception s)
-                 , let xs = compound saldoLex s]
+type Lex = M.Map Text [(Text,Text)]
 
-f :: String -> (String,[(String,String)]) -> (String,[(String,String)])
-f a (a',bs) = (a',sandhi a a'++bs)
+compound :: Lex -> String -> [[(String,Text)]]
+compound = compound' False
+compound' :: Bool -> Lex -> String -> [[(String,Text)]]
+compound' b saldoLex w = concat $ concat
+  [ map (f (sandhi b) . ((p,fromJust p'):)) ss
+        | (p,s) <- prefixes_suffixes w, not (exception s)
+        , let p' = isInLexPre saldoLex p
+        , isJust p'
+        , let ok = isInLex saldoLex s
+        , let xs = compound' True saldoLex s 
+        , let ss = if isJust ok then [[(s,fromJust ok)]] else xs]
 
-g :: [a] -> [a]
-g (a:b:xs) = sandhi a b ++ g (b:xs)
-g xs       = xs
+--f :: (String -> String -> [String]) -> [String] -> [[String]]
+f g (a:b:xs) = map (++(concat (f g xs))) (map (:[b]) (g a b))
+f _ [x]       = [[x]]
+f _ []        = []
 
-isInLex = undefined
+isInLex, isInLexPre :: Lex -> String -> Maybe Text
+isInLex lex w =  fmap (snd . head) $ M.lookup (pack w) lex
+isInLexPre lex w = let forms = concat $ maybeToList $ M.lookup (pack w) lex
+                       isOk  = listToMaybe . filter (((pack "c") `isPrefixOf`) . fst)
+                   in fmap snd $ isOk forms
+
+  -- tag should not be: (`elem` ["cm","ci","c"] ). Make explicit if other 
+  -- tags starting on 'c' is added in Saldo
+
