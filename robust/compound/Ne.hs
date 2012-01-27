@@ -14,16 +14,14 @@ type Tag = String
 
 isName :: Morpho -> [(String,Tag)] -> [(String,NameTag)]
 isName m ((x,t):xs)  
-     | t/="" && null (lookupMorpho m (lower x)) = replace 0 ((x,t):xs) -- first word not in dict -> is name
+    -- first word is untagged and not in dict -> could be name
+     | t=="" && null (lookupMorpho m (lower x)) = replace 0 ((x,t):xs) 
      | otherwise                                = ((x,t):replace 0 xs)
-{-= replace (lower x:xs) -}
 isName m []      = []
 
 lower (x:xs) = (toLower x:xs)
 lower y      = y
 
---isNameStart :: String -> Bool
---isNameStart xs = isUpper (head xs) || isNameSpec xs
 
 isNameSpec :: (String,Tag) -> Bool
 isNameSpec (s,t) = t=="" && (s `elem` ["von","af"])
