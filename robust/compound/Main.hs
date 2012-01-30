@@ -21,6 +21,7 @@ import Control.Applicative
   {- TODO
      Change tags to show gender/case when parsing is done
    -}
+
 tb = "../../Talbanken05_20060604/FPS/P.tiger.xml"
 
 main = evalNE False "../ne/100.xml" "evalAll1c.txt"
@@ -35,9 +36,7 @@ testxml = do
   sent <- mainF "en.xml" (return . map getSentenceTagged)
   print sent
 
---neEval = evalNE $ curry (sortResult . eval . uncurry compareT)
 
---evalNE :: ([[String]] ->  [(Id,[(Tag,String)])] -> String) -> FilePath -> FilePath -> IO ()
 evalNE :: Bool -> FilePath -> FilePath -> IO ()
 evalNE small inp out = do 
   putStrLn "parse pgf"
@@ -49,36 +48,17 @@ evalNE small inp out = do
   putStrLn "extracting sentences"
   sent <- concat <$> mainF inp (return . map getSentenceTagged)
   putStrLn "finding names"
-  let output = concatMap ({-onlyTags .-} simplify lex morpho . emptyTagged . str) sent 
+  let output = concatMap (simplify lex morpho . emptyTagged . str) sent 
   writeFile "tmpres"  $ unlines $ map show output
   trace (show (output,sent)) $ return ()
-  writeFile out $  sortResult $ eval {-$ compareT-} output -- sent
- where --onlyTags  = map (\(a,b,c) -> (a,b,)  --- remove ne-tags
-       --onlyWords = map snd  --- remove tb-tags
-       str       = snd      --- remove tb-index
+  writeFile out $  sortResult $ eval output
+ where str       = snd      --- remove tb-index
        emptyTagged = map (\(t,w) -> (w,"",t))
        smallpgf = if small  then "../../gf/BigTest.pgf"
                             else "../../gf/Big.pgf"
        smallLang = if small then read "BigTestSwe"
                             else read "BigSwe"
 
-{-
-compareT :: [[(String,Tag)]] -> [(Id,[(Tag,String)])] -> [(Tag,Tag,String)]
-compareT ntags tbtags = concat $ zipWith (\x (i,y) -> 
-                               zipWith (\a (b,c) -> (a,b,c)) x y) ntags tbtags
-                               -}
-
--- The empty strings from dropName will disappear here (in a nice way) 
--- since there not tagged as X1, neither as PN. (If they were, it would be
--- ok anyway.
-{-
-eval :: [(Tag,Tag,String)] -> ([(Tag,String)],[String])
-eval ((nt,tb,str):xs) = let (tagged,untagged) = eval xs
-                        in  trace (show (nt,tb,str)) $ if hasNameTag nt 
-                            then ((tb,str):tagged,untagged)
-                            else if tb=="PN" then (tagged,str:untagged)
-                                 else (tagged,untagged)
-                                 -}
 
 eval :: [(String,NameTag,Tag)] -> ([(Tag,String)],[String])
 eval ((str,nt,tb):xs) = let (tagged,untagged) = eval xs

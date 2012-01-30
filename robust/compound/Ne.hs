@@ -4,7 +4,6 @@ import PGF
 import Control.Arrow
 
 {- Same as ../ne/NE.hs but for tagged sentences
-   Beginning of sentence? Look up in morpho and mark as name if not present?
    Animate/inanimate? Look at rest of sentence, or make alternatives. (vote
    down GenNP when parsing)
    Nominative/genitive? Put as both if ends with s?

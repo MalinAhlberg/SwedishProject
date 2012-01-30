@@ -11,7 +11,6 @@ import qualified Data.HashMap as M
 test = timeIt (do 
   s <-readFile "../../saldo/saldom.xml"
   let m = tryp parseSaldo s
---  writeFile "hej" (show m))
   case m of
        Left e  -> putStrLn e
        Right p -> print $ M.lookup (pack "gatu") p)
@@ -26,7 +25,7 @@ getSaldo = do
        Left e  -> error "couldn't parse saldo"
        Right p -> return p
 
-parseSaldo :: Parser (M.Map Text [(Text,Text)]) -- [(Text,[(Text,Text)])]
+parseSaldo :: Parser (M.Map Text [(Text,Text)])
 parseSaldo = do
    xs <- concat <$> many parseEntry
    return $ M.fromListWith (++) xs
@@ -47,7 +46,6 @@ parseEntry = do
 parseTable :: Parser (Text,Text)
 parseTable = do
   t <- readNextTag 
-  --trace ("next tag"++show t) $ return ()
   guard (t/=pack "/table")
   when (t/=pack "form") $ flushTill "<form>"
   string' "<param>"
