@@ -1,5 +1,7 @@
 import Control.Monad
 import Control.Applicative
+import Control.Arrow
+import Control.DeepSeq
 import Data.List
 import Data.List.Utils
 import Data.Maybe
@@ -57,7 +59,31 @@ main = do
    lex <-  mkLexMap
    putStrLn "Extracting new dictionary..."
    mapM (\v -> mkLexicon morpho pgf lex v >>= writeCode) vs
+   cleanDicts
    return ()
+
+-- to avoid name clashes
+cleanDicts :: IO ()
+cleanDicts = do
+  abs <- getAndOrder newabs
+  cnc <- getAndOrder newcnc
+  writeFile "NewAbs.gf" abs
+  writeFile "NewCnc.gf" cnc
+  writeGF $!! (abs,cnc)
+
+ where getAndOrder :: FilePath -> IO String
+       getAndOrder file = do
+            lst <- extractLex tail file   -- should remove replicate code
+            let sortIt = concatMap addIndicies . group . sort
+            return $ unlines $ map format $ sortIt lst
+       addIndicies [x] = [x]
+       addIndicies xs = addI 1 xs
+       -- TODO do not add index at the very end (V21 ?)
+       --      empty files before rewriting
+       addI n (x:xs)  = first (++show n) x : addI (n+1) xs
+       addI _ []      = []
+       format (l,c)   = " "++l++"\t"++c
+
 
 writeCode = maybe (return ()) (writeGF . formatGF)
 writeGF (abs,cnc) = do
@@ -150,13 +176,18 @@ extractLemma lex w
 
                        
 mkLexMap :: IO (Map String String)
-mkLexMap = ex cncFile
+mkLexMap = liftM M.fromList $ extractLex id cncFile
               
- where ex file = hSetEncoding stdin utf8 >> hSetEncoding stdout utf8 >> (liftM mkMap $ readFile file)
-       mkMap :: String -> (Map String String)
-       mkMap lex = M.fromList [(head ws, l) | l <- lines lex
-                                                 , let ws = words l
-                                                 , not $ Data.List.null ws]
+extractLex :: ([String] -> [String]) -> FilePath -> IO [(String,String)]
+extractLex f file = do
+  hSetEncoding stdin utf8
+  hSetEncoding stdout utf8 
+  liftM mkMap $ readFile file
+ where mkMap :: String -> [(String,String)]
+       mkMap lex = [(head ws, unwords (f ws)) | l <- lines lex
+                                 , let ws = words l
+                                 , not $ Data.List.null ws]
+
 cncFile = "../../saldo/DictSwe.gf"
 pgfFile = "../../saldo/DictSweAbs.pgf"
 lang :: Language
@@ -164,6 +195,8 @@ lang = read "DictSwe"
 newabs = "TestAbs.gf"
 newcnc = "TestCnc.gf"
  
+($!!) f a = f (deepseq a a)
+
 type Code = String
 
 printErr s = trace s $ []
