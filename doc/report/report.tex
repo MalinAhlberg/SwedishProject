@@ -32,7 +32,7 @@
 %ska innehålla vettiga sökord
 \title{Towards a Wide-Coverage Grammar for Swedish\\ Using GF} %A nice titleScaling up a GF grammar and preparing it for cool stuff for Swedish}
 \author{Malin Ahlberg}
-\maketitle
+%\maketitle
 \newpage
 
 
@@ -340,12 +340,12 @@ or the \textit{abstract tree} (fig. \ref{pic:gfAtree}). Abstract trees are more 
 functions and types used for parsing the sentence. 
 \begin{figure}[h]
 \centering
-\subfloat[Swedish parse tree]{\label{pic:gfStree}\includegraphics[width=30mm]{gfSTree.png}}
+\subfloat[Swedish parse tree]{\label{pic:gfStree}\includegraphics[width=30mm]{gfSTreec.pdf}}
 \subfloat[GF abstract tree]{\label{pic:gfAtree}\includegraphics[width=100mm]{gfTree.pdf}}
 \caption{Abstract tree and parse tree for the sentence ``Jag ser katten".}
 \label{fig:gftree1}
 \end{figure}
-\vspace{10mm}
+%\vspace{10mm}
 
 Parse trees on the other hand show only the types assigned to the words and phrases.
 Information about tense, polarity etc., which are explicitly given in the abstract tree, are
@@ -391,7 +391,7 @@ therefore shown in the parse tree.\\
 %>> have ambiguity section. 
 \newpage
 \begin{wrapfigure}{l}{0.35\textwidth}
-\includegraphics[width=30mm]{gfETree.png}
+\includegraphics[width=30mm]{gfETreec.pdf}
 \caption{English parse tree}
 \label{pic:gfEtree}
 \end{wrapfigure}
@@ -674,9 +674,9 @@ information. The user can find examples of usage in corpora,
 graphs of semantically connected words and some suggestions for how to analyse compounds. \\
 \begin{figure}[h!]
 \centering
-\subfloat[Morphological info for `katt']{\label{pic:saldoTab}\includegraphics[width=40mm]{saldotab.png}}
+\subfloat[Morphological info for `katt']{\label{pic:saldoTab}\includegraphics[width=40mm]{saldoTab.png}}
 \hspace{20mm}
-\subfloat[Graph showing the hyponyms of `katt']{\label{pic:saldoWheel}\includegraphics[width=70mm]{saldograph.png}}
+\subfloat[Graph showing the hyponyms of `katt']{\label{pic:saldoWheel}\includegraphics[width=70mm]{saldoGraph.png}}
 \caption{Information in Saldo}
 \label{fig:saldo}
 \end{figure}
@@ -1049,9 +1049,9 @@ will need three forms:\\
 Figure \ref{pic:TabVax} shows the information given by Saldo and by GF respectively.\\
 \begin{figure}[h]
   \begin{center}
-\subfloat[Saldo]{\label{pic:saldoVax}\includegraphics[height=90mm]{saldoVax.png}}
+\subfloat[Saldo]{\label{pic:saldoVax}\includegraphics[height=80mm]{saldovax.png}}
 \hspace{5mm}
-\subfloat[GF]{\label{pic:gfVax}\includegraphics[height=60mm]{gfVax.png}}
+\subfloat[GF]{\label{pic:gfVax}\includegraphics[height=60mm]{gfvax.png}}
 \caption{Inflection table for the verb `växa' (grow)}
 \label{pic:TabVax}
   \end{center}
@@ -1339,7 +1339,7 @@ the picture. Each lexical entry is assigned a type describing its word-class.
 %how the types relate to each other.
 \begin{figure}[h]
 \hspace{-18mm}
-\includegraphics[height=130mm]{categories.png}
+\includegraphics[height=130mm]{Categories.png}
 \caption{The types of the GF resource grammars. }
 %TODO have footnote? where?
 %\footnote{Available at http://www.grammaticalframework.org/lib/doc/synopsis.html}
@@ -1575,9 +1575,9 @@ causes the parse tree visualization algorithm to group them together.
 This is also the case for particles, cf. parse tree \ref{pic:tittapart}
 and \ref{pic:tittapa}.
 \begin{figure}[h]
-\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=70mm]{tittapa.jpg}}
+\subfloat[Verb with a chosen preposition]{\label{pic:tittapa}\includegraphics[height=70mm]{tittapac.pdf}}
 \hspace{10mm}
-\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=76mm]{tittapart.pdf}}
+\subfloat[Verb with particle]{\label{pic:tittapart}\includegraphics[height=70mm]{tittapartc.pdf}}
 \caption{The visualized parse trees do not show the internal difference of chosen prepositions and particles}
 \label{fig:translationtrees}
 \end{figure}
@@ -1723,19 +1723,23 @@ Among those were functions for topicalisation (\ref{gfSwe:apple}), %$ although n
 {that & apple & want & I & not &have}
 {``I don't want that apple"}}\label{gfSwe:apple}
 and for preposition stranding:
-\enumsentence{
-~~Stranded preposition \hspace{45mm} cf.\\
-\begin{tabular}{ll}
+\eenumsentence{
+\item
+Stranded preposition \\ %\hspace{45mm} cf.\\
+%\begin{tabular}{ll}
 {\begin{tabular}{llllll}
 Vem& måste& jag& akta& mig &\textbf{för}? \\
 \emph{who}& \emph{must}& \emph{I}& \emph{watch out}& \emph{me} &\textbf{\emph{for}}? \\
-\end{tabular}}&
-{\begin{tabular}{llllll}
+\end{tabular}}
+\item
+{cf.\\
+\begin{tabular}{llllll}
 \textbf{För}& vem& måste& jag& akta& mig?\\
 \emph{\textbf}{for}& \emph{who}& \emph{must}& \emph{I}& \emph{watch out}& \emph{me}?\\
 \end{tabular}}\\
 ~~`Who do I need to watch out \textbf{for}?' &~ `\textbf{For} whom do I need to watch out?'\\
-\end{tabular}}
+%\end{tabular}}
+}
 
 %jag ser dig
 %dig ser jag
@@ -3349,8 +3353,8 @@ compound words and other unknown constructions.
 
 \subsubsection{Parallel parsing/Chunk parsing}
 Instead of parsing a whole sentence in one go, we intend
-parse parts of it in parallel and then try to combine the pieces, building
-the sentence bottom up.
+parse parts of it in parallel and then try to combine the pieces into
+a parse tree for the whole sentence.
 This method should be faster then normal parsing and would
 at the same time give robustness;
 components that cannot be combined by any grammar rule are combined by a 
