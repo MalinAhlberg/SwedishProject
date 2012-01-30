@@ -6,7 +6,8 @@ import Control.Arrow
 
 import ParseSaldo
 
--- Freely translated after compound.py
+-- Freely translated after compound.py by Martin Hammarstedt (and Marcus
+-- Forsberg?)
 
 main = try "glasskålar havregrynsgröt gatubokmaskin jättefina gatuhörnstriumf"
 
