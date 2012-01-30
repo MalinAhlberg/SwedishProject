@@ -8,7 +8,6 @@ module ParseLex
   ,ParseData
   ,UserId
   ,FileType) where
-import qualified System.IO.Strict as SIO
 import System.Timeout
 import System.TimeIt
 import System.FilePath
@@ -25,7 +24,8 @@ import qualified Data.Map as Map
 import Data.Function
 
 import Log as L
--- stderr -> err.log
+{- TODO mkdir "images" if does not exist-}
+
 
 data Parsed = Pars {t :: Tree, s :: String, n :: Int}
   deriving Show
@@ -176,9 +176,9 @@ pipeIt2graphviz id pgf lang svg t i = do
         pngFileP = fileName "tmptreep" tag 
         dotFileA = inDir id "tmptreea.dot"
         pngFileA = fileName "tmptreea" tag
-    SIO.run $ SIO.writeFile dotFileP $ graphvizParseTree pgf lang t
+    writeFile dotFileP $ graphvizParseTree pgf lang t
     readProcess "dot" ["-T",svg,dotFileP,"-o","images/"++pngFileP] []
-    SIO.run $ SIO.writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
+    writeFile dotFileA $ graphvizAbstractTree pgf (True,True) t
     readProcess "dot" ["-T",svg,dotFileA,"-o","images/"++pngFileA] []
     return (pngFileP,pngFileA)
   where fileName name tag = inDir id $ addExtension (name ++show tag) svg

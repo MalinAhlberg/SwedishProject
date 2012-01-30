@@ -1,7 +1,6 @@
 {-# LANGUAGE TemplateHaskell #-}
 module Log where
 import Control.Concurrent
-import Control.Concurrent.STM.TChan
 import System.Process
 import Data.Global
 

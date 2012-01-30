@@ -1,3 +1,4 @@
+{-# LANGUAGE PatternGuards #-}
 module MkLex where
 import PGF
 import Control.Monad

@@ -43,12 +43,12 @@ Cabal-version:       >=0.8
 
 
 Library
+     Build-depends: base >= 4 && < 5
   -- Modules exported by the library.
   Exposed-modules:     Test, Simplify, Format, Test, MonadSP, XMLHelp, XMLParser, Idents, Convert, Monad, Format, AFormat
   
   -- Packages needed in order to build this package.
   -- Build-depends:       
-     Build-depends: base >= 4 && < 5
 
   -- Modules not exported by this package.
   -- Other-modules:       

@@ -26,14 +26,13 @@ html {
     color : #B9E0F5;
     border-bottom : 1px dotted #B9E0F5;
 }
-.first > #result > p {
+.first #result > p {
     max-width : 45%;
     line-height : 1.4em;
 }
 
 
 h2 {
-	
 	font-size : 1em;
 }
 
@@ -52,45 +51,49 @@ input[name=text] {
 	margin-top : 0;
 	cursor : pointer;
 	margin-bottom : 2em;
+	font-weight : 100;
 }
 .first #header h1 {
 
 }
 
-.first #result > p {
-}
+/* .first #result > p { */
+/* } */
 
-.first #result > p > div {
-	display : inline-block;
-	vertical-align: top;
-	margin-right : 1em;
+/* .first #result > p > div { */
+/* 	display : inline-block; */
+/* 	vertical-align: top; */
+/* 	margin-right : 1em; */
 	
-}
+/* } */
 
-.first p {
+/* .first p { */
     
-}
+/* } */
 
 #result {
     padding-bottom : 1em;
 }
+
 body {
 	width : 70%;
 	margin : 0 auto;
-	background-color : white;
 	min-height : 94%;
+	margin-top : 0.5em;
 	padding : 3em;
 	padding-bottom : 0;
-	opacity : 0;
-	margin-top : 0.5em;
+	background-color : white;
+}
+#main {
+/* 	opacity : 0; */
 }
 .second #result div img{
-        max-height : 460px;
-        max-width : 100%;
+    max-height : 460px;
+    max-width : 100%;
 }
-.more  #result img{
-        max-height : 460px;
-        max-width : 100%;
+.more #result img{
+    max-height : 460px;
+    max-width : 100%;
 }
 
 #completion {
@@ -104,4 +107,9 @@ body {
 
 #completion:empty {
     display : none;
+}
+
+#preloader { 
+	float : right;
+	display : none;
 }

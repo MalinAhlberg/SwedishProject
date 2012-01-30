@@ -26,4 +26,26 @@
     </table>
    </LexicalEntry>
 
+   <LexicalEntry>
+    <lem>kust</lem>
+    <saldo>kust..1</saldo>
+    <inhs>-</inhs>
+    <table>
+     <form><param>pos indef sg u nom</param><wf>peppad</wf></form>
+     <form><param>pos indef sg u gen</param><wf>peppads</wf></form>
+     <form><param>pos indef sg n nom</param><wf>peppat</wf></form>
+     <form><param>pos indef sg n gen</param><wf>peppats</wf></form>
+     <form><param>pos indef pl nom</param><wf>peppade</wf></form>
+     <form><param>pos indef pl gen</param><wf>peppades</wf></form>
+     <form><param>pos def sg no_masc nom</param><wf>peppade</wf></form>
+     <form><param>pos def sg no_masc gen</param><wf>peppades</wf></form>
+     <form><param>pos def sg masc nom</param><wf>peppade</wf></form>
+     <form><param>pos def sg masc gen</param><wf>peppades</wf></form>
+     <form><param>pos def pl nom</param><wf>peppade</wf></form>
+     <form><param>pos def pl gen</param><wf>peppades</wf></form>
+
+    </table>
+   </LexicalEntry>
+
+
 </Lexicon>

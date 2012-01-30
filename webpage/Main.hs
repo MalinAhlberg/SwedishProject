@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+module Main where
  
 import Network.Wai
 import Network.Wai.Handler.Warp
@@ -55,12 +56,12 @@ operate gr bool mvar req = liftIO $ Exc.catch  (parseF gr bool mvar req) handler
 
 parseF :: MonadIO m => ParseData -> Bool -> MVar Int -> Request -> m Response
 parseF gr b i req = do
-  liftIO $ L.log $ "new start" ++show req
+  --liftIO $ L.log $ "new start" ++show req
   let mn = queryString req
       wb = findbrowser req
  -- liftIO $ logA "" ("pathinfo: "++show (pathInfo req))
  -- liftIO $ logA "" ("picturetype: "++wb)
-  liftIO $ logA "" ("all requst: "++show req)
+  --liftIO $ logA "" ("all requst: "++show req) -- don't do this at Johan's computer
   x <- liftIO $ findText gr req mn b i wb
   liftIO $ L.log "have returned"
   return x

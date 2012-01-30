@@ -2,15 +2,30 @@
 var first = "?firstform";
 var second = "?text=";
 var more = "?more=";
+
+var pendingRequest = {abort : $.noop};
 $.ajaxSetup({
     cache : false
 });
 
+$.fn.load_deferred =  function(url, success) {
+	var self = this;
+	$("#preloader").fadeIn("fast");
+	$("#main").animate({opacity : 0}, "fast");
+	return $.get(url).done(function(data) {
+		self.html(data);
+		$.proxy(success, self)();
+		$("#preloader").fadeOut("fast");
+		$("#main").animate({opacity : 1}, "fast");
+	});
+};
+
 $(function() {
+	
+	$("#preloader").spinner({innerRadius: 5, outerRadius: 7, dashes: 8, strokeWidth: 3});
 	$("h1").click(function() {
 		window.location = "";
 	});
-	//$.bbq.removeState("page");
 
 	$(window).bind( 'hashchange', function(e) {
 		var prevFragment = $.bbq.prevFragment || {};
@@ -19,69 +34,50 @@ $(function() {
 			return prevFragment[key] != e.getState(key);
 		}
 	    if(!hasChanged("page")) return;
-	    var dfd = $.Deferred();
-	    dfd.done(function() {
-		$("body").animate({opacity : 1}, "fast");
-
-	    });
-		$("body").animate({opacity : 0}, "fast");
+	    pendingRequest.abort();
+	    
 		switch(e.getState("page")) {
 		case "first":
-			$("#result").load(first, function() {
+			pendingRequest = $("#result").load_deferred(first, function() {
 				$("body").attr("class", "first");
-   				    dfd.resolve();
-				/*
-				$(this).find("p").last()
-				.load("static/explanation.html", function() {
-					$(this).find("div div").each(function() {
-						var list = $("<ol>").append(
-						$.map($(this).text().split(","), function(item, i) {
-							return $("<li>").text($.trim(item)).get(0);
-						})
-						);
-						$(this).replaceWith(list);
-					});
-//				    $("body").animate({opacity : 1}, "fast");
-				    dfd.resolve();
-				});
-				*/
-				if(e.getState("text")) $("#result").find("input[name=text]").val(e.getState("text"));
+				
+			    if(e.getState("text")) 
+			    	$("#result").find("input[name=text]").val(e.getState("text"));
 			    var timeout = $.Deferred();
 
 
 				$("#result").find("input[name=text]").keyup(function() {
 				    timeout.reject();
 				    timeout = $.Deferred();
-			    $.when(timeout).then(function() {
-				$.log("timeout done");
-				    $("#completion").load("?input=" + encodeURI($("input[name=text]").val()), function() {
+				    $.when(timeout).then(function() {
+					    $("#completion").load("?input=" + encodeURI($("input[name=text]").val()), function() {});
 				    });
-			    });
-				    setTimeout(timeout.resolve, 500);
-				});
+			    	setTimeout(timeout.resolve, 500);
+				}).focus().val(prevFragment["text"] || "");
+				
+				
 				$("#result").find("input[type=submit]")
 				.click(function() {
 					$.bbq.pushState({"page" : "result", "text" : $("#result").find("input[name=text]").val()});
 					return false;
 				});
+				
 			});
 			break;
 		case "result":
-			$("#result").load(second + encodeURI(e.getState("text")),function() {
+			pendingRequest = $("#result").load_deferred(second + e.getState("text"),function() {
 				$("body").attr("class", "second");
 			    $(this).find("p:last a").click(function() {
 					$.bbq.pushState({"page" : "more"});
 					return false;
 				});
-			    dfd.resolve();
 			    
 			});
 			break;
 		case "more":
 
-			$("#result").load(more + encodeURI(e.getState("text")), function() {
+			pendingRequest = $("#result").load_deferred(more + e.getState("text"), function() {
 				$("body").attr("class", "more");
-			    dfd.resolve();
 			});
 			break;
 		}

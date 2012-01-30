@@ -7,10 +7,13 @@ Jan
     read about saldos compounds, import lexin, publish website
 
 Feb
-6 - named entity recognition
-7 - chunk parsing
+5 - improve parsig of saldo and get compound-analysis, finish
+    named entity recognition, fix lexin 
+              (naming (sort lexicon, and name identical?), VA)
+6 - chunk parsing
+7 - putting the parts together
 8 - probabilities
-9 - make it all work
+9 - make it all work (Thursday = March)
 
 
 in planning:
