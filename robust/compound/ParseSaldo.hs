@@ -59,7 +59,7 @@ parseTable = do
    
 flushTill :: String -> Parser ()
 flushTill str = do
-  A.takeWhile (/= (head str))
+  A.takeWhile (/= head str)
   string' str <|> (anyChar >> flushTill str)
 
 string' str = do

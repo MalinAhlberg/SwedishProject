@@ -1,14 +1,12 @@
-module Main where
+module Compound where
 import qualified Data.HashMap as M
---import Data.List
-import Data.Text (Text,pack,isPrefixOf)
+import Data.Text (Text,pack,unpack,isPrefixOf)
 import Data.Maybe
+import Control.Arrow
 
 import ParseSaldo
 
 -- Freely translated after compound.py
-
--- TODO binde-s if more than two words
 
 main = try "glasskålar havregrynsgröt gatubokmaskin jättefina gatuhörnstriumf"
 
@@ -19,8 +17,8 @@ try str = do
 
 
 
-prefixes_suffixes :: String -> [(String,String)]
-prefixes_suffixes w = [(take n w,drop n w) | n <- [1..(length w)-1]]
+prefixesSuffixes :: String -> [(String,String)]
+prefixesSuffixes w = [(take n w,drop n w) | n <- [1..length w-1]]
 
 exception = (`elem`
    [ "il", "ör", "en", "ens", "ar", "ars"
@@ -42,27 +40,26 @@ sandhi b (prefix,e) (suffix,_)
 
 type Lex = M.Map Text [(Text,Text)]
 
-compound :: Lex -> String -> [[(String,Text)]]
-compound = compound' False
+compound :: Lex -> String -> [[(String,String)]]
+compound lex = map (map (second unpack)) . compound' False lex
 compound' :: Bool -> Lex -> String -> [[(String,Text)]]
 compound' b saldoLex w = concat $ concat
   [ map (f (sandhi b) . ((p,fromJust p'):)) ss
-        | (p,s) <- prefixes_suffixes w, not (exception s)
+        | (p,s) <- prefixesSuffixes w, not (exception s)
         , let p' = isInLexPre saldoLex p
         , isJust p'
         , let ok = isInLex saldoLex s
         , let xs = compound' True saldoLex s 
         , let ss = if isJust ok then [[(s,fromJust ok)]] else xs]
 
---f :: (String -> String -> [String]) -> [String] -> [[String]]
-f g (a:b:xs) = map (++(concat (f g xs))) (map (:[b]) (g a b))
+f g (a:b:xs) = map ((++ concat (f g xs)) .  (:[b])) (g a b)
 f _ [x]       = [[x]]
 f _ []        = []
 
 isInLex, isInLexPre :: Lex -> String -> Maybe Text
 isInLex lex w =  fmap (snd . head) $ M.lookup (pack w) lex
 isInLexPre lex w = let forms = concat $ maybeToList $ M.lookup (pack w) lex
-                       isOk  = listToMaybe . filter (((pack "c") `isPrefixOf`) . fst)
+                       isOk  = listToMaybe . filter ((pack "c" `isPrefixOf`) . fst)
                    in fmap snd $ isOk forms
 
   -- tag should not be: (`elem` ["cm","ci","c"] ). Make explicit if other 
