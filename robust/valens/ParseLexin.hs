@@ -41,11 +41,11 @@ data VerbType = VT {vtype :: V , argument :: [Argument], preps :: [Preposition]}
   deriving (Show)
    -- X is unparseble type
 data V = V | V2 | V3 | X | VV Bool | VS | VQ | VA | V2S | V2Q | V2A -- V2V, very uncommon 
-  deriving (Show)
+  deriving (Show,Eq)
 data Argument = Part Text  --particles
               | Refl             --is reflexive
               -- | Inf Bool         --infinitival verb, True if inifinitive marker is used
-  deriving (Show)
+  deriving (Show,Eq)
 type Preposition = Maybe Text
 
 v :: Parser VerbType

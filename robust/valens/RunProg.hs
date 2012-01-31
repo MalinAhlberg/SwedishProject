@@ -1,16 +1,19 @@
-import Control.Monad
 import Control.Applicative
 import Control.Arrow
 import Control.DeepSeq
+import Control.Monad
+import Data.Function
 import Data.List
 import Data.List.Utils
-import Data.Maybe
 import Data.Map as M hiding (map, delete, filter)
+import Data.Maybe
 import Data.Ord
 import qualified Data.Text as T 
 import Debug.Trace
-import System.IO
 import PGF
+import System.IO
+import System.IO.Unsafe
+import System.Process
 
 import ParseLexin
 
@@ -50,37 +53,41 @@ testa = do
 
 main = do
    putStrLn "Parsing lexin..."
+   runCommand "rm TestAbs.gf TestCnc.gf log"
    vs <- getLexin
-   trace (show vs) $ putStrLn "Reading pgf..."
+   putStrLn "Reading pgf..."
    pgf <- readPGF pgfFile
    putStrLn "Building morpho..."
    let morpho = buildMorpho pgf lang
    putStrLn "Creating map of lemmas..."
    lex <-  mkLexMap
    putStrLn "Extracting new dictionary..."
-   mapM (\v -> mkLexicon morpho pgf lex v >>= writeCode) vs
+   mapM_ (\v -> mkLexicon morpho pgf lex v >>= writeCode) vs
    cleanDicts
    return ()
 
 -- to avoid name clashes
 cleanDicts :: IO ()
 cleanDicts = do
-  abs <- getAndOrder newabs
-  cnc <- getAndOrder newcnc
-  writeFile "NewAbs.gf" abs
+  abs  <- getAndOrder newabs
+  cnc  <- getAndOrder newcnc
   writeFile "NewCnc.gf" cnc
+  writeFile "NewAbs.gf" abs
   writeGF $!! (abs,cnc)
 
  where getAndOrder :: FilePath -> IO String
        getAndOrder file = do
-            lst <- extractLex tail file   -- should remove replicate code
-            let sortIt = concatMap addIndicies . group . sort
+            lst <- extractLex tail file   
+            let sortIt = concatMap addIndicies . groupBy ((==) `on` fst) . f . sort
             return $ unlines $ map format $ sortIt lst
+         where f | file =="TestCnc.gf" = trace "nubs" nub   --remove duplicates (in cnc only..)
+                 | otherwise          = id 
        addIndicies [x] = [x]
        addIndicies xs = addI 1 xs
        -- TODO do not add index at the very end (V21 ?)
        --      empty files before rewriting
-       addI n (x:xs)  = first (++show n) x : addI (n+1) xs
+       addI n ((v,c):xs)  = let (x,y) = breakList ("_V" `isPrefixOf`) v
+                            in (x++show n++y,c)  : addI (n+1) xs
        addI _ []      = []
        format (l,c)   = " "++l++"\t"++c
 
@@ -97,19 +104,20 @@ formatGF (code,name,v) = let entry = showCId name
 
 mkLexicon :: Morpho -> PGF -> Map String String -> (String,VerbType) 
              -> IO (Maybe (Code,CId,V))
-mkLexicon morpho pgf lex (w,arg) = do
-  let v = vtype arg
+mkLexicon morpho pgf lex word = do
+  let (w,arg) = correctVal word 
+      v = vtype arg
   case lookupInDict w morpho pgf lex of
       Just (cid,forms) -> do 
-              putStrLn $ show forms
+              --print forms
               let w'  = wrapFunctions forms (argument arg)
                   w'' = addPrep (vtype arg) w' (tidy $ preps arg)
               return $ Just (w'',mkName cid v,v)
       _                 -> return Nothing 
 
  {- TODO  We should avoid double reflexives etc, so the identifiers should  be 
-   checked for this ('_sig_' or '_till', and the wrapFunction modified
-   to make up for duplication (Could also look at type, VR is reflexive -}
+   checked for this ('_sig_' or '_till'), and the wrapFunction modified
+   to make up for duplication  -}
  where wrapFunctions w (Refl  :xs) = wrapFunctions ("reflV ("++ w++")") xs
        wrapFunctions w (Part p:xs) = wrapFunctions ("partV ("++ w++") \""
                                      ++ T.unpack p++"\")") xs
@@ -132,7 +140,8 @@ mkLexicon morpho pgf lex (w,arg) = do
        addPrep VS     w _       = mkVerb  "mkVS"  w 
        addPrep VQ     w _       = mkVerb  "mkVQ"  w
        addPrep V      w _       = w 
-       addPrep v      w x       = printErr $ "oops non-exhaustive pattern!" ++  show v ++ w ++show x
+       addPrep v      w x       = logErr ("oops non-exhaustive pattern!" 
+                                          ++show v ++ w ++show x) []
        mkVerb  f w   = f ++" ("++w++") "
        mkVerb2 f w p = mkVerb f w ++toPrep p
        put = unwords
@@ -145,6 +154,15 @@ mkLexicon morpho pgf lex (w,arg) = do
        list2maybe :: [Maybe a] -> Maybe a
        list2maybe (x:_) = x
        list2maybe []    = Nothing
+
+correctVal :: (String,VerbType) -> (String,VerbType)
+correctVal v@(w,VT t arg preps) 
+      | t `elem` [VA,V2] && onlySom arg preps = (w,clean arg preps)
+      | otherwise                             = v
+  where onlySom a p = catMaybes p == [som] ||  Part som `elem` a
+        clean   a p | catMaybes p == [som] = VT V a [Nothing] 
+                    | otherwise              = VT V (delete (Part som) a) p
+        som = T.pack "som"
 
 mkName :: CId -> V -> CId
 mkName s v = let name = takeWhileList (not . ("_V" `isPrefixOf`)) $ showCId s --init $ init (showCId s) -- drops '_V', do properly
@@ -159,8 +177,8 @@ lookupInDict str morpho pgf dict =
                       ,let cat = maybe "" (showType []) (functionType pgf l)
                       ,cat=="V"]
       lemma = listToMaybe $ smallestLemma allLemmas
-  in maybe (trace ("could not find verb "++str) Nothing)
-           (trace (show lemma) (extractLemma dict)) lemma
+  in maybe (logErr ("could not find verb "++str) Nothing)
+           {-(trace (show lemma)-} (extractLemma dict) lemma
  where smallestLemma :: [CId] -> [CId]
        smallestLemma = sortBy (comparing rate)
        rate :: CId -> Int
@@ -171,7 +189,7 @@ extractLemma lex w
   | Just a <- M.lookup (showCId w) lex =
             let (l,code) = span (/='=') a
                 (f,_)    = span (/=';') $ drop 1 code
-            in trace f $ Just (w,f)
+            in {-trace f $-} Just (w,f)
   | otherwise =  Nothing
 
                        
@@ -199,4 +217,7 @@ newcnc = "TestCnc.gf"
 
 type Code = String
 
-printErr s = trace s $ []
+printErr s = trace s []
+logErr s x = unsafePerformIO $
+    appendFile "log" (s++"\n") >> return x
+
