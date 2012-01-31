@@ -20,9 +20,20 @@ cat
     N2' ;
     SimpleVP ;
 
+    VPred ; -- (arbeta) som lärare 
+    VAdv ;  -- (arbeta) som en häst 
+
+------------------------------------------------------------------------------
+    fun 
+      ComplVPred : VP -> VPred -> VP ; -- hjälper dig som lärare 
+      ComplVAdv  : VP -> VAdv -> VP ; -- äter glass som en galen hund
+      CNPred : N  -> VPred  ;    -- som en hund
+      CNAdv  : CN -> VAdv   ;    -- som lärare
+
 -------------------------------------------------------------------------------
 -- For conjunction of verb phrases
 -------------------------------------------------------------------------------
+ cat
     VPX ;       -- like VPI, but also works for future tense, topicalisation etc
     [VPX]{2} ;
     XTense ;    -- the tenses that can be used with VPX
@@ -38,9 +49,12 @@ cat
   ConjVPX : Conj -> [VPX] -> VPX ; 
   ComplVPX : XTense -> VPX -> VPS ; 
 
-
+------------------------------------------------------------------------------
  fun
    DetNP : (a : NPType) -> DetTyped a -> NPTyped a ;
+   
+   --CompNP : CN -> Comp ; -- should restrict the NP/CN to have the correct number!
+   
 
 -------------------------------------------------------------------------------
 -- For objects          

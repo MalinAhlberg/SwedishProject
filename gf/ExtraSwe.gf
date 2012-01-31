@@ -1,7 +1,8 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 -- unnecessarily complicated type of AdvNP???
-concrete ExtraSwe of ExtraSweAbs = ExtraScandSwe - [TopAdv,PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] ,
-                                   ParadigmsSwe - [nominative] **
+concrete ExtraSwe of ExtraSweAbs = 
+           ExtraScandSwe - [TopAdv,PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] ,
+           ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
 
@@ -15,10 +16,21 @@ lincat
  SimpleVP = VP ;
  Obj = {s : Agr => Str };
  
+ VPred =  {s : Agr => Str } ;
+ VAdv =  {s : Agr => Str } ;
 
+------------------------------------------------------------------------------
+ lin
+  ComplVPred vp vpred = insertObjPost vpred.s vp ; --(predV v) ;
+  ComplVAdv vp  vadv = insertObjPost vadv.s vp ; --(predV v) ;
+  CNPred n       = {s = \\a => "som" ++ (CompCN (UseN n)).s ! a } ;
+  CNAdv cn        = {s = \\a => "som" ++ cn.s ! a.n ! DIndef ! Nom };
+  
+  --ComplCop vpred = insertObj vpred.s (predV verbBe) ;
 -------------------------------------------------------------------------------
 -- For conjunction of verb phrases
 -------------------------------------------------------------------------------
+ lincat 
  VPS   = {a0, adV, fin : Str; inf : Agr => Str } ;    --redefined in order to allow questions, topicalisation etc
  [VPS] = {a0, adV, fin : Str ; inf1, s2 : Agr => Str} ;
  VPX   = {a0, adV : Str ; inf : XTmp => Agr => Str } ;  -- like VPI, but also works for future tense, topicalisation etc
@@ -289,6 +301,7 @@ lin
     det = DDef Indef
     } 
     ;
+
 
 -------------------------------------------------------------------------------
 -- Implemented in ExtraScand
