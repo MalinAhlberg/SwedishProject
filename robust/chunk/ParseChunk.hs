@@ -1,11 +1,26 @@
 import PGF
 import Control.Monad.State hiding (ap)
 import Data.List
+import Data.Maybe
 import Idents
 
 type Results s = State RState s
 data RState = RS {covered :: [Int], parsed :: [Chunk], input :: [String], firstState :: ParseState} 
 data Chunk = C {start,end :: Int, trees :: [Tree], typ :: Type}
+
+test str = do
+  pgf <- readPGF "../../gf/BigTest.pgf"
+  let typ = fromJust $ (readType "NPTyped Subject")
+  return $ parse pgf (read "BigTestSwe") typ  str
+ 
+ -- This approac: try find chunks of the highest category possible, and 
+ -- then parse the rest. Combine
+ -- Another approach: start from beginning, let all types parse as far as they can,
+ -- where they stop they let all other continue.
+
+ {- Will get a problem cause we need to decide wether NP, AP, Adv, Pron, Quant
+    and Det are prons or subj. Pron ok, cause only Obj when 'sig'. The other need
+    types when not super-notcomplex. Try both and return wanted -}
 
 doit str = do
   pgf <- readPGF pgfFile
@@ -65,8 +80,12 @@ nextTypes t | t == text = [phr]
             | t == phr  = [utt]
             | t == utt  = [s]
             | t == s    = [cl]
-            | t == cl   = [vp,np,adv]
-            | t `elem` [vp,np,adv] = [v,cn,det,predet,ap,rcl]
-            | t `elem` [v,cn,det,predet,ap,rcl] = [idet,card,art,rp,ada,subj,conj,voc,pol]
+            | t == cl   = class5
+            | t `elem` class5 = class6
+            | t `elem` class6 = [idet,card,art,rp,ada,subj,conj,voc,pol]
+class5 = [vp,npsub,advsub]
+class6 = [npobj,advobj,v,cn,detobj,detsub
+         ,predet,apsub,apobj,rcl]
 
+allTypes = [text,phr,utt,s,cl]++class5++class6
 
