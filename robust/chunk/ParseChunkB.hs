@@ -1,15 +1,17 @@
 import PGF
+--import System.IO.Unsafe (unsafeInterleaveIO)
+import Control.Applicative
 import Control.Monad.State hiding (ap)
 import Control.Monad.STM
 import Control.Concurrent
 import Control.Concurrent.STM.TChan
 import Control.Concurrent.STM.TVar
+import CPUTime
 import Data.List
 import Data.Maybe
 import Debug.Trace
+import System.TimeIt
 import Idents
-
--- speed up! better when compiled? remove unnecessary categories.
 
 type Results s = StateT RState IO s
 data RState = RS {parsed     :: [Chunk]
@@ -30,21 +32,44 @@ testState = do
   print $ fst $ getParseOutput pstate text Nothing 
  where initS pgf = initState pgf lang startType
 
+main = do
+  t <- getCPUTime
+  timeIt $ testchunk "katt sova en hund sover"
+  t' <- getCPUTime
+  putStrLn $ "Real time "++show (t'- t)
+
 testchunk str = do
    (chan,act) <- doit $ words str
-   readUntilEmpty chan act
+   res <- consume chan act
+   putStr $ unlines $ map showChunks $ concat res
 
+-- Good code. Watch and learn
+consume :: TChan [[Chunk]] -> TVar Int -> IO [[[Chunk]]]
+consume resChan doneTVar = do --unsafeInterleaveIO $ do
+     putStrLn "consuming..."
+     element <- atomically $ do empty  <- isEmptyTChan resChan
+                                active <- readTVar doneTVar
+                                if empty then (if active==0 then return Nothing else retry)
+                                         else Just <$> readTChan resChan
+     case element of
+             Nothing -> return []
+             Just e  -> (e:) <$> consume resChan doneTVar
 
+{-
+BAD CODE. Watch and learn
 readUntilEmpty :: TChan [[Chunk]] -> TVar Int -> IO ()
 readUntilEmpty chan act = do
    e <- atomically $ isEmptyTChan chan
    unless e printRes 
    e' <- atomically $ isEmptyTChan chan
    i  <- atomically $ readTVar act
+   putStrLn $ "Threads left :"++show i
+ --  liftIO $ writeFile "trams" $ "Threads left :"++show i
    unless (e' && i==0) $ readUntilEmpty chan act
  where printRes = do
           tree <- atomically $ readTChan chan
-          putStrLn $ map showChunks tree
+          putStrLn $ unlines $ map showChunks tree
+          -}
 
 showChunks :: [Chunk] -> String 
 showChunks ch = unlines $ map pretty [(show $ typ c, map (showExpr []) $ trees c) | c <- ch]
@@ -58,26 +83,29 @@ showChunks ch = unlines $ map pretty [(show $ typ c, map (showExpr []) $ trees c
     types when not super-trivial. Try both and return wanted -}
 
 instance Show ParseOutput where
-   show  (ParseOk tree)  = "ParseOK"
-   show  (TypeError x)   = "TypeError"
-   show  (ParseFailed i) = "ParseFailed"
+   show  (ParseOk tree)    = "ParseOK"
+   show  (TypeError x)     = "TypeError"
+   show  (ParseFailed i)   = "ParseFailed"
    show  (ParseIncomplete) = "Incomplete"
 
 doit str = do
-  pgf    <- readPGF pgfFile
-  chan   <- newTChanIO
-  tvar <- newTVarIO  (length allTypes)
+  (t,pgf)<- timeItT $ readPGF pgfFile
+  (t',chan)   <- timeItT $ newTChanIO
+  (t'',tvar)   <- timeItT $ newTVarIO  (length allTypes)
   let pstate = initS pgf 
       rstate = initRState pstate tvar chan 
-  mapM_ forkIO [evalStateT (doParse (0,0) pstate typ str) rstate
-               | typ <- allTypes]
+  putStrLn $ "created pgf etc "++show t++"+"++show t'++"+"++show t''
+  tt <- timeIt $ mapM_ forkIO [evalStateT (doParse (0,0) pstate typ str) rstate 
+                              | typ <- allTypes]
+  putStrLn $ "forking "++show t++"+"++show t'++"+"++show t''
   return (chan,tvar)
  where initS pgf = initState pgf lang startType
--- alt : 
-  --doParse (0,0) initS (allTypes) str  ----tråda och börja på olika positioner!
 
 doParse :: (Int,Int) -> ParseState -> Type -> [String] -> Results ()
 doParse (i,j) state typ (s:str) = let nextTok = simpleParseInput s in
+  --(tx,nextTok) <- liftIO $ timeItT $! return $! simpleParseInput s 
+  --(t,next) <- liftIO $ timeItT $! return $!  
+  --liftIO $ putStrLn $ "nextTok, nextstate "++show tx++"+"++show t
   case nextState state nextTok of
        Right pst -> doParse (i,j+1) pst typ str  -- assumes that if this state is bad, we will get error
                                                  -- next time
@@ -87,7 +115,7 @@ doParse (i,j) state typ (s:str) = let nextTok = simpleParseInput s in
                   tell $ C i j trees typ
                   newPState <- gets firstState
                   rst       <- get
-                  updateActives (length allTypes)
+                  updateActives (length allTypes-1)
                   liftIO $ mapM_ forkIO 
                          [ evalStateT (doParse (j,j+1) newPState t (s:str)) rst
                          | t <- allTypes]
@@ -117,9 +145,10 @@ updateActives i = do
   tvar <- gets actives
   liftIO $ atomically (writeTVar tvar . (+i) =<< readTVar tvar) 
 
+
 failParse :: Type -> Results ()
 failParse typ = do
---  liftIO $ putStrLn $ "failed for type "++show typ
+  --liftIO $ putStrLn $ "failed for type "++show typ
   updateActives (-1)
   --could write some error msg to somewhere
 
@@ -146,6 +175,6 @@ class5 = [vp,npsub,advsub]
 class6 = [npobj,advobj,v,cn,detobj,detsub
          ,predet,apsub,apobj,rcl]
 
-allTypes = [text,phr,utt,s,cl]++class5++class6
+allTypes = [phr,npsub,v,npobj,advsub] --[text,phr,utt,s,cl]++class5++class6
 
 
