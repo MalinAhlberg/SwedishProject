@@ -88,6 +88,14 @@ instance Show ParseOutput where
    show  (ParseFailed i)   = "ParseFailed"
    show  (ParseIncomplete) = "Incomplete"
 
+-- we can assume that there is no grammar rule for combining these
+-- we need to rate them and select the best output
+-- do stupid choosing when ambigouos, so far
+combine :: [[Chunk]] -> Tree
+combine chs = let fstch = map fst chs
+
+
+doit :: [String] -> IO (TChan [[Chunk]], TVar Int)
 doit str = do
   (t,pgf)<- timeItT $ readPGF pgfFile
   (t',chan)   <- timeItT $ newTChanIO
@@ -175,6 +183,6 @@ class5 = [vp,npsub,advsub]
 class6 = [npobj,advobj,v,cn,detobj,detsub
          ,predet,apsub,apobj,rcl]
 
-allTypes = [phr,npsub,v,npobj,advsub] --[text,phr,utt,s,cl]++class5++class6
+allTypes = [s,npsub,v,npobj,advsub,apobj,apsub] --[text,phr,utt,s,cl]++class5++class6
 
 
