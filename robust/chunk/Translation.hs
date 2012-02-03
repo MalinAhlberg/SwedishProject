@@ -1,11 +1,13 @@
-{-# LANGUAGE TupleSections, TypeOperators, TemplateHaskell #-}
+{-# LANGUAGE TupleSections, TypeOperators, FlexibleContexts, TemplateHaskell #-}
 module Translate where
 import MonadSP
 import Idents
 import Test  
+import GFTranslation
 import qualified Format as Form
 
 import PGF hiding (Tree,parse)
+import qualified PGF as PGF
 import Control.Arrow
 import Control.Monad
 import Control.Monad.RWS hiding (put,gets,get)
@@ -19,7 +21,7 @@ import Data.Char
 import Data.Tree
 import Data.Label 
 import Data.Label.PureM 
-import GraphTree
+--import GraphTree
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
@@ -40,6 +42,8 @@ data S = S { _isReflGenVP  :: Bool
            , _sentenceType :: SentenceType
            , _complement   :: (VPForm,[Maybe Expr])
            , _object       :: Maybe Expr
+           , _tmp          :: Maybe Expr
+           , _pol          :: Bool
            }
 
 type PMonad = (RWS () [String] S)
@@ -47,8 +51,8 @@ type PMonad = (RWS () [String] S)
 
 test = True
 usePGF = testGr
-testGr = ("../gf/BigTest.pgf","BigTestSwe")
-bigGr  = ("../gf/Big.pgf","BigSwe")
+testGr = ("../../gf/BigTest.pgf","BigTestSwe")
+bigGr  = ("../../gf/Big.pgf","BigSwe")
 lang   = fromJust $ readLanguage "BigTestSwe"
 paint  = False
 
@@ -63,7 +67,8 @@ startState :: S
 startState = S {_isReflGenVP = False, _isExist = False
                ,_passive = False
                ,_iquant = False, _complement = (V,[])
-               , _sentenceType = D, _object = Nothing}
+               ,_sentenceType = D, _object = Nothing
+               ,_tmp = Nothing, pol = True}
 
 
 ------------------------------------------------------------------------------
@@ -138,6 +143,7 @@ showAlign n =
       where
         s = show n
 
+{-
 paintTree file = do
   s <- fmap concat $ Form.parse file 
   pgf <- readPGF $ fst usePGF
@@ -147,7 +153,24 @@ paintTree file = do
           writeFile "tmp_treetest.dot" (dotTree t [])
           rawSystem "dot" ["-Tpdf", "tmp_treetest.dot", "-otrees/"++showAlign i++"testtree.pdf"]
           return ()
+          -}
+                                    --(PGF -> t     -> [Tree t]      -> m [e])
+tryparse :: MonadWriter [String] m => PGF -> String -> [Tree String] -> m [Expr]
+tryparse pgf cat tree = do
+   let txt = extractText tree
+       p   = parseTextAs pgf cat txt 
+   case p of
+        [] -> tell ["Need to go deeper in"++show cat,"parsed: " ++txt] >> return []
+        xs -> tell ["Success in "++show cat] >> return xs
 
+extractText :: [Tree String] -> String
+extractText = Form.treeToSentence 
+
+parseTextAs :: PGF -> String -> String -> [Expr]
+parseTextAs pgf typ string = 
+     let ts = toGF typ
+     in concatMap (\t -> (PGF.parse pgf lang t string)) ts
+         
 
 ------------------------------------------------------------------------------
 -- The grammar : Rules for converting labels
@@ -155,7 +178,7 @@ paintTree file = do
 
 penn :: Grammar (RWS () [String] S) String Expr
 penn =
-  grammar (mkApp meta)
+  grammar (mkApp meta) tryparse
    ["ROOT" :-> do s <- inside "MS" $ cat "S"
                                      `mplus` cat "XP"
                   write "root found"
@@ -353,7 +376,76 @@ pNPCl = do
  guard $ typ /= cidImpersCl
  return $ mkApp cidUttNP [np]
 
+pCl = normalCl <+> advCl <+> iadvCl <+> quest <+> topCl
+ where normalCl = do
+         np   <- cat "SS"
+         v    <- cat "FV"
+         obj  <- cats objCat
+         advs <- cats advCat
+         p    <- cats punctCat
+         st   <- get
+         let vp = constructVP v obj 
+             e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
+             e1 = constructCl cidPredVP np e0
+             e2 = mkApp cidUseCl [fromMaybe (mkExpr meta) (isVTense $ tmp st)
+                                    ,mkExpr (usePol $ st),e1]
+         return e2
+       adv = do
+          advs <- many pAdv    
+          np   <- cat "SS"
+          v    <- cat "FV"
+          obj  <- cats objCat
+          advs <- cats advsCat
+          st   <- get
+          let vp = constructVP v obj 
+              --e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
+              cl = constructCl cidPredVP np e0
+              c  = mkApp cidTopAdv [adv,cl]
+              e1 = mkApp cidUseTop [fromMaybe (mkExpr meta) (isVTense $ tmp st)
+                                   ,mkExpr (usePol st)
+                                   ,c
+                                   ]
+          return e1
+       iadvCl = do
+          iadv <- cats ["RA","TA","AB"]
+          guard isQuest
+          np   <- cat "SS"
+          v    <- cat "FV"
+          obj  <- cats objCat
+          advs <- cats advsCat
+          st   <- get
+          let vp = constructVP v obj 
+              e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
+              cl = constructCl cidPredVP np e0
+              --t  = maybe cidUttS (const cidQuestVP) qadv
+              c  = mkApp cidQuestIAdv [iadv,cl]
+              e1 = mkApp cidUseQCl [fromMaybe (mkExpr meta) (isVTense $ tmp st)
+                                   ,mkExpr (usePol st)
+                                   ,c
+                                   ]
+                    -- if pAdv:s is found after pIAdv, there will be a problem..
+              --(cl1,t) = maybe (e1,cidUttS) (\q -> (mkApp cidQuestIAdv [q,cl],cidQuestVP)) qadv  
+              --e2 = foldr (\ad e -> mkApp cidAdvS [ad, e]) e1 advs
+          return e1
+-- START here!! Keep pOVS? Keep state like this? should use cat - very important!
+-- should also just return expression and keep the rest in the state
+        pObjectFoc sTyp = do
+          sentenceType =: sTyp
+          (tmp,pol,ip,qcl,qtyp) <- msum $ map (pOVS sTyp) vForms
+          iq <- gets iquant
+          guard $ sTyp/=Q || iq 
+          write $ "focus found clause: "++show qcl
+          write $ "foucs found ip: "++show ip
+          let predVP = if sTyp==Q then cidQuestVP else cidPredVP 
+              cl = mkApp qtyp [ip,qcl] -- how to deal with 'man'
+              e1 = mkApp (clType predVP) [fromMaybe (mkExpr meta) (isVTense tmp)
+                                       ,mkExpr pol
+                                       ,cl ]
+          return (e1,tmp,pol,predVP)
 
+
+
+{- 
 pCl = 
   do write "looking for SS" 
      (np,typ) <- parseSubject
@@ -1397,6 +1489,7 @@ pAdA = inside "AB" $ do a <- lemma "A" "s (AF (APosit (Strong (GSg Neutr))) Nom)
 
 adv = ["RA","TA","MA","+A","CA","VA"]
 pAdvMinus xs = pAdv' $ adv \\ xs
+
 pAdv = pAdv' adv 
 pAdv' xs = 
   msum [ inside x inAdv | x <- xs]
@@ -1422,7 +1515,7 @@ pIAdv =
   
 
 findAdverb = do
-  a <- inside "AB" $ optEat (lemma "Adv" "s") meta
+  a <- inside "AB" $ optEat (lemma' "Adv" "s") meta
   write $ "adverb found "++show a
   return (mkExpr a) 
  
@@ -1597,7 +1690,7 @@ pPredet =
      return $ mkExpr w 
 --  `mplus`
 --  do fst <$> pNP
- where findPredet = inside "AB" (lemma "Adv" "s")  --should look for Adv here
+ where findPredet = inside "AB" (lemma' "Adv" "s")  --should look for Adv here
                                 --  `mplus`                      --and make nice function for this
                                 --  lemma "Predet" "s Neutr Sg"
                                 --  `mplus`
@@ -1680,10 +1773,10 @@ fst3 :: (a,b,c) -> a
 fst3 (a,b,c) = a
 
 testa  str = do
-  pgf <- readPGF "../gf/BigTest.pgf"
+  pgf <- readPGF "../../gf/BigTest.pgf"
   let Just language = readLanguage "BigTestSwe"
       morpho        = buildMorpho pgf language
   return [(lemma,an,cat) | (lemma,an) <- lookupMorpho morpho str
                    ,let cat = maybe "" (showType []) (functionType pgf lemma)]
 
-
+-}

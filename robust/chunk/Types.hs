@@ -1,4 +1,4 @@
-module Idents where
+module Types where
 import PGF
 import Data.Maybe
 
@@ -12,8 +12,16 @@ npsub  = fromJust $ readType "NPTyped Subject" -- NO PROBLEM! problem? solve by 
 npobj  = fromJust $ readType "NPTyped Object" 
 advsub = fromJust $ readType "AdvTyped Subject"  
 advobj = fromJust $ readType "AdvTyped Object"  
+cadv   = fromJust $ readType "CAdv"  
 v      = fromJust $ readType "V"
+vs     = fromJust $ readType "VS"
+vv     = fromJust $ readType "VV"
+v2     = fromJust $ readType "V2"
+v3     = fromJust $ readType "V3"
+va     = fromJust $ readType "VA"
+v2a    = fromJust $ readType "V2A"
 cn     = fromJust $ readType "CN"
+n2     = fromJust $ readType "N2"
 detsub = fromJust $ readType "DetTyped Subject"
 detobj = fromJust $ readType "DeTyped Objectt"
 predet = fromJust $ readType "Predet"
@@ -27,6 +35,14 @@ rp     = fromJust $ readType "RP"
 ada    = fromJust $ readType "AdA"
 subj   = fromJust $ readType "Subj"
 conj   = fromJust $ readType "Conj"
+pconj  = fromJust $ readType "PConj"
 voc    = fromJust $ readType "Voc"
-pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
+comp   = fromJust $ readType "Comp"
+prep   = fromJust $ readType "Prep"
+rs     = fromJust $ readType "RS"
+iquant = fromJust $ readType "IQuant"
+quantsub = fromJust $ readType "Quant Subject"
+quantobj = fromJust $ readType "Quant Object"
+pron   = fromJust $ readType "Pron"  -- obs! ej reflexive
+--pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 
