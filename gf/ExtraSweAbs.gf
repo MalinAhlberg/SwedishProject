@@ -2,7 +2,7 @@
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
-abstract ExtraSweAbs = ExtraScandAbs -[TopAdv,TopAP] ** 
+abstract ExtraSweAbs = ExtraScandAbs -[TopAP] **  -- why exclued TopAdv??
    open CommonScand, ResScand in {
 
 cat

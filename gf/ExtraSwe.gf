@@ -1,7 +1,7 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 -- unnecessarily complicated type of AdvNP???
 concrete ExtraSwe of ExtraSweAbs = 
-           ExtraScandSwe - [TopAdv,PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] ,
+           ExtraScandSwe - [PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] , --why exclude TopAdv??
            ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
