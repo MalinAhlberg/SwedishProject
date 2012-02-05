@@ -5,7 +5,7 @@ import PGF
 toGF :: String -> [Type]
 toGF str = case str of
      "ROOT"  ->  [text]
-     "S"     ->  [s ]
+     "S"     ->  [s,relvp ]
      "AP"    ->  aps
      "CAP"   ->  aps
      "NP"    ->  nps
