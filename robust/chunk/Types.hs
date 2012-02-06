@@ -44,5 +44,6 @@ iquant = fromJust $ readType "IQuant"
 quantsub = fromJust $ readType "Quant Subject"
 quantobj = fromJust $ readType "Quant Object"
 pron   = fromJust $ readType "Pron"  -- obs! ej reflexive
+relvp  = fromJust $ readType "RelVP"
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 

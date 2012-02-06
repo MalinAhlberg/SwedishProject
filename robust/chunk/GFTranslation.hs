@@ -30,7 +30,7 @@ toGF str = case str of
      "ET"    ->  advs--what is this?
      "FO"    ->  [pron]
      "FS"    ->  [pron] -- impersonligt eller generiskt pron
-     "FV"    ->  vtypes ----catV must be V,V2,V3 ...
+     "FV"    ->  vtypes ----catV must be V,V2,V3,vslash ...
      -- punctuation: I?,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
      -- punctuation: , "JC", "JG", "JR", "JT",
      "IV"    ->  vtypes 
@@ -50,6 +50,10 @@ toGF str = case str of
      "VO"    ->  [utt]  --same as EO]
      "VS"    ->  [utt]  --same as EO
      "XA"    ->  advs -- sa att saga
+     "_Quant"->  quant
+     "_IP"   ->  [ip]
+     "_Adv"  -> advs
+     "_Utt"  -> [utt]
      _       ->  []
 
 
@@ -95,6 +99,7 @@ quant   = [quantobj,quantsub]
 --                        `mplus` cat "NP" `mplus` cat "CNP"
 --      
 --    ,"VG"    -> cat "VP"  -- for deep trees
+
 
   {-
 translatePos pos = case take 2 pos of

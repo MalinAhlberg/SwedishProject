@@ -6,6 +6,7 @@ module MonadSP (Rule(..)
                ,grammar
                ,P
                ,parse
+               ,parseAs
                ,cat
                ,word
                ,word2
@@ -25,6 +26,7 @@ module MonadSP (Rule(..)
 import Data.Tree
 import Data.Char
 import Data.List
+import Data.Ord
 import Debug.Trace
 import qualified Data.Map as Map
 import Control.Monad
@@ -47,7 +49,7 @@ instance Show t => Show (Rule m t e) where
   show (t :-> x) = show t
 
 
-grammar :: (MonadWriter [String] m,MonadState s m,Ord t,Show t,Show e) 
+grammar :: (MonadWriter [String] m,MonadState s m,Ord t,Show t,Show e, Ord e) 
         => Def e -> Parser m t e -> [Rule m t e] -> Grammar m t e
 grammar def parser rules = gr 
   where
@@ -69,7 +71,7 @@ grammar def parser rules = gr
       if null parsed then case Map.lookup tag pmap of
                           Just f   -> getDeeper f pgf m parser def ts 
                           Nothing  -> retry pgf m parser def ts 
-                     else return (head parsed) --obs head
+                     else return (last $ sort parsed) --obs head
     -- If many rules match, try all of them (mplus)
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
@@ -124,7 +126,6 @@ cat tag = P $ catGr tag
 catGr :: (Monad m,Eq t,Show t) => [t] -> Grammar m [t] e -> PGF -> Morpho 
       -> Parser m [t] e -> Def e -> [Tree [t]] -> m (Maybe (e,[Tree [t]]))
 catGr = \tag gr pgf morpho p def ts ->
--- parse här!
   case ts of
     Node tag1 ts1 : ts | tag `isPrefixOf` tag1
                            -> gr tag1 pgf morpho p def ts1 >>= \r -> return (Just (r,ts))
@@ -132,6 +133,7 @@ catGr = \tag gr pgf morpho p def ts ->
 
 
 
+{-
 --combineCats :: (Monad m,Eq t,Show t) => [t] -> [[t]] -> P [t] e m e
 combineCats topcat tags = P $ \gr pgf m p def ts -> do
    let (ts',ts'') = splitTreeIfSame tags ts 
@@ -149,16 +151,19 @@ combineCats topcat tags = P $ \gr pgf m p def ts -> do
        filterBads def Nothing      = def []
        filterBads def (Just (e,t)) = e
        splitTreeIfSame :: [t] -> [Tree t] -> ([Tree t], [Tree t])
-       splitTreeIfSame = undefined
+       splitTreeIfSame = undefined --OBS! TODO
+       -}
                                           
-       
-{-                                          exp  <- catGr t gr pgf m tr
-                                          exps <- go gr pgf m p ts trs
-                                          return (
+parseAs :: (Monad m,Eq t,Show t) => [t] -> P [t] e m e
+parseAs cat = P $ \gr pgf m p def ts -> do
+  case ts of
+    Node tag1 ts1 : ts' -> 
+             do parsed <- p pgf cat ts1
+                case parsed of
+                   [] -> return $ Nothing 
+                   xs -> return $ Just (head xs,ts') --obs head
+    _                   -> return $ Nothing
 
-  mapM (\(t,tr) -> cat t pgf m tr 
---- empty case!
--}
 
 
 

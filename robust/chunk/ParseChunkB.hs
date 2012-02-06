@@ -11,7 +11,7 @@ import Data.List
 import Data.Maybe
 import Debug.Trace
 import System.TimeIt
-import Idents
+import Types
 
 type Results s = StateT RState IO s
 data RState = RS {parsed     :: [Chunk]
@@ -23,7 +23,7 @@ data Chunk = C {start,end :: Int, trees :: [Tree], typ :: Type}
 
 test str = do
   pgf <- readPGF "../../gf/BigTest.pgf"
-  let typ = fromJust $ (readType "NPTyped Subject")
+  let typ = fromJust $ (readType "IP") --"NPTyped Subject")
   return $ parse pgf (read "BigTestSwe") typ  str
  
 testState = do
@@ -91,8 +91,10 @@ instance Show ParseOutput where
 -- we can assume that there is no grammar rule for combining these
 -- we need to rate them and select the best output
 -- do stupid choosing when ambigouos, so far
+{- TODO
 combine :: [[Chunk]] -> Tree
 combine chs = let fstch = map fst chs
+-}
 
 
 doit :: [String] -> IO (TChan [[Chunk]], TVar Int)
