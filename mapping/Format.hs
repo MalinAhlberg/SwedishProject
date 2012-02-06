@@ -93,6 +93,10 @@ toTree' nr s@(Sent root ws inf _) =
         lookup'' y [] = Nothing
  
 
+treeToSentence :: [T.Tree String] -> String
+treeToSentence ts = unwords $ map extractS ts
+  where extractS (T.Node ws []) = ws
+        extractS (T.Node c  ts) = unwords $ map extractS ts
 
 showa :: T.Tree String -> String
 showa (T.Node root ts) = "("++root++" "++concatMap showa ts++" )"
