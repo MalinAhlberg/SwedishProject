@@ -23,7 +23,7 @@ data Chunk = C {start,end :: Int, trees :: [Tree], typ :: Type}
 
 test str = do
   pgf <- readPGF "../../gf/BigTest.pgf"
-  let typ = fromJust $ (readType "IP") --"NPTyped Subject")
+  let typ = fromJust $ (readType "QuantTyped Object") --"NPTyped Subject")
   return $ parse pgf (read "BigTestSwe") typ  str
  
 testState = do

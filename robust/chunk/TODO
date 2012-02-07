@@ -1,0 +1,20 @@
+
+1 OK! kolla så att Ant blir använt 
+2 counter for how deep we need to go (tryparse?)
+3 länka till compounding & named entities -> hur ska vi sätta ihop det sen?
+
+- ska vi verkligen ha Utt?
+- snabbare! hur?
+- ha kvar lemma?
+- gå igenom hela koden och peta undan dumma saker
+- flatNP borde få extra uppmärksamhet så att det funkar
+- VP-komplement borde testas!
+- eliminera dubbelparsing a la 'cat "NP" -> flatNP
+- visa ambiguiteter
+- kontrollera att alla dep types hanteras
+
+
+Results:
+evalMappSuite 6/2 : ca 90%
+              7/2 : ca 95%     --having added tense extraction
+              7/2 : ca 94.5%   --having made more parsing, less tagextraction

@@ -12,7 +12,7 @@ data State = State { -- _isReflGenVP  :: Bool not wanted anymore
            , _sentenceType :: SentenceType
            , _complement   :: (VPForm,[Maybe Expr],[Bool])
            , _object       :: Maybe Expr  -- for objects not within the VP 'vilka äpplen äter han'
-           , _tmp          :: Maybe (VForm Expr)
+           , _tmp          :: Maybe (VForm CId)
            , _anter        :: Bool
            , _pol          :: Maybe Bool
            , _subj         :: Maybe Expr

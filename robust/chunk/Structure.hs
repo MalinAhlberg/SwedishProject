@@ -17,3 +17,11 @@ data VForm a
   = VInf | VPart | VSupin | VImp | VTense a
    deriving (Show,Eq)
 
+instance Functor VForm where
+  fmap f VInf       = VInf
+  fmap f VPart      = VPart
+  fmap f VSupin     = VSupin
+  fmap f VImp       = VImp
+  fmap f (VTense t) = VTense (f t)
+
+

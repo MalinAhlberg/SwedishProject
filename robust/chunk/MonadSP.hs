@@ -1,17 +1,21 @@
 {-# LANGUAGE FlexibleInstances, MultiParamTypeClasses, 
-             ScopedTypeVariables, FlexibleContexts, 
+             ScopedTypeVariables, FlexibleContexts, TypeSynonymInstances,
              UndecidableInstances #-}
 module MonadSP (Rule(..)
                ,Grammar
+               ,WriteState
+               ,Mapp(..)
                ,grammar
                ,P
                ,parse
                ,parseAs
                ,cat
+               ,checkWord
                ,word
                ,word2
                ,lemma
                ,lemma'
+               ,analyse
                ,inside
                ,insideSuff
                ,transform
@@ -21,13 +25,14 @@ module MonadSP (Rule(..)
                ,optEat
                ,consume
                ,wordlookup
-               ,write -- Malins
+               ,write
+               ,trace
              ) where
 import Data.Tree
 import Data.Char
 import Data.List
+import Data.Maybe
 import Data.Ord
-import Debug.Trace
 import qualified Data.Map as Map
 import Control.Monad
 import Control.Monad.State
@@ -44,13 +49,16 @@ data Rule    m t e = t :-> P t e m e
 type Parser  m t e = PGF -> t -> [Tree t] -> m [e] 
 type Def e     = [e] -> e
 type Grammar m t e = t -> PGF -> Morpho -> Parser m t e -> ([e] -> e) -> [Tree t] -> m e
+type WriteState = ([String],Mapp,Mapp)
+data Mapp = Mapp {unMapp :: Map.Map String Int}
+  deriving (Show) --TODO
 
 instance Show t => Show (Rule m t e) where
   show (t :-> x) = show t
 
 
-grammar :: (MonadWriter [String] m,MonadState s m,Ord t,Show t,Show e, Ord e) 
-        => Def e -> Parser m t e -> [Rule m t e] -> Grammar m t e
+--grammar :: (MonadWriter WriteState m,MonadState s m,Ord t,Show t,Show e, Ord e) 
+--        => Def e -> Parser m t e -> [Rule m t e] -> Grammar m t e
 grammar def parser rules = gr 
   where
     gr = \tag pgf m p def ts -> do
@@ -64,14 +72,14 @@ grammar def parser rules = gr
             r <- unP f gr pgf m p def ts 
             case r of
               Just (e,[]) -> return e
-              Just (e,xs) -> tell ["Rest parse"] >> retry pgf m p def ts -- use xs here?
+              Just (e,xs) -> trace ["Rest parse"] >> retry pgf m p def ts -- use xs here?
               Nothing     -> put stored          >> retry pgf m p def ts
       
       parsed <- parser pgf tag ts
       if null parsed then case Map.lookup tag pmap of
-                          Just f   -> getDeeper f pgf m parser def ts 
+                          Just f   -> failure tag >> getDeeper f pgf m parser def ts 
                           Nothing  -> retry pgf m parser def ts 
-                     else return (last $ sort parsed) --obs head
+                     else success tag >> return (last $ sort parsed) --obs head
     -- If many rules match, try all of them (mplus)
     pmap = Map.fromListWith mplus (map (\(t :-> r) -> (t,r)) rules)
 
@@ -103,9 +111,20 @@ instance MonadWriter w m => MonadWriter w (P t e m) where
   listen = error "listen not implemented for P"
   pass   = error "pass not implemented for P"
                                      
--- write x = tell [x]
-write :: MonadWriter [w] m => w -> P t e m ()
-write = tell . return
+instance Monoid Mapp where
+    mempty  = Mapp $ Map.empty 
+    mappend (Mapp m1) (Mapp m2) = Mapp $ Map.unionWith (+) m1 m2 
+    mconcat = error "mconcat not implemented"
+
+one :: String -> Map.Map String Int
+one s = Map.fromList [(s,1)]
+
+write :: MonadWriter WriteState m => String -> P t e m ()
+write = trace . return
+
+trace   x = tell (x,mempty,mempty)
+success x = tell ([],Mapp $ one x,Mapp $ mempty)
+failure x = tell ([],Mapp $ mempty,Mapp $ one x)
 
 instance MonadTrans (P t e) where
   lift m = P $ \gr t morpho p def ts -> m >>= \r -> return (Just (r,ts))
@@ -154,18 +173,23 @@ combineCats topcat tags = P $ \gr pgf m p def ts -> do
        splitTreeIfSame = undefined --OBS! TODO
        -}
                                           
-parseAs :: (Monad m,Eq t,Show t) => [t] -> P [t] e m e
+parseAs :: (MonadWriter WriteState m,Monad m) => String -> P String e m e
 parseAs cat = P $ \gr pgf m p def ts -> do
   case ts of
     Node tag1 ts1 : ts' -> 
              do parsed <- p pgf cat ts1
                 case parsed of
-                   [] -> return $ Nothing 
-                   xs -> return $ Just (head xs,ts') --obs head
+                   [] -> failure cat >> return Nothing 
+                   xs -> success cat >> (return $ Just (head xs,ts')) --obs head
     _                   -> return $ Nothing
 
 
-
+-- returns the next word without removing it from the tree
+checkWord :: (MonadWriter WriteState m,Monad m,Show t,Eq t) => P [t] e m [t]
+checkWord = P $ \gr pgf morpho p def ts -> 
+  case ts of
+    (Node tag1 [Node tag2 [Node w []]] : rest) -> return $ Just (w,ts)
+    _                              -> trace ["checkword fail, "++show ts] >> return Nothing
 
 word :: (Monad m,Show t,Eq t) => [t] -> P [t] e m [t]
 word tag = P $ \gr pgf morpho p def ts -> return $
@@ -182,19 +206,19 @@ word2 tag = P $ \gr pgf morpho p def ts -> return $
     _                                                      -> Nothing
 
 
-inside, insideSuff :: (MonadWriter [String] m,Eq t,Show t)=> [t] -> P [t] e m a -> P [t] e m a          
+inside, insideSuff :: (MonadWriter WriteState m,Eq t,Show t)=> [t] -> P [t] e m a -> P [t] e m a          
 insideSuff = inside' isSuffixOf
 inside     = inside' isPrefixOf
 
-inside' :: (MonadWriter [String] m,Eq t,Show t)=>
+inside' :: (MonadWriter WriteState m,Eq t,Show t)=>
               ([t] -> [t] -> Bool) -> [t] -> P [t] e m a -> P [t] e m a          
 inside' isEq tag f = P $ \gr pgf morpho p def ts ->
   case ts of
     Node tag1 ts1 : ts | tag `isEq` tag1 -> do
-                tell [show tag++" "++show tag1]
+                trace [show tag++" "++show tag1]
                 unP f gr pgf morpho p def ts1 >>= \r -> case r of
                                 Just (x,[]) -> return (Just (x,ts))
-                                Just (x,xs) -> tell ["inside fail "++show xs] >> return Nothing
+                                Just (x,xs) -> trace ["inside fail "++show xs] >> return Nothing
                                 Nothing     -> return Nothing
     _                       -> return Nothing
 
@@ -206,31 +230,40 @@ magicLookup f w cat0 an0 morpho pgf = [ lem
                                 , cat0 == cat1 && an0 `f` an1
                                 ] 
 
-wordlookup :: MonadWriter [String] m => String -> String -> String -> P String e m CId
+wordlookup :: MonadWriter WriteState m => String -> String -> String -> P String e m CId
 wordlookup w cat0 an0 = P $ \gr pgf morpho p def ts -> do
-  tell ["wordlookup: " ++ w ++ show ts ++ show cat0]
+  trace ["wordlookup: " ++ w ++ show ts ++ show cat0]
   let wds = magicLookup (==) w cat0 an0 morpho pgf
-  tell [show wds]
+  trace [show wds]
   case wds of
     (wd:_) -> return $ Just (wd,ts)
     []     -> return Nothing
   
-lemma' :: MonadWriter [String] m => String -> String -> P String e m CId
+lemma' :: MonadWriter WriteState m => String -> String -> P String e m CId
 lemma' cat = liftM head . lemmas isPrefixOf cat
   
-lemma :: MonadWriter [String] m => String -> String -> P String e m CId
+lemma :: MonadWriter WriteState m => String -> String -> P String e m CId
 lemma cat = liftM head . lemmas (==) cat
 
-lemmas :: MonadWriter [String] m => (String -> String -> Bool) -> String 
+lemmas :: MonadWriter WriteState m => (String -> String -> Bool) -> String 
        -> String -> P String e m [CId]
 lemmas f cat0 an0 = P $ \gr pgf morpho p def ts -> do
-   tell ["lemma: "++show ts++show cat0]
+   trace ["lemma: "++show ts++show cat0]
    case ts of
      Node w [] : ts -> case magicLookup f w cat0 an0 morpho pgf of
-                          (id:ids) -> tell ["lemma ok"] >> return (Just (id:ids,ts))
-                          _        -> tell ["no word "++w++cat0++an0]  >> return Nothing
-     _              -> tell ["tried to lemma a tag"]    >> return Nothing
+                          (id:ids) -> trace ["lemma ok"] >> return (Just (id:ids,ts))
+                          _        -> trace ["no word "++w++cat0++an0]  >> return Nothing
+     _              -> trace ["tried to lemma a tag"]    >> return Nothing
 
+
+analyse :: MonadWriter WriteState m => String -> String -> P String e m String
+analyse str tag =  P $ \gr pgf morpho p def ts -> do
+    let ana = [an | (lem, an) <- lookupMorpho morpho (map toLower str)
+                  , let cat = maybe "" (showType []) (functionType pgf lem)
+                  , tag `isPrefixOf` cat ]
+    if null ana then return Nothing else return (Just (head ana,ts))
+
+ 
 
 transform :: Monad m => ([Tree t] -> [Tree t]) -> P t e m ()
 transform f = P $ \gr pgf morpho p def ts -> return (Just ((),f ts))

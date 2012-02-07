@@ -4,61 +4,64 @@ import PGF
 
 toGF :: String -> [Type]
 toGF str = case str of
-     "ROOT"  ->  [text]
-     "S"     ->  [s,relvp ]
-     "AP"    ->  aps
-     "CAP"   ->  aps
-     "NP"    ->  nps
-     "PP"    ->  advs 
-     "VP"    ->  [vp] -- or just V?
-     "CNP"   ->  nps
-     "CPP"   ->  advs
-     "CVP"   ->  [vp]
-     "CS"    ->  [s]
-     "++"    ->  [pconj, conj]
-     "+A"    ->  [predet]
-     "+F"    ->  [s]  -- or remove?
-     "AA"    ->  [ada] --What to do here? pAA
-     "AG"    ->  advs
-     "AT"    ->  aps  --used to be VPSlashAP??]
-     "CA"    ->  [predet]
-     "DT"    ->  ([iquant, predet, n2]++quant)
-     "EF"    ->  [rs]
-     "EO"    ->  [utt] --"att ...": "att det är deras ansvar" or more of a VP:
-                     --"att göra så", but cannot be parsed as VP, danger! rather use UttVP
-     "ES"    ->  [utt] -- same type as EO
-     "ET"    ->  advs--what is this?
-     "FO"    ->  [pron]
-     "FS"    ->  [pron] -- impersonligt eller generiskt pron
-     "FV"    ->  vtypes ----catV must be V,V2,V3,vslash ...
+     "ROOT"   ->  [text]
+     "S"      ->  [s,relvp ]
+     "AP"     ->  aps
+     "CAP"    ->  aps
+     "NP"     ->  nps
+     "PP"     ->  advs 
+     "VP"     ->  [vp] -- or just V?
+     "CNP"    ->  nps
+     "CPP"    ->  advs
+     "CVP"    ->  [vp]
+     "CS"     ->  [s]
+     "++"     ->  [pconj, conj]
+     "+A"     ->  [predet]
+     "+F"     ->  [s]  -- or remove?
+     "AA"     ->  [ada] --What to do here? pAA
+     "AG"     ->  advs
+     "AT"     ->  aps  --used to be VPSlashAP??]
+     "CA"     ->  [predet]
+     "DT"     ->  ([iquant, predet, n2]++quant)
+     "EF"     ->  [rs]
+     "EO"     ->  [utt] --"att ...": "att det är deras ansvar" or more of a VP:
+                      --"att göra så", but cannot be parsed as VP, danger! rather use UttVP
+     "ES"     ->  [utt] -- same type as EO
+     "ET"     ->  advs--what is this?
+     "FO"     ->  [pron]
+     "FS"     ->  [pron] -- impersonligt eller generiskt pron
+     "FV"     ->  vtypes ----catV must be V,V2,V3,vslash ...
      -- punctuation: I?,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
      -- punctuation: , "JC", "JG", "JR", "JT",
-     "IV"    ->  vtypes 
-     "MA"    ->  (advs ++ nps)
-     "MD"    ->  (cadv: nps)
-     "MS"    ->  [s]
-     "OA"    ->  (vp : advs)
-     "OO"    ->  ([s, vp,npobj] ++ aps)
-     "PR"    ->  [prep]
-     "PT"    ->  advs
-     "RA"    ->  (advs ++ nps)
-     "SP"    ->  [comp]
-     "SS"    ->  [npsub] 
-     "TA"    ->  (advs ++ nps)
-     "TT"    ->  [voc]
-     "VA"    ->   (advs ++ nps)
-     "VO"    ->  [utt]  --same as EO]
-     "VS"    ->  [utt]  --same as EO
-     "XA"    ->  advs -- sa att saga
-     "_Quant"->  quant
-     "_IP"   ->  [ip]
-     "_Adv"  -> advs
-     "_Utt"  -> [utt]
+     "IV"     ->  vtypes 
+     "MA"     ->  (advs ++ nps)
+     "MD"     ->  (cadv: nps)
+     "MS"     ->  [s]
+     "OA"     ->  (vp : advs)
+     "OO"     ->  ([s, vp,npobj] ++ aps)
+     "PR"     ->  [prep]
+     "PT"     ->  advs
+     "RA"     ->  (advs ++ nps)
+     "SP"     ->  [comp]
+     "SS"     ->  [npsub] 
+     "TA"     ->  (advs ++ nps)
+     "TT"     ->  [voc]
+     "VA"     ->   (advs ++ nps)
+     "VO"     ->  [utt]  --same as EO]
+     "VS"     ->  [utt]  --same as EO
+     "XA"     ->  advs -- sa att saga
+     "_Quant" ->  quant
+     "_IP"    ->  [ip]
+     "_Adv"   -> advs
+     "_Utt"   -> [utt]
+     "_Predet"-> [predet]
+     "_N"     -> nouns
      _       ->  []
 
 
 vtypes = [v,v2,v3,v2a,va,vv,vs]
 nps    = [npobj,npsub]
+nouns  = [n,n2]
 advs   = [advobj,advsub]
 aps    = [apobj,apsub]
 quant   = [quantobj,quantsub]
