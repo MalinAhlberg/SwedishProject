@@ -1,5 +1,23 @@
-  alla _++ : Conj ;
-  _AB  : Adv, IAdv, A, particle, AdA
+   _++ : Conj ;
+
+   -- or AdV    
+  _AB  : Adv 
+  _ ABDA : Adv
+  _ABFA : IAdv
+  _ABJA : AdA
+  _ABJU : Adv ? 
+  _ABKP : CAdv
+  _ABKS : Adv
+  _ABKU : Adv
+  _ABMN : Adv
+  _ABOC : Adv
+  _ABRA">Adverb, relative</value> -- när, där ... :( Subj, IdRP.
+  _ABSA : Conj
+  _ABSU : Adv
+  _ABTA : Adv
+  _ABZA : Adv
+  _ABZK : Adv
+
   _AJ    GG : A in genitive 
   _AJ  HH : A
   _AJ  HHGG : A in genitive
@@ -25,6 +43,8 @@
   _IU : FullStop
   _IR : FullStop
   _IS : FullStop
+  _PU : FullStop
+  _UU : FullStop
   _IS++ELKR : Conj
   _IT++  KR : Conj
   _IT++ : Conj
@@ -83,7 +103,19 @@
   _KVIV">The verb locution "komma att" (periphrastic future), infinitive</value>
   _KVPS">The verb locution "komma att" (periphrastic future), present</value>
   _KVPT">The verb locution "komma att" (periphrastic future), preterite</value>
-  _KVSN">The verb locution "komma att" (periphrastic future), supine</value>"
+  _KVSN">The verb locution "komma att" (periphrastic future), supine</value>
+
+
+ _QV">The verb "kunna" (can)</value>
+  _QVIV">The verb "kunna" (can), infinitive</value>
+  _QVPS">The verb "kunna" (can), present</value>
+  _QVPT">The verb "kunna" (can), preterite</value>
+  _QVSN">The verb "kunna" (can), supine</value>
+
+  _SV">The verb "skola" (will, shall)</value>
+  _SVIV">The verb "skola" (will, shall), infinitive</value>
+  _SVPS">The verb "skola" (will, shall), present</value>
+  _SVPT">The verb "skola" (will, shall), preterite</value>
 
 -- these should just be meta
   _EH  PU">Hesitation, pause</value>
@@ -103,6 +135,10 @@
 
 
   --- these should be present but can be marked to avoid confusion
+
+  _ABNA :  negation
+
+
   _FV">The verb "få" (get)</value>
   _FVIV">The verb "få" (get), infinitive</value>
   _FVPK">The verb "få" (get), preterite subjunctive</value>
@@ -133,9 +169,16 @@
   _IPXX">Period, ?</value>
 
   _NJ">Falling juncture</value>
-  _NJPU">Falling juncture, pause</value>
+  _NJPU">Falling juncture, pause</value>"
+  _QQ">?</value>
 
+   _RJ">Level juncture</value>
+  _RJPU">Level juncture, pause</value>
 
+  _UJ">Rising juncture</value>
+  _UJPU">Rising juncture, pause</value>
+
+  _VVPK">Other verb, preterite subjunctive</value>
 
   _MN    GG : Noun gen
   _MN  HH : Noun 
@@ -160,6 +203,8 @@
   _NNDDSS : Noun def
   _NNDDSSGG : Noun gen def
   _NNDDTR : Noun def
+
+-- använda dessa? eller testa vår nya egna?
   _PN    GG">Proper name, genitive</value>
   _PN  HH">Proper name, person</value>
   _PN  HHGG">Proper name, person, genitive</value>
@@ -171,6 +216,8 @@
   _PNDDHH">Proper name, definite, person</value>
   _PNDDSS">Proper name, definite, compound (non-person)</value>
   _PNDDSSGG">Proper name, definite, compound (non-person), genitive</value>
+
+-- problematic! should probably be set no quant?
   _PO">Pronoun</value>
   _POCP">Pronoun, reciprocal</value>
   _POCPHH">Pronoun, reciprocal, person</value>
@@ -223,45 +270,40 @@
   _POZP">Pronoun, other</value>
   _POZPHH">Pronoun, other, person</value>
   _POZPHHAA">Pronoun, other, person, object form</value>
-  _POZPHHGG">Pronoun, other, person, genitive/possessive</value>
-  _PR">Preposition</value>
-  _PRKP">Preposition, comparative</value>
-  _PRSU">Preposition, superlative</value>
-  _PU">List item</value>
-  _QQ">?</value>
-  _QV">The verb "kunna" (can)</value>
-  _QVIV">The verb "kunna" (can), infinitive</value>
-  _QVPS">The verb "kunna" (can), present</value>
-  _QVPT">The verb "kunna" (can), preterite</value>
-  _QVSN">The verb "kunna" (can), supine</value>
-  _RJ">Level juncture</value>
-  _RJPU">Level juncture, pause</value>
-  _RO  HH">Numeral other than "en", "ett" (one), person</value>
-  _RO">Numeral other than "en", "ett" (one)</value>
-  _ROOT">Numeral other than "en", "ett" (one), ordinal</value>
-  _ROOTHH">Numeral other than "en", "ett" (one), ordinal, person</value>
-  _SP  HH">Present participle, person</value>
-  _SP  HHGG">Present participle, person, genitive</value>
-  _SP  HM">Present participle, compound (person)</value>
-  _SP  HMGG">Present participle, compound (person), genitive</value>
-  _SP  SM">Present participle, compound (non-person)</value>
-  _SP">Present participle</value>
-  _SV">The verb "skola" (will, shall)</value>
-  _SVIV">The verb "skola" (will, shall), infinitive</value>
-  _SVPS">The verb "skola" (will, shall), present</value>
-  _SVPT">The verb "skola" (will, shall), preterite</value>
-  _TP    PA">Perfect participle, passive</value>
-  _TP  HH">Perfect participle, person</value>
-  _TP  HHGG">Perfect participle, person, genitive</value>
-  _TP  HHPA">Perfect participle, person, passive</value>
-  _TP  HM">Perfect participle, compound (person)</value>
-  _TP  HMGG">Perfect participle, compound (person), genitive</value>
-  _TP  HMPA">Perfect participle, compound (person), passive</value>
-  _TP  SM">Perfect participle, compound (non-person)</value>
-  _TP  SMPA">Perfect participle, compound (non-person), passive</value>
-  _TP">Perfect participle</value>
-  _UJ">Rising juncture</value>
-  _UJPU">Rising juncture, pause</value>
+  _POZPHHGG">Pronoun, other, person, genitive/possessive</value>"
+
+  _PR : Prep ;
+  _PRKP : Adv? 
+  _PRSU : Adv? 
+
+
+  _RO  HH : Digits
+  _RO : Digits
+
+  _ROOT : Ord 
+  _ROOTHH : Ord 
+
+-- maybe not Noun, cause will be A in saldo, so we can get metas and later add rule
+  _SP  HH : A or Noun 
+  _SP  HHGG : Noun gen
+  _SP  HM : A or Noun
+  _SP  HMGG : Noun gen
+  _SP  SM : A (or noun?)
+  _SP : A or Noun
+
+-- that's what it's like in saldo, va, kunde ta mer info här, men kommer knappast hjälpa
+  _TP    PA : V PtPret
+  _TP  HH : V PtPret
+  _TP  HHGG : V PtPret
+  _TP  HHPA : V PtPret
+  _TP  HM : V PtPret
+  _TP  HMGG : V PtPret
+  _TP  HMPA : V PtPret
+  _TP  SM : V PtPret
+  _TP  SMPA : V PtPret
+  _TP : V PtPret
+
+-- these should be present to
   _UK">Subordinating conjunction</value>
   _UKAT">Subordinating conjunction, "att" (that)</value>
   _UKFI">Subordinating conjunction, final</value>
@@ -272,42 +314,47 @@
   _UKKU">Subordinating conjunction, causal</value>
   _UKOM">Subordinating conjunction, interrogative "om/huruvida" (if/whether)</value>
   _UKTE">Subordinating conjunction, temporal</value>
-  _UU">Exclamation</value>
-  _VN    GG">Verbal noun, genitive</value>
-  _VN  HH">Verbal noun, person</value>
-  _VN  HS">Verbal noun, compound (person)</value>
-  _VN  SS">Verbal noun, compound (non-person)</value>
-  _VN">Verbal noun</value>
-  _VNDD  GG">Verbal noun, definite, genitive</value>
-  _VNDD">Verbal noun, definite</value>
-  _VNDDHH">Verbal noun, definite, person</value>
-  _VNDDHS">Verbal noun, definite, compound (person)</value>
-  _VNDDSS">Verbal noun, definite, compound (non-person)</value>
-  _VNDDSSGG">Verbal noun, definite, compound (non-person), genitive</value>
-  _VV    PA">Other verb, passive</value>
-  _VV  SM">Other verb, compound</value>
-  _VV  SMPA">Other verb, compund, passive</value>
-  _VV">Other verb</value>
-  _VVIP">Other verb, imperative</value>
-  _VVIPSM">Other verb, imperative, compound</value>
-  _VVIV  PA">Other verb, infinitive, passive</value>
-  _VVIV">Other verb, infinitive</value>
-  _VVIVSM">Other verb, infinitive, compound</value>
-  _VVIVSMPA">Other verb, infinitive, compound, passive</value>
-  _VVOP">Other verb, present subjunctive</value>
-  _VVPK">Other verb, preterite subjunctive</value>
-  _VVPS  PA">Other verb, present, passive</value>
-  _VVPS">Other verb, present</value>
-  _VVPSSM">Other verb, present, compound</value>
-  _VVPSSMPA">Other verb, present, compound, passive</value>
-  _VVPT  PA">Other verb. preterite, passive</value>
-  _VVPT">Other verb, preterite</value>
-  _VVPTSM">Other verb, preterite, compound</value>
-  _VVPTSMPA">Other verb, preterite, compound, passive</value>
-  _VVSN  PA">Other verb, supine, passive</value>
-  _VVSN">Other verb, supine</value>
-  _VVSNSM">Other verb, supine, compound</value>
-  _VVSNSMPA">Other verb, supine, compound, passive</value>
+
+
+
+  _VN    GG : Noun gen
+  _VN  HH : Noun 
+  _VN  HS : Noun
+  _VN  SS : Noun
+  _VN : Noun 
+  _VNDD  GG : Noun  def gen
+  _VNDD : Noun def
+  _VNDDHH : Noun def
+  _VNDDHS : Noun def
+  _VNDDSS : Noun def
+  _VNDDSSGG : Noun def gen
+
+  _VV    PA : V pass
+  _VV  SM : V
+  _VV  SMPA : V pass
+  _VV : V
+  _VVIP : V imp
+  _VVIPSM : V imp
+  _VVIV  PA : V inf pass
+  _VVIV : V inf
+  _VVIVSM : V inf
+  _VVIVSMPA : V inf pass
+  _VVOP : V --gånge
+  _VVPS  PA : V pres pass
+  _VVPS : V pres 
+  _VVPSSM : V pres
+  _VVPSSMPA : V pres pass
+  _VVPT  PA : V pret pass
+  _VVPT : V pret
+  _VVPTSM : V pret
+  _VVPTSMPA : V pret pass
+  _VVSN  PA : V sup pass
+  _VVSN  : V sup
+  _VVSNSM : V sup
+  _VVSNSMPA : V sup pass
+
+
+
   _WVIV">The verb "vilja" (want), infinitive</value>
   _WVPK">The verb "vilja" (want), preterite subjunctive</value>
   _WVPS">The verb "vilja" (want), present</value>
