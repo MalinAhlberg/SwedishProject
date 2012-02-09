@@ -16,6 +16,10 @@ import Control.Applicative
    + there were 1035 not PNs (but may be correct anyway)
    Without morpho-check (toLower all), get 91.6%
    + there were 673 not PNs  
+   ---
+  With compounding (smaller test): 99.3% of PNs
+   85 too tagged, (37 MS were,7 IDs)
+   (100.xml)
    -}
 
   {- TODO

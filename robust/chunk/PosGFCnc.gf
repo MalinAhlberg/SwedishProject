@@ -1,49 +1,60 @@
 --# -path=:.:prelude:alltenses:swedish:common:scandinavian:abstract
-concrete PosGFCnc of PosGFAbs = CatSwe ** open  ResSwe, CommonSwe, NumeralSwe in {
+concrete PosGFCnc of PosGFAbs = CatSwe  ** open  Prelude, ResSwe, CommonSwe, ParadigmsSwe in {
 
  lincat Meta = {s : Str} ;
 
  lin 
-    XConj d = {s1,s2 = "XConj"++ str d  ; n = Sg } ;
-    XAdV d = {s = "XAdV"++str d} ;
-    XIAdv d = {s = "XIAdv"++str d} ;
-    XAdA  d = {s = "XAdA"++str d}  ;
-    XCAdv d = {s = "XCAdv"++str d; p = []}  ;
+ {-
+    XConj d = {s1,s2 = "XConj"++ intToStr d  ; n = Sg } ;
+    XAdV d = {s = "XAdV"++intToStr d} ;
+    XIAdv d = {s = "XIAdv"++intToStr d} ;
+    XAdA  d = {s = "XAdA"++intToStr d}  ;
+    XCAdv d = {s = "XCAdv"++intToStr d; p = []}  ;
+    -}
     
   --_ABRA">Adverb, relative</value> -- när, där ... =( Subj, IdRP.
 
 
---- START here, use regA?
-    mkA : (liten,litet,lilla,sma,mindre,minst,minsta : Str) -> A -- worst case
-    XA d = mkA "XA" "XA" "XA" "XAsup" "XAsup" 
-    
-    
-    {s = table { (AF (ASuperl _) c) => "XAsup"+strCase c ++str d  ;
-                        (AF ACompar     c) => "XAcomp"+strCase c++str d ;
-                        (AF (APosit _)  c) => "XA"+strCase c++str d }};
-      oper strCase : Case -> Str = \c -> case c of {Nom => ""; Gen => "gen"} ;
+    XA d = mkA "XA" "XA" "XA" "XA" 
+               "XAcomp" "XAsup" "XASup" ; 
+      {-mkXA d;
+    XA d = mkA ("XA"++ str d) ("XA"+str d) ("XA"++str d)  ("XA"++str d) 
+               ("XAcomp"++str d) ("XAsup" ++str d)("XASup"++str d) ; 
+        oper mkXA : {s : CardOrd => Str ; n : Number} -> {s : CS.AForm => Str; isComp : Bool} ;
+             mkXA d =
+             {s = table { (CS.AF (CS.ASuperl _) c) => "XAsup"+strCase c ++str d  ;
+                        (CS.AF CS.ACompar     c) => "XAcomp"+strCase c++str d ;
+                        (CS.AF (CS.APosit _)  c) => "XA"+strCase c++str d };
+                isComp = True} ;
+      oper strCase : CS.Case -> Str = \c -> case c of {CS.Nom => ""; CS.Gen => "gen"} ;
+      -}
 
-{-
-lin
+
+--    XA d = mkA ("XA"++str d) ("XA"++str d)  ("XA"++str d)  ("XA"++str d)
+--               ("XAcomp"++str d) ("XAsup" ++str d)("XASup"++str d) ; 
+   
 -- {s : Number => Species => Case => Str ; g : NGender}
-    XNgen d = {s = \\ }  ;
-    XN d = N ;
-    XNgendef d = N ;
-    XNdef d = N ;
-    XNdef d = N ;
-    -}
+    XN d = mkN "XN" "XNdef" "XN" "XNdef" ;
+--    XN d = mkN ("XN"++str d) ("XNdef"++str d) ("XN"++str d) ("XNdef"++str d) ;
 
-   oper str : {s : CardOrd => Str ; n : Number}-> Str = \d ->  d.s ! NCard utrum ;
+    --XPunkt d = {s = "XPunkt"++ intToStr d} ;
+
+    XMeta d =  {s = "XMeta"++ d.s} ;
+
+    XPN d = mkPN "XPN" ; 
+   -- {s = table {Nom => "XPN" ; Gen => "XPNgen"}}; -- this could be used to compare our ne
+
+    x_Quant d = {s,sp = \\_,_,_,_,_ => "XQuant" ;
+              det = CommonSwe.DIndef} ; -- | DDef Indef}};
+--
+--   XQuantDef d = {s,sp = \\_,_,_,_,_ => "XQuant" ;
+--                  det = DDef Def };
+
+   --oper intToStr : Int -> Str = "" ;-- \i -> i.s ; --{s : CardOrd => Str ; n : Number}-> Str = \d ->  d.s ! NCard utrum ;
    {- 
-    XPunkt d = Text ;
 
-    XMeta d = Meta ;
 
-   XPN d = PN ; -- this could be used to compare our ne
-   XPNgen d = PN ;
 
-   XQuant d = Quant ; -- here we should also try to find out the number afterwards
-   XQuantDef d = Quant ;
 
    XPrep d = Prep ; 
 

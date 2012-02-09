@@ -18,6 +18,7 @@
   _ABZA : Adv
   _ABZK : Adv
 
+-- in genitive : +s
   _AJ    GG : A in genitive 
   _AJ  HH : A
   _AJ  HHGG : A in genitive
@@ -204,7 +205,7 @@
   _NNDDSSGG : Noun gen def
   _NNDDTR : Noun def
 
--- använda dessa? eller testa vår nya egna?
+-- använda dessa? eller testa vår nya egna? --gen : +s
   _PN    GG">Proper name, genitive</value>
   _PN  HH">Proper name, person</value>
   _PN  HHGG">Proper name, person, genitive</value>
@@ -217,7 +218,7 @@
   _PNDDSS">Proper name, definite, compound (non-person)</value>
   _PNDDSSGG">Proper name, definite, compound (non-person), genitive</value>
 
--- problematic! should probably be set no quant?
+-- problematic! should probably be set no quant || predet
   _PO">Pronoun</value>
   _POCP">Pronoun, reciprocal</value>
   _POCPHH">Pronoun, reciprocal, person</value>

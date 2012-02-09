@@ -43,6 +43,14 @@ testchunk str = do
    res <- consume chan act
    putStr $ unlines $ map showChunks $ concat res
 
+testdoParse str = do
+  pgf    <- readPGF pgfFile
+  let pstate = initS pgf 
+  doParse (0,0) pstate startType str
+ where initS pgf = initState pgf lang startType
+
+
+
 -- Good code. Watch and learn
 consume :: TChan [[Chunk]] -> TVar Int -> IO [[[Chunk]]]
 consume resChan doneTVar = do --unsafeInterleaveIO $ do
@@ -95,7 +103,6 @@ instance Show ParseOutput where
 combine :: [[Chunk]] -> Tree
 combine chs = let fstch = map fst chs
 -}
-
 
 doit :: [String] -> IO (TChan [[Chunk]], TVar Int)
 doit str = do

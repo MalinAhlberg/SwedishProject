@@ -3,52 +3,55 @@ abstract PosGFAbs = Cat ** {
 
  cat Meta ;
  fun 
-    XConj : Digits -> Conj ;
+    XConj : Int -> Conj ;
     
-    XAdV : Digits -> AdV ; --kan vara Adv också
-    XIAdv : Digits -> IAdv ;
-    XAdA  : Digits -> AdA ;
-    XCAdv : Digits -> CAdv ;
+    XAdV : Int -> AdV ; --kan vara Adv också
+    XIAdv : Int -> IAdv ;
+    XAdA  : Int -> AdA ;
+    XCAdv : Int -> CAdv ;
     
   --_ABRA">Adverb, relative</value> -- när, där ... :( Subj, IdRP.
 
-    --XAgen : Digits -> A ;
-    XA    : Digits -> A ;
-    --XAcomp : Digits -> A ;
-    --XAgcompen : Digits -> A ;
-    --XAsup : Digits -> A ;
+-- +s in Gen
+    --XAgen : Int -> A ;
+    XA    : Int -> A ;
+    --XAcomp : Int -> A ;
+    --XAgcompen : Int -> A ;
+    --XAsup : Int -> A ;
 
-    XNgen : Digits -> N ;
-    XN : Digits -> N ;
-    XNgendef : Digits -> N ;
-    XNdef : Digits -> N ;
-    XNdef : Digits -> N ;
+-- +s in Gen
+--    XNgen : Int -> N ;
+    XN : Int -> N ;
+--    XNgendef : Int -> N ;
+--    XNdef : Int -> N ;
+--    XNdef : Int -> N ;
 
-    XPunkt : Digits -> Text ;
+    XPunkt : Int -> Text ;
 
-    XMeta : Digits -> Meta ;
+    XMeta : Int -> Meta ;
 
-   XPN : Digits -> PN ; -- this could be used to compare our ne
-   XPNgen : Digits -> PN ;
+-- +s in Gen
+   XPN : Int -> PN ; -- this could be used to compare our ne
 
-   XQuant : Digits -> Quant ; -- here we should also try to find out the number afterwards
-   XQuantDef : Digits -> Quant ;
+   x_Quant : Int -> Quant ; -- here we should also try to find out the number afterwards
+   XQuantDef : Int -> Quant ;
+   XPredet : Int -> Quant ;
 
-   XPrep : Digits -> Prep ; 
+   XPrep : Int -> Prep ; 
 
-   XDigit : Digits -> Digits ;
-   XOrd   : Digits -> Ord ;
+   XDigit : Int -> Int ;
+   XOrd   : Int -> Ord ;
 
-   XVPtPret : Digits -> V ; -- do not know the valency
-   XVpass : Digits -> V ; 
-   XV : Digits -> V ;
-   XVimp : Digits -> V ;
-   XVinf : Digits -> V ;
-   XVinfPass : Digits -> V ;
-   XVpres : Digits -> V ;
-   XVpresPass : Digits -> V ;
-   XVpret : Digits -> V ;
-   XVpretPass : Digits -> V ;
-   XVSup : Digits -> V ; 
-   XVSupPass : Digits -> V ; 
+   XVPtPret : Int -> V ; -- do not know the valency
+   XVpass : Int -> V ; 
+   XV : Int -> V ;
+   XVimp : Int -> V ;
+   XVinf : Int -> V ;
+   XVinfPass : Int -> V ;
+   XVpres : Int -> V ;
+   XVpresPass : Int -> V ;
+   XVpret : Int -> V ;
+   XVpretPass : Int -> V ;
+   XVSup : Int -> V ; 
+   XVSupPass : Int -> V ; 
 }
