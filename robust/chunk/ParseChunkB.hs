@@ -46,7 +46,7 @@ testchunk str = do
 testdoParse str = do
   pgf    <- readPGF pgfFile
   let pstate = initS pgf 
-  doParse (0,0) pstate startType str
+  xs  doParse (0,0) pstate startType str
  where initS pgf = initState pgf lang startType
 
 
