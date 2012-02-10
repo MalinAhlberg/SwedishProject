@@ -43,6 +43,15 @@ main tree = do
   expr <- resetChanged
   return expr
 
+parseTree = do
+  tree <- get tbTree
+  if isLeaf tree then parseNext label tree (and then movesibling or parent)
+                 else moveToNext tree >> parseTree
+ where moveToNext tree | hasChildren tree = setTree firstChild 
+                       | not isLast       = setTree next --check that isLast works
+                       | otherwise        = return lastParseState
+
+
 parseFunction state cat (s:str) | paranthesis nextTok = do
                                  let (inP,rest) = splitAt (endPar nextTok)
                                  tree1 <-  parse inP newState
@@ -91,7 +100,7 @@ simplify (Node p [Node w []]) | parseable p = do
  --                       if null ss' then return (mkApp meta subs) else return ss'
 
 findAndFixError = do
-   s <- parseTree
+   s <- parseTree -- should alway keep us in the correct position of the tree
    case s of
      ParseFailed i   -> bruteParse (getSubTree i) >> findAndFixError  --parse kids in this subtree and exchange by meta ++ kids
      ParseOk  tr     -> return tr
@@ -123,8 +132,10 @@ exchangeLeaves ws = do
                                  (ws'',ts')  = change ts ws'
                              in (ws'',t' : ts')
 getCurrentNode = liftM label $ gets
-getSubTree i = --find CHild
 
+getSubTree = parent $ parent 
+
+parseable = (`elem` ["S","NP"]) --TODO mm
 
 meta     = mkCId "?"
 mkExpr e = mkApp e []
