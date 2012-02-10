@@ -11,6 +11,8 @@ module MonadSP (Rule(..)
                ,parseAs
                ,cat
                ,checkWord
+               ,pick
+               ,pickInside
                ,word
                ,word2
                ,lemma
@@ -205,20 +207,28 @@ word2 tag = P $ \gr pgf morpho p def ts -> return $
     (Node tag1 [Node tag2 [Node w []]] : ts) | tag == tag1 -> Just (w,ts)
     _                                                      -> Nothing
 
+pick :: Monad m => P [t] e m a -> P [t] e m a 
+pick f = P $ \gr pgf morpho p def ts ->  do
+   res <- unP f gr pgf morpho p def ts 
+   unP (return ()) gr pgf morpho p def ts  --put pack old tree
+   return res
 
-inside, insideSuff :: (MonadWriter WriteState m,Eq t,Show t)=> [t] -> P [t] e m a -> P [t] e m a          
-insideSuff = inside' isSuffixOf
-inside     = inside' isPrefixOf
+pickInside :: (MonadWriter WriteState m,Eq t,Show t, Show a)=> [t] -> P [t] e m a -> P [t] e m a          
+pickInside = inside' isPrefixOf (\x -> Just (x,[]))
 
-inside' :: (MonadWriter WriteState m,Eq t,Show t)=>
-              ([t] -> [t] -> Bool) -> [t] -> P [t] e m a -> P [t] e m a          
-inside' isEq tag f = P $ \gr pgf morpho p def ts ->
+inside, insideSuff :: (MonadWriter WriteState m,Eq t,Show t,Show a)=> [t] -> P [t] e m a -> P [t] e m a          
+insideSuff = inside' isSuffixOf (const Nothing)
+inside     = inside' isPrefixOf (const Nothing)
+
+inside' :: (MonadWriter WriteState m,Eq t,Show t,Show a)=>
+              ([t] -> [t] -> Bool) -> (a -> Maybe (a, [Tree [t]])) -> [t] -> P [t] e m a -> P [t] e m a          
+inside' isEq g tag f = P $ \gr pgf morpho p def ts ->
   case ts of
     Node tag1 ts1 : ts | tag `isEq` tag1 -> do
                 trace [show tag++" "++show tag1]
                 unP f gr pgf morpho p def ts1 >>= \r -> case r of
                                 Just (x,[]) -> return (Just (x,ts))
-                                Just (x,xs) -> trace ["inside fail "++show xs] >> return Nothing
+                                Just (x,xs) -> trace ["inside fail "++show xs++" will return "++show (g x)] >> return (g x)
                                 Nothing     -> return Nothing
     _                       -> return Nothing
 

@@ -32,7 +32,7 @@ import Data.Label.PureM
 type PMonad = (RWS () WriteState S.State)
 
 
-test = False
+test = True
 usePGF = testGr
 testGr = ("../../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../../gf/Big.pgf","BigSwe")
@@ -139,7 +139,16 @@ parseTextAs pgf typ string =
 penn :: Grammar (RWS () WriteState S.State) String Expr
 penn =
   grammar (mkApp meta) tryparse
-   ["ROOT" :-> do s <- inside "MS" $ cat "S"
+   ["ROOT" :-> do {-write "inside root"
+                  w <- pick $ pickInside "MS" $ pickInside "S" $ pickInside "TA" $ word "ABDA"
+                  write $ "got TA "++show w  
+                  cat "TA"
+                  cat "SS"
+                  cat "FV"
+                  cat "OO"
+                  consume
+                  return (mkExpr meta) -}
+                  s <- inside "MS" $ cat "S"
                                      <+> cat "XP"
                   write "root found"
                   return s 
@@ -492,7 +501,8 @@ parseFV = do
    write "In parseFV"
    fv  <- checkWord 
    write "checked word in parseFV"
-   v   <- cat "FV"
+   v   <- cat "FV" --use word2 instead
+   p   <- maybeParticle-- then try to add this and parse with word2 "FV"
    write $ "Keep going in parseFV, word is "++fv
    tmp <- gets S.tmp
    write "FV checks tmp "
@@ -617,6 +627,8 @@ pSlashVP = do
           <+>
           do (t,v) <- pVerb "VV" "VS"
              return (t,mkExpr v)
+-- collect pl preps 
+ --pick $ do pl <-maybeParticle
  S.tmp =: Just t
  return v
 
