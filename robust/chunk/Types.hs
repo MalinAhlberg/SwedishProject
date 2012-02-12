@@ -19,6 +19,9 @@ vv     = fromJust $ readType "VV"
 v2     = fromJust $ readType "V2"
 v3     = fromJust $ readType "V3"
 va     = fromJust $ readType "VA"
+vq     = fromJust $ readType "VQ"
+v2s    = fromJust $ readType "V2S"
+v2q    = fromJust $ readType "V2Q"
 v2a    = fromJust $ readType "V2A"
 cn     = fromJust $ readType "CN"
 n      = fromJust $ readType "N"
@@ -48,4 +51,5 @@ quantobj = fromJust $ readType "QuantTyped Object"
 pron   = fromJust $ readType "Pron"  -- obs! ej reflexive
 relvp  = fromJust $ readType "RelVP"
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
-
+advs = [advsub,advobj]
+nps  = [npsub,npobj]

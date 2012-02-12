@@ -29,8 +29,18 @@ test str = do
 testState = do
   pgf    <- readPGF pgfFile
   let pstate = initS pgf 
-  print $ fst $ getParseOutput pstate text Nothing 
- where initS pgf = initState pgf lang startType
+      nextTok = simpleParseInput "gäller" 
+      pstate' = nextState pstate nextTok
+      pstate'' = case pstate' of
+            Right _  -> error "could parse gäller"
+            Left  er -> fst $ recoveryStates [v] er
+      nextTok' = simpleParseInput "hon" 
+      pstate''' = nextState pstate'' nextTok'
+      nextSt = case pstate''' of
+                    Left er -> error "bu"
+                    Right st -> st
+  print $ fst $ getParseOutput nextSt s Nothing 
+ where initS pgf = initState pgf lang s
 
 main = do
   t <- getCPUTime
@@ -43,11 +53,13 @@ testchunk str = do
    res <- consume chan act
    putStr $ unlines $ map showChunks $ concat res
 
+{-
 testdoParse str = do
   pgf    <- readPGF pgfFile
   let pstate = initS pgf 
   xs  doParse (0,0) pstate startType str
  where initS pgf = initState pgf lang startType
+ -}
 
 
 
@@ -91,7 +103,7 @@ showChunks ch = unlines $ map pretty [(show $ typ c, map (showExpr []) $ trees c
     types when not super-trivial. Try both and return wanted -}
 
 instance Show ParseOutput where
-   show  (ParseOk tree)    = "ParseOK"
+   show  (ParseOk tree)    = "ParseOK"++unlines (map (showExpr []) tree)
    show  (TypeError x)     = "TypeError"
    show  (ParseFailed i)   = "ParseFailed"
    show  (ParseIncomplete) = "Incomplete"
