@@ -53,3 +53,4 @@ relvp  = fromJust $ readType "RelVP"
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 advs = [advsub,advobj]
 nps  = [npsub,npobj]
+aps  = [apsub,apobj]

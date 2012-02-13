@@ -13,7 +13,7 @@ try fil = do
   let inp = map snd input 
   --putStrLn $ "input: "++show inp
   res   <- mapM (\inp -> parseText inp pgf lang startType) inp
-  writeFile "testet.txt" $ unlines $ map (showExpr []) res
+  writeFile "testetE.txt" $ unlines $ concatMap (map (showExpr [])) res
 
 startType = text 
 lang = read "BigTestSwe"

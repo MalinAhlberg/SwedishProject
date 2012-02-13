@@ -44,7 +44,7 @@ parseX (Node w []) = trace ("parsing "++w) $ let nextTok = simpleParseInput w in
           Left  er  -> do types  <- getRecTypes
                           rstate <- getRecState
                           let ps' = recoverFrom types rstate 
-                          trace ("parse fail "++w) $ putCurrentState ps'
+                          trace ("parse fail "++w++", recover as "++show types) $ putCurrentState ps'
                           return $ Left ps'
   where recoverFrom :: [Type] -> ParseState -> ParseState
         recoverFrom typs state = do
@@ -57,13 +57,22 @@ parseX (Node w []) = trace ("parsing "++w) $ let nextTok = simpleParseInput w in
 
 -- some tags have a backup-plan
 parseX (Node "S"  ts) = do 
-   saveState [s] ts
---   Right pst <- gets currentState 
---   case fst $ getParseOutput nextSt s Nothing of
---        ParseOk trees -> return (Rigth pst)
+   ps <- saveState [s] ts
+   --pst <- gets currentState 
+   case ps of
+        Right _ -> return ps
+        Left  _  -> error "s is angry"{-
+   case fst $ getParseOutput pst s Nothing of
+        ParseIncomplete    -> trace "S fail, try recover" $ parseX (Node "!" [])
+        _                  -> return (Right pst)
+-}
+        --ParseOk trees -> return (Rigth pst)
 --        _             -> do let vps = filter (`elem` ["FV","VG","OA","OO","NA","PL"])
 --                                ss  = filter (`elem` ["SS"])
 
+parseX (Node x ts) | isSaveNode x = trace ("saves node" ++show x) $  saveState (getCat x) ts
+
+{-
 parseX (Node "NP" ts) = saveState  nps ts
 parseX (Node "PP" ts) = saveState  advs ts
 parseX (Node "SS" ts) = saveState [npsub] ts
@@ -80,6 +89,7 @@ parseX (Node "+A" ts) = saveState  advs ts
 parseX (Node "FV" ts) = saveState [v] ts --,v2,v3,v2a,vs,vq,va,v2s,v2q,vv] ts
 parseX (Node "IV" ts) = saveState [v] ts --,v2,v3,v2a,vs,vq,va,v2s,v2q,vv] ts
 -- FO mfl?
+-}
 
 -- otherwise, just continue
 parseX (Node x [t]) = trace ("one left in "++x ) $ parseX t
@@ -89,6 +99,20 @@ parseX (Node x (t:ts)) = trace ("many left in "++x) $ do
       Right ps -> parseX (Node x ts)
       Left  ps -> return (Left ps)
 
+isSaveNode = (`elem` ["NP","PP","SS","OO","OA","TA","XA","VA","MA","KA"
+                     ,"CA","AA","+A","FV","IV","CNP","AP","AVP","CAP"
+                     ,"CAVP","CPP","CS","CVP"])
+
+getCat :: String -> [Type]
+getCat = fromJust . (`lookup` [("NP",nps),("PP",advs),("SS",[npsub]),("OO",nps)
+                                ,("OA",advs),("TA",advs),("XA",advs),("VA",advs)
+                                ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
+                                ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",nps)
+                                ,("AP",aps),("AVP",advs),("CAP",aps),("CAVP",advs)
+                                ,("CPP",advs),("CS",[s]),("CVP",[vp])]) --TODO change v to all vs
+
+
+
 saveState ::  [Type] -> [Tree String] -> Parser (Either ParseState ParseState)
 saveState recover ts = do
   state   <- gets currentState
@@ -96,7 +120,7 @@ saveState recover ts = do
   rtypes  <- gets recTypes
   pushState state
   pushRecTypes recover
-  mapM parseX ts -- correct??
+  parseX (Node "XX" ts) -- dummy node
   res <- gets currentState
   pushState res
   trace ("saveState: "++show recover) (popStates rstates rtypes)
