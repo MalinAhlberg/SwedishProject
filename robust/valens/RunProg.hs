@@ -16,6 +16,7 @@ import System.IO.Unsafe
 import System.Process
 
 import ParseLexin
+import PGFHelp
 
 inputTest = "littlelexin.txt"
 lexin = "../../saldo/valencies/lexin.txt"
@@ -209,16 +210,6 @@ extractLemma lex w
 mkLexMap :: IO (Map String String)
 mkLexMap = liftM M.fromList $ extractLex id cncFile
               
-extractLex :: ([String] -> [String]) -> FilePath -> IO [(String,String)]
-extractLex f file = do
-  hSetEncoding stdin utf8
-  hSetEncoding stdout utf8 
-  liftM mkMap $ readFile file
- where mkMap :: String -> [(String,String)]
-       mkMap lex = [(head ws, unwords (f ws)) | l <- lines lex
-                                 , let ws = words l
-                                 , not $ null ws]
-
 cncFile = "../../saldo/DictSwe.gf"
 pgfFile = "../../saldo/DictSweAbs.pgf"
 lang :: Language

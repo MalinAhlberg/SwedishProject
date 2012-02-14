@@ -1,0 +1,32 @@
+import Data.List
+import Data.List.Utils
+import Data.Maybe
+import Debug.Trace
+import PGFHelp
+import PGF
+
+
+main = do
+  dict <- extractLex id dict
+  pgf  <- readPGF pgfFile
+  let Just language = readLanguage "ValLex"
+      morpho        = buildMorpho pgf language
+      keeps = map (removeDuplicates morpho pgf) dict
+  writeFile "SmallerDictAbs.gf" $ unlines keeps
+
+removeDuplicates :: Morpho -> PGF -> (String,String) -> String
+removeDuplicates morpho pgf (lem,line) | isVerb lem =
+  let lst = [(lemma,cat) | (lemma,an) <- lookupMorpho morpho (toStr lem)
+                 ,let cat = maybe "" (showType []) (functionType pgf lemma)
+                 ]
+      rem = null lst
+  in if trace ((toStr lem)++" gives "++show lst) rem then line else ""
+                                      | otherwise = line
+   
+toStr = backTranslate . takeWhile (/='_')
+verb  = fromJust $ readType "V"
+dict  = "../../saldo/DictSweAbs.gf"
+pgfFile   = "ValLexAbs.pgf"
+isVerb = ("V" `isSuffixOf`)
+backTranslate str = foldl (flip ($)) str 
+                      [replace a b | (a,b) <- [("ae","ä"),("aa","å"),("oe","ö")]] 
