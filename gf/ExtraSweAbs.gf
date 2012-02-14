@@ -30,6 +30,8 @@ cat
       CNPred : N  -> VPred  ;    -- som en hund
       CNAdv  : CN -> VAdv   ;    -- som lärare
 
+--- test
+   AdvCompI : IComp -> Adv -> IComp ;
 -------------------------------------------------------------------------------
 -- For conjunction of verb phrases
 -------------------------------------------------------------------------------
@@ -131,7 +133,7 @@ cat
 -- Various functions
 -------------------------------------------------------------------------------
   ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
---  SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
+  SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
   
   
   UseComparA  : A -> AP ;
@@ -176,7 +178,7 @@ cat
 
   likna_V2 : V2 ;
   akta_V3 : V3 ;
-  flicka_N : N ;
   komma_V : V ;
   frysa_V : V ;
+  tvaetta_V : V ;
 }
