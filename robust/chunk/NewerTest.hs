@@ -18,6 +18,6 @@ try fil = do
   writeFile "testet.txt" $ unlines $ map showRes res
  where showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
 
-startType = text 
+startType = icomp --text 
 lang = read "BigTestSwe"
 pgfFile = "../../gf/BigTest.pgf"

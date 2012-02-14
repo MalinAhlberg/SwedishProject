@@ -1,3 +1,4 @@
+{-# LANGUAGE TupleSections #-}
 module NewerChunk where 
 import PGF hiding (Tree)
 import Control.Monad.State hiding (ap)
@@ -10,13 +11,13 @@ import Data.Tree
 import Types
 
 data PState = PS {recTypes :: [[Type]], recState :: [ParseState], currentState :: ParseState
-                 ,pieces :: [Expr], emptyPState :: ParseState, skip :: [Bool]}
+                 ,pieces :: [[Expr]], emptyPState :: Type -> ParseState, skip :: [Bool]}
 type Parser = State PState
 
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   let startState = initState pgf lang startType
-  let (pst,st) = runState (parseX tree) (PS [[s]] [startState] startState [] startState [False])
+  let (pst,st) = runState (parseX tree) (PS [[s]] [startState] startState [] (initState pgf lang) [False])
   case pst of
        Right ps -> case fst (getParseOutput ps startType Nothing) of
                         ParseOk trees   -> return trees
@@ -24,8 +25,10 @@ parseText tree pgf lang startType = do
                         TypeError x     -> putStrLn "type error" >> return [mkApp (mkCId "TYPEERROR") []]
                         ParseFailed i   -> putStrLn "parse fail" >> return [mkApp (mkCId "PARSEFAIL") []]
        Left _   -> do let piec = pieces st
-                      return [mkApp meta piec]
-
+                      return $ [mkApp (mkCId "S") [mkApp meta c] | c <- combinations $ map (take 100) piec] -- need some sort of limit
+                      --return [mkApp meta piec]
+ where combinations []     = [[]]
+       combinations (x:xs) = [a:as | a <- x , as <- combinations xs]
 --TODO
 -- 0. recover suddar ut mer än ett ord. hur lösa??
 -- 0.5 lägg till en lösning som filtrerar bort adv och försöker igen? tex 'hur klok är nu en hund'
@@ -68,16 +71,22 @@ parseX (Node w []) = trace ("parsing "++w) $ let nextTok = simpleParseInput w in
 -- some tags have a backup-plan
 --parseX (Node x (Node "S" ts):tss) = do
 parseX (Node "ROOT" ts) = do
-  res <- sequence [parseX t >>= emptyState | t <- ts] 
+  res <- parsePieces ts --sequence [parseX t >>= emptyState | t <- ts] 
   savePieces $ metatize res
   st <- gets currentState 
   return $ Left st
 
 
 parseX (Node "S"  ts) = do 
-   ps <- saveState [s] ts
-   st <- gets currentState 
-   return $ Right st
+   --ps <- saveState [s] ts
+   res <- parseX (Node "XX" ts)
+   case res of 
+        Right ps -> return res
+        Left  ps -> do
+                      res <- parsePieces ts
+                      savePieces $ metatize res
+                      st <- gets currentState 
+                      return $ Right st
 
   -- case ps of
   --      Right _ -> return ps
@@ -93,12 +102,7 @@ parseX (Node "S"  ts) = do
 
 parseX (Node x ts) | isSaveNode x = trace ("saves node" ++show x) $  saveState (getCat x) ts
                    | isSkipNode x = enableSkip ts
-{-
-parseX (Node x (t:t':ts)) | isAdvNode x = do
-    saveState (getCat advs)
-    res <- parseX (Node x (t':ts)
-    case res of
-         Left ps -> -}
+
 
 -- otherwise, just continue
 parseX (Node x [t]) = trace ("one left in "++x ) $ parseX t --local (parseX t)
@@ -108,15 +112,26 @@ parseX (Node x (t:ts)) = trace ("many left in "++x) $ do
       Right ps -> parseX (Node ("XX"++x) ts)
       Left  ps -> return (Left ps)
 
+parsePieces :: [Tree String] -> Parser [[(Type,ParseState)]]
+parsePieces ts = sequence [tryParse t | t <- ts] 
+  where toNode (Node x _) = x
+        fromEither :: Either ParseState ParseState -> ParseState
+        fromEither (Left  st) = st
+        fromEither (Right st) = st
+        tryParse (Node t ts) = let cats = if isSaveNode t then (getCat t++[utt]) else [utt]
+                               in sequence [emptyState c >> parseX (Node t ts) 
+                                            >>= \x -> return (c,fromEither x) | c <- cats]
+        --tryCats (c:cs) = emptyState c >> parseX t >>= 
+
 isSaveNode = (`elem` map fst saveNodes)
 
-saveNodes = [("NP",[np]),("PP",[adv]),("SS",[np]),("OO",[np])
+saveNodes = [("NP",[np]),("PP",[adv]),("SS",[npsub]),("OO",[np])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
             ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
             ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",[np])
             ,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
             ,("CPP",[adv]),("CS",[s]),("CVP",[vp]),("NAC",[utt])
-            ,("++",[conj])] --TODO change v to all vs
+            ,("++",[conj]),("SP",[icomp,comp])] --TODO change v to all vs
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
 
@@ -137,14 +152,14 @@ enableSkip ts = do
    return res
 
 
-metatize :: [ParseState] -> [Expr]
+metatize :: [[(Type,ParseState)]] -> [[Expr]]
 metatize = map putMetas
-  where putMetas :: ParseState -> Expr
-        putMetas ps = 
-           case fst (getParseOutput ps utt Nothing) of --utt??
-                ParseOk trees   -> head trees  --obs head
-                _               -> (mkApp meta []) 
-            
+  where putMetas :: [(Type,ParseState)] -> [Expr]
+        putMetas []      = [mkApp meta []]
+        putMetas ((t,p):ps)  = 
+           case fst (getParseOutput p t Nothing) of --utt??
+                ParseOk trees   -> nub trees  
+                _               -> putMetas ps
 
 putCurrentState ::  ParseState -> Parser ()
 putCurrentState ps = modify $ \s -> s {currentState = ps}
@@ -166,6 +181,7 @@ pushRecTypes typ = trace ("push types "++ show typ) $ modify $ \s -> s {recTypes
 popStates :: [ParseState] -> [[Type]] ->  Parser ()
 popStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
 
+savePieces :: [[Expr]] -> Parser ()
 savePieces exps = modify $ \s -> s {pieces = exps++ pieces s} 
 
 local m = do
@@ -178,14 +194,11 @@ local m = do
   return res
 
 
-emptyState x = do
+emptyState :: Type -> Parser ()
+emptyState typ = do
   st <- gets emptyPState
-  modify $ \s -> s {recTypes = [[text,utt]], recState = [st], currentState = st
+  modify $ \s -> s {recTypes = [[text,utt]], recState = [st typ], currentState = st typ
                    ,pieces = pieces s, emptyPState = st, skip = [False]}
-  return (fromEither x)
- where fromEither :: Either ParseState ParseState -> ParseState
-       fromEither (Left  st) = st
-       fromEither (Right st) = st
 
 
 backUpForAdv w state = do
@@ -197,8 +210,8 @@ backUpForAdv w state = do
                       Right st -> case nextState st badTok of
                                        Left er -> putCurrentState $ fst $ recoveryStates advs er
                                        _       -> error "could parse XX"
-                      _        -> error "bad"
-          else putCurrentState state 
+                      _        -> trace  "bad" $ putCurrentState state
+          else  putCurrentState state
 
 meta = mkCId "?" 
 
