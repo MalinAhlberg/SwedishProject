@@ -98,7 +98,7 @@ vs = do
   mone $ char' '('
   --ignores which one, should be improved
   sepBy ((string' "att" <|> string' "hur" <|> string' "när") 
-                                          >> mone (string' " etc")) (char' '/') 
+                                          >> mone (etc)) (char' '/') 
   mone $ char' ')'
   char' '+'
   skipSpace
@@ -154,7 +154,7 @@ preposition = maybeP $ do
  where alternative = do
         char '/'
         getOneWord
-        maybeP $ string' " etc"
+        maybeP $ etc
 
   
 sig = do
@@ -180,7 +180,7 @@ particle par = do
  where alternative = do
           char' '/'
           getOneWord 
-          maybeP $ string' " etc"
+          maybeP $ etc
 
 -- gets one word, not 'b' and not 'att' or others, as specified in notparticles
 getOneWord = do  
@@ -202,6 +202,7 @@ wlist = sepBy entry (string' ", ")
           return (wd,ags)
 
 
+etc = string' " etc." <|> string' " etc"
 
 -- help functions  
 (+++) :: Text -> Text -> Text 

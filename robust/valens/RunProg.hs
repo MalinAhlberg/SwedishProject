@@ -5,7 +5,7 @@ import Control.Monad
 import Data.Function
 import Data.List
 import Data.List.Utils
-import Data.Map as M hiding (map, delete, filter)
+import Data.Map as M hiding (map, delete, filter,null,(\\))
 import Data.Maybe
 import Data.Ord
 import qualified Data.Text as T 
@@ -69,19 +69,28 @@ main = do
 -- to avoid name clashes
 cleanDicts :: IO ()
 cleanDicts = do
-  abs  <- getAndOrder newabs
-  cnc  <- getAndOrder newcnc
+  (cnc,rem)  <- getAndOrderCnc newcnc
+  abs        <- getAndOrderAbs newabs rem 
   writeFile "NewCnc.gf" cnc
   writeFile "NewAbs.gf" abs
   writeGF $!! (abs,cnc)
 
- where getAndOrder :: FilePath -> IO String
-       getAndOrder file = do
+ where --getAndOrder :: Bool -> FilePath -> IO (String,[String])
+       getAndOrderCnc file = do
             lst <- extractLex tail file   
-            let sortIt = concatMap addIndicies . groupBy ((==) `on` fst) . f . sort
-            return $ unlines $ map format $ sortIt lst
-         where f | file =="TestCnc.gf" = trace "nubs" nub   --remove duplicates (in cnc only..)
-                 | otherwise          = id 
+            let keeps = nub lst
+                sorted = sortIt keeps 
+            return  (unlines $ map format $ sorted,lst \\ keeps)
+       getAndOrderAbs file rem = do
+            lst <- extractLex tail file   
+            let keeps = deleteFirstsBy (on (==) fst) lst rem 
+                sorted = sortIt keeps 
+            return  $ unlines $ map format $ sorted
+                 
+
+       sortIt = concatMap addIndicies . groupBy ((==) `on` fst) . sort
+         --where f | file =="TestCnc.gf" = trace "nubs" nub   --remove duplicates (in cnc only..)
+         --        | otherwise           = id 
        addIndicies [x] = [x]
        addIndicies xs = addI 1 xs
        -- TODO do not add index at the very end (V21 ?)
@@ -99,7 +108,7 @@ writeGF (abs,cnc) = do
 
 formatGF :: (Code,CId,V) -> (Code,Code)
 formatGF (code,name,v) = let entry = showCId name
-                         in (entry++" : "++show v++";\n"
+                         in (entry++" : "++showV v++";\n"
                             ,entry++" = "++code++";\n")
 
 mkLexicon :: Morpho -> PGF -> Map String String -> (String,VerbType) 
@@ -120,23 +129,25 @@ mkLexicon morpho pgf lex word = do
    to make up for duplication  -}
  where wrapFunctions w (Refl  :xs) = wrapFunctions ("reflV ("++ w++")") xs
        wrapFunctions w (Part p:xs) = wrapFunctions ("partV ("++ w++") \""
-                                     ++ T.unpack p++"\")") xs
+                                     ++ T.unpack p++"\"") xs
        wrapFunctions w [] = w
 
        {- The order in which things are done assumes that particles and 
           reflexive objects cannot occure after the prepositions -}
        addPrep V3     w [p1,p2] = put ["mkV3 (",w,") ",toPrep p1,toPrep p2]
                                   --,": V3 ")
-       addPrep (VV b) w [p]     = put [w,"** {c2 = mkComplement [",part 
-                                        ,inf b,"]","; lock_VV = <>} ;"]
+       addPrep (VV b) w [p]     = put [w,"** {c2 = mkComplement [",complement part 
+                                        (inf b),"]","; lock_VV = <>} "]
                                   --,": VV")
           where part = maybe "" ((++"\""). ('\"':). T.unpack) p
        addPrep V2     w [p]     = mkVerb2 "mkV2"  w p
+       addPrep V2     w  ps     = addPrep V2 w [Just $ T.pack $ unwords $ map T.unpack $ catMaybes ps ]
        addPrep V2S    w [p]     = mkVerb2 "mkV2S" w p
        addPrep V2Q    w [p]     = mkVerb2 "mkV2Q" w p
        addPrep V2A    w [p]     = mkVerb2 "mkV2A" w p
        -- TODO VA with "som" are not real VAs!!
-       addPrep VA     w  p      = mkVerb2 "mkVA"  w (list2maybe p)
+       addPrep VA     w  []     = mkVerb "mkVA"  w 
+       --addPrep VA     w  p      = mkVerb2 "mkVA"  w (list2maybe p) log and correct if found
        addPrep VS     w _       = mkVerb  "mkVS"  w 
        addPrep VQ     w _       = mkVerb  "mkVQ"  w
        addPrep V      w _       = w 
@@ -148,7 +159,9 @@ mkLexicon morpho pgf lex word = do
 
        toPrep Nothing       = "noPrep"
        toPrep (Just p)      = "(mkPrep \""++ T.unpack p++"\")"
-       inf True  = " att"
+       complement part inf  | null part || null inf = part ++ inf 
+                            | otherwise             = init part++tail inf --drops superfluous fnutts
+       inf True  = "\" att\""
        inf _     = ""
        tidy = delete Nothing
        list2maybe :: [Maybe a] -> Maybe a
@@ -167,8 +180,8 @@ correctVal v@(w,VT t arg preps)
 mkName :: CId -> V -> CId
 mkName s v = let name = takeWhileList (not . ("_V" `isPrefixOf`)) $ showCId s --init $ init (showCId s) -- drops '_V', do properly
                     in mkCId $ name ++ "_"++showV v
-    where showV (VV _) = "VV"
-          showV v      = show v
+showV (VV _) = "VV"
+showV v      = show v
 
 lookupInDict :: String -> Morpho -> PGF -> Map String String -> Maybe (CId,Code)
 lookupInDict str morpho pgf dict = 
@@ -204,7 +217,7 @@ extractLex f file = do
  where mkMap :: String -> [(String,String)]
        mkMap lex = [(head ws, unwords (f ws)) | l <- lines lex
                                  , let ws = words l
-                                 , not $ Data.List.null ws]
+                                 , not $ null ws]
 
 cncFile = "../../saldo/DictSwe.gf"
 pgfFile = "../../saldo/DictSweAbs.pgf"
