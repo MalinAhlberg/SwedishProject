@@ -45,7 +45,9 @@ parseText tree pgf lang startType = do
 
 -- parse the words
 parseX ::  Tree String -> Parser (Either ParseState ParseState)
-parseX (Node w []) = trace ("parsing "++w) $ let nextTok = simpleParseInput w in
+parseX (Node w []) | length (words w) > 1 = liftM last $ mapM (parseX . flip Node []) $ words w
+                   | otherwise            = 
+  trace ("parsing "++w) $ let nextTok = simpleParseInput w in
   do state <- gets currentState
      case nextState state nextTok of
           Right ps  -> do trace ("parse success "++w) $ backUpForAdv w ps
