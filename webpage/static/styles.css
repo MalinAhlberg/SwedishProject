@@ -17,9 +17,14 @@ html {
 	font-family : helvetica,sans-serif;
 }
 
-.first a {
-    color : #1C4257 !important;
-    text-decoration: none;
+.first a, .second a:last-of-type {
+   color: #1C4257 !important;
+   text-decoration: none;
+}
+
+
+.second a {
+   text-decoration: none;
 }
 
 .first a:hover {

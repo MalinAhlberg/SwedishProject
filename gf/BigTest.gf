@@ -33,7 +33,8 @@ abstract BigTest =
   gaa_VV : VV ;
 
   -- for ne
-  X1_PN : PN ; 
-  X2s_PN : PN ; --same genitive as nominative
+  Y_PN : PN ; 
+  Xs_PN : PN ; --same genitive as nominative
+  XV_V : V ;
   } ;
 

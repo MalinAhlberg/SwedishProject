@@ -19,6 +19,8 @@ lincat
  VPred =  {s : Agr => Str } ;
  VAdv =  {s : Agr => Str } ;
 
+
+
 ------------------------------------------------------------------------------
  lin
   ComplVPred vp vpred = insertObjPost vpred.s vp ; --(predV v) ;
@@ -355,6 +357,7 @@ lin
 lin
   PrepCN prep cn = {s = \\a => prep.s ++ cn.s ! Sg ! DIndef ! Nom } ;
  
+-- Compounding --------------------------------------------------------------
   CompoundNomN a b = {
     s = \\n,d,c => a.s ! Sg ! Indef ! Nom ++ BIND ++ b.s ! n ! d ! c ;
     g = b.g
@@ -370,6 +373,11 @@ lin
     g = b.g
     } ;
 
+    CompoundAdjA a a2 = {s = \\aform => a.s ! AF (APosit (Strong (GSg Utr))) Nom
+                            ++ BIND ++ a2.s ! aform ;
+                         isComp = a2.isComp } ;
+
+-----------------------------------------------------------------------------
   
 -------------------------------------------------------------------------------
 -- Various functions
@@ -505,7 +513,7 @@ lin
    likna_V2 = dirV2 (mkV "liknar") ;
    akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
    komma_V = mkV "komma" "kom" "kommit" ;
-   frysa_V = mkV "frysa" "frös" "frusit" ;
+--   frysa_V = mkV "frysa" "frös" "frusit" ;
    tvaetta_V = reflV (regV "tvätta") ;
 
 }

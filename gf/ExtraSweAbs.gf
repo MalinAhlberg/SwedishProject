@@ -23,6 +23,18 @@ cat
     VPred ; -- (arbeta) som lärare 
     VAdv ;  -- (arbeta) som en häst 
 
+-- Compounding --------------------------------------------------------------
+ fun
+    CompoundAdjA : A -> A -> A ;      --småsjuk
+--    CompoundAdjV : A -> V -> V ;      --småspringa
+--    CompoundNV   : N -> V -> V ;      --hetsäta
+--    CompoundNVSlash : N -> VPSlash -> VPSlash ;
+--    CompoundAdjV2          --småspringa
+--    CompoundAdjV2A         --småspringa
+--    CompoundAdjVV          --småspringa
+--    CompoundAdjVS          --småspringa
+--    CompoundAdjVQ          --småspringa
+
 ------------------------------------------------------------------------------
     fun 
       ComplVPred : VP -> VPred -> VP ; -- hjälper dig som lärare 
@@ -179,6 +191,6 @@ cat
   likna_V2 : V2 ;
   akta_V3 : V3 ;
   komma_V : V ;
-  frysa_V : V ;
+--  frysa_V : V ;
   tvaetta_V : V ;
 }
