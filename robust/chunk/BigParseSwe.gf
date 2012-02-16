@@ -23,8 +23,8 @@ open CommonScand, Prelude in {
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
-  lin
 
+  lin
 
   Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
   Y_PN  i = {s = table {Gen => "Ys"++i.s ;
