@@ -1,4 +1,4 @@
---# -path=./gf:.:../gf:swedish:prelude:alltenses:abstract:scandinavian
+--# -path=./gf:.:../../gf:swedish:prelude:alltenses:abstract:scandinavian
 
 -- for testing grammar, using just the test lexicon
 abstract BigParse = 
@@ -22,5 +22,22 @@ abstract BigParse =
   {
   flags startcat=Phr ;
   
+  fun
+  Y_PN  : Int -> PN ; 
+  Xs_PN : Int ->  PN ; --same genitive as nominative
+  npMeta : NP ;
+  npsubMeta : NPTyped Subject ;
+  vMeta : V ;
+  apMeta : AP ;
+  vpMeta : VP ;
+  icompMeta : IComp ;
+  compMeta :  Comp ;
+  conjMeta : Conj ;
+  advMeta : Adv ;
+  advsMeta : Adv ;
+  iadvMeta : IAdv ;
+  adVMeta : AdV ; 
+ 
+ 
   } ;
 

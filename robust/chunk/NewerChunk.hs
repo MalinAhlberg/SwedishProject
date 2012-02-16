@@ -4,6 +4,7 @@ import Control.Monad.State hiding (ap)
 import Control.Applicative
 import Data.List
 import Data.Maybe
+import qualified Data.Map as M
 import Data.Either
 import Debug.Trace
 import Data.Tree
@@ -18,7 +19,7 @@ data PState = PS {recTypes :: [[Type]]       --stack of types which unknown word
                  }
 type Parser = State PState
 
-limit = take 100
+limit = take 500
 
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
@@ -45,13 +46,13 @@ parseText tree pgf lang startType = do
 
 -- parse the words
 parseX ::  Tree String -> Parser (Either ParseState ParseState)
-parseX (Node w []) | length (words w) > 1 = liftM last $ mapM (parseX . flip Node []) $ words w
-                   | otherwise            = 
+parseX (Node w []) | length (words w) == 0 = Right <$> gets currentState --for removed names 
+                   | length (words w) > 1  = liftM last $ mapM (parseX . flip Node []) $ words w
+                   | otherwise             = 
   trace ("parsing "++w) $ let nextTok = simpleParseInput w in
   do state <- gets currentState
      case nextState state nextTok of
-          Right ps  -> do trace ("parse success "++w) $ backUpForAdv w ps
-                          --putCurrentState ps
+          Right ps  -> do trace ("parse success "++w) $ backUpForAdvAndSkip w ps
                           return $ Right ps
           Left  er  -> do skipOk <- getSkip
                           if skipOk then return (Right state)
@@ -64,13 +65,22 @@ parseX (Node w []) | length (words w) > 1 = liftM last $ mapM (parseX . flip Nod
                                          return $ Left ps'
   where recoverFrom :: [Type] -> ParseState -> ParseState
         recoverFrom typs state = do
-             let nextTok :: ParseInput 
-                 nextTok = simpleParseInput "XXX"
-                 lastSt = nextState state nextTok
-             case lastSt of
-                  Right _  -> error "could parse XXX"
-                  Left  er -> fst $ recoveryStates typs er
+               case toGFStr typs of
+                    Just tok -> do
+                          let  nextTok  = simpleParseInput tok
+                               newState = nextState state nextTok
+                          case newState of
+                               Right e  -> e
+                               Left  er -> trace "AAAA USING BAD BRANCH" state -- error ("oops could not recover") 
+                    Nothing  -> do
+                          let nextTok :: ParseInput 
+                              nextTok = simpleParseInput "XXX"
+                              lastSt = nextState state nextTok
+                          case lastSt of
+                               Right _  -> error "could parse XXX"
+                               Left  er -> fst $ recoveryStates typs er
 
+                 --trace ("for type "++show typs++show (M.keys $ snd $ recoveryStates typs er)) $ 
               
 
 -- some tags have a backup-plan
@@ -206,16 +216,18 @@ emptyPieces = do
 
 
 backUpForAdv w state = do
-  types <- getRecTypes
-  if adV `elem` types then  parseAsAdv
-          else  putCurrentState state
- where parseAsAdv = do
+  types  <- getRecTypes
+  okskip <- gets skip
+  if adV `elem` types then  parseAsAdv advs
+          else --if ok then parseAsCat types else  --TODO START we need to recover from unwanted ','
+                             putCurrentState state
+ where parseAsCat cat = do
          let nextTok = trace "backing up for adv" $ simpleParseInput w
              badTok = simpleParseInput  "XX"
          case nextState state nextTok of
               Right st -> case nextState st badTok of
                                Left er -> putCurrentState $ fst 
-                                                $ recoveryStates advs er
+                                                $ recoveryStates cat er
                                _       -> error "could parse XX"
 
               _        -> trace  "bad" $ putCurrentState state

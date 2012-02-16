@@ -19,7 +19,7 @@ type ProcessState = Writer [Lemma]
 --TODO if not unknown, save lemmas somewhere for extraction later
 processTree :: Bool -> Lex -> Morpho -> Int -> TreePos Full String -> ProcessState (TreePos Full String)
 processTree b lex morpho i tree  | isCompound =  moveOn  $ setLabel sms tree
-                                 | isUVerb    =  moveOn' $ setLabel vx tree
+--                                 | isUVerb    =  moveOn' $ setLabel vx tree
                                  | isNumber   =  moveOn' $ setLabel nx tree
                                  | isName     =  moveOn' $ exchangeNames i tree
                                  | b          =  moveOnSave  $ modifyLabel lower tree  --is first word

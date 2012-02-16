@@ -16,14 +16,13 @@ import System.IO
 main = do hSetBuffering stdout LineBuffering
           try "EvalSuite1.xml"
 
---processTree :: Bool -> Lex -> Morpho -> Int -> TreePos Full String -> TreePos Full String
 tryAll fil = do
   putStrLn $ "Start, reading saldo ..."
   lex <- getSaldo 
   putStrLn $ "Reading pgf ... "
-  pgf <- readPGF pgfFile --pgfBigFile
+  pgf <- readPGF pgfBigFile
   putStrLn $ "Building morpho ... "
-  let morpho = buildMorpho pgf lang -- langBig
+  let morpho = buildMorpho pgf langBig
   putStrLn $ "Parsing xml ... "
   input <- fmap concat $ Form.parse fil
   putStrLn $ "Processing the tree "
@@ -32,7 +31,6 @@ tryAll fil = do
   lex <- mkLexMap
   Just (pgf',newLang) <- mkDir lex lms 
   newPgf <- readPGF pgf' 
-  -- TODO write new lexicon
   putStrLn $ "Parsing the tree "
   mapM (processAndWrite newPgf newLang) $ zip (map fst input) (map toTree ziptrees)
  where processAndWrite pgf lang (i,tree) = do
@@ -57,8 +55,8 @@ try fil = do
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
        
 startType = text 
-pgfFile = "../../gf/BigTest.pgf"
-pgfBigFile = "../../gf/Big.pgf"
+pgfFile = "../../gf/BigParse.pgf"
+pgfBigFile = "../../gf/BigValLexAbs.pgf"
 langBig, lang :: Language
-langBig = read "BigSwe"
-lang = read "BigTestSwe"
+langBig = read "BigValLex"
+lang = read "BigParseSwe"

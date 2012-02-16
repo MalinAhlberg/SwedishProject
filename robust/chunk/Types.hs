@@ -63,3 +63,17 @@ advs   = [adv,adV,iadv]
 --advs = [advsub,advobj]
 --nps  = [npsub,npobj]
 --aps  = [apsub,apobj]
+toGFStr :: [Type] -> Maybe String
+toGFStr xs  | xs == advs  = return "?advs"
+toGFStr [x] | x  == np    = return "?np"
+toGFStr [x] | x  == npsub = return "?npsub"
+toGFStr [x] | x  == ap    = return "?ap"
+toGFStr [x] | x  == adv   = return "?adv"
+toGFStr [x] | x  == iadv  = return "?iadv"
+toGFStr [x] | x  == adV   = return "?adV"
+toGFStr [x] | x  == v     = return "?v"
+toGFStr [x] | x  == conj  = return "?conj"
+toGFStr [x] | x  == comp  = return "?comp"
+toGFStr [x] | x  == icomp = return "?icomp"
+toGFStr  x                = Nothing
+           
