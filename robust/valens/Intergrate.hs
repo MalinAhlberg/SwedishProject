@@ -12,7 +12,7 @@ main = do
   let Just language = readLanguage "ValLex"
       morpho        = buildMorpho pgf language
       keeps = map (removeDuplicates morpho pgf) dict
-  writeFile "SmallerDictAbs.gf" $ unlines keeps
+  writeFile "SmallerDict.gf" $ unlines keeps
 
 removeDuplicates :: Morpho -> PGF -> (String,String) -> String
 removeDuplicates morpho pgf (lem,line) | isVerb lem =
@@ -25,7 +25,7 @@ removeDuplicates morpho pgf (lem,line) | isVerb lem =
    
 toStr = backTranslate . takeWhile (/='_')
 verb  = fromJust $ readType "V"
-dict  = "../../saldo/DictSweAbs.gf"
+dict  = "../../saldo/DictSwe.gf"
 pgfFile   = "ValLexAbs.pgf"
 isVerb = ("V" `isSuffixOf`)
 backTranslate str = foldl (flip ($)) str 
