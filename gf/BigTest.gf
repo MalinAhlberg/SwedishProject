@@ -1,4 +1,4 @@
---# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian
+--# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
 
 -- for testing grammar, using just the test lexicon
 abstract BigTest = 
@@ -32,9 +32,5 @@ abstract BigTest =
   faa_VV : VV ;
   gaa_VV : VV ;
 
-  -- for ne
-  Y_PN : PN ; 
-  Xs_PN : PN ; --same genitive as nominative
-  XV_V : V ;
   } ;
 

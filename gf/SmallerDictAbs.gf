@@ -1,89 +1,48 @@
 --# -path=.:abstract:alltenses/
 abstract SmallerDictAbs = Cat ** {
 fun
-
 varda_vb_1_V : V ;
 utloepa_vb_1_1_V : V ;
 uppvaexa_vb_1_1_V : V ;
 traeda_vb_2_1_V : V ;
 tillvaexa_vb_1_1_V : V ;
-
 snusmala_vb_1_V : V ;
-
 oppvaexa_vb_1_1_V : V ;
-
 framvaexa_vb_1_1_V : V ;
 avsvaerja_vb_1_1_V : V ;
-
-
-
 --bre_vb_1_V : V ;
-
-
 frambesvaerja_vb_1_1_V : V ;
-
 foersvaerja_vb_1_1_V : V ;
-
-
 hopvika_vb_1_V : V ;
-
-
 kvaeda_vb_1_1_V : V ;
-
-
-
-
-
-
-
 --utbre_vb_1_V : V ;
 utsprida_vb_1_V : V ;
-
 aatlyda_vb_1_1_V : V ;
-
 avklae_vb_1_1_V : V ;
 avtvinga_vb_1_V : V ;
 avtvaa_vb_1_1_V : V ;
-
-
 beklae_vb_1_1_V : V ;
-
-
-
 beveka_vb_1_V : V ;
-
-
 braedbeklae_vb_1_1_V : V ;
 droesa_vb_1_1_V : V ;
-
 flottyrkoka_vb_1_V : V ;
 fortvara_vb_1_V : V ;
-
-
 foerloepa_vb_1_1_V : V ;
 foermena_vb_2_1_V : V ;
 foermaela_vb_2_1_V : V ;
 gloedbaka_vb_1_1_V : V ;
 gaelda_vb_1_1_V : V ;
-
 hopbringa_vb_1_V : V ;
 iklae_vb_1_1_V : V ;
 inbetala_vb_1_V : V ;
 inbringa_vb_1_V : V ;
 inkoka_vb_1_V : V ;
-
-
-
 kvarvara_vb_1_V : V ;
 loeda_vb_1_1_V : V ;
-
-
 medbringa_vb_1_V : V ;
-
 missklae_vb_1_1_V : V ;
 nedbringa_vb_1_V : V ;
 nerbringa_vb_1_V : V ;
-
 naervara_vb_1_1_V : V ;
 naesta_vb_1_1_V : V ;
 omfoermaela_vb_1_1_V : V ;
@@ -91,359 +50,155 @@ omklae_vb_1_1_V : V ;
 opphaeva_vb_2_1_V : V ;
 paaspae_vb_1_1_V : V ;
 paatvinga_vb_1_1_V : V ;
-
-
-
-
-
 spae_vb_1_1_V : V ;
-
-
 tala_vb_1_V : V ;
-
 tillvaegabringa_vb_1_1_V : V ;
-
 torrkoka_vb_1_V : V ;
-
-
 tvaa_vb_1_1_V : V ;
 ugnskoka_vb_1_V : V ;
 underbetala_vb_1_V : V ;
-
-
 utbetala_vb_1_V : V ;
-
 aangkoka_vb_1_1_V : V ;
-
 aavaegabringa_vb_1_1_V : V ;
-
 oeverkoka_vb_1_1_V : V ;
-
-
-
-
 oeverdra_vb_1_1_V : V ;
 aatgaa_vb_1_1_V : V ;
 aateruppta_vb_1_1_V : V ;
 aateruppstaa_vb_1_1_V : V ;
 aaterta_vb_1_1_V : V ;
 aaterinsaetta_vb_1_1_V : V ;
-
-
 aasaetta_vb_1_1_V : V ;
-
-
-
-
-
-
 vakantsaetta_vb_1_1_V : V ;
 vakanssaetta_vb_1_1_V : V ;
-
-
-
-
 utge_vb_1_V : V ;
 utfaesta_vb_1_1_V : V ;
 utdra_vb_1_V : V ;
 uppta_vb_1_V : V ;
 uppsaetta_vb_1_1_V : V ;
-
-
-
 uppdra_vb_1_V : V ;
-
-
-
-
 tonsaetta_vb_1_1_V : V ;
-
-
-
 tillstaedja_vb_1_1_V : V ;
 tillspilloge_vb_1_V : V ;
-
 tillge_vb_1_V : V ;
-
 tidfaesta_vb_1_1_V : V ;
-
-
-
 syrsaetta_vb_1_1_V : V ;
 staedja_vb_1_1_V : V ;
 strandsaetta_vb_1_1_V : V ;
-
-
-
 smaetta_vb_1_1_V : V ;
-
-
-
 skuldsaetta_vb_1_1_V : V ;
-
 segdra_vb_1_V : V ;
 sammansaetta_vb_1_1_V : V ;
 sammansmaelta_vb_1_1_V : V ;
 sammangaa_vb_1_1_V : V ;
 sammandra_vb_1_V : V ;
 samgaa_vb_1_1_V : V ;
-
 rollbesaetta_vb_1_1_V : V ;
-
-
 prissaetta_vb_1_1_V : V ;
 prisge_vb_1_V : V ;
-
 ordinariesaetta_vb_1_1_V : V ;
 oppta_vb_1_V : V ;
 oppsaetta_vb_1_1_V : V ;
 oppge_vb_1_V : V ;
 omta_vb_1_V : V ;
-
-
-
 nersaetta_vb_1_1_V : V ;
 nedsaetta_vb_1_1_V : V ;
 namnge_vb_1_V : V ;
 namnfaesta_vb_1_1_V : V ;
-
-
-
 medta_vb_1_V : V ;
-
-
 luftlandsaetta_vb_1_1_V : V ;
 ljudsaetta_vb_1_1_V : V ;
-
-
 lagerkroena_vb_1_1_V : V ;
-
-
-
 knaesaetta_vb_1_1_V : V ;
 kalldra_vb_1_V : V ;
-
 istaandsaetta_vb_1_1_V : V ;
-
-
 insaetta_vb_1_1_V : V ;
 insmaelta_vb_1_1_V : V ;
-
-
 indra_vb_1_V : V ;
 ilandsaetta_vb_1_1_V : V ;
 igaangsaetta_vb_1_1_V : V ;
 igensaetta_vb_1_1_V : V ;
-
-
 hoetta_vb_1_1_V : V ;
 haardra_vb_1_1_V : V ;
 haarddra_vb_1_1_V : V ;
-
 hugfaesta_vb_1_1_V : V ;
-
 gravsaetta_vb_1_1_V : V ;
-
 genta_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
-
 foerdra_vb_1_1_V : V ;
 foerbigaa_vb_1_1_V : V ;
-
 fraanta_vb_1_1_V : V ;
-
 frisaetta_vb_1_1_V : V ;
-
-
-
 formge_vb_1_V : V ;
 fastta_vb_1_V : V ;
 fastsaetta_vb_1_1_V : V ;
-
 emotta_vb_1_V : V ;
 emotstaa_vb_1_1_V : V ;
 eftersaetta_vb_1_1_V : V ;
 efterge_vb_1_V : V ;
 edfaesta_vb_1_1_V : V ;
-
-
-
 bysaetta_vb_1_1_V : V ;
-
 bortta_vb_1_V : V ;
 bisaetta_vb_1_1_V : V ;
-
-
 betygssaetta_vb_1_1_V : V ;
-
-
 bestjaela_vb_1_1_V : V ;
-
 bekroena_vb_1_1_V : V ;
-
-
-
-
-
-
-
 avdagata_vb_1_V : V ;
-
-
-
-
-
-
-
 angaa_vb_1_1_V : V ;
 angoera_vb_1_1_V : V ;
-
-
-
 anligga_vb_1_V : V ;
-
-
-
-
 anstryka_vb_1_V : V ;
-
 antraeda_vb_1_1_V : V ;
-
 avbinda_vb_1_V : V ;
-
-
-
 avdriva_vb_1_V : V ;
 avfalla_vb_1_V : V ;
 avfoera_vb_1_1_V : V ;
 avgiftsbelaegga_vb_1_1_V : V ;
-
-
 avhoera_vb_1_1_V : V ;
 avkaenna_vb_1_1_V : V ;
-
-
-
 avlaata_vb_1_1_V : V ;
 avnjuta_vb_1_V : V ;
 avreda_vb_1_V : V ;
 avrinna_vb_1_V : V ;
-
-
 avsjunga_vb_1_V : V ;
-
 avskjuta_vb_1_V : V ;
 avskriva_vb_1_V : V ;
 avskraeda_vb_1_1_V : V ;
 avskaera_vb_1_1_V : V ;
 avslita_vb_1_V : V ;
-
 avsnoera_vb_1_1_V : V ;
-
-
 avstoera_vb_1_1_V : V ;
-
-
 avvinna_vb_1_V : V ;
-
-
 avaeta_vb_1_1_V : V ;
-
-
-
-
 begjuta_vb_1_V : V ;
-
-
 begynna_vb_1_V : V ;
-
-
 bekantgoera_vb_1_1_V : V ;
 beknipa_vb_1_V : V ;
-
-
 bele_vb_1_V : V ;
 beljuga_vb_1_V : V ;
-
 bepryda_vb_1_V : V ;
-
-
 bese_vb_1_V : V ;
-
-
-
-
 beskaera_vb_1_1_V : V ;
 beskaera_vb_2_1_V : V ;
 beslaglaegga_vb_1_1_V : V ;
-
 besmoerja_vb_1_1_V : V ;
 besticka_vb_1_V : V ;
-
-
-
-
-
 besoerja_vb_1_1_V : V ;
 betraeda_vb_1_1_V : V ;
-
-
-
-
-
 bispringa_vb_1_V : V ;
-
-
-
-
-
-
 blaakoera_vb_1_1_V : V ;
 blaaljuga_vb_1_1_V : V ;
-
 bloetlaegga_vb_1_1_V : V ;
-
-
 bortdriva_vb_1_V : V ;
 bortfalla_vb_1_V : V ;
 bortfoera_vb_1_1_V : V ;
 bortgaa_vb_1_1_V : V ;
 bortrinna_vb_1_V : V ;
-
 bortskraemma_vb_1_1_V : V ;
 bortsluta_vb_1_V : V ;
-
-
-
-
 brolaegga_vb_1_1_V : V ;
 brukslaa_vb_1_1_V : V ;
-
 braedbeslaa_vb_1_1_V : V ;
 braedslaa_vb_1_1_V : V ;
-
-
-
-
-
-
-
 diariefoera_vb_1_1_V : V ;
-
-
-
-
-
-
 efterfoelja_vb_1_1_V : V ;
 eftergoera_vb_1_1_V : V ;
 efterhaalla_vb_1_1_V : V ;
@@ -452,49 +207,28 @@ efterkomma_vb_1_V : V ;
 efterlaata_vb_1_1_V : V ;
 efterse_vb_1_V : V ;
 eftersaega_vb_1_1_V : V ;
-
-
 enkelskriva_vb_1_V : V ;
-
-
-
-
-
-
 fara_vb_1_V : V ;
 fastgoera_vb_1_1_V : V ;
 fasthaalla_vb_1_1_V : V ;
 fastlaegga_vb_1_1_V : V ;
 fastslaa_vb_1_1_V : V ;
 finbraenna_vb_1_1_V : V ;
-
-
-
 fogstryka_vb_1_V : V ;
 formgjuta_vb_1_V : V ;
 fortbestaa_vb_1_1_V : V ;
 fortfara_vb_1_V : V ;
-
 fortkoera_vb_1_1_V : V ;
-
 frambryta_vb_1_V : V ;
 frambaera_vb_1_1_V : V ;
 framdriva_vb_1_V : V ;
 framfara_vb_1_V : V ;
 framfoeda_vb_1_1_V : V ;
-
-
-
 framlida_vb_1_V : V ;
-
 framskina_vb_1_V : V ;
 framskjuta_vb_1_V : V ;
 framskrida_vb_1_V : V ;
-
 framsaega_vb_1_1_V : V ;
-
-
-
 frilaegga_vb_1_1_V : V ;
 friskskriva_vb_1_V : V ;
 fryna_vb_1_V : V ;
@@ -503,253 +237,121 @@ fraankaenna_vb_1_1_V : V ;
 fraanse_vb_1_1_V : V ;
 fraanskilja_vb_1_1_V : V ;
 fraantraeda_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
 foeranlaata_vb_1_1_V : V ;
-
-
-
-
-
-
-
 foerbrinna_vb_1_1_V : V ;
-
-
-
 foerdoelja_vb_1_1_V : V ;
 foerebaera_vb_1_1_V : V ;
-
-
 foerehaalla_vb_1_1_V : V ;
-
-
-
-
-
-
 foerete_vb_1_1_V : V ;
 foeretraeda_vb_1_1_V : V ;
-
-
-
-
-
 foergaeta_vb_1_1_V : V ;
-
 foerhyda_vb_1_1_V : V ;
 foerhyra_vb_1_1_V : V ;
-
-
-
 foerkomma_vb_1_1_V : V ;
-
 foerlida_vb_1_1_V : V ;
-
-
-
 foernoeja_vb_1_1_V : V ;
 foerrinna_vb_1_1_V : V ;
-
-
-
-
 foerskriva_vb_1_1_V : V ;
 foerskaera_vb_1_1_V : V ;
 foerslita_vb_1_1_V : V ;
 foersluta_vb_1_1_V : V ;
-
 foerspoerja_vb_1_1_V : V ;
-
-
-
 foersaelja_vb_1_1_V : V ;
-
-
 foertryta_vb_1_1_V : V ;
-
-
-
-
 foervrida_vb_1_1_V : V ;
 foeryngringsbeskaera_vb_1_1_V : V ;
 foeroeda_vb_1_1_V : V ;
-
 galltjuta_vb_1_V : V ;
 gendriva_vb_1_V : V ;
 genljuda_vb_1_V : V ;
 genombryta_vb_1_V : V ;
-
 genomfara_vb_1_V : V ;
-
 genomlida_vb_1_V : V ;
 genomskoelja_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
 gottskriva_vb_1_V : V ;
 granatbeskjuta_vb_1_V : V ;
 gravlaegga_vb_1_1_V : V ;
-
-
-
 gudomliggoera_vb_1_1_V : V ;
-
-
-
 halvsova_vb_1_V : V ;
 halvspringa_vb_1_V : V ;
 handleda_vb_1_V : V ;
 handlaegga_vb_1_1_V : V ;
 hembjuda_vb_1_V : V ;
 hembaera_vb_1_1_V : V ;
-
 hemfoera_vb_1_1_V : V ;
-
-
 hopknyta_vb_1_V : V ;
 hopskjuta_vb_1_V : V ;
 hovniga_vb_1_V : V ;
-
-
-
-
 haenskjuta_vb_1_1_V : V ;
 haentyda_vb_1_1_V : V ;
 haerflyta_vb_1_1_V : V ;
 haerleda_vb_1_1_V : V ;
-
 haalslaa_vb_1_1_V : V ;
 haanle_vb_1_1_V : V ;
 haardloeda_vb_1_1_V : V ;
 hoegtidlighaalla_vb_1_1_V : V ;
-
-
-
 hoeta_vb_1_1_V : V ;
 ifraagakomma_vb_1_1_V : V ;
 igenkaenna_vb_1_1_V : V ;
 ihaagkomma_vb_1_1_V : V ;
 illtjuta_vb_1_V : V ;
-
-
 indriva_vb_1_V : V ;
 infalla_vb_1_V : V ;
 inflyta_vb_1_V : V ;
-
-
-
-
 inkomma_vb_1_V : V ;
-
 inlaegga_vb_1_1_V : V ;
 inlaera_vb_1_1_V : V ;
-
-
 innesluta_vb_1_V : V ;
-
-
-
 inskrida_vb_1_V : V ;
 inskriva_vb_1_V : V ;
 insmyga_vb_1_V : V ;
 insuga_vb_1_V : V ;
 insupa_vb_1_V : V ;
-
 invaelja_vb_1_1_V : V ;
 jordslaa_vb_1_1_V : V ;
-
-
 kalkslaa_vb_1_1_V : V ;
 kallroera_vb_1_1_V : V ;
 kallsmida_vb_1_V : V ;
 kalaeta_vb_1_1_V : V ;
 kanthugga_vb_1_V : V ;
-
-
-
 klavbinda_vb_1_V : V ;
-
-
 knivhugga_vb_1_V : V ;
 knivskaera_vb_1_1_V : V ;
-
 knaeboeja_vb_1_1_V : V ;
 knaefalla_vb_1_1_V : V ;
-
 korsfoerhoera_vb_1_1_V : V ;
 korslaegga_vb_1_1_V : V ;
 kortsluta_vb_1_V : V ;
 kringraenna_vb_1_1_V : V ;
 kringskaera_vb_1_1_V : V ;
-
 krypkoera_vb_1_1_V : V ;
-
 kvarbli_vb_1_V : V ;
 kvardroeja_vb_1_1_V : V ;
 kvarhaalla_vb_1_1_V : V ;
-
-
 kyrkbokfoera_vb_1_1_V : V ;
 kyrkobokfoera_vb_1_1_V : V ;
 kyrkskriva_vb_1_V : V ;
-
-
-
-
 lagerfoera_vb_1_1_V : V ;
 lagfara_vb_1_V : V ;
 lagfoera_vb_1_1_V : V ;
-
-
-
-
-
 levandegoera_vb_1_1_V : V ;
 licensbelaegga_vb_1_1_V : V ;
-
-
 livnaera_vb_1_1_V : V ;
-
-
 lovsjunga_vb_1_V : V ;
 lyckliggoera_vb_1_1_V : V ;
-
-
 laagflyga_vb_1_1_V : V ;
-
 loesgoera_vb_1_1_V : V ;
 marknadsfoera_vb_1_1_V : V ;
-
-
 medvetandegoera_vb_1_1_V : V ;
-
-
 misskaenna_vb_1_1_V : V ;
-
 misspryda_vb_1_V : V ;
 misstyda_vb_1_V : V ;
 misstaenkliggoera_vb_1_1_V : V ;
 mjukgoera_vb_1_1_V : V ;
 moltiga_vb_1_V : V ;
 motse_vb_1_V : V ;
-
-
 maerkvaerdiggoera_vb_1_1_V : V ;
-
 moerklaegga_vb_1_1_V : V ;
-
 nedbryta_vb_1_V : V ;
 nedgoera_vb_1_1_V : V ;
 nedkomma_vb_1_V : V ;
@@ -764,30 +366,23 @@ nerlaegga_vb_1_1_V : V ;
 nerskriva_vb_1_V : V ;
 nerslaa_vb_1_1_V : V ;
 nerstiga_vb_1_V : V ;
-
-
 nyanlaegga_vb_1_1_V : V ;
 nyttiggoera_vb_1_1_V : V ;
 naera_vb_1_1_V : V ;
 naersluta_vb_1_1_V : V ;
-
 ombe_vb_1_V : V ;
 ombestyra_vb_1_V : V ;
 ombesoerja_vb_1_1_V : V ;
 ombryta_vb_1_V : V ;
 omfoera_vb_1_1_V : V ;
 omhoelja_vb_1_1_V : V ;
-
-
 omkoera_vb_1_1_V : V ;
 omse_vb_1_V : V ;
 omskriva_vb_1_V : V ;
-
 omsluta_vb_1_V : V ;
 omspinna_vb_1_V : V ;
 omspaenna_vb_1_1_V : V ;
 omvaelja_vb_1_1_V : V ;
-
 oppbaera_vb_1_1_V : V ;
 oppdriva_vb_1_V : V ;
 oppfinna_vb_1_V : V ;
@@ -798,57 +393,29 @@ opplaegga_vb_1_1_V : V ;
 oppskjuta_vb_1_V : V ;
 oppsuga_vb_1_V : V ;
 oppaeta_vb_1_1_V : V ;
-
 osynliggoera_vb_1_1_V : V ;
 pantfoerskriva_vb_1_1_V : V ;
-
-
-
 portfoerbjuda_vb_1_1_V : V ;
 premiaerkoera_vb_1_1_V : V ;
 presslaegga_vb_1_1_V : V ;
 promenadkoera_vb_1_1_V : V ;
 provkoera_vb_1_1_V : V ;
 provskjuta_vb_1_V : V ;
-
 pungslaa_vb_1_1_V : V ;
-
-
-
-
 paalaegga_vb_1_1_V : V ;
 paaloeda_vb_1_1_V : V ;
-
 paanyttfoeda_vb_1_1_V : V ;
 paaskina_vb_1_1_V : V ;
-
-
-
-
 renskriva_vb_1_V : V ;
-
-
-
 rumphugga_vb_1_V : V ;
 rundsmoerja_vb_1_1_V : V ;
-
-
 raettfaerdiggoera_vb_1_1_V : V ;
-
 raadfoera_vb_1_1_V : V ;
-
 raadlaegga_vb_1_1_V : V ;
-
 raariva_vb_1_1_V : V ;
-
-
-
 salubjuda_vb_1_V : V ;
-
 samkoera_vb_1_1_V : V ;
 sammanbinda_vb_1_V : V ;
-
-
 sammanhaalla_vb_1_1_V : V ;
 sammanlaegga_vb_1_1_V : V ;
 sammanskjuta_vb_1_V : V ;
@@ -856,223 +423,95 @@ sammanskriva_vb_1_V : V ;
 sammanslaa_vb_1_1_V : V ;
 sammantraeda_vb_1_1_V : V ;
 samraada_vb_1_1_V : V ;
-
 segelflyga_vb_1_V : V ;
 sekretessbelaegga_vb_1_1_V : V ;
-
-
-
 sjukskriva_vb_1_V : V ;
-
-
 sjaelvdoe_vb_1_1_V : V ;
-
 skambelaegga_vb_1_1_V : V ;
 skattlaegga_vb_1_1_V : V ;
 skattskriva_vb_1_V : V ;
-
-
-
 skita_vb_1_V : V ;
-
-
-
-
-
-
 skraeda_vb_1_1_V : V ;
 skuldbelaegga_vb_1_1_V : V ;
-
 skaapsupa_vb_1_1_V : V ;
-
 skoenja_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 smygsupa_vb_1_V : V ;
 smygaeta_vb_1_1_V : V ;
-
 smaasjunga_vb_1_1_V : V ;
 smaasova_vb_1_1_V : V ;
 smaaspringa_vb_1_1_V : V ;
 smaasvaera_vb_1_1_V : V ;
-
 snabbutreda_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 spoerja_vb_1_1_V : V ;
-
-
-
-
 storgraata_vb_1_1_V : V ;
-
-
-
-
 --stoedja_vb_1_1_V : V ;
-
 stoertbloeda_vb_1_1_V : V ;
-
-
-
 sveda_vb_1_V : V ;
-
-
 svinna_vb_1_V : V ;
-
-
-
 synliggoera_vb_1_1_V : V ;
-
-
 saellskapsgraata_vb_1_1_V : V ;
 saellskapsaeta_vb_1_1_V : V ;
-
 soendagskoera_vb_1_1_V : V ;
 soenderfalla_vb_1_1_V : V ;
 soenderriva_vb_1_1_V : V ;
-
 tabubelaegga_vb_1_1_V : V ;
 testflyga_vb_1_V : V ;
 testkoera_vb_1_1_V : V ;
 tidigarelaegga_vb_1_1_V : V ;
-
-
-
-
-
-
-
 tillgaa_vb_1_1_V : V ;
-
 tillhaalla_vb_1_1_V : V ;
-
-
-
 tillmoetesgaa_vb_1_1_V : V ;
-
-
-
 tillraada_vb_1_1_V : V ;
 tillse_vb_1_V : V ;
 tillskjuta_vb_1_V : V ;
-
 tillskaera_vb_1_1_V : V ;
-
 tillstaa_vb_1_1_V : V ;
 tillsaega_vb_1_1_V : V ;
-
 tillvaenja_vb_1_1_V : V ;
-
-
-
 tjuvhaalla_vb_1_1_V : V ;
 tjyvhaalla_vb_1_1_V : V ;
-
 topphugga_vb_1_V : V ;
 topprida_vb_1_V : V ;
 torgfoera_vb_1_1_V : V ;
-
 totalfoerbjuda_vb_1_1_V : V ;
 totalfoerstoera_vb_1_1_V : V ;
 trafikleda_vb_1_V : V ;
 trakthugga_vb_1_V : V ;
-
-
 traeda_vb_1_1_V : V ;
 traelbinda_vb_1_1_V : V ;
-
 tydliggoera_vb_1_1_V : V ;
-
-
-
-
-
 umbaera_vb_1_1_V : V ;
-
-
 undansticka_vb_1_V : V ;
 underbinda_vb_1_V : V ;
 underbjuda_vb_1_V : V ;
 underdriva_vb_1_V : V ;
-
-
-
-
-
 underslaa_vb_1_1_V : V ;
 understicka_vb_1_V : V ;
-
-
 understoedja_vb_1_1_V : V ;
 undersaelja_vb_1_1_V : V ;
 undfalla_vb_1_V : V ;
 undfaa_vb_1_1_V : V ;
-
-
 undslippa_vb_1_V : V ;
-
-
-
 uppdriva_vb_1_V : V ;
-
-
 uppfoeda_vb_1_1_V : V ;
-
-
-
-
 upplaegga_vb_1_1_V : V ;
-
 uppriva_vb_1_V : V ;
 uppraenna_vb_1_1_V : V ;
-
-
-
 uppspricka_vb_1_V : V ;
 uppstiga_vb_1_V : V ;
 uppsuga_vb_1_V : V ;
-
 uppaeta_vb_1_1_V : V ;
 uraktlaata_vb_1_1_V : V ;
-
 urskoenja_vb_1_1_V : V ;
 uruppfoera_vb_1_1_V : V ;
 utbekomma_vb_1_V : V ;
 utbjuda_vb_1_V : V ;
-
-
 utdriva_vb_1_V : V ;
-
-
 utfalla_vb_1_V : V ;
 utfaa_vb_1_1_V : V ;
-
 utfoersaelja_vb_1_1_V : V ;
-
-
-
 utklyva_vb_1_V : V ;
-
 utlaegga_vb_1_1_V : V ;
-
-
 utskilja_vb_1_V : V ;
 utskriva_vb_1_V : V ;
 utsuga_vb_1_V : V ;
@@ -1080,140 +519,68 @@ utsaega_vb_1_1_V : V ;
 uttraeda_vb_1_1_V : V ;
 uttyda_vb_1_V : V ;
 uttaenja_vb_1_1_V : V ;
-
 utvaelja_vb_1_1_V : V ;
 vanpryda_vb_1_V : V ;
 vanstyra_vb_1_V : V ;
 varmkoera_vb_1_1_V : V ;
-
 vassgoera_vb_1_1_V : V ;
-
 verkliggoera_vb_1_1_V : V ;
-
 vidbraenna_vb_1_1_V : V ;
 vidgaa_vb_1_1_V : V ;
-
 vidkomma_vb_1_V : V ;
 vidlaada_vb_1_1_V : V ;
-
-
 villfara_vb_1_V : V ;
 vilsefoera_vb_1_1_V : V ;
-
-
-
 vintervaeghaalla_vb_1_1_V : V ;
-
-
-
-
 vaemja_vb_1_1_V : V ;
-
-
 vaagfoera_vb_1_1_V : V ;
-
-
-
 aadagalaegga_vb_1_1_V : V ;
-
 aahoera_vb_1_1_V : V ;
 aaligga_vb_1_1_V : V ;
-
 aase_vb_1_1_V : V ;
-
-
 aaterfalla_vb_1_1_V : V ;
-
-
-
 aaterfoersluta_vb_1_1_V : V ;
 aaterfoersaelja_vb_1_1_V : V ;
 aaterhaalla_vb_1_1_V : V ;
 aaterinfoera_vb_1_1_V : V ;
 aaterknyta_vb_1_1_V : V ;
-
-
-
 aatersaelja_vb_1_1_V : V ;
-
 aatervaelja_vb_1_1_V : V ;
-
-
 aatskilja_vb_1_1_V : V ;
 oeda_vb_1_1_V : V ;
-
 oeverbelaegga_vb_1_1_V : V ;
 oeverbjuda_vb_1_1_V : V ;
-
 oeverenskomma_vb_1_1_V : V ;
-
 oeverflyga_vb_1_1_V : V ;
-
 oevergaa_vb_1_1_V : V ;
 oevergoeda_vb_1_1_V : V ;
 oeverhoelja_vb_1_1_V : V ;
-
-
-
-
 oeverskoelja_vb_1_1_V : V ;
-
-
-
 oevningskoera_vb_1_1_V : V ;
 foerevara_vb_1_1_V : V ;
 K_maerka_vb_1_1_V : V ;
 KU_anmaela_vb_1_1_V : V ;
-
-
-
-
-
 anbelanga_vb_1_V : V ;
-
 anfraeta_vb_1_1_V : V ;
-
 angla_vb_1_V : V ;
 angraensa_vb_1_1_V : V ;
-
-
-
-
-
-
-
 ansvaella_vb_1_1_V : V ;
-
-
-
-
 artbestaemma_vb_1_1_V : V ;
 asa_vb_1_V : V ;
 asgarva_vb_1_V : V ;
-
 avblaasa_vb_1_1_V : V ;
 avdaemma_vb_1_1_V : V ;
 avdoema_vb_1_1_V : V ;
-
-
 avhaenda_vb_1_1_V : V ;
 avhaenga_vb_1_1_V : V ;
 avkasta_vb_1_V : V ;
-
-
 avkyla_vb_1_V : V ;
 avlysa_vb_1_V : V ;
-
-
-
 avmattas_vb_1_V : V ;
 avmaeta_vb_1_1_V : V ;
 avmoenstra_vb_1_1_V : V ;
 avresa_vb_1_V : V ;
 avskava_vb_1_V : V ;
-
-
-
 avstaella_vb_1_1_V : V ;
 avstaemma_vb_1_1_V : V ;
 avstaenga_vb_1_1_V : V ;
@@ -1223,91 +590,41 @@ avsaenda_vb_1_1_V : V ;
 avsoeka_vb_1_1_V : V ;
 avtorka_vb_1_V : V ;
 avtaecka_vb_1_1_V : V ;
-
 avvaega_vb_1_1_V : V ;
 avvaenda_vb_1_1_V : V ;
-
-
-
-
 barka_vb_2_V : V ;
-
-
-
-
-
-
 beglaensa_vb_1_1_V : V ;
-
 behaenga_vb_1_1_V : V ;
-
-
 belanga_vb_1_V : V ;
-
 bemaenga_vb_1_1_V : V ;
 bemaerka_vb_1_1_V : V ;
-
-
-
-
-
-
 besserwissra_vb_1_V : V ;
-
-
-
-
-
 bestaenka_vb_1_1_V : V ;
 besaa_vb_1_1_V : V ;
-
 betro_vb_1_V : V ;
 betrycka_vb_1_V : V ;
 bettla_vb_1_V : V ;
-
-
 bevare_vb_1_V : V ;
-
 bistraecka_vb_1_1_V : V ;
 bjaebba_vb_1_1_V : V ;
-
 blaja_vb_1_V : V ;
 blarra_vb_1_V : V ;
 blaska_vb_1_V : V ;
-
-
 bliga_vb_1_V : V ;
-
 blippa_vb_1_V : V ;
 blixtra_vb_1_V : V ;
-
-
-
 blota_vb_1_V : V ;
 bluddra_vb_1_V : V ;
-
 blygas_vb_1_V : V ;
-
-
-
 blaestra_vb_1_1_V : V ;
-
-
-
-
-
 bloetna_vb_1_1_V : V ;
-
 bokna_vb_1_V : V ;
 bola_vb_1_V : V ;
-
-
 booma_vb_1_V : V ;
 bornera_vb_1_V : V ;
 bortarbeta_vb_1_V : V ;
 bortdomna_vb_1_V : V ;
 bortforsla_vb_1_V : V ;
-
 bortlova_vb_1_V : V ;
 bortmota_vb_1_V : V ;
 bortoperera_vb_1_V : V ;
@@ -1320,374 +637,195 @@ borttorka_vb_1_V : V ;
 bortvraeka_vb_1_1_V : V ;
 botanisera_vb_1_V : V ;
 bottenfrysa_vb_1_V : V ;
-
 bowla_vb_1_V : V ;
-
-
 braska_vb_1_V : V ;
 bravera_vb_1_V : V ;
 bredsaa_vb_1_1_V : V ;
-
 bronsfoergylla_vb_1_1_V : V ;
 brossla_vb_1_V : V ;
-
 brottsutreda_vb_1_V : V ;
 bruckla_vb_1_V : V ;
-
-
-
-
-
-
-
 braadska_vb_1_1_V : V ;
-
-
 broela_vb_1_1_V : V ;
-
-
 buffra_vb_1_V : V ;
-
 bugga_vb_1_V : V ;
-
 buktala_vb_1_V : V ;
-
 bulna_vb_1_V : V ;
-
-
 buska_vb_2_V : V ;
 busringa_vb_1_V : V ;
 busvissla_vb_1_V : V ;
-
 byka_vb_1_V : V ;
-
-
 baendsla_vb_1_1_V : V ;
 baensla_vb_1_1_V : V ;
 baersa_vb_1_1_V : V ;
-
 baada_vb_1_1_V : V ;
 baaga_vb_1_1_V : V ;
 baata_vb_1_1_V : V ;
-
-
-
-
 boesta_vb_1_1_V : V ;
-
-
 changera_vb_1_V : V ;
 changsera_vb_1_V : V ;
-
 chansera_vb_1_V : V ;
 chatta_vb_1_V : V ;
 chefa_vb_1_V : V ;
 chilla_vb_1_V : V ;
 chimpa_vb_1_V : V ;
-
-
 curla_vb_1_V : V ;
 dagas_vb_1_V : V ;
-
 dagga_vb_1_V : V ;
 dagtinga_vb_1_V : V ;
-
-
-
-
 dampa_vb_2_V : V ;
 dangla_vb_1_V : V ;
-
-
 dassa_vb_1_V : V ;
 datta_vb_1_V : V ;
-
-
-
 dejsa_vb_1_V : V ;
 deltidsarbeta_vb_1_V : V ;
-
-
-
 deviera_vb_1_V : V ;
 diagonala_vb_1_V : V ;
 dibbla_vb_1_V : V ;
-
 dila_vb_1_V : V ;
-
 dinera_vb_1_V : V ;
-
-
 direktsaenda_vb_1_1_V : V ;
 dirka_vb_1_V : V ;
 dirra_vb_1_V : V ;
 dissonera_vb_1_V : V ;
-
 djupna_vb_1_V : V ;
 djaervas_vb_1_1_V : V ;
 djaevlas_vb_1_1_V : V ;
-
 dobbla_vb_1_V : V ;
 docera_vb_1_V : V ;
-
-
 domfaella_vb_1_1_V : V ;
 dona_vb_1_V : V ;
 donka_vb_2_V : V ;
 dravla_vb_1_V : V ;
-
 drejvaenda_vb_1_1_V : V ;
-
-
 drulla_vb_1_V : V ;
 drumla_vb_1_V : V ;
 draegla_vb_1_1_V : V ;
-
-
-
-
-
-
 droena_vb_1_1_V : V ;
-
 duellera_vb_1_V : V ;
 dugga_vb_1_V : V ;
 duggregna_vb_1_V : V ;
 duna_vb_1_V : V ;
-
-
-
 durka_vb_1_V : V ;
 duska_vb_1_V : V ;
 duva_vb_1_V : V ;
 duvna_vb_1_V : V ;
-
-
 daenka_vb_1_1_V : V ;
-
-
-
 doena_vb_1_1_V : V ;
-
 ebba_vb_1_V : V ;
 efteranmaela_vb_1_1_V : V ;
 efterleva_vb_1_V : V ;
-
 eftersinna_vb_1_V : V ;
-
-
 eftersoeka_vb_1_1_V : V ;
 eftertraa_vb_1_1_V : V ;
 egensvaenga_vb_1_1_V : V ;
 ejakulera_vb_1_V : V ;
-
 eldvakta_vb_1_V : V ;
 emanera_vb_1_V : V ;
 enas_vb_1_V : V ;
 enkla_vb_1_V : V ;
-
-
 ernaa_vb_1_1_V : V ;
 evangelisera_vb_1_V : V ;
 excellera_vb_1_V : V ;
-
-
-
 extremkyla_vb_1_V : V ;
 fabla_vb_1_V : V ;
-
 falka_vb_1_V : V ;
 fallera_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
 felbedoema_vb_1_1_V : V ;
-
 fetma_vb_1_V : V ;
 fetna_vb_1_V : V ;
-
 fightas_vb_1_V : V ;
-
-
-
-
 fininstaella_vb_1_1_V : V ;
 fippla_vb_1_V : V ;
 fjanta_vb_1_V : V ;
 fjollas_vb_1_V : V ;
-
 fjaellvandra_vb_1_1_V : V ;
-
-
-
 fjoela_vb_1_1_V : V ;
-
-
-
-
-
 flamsa_vb_1_V : V ;
-
 flatskratta_vb_1_V : V ;
-
 flexa_vb_1_V : V ;
-
-
 flirta_vb_1_V : V ;
 flockas_vb_1_V : V ;
-
 flukta_vb_1_V : V ;
-
 flumma_vb_1_V : V ;
 fluorescera_vb_1_V : V ;
-
 flaeka_vb_1_1_V : V ;
 flaekta_vb_1_1_V : V ;
-
 flaenga_vb_1_1_V : V ;
 flaenga_vb_2_1_V : V ;
-
-
-
 floejla_vb_1_1_V : V ;
 floerta_vb_1_1_V : V ;
 fnaska_vb_1_V : V ;
 fnatta_vb_1_V : V ;
-
-
 fodra_vb_1_V : V ;
 folkomroesta_vb_1_1_V : V ;
-
-
-
-
 fortleva_vb_1_V : V ;
 fortloepa_vb_1_1_V : V ;
 fosforescera_vb_1_V : V ;
-
 fotvandra_vb_1_V : V ;
 fradga_vb_1_V : V ;
 framavla_vb_1_V : V ;
-
-
 framleva_vb_1_V : V ;
-
 framtona_vb_1_V : V ;
 framtraenga_vb_1_1_V : V ;
-
 fraternisera_vb_1_V : V ;
-
-
 frilansa_vb_1_V : V ;
 frimaerka_vb_1_1_V : V ;
 friska_vb_1_V : V ;
 friskanmaela_vb_1_1_V : V ;
 frisksporta_vb_1_V : V ;
-
-
-
 fromla_vb_1_V : V ;
-
 frukostera_vb_1_V : V ;
 frusa_vb_1_V : V ;
-
-
-
-
-
 fraandoema_vb_1_1_V : V ;
 froea_vb_1_1_V : V ;
 froejda_vb_1_1_V : V ;
 froejdas_vb_1_1_V : V ;
 fullproppa_vb_1_V : V ;
-
-
-
-
 funktionera_vb_1_V : V ;
-
 futta_vb_1_V : V ;
 fylkas_vb_1_V : V ;
-
 fyllna_vb_1_V : V ;
 faegnas_vb_1_1_V : V ;
-
-
-
 faerdigjaesa_vb_1_1_V : V ;
-
 faanskratta_vb_1_1_V : V ;
 foela_vb_1_1_V : V ;
 foeranmaela_vb_1_1_V : V ;
-
 foerbroskas_vb_1_1_V : V ;
 foerbygga_vb_1_1_V : V ;
 foerbyta_vb_1_1_V : V ;
 foerdaemma_vb_1_1_V : V ;
-
-
-
-
-
 foerespaa_vb_1_1_V : V ;
-
-
 foerfasas_vb_1_1_V : V ;
 foerflyktigas_vb_1_1_V : V ;
-
 foerfaeras_vb_1_1_V : V ;
 foergloemma_vb_1_1_V : V ;
-
 foergubbas_vb_1_1_V : V ;
-
 foerhaerska_vb_1_1_V : V ;
 foerkalkas_vb_1_1_V : V ;
 foerkoksas_vb_1_1_V : V ;
 foerkoxas_vb_1_1_V : V ;
 foerkrympa_vb_1_1_V : V ;
-
 foerlika_vb_1_1_V : V ;
-
-
-
 foermaela_vb_1_1_V : V ;
 foermaerka_vb_1_1_V : V ;
-
 foernoeta_vb_1_1_V : V ;
-
 foerortsbo_vb_1_1_V : V ;
 foerpuppas_vb_1_1_V : V ;
-
 foersamlas_vb_1_1_V : V ;
 foerskraecka_vb_1_1_V : V ;
 foerskylla_vb_1_1_V : V ;
-
 foersmaekta_vb_1_1_V : V ;
-
-
-
 foerstraecka_vb_1_1_V : V ;
-
 foerstaella_vb_1_1_V : V ;
 foerstaemma_vb_1_1_V : V ;
-
-
 foersumpas_vb_1_1_V : V ;
 foersuras_vb_1_1_V : V ;
 foersaenda_vb_1_1_V : V ;
 foersaenka_vb_1_1_V : V ;
-
 foertjusa_vb_1_1_V : V ;
 foertona_vb_1_1_V : V ;
 foertro_vb_1_1_V : V ;
-
-
 foertroettas_vb_1_1_V : V ;
 foertycka_vb_1_1_V : V ;
 foertaenka_vb_1_1_V : V ;
@@ -1695,22 +833,15 @@ foerundersoeka_vb_1_1_V : V ;
 foerutbestaemma_vb_1_1_V : V ;
 foerutspaa_vb_1_1_V : V ;
 foervildas_vb_1_1_V : V ;
-
-
 foervaenda_vb_1_1_V : V ;
-
-
 gaffla_vb_1_V : V ;
 gagga_vb_1_V : V ;
 galnas_vb_1_V : V ;
-
 gama_vb_1_V : V ;
 gana_vb_2_V : V ;
-
 gapflabba_vb_1_V : V ;
 gapskratta_vb_1_V : V ;
 gasa_vb_1_V : V ;
-
 gasta_vb_1_V : V ;
 gastera_vb_1_V : V ;
 gegga_vb_1_V : V ;
@@ -1718,187 +849,104 @@ gena_vb_1_V : V ;
 genmaela_vb_1_1_V : V ;
 genomleva_vb_1_V : V ;
 genomlysa_vb_1_V : V ;
-
 genomtraenga_vb_1_1_V : V ;
 genomtaenka_vb_1_1_V : V ;
-
 gigga_vb_1_V : V ;
 gilja_vb_1_V : V ;
-
 gina_vb_1_V : V ;
 gipa_vb_1_V : V ;
 gippa_vb_1_V : V ;
-
 gissla_vb_1_V : V ;
 gistna_vb_1_V : V ;
 glamma_vb_1_V : V ;
 glana_vb_1_V : V ;
-
 glassa_vb_1_V : V ;
 glesbygdsbo_vb_1_V : V ;
-
 glimra_vb_1_V : V ;
 glimta_vb_1_V : V ;
 glindra_vb_1_V : V ;
 glipa_vb_1_V : V ;
 glisa_vb_1_V : V ;
-
 glo_vb_1_V : V ;
 glunka_vb_1_V : V ;
 glunkas_vb_1_V : V ;
 glutta_vb_1_V : V ;
-
-
 gloedsteka_vb_1_1_V : V ;
 gloedtaenda_vb_1_1_V : V ;
 gloegga_vb_1_1_V : V ;
-
 gloeta_vb_1_1_V : V ;
 gnabbas_vb_1_V : V ;
-
 gnata_vb_1_V : V ;
 gnava_vb_1_V : V ;
 gneta_vb_1_V : V ;
-
-
-
 gnussa_vb_1_V : V ;
-
-
-
 gnoela_vb_1_1_V : V ;
 gola_vb_1_V : V ;
 golfa_vb_1_V : V ;
-
 gosa_vb_1_V : V ;
 grassera_vb_1_V : V ;
 gravitera_vb_1_V : V ;
-
-
-
 grisa_vb_1_V : V ;
-
 grogga_vb_1_V : V ;
 grovna_vb_1_V : V ;
-
 gruffa_vb_1_V : V ;
 grumla_vb_1_V : V ;
-
 grundstoeta_vb_1_1_V : V ;
-
 gruppsaa_vb_1_1_V : V ;
-
-
 gryna_vb_1_V : V ;
-
-
-
 graensla_vb_1_1_V : V ;
 graesa_vb_1_1_V : V ;
-
-
 groengoedsla_vb_1_1_V : V ;
-
 groeta_vb_1_1_V : V ;
 gulla_vb_1_V : V ;
 gumpa_vb_1_V : V ;
-
-
-
-
 gyckla_vb_1_V : V ;
 gympa_vb_1_V : V ;
 gyttra_vb_1_V : V ;
 gaeckas_vb_1_1_V : V ;
-
 gaerdsla_vb_1_1_V : V ;
-
 gaanga_vb_1_1_V : V ;
-
-
 goerdla_vb_1_1_V : V ;
 hafsa_vb_1_V : V ;
 hagla_vb_1_V : V ;
 hajka_vb_1_V : V ;
-
 hallaaa_vb_1_1_V : V ;
-
-
 halvnaecka_vb_1_1_V : V ;
 hamla_vb_1_V : V ;
-
-
-
-
-
 harmas_vb_1_V : V ;
 harmoniera_vb_1_V : V ;
 harskla_vb_1_V : V ;
-
 hasta_vb_1_V : V ;
 hatta_vb_1_V : V ;
-
-
 hesitera_vb_1_V : V ;
 hetta_vb_1_V : V ;
 hibernera_vb_1_V : V ;
-
 himla_vb_1_V : V ;
-
 hisna_vb_1_V : V ;
-
 hjula_vb_1_V : V ;
 hjaelpa_vb_1_1_V : V ;
-
 hoa_vb_1_V : V ;
 hoja_vb_1_V : V ;
-
 hopknyckla_vb_1_V : V ;
 hopkoppla_vb_1_V : V ;
-
 hora_vb_1_V : V ;
-
 hovra_vb_1_V : V ;
-
 hulka_vb_1_V : V ;
 humma_vb_1_V : V ;
 hungerstrejka_vb_1_V : V ;
-
-
 husera_vb_1_V : V ;
-
 huta_vb_1_V : V ;
 huttla_vb_1_V : V ;
-
-
 hyla_vb_1_V : V ;
 hymla_vb_1_V : V ;
-
-
-
 haeckla_vb_1_1_V : V ;
-
-
 haellregna_vb_1_1_V : V ;
-
-
-
-
-
 haenrycka_vb_1_1_V : V ;
 haensyfta_vb_1_1_V : V ;
-
-
-
-
 haanflina_vb_1_1_V : V ;
-
 haanskratta_vb_1_1_V : V ;
 hoesta_vb_1_1_V : V ;
 hoestas_vb_1_1_V : V ;
-
-
-
 illfaenas_vb_1_1_V : V ;
 illudera_vb_1_V : V ;
 illvraala_vb_1_1_V : V ;
@@ -1910,7 +958,6 @@ indigneras_vb_1_V : V ;
 indraenka_vb_1_1_V : V ;
 inhysa_vb_1_V : V ;
 inhoesta_vb_1_1_V : V ;
-
 inkraeva_vb_1_1_V : V ;
 inkoepa_vb_1_1_V : V ;
 inloepa_vb_1_1_V : V ;
@@ -1921,13 +968,9 @@ innestaenga_vb_1_1_V : V ;
 inoperera_vb_1_V : V ;
 inprogrammera_vb_1_V : V ;
 inrymma_vb_1_V : V ;
-
 inskaerpa_vb_1_1_V : V ;
 inspaerra_vb_1_1_V : V ;
 instunda_vb_1_V : V ;
-
-
-
 instaenga_vb_1_1_V : V ;
 insvepa_vb_1_V : V ;
 insaenda_vb_1_1_V : V ;
@@ -1936,45 +979,31 @@ interagera_vb_1_V : V ;
 interferera_vb_1_V : V ;
 intrigera_vb_1_V : V ;
 intraenga_vb_1_1_V : V ;
-
-
 invintra_vb_1_V : V ;
-
 invaeva_vb_1_1_V : V ;
 iordningstaella_vb_1_1_V : V ;
 irisera_vb_1_V : V ;
 ironisera_vb_1_V : V ;
-
 isa_vb_1_V : V ;
 ivra_vb_1_V : V ;
-
 jamma_vb_1_V : V ;
 jamsa_vb_1_V : V ;
 jassa_vb_1_V : V ;
 jazza_vb_1_V : V ;
 jiddra_vb_1_V : V ;
-
 joddla_vb_1_V : V ;
-
 jolta_vb_1_V : V ;
-
 jubilera_vb_1_V : V ;
-
 jucka_vb_1_V : V ;
 jula_vb_1_V : V ;
-
 jympa_vb_1_V : V ;
 jaeklas_vb_1_1_V : V ;
-
 jaernsko_vb_1_1_V : V ;
-
 jaevlas_vb_1_1_V : V ;
 k_maerka_vb_1_1_V : V ;
 kabla_vb_1_V : V ;
 kacka_vb_1_V : V ;
-
 kajka_vb_1_V : V ;
-
 kallgrina_vb_1_V : V ;
 kallmangla_vb_1_V : V ;
 kallprata_vb_1_V : V ;
@@ -1984,201 +1013,92 @@ kalna_vb_1_V : V ;
 kalva_vb_1_V : V ;
 kampa_vb_1_V : V ;
 kampera_vb_1_V : V ;
-
-
 kanota_vb_1_V : V ;
 kantklippa_vb_1_V : V ;
-
 kappas_vb_1_V : V ;
 kapprusta_vb_1_V : V ;
 kappsegla_vb_1_V : V ;
 kapsla_vb_1_V : V ;
 kasa_vb_1_V : V ;
 kava_vb_1_V : V ;
-
 kedjeroeka_vb_1_1_V : V ;
-
 kesa_vb_1_V : V ;
-
-
 kimma_vb_1_V : V ;
-
 kinka_vb_1_V : V ;
 kippa_vb_1_V : V ;
-
-
-
-
 klabba_vb_1_V : V ;
-
-
 klafsa_vb_1_V : V ;
-
-
 klanka_vb_1_V : V ;
-
 klappra_vb_1_V : V ;
-
 klarna_vb_1_V : V ;
 klema_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 klunka_vb_1_V : V ;
-
-
-
-
-
-
-
 klaapa_vb_1_1_V : V ;
-
 knaggla_vb_1_V : V ;
-
-
-
-
-
-
-
 knirka_vb_1_V : V ;
 knirra_vb_1_V : V ;
 knistra_vb_1_V : V ;
 knittra_vb_1_V : V ;
-
-
 knollra_vb_1_V : V ;
 knoppas_vb_1_V : V ;
-
-
-
 knottra_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
-
 knoeka_vb_1_1_V : V ;
 kodvaexla_vb_1_1_V : V ;
 kohandla_vb_1_V : V ;
-
 kokettera_vb_1_V : V ;
 koksa_vb_1_V : V ;
 kollabera_vb_1_V : V ;
 kollaborera_vb_1_V : V ;
-
-
 kompromissa_vb_1_V : V ;
 konferera_vb_1_V : V ;
 kongressa_vb_1_V : V ;
 konka_vb_1_V : V ;
-
 konsertera_vb_1_V : V ;
-
-
-
 kontrollvaega_vb_1_1_V : V ;
 kontrollaesa_vb_1_1_V : V ;
 konvalescera_vb_1_V : V ;
-
 kooperera_vb_1_V : V ;
-
 kopulera_vb_1_V : V ;
 korrekturlaesa_vb_1_1_V : V ;
 korrespondera_vb_1_V : V ;
 kortklippa_vb_1_V : V ;
-
 kovaenda_vb_1_1_V : V ;
 koxa_vb_1_V : V ;
 krasa_vb_1_V : V ;
-
-
-
-
 kringstroe_vb_1_1_V : V ;
 krisa_vb_1_V : V ;
-
 kroppsarbeta_vb_1_V : V ;
 krubba_vb_1_V : V ;
 krumbukta_vb_1_V : V ;
-
-
-
-
-
 kraemta_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
-
 kubbas_vb_1_V : V ;
 kuckilura_vb_1_V : V ;
 kuckla_vb_1_V : V ;
 kullbyttera_vb_1_V : V ;
 kullra_vb_1_V : V ;
-
 kulna_vb_1_V : V ;
-
 kunskapa_vb_1_V : V ;
 kuppa_vb_1_V : V ;
-
 kursera_vb_1_V : V ;
 kuska_vb_1_V : V ;
-
-
-
-
 kvarta_vb_1_V : V ;
-
-
 kvillra_vb_1_V : V ;
 kvintilera_vb_1_V : V ;
 kvirra_vb_1_V : V ;
-
-
-
 kvaella_vb_1_1_V : V ;
 kvaellas_vb_1_1_V : V ;
-
-
 kyffa_vb_1_V : V ;
-
 kylna_vb_1_V : V ;
-
 kaebbla_vb_1_1_V : V ;
-
 kaelta_vb_1_1_V : V ;
-
 kaera_vb_2_1_V : V ;
 kaerva_vb_1_1_V : V ;
 kaexa_vb_1_1_V : V ;
 kaara_vb_2_1_V : V ;
 kaaras_vb_1_1_V : V ;
 kaasera_vb_1_1_V : V ;
-
 koelhala_vb_1_1_V : V ;
-
 koeva_vb_1_1_V : V ;
-
 lafsa_vb_1_V : V ;
 lagstadga_vb_1_V : V ;
 lagsoeka_vb_1_1_V : V ;
@@ -2186,223 +1106,125 @@ lalla_vb_1_V : V ;
 lamma_vb_1_V : V ;
 landsbo_vb_1_V : V ;
 lantbo_vb_1_V : V ;
-
 larva_vb_1_V : V ;
-
 lattja_vb_1_V : V ;
 laxera_vb_1_V : V ;
 ledsna_vb_1_V : V ;
-
 lessna_vb_1_V : V ;
 lettra_vb_1_V : V ;
-
-
-
-
 likstaella_vb_1_1_V : V ;
 linka_vb_1_V : V ;
-
-
-
-
 ljumma_vb_1_V : V ;
 ljunga_vb_1_V : V ;
-
 ljustra_vb_1_V : V ;
 lobba_vb_2_V : V ;
 loda_vb_2_V : V ;
 loma_vb_1_V : V ;
 lomma_vb_1_V : V ;
 loska_vb_1_V : V ;
-
-
 lubba_vb_1_V : V ;
-
 ludda_vb_1_V : V ;
 luffa_vb_1_V : V ;
-
-
-
 lulla_vb_1_V : V ;
 lumpa_vb_1_V : V ;
 luncha_vb_1_V : V ;
-
 lunta_vb_1_V : V ;
-
-
 lusa_vb_1_V : V ;
-
 luslaesa_vb_1_1_V : V ;
-
-
 luttra_vb_1_V : V ;
-
-
-
-
-
 lyxa_vb_1_V : V ;
 laea_vb_1_1_V : V ;
-
-
 laekarundersoeka_vb_1_1_V : V ;
 laenda_vb_1_1_V : V ;
 laenga_vb_1_1_V : V ;
 laengas_vb_1_1_V : V ;
-
-
-
-
-
-
 laettra_vb_1_1_V : V ;
 laaga_vb_1_1_V : V ;
-
 laassas_vb_1_1_V : V ;
-
-
 loemskna_vb_1_1_V : V ;
-
 loepna_vb_1_1_V : V ;
-
 loevas_vb_1_1_V : V ;
 mackla_vb_1_V : V ;
-
 mainstreama_vb_1_V : V ;
 majoritetsaega_vb_1_1_V : V ;
-
-
 mantla_vb_1_V : V ;
 marodera_vb_1_V : V ;
-
-
-
-
 matvaegra_vb_1_1_V : V ;
 mecka_vb_1_V : V ;
 meckla_vb_1_V : V ;
 medarbeta_vb_1_V : V ;
-
-
-
-
 meka_vb_1_V : V ;
 menstruera_vb_1_V : V ;
-
 miljoemaerka_vb_1_1_V : V ;
 mingla_vb_1_V : V ;
 missbedoema_vb_1_1_V : V ;
 misshaga_vb_1_V : V ;
 misshushaalla_vb_1_1_V : V ;
 missionera_vb_1_V : V ;
-
-
-
-
 misstycka_vb_1_V : V ;
-
 missvisa_vb_1_V : V ;
 mixtra_vb_1_V : V ;
 mjaua_vb_1_V : V ;
-
-
-
-
 momsredovisa_vb_1_V : V ;
 mopeda_vb_1_V : V ;
-
 morla_vb_1_V : V ;
-
 morsa_vb_1_V : V ;
 motionera_vb_1_V : V ;
 motlaesa_vb_1_1_V : V ;
-
 motvaega_vb_1_1_V : V ;
 moussera_vb_1_V : V ;
-
-
 mullra_vb_1_V : V ;
-
-
-
-
 murkna_vb_1_V : V ;
 murra_vb_1_V : V ;
 musicera_vb_1_V : V ;
 mussera_vb_1_V : V ;
-
-
 myllra_vb_1_V : V ;
-
-
 maekla_vb_1_1_V : V ;
-
 maela_vb_1_1_V : V ;
 maenga_vb_1_1_V : V ;
 maergla_vb_1_1_V : V ;
-
 maessa_vb_1_1_V : V ;
-
-
-
 maangla_vb_1_1_V : V ;
-
 moerkna_vb_1_1_V : V ;
-
 nagga_vb_2_V : V ;
-
 nappa_vb_1_V : V ;
 nappas_vb_1_V : V ;
 nara_vb_2_V : V ;
 narras_vb_1_V : V ;
-
 naturvandra_vb_1_V : V ;
 nedblaasa_vb_1_1_V : V ;
 nedgraeva_vb_1_1_V : V ;
 nedsaenka_vb_1_1_V : V ;
 nerblaasa_vb_1_1_V : V ;
 nersaenka_vb_1_1_V : V ;
-
 nitaelska_vb_1_1_V : V ;
 noja_vb_1_V : V ;
-
 nollstaella_vb_1_1_V : V ;
-
 nomadisera_vb_1_V : V ;
-
 nyanstaella_vb_1_1_V : V ;
 nytta_vb_1_V : V ;
 naebbas_vb_1_1_V : V ;
 naecka_vb_1_1_V : V ;
-
 naepsa_vb_1_1_V : V ;
 naethandla_vb_1_1_V : V ;
 naetkommunicera_vb_1_1_V : V ;
-
 naatla_vb_1_1_V : V ;
-
 noedsakas_vb_1_1_V : V ;
 noedsignalera_vb_1_1_V : V ;
 noeta_vb_1_1_V : V ;
 obstruera_vb_1_V : V ;
-
 officiera_vb_1_V : V ;
-
 oja_vb_1_V : V ;
 oktavera_vb_1_V : V ;
 okynnesstrejka_vb_1_V : V ;
 olyckas_vb_1_V : V ;
 ombetro_vb_1_V : V ;
-
 omskoeta_vb_1_1_V : V ;
 omstaella_vb_1_1_V : V ;
 omstoepa_vb_1_1_V : V ;
 omsvepa_vb_1_V : V ;
-
-
 omvaerva_vb_1_1_V : V ;
 omvaexla_vb_1_1_V : V ;
-
 onanisera_vb_1_V : V ;
 opinera_vb_1_V : V ;
 oppfylla_vb_1_V : V ;
@@ -2412,252 +1234,124 @@ oppstaella_vb_1_1_V : V ;
 oppsoeka_vb_1_1_V : V ;
 oppvaega_vb_1_1_V : V ;
 optera_vb_1_V : V ;
-
 orera_vb_1_V : V ;
-
-
 orma_vb_1_V : V ;
-
 oscillera_vb_1_V : V ;
 oturas_vb_1_V : V ;
-
-
-
 parasitera_vb_1_V : V ;
 parentera_vb_1_V : V ;
 parlamentera_vb_1_V : V ;
 parlera_vb_1_V : V ;
 parta_vb_1_V : V ;
 partaja_vb_1_V : V ;
-
 peaka_vb_1_V : V ;
-
-
-
 perennera_vb_1_V : V ;
 personroesta_vb_1_1_V : V ;
-
 pila_vb_1_V : V ;
-
 pillra_vb_1_V : V ;
-
-
-
 pinna_vb_2_V : V ;
 pirra_vb_1_V : V ;
 piruettera_vb_1_V : V ;
 pissa_vb_1_V : V ;
 pivotera_vb_1_V : V ;
 pjollra_vb_1_V : V ;
-
 pjunka_vb_1_V : V ;
-
 plana_vb_2_V : V ;
 planka_vb_1_V : V ;
-
-
-
 pliktfaella_vb_1_1_V : V ;
 plira_vb_1_V : V ;
 plita_vb_1_V : V ;
 plottra_vb_1_V : V ;
-
 plumpa_vb_1_V : V ;
-
-
 plurra_vb_1_V : V ;
 plussa_vb_1_V : V ;
 pluta_vb_1_V : V ;
-
 plaega_vb_1_1_V : V ;
-
 pokulera_vb_1_V : V ;
 pola_vb_1_V : V ;
-
 polisanmaela_vb_1_1_V : V ;
 polstra_vb_1_V : V ;
 ponera_vb_1_V : V ;
-
 porrsurfa_vb_1_V : V ;
-
 praoa_vb_1_V : V ;
-
-
 predominera_vb_1_V : V ;
-
 presidera_vb_1_V : V ;
 prestavera_vb_1_V : V ;
 pretendera_vb_1_V : V ;
 prisbeloena_vb_1_1_V : V ;
 prismaerka_vb_1_1_V : V ;
 procenta_vb_1_V : V ;
-
 profetera_vb_1_V : V ;
-
-
-
-
-
-
 protestklicka_vb_1_V : V ;
 protestroesta_vb_1_1_V : V ;
 proviantera_vb_1_V : V ;
-
 prusta_vb_1_V : V ;
-
-
-
-
-
-
 puddla_vb_1_V : V ;
 pudla_vb_1_V : V ;
-
 pula_vb_1_V : V ;
 pulla_vb_1_V : V ;
-
-
 purkna_vb_1_V : V ;
-
-
-
-
-
-
-
 paerla_vb_1_1_V : V ;
-
 paavila_vb_1_1_V : V ;
 poela_vb_1_1_V : V ;
-
 quiza_vb_1_V : V ;
 quizza_vb_1_V : V ;
-
 radionavigera_vb_1_V : V ;
 rafistulera_vb_1_V : V ;
-
 raggla_vb_1_V : V ;
-
 rakna_vb_1_V : V ;
-
-
-
 rangla_vb_1_V : V ;
 ranta_vb_1_V : V ;
-
-
-
-
 ratscha_vb_1_V : V ;
-
 rebellera_vb_1_V : V ;
 recidivera_vb_1_V : V ;
-
 regna_vb_1_V : V ;
 rekylera_vb_1_V : V ;
 relaxa_vb_1_V : V ;
 remma_vb_2_V : V ;
 remontera_vb_1_V : V ;
-
 repliera_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 revoltera_vb_1_V : V ;
 ricka_vb_1_V : V ;
 rigla_vb_1_V : V ;
-
-
 ringmaerka_vb_1_1_V : V ;
 ripostera_vb_1_V : V ;
-
 rissla_vb_1_V : V ;
 rissla_vb_2_V : V ;
 ritscha_vb_1_V : V ;
-
-
 rocka_vb_1_V : V ;
-
-
-
-
-
 rotfylla_vb_1_V : V ;
 ruckla_vb_1_V : V ;
 ruffla_vb_1_V : V ;
-
 rugga_vb_1_V : V ;
-
 rulta_vb_1_V : V ;
-
-
 runga_vb_1_V : V ;
-
-
-
-
-
 rya_vb_1_V : V ;
-
-
 ryggsaecksluffa_vb_1_1_V : V ;
-
-
-
 ryttla_vb_1_V : V ;
-
-
-
-
-
-
 raaskaella_vb_1_1_V : V ;
 raasteka_vb_1_1_V : V ;
-
-
 roestmaximera_vb_1_1_V : V ;
 roestskolka_vb_1_1_V : V ;
-
-
 sagga_vb_1_V : V ;
 sagla_vb_1_V : V ;
 sakfaella_vb_1_1_V : V ;
-
-
 salivera_vb_1_V : V ;
-
 sambo_vb_1_V : V ;
 samhaellsplanera_vb_1_1_V : V ;
 samklinga_vb_1_V : V ;
-
-
-
-
 sammankoppla_vb_1_V : V ;
 sammanleva_vb_1_V : V ;
 sammanloepa_vb_1_1_V : V ;
 sammanringa_vb_1_V : V ;
-
 sammanstoeta_vb_1_1_V : V ;
 sammantrycka_vb_1_V : V ;
 sammanvaega_vb_1_1_V : V ;
 sammanvaeva_vb_1_1_V : V ;
 sammanvaexa_vb_1_1_V : V ;
 sampla_vb_1_V : V ;
-
 samspela_vb_1_V : V ;
 samspraaka_vb_1_1_V : V ;
-
-
-
-
 satirisera_vb_1_V : V ;
 sava_vb_1_V : V ;
 schabbla_vb_1_V : V ;
@@ -2665,27 +1359,16 @@ schackla_vb_1_V : V ;
 schackra_vb_1_V : V ;
 schavottera_vb_1_V : V ;
 sega_vb_1_V : V ;
-
 segna_vb_1_V : V ;
-
 sejda_vb_1_V : V ;
 semesterresa_vb_1_V : V ;
-
 sexchatta_vb_1_V : V ;
 sexvaegra_vb_1_1_V : V ;
 shaka_vb_1_V : V ;
 shingla_vb_1_V : V ;
-
 showa_vb_1_V : V ;
-
 sicksacka_vb_1_V : V ;
-
-
-
-
-
 sintra_vb_1_V : V ;
-
 sirpa_vb_1_V : V ;
 sirra_vb_1_V : V ;
 sisa_vb_1_V : V ;
@@ -2694,112 +1377,52 @@ sittupa_vb_1_V : V ;
 sittuppa_vb_1_V : V ;
 situpa_vb_1_V : V ;
 situppa_vb_1_V : V ;
-
 sjangsera_vb_1_V : V ;
 sjaska_vb_1_V : V ;
 sjava_vb_1_V : V ;
-
 sjukna_vb_1_V : V ;
 sjaelvantaenda_vb_1_1_V : V ;
 sjaelvlaeka_vb_1_1_V : V ;
 sjaelvtaenda_vb_1_1_V : V ;
 sjaaa_vb_1_1_V : V ;
-
 skalkas_vb_1_V : V ;
-
-
-
-
 skata_vb_1_V : V ;
-
 skattefiffla_vb_1_V : V ;
 skava_vb_1_V : V ;
 skejta_vb_1_V : V ;
-
 skeva_vb_1_V : V ;
-
 skida_vb_1_V : V ;
 skidra_vb_1_V : V ;
-
-
-
-
-
-
-
-
 skovla_vb_1_V : V ;
 skralna_vb_1_V : V ;
 skralta_vb_1_V : V ;
-
-
-
-
 skria_vb_1_V : V ;
 skrinna_vb_1_V : V ;
 skritta_vb_1_V : V ;
 skrocka_vb_1_V : V ;
 skrodera_vb_1_V : V ;
-
 skrumpna_vb_1_V : V ;
-
-
-
-
-
 skraenka_vb_1_1_V : V ;
 skraeppa_vb_1_1_V : V ;
-
 skuggboxa_vb_1_V : V ;
-
-
-
-
-
-
-
 skymla_vb_1_V : V ;
-
-
-
-
 skaenkla_vb_1_1_V : V ;
-
 skaangra_vb_1_1_V : V ;
 skoena_vb_1_1_V : V ;
-
-
 slabbra_vb_1_V : V ;
-
 slamma_vb_1_V : V ;
-
 slappzappa_vb_1_V : V ;
-
-
 slurfa_vb_1_V : V ;
 slurpa_vb_1_V : V ;
-
 slutplaedera_vb_1_1_V : V ;
-
 slaektas_vb_1_1_V : V ;
-
-
-
 sloesurfa_vb_1_1_V : V ;
-
-
 smarra_vb_1_V : V ;
-
-
-
-
-
 smygjaga_vb_1_V : V ;
 smyglyssna_vb_1_V : V ;
 smygroeka_vb_1_1_V : V ;
 smygtitta_vb_1_V : V ;
 smaecka_vb_1_1_V : V ;
-
 smaergla_vb_1_1_V : V ;
 smaaflina_vb_1_1_V : V ;
 smaagraela_vb_1_1_V : V ;
@@ -2810,334 +1433,133 @@ smaastadsbo_vb_1_1_V : V ;
 smoera_vb_2_1_V : V ;
 smoerfraesa_vb_1_1_V : V ;
 snabbtoersta_vb_1_1_V : V ;
-
-
 snedda_vb_1_V : V ;
 snedstaella_vb_1_1_V : V ;
-
-
-
 snirkla_vb_1_V : V ;
-
-
 snitta_vb_1_V : V ;
-
 snobba_vb_1_V : V ;
-
-
-
 snubba_vb_1_V : V ;
-
-
-
-
 snuska_vb_1_V : V ;
-
-
-
 snaeppa_vb_1_1_V : V ;
 snaerpa_vb_1_1_V : V ;
-
-
 snaeva_vb_1_1_V : V ;
-
 snoea_vb_1_1_V : V ;
 snoepa_vb_1_1_V : V ;
 snoeploga_vb_1_1_V : V ;
-
-
 sockersalta_vb_1_V : V ;
 soffsurfa_vb_1_V : V ;
 softa_vb_1_V : V ;
 sol_och_vaara_vb_1_1_V : V ;
-
-
 solka_vb_1_V : V ;
 solochvaara_vb_1_1_V : V ;
 soltorka_vb_1_V : V ;
 solva_vb_1_V : V ;
-
 somras_vb_1_V : V ;
-
-
-
-
 spadvaenda_vb_1_1_V : V ;
 spaka_vb_1_V : V ;
 spakna_vb_1_V : V ;
 spalta_vb_1_V : V ;
-
-
-
-
-
-
 sparra_vb_1_V : V ;
-
 specialbestaella_vb_1_1_V : V ;
-
-
-
 speta_vb_1_V : V ;
-
 spetta_vb_1_V : V ;
-
 spila_vb_1_V : V ;
-
-
-
-
 spjaela_vb_1_1_V : V ;
-
-
 splinta_vb_1_V : V ;
 splissa_vb_1_V : V ;
 splitsa_vb_1_V : V ;
-
-
 sponta_vb_1_V : V ;
-
 sporta_vb_1_V : V ;
-
-
 spralla_vb_1_V : V ;
-
 spraya_vb_1_V : V ;
-
-
 sprinta_vb_1_V : V ;
 sprita_vb_1_V : V ;
 sprita_vb_2_V : V ;
 spritsa_vb_1_V : V ;
-
-
 sprutmaala_vb_1_1_V : V ;
-
-
-
-
 spraaka_vb_1_1_V : V ;
 spraakas_vb_1_1_V : V ;
 sproeta_vb_1_1_V : V ;
-
-
 spaecka_vb_1_1_V : V ;
-
 spaensta_vb_1_1_V : V ;
 spaenta_vb_1_1_V : V ;
-
-
 spaana_vb_1_1_V : V ;
 spaanga_vb_1_1_V : V ;
 spaanta_vb_1_1_V : V ;
-
-
-
 stacka_vb_1_V : V ;
 stadvaenda_vb_1_1_V : V ;
 staga_vb_1_V : V ;
 stagvaenda_vb_1_1_V : V ;
-
 stalla_vb_1_V : V ;
-
-
-
-
-
-
-
 starrbliga_vb_1_V : V ;
-
 stassa_vb_1_V : V ;
 statera_vb_1_V : V ;
 statuera_vb_1_V : V ;
-
-
 stegla_vb_1_V : V ;
-
-
 steppa_vb_1_V : V ;
-
-
 stila_vb_1_V : V ;
-
 stillna_vb_1_V : V ;
-
-
-
-
-
 stolpa_vb_1_V : V ;
-
-
 storhandla_vb_1_V : V ;
-
-
 stormgraela_vb_1_1_V : V ;
 stormskaella_vb_1_1_V : V ;
 stormtrivas_vb_1_V : V ;
 storsatsa_vb_1_V : V ;
 storskratta_vb_1_V : V ;
 stortrivas_vb_1_V : V ;
-
 straffbeskatta_vb_1_V : V ;
-
-
 streaka_vb_1_V : V ;
-
-
-
-
 stretcha_vb_1_V : V ;
 strigla_vb_1_V : V ;
-
-
 stripa_vb_1_V : V ;
-
-
 strula_vb_1_V : V ;
-
-
-
-
 straenga_vb_1_1_V : V ;
-
-
-
-
 stroeppla_vb_1_1_V : V ;
-
 stubba_vb_1_V : V ;
-
-
-
-
 stura_vb_1_V : V ;
 sturskas_vb_1_V : V ;
-
-
 stylta_vb_1_V : V ;
-
-
 styva_vb_1_V : V ;
-
 staecka_vb_1_1_V : V ;
-
 staedsla_vb_1_1_V : V ;
-
-
-
-
-
-
-
 staanda_vb_1_1_V : V ;
-
-
-
-
 stoedkoepa_vb_1_1_V : V ;
 stoedroesta_vb_1_1_V : V ;
-
-
-
 stoeppla_vb_1_1_V : V ;
-
-
 stoertregna_vb_1_1_V : V ;
-
-
-
-
-
 sula_vb_1_V : V ;
 summa_vb_1_V : V ;
-
-
 suppurera_vb_1_V : V ;
-
-
-
-
-
-
-
 svabba_vb_1_V : V ;
 svacka_vb_1_V : V ;
-
-
-
-
 svanka_vb_1_V : V ;
 svansa_vb_1_V : V ;
 svartlista_vb_1_V : V ;
-
 svassa_vb_1_V : V ;
 svavla_vb_1_V : V ;
 svedja_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 svira_vb_1_V : V ;
 svirra_vb_1_V : V ;
 svischa_vb_1_V : V ;
-
-
-
-
-
-
-
 swinga_vb_1_V : V ;
-
-
-
-
-
 synda_vb_1_V : V ;
 synka_vb_1_V : V ;
 syra_vb_1_V : V ;
-
 systemera_vb_1_V : V ;
-
-
-
 saemjas_vb_1_1_V : V ;
 saemska_vb_1_1_V : V ;
 saemskgarva_vb_1_1_V : V ;
-
 saengroeka_vb_1_1_V : V ;
-
-
 saerbeskatta_vb_1_1_V : V ;
-
-
-
 saapa_vb_1_1_V : V ;
-
 saasa_vb_1_1_V : V ;
 saata_vb_1_1_V : V ;
-
-
 soenderdela_vb_1_1_V : V ;
 soenderhacka_vb_1_1_V : V ;
 soenderspraenga_vb_1_1_V : V ;
-
-
-
 tabulera_vb_1_V : V ;
-
-
 tadla_vb_1_V : V ;
 taffla_vb_1_V : V ;
-
 tagga_vb_1_V : V ;
 tagla_vb_1_V : V ;
 taja_vb_1_V : V ;
@@ -3147,87 +1569,49 @@ taktikroesta_vb_1_1_V : V ;
 talga_vb_1_V : V ;
 talka_vb_1_V : V ;
 talla_vb_1_V : V ;
-
 tanda_vb_1_V : V ;
-
-
-
-
 tassla_vb_1_V : V ;
 taxa_vb_1_V : V ;
-
 teka_vb_1_V : V ;
 tempa_vb_1_V : V ;
-
-
 tentamenslaesa_vb_1_1_V : V ;
 teoretisera_vb_1_V : V ;
-
 tetas_vb_1_V : V ;
-
-
 tidsbegraensa_vb_1_1_V : V ;
 tidsbestaemma_vb_1_1_V : V ;
-
 tillaga_vb_1_V : V ;
 tillbakabildas_vb_1_V : V ;
-
 tillblanda_vb_1_V : V ;
-
-
-
-
-
 tillfrysa_vb_1_V : V ;
 tillfraaga_vb_1_1_V : V ;
 tillgodoraekna_vb_1_1_V : V ;
-
-
 tillpassa_vb_1_V : V ;
 tillplatta_vb_1_V : V ;
 tillra_vb_1_V : V ;
 tillraekna_vb_1_1_V : V ;
-
 tillskapa_vb_1_V : V ;
 tillskynda_vb_1_V : V ;
 tillspetsa_vb_1_V : V ;
 tillstunda_vb_1_V : V ;
-
 tillstaella_vb_1_1_V : V ;
-
-
 tilltro_vb_1_V : V ;
 tilltyga_vb_1_V : V ;
 tilltaeppa_vb_1_1_V : V ;
-
 tillvita_vb_1_V : V ;
 tillyxa_vb_1_V : V ;
-
 tillaemna_vb_1_1_V : V ;
-
-
 tima_vb_1_V : V ;
-
-
 tinga_vb_1_V : V ;
 tiofaldiga_vb_1_V : V ;
-
-
 tira_vb_1_V : V ;
 tissla_vb_1_V : V ;
-
 tjacka_vb_1_V : V ;
-
-
-
-
 tjilla_vb_1_V : V ;
 tjimma_vb_1_V : V ;
 tjinga_vb_1_V : V ;
 tjoa_vb_1_V : V ;
 tjockna_vb_1_V : V ;
 tjorva_vb_1_V : V ;
-
 tjuva_vb_1_V : V ;
 tjuvkika_vb_1_V : V ;
 tjuvmjoelka_vb_1_1_V : V ;
@@ -3242,17 +1626,11 @@ tjyvroeka_vb_1_1_V : V ;
 tjyvstarta_vb_1_V : V ;
 tjyvtitta_vb_1_V : V ;
 tjaela_vb_1_1_V : V ;
-
 tjaera_vb_1_1_V : V ;
 tocka_vb_1_V : V ;
 toffla_vb_1_V : V ;
-
 tomta_vb_1_V : V ;
-
-
 torde_vb_1_V : V ;
-
-
 tornera_vb_1_V : V ;
 torrhosta_vb_1_V : V ;
 torrslipa_vb_1_V : V ;
@@ -3261,121 +1639,56 @@ torska_vb_1_V : V ;
 torva_vb_1_V : V ;
 torvtaecka_vb_1_1_V : V ;
 totalkvadda_vb_1_V : V ;
-
 tova_vb_1_V : V ;
-
 traja_vb_1_V : V ;
-
-
-
 tramsa_vb_1_V : V ;
 tranchera_vb_1_V : V ;
 transpirera_vb_1_V : V ;
 transsubstantieras_vb_1_V : V ;
 transubstantieras_vb_1_V : V ;
 trasa_vb_1_V : V ;
-
-
 tratta_vb_1_V : V ;
-
-
 tremulera_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
 trolova_vb_1_V : V ;
-
 troppa_vb_1_V : V ;
-
-
 trula_vb_1_V : V ;
 trumfa_vb_1_V : V ;
 trumla_vb_1_V : V ;
 trumpeta_vb_1_V : V ;
-
-
-
 tryna_vb_1_V : V ;
 traecka_vb_1_1_V : V ;
-
-
 traela_vb_1_1_V : V ;
-
-
-
-
 traensa_vb_1_1_V : V ;
-
 traa_vb_1_1_V : V ;
 traackla_vb_1_1_V : V ;
-
 traala_vb_1_1_V : V ;
 traana_vb_1_1_V : V ;
-
-
-
-
 tubba_vb_1_V : V ;
 tudela_vb_1_V : V ;
-
-
-
 tukta_vb_1_V : V ;
-
 tullbesiktiga_vb_1_V : V ;
 tulta_vb_1_V : V ;
-
-
 tunna_vb_1_V : V ;
 turista_vb_1_V : V ;
-
 tuscha_vb_1_V : V ;
 tussa_vb_1_V : V ;
-
-
-
-
 tvaera_vb_1_1_V : V ;
 tvaerbromsa_vb_1_1_V : V ;
 tvaernita_vb_1_1_V : V ;
 tvaersa_vb_1_1_V : V ;
-
 tvaervaenda_vb_1_1_V : V ;
-
 tvaangsinloesa_vb_1_1_V : V ;
 twista_vb_1_V : V ;
 tya_vb_1_V : V ;
-
-
 tykaennas_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 taetna_vb_1_1_V : V ;
 taaa_vb_1_1_V : V ;
-
 taagluffa_vb_1_1_V : V ;
-
 taarta_vb_1_1_V : V ;
 toea_vb_1_1_V : V ;
 toelta_vb_1_1_V : V ;
-
 toenta_vb_1_1_V : V ;
 toerna_vb_1_1_V : V ;
-
 toeva_vb_1_1_V : V ;
 uggla_vb_1_V : V ;
 ugnsbaka_vb_1_V : V ;
@@ -3395,41 +1708,23 @@ undanskymma_vb_1_V : V ;
 undansnilla_vb_1_V : V ;
 undantraenga_vb_1_1_V : V ;
 underanvaenda_vb_1_1_V : V ;
-
-
-
-
-
 underkvista_vb_1_V : V ;
 underkyla_vb_1_V : V ;
 underlappa_vb_1_V : V ;
-
-
-
 understrecka_vb_1_V : V ;
 understaella_vb_1_1_V : V ;
-
-
-
 undfly_vb_1_V : V ;
 undfaegna_vb_1_1_V : V ;
 undskylla_vb_1_V : V ;
 undulera_vb_1_V : V ;
 unkna_vb_1_V : V ;
-
 upparbeta_vb_1_V : V ;
 uppassa_vb_1_V : V ;
 uppblanda_vb_1_V : V ;
 uppbringa_vb_1_V : V ;
-
-
-
 uppdela_vb_1_V : V ;
 uppegga_vb_1_V : V ;
-
-
 uppfriska_vb_1_V : V ;
-
 uppfaanga_vb_1_1_V : V ;
 uppfoerstora_vb_1_1_V : V ;
 upphaussa_vb_1_V : V ;
@@ -3437,30 +1732,19 @@ upphetsa_vb_1_V : V ;
 upphetta_vb_1_V : V ;
 upphitta_vb_1_V : V ;
 upphaemta_vb_1_1_V : V ;
-
 uppjazza_vb_1_V : V ;
-
 uppklara_vb_1_V : V ;
 uppkvista_vb_1_V : V ;
 upplappa_vb_1_V : V ;
-
-
-
 upplaesa_vb_1_1_V : V ;
-
-
 uppmjuka_vb_1_V : V ;
 uppmaeta_vb_1_1_V : V ;
-
 uppnaala_vb_1_1_V : V ;
 upprada_vb_1_V : V ;
 upprensa_vb_1_V : V ;
-
 uppresa_vb_1_V : V ;
 upprusta_vb_1_V : V ;
 upprymma_vb_1_V : V ;
-
-
 uppsluka_vb_1_V : V ;
 uppsnabba_vb_1_V : V ;
 uppsnappa_vb_1_V : V ;
@@ -3469,90 +1753,52 @@ uppspaara_vb_1_1_V : V ;
 uppstrama_vb_1_V : V ;
 uppstaella_vb_1_1_V : V ;
 uppstaemma_vb_1_1_V : V ;
-
 uppteckna_vb_1_V : V ;
 upptorna_vb_1_V : V ;
 upptrampa_vb_1_V : V ;
 upptrappa_vb_1_V : V ;
 upptrissa_vb_1_V : V ;
-
 upptaenda_vb_1_1_V : V ;
-
 uppvaecka_vb_1_1_V : V ;
-
 uppvaerma_vb_1_1_V : V ;
 uppoeva_vb_1_1_V : V ;
-
 urgera_vb_1_V : V ;
-
 urkalka_vb_1_V : V ;
 urlaka_vb_1_V : V ;
 ursaka_vb_1_V : V ;
-
 ursprungsmaerka_vb_1_1_V : V ;
-
 utandas_vb_1_V : V ;
 utanordna_vb_1_V : V ;
-
-
-
 utbua_vb_1_V : V ;
 utbygga_vb_1_V : V ;
-
 utdela_vb_1_V : V ;
 utdika_vb_1_V : V ;
 utdunsta_vb_1_V : V ;
 utdoema_vb_1_1_V : V ;
-
 utelaasa_vb_1_1_V : V ;
-
 utfiska_vb_1_V : V ;
 utflagga_vb_1_V : V ;
-
-
 utfrakta_vb_1_V : V ;
 utfraaga_vb_1_1_V : V ;
 utfylla_vb_1_V : V ;
 utfaella_vb_1_1_V : V ;
-
 utglesa_vb_1_V : V ;
 utgrunda_vb_1_V : V ;
 utgraeva_vb_1_1_V : V ;
-
-
 utkasta_vb_1_V : V ;
 utklara_vb_1_V : V ;
-
 utkora_vb_1_V : V ;
 utkraeva_vb_1_1_V : V ;
 utkyla_vb_1_V : V ;
-
 utlotta_vb_1_V : V ;
-
-
-
 utlaana_vb_1_1_V : V ;
-
-
 utmatta_vb_1_V : V ;
-
-
 utmaeta_vb_1_1_V : V ;
-
-
-
-
-
 utpressa_vb_1_V : V ;
 utpricka_vb_1_V : V ;
 utprova_vb_1_V : V ;
 utproeva_vb_1_1_V : V ;
 utrensa_vb_1_V : V ;
-
-
-
-
-
 utsira_vb_1_V : V ;
 utskeppa_vb_1_V : V ;
 utskaenka_vb_1_1_V : V ;
@@ -3560,7 +1806,6 @@ utslunga_vb_1_V : V ;
 utslussa_vb_1_V : V ;
 utslaecka_vb_1_1_V : V ;
 utslaeta_vb_1_1_V : V ;
-
 utspana_vb_1_V : V ;
 utspelas_vb_1_V : V ;
 utspisa_vb_1_V : V ;
@@ -3568,263 +1813,133 @@ utspy_vb_1_V : V ;
 utspaerra_vb_1_1_V : V ;
 utstaka_vb_1_V : V ;
 utstraecka_vb_1_1_V : V ;
-
 utstaella_vb_1_1_V : V ;
-
 utsyna_vb_1_V : V ;
 utsaenda_vb_1_1_V : V ;
 utsoeka_vb_1_1_V : V ;
-
 uttolka_vb_1_V : V ;
-
 uttroetta_vb_1_1_V : V ;
 uttunna_vb_1_V : V ;
 uttoemma_vb_1_1_V : V ;
-
-
-
-
-
-
 vabba_vb_1_V : V ;
-
-
 vagabondera_vb_1_V : V ;
-
-
-
-
 valacka_vb_1_V : V ;
 valfuska_vb_1_V : V ;
 valka_vb_1_V : V ;
 valkgarva_vb_1_V : V ;
-
 vallfaerda_vb_1_1_V : V ;
 valna_vb_1_V : V ;
-
 valsa_vb_1_V : V ;
 vampa_vb_1_V : V ;
 vanartas_vb_1_V : V ;
-
-
 vanna_vb_1_V : V ;
 vanskoeta_vb_1_1_V : V ;
 vanslaektas_vb_1_1_V : V ;
 vanstaella_vb_1_1_V : V ;
 vantolka_vb_1_V : V ;
-
-
 vanvoerda_vb_1_1_V : V ;
 vanaera_vb_1_1_V : V ;
 vapenvaegra_vb_1_1_V : V ;
-
-
 varga_vb_1_V : V ;
 varmbona_vb_1_V : V ;
 varmroeka_vb_1_1_V : V ;
-
 varpa_vb_1_V : V ;
-
-
 varsna_vb_1_V : V ;
-
 vaska_vb_1_V : V ;
-
-
-
-
 veckohandla_vb_1_V : V ;
 veckopendla_vb_1_V : V ;
 vederfaas_vb_1_1_V : V ;
 vedergaella_vb_1_1_V : V ;
 vederkvicka_vb_1_V : V ;
 vedervaaga_vb_1_1_V : V ;
-
 veklaga_vb_1_V : V ;
-
-
-
 verkstaella_vb_1_1_V : V ;
 vetenskapa_vb_1_V : V ;
-
-
-
-
 vidhaefta_vb_1_1_V : V ;
 vidhaenga_vb_1_1_V : V ;
-
 vidtala_vb_1_V : V ;
-
-
 vigga_vb_1_V : V ;
 vigilera_vb_1_V : V ;
-
-
 villkora_vb_1_V : V ;
 vimla_vb_1_V : V ;
-
-
-
-
-
 vingklippa_vb_1_V : V ;
-
 vinka_vb_1_V : V ;
-
 vinscha_vb_1_V : V ;
 vinstvarna_vb_1_V : V ;
-
 vintras_vb_1_V : V ;
-
-
-
 virra_vb_1_V : V ;
-
-
-
-
-
 vissna_vb_1_V : V ;
-
 vitgloedga_vb_1_1_V : V ;
 vitkalka_vb_1_V : V ;
 vitmena_vb_1_V : V ;
 vitsa_vb_1_V : V ;
-
 vitta_vb_1_V : V ;
-
 volma_vb_1_V : V ;
 volontera_vb_1_V : V ;
 voltigera_vb_1_V : V ;
 vomera_vb_1_V : V ;
-
-
 vredgas_vb_1_V : V ;
 vrenskas_vb_1_V : V ;
-
-
-
-
 vraalplugga_vb_1_1_V : V ;
 vroevla_vb_1_1_V : V ;
 vula_vb_1_V : V ;
 vulka_vb_1_V : V ;
 vurma_vb_1_V : V ;
-
 vyssa_vb_1_V : V ;
 vyssja_vb_1_V : V ;
-
-
-
-
 vaelfaegna_vb_1_1_V : V ;
-
-
 vaelsigne_vb_1_1_V : V ;
-
-
-
-
 vaendsteka_vb_1_1_V : V ;
-
 vaensterknaecka_vb_1_1_V : V ;
 vaensterprassla_vb_1_1_V : V ;
-
 vaepna_vb_1_1_V : V ;
 vaerdigas_vb_1_1_V : V ;
 vaerka_vb_1_1_V : V ;
-
-
-
-
-
-
-
-
 vaetska_vb_1_1_V : V ;
 vaetskas_vb_1_1_V : V ;
-
 vaexelverka_vb_1_1_V : V ;
-
-
-
-
 vaalma_vb_1_1_V : V ;
 vaandas_vb_1_1_V : V ;
 vaanna_vb_1_1_V : V ;
 vaara_vb_1_1_V : V ;
 vaaras_vb_1_1_V : V ;
-
 vaardsloesa_vb_1_1_V : V ;
 vaatkola_vb_1_1_V : V ;
 vaatpressa_vb_1_1_V : V ;
-
 x_a_vb_1_V : V ;
 xa_vb_1_V : V ;
-
-
-
 ynka_vb_1_V : V ;
 yoga_vb_1_V : V ;
-
-
-
 yrkesarbeta_vb_1_V : V ;
 ysta_vb_1_V : V ;
 yvas_vb_1_V : V ;
 zappa_vb_1_V : V ;
 zooma_vb_1_V : V ;
-
-
-
-
-
 aelga_vb_1_1_V : V ;
-
-
-
 aendas_vb_1_1_V : V ;
 aendvaenda_vb_1_1_V : V ;
 aengsla_vb_1_1_V : V ;
 aengslas_vb_1_1_V : V ;
-
-
 aerekraenka_vb_1_1_V : V ;
 aerga_vb_1_1_V : V ;
 aergas_vb_1_1_V : V ;
 aerja_vb_1_1_V : V ;
 aerna_vb_1_1_V : V ;
 aerras_vb_1_1_V : V ;
-
-
-
 aevlas_vb_1_1_V : V ;
-
 aadoema_vb_1_1_V : V ;
-
-
 aaklaga_vb_1_1_V : V ;
-
 aaldersbestaemma_vb_1_1_V : V ;
-
-
 aangfoervaella_vb_1_1_V : V ;
-
 aasamka_vb_1_1_V : V ;
 aaska_vb_1_1_V : V ;
 aaskaada_vb_1_1_V : V ;
 aastunda_vb_1_1_V : V ;
-
-
 aateranlaenda_vb_1_1_V : V ;
 aateranskaffa_vb_1_1_V : V ;
 aateranvaenda_vb_1_1_V : V ;
-
 aaterbesoeka_vb_1_1_V : V ;
 aaterflytta_vb_1_1_V : V ;
-
-
-
 aaterkalla_vb_1_1_V : V ;
 aaterkasta_vb_1_1_V : V ;
 aaterklinga_vb_1_1_V : V ;
@@ -3834,7 +1949,6 @@ aaterropa_vb_1_1_V : V ;
 aaterskalla_vb_1_1_V : V ;
 aaterskapa_vb_1_1_V : V ;
 aaterstudsa_vb_1_1_V : V ;
-
 aatersaenda_vb_1_1_V : V ;
 aatertaaga_vb_1_1_V : V ;
 aateruppbygga_vb_1_1_V : V ;
@@ -3845,71 +1959,37 @@ aateruppvaecka_vb_1_1_V : V ;
 aaterutstraala_vb_1_1_V : V ;
 aaterutsaenda_vb_1_1_V : V ;
 aaterverka_vb_1_1_V : V ;
-
-
-
 aatstrama_vb_1_1_V : V ;
 aavila_vb_1_1_V : V ;
 oebo_vb_1_1_V : V ;
 oedmjuka_vb_1_1_V : V ;
-
-
-
 oela_vb_1_1_V : V ;
-
-
-
-
 oerfila_vb_1_1_V : V ;
 oerla_vb_1_1_V : V ;
 oeronmaerka_vb_1_1_V : V ;
-
 oesregna_vb_1_1_V : V ;
-
-
 oeverantvarda_vb_1_1_V : V ;
 oeveranvaenda_vb_1_1_V : V ;
 oeverarbeta_vb_1_1_V : V ;
 oeverbefolka_vb_1_1_V : V ;
-
 oeverbetona_vb_1_1_V : V ;
 oeverbevisa_vb_1_1_V : V ;
-
 oeverboka_vb_1_1_V : V ;
-
-
 oeverflytta_vb_1_1_V : V ;
 oeverfloeda_vb_1_1_V : V ;
-
 oeverhetta_vb_1_1_V : V ;
-
 oeverhoppa_vb_1_1_V : V ;
-
 oeverlappa_vb_1_1_V : V ;
 oeverlasta_vb_1_1_V : V ;
-
 oeverlista_vb_1_1_V : V ;
-
-
 oeverproeva_vb_1_1_V : V ;
 oeverraecka_vb_1_1_V : V ;
-
-
-
 oeverskygga_vb_1_1_V : V ;
 oeverskyla_vb_1_1_V : V ;
 oeverskaada_vb_1_1_V : V ;
 oeversaenda_vb_1_1_V : V ;
-
 oeverteckna_vb_1_1_V : V ;
 oevertrumfa_vb_1_1_V : V ;
-
-
-
-
-
-
-
 DNA_testa_vb_1_V : V ;
 GPS_a_vb_1_V : V ;
 GPSa_vb_1_V : V ;
@@ -3917,51 +1997,25 @@ GPSa_vb_2_V : V ;
 OCR_a_vb_1_V : V ;
 OCRa_vb_1_V : V ;
 abbreviera_vb_1_V : V ;
-
-
 abortera_vb_1_V : V ;
 abradera_vb_1_V : V ;
 absolvera_vb_1_V : V ;
-
-
-
 accedera_vb_1_V : V ;
-
-
-
 accessa_vb_1_V : V ;
-
 ackommodera_vb_1_V : V ;
-
 ackordera_vb_1_V : V ;
-
-
 ackvirera_vb_1_V : V ;
 adaptera_vb_1_V : V ;
-
-
-
-
-
-
 adsorbera_vb_1_V : V ;
 aducera_vb_1_V : V ;
 advocera_vb_1_V : V ;
 afficiera_vb_1_V : V ;
 affinera_vb_1_V : V ;
-
 afrikanisera_vb_1_V : V ;
-
-
 agglomerera_vb_1_V : V ;
 agglutinera_vb_1_V : V ;
 aggravera_vb_1_V : V ;
-
 agna_vb_1_V : V ;
-
-
-
-
 alarmera_vb_1_V : V ;
 alfabetisera_vb_1_V : V ;
 alienera_vb_1_V : V ;
@@ -3971,132 +2025,70 @@ allitterera_vb_1_V : V ;
 allmaenbilda_vb_1_1_V : V ;
 allokera_vb_1_V : V ;
 alludera_vb_1_V : V ;
-
 aluminera_vb_1_V : V ;
 alvluckra_vb_1_V : V ;
 amalgamera_vb_1_V : V ;
-
 amerikanisera_vb_1_V : V ;
-
-
 amplifiera_vb_1_V : V ;
 amplitudmodulera_vb_1_V : V ;
-
-
-
-
-
 anglisera_vb_1_V : V ;
 anhopa_vb_1_V : V ;
 animera_vb_1_V : V ;
-
 ankra_vb_1_V : V ;
-
-
-
-
 annihilera_vb_1_V : V ;
-
 annotera_vb_1_V : V ;
-
 anodisera_vb_1_V : V ;
 anonymisera_vb_1_V : V ;
-
-
-
-
-
-
 ansamla_vb_1_V : V ;
-
-
-
 anstorma_vb_1_V : V ;
-
 antecipera_vb_1_V : V ;
-
 antedatera_vb_1_V : V ;
 antichambrera_vb_1_V : V ;
 antikbehandla_vb_1_V : V ;
 antikfynda_vb_1_V : V ;
 antikisera_vb_1_V : V ;
 antireflexbehandla_vb_1_V : V ;
-
 antvarda_vb_1_V : V ;
 antaaga_vb_1_1_V : V ;
-
 apostrofera_vb_1_V : V ;
-
-
-
 apportera_vb_1_V : V ;
 appreciera_vb_1_V : V ;
 appretera_vb_1_V : V ;
 approchera_vb_1_V : V ;
 approximera_vb_1_V : V ;
-
-
 arbetspendla_vb_1_V : V ;
 arborra_vb_1_V : V ;
-
 arkaisera_vb_1_V : V ;
-
 arkivera_vb_1_V : V ;
-
 arra_vb_1_V : V ;
-
-
-
 arrondera_vb_1_V : V ;
-
 arvodera_vb_1_V : V ;
-
-
-
 assignera_vb_1_V : V ;
-
-
-
 assurera_vb_1_V : V ;
 atombomba_vb_1_V : V ;
 atrofiera_vb_1_V : V ;
-
-
-
 attrappera_vb_1_V : V ;
 attribuera_vb_1_V : V ;
 auktionera_vb_1_V : V ;
-
-
 autenticera_vb_1_V : V ;
 autentifiera_vb_1_V : V ;
 autentisera_vb_1_V : V ;
-
 ava_vb_1_V : V ;
 avancera_vb_1_V : V ;
 avannonsera_vb_1_V : V ;
-
 avbarka_vb_1_V : V ;
 avbeta_vb_1_V : V ;
 avbetala_vb_1_V : V ;
-
 avboka_vb_1_V : V ;
 avboerda_vb_1_1_V : V ;
-
-
-
 avfatta_vb_1_V : V ;
 avfetta_vb_1_V : V ;
 avflytta_vb_1_V : V ;
-
 avfordra_vb_1_V : V ;
 avfrosta_vb_1_V : V ;
 avfukta_vb_1_V : V ;
-
-
 avgifta_vb_1_V : V ;
 avgraensa_vb_1_1_V : V ;
-
 avgaerda_vb_1_1_V : V ;
 avhandla_vb_1_V : V ;
 avhumanisera_vb_1_V : V ;
@@ -4104,11 +2096,9 @@ avhaemta_vb_1_1_V : V ;
 avhaerda_vb_1_1_V : V ;
 avhoesta_vb_1_1_V : V ;
 avisa_vb_1_V : V ;
-
 avjaga_vb_1_V : V ;
 avjaemna_vb_1_1_V : V ;
 avkalka_vb_1_V : V ;
-
 avklinga_vb_1_V : V ;
 avknoppa_vb_1_V : V ;
 avkoda_vb_1_V : V ;
@@ -4117,22 +2107,14 @@ avkoppla_vb_1_V : V ;
 avkorta_vb_1_V : V ;
 avkriminalisera_vb_1_V : V ;
 avkristna_vb_1_V : V ;
-
 avkoena_vb_1_1_V : V ;
-
 avlagra_vb_1_V : V ;
-
 avleverera_vb_1_V : V ;
-
 avlocka_vb_1_V : V ;
-
 avlusa_vb_1_V : V ;
 avluta_vb_1_V : V ;
 avlyssna_vb_1_V : V ;
-
-
 avlaenka_vb_1_1_V : V ;
-
 avloeva_vb_1_1_V : V ;
 avmagnetisera_vb_1_V : V ;
 avmaska_vb_1_V : V ;
@@ -4150,170 +2132,78 @@ avpollettera_vb_1_V : V ;
 avportraettera_vb_1_1_V : V ;
 avpressa_vb_1_V : V ;
 avradikalisera_vb_1_V : V ;
-
-
 avreglera_vb_1_V : V ;
 avromantisera_vb_1_V : V ;
-
-
 avraekna_vb_1_1_V : V ;
-
 avsalta_vb_1_V : V ;
 avsegla_vb_1_V : V ;
-
-
-
 avslipa_vb_1_V : V ;
-
-
 avsmaka_vb_1_V : V ;
 avsmalna_vb_1_V : V ;
 avsnoppa_vb_1_V : V ;
 avsocialisera_vb_1_V : V ;
 avsomna_vb_1_V : V ;
-
 avspela_vb_1_V : V ;
-
-
 avstalinisera_vb_1_V : V ;
 avstanna_vb_1_V : V ;
-
 avstressa_vb_1_V : V ;
 avstycka_vb_1_V : V ;
 avsvalna_vb_1_V : V ;
 avsvavla_vb_1_V : V ;
-
 avsaaga_vb_1_1_V : V ;
-
-
-
 avtappa_vb_1_V : V ;
-
 avtjaena_vb_1_1_V : V ;
 avtona_vb_1_V : V ;
 avtrappa_vb_1_V : V ;
-
 avtunna_vb_1_V : V ;
 avtaaga_vb_1_1_V : V ;
-
 avvattna_vb_1_V : V ;
-
-
-
 avvita_vb_1_V : V ;
 avvittra_vb_1_V : V ;
-
-
 axa_vb_1_V : V ;
 axiomatisera_vb_1_V : V ;
-
-
 backupa_vb_1_V : V ;
 backuppa_vb_1_V : V ;
-
-
 bagatellisera_vb_1_V : V ;
 baggboela_vb_1_1_V : V ;
 baissa_vb_1_V : V ;
 bajsa_vb_1_V : V ;
-
 bakdanta_vb_1_V : V ;
-
 bala_vb_1_V : V ;
-
 ballotera_vb_1_V : V ;
-
 banalisera_vb_1_V : V ;
-
-
 bankruttera_vb_1_V : V ;
 banna_vb_1_V : V ;
-
 barka_vb_1_V : V ;
 barkympa_vb_1_V : V ;
 barlasta_vb_1_V : V ;
 barra_vb_1_V : V ;
 barrikadera_vb_1_V : V ;
-
-
 baxa_vb_1_V : V ;
-
-
 beatifiera_vb_1_V : V ;
-
 becka_vb_1_V : V ;
-
-
-
-
 bedoeva_vb_1_1_V : V ;
 beediga_vb_1_V : V ;
-
-
-
-
 befrakta_vb_1_V : V ;
-
-
 befrynda_vb_1_V : V ;
-
 befullmaektiga_vb_1_1_V : V ;
 begabba_vb_1_V : V ;
-
 begapa_vb_1_V : V ;
-
-
-
-
-
-
-
 bejubla_vb_1_V : V ;
 bekaja_vb_1_V : V ;
 bekika_vb_1_V : V ;
-
-
 bekransa_vb_1_V : V ;
 bekriga_vb_1_V : V ;
-
-
-
 belamra_vb_1_V : V ;
-
-
-
-
-
-
 bemantla_vb_1_V : V ;
 bemedla_vb_1_V : V ;
-
-
-
-
-
 bepansra_vb_1_V : V ;
 beprisa_vb_1_V : V ;
 bepudra_vb_1_V : V ;
-
-
 berusa_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
-
 beskicka_vb_1_V : V ;
 beskugga_vb_1_V : V ;
-
 beskaerma_vb_1_1_V : V ;
-
 besloeja_vb_1_1_V : V ;
 besmitta_vb_1_V : V ;
 besockra_vb_1_V : V ;
@@ -4321,246 +2211,144 @@ besolda_vb_1_V : V ;
 bespeja_vb_1_V : V ;
 bespisa_vb_1_V : V ;
 bespola_vb_1_V : V ;
-
-
 bestorma_vb_1_V : V ;
-
-
 bestycka_vb_1_V : V ;
 besudla_vb_1_V : V ;
-
-
-
 betalningssaekra_vb_1_1_V : V ;
-
-
 betitla_vb_1_V : V ;
 betitta_vb_1_V : V ;
-
-
 betongera_vb_1_V : V ;
-
 betrygga_vb_1_V : V ;
 betraeffa_vb_1_1_V : V ;
-
 betsla_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
-
-
 bevaera_vb_1_1_V : V ;
-
-
-
-
-
-
 biografera_vb_1_V : V ;
 bissera_vb_1_V : V ;
-
 bivackera_vb_1_V : V ;
 bjussa_vb_1_V : V ;
 bjoerna_vb_1_1_V : V ;
 blada_vb_1_V : V ;
 blanchera_vb_1_V : V ;
-
 blanka_vb_1_V : V ;
 blankpolera_vb_1_V : V ;
-
 blessera_vb_1_V : V ;
-
 blindera_vb_1_V : V ;
 blindpressa_vb_1_V : V ;
 blinga_vb_1_V : V ;
 blixtfotografera_vb_1_V : V ;
 blixtinkalla_vb_1_V : V ;
 blocka_vb_1_V : V ;
-
 bloda_vb_1_V : V ;
 blogga_vb_1_V : V ;
 blommografera_vb_1_V : V ;
 blomstersmycka_vb_1_V : V ;
 blondera_vb_1_V : V ;
-
-
 blya_vb_1_V : V ;
 blaecka_vb_1_1_V : V ;
 blaeda_vb_1_1_V : V ;
-
 blaesta_vb_1_1_V : V ;
 blaakopiera_vb_1_1_V : V ;
 boasera_vb_1_V : V ;
 bobba_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 bondneka_vb_1_V : V ;
 bonga_vb_1_V : V ;
 bonitera_vb_1_V : V ;
 boota_vb_1_V : V ;
-
-
-
-
 bortmontera_vb_1_V : V ;
 bortresonera_vb_1_V : V ;
 bortroeva_vb_1_1_V : V ;
 bortskaffa_vb_1_V : V ;
-
 bottenreva_vb_1_V : V ;
-
-
 brandhaerja_vb_1_1_V : V ;
 brandskatta_vb_1_V : V ;
-
-
 bremsa_vb_1_V : V ;
-
 briefa_vb_1_V : V ;
 brikettera_vb_1_V : V ;
-
 broa_vb_1_V : V ;
 brodda_vb_1_V : V ;
-
 bromera_vb_1_V : V ;
-
 bronsera_vb_1_V : V ;
 broschera_vb_1_V : V ;
 brotscha_vb_1_V : V ;
-
 brunera_vb_1_V : V ;
 brunfaerga_vb_1_1_V : V ;
 brutalisera_vb_1_V : V ;
 braeda_vb_1_1_V : V ;
 braedda_vb_1_1_V : V ;
 braedfodra_vb_1_1_V : V ;
-
 braema_vb_1_1_V : V ;
 braennlackera_vb_1_1_V : V ;
 braennskada_vb_1_1_V : V ;
 braesera_vb_1_1_V : V ;
-
 broea_vb_1_1_V : V ;
 broeda_vb_1_1_V : V ;
 bubba_vb_1_V : V ;
 buda_vb_1_V : V ;
 budgetera_vb_1_V : V ;
 buffa_vb_1_V : V ;
-
-
-
 burka_vb_1_V : V ;
 buska_vb_1_V : V ;
-
 buteljera_vb_1_V : V ;
 byraakratisera_vb_1_1_V : V ;
-
 baelga_vb_1_1_V : V ;
-
-
-
-
 boersnotera_vb_1_1_V : V ;
-
 camouflera_vb_1_V : V ;
 catera_vb_1_V : V ;
 cedera_vb_1_V : V ;
 celebrera_vb_1_V : V ;
 cementa_vb_1_V : V ;
 cementera_vb_1_V : V ;
-
 centra_vb_1_V : V ;
-
 centrera_vb_1_V : V ;
-
 cernera_vb_1_V : V ;
 certifiera_vb_1_V : V ;
 chargera_vb_1_V : V ;
 charma_vb_1_V : V ;
 charmera_vb_1_V : V ;
 chartra_vb_1_V : V ;
-
 chevrotera_vb_1_V : V ;
 chiffrera_vb_1_V : V ;
 chikanera_vb_1_V : V ;
-
 chockbehandla_vb_1_V : V ;
-
 choka_vb_1_V : V ;
-
 ciselera_vb_1_V : V ;
-
 civilisera_vb_1_V : V ;
 cleara_vb_1_V : V ;
 covra_vb_1_V : V ;
 curatera_vb_1_V : V ;
 curera_vb_1_V : V ;
 curla_vb_2_V : V ;
-
-
 dagteckna_vb_1_V : V ;
-
 dammtorka_vb_1_V : V ;
 dampa_vb_1_V : V ;
-
 daska_vb_1_V : V ;
 databehandla_vb_1_V : V ;
-
-
 datorsimulera_vb_1_V : V ;
 datumparkera_vb_1_V : V ;
 debarkera_vb_1_V : V ;
 debattera_vb_1_V : V ;
-
-
 dechiffrera_vb_1_V : V ;
 decimera_vb_1_V : V ;
-
 dedikera_vb_1_V : V ;
 deducera_vb_1_V : V ;
-
-
 deflorera_vb_1_V : V ;
-
 degenerera_vb_1_V : V ;
-
 dejta_vb_1_V : V ;
 dekantera_vb_1_V : V ;
 dekapitera_vb_1_V : V ;
-
-
 deklassera_vb_1_V : V ;
 deklinera_vb_1_V : V ;
 dekorera_vb_1_V : V ;
 dekouragera_vb_1_V : V ;
 dekretera_vb_1_V : V ;
-
-
 dema_vb_1_V : V ;
 demaskera_vb_1_V : V ;
-
 demilitarisera_vb_1_V : V ;
 demissionera_vb_1_V : V ;
 demobilisera_vb_1_V : V ;
 demokratisera_vb_1_V : V ;
 demolera_vb_1_V : V ;
 demonisera_vb_1_V : V ;
-
 demontera_vb_1_V : V ;
 demoralisera_vb_1_V : V ;
 denaturalisera_vb_1_V : V ;
@@ -4571,8 +2359,6 @@ deodorisera_vb_1_V : V ;
 depatriera_vb_1_V : V ;
 depensera_vb_1_V : V ;
 deplacera_vb_1_V : V ;
-
-
 depreciera_vb_1_V : V ;
 derangera_vb_1_V : V ;
 derivera_vb_1_V : V ;
@@ -4582,120 +2368,67 @@ desensibilisera_vb_1_V : V ;
 designa_vb_1_V : V ;
 designera_vb_1_V : V ;
 desinfektera_vb_1_V : V ;
-
 desinformera_vb_1_V : V ;
 desorganisera_vb_1_V : V ;
 destabilisera_vb_1_V : V ;
-
 destinera_vb_1_V : V ;
 destruera_vb_1_V : V ;
 detachera_vb_1_V : V ;
 detaljgranska_vb_1_V : V ;
 detektera_vb_1_V : V ;
 determinera_vb_1_V : V ;
-
 detronisera_vb_1_V : V ;
-
-
 diagnosticera_vb_1_V : V ;
-
 dialysera_vb_1_V : V ;
 differentiera_vb_1_V : V ;
 diffundera_vb_1_V : V ;
 diftongera_vb_1_V : V ;
 digerera_vb_1_V : V ;
-
 dika_vb_1_V : V ;
-
-
 dimensionera_vb_1_V : V ;
 diplomera_vb_1_V : V ;
-
-
 disambiguera_vb_1_V : V ;
 disciplinera_vb_1_V : V ;
 disharmoniera_vb_1_V : V ;
-
-
 diskontera_vb_1_V : V ;
 diskreditera_vb_1_V : V ;
-
-
-
 dispaschera_vb_1_V : V ;
 dispensera_vb_1_V : V ;
 dispergera_vb_1_V : V ;
-
 disputera_vb_1_V : V ;
 dissa_vb_1_V : V ;
 dissekera_vb_1_V : V ;
 dissimilera_vb_1_V : V ;
 dissociera_vb_1_V : V ;
 distansera_vb_1_V : V ;
-
-
 divergera_vb_1_V : V ;
 diversifiera_vb_1_V : V ;
-
 djuploda_vb_1_V : V ;
 dna_testa_vb_1_V : V ;
 docera_vb_2_V : V ;
-
-
 doftmarkera_vb_1_V : V ;
 dogmatisera_vb_1_V : V ;
-
-
 domesticera_vb_1_V : V ;
 domiciliera_vb_1_V : V ;
-
-
 domptera_vb_1_V : V ;
-
 donka_vb_1_V : V ;
-
-
 dosera_vb_1_V : V ;
 dossera_vb_1_V : V ;
 dotera_vb_1_V : V ;
-
 dragera_vb_1_V : V ;
-
-
 drapera_vb_1_V : V ;
 dratta_vb_1_V : V ;
-
-
 dreva_vb_1_V : V ;
 drifta_vb_1_V : V ;
-
 droga_vb_1_V : V ;
-
-
 dryfta_vb_1_V : V ;
 draenera_vb_1_1_V : V ;
-
-
 dubbelbeskatta_vb_1_V : V ;
 dubbelexponera_vb_1_V : V ;
-
-
-
-
-
-
-
-
-
-
 daecka_vb_1_1_V : V ;
 daegga_vb_1_1_V : V ;
-
 daevna_vb_1_1_V : V ;
-
 daara_vb_1_1_V : V ;
-
-
 doerja_vb_1_1_V : V ;
 doeva_vb_1_1_V : V ;
 e_maila_vb_1_V : V ;
@@ -4703,29 +2436,21 @@ e_posta_vb_1_V : V ;
 edera_vb_1_V : V ;
 effacera_vb_1_V : V ;
 effektivera_vb_1_V : V ;
-
 effektuera_vb_1_V : V ;
-
 efterbehandla_vb_1_V : V ;
 efterbilda_vb_1_V : V ;
 efterdatera_vb_1_V : V ;
 efterdebitera_vb_1_V : V ;
 efterforska_vb_1_V : V ;
-
 efterhaerma_vb_1_1_V : V ;
 efterlikna_vb_1_V : V ;
-
 eftermogna_vb_1_V : V ;
 efterrationalisera_vb_1_V : V ;
 efterstava_vb_1_V : V ;
-
 eftersynkronisera_vb_1_V : V ;
 eftertaxera_vb_1_V : V ;
-
 egalisera_vb_1_V : V ;
-
 egoboosta_vb_1_V : V ;
-
 ekfatslagra_vb_1_V : V ;
 ekipera_vb_1_V : V ;
 eklatera_vb_1_V : V ;
@@ -4734,14 +2459,12 @@ ekoloda_vb_1_V : V ;
 ekonomisera_vb_1_V : V ;
 elaborera_vb_1_V : V ;
 elastisera_vb_1_V : V ;
-
 eldhaerja_vb_1_1_V : V ;
 eldsaekra_vb_1_1_V : V ;
 elektrificera_vb_1_V : V ;
 elektrifiera_vb_1_V : V ;
 elektrisera_vb_1_V : V ;
 elidera_vb_1_V : V ;
-
 eloxera_vb_1_V : V ;
 eludera_vb_1_V : V ;
 eluera_vb_1_V : V ;
@@ -4751,42 +2474,33 @@ emballera_vb_1_V : V ;
 embarkera_vb_1_V : V ;
 embellera_vb_1_V : V ;
 emendera_vb_1_V : V ;
-
 emittera_vb_1_V : V ;
 emotionalisera_vb_1_V : V ;
 emulgera_vb_1_V : V ;
 ena_vb_1_V : V ;
 endossera_vb_1_V : V ;
 enervera_vb_1_V : V ;
-
 enkelrikta_vb_1_V : V ;
 enkelteckna_vb_1_V : V ;
 enlevera_vb_1_V : V ;
 enrollera_vb_1_V : V ;
 ensa_vb_1_V : V ;
 ensilera_vb_1_V : V ;
-
 entusiasmera_vb_1_V : V ;
 epilera_vb_1_V : V ;
 eposta_vb_1_V : V ;
-
 erigera_vb_1_V : V ;
 erodera_vb_1_V : V ;
 erotisera_vb_1_V : V ;
-
-
 eskalera_vb_1_V : V ;
 eskortera_vb_1_V : V ;
 esteticera_vb_1_V : V ;
 estetisera_vb_1_V : V ;
 estimera_vb_1_V : V ;
-
 eterisera_vb_1_V : V ;
 etikettera_vb_1_V : V ;
-
 etymologisera_vb_1_V : V ;
 europeisera_vb_1_V : V ;
-
 evaluera_vb_1_V : V ;
 evalvera_vb_1_V : V ;
 evaporera_vb_1_V : V ;
@@ -4794,164 +2508,106 @@ examinera_vb_1_V : V ;
 excerpera_vb_1_V : V ;
 excitera_vb_1_V : V ;
 exekvera_vb_1_V : V ;
-
 exercera_vb_1_V : V ;
 exkludera_vb_1_V : V ;
 exkommunicera_vb_1_V : V ;
-
 expatriera_vb_1_V : V ;
-
 expektorera_vb_1_V : V ;
 explicera_vb_1_V : V ;
-
-
-
-
 expropriera_vb_1_V : V ;
 exstirpera_vb_1_V : V ;
 extemporera_vb_1_V : V ;
 extrahera_vb_1_V : V ;
 extrapolera_vb_1_V : V ;
-
 fabulera_vb_1_V : V ;
 facebooka_vb_1_V : V ;
 facettera_vb_1_V : V ;
 fakturera_vb_1_V : V ;
-
 falsa_vb_1_V : V ;
 falsifiera_vb_1_V : V ;
 falskskylta_vb_1_V : V ;
 famna_vb_1_V : V ;
-
-
-
 fasettera_vb_1_V : V ;
 fasonera_vb_1_V : V ;
 fastighetstaxera_vb_1_V : V ;
 fastkedja_vb_1_V : V ;
 fastklistra_vb_1_V : V ;
-
-
 faxa_vb_1_V : V ;
-
-
 felnavigera_vb_1_V : V ;
 felparkera_vb_1_V : V ;
 feltolka_vb_1_V : V ;
 femdubbla_vb_1_V : V ;
 femfaldiga_vb_1_V : V ;
 fermentera_vb_1_V : V ;
-
 fetera_vb_1_V : V ;
 fickparkera_vb_1_V : V ;
-
 filea_vb_1_V : V ;
 filera_vb_1_V : V ;
-
 filmatisera_vb_1_V : V ;
 filta_vb_1_V : V ;
-
-
-
 finfoerdela_vb_1_1_V : V ;
-
 fingranska_vb_1_V : V ;
 finhacka_vb_1_V : V ;
 finjustera_vb_1_V : V ;
 finka_vb_1_V : V ;
-
 finlandisera_vb_1_V : V ;
 finputsa_vb_1_V : V ;
-
-
-
-
-
-
 fjaella_vb_1_1_V : V ;
-
 fjaerrblockera_vb_1_1_V : V ;
-
-
-
 flankera_vb_1_V : V ;
 flattera_vb_1_V : V ;
 flektera_vb_1_V : V ;
 flerdubbla_vb_1_V : V ;
 flerfaldiga_vb_1_V : V ;
-
 fluidisera_vb_1_V : V ;
 fluorera_vb_1_V : V ;
 fluoridera_vb_1_V : V ;
 flygbomba_vb_1_V : V ;
 flykta_vb_1_V : V ;
-
 flaecka_vb_1_1_V : V ;
 flaensa_vb_1_1_V : V ;
-
 flaahacka_vb_1_1_V : V ;
 floejta_vb_1_1_V : V ;
 focka_vb_1_V : V ;
-
 fokusera_vb_1_V : V ;
 foliera_vb_1_V : V ;
 fondera_vb_1_V : V ;
-
 forechecka_vb_1_V : V ;
-
 formalisera_vb_1_V : V ;
 formera_vb_1_V : V ;
 formpressa_vb_1_V : V ;
-
-
 fosfatera_vb_1_V : V ;
 fossilisera_vb_1_V : V ;
-
-
 fotokopiera_vb_1_V : V ;
 fotostatkopiera_vb_1_V : V ;
 fragmentera_vb_1_V : V ;
-
 fraktionera_vb_1_V : V ;
 framflytta_vb_1_V : V ;
-
-
 frammana_vb_1_V : V ;
 frammata_vb_1_V : V ;
 frampressa_vb_1_V : V ;
 framskymta_vb_1_V : V ;
 framvisa_vb_1_V : V ;
-
 fransa_vb_1_V : V ;
-
 frasera_vb_1_V : V ;
 freda_vb_1_V : V ;
 frekvensmodulera_vb_1_V : V ;
 frekventera_vb_1_V : V ;
-
-
 frihetsberoeva_vb_1_1_V : V ;
-
 frikoppla_vb_1_V : V ;
 frilista_vb_1_V : V ;
 frisera_vb_1_V : V ;
 frisera_vb_2_V : V ;
 friskfoerklara_vb_1_1_V : V ;
 frispela_vb_1_V : V ;
-
 frondera_vb_1_V : V ;
 fronta_vb_1_V : V ;
 frottera_vb_1_V : V ;
-
 frustrera_vb_1_V : V ;
 frystesta_vb_1_V : V ;
 frystorka_vb_1_V : V ;
-
-
 fraanraekna_vb_1_1_V : V ;
 fraanspela_vb_1_1_V : V ;
-
-
 fullkomna_vb_1_V : V ;
 fullstaendiga_vb_1_1_V : V ;
 fullaenda_vb_1_1_V : V ;
@@ -4959,70 +2615,45 @@ fulvinkla_vb_1_V : V ;
 furnera_vb_1_V : V ;
 fusionera_vb_1_V : V ;
 fylka_vb_1_V : V ;
-
 fyrdela_vb_1_V : V ;
 fyrdubbla_vb_1_V : V ;
 fyrfaldiga_vb_1_V : V ;
 fysiljera_vb_1_V : V ;
 faegna_vb_1_1_V : V ;
-
-
 faerja_vb_1_1_V : V ;
 faersera_vb_1_1_V : V ;
 faerska_vb_1_1_V : V ;
-
-
 faara_vb_1_1_V : V ;
 foena_vb_1_1_V : V ;
-
 foerallmaenliga_vb_1_1_V : V ;
 foerandliga_vb_1_1_V : V ;
-
 foerannonsera_vb_1_1_V : V ;
 foeranstalta_vb_1_1_V : V ;
 foerarbeta_vb_1_1_V : V ;
-
-
 foerbida_vb_1_1_V : V ;
 foerbilliga_vb_1_1_V : V ;
 foerbittra_vb_1_1_V : V ;
 foerblanda_vb_1_1_V : V ;
 foerblekna_vb_1_1_V : V ;
 foerblinda_vb_1_1_V : V ;
-
 foerborga_vb_1_1_V : V ;
 foerborgerliga_vb_1_1_V : V ;
-
-
 foerbroedra_vb_1_1_V : V ;
 foerbuska_vb_1_1_V : V ;
-
-
-
-
 foerdumma_vb_1_1_V : V ;
 foerdunkla_vb_1_1_V : V ;
 foerdunsta_vb_1_1_V : V ;
 foerdyra_vb_1_1_V : V ;
 foerdystra_vb_1_1_V : V ;
-
-
-
-
-
 foerestava_vb_1_1_V : V ;
 foereviga_vb_1_1_V : V ;
 foerevisa_vb_1_1_V : V ;
 foerevita_vb_1_1_V : V ;
-
-
 foerfela_vb_1_1_V : V ;
 foerfina_vb_1_1_V : V ;
 foerflacka_vb_1_1_V : V ;
-
 foerfranska_vb_1_1_V : V ;
 foerfraemliga_vb_1_1_V : V ;
-
 foerfaea_vb_1_1_V : V ;
 foerfaekta_vb_1_1_V : V ;
 foerfaera_vb_1_1_V : V ;
@@ -5030,214 +2661,119 @@ foerfaerdiga_vb_1_1_V : V ;
 foerfaanga_vb_1_1_V : V ;
 foerfoerdela_vb_1_1_V : V ;
 foergasa_vb_1_1_V : V ;
-
 foergrova_vb_1_1_V : V ;
 foergrymma_vb_1_1_V : V ;
-
-
-
 foerhaerda_vb_1_1_V : V ;
 foerhaerja_vb_1_1_V : V ;
 foerhaerliga_vb_1_1_V : V ;
 foerhaexa_vb_1_1_V : V ;
 foerhaana_vb_1_1_V : V ;
-
 foerjaga_vb_1_1_V : V ;
-
-
-
 foerklistra_1_vb_1_1_V : V ;
-
 foerkolna_vb_1_1_V : V ;
-
-
-
-
 foerkrossa_vb_1_1_V : V ;
 foerkraama_vb_1_1_V : V ;
-
 foerlama_vb_1_1_V : V ;
 foerljuva_vb_1_1_V : V ;
-
 foerlossa_vb_1_1_V : V ;
 foerlusta_vb_1_1_V : V ;
 foerlaena_vb_1_1_V : V ;
-
 foermana_vb_1_1_V : V ;
-
 foermena_vb_1_1_V : V ;
 foermildra_vb_1_1_V : V ;
 foerminska_vb_1_1_V : V ;
-
 foermultna_vb_1_1_V : V ;
 foermaenskliga_vb_1_1_V : V ;
 foermoerka_vb_1_1_V : V ;
 foernagla_vb_1_1_V : V ;
-
-
 foernickla_vb_1_1_V : V ;
-
 foernaerma_vb_1_1_V : V ;
 foerolaempa_vb_1_1_V : V ;
-
-
-
-
 foeroraetta_vb_1_1_V : V ;
-
 foerpakta_vb_1_1_V : V ;
 foerpanta_vb_1_1_V : V ;
-
-
-
 foerpliktiga_vb_1_1_V : V ;
 foerplaega_vb_1_1_V : V ;
 foerpricka_vb_1_1_V : V ;
-
 foerruttna_vb_1_1_V : V ;
 foerryska_vb_1_1_V : V ;
 foerraenta_vb_1_1_V : V ;
-
 foerraaa_vb_1_1_V : V ;
-
 foersamla_vb_1_1_V : V ;
-
-
 foersilvra_vb_1_1_V : V ;
 foersinka_vb_1_1_V : V ;
 foerskaffa_vb_1_1_V : V ;
 foerskansa_vb_1_1_V : V ;
-
-
 foerskottera_vb_1_1_V : V ;
-
 foerslappa_vb_1_1_V : V ;
 foerslava_vb_1_1_V : V ;
 foersloea_vb_1_1_V : V ;
 foersloesa_vb_1_1_V : V ;
-
 foersoffa_vb_1_1_V : V ;
-
-
 foerstelna_vb_1_1_V : V ;
 foerstena_vb_1_1_V : V ;
 foerstocka_vb_1_1_V : V ;
 foerstoppa_vb_1_1_V : V ;
-
 foerstraeva_vb_1_1_V : V ;
-
 foerstaendiga_vb_1_1_V : V ;
-
 foersura_vb_1_1_V : V ;
-
-
-
-
-
-
-
 foerteckna_vb_1_1_V : V ;
 foertenna_vb_1_1_V : V ;
 foertidspensionera_vb_1_1_V : V ;
 foertjocka_vb_1_1_V : V ;
-
 foertorka_vb_1_1_V : V ;
 foertrampa_vb_1_1_V : V ;
 foertreta_vb_1_1_V : V ;
 foertrolla_vb_1_1_V : V ;
 foertrusta_vb_1_1_V : V ;
 foertroesta_vb_1_1_V : V ;
-
 foertunna_vb_1_1_V : V ;
-
-
 foertvaala_vb_1_1_V : V ;
-
 foertyska_vb_1_1_V : V ;
 foertaeta_vb_1_1_V : V ;
 foerundra_vb_1_1_V : V ;
 foerunna_vb_1_1_V : V ;
 foerutskicka_vb_1_1_V : V ;
 foervalta_vb_1_1_V : V ;
-
-
-
-
 foerveda_vb_1_1_V : V ;
 foervekliga_vb_1_1_V : V ;
-
-
-
-
-
 foervissa_vb_1_1_V : V ;
 foervissna_vb_1_1_V : V ;
 foervittra_vb_1_1_V : V ;
-
-
 foervaerldsliga_vb_1_1_V : V ;
-
-
-
 foervaalla_vb_1_1_V : V ;
-
-
 foerzinka_vb_1_1_V : V ;
-
-
 foeraera_vb_1_1_V : V ;
 foeraanga_vb_1_1_V : V ;
-
-
-
 gagna_vb_1_V : V ;
 gallisera_vb_1_V : V ;
-
 galoschera_vb_1_V : V ;
 galva_vb_1_V : V ;
-
 gana_vb_1_V : V ;
 gara_vb_1_V : V ;
 garagera_vb_1_V : V ;
-
-
-
 garnisonera_vb_1_V : V ;
 garrottera_vb_1_V : V ;
-
 gasa_vb_2_V : V ;
-
 gastroskopera_vb_1_V : V ;
 gauffrera_vb_1_V : V ;
 gelatinera_vb_1_V : V ;
 gelea_vb_1_V : V ;
 geminera_vb_1_V : V ;
-
-
 generera_vb_1_V : V ;
 gengaelda_vb_1_1_V : V ;
 genmanipulera_vb_1_V : V ;
-
 genomborra_vb_1_V : V ;
 genomgraedda_vb_1_1_V : V ;
 genomkorsa_vb_1_V : V ;
 genomsippra_vb_1_V : V ;
-
 genomstroemma_vb_1_1_V : V ;
-
 geometrisera_vb_1_V : V ;
 geotagga_vb_1_V : V ;
 germanisera_vb_1_V : V ;
-
 giga_vb_1_V : V ;
 giljotinera_vb_1_V : V ;
-
-
-
-
-
 gista_vb_1_V : V ;
-
 glamorisera_vb_1_V : V ;
 glamourisera_vb_1_V : V ;
 glansa_vb_1_V : V ;
@@ -5248,15 +2784,10 @@ glatta_vb_1_V : V ;
 glesa_vb_1_V : V ;
 glesna_vb_1_V : V ;
 glorifiera_vb_1_V : V ;
-
 glaetta_vb_1_1_V : V ;
-
 gloedrita_vb_1_1_V : V ;
 gnista_vb_1_V : V ;
-
-
 goffrera_vb_1_V : V ;
-
 googla_vb_1_V : V ;
 goutera_vb_1_V : V ;
 gps_a_vb_1_V : V ;
@@ -5267,85 +2798,47 @@ grada_vb_1_V : V ;
 gradera_vb_1_V : V ;
 graduera_vb_1_V : V ;
 grafitera_vb_1_V : V ;
-
 granulera_vb_1_V : V ;
 gratinera_vb_1_V : V ;
-
-
-
-
-
-
 griljera_vb_1_V : V ;
-
 grimera_vb_1_V : V ;
-
 grovplanera_vb_1_V : V ;
 grovsortera_vb_1_V : V ;
 grumsa_vb_1_V : V ;
-
 grundbehandla_vb_1_V : V ;
 grundera_vb_1_V : V ;
 grundlura_vb_1_V : V ;
 grundmaala_vb_1_1_V : V ;
-
-
-
 graefta_vb_1_1_V : V ;
-
 groepa_vb_1_1_V : V ;
 guida_vb_1_V : V ;
 gulfaerga_vb_1_1_V : V ;
-
 gummera_vb_1_V : V ;
-
 guska_vb_1_V : V ;
 gutera_vb_1_V : V ;
-
 gynna_vb_1_V : V ;
 gaecka_vb_1_1_V : V ;
 gaela_vb_1_1_V : V ;
-
 gaerda_vb_1_1_V : V ;
-
 gaestspela_vb_1_1_V : V ;
 gaangra_vb_1_1_V : V ;
 goeka_vb_1_1_V : V ;
-
-
-
-
-
 hallstaempla_vb_1_1_V : V ;
 hallucinera_vb_1_V : V ;
-
-
-
 halvviska_vb_1_V : V ;
-
-
 handarbeta_vb_1_V : V ;
 handboja_vb_1_V : V ;
 handikappa_vb_1_V : V ;
-
-
-
 harangera_vb_1_V : V ;
 harma_vb_1_V : V ;
 harmonisera_vb_1_V : V ;
 harpunera_vb_1_V : V ;
 hartsa_vb_1_V : V ;
 harva_vb_1_V : V ;
-
 hasardera_vb_1_V : V ;
 haspa_vb_1_V : V ;
 haspla_vb_1_V : V ;
-
 haussa_vb_1_V : V ;
-
-
-
-
 hektografera_vb_1_V : V ;
 hela_vb_1_V : V ;
 helfoersaekra_vb_1_1_V : V ;
@@ -5355,16 +2848,13 @@ helgonfoerklara_vb_1_1_V : V ;
 helinackordera_vb_1_V : V ;
 hemfoerlova_vb_1_1_V : V ;
 hemkalla_vb_1_V : V ;
-
 hena_vb_1_V : V ;
 heroisera_vb_1_V : V ;
 hesna_vb_1_V : V ;
-
 hinka_vb_1_V : V ;
 hissa_vb_1_V : V ;
 historiera_vb_1_V : V ;
 historisera_vb_1_V : V ;
-
 hiva_vb_1_V : V ;
 hjaerntvaetta_vb_1_1_V : V ;
 holografera_vb_1_V : V ;
@@ -5375,86 +2865,51 @@ hopbunta_vb_1_V : V ;
 hopdikta_vb_1_V : V ;
 hopfoga_vb_1_V : V ;
 hoplappa_vb_1_V : V ;
-
 hoppacka_vb_1_V : V ;
 hoprafsa_vb_1_V : V ;
 hospitalisera_vb_1_V : V ;
-
-
 hotta_vb_1_V : V ;
 hugna_vb_1_V : V ;
 hugsvala_vb_1_V : V ;
 humanisera_vb_1_V : V ;
 hundsa_vb_1_V : V ;
 hundsfottera_vb_1_V : V ;
-
 husera_vb_2_V : V ;
 hybridisera_vb_1_V : V ;
 hydrera_vb_1_V : V ;
 hyfsa_vb_1_V : V ;
-
 hypnotisera_vb_1_V : V ;
 hypotisera_vb_1_V : V ;
 hyresreglera_vb_1_V : V ;
-
-
 hyva_vb_1_V : V ;
 haeda_vb_1_1_V : V ;
 haedankalla_vb_1_1_V : V ;
-
 haegna_vb_1_1_V : V ;
-
-
-
-
-
-
 haerda_vb_1_1_V : V ;
-
-
-
 haessja_vb_1_1_V : V ;
-
 haala_vb_1_1_V : V ;
-
 haardgranska_vb_1_1_V : V ;
-
 haardtraena_vb_1_1_V : V ;
-
 hoegakta_vb_1_1_V : V ;
 hoegprioritera_vb_1_1_V : V ;
-
 idealisera_vb_1_V : V ;
-
 idiotfoerklara_vb_1_1_V : V ;
-
-
 illuminera_vb_1_V : V ;
-
-
 immatrikulera_vb_1_V : V ;
-
 immunisera_vb_1_V : V ;
 impa_vb_1_V : V ;
 implantera_vb_1_V : V ;
 implicera_vb_1_V : V ;
 implodera_vb_1_V : V ;
-
-
-
-
 inackordera_vb_1_V : V ;
 inarbeta_vb_1_V : V ;
 inaugurera_vb_1_V : V ;
 inbaka_vb_1_V : V ;
 inberaekna_vb_1_1_V : V ;
 inbespara_vb_1_V : V ;
-
-
 indexera_vb_1_V : V ;
 indexreglera_vb_1_V : V ;
 indicera_vb_1_V : V ;
-
 individualisera_vb_1_V : V ;
 indoktrinera_vb_1_V : V ;
 inducera_vb_1_V : V ;
@@ -5464,20 +2919,15 @@ infantilisera_vb_1_V : V ;
 infatta_vb_1_V : V ;
 infektera_vb_1_V : V ;
 infetta_vb_1_V : V ;
-
 inflammera_vb_1_V : V ;
 inflicka_vb_1_V : V ;
 inflika_vb_1_V : V ;
-
 inflytta_vb_1_V : V ;
 inflaeta_vb_1_1_V : V ;
 infodra_vb_1_V : V ;
 infoga_vb_1_V : V ;
 infordra_vb_1_V : V ;
-
-
 infaanga_vb_1_1_V : V ;
-
 infoerskaffa_vb_1_1_V : V ;
 ingravera_vb_1_V : V ;
 ingaerda_vb_1_1_V : V ;
@@ -5485,24 +2935,15 @@ inhalera_vb_1_V : V ;
 inhandla_vb_1_V : V ;
 inhibera_vb_1_V : V ;
 inhibitera_vb_1_V : V ;
-
-
 initiera_vb_1_V : V ;
-
 injektera_vb_1_V : V ;
-
 inkalla_vb_1_V : V ;
 inkapsla_vb_1_V : V ;
 inkarnera_vb_1_V : V ;
-
 inklarera_vb_1_V : V ;
-
 inkompetensfoerklara_vb_1_1_V : V ;
 inkomsttaxera_vb_1_V : V ;
 inkoppla_vb_1_V : V ;
-
-
-
 inleverera_vb_1_V : V ;
 inlinda_vb_1_V : V ;
 inlaemna_vb_1_1_V : V ;
@@ -5511,107 +2952,70 @@ inmata_vb_1_V : V ;
 inmundiga_vb_1_V : V ;
 inmuta_vb_1_V : V ;
 inmoenstra_vb_1_1_V : V ;
-
 innervera_vb_1_V : V ;
 inokulera_vb_1_V : V ;
 inolja_vb_1_V : V ;
-
 inpassa_vb_1_V : V ;
 inplanta_vb_1_V : V ;
 inplantera_vb_1_V : V ;
 inpressa_vb_1_V : V ;
 inpricka_vb_1_V : V ;
 inpraegla_vb_1_1_V : V ;
-
 inrama_vb_1_V : V ;
 inrangera_vb_1_V : V ;
 inrapportera_vb_1_V : V ;
-
-
 inringa_vb_1_V : V ;
 inrista_vb_1_V : V ;
 inropa_vb_1_V : V ;
 inraekna_vb_1_1_V : V ;
-
 insamla_vb_1_V : V ;
 inscenera_vb_1_V : V ;
 insegla_vb_1_V : V ;
 inseminera_vb_1_V : V ;
-
-
-
 inskaffa_vb_1_V : V ;
 inskeppa_vb_1_V : V ;
 inskola_vb_1_V : V ;
 insomna_vb_1_V : V ;
-
 inspela_vb_1_V : V ;
-
-
 instifta_vb_1_V : V ;
 institutionalisera_vb_1_V : V ;
-
 instrumentera_vb_1_V : V ;
 instraala_vb_1_1_V : V ;
 instudera_vb_1_V : V ;
 insoendra_vb_1_1_V : V ;
-
-
 intellektualisera_vb_1_V : V ;
-
 intensivera_vb_1_V : V ;
 interfoliera_vb_1_V : V ;
 internalisera_vb_1_V : V ;
 internationalisera_vb_1_V : V ;
 internera_vb_1_V : V ;
-
 interpolera_vb_1_V : V ;
 interpretera_vb_1_V : V ;
 interpunktera_vb_1_V : V ;
 intervenera_vb_1_V : V ;
-
 intimisera_vb_1_V : V ;
 intolka_vb_1_V : V ;
 intonera_vb_1_V : V ;
-
-
 intrumfa_vb_1_V : V ;
-
-
 intaaga_vb_1_1_V : V ;
-
-
 invalidisera_vb_1_V : V ;
-
 inveckla_vb_1_V : V ;
 inventera_vb_1_V : V ;
 invertera_vb_1_V : V ;
-
 invitera_vb_1_V : V ;
 involvera_vb_1_V : V ;
-
 inympa_vb_1_V : V ;
 inoeva_vb_1_1_V : V ;
-
 islamisera_vb_1_V : V ;
-
 iterera_vb_1_V : V ;
 ituta_vb_1_V : V ;
 ivaegskicka_vb_1_1_V : V ;
 jabba_vb_1_V : V ;
-
-
 jazzifiera_vb_1_V : V ;
 jodera_vb_1_V : V ;
-
 jojka_vb_1_V : V ;
-
 jonisera_vb_1_V : V ;
 jorda_vb_1_V : V ;
-
-
-
-
 jaeva_vb_1_1_V : V ;
 kakla_vb_1_V : V ;
 kalandrera_vb_1_V : V ;
@@ -5619,30 +3023,19 @@ kalavverka_vb_1_V : V ;
 kalcinera_vb_1_V : V ;
 kalfatra_vb_1_V : V ;
 kalibrera_vb_1_V : V ;
-
-
-
-
 kallarbeta_vb_1_V : V ;
 kallbearbeta_vb_1_V : V ;
 kallbocka_vb_1_V : V ;
 kallhamra_vb_1_V : V ;
-
 kallpressa_vb_1_V : V ;
 kallvalsa_vb_1_V : V ;
 kalmera_vb_1_V : V ;
 kameraoevervaka_vb_1_1_V : V ;
-
 kamouflera_vb_1_V : V ;
-
 kandera_vb_1_V : V ;
 kannelera_vb_1_V : V ;
 kanonisera_vb_1_V : V ;
-
-
-
 kapitalisera_vb_1_V : V ;
-
 kara_vb_1_V : V ;
 karakterisera_vb_1_V : V ;
 karaktaerisera_vb_1_1_V : V ;
@@ -5652,11 +3045,7 @@ karda_vb_1_V : V ;
 karikera_vb_1_V : V ;
 kartera_vb_1_V : V ;
 kartonnera_vb_1_V : V ;
-
 kaskadkoppla_vb_1_V : V ;
-
-
-
 katalogisera_vb_1_V : V ;
 katalysera_vb_1_V : V ;
 kategorisera_vb_1_V : V ;
@@ -5664,120 +3053,72 @@ kateterisera_vb_1_V : V ;
 katetrisera_vb_1_V : V ;
 katta_vb_1_V : V ;
 kauterisera_vb_1_V : V ;
-
 kicka_vb_1_V : V ;
-
-
-
 killa_vb_1_V : V ;
 kindpussa_vb_1_V : V ;
 kirra_vb_1_V : V ;
-
 kitta_vb_1_V : V ;
-
-
-
-
-
-
 klarera_vb_1_V : V ;
-
-
 klatscha_vb_1_V : V ;
 klena_vb_1_V : V ;
-
-
-
 klira_vb_1_V : V ;
 klocka_vb_1_V : V ;
 klona_vb_1_V : V ;
 klorera_vb_1_V : V ;
-
 kludda_vb_1_V : V ;
 klyfta_vb_1_V : V ;
 kloevja_vb_1_1_V : V ;
-
-
 knata_vb_1_V : V ;
-
 kniva_vb_1_V : V ;
 knivdoeda_vb_1_1_V : V ;
 knivmoerda_vb_1_1_V : V ;
-
 knopa_vb_1_V : V ;
 knorva_vb_1_V : V ;
-
-
 knuttimra_vb_1_V : V ;
-
-
 knoela_vb_1_1_V : V ;
 koaffera_vb_1_V : V ;
-
-
 kodifiera_vb_1_V : V ;
 koja_vb_1_V : V ;
 kojsa_vb_1_V : V ;
-
-
 kolka_vb_1_V : V ;
-
 kollapsa_vb_1_V : V ;
 kollationera_vb_1_V : V ;
 kollektivisera_vb_1_V : V ;
 kolonisera_vb_1_V : V ;
 kolorera_vb_1_V : V ;
 kolportera_vb_1_V : V ;
-
 kommatera_vb_1_V : V ;
-
-
 kommersa_vb_1_V : V ;
 kommersialisera_vb_1_V : V ;
 kommunalisera_vb_1_V : V ;
-
 kommutera_vb_1_V : V ;
 kompa_vb_1_V : V ;
 komparera_vb_1_V : V ;
-
 kompetensfoerklara_vb_1_1_V : V ;
 kompilera_vb_1_V : V ;
-
-
 komplimentera_vb_1_V : V ;
 komponera_vb_1_V : V ;
 kompostera_vb_1_V : V ;
-
 kompromettera_vb_1_V : V ;
-
 koncessionera_vb_1_V : V ;
 koncipiera_vb_1_V : V ;
 kondemnera_vb_1_V : V ;
-
 konditionera_vb_1_V : V ;
 kondolera_vb_1_V : V ;
-
-
 konformera_vb_1_V : V ;
-
 konfundera_vb_1_V : V ;
 kongruera_vb_1_V : V ;
 konjugera_vb_1_V : V ;
 konkludera_vb_1_V : V ;
 konkretisera_vb_1_V : V ;
-
 konsignera_vb_1_V : V ;
 konsolidera_vb_1_V : V ;
-
 konstbefrukta_vb_1_V : V ;
 konstbevattna_vb_1_V : V ;
 konsternera_vb_1_V : V ;
 konstituera_vb_1_V : V ;
-
 konststoppa_vb_1_V : V ;
-
 konsumera_vb_1_V : V ;
-
 kontaminera_vb_1_V : V ;
 kontera_vb_1_V : V ;
 kontingentera_vb_1_V : V ;
@@ -5788,25 +3129,18 @@ kontramandera_vb_1_V : V ;
 kontrasignera_vb_1_V : V ;
 kontrastera_vb_1_V : V ;
 kontribuera_vb_1_V : V ;
-
 kontrollstaempla_vb_1_1_V : V ;
 konturera_vb_1_V : V ;
 konvergera_vb_1_V : V ;
 konversera_vb_1_V : V ;
-
 konvojera_vb_1_V : V ;
-
-
 koppa_vb_1_V : V ;
-
 korka_vb_1_V : V ;
 korpa_vb_1_V : V ;
 korrelera_vb_1_V : V ;
-
 korrodera_vb_1_V : V ;
 korrugera_vb_1_V : V ;
 korrumpera_vb_1_V : V ;
-
 korsbefrukta_vb_1_V : V ;
 korsettera_vb_1_V : V ;
 korsvaedra_vb_1_1_V : V ;
@@ -5815,14 +3149,10 @@ kortpassa_vb_1_V : V ;
 kostymera_vb_1_V : V ;
 kracka_vb_1_V : V ;
 krackelera_vb_1_V : V ;
-
 kraftsamla_vb_1_V : V ;
-
 kransa_vb_1_V : V ;
-
 kraschlanda_vb_1_V : V ;
 kratsa_vb_1_V : V ;
-
 kredensa_vb_1_V : V ;
 kreditera_vb_1_V : V ;
 kreera_vb_1_V : V ;
@@ -5832,48 +3162,33 @@ krepera_vb_1_V : V ;
 kreta_vb_1_V : V ;
 krevera_vb_1_V : V ;
 krigsplacera_vb_1_V : V ;
-
-
 kringskansa_vb_1_V : V ;
 kristallisera_vb_1_V : V ;
 kristna_vb_1_V : V ;
 krita_vb_1_V : V ;
 kritisera_vb_1_V : V ;
-
 kroka_vb_1_V : V ;
 kroma_vb_1_V : V ;
 kromgarva_vb_1_V : V ;
 kroppsvisitera_vb_1_V : V ;
-
 krulla_vb_1_V : V ;
-
-
 kryptera_vb_1_V : V ;
-
 kraeppa_vb_1_1_V : V ;
-
 kubera_vb_1_V : V ;
-
 kujonera_vb_1_V : V ;
 kulla_vb_1_V : V ;
-
 kullprata_vb_1_V : V ;
 kultivera_vb_1_V : V ;
 kumulera_vb_1_V : V ;
 kupa_vb_1_V : V ;
 kupera_vb_1_V : V ;
-
 kuratera_vb_1_V : V ;
-
 kursa_vb_1_V : V ;
 kursivera_vb_1_V : V ;
 kurtisera_vb_1_V : V ;
 kuscha_vb_1_V : V ;
-
 kuvertera_vb_1_V : V ;
-
 kvadrera_vb_1_V : V ;
-
 kvalitetsgranska_vb_1_V : V ;
 kvalitetssaekra_vb_1_1_V : V ;
 kvantifiera_vb_1_V : V ;
@@ -5882,18 +3197,12 @@ kvarstanna_vb_1_V : V ;
 kvicksilverbeta_vb_1_V : V ;
 kvilta_vb_1_V : V ;
 kvista_vb_1_V : V ;
-
-
-
 kyllagra_vb_1_V : V ;
 kypra_vb_1_V : V ;
-
 kaela_vb_1_1_V : V ;
 kaellsortera_vb_1_1_V : V ;
-
 kaera_vb_1_1_V : V ;
 kaerna_vb_1_1_V : V ;
-
 kaara_vb_1_1_V : V ;
 koelhala_vb_2_1_V : V ;
 koena_vb_1_1_V : V ;
@@ -5901,96 +3210,54 @@ koensdiskriminera_vb_1_1_V : V ;
 koenskvotera_vb_1_1_V : V ;
 koerna_vb_1_1_V : V ;
 labialisera_vb_1_V : V ;
-
-
-
-
 lagerkransa_vb_1_V : V ;
 lagga_vb_1_V : V ;
-
-
 lamentera_vb_1_V : V ;
 laminera_vb_1_V : V ;
-
-
 landsfoervisa_vb_1_1_V : V ;
-
 langettera_vb_1_V : V ;
-
-
 lapisera_vb_1_V : V ;
-
-
 lasera_vb_1_V : V ;
 laska_vb_1_V : V ;
-
 latinisera_vb_1_V : V ;
 lavera_vb_1_V : V ;
 laxa_vb_1_V : V ;
 leasa_vb_1_V : V ;
-
 ledigfoerklara_vb_1_1_V : V ;
 ledsaga_vb_1_V : V ;
 legalisera_vb_1_V : V ;
 legera_vb_1_V : V ;
-
 lejdra_vb_1_V : V ;
-
 lena_vb_1_V : V ;
-
-
 liberalisera_vb_1_V : V ;
 licensera_vb_1_V : V ;
 licensiera_vb_1_V : V ;
 licentiera_vb_1_V : V ;
-
 lika_vb_1_V : V ;
 likrikta_vb_1_V : V ;
-
-
-
-
-
-
 lissera_vb_1_V : V ;
-
 litografera_vb_1_V : V ;
 litsa_vb_1_V : V ;
 liva_vb_1_V : V ;
 livfoersaekra_vb_1_1_V : V ;
-
 ljudisolera_vb_1_V : V ;
 ljuskopiera_vb_1_V : V ;
 lobba_vb_1_V : V ;
-
 lockouta_vb_1_V : V ;
 loda_vb_1_V : V ;
 logera_vb_1_V : V ;
 logga_vb_1_V : V ;
 lokalbedoeva_vb_1_1_V : V ;
-
 loppa_vb_1_V : V ;
-
-
-
-
-
 lovprisa_vb_1_V : V ;
 luffa_vb_2_V : V ;
-
 lufttorka_vb_1_V : V ;
-
-
-
 lulla_vb_2_V : V ;
 lunna_vb_1_V : V ;
-
 lurpassa_vb_1_V : V ;
-
 luteinisera_vb_1_V : V ;
 lyckoenska_vb_1_1_V : V ;
 lykta_vb_1_V : V ;
-
 lyra_vb_1_V : V ;
 lyster_vb_1_V : V ;
 lyxkonsumera_vb_1_V : V ;
@@ -5998,76 +3265,49 @@ lyxrenovera_vb_1_V : V ;
 laedera_vb_1_1_V : V ;
 laegra_vb_1_1_V : V ;
 laektra_vb_1_1_V : V ;
-
-
 laenka_vb_1_1_V : V ;
-
 laenspumpa_vb_1_1_V : V ;
-
-
-
 laagprioritera_vb_1_1_V : V ;
-
 laangtidsparkera_vb_1_1_V : V ;
 laanspara_vb_1_1_V : V ;
 laassa_vb_1_1_V : V ;
-
 loega_vb_1_1_V : V ;
-
 loennmoerda_vb_1_1_V : V ;
 loenspara_vb_1_1_V : V ;
 loeva_vb_1_1_V : V ;
 madrassera_vb_1_V : V ;
 magasinera_vb_1_V : V ;
-
 magpumpa_vb_1_V : V ;
 maila_vb_1_V : V ;
 maja_vb_1_V : V ;
-
-
 malfobera_vb_1_V : V ;
 malma_vb_1_V : V ;
 maltraetera_vb_1_1_V : V ;
-
 manifestera_vb_1_V : V ;
 manikurera_vb_1_V : V ;
 manikyrera_vb_1_V : V ;
 manipulera_vb_1_V : V ;
-
 marginalisera_vb_1_V : V ;
 marinera_vb_1_V : V ;
-
 marknadsanpassa_vb_1_V : V ;
 marknadsvaerdera_vb_1_1_V : V ;
 marmorera_vb_1_V : V ;
 martera_vb_1_V : V ;
-
-
-
 maskulinisera_vb_1_V : V ;
-
 massavskeda_vb_1_V : V ;
-
-
-
 matelassera_vb_1_V : V ;
 materialisera_vb_1_V : V ;
-
 mattera_vb_1_V : V ;
 maxa_vb_1_V : V ;
 maximera_vb_1_V : V ;
 medaljera_vb_1_V : V ;
 medicinera_vb_1_V : V ;
-
 mejla_vb_1_V : V ;
 mejlbomba_vb_1_V : V ;
-
 mekanisera_vb_1_V : V ;
-
 memorera_vb_1_V : V ;
 mensa_vb_1_V : V ;
 mercerisera_vb_1_V : V ;
-
 messa_vb_1_V : V ;
 metallisera_vb_1_V : V ;
 micra_vb_1_V : V ;
@@ -6075,7 +3315,6 @@ mikra_vb_1_V : V ;
 mikrofilma_vb_1_V : V ;
 mikrofotografera_vb_1_V : V ;
 mikroskopera_vb_1_V : V ;
-
 militarisera_vb_1_V : V ;
 miljoecertifiera_vb_1_1_V : V ;
 miljoefoerstoera_vb_1_1_V : V ;
@@ -6084,31 +3323,19 @@ minera_vb_1_V : V ;
 mineralisera_vb_1_V : V ;
 miniatyrisera_vb_1_V : V ;
 minimera_vb_1_V : V ;
-
 missa_vb_1_V : V ;
 missakta_vb_1_V : V ;
-
 missfirma_vb_1_V : V ;
 missfaerga_vb_1_1_V : V ;
-
-
 missivera_vb_1_V : V ;
 misskreditera_vb_1_V : V ;
 misstolka_vb_1_V : V ;
-
-
 mixa_vb_1_V : V ;
-
-
 mjoela_vb_1_1_V : V ;
 mjoelka_vb_1_1_V : V ;
 mobba_vb_1_V : V ;
-
-
 modellera_vb_1_V : V ;
 moderera_vb_1_V : V ;
-
-
 modulera_vb_1_V : V ;
 modaernisera_vb_1_1_V : V ;
 monoftongera_vb_1_V : V ;
@@ -6119,46 +3346,28 @@ mordhota_vb_1_V : V ;
 morsera_vb_1_V : V ;
 mortificera_vb_1_V : V ;
 mortifiera_vb_1_V : V ;
-
-
-
 motbevisa_vb_1_V : V ;
-
 motorisera_vb_1_V : V ;
-
 mula_vb_1_V : V ;
 muljera_vb_1_V : V ;
-
 mumifiera_vb_1_V : V ;
-
-
 mutera_vb_1_V : V ;
 mylla_vb_1_V : V ;
-
 mystifiera_vb_1_V : V ;
 mytifiera_vb_1_V : V ;
 maekla_vb_2_1_V : V ;
 maelta_vb_1_1_V : V ;
 maeska_vb_1_1_V : V ;
-
-
-
 maangdubbla_vb_1_1_V : V ;
 maangfaldiga_vb_1_1_V : V ;
 maatta_vb_1_1_V : V ;
-
-
 moera_vb_1_1_V : V ;
 moerbulta_vb_1_1_V : V ;
-
 moerka_vb_1_1_V : V ;
-
 nafsa_vb_1_V : V ;
 nagga_vb_1_V : V ;
 nagla_vb_1_V : V ;
 naja_vb_1_V : V ;
-
-
 nappa_vb_2_V : V ;
 nara_vb_1_V : V ;
 narra_vb_1_V : V ;
@@ -6166,8 +3375,6 @@ narva_vb_1_V : V ;
 nasa_vb_1_V : V ;
 nasalera_vb_1_V : V ;
 nasalisera_vb_1_V : V ;
-
-
 naturalisera_vb_1_V : V ;
 navigera_vb_1_V : V ;
 navla_vb_1_V : V ;
@@ -6186,10 +3393,8 @@ nedtrappa_vb_1_V : V ;
 nedtysta_vb_1_V : V ;
 nedvaerdera_vb_1_1_V : V ;
 negera_vb_1_V : V ;
-
 negociera_vb_1_V : V ;
 negotiera_vb_1_V : V ;
-
 nerarbeta_vb_1_V : V ;
 nerisa_vb_1_V : V ;
 nerkalla_vb_1_V : V ;
@@ -6206,47 +3411,31 @@ nertysta_vb_1_V : V ;
 nervaerdera_vb_1_1_V : V ;
 neurotisera_vb_1_V : V ;
 neutralisera_vb_1_V : V ;
-
-
 niellera_vb_1_V : V ;
 nita_vb_1_V : V ;
 nita_vb_2_V : V ;
 nitrera_vb_1_V : V ;
 nivellera_vb_1_V : V ;
 nivaagruppera_vb_1_1_V : V ;
-
 nobilisera_vb_1_V : V ;
 nocka_vb_1_V : V ;
 nolla_vb_1_V : V ;
-
-
 noppa_vb_1_V : V ;
 noppra_vb_1_V : V ;
-
 normera_vb_1_V : V ;
-
 nota_vb_1_V : V ;
-
 notificera_vb_1_V : V ;
 notifiera_vb_1_V : V ;
 notisera_vb_1_V : V ;
 nubba_vb_1_V : V ;
-
-
 nuppa_vb_1_V : V ;
-
 nyanskaffa_vb_1_V : V ;
-
 nyemittera_vb_1_V : V ;
 nyetablera_vb_1_V : V ;
 nyinvestera_vb_1_V : V ;
-
 nyplantera_vb_1_V : V ;
 nyskapa_vb_1_V : V ;
-
 nyteckna_vb_1_V : V ;
-
-
 naerstudera_vb_1_1_V : V ;
 naeta_vb_1_1_V : V ;
 naada_vb_1_1_V : V ;
@@ -6254,35 +3443,23 @@ naade_vb_1_1_V : V ;
 naala_vb_1_1_V : V ;
 naata_vb_1_1_V : V ;
 noedbromsa_vb_1_1_V : V ;
-
-
 noedsaka_vb_1_1_V : V ;
 noedstoppa_vb_1_1_V : V ;
 noedoeppna_vb_1_1_V : V ;
-
 objektivera_vb_1_V : V ;
 obligera_vb_1_V : V ;
-
 occidentalisera_vb_1_V : V ;
-
 odla_vb_1_V : V ;
 offerera_vb_1_V : V ;
-
-
 oka_vb_1_V : V ;
 oktrojera_vb_1_V : V ;
 okulera_vb_1_V : V ;
 okvaeda_vb_1_1_V : V ;
 ola_vb_1_V : V ;
 olagligfoerklara_vb_1_1_V : V ;
-
 olla_vb_1_V : V ;
 omarbeta_vb_1_V : V ;
-
-
 omdirigera_vb_1_V : V ;
-
-
 omflytta_vb_1_V : V ;
 omforma_vb_1_V : V ;
 omfoerdela_vb_1_1_V : V ;
@@ -6290,7 +3467,6 @@ omfoerhandla_vb_1_1_V : V ;
 omgestalta_vb_1_V : V ;
 omgruppera_vb_1_V : V ;
 omgaerda_vb_1_1_V : V ;
-
 omhaegna_vb_1_1_V : V ;
 omhaekta_vb_1_1_V : V ;
 omkasta_vb_1_V : V ;
@@ -6298,31 +3474,22 @@ omkostymera_vb_1_V : V ;
 omkransa_vb_1_V : V ;
 omkretsa_vb_1_V : V ;
 ommoeblera_vb_1_1_V : V ;
-
 omplacera_vb_1_V : V ;
 omplaastra_vb_1_1_V : V ;
-
 omrama_vb_1_V : V ;
-
 omraekna_vb_1_1_V : V ;
 omskapa_vb_1_V : V ;
-
 omskulpturera_vb_1_V : V ;
 omslingra_vb_1_V : V ;
 omstrukturera_vb_1_V : V ;
 omstraala_vb_1_1_V : V ;
-
 omsvaerma_vb_1_1_V : V ;
-
 omtolka_vb_1_V : V ;
-
 omvittna_vb_1_V : V ;
-
 omyndigfoerklara_vb_1_1_V : V ;
 omaendra_vb_1_1_V : V ;
 ondulera_vb_1_V : V ;
 operationalisera_vb_1_V : V ;
-
 oppamma_vb_1_V : V ;
 opparbeta_vb_1_V : V ;
 oppassa_vb_1_V : V ;
@@ -6345,7 +3512,6 @@ oppkalla_vb_1_V : V ;
 oppklara_vb_1_V : V ;
 oppliva_vb_1_V : V ;
 oppmuntra_vb_1_V : V ;
-
 opprada_vb_1_V : V ;
 opprensa_vb_1_V : V ;
 oppraekna_vb_1_1_V : V ;
@@ -6359,218 +3525,132 @@ oppvakta_vb_1_V : V ;
 oppvisa_vb_1_V : V ;
 oppvaerdera_vb_1_1_V : V ;
 oppoeva_vb_1_1_V : V ;
-
-
-
 oreda_vb_1_V : V ;
 orena_vb_1_V : V ;
-
-
 orkestrera_vb_1_V : V ;
 ornamentera_vb_1_V : V ;
 ornera_vb_1_V : V ;
-
-
 oskaera_vb_1_1_V : V ;
 osnygga_vb_1_V : V ;
 osaekra_vb_1_1_V : V ;
 outa_vb_1_V : V ;
 oxidera_vb_1_V : V ;
 pacificera_vb_1_V : V ;
-
 paginera_vb_1_V : V ;
-
-
 palatalisera_vb_1_V : V ;
 paljettera_vb_1_V : V ;
-
 palma_vb_1_V : V ;
 palpera_vb_1_V : V ;
 panela_vb_1_V : V ;
-
-
 panikbromsa_vb_1_V : V ;
 panorera_vb_1_V : V ;
 pansra_vb_1_V : V ;
-
 pantografera_vb_1_V : V ;
-
 paradera_vb_1_V : V ;
 parafera_vb_1_V : V ;
 paraffinera_vb_1_V : V ;
 parafrasera_vb_1_V : V ;
 parallellisera_vb_1_V : V ;
 parallellkoppla_vb_1_V : V ;
-
-
 parfymera_vb_1_V : V ;
-
 parkettera_vb_1_V : V ;
 parodiera_vb_1_V : V ;
 parsa_vb_1_V : V ;
-
-
-
-
 pastoerisera_vb_1_1_V : V ;
 patentera_vb_1_V : V ;
 patinera_vb_1_V : V ;
-
 pauperisera_vb_1_V : V ;
 pausa_vb_1_V : V ;
 pausera_vb_1_V : V ;
 pauskommatera_vb_1_V : V ;
 paxa_vb_1_V : V ;
-
 pelletera_vb_1_V : V ;
-
-
-
 pepparspreja_vb_1_V : V ;
 peppra_vb_1_V : V ;
 percipiera_vb_1_V : V ;
-
 periodisera_vb_1_V : V ;
-
 permanentondulera_vb_1_V : V ;
-
 permutera_vb_1_V : V ;
 persiflera_vb_1_V : V ;
 personifiera_vb_1_V : V ;
 personkryssa_vb_1_V : V ;
 persvadera_vb_1_V : V ;
 pervertera_vb_1_V : V ;
-
 petrifiera_vb_1_V : V ;
-
 pierca_vb_1_V : V ;
-
 pikera_vb_1_V : V ;
 pilka_vb_1_V : V ;
 pimpa_vb_1_V : V ;
-
 pincera_vb_1_V : V ;
 pinna_vb_1_V : V ;
-
 pirka_vb_1_V : V ;
-
 pistolhota_vb_1_V : V ;
-
 plagiera_vb_1_V : V ;
 plana_vb_1_V : V ;
-
 planka_vb_2_V : V ;
 planta_vb_1_V : V ;
-
 plasta_vb_1_V : V ;
 platinera_vb_1_V : V ;
 pligga_vb_1_V : V ;
 plissera_vb_1_V : V ;
-
-
 plombera_vb_1_V : V ;
 plotta_vb_1_V : V ;
-
 plysa_vb_1_V : V ;
 plaetera_vb_1_1_V : V ;
-
-
-
 pochera_vb_1_V : V ;
 pointera_vb_1_V : V ;
-
-
 polisbevaka_vb_1_V : V ;
 politisera_vb_1_V : V ;
-
 pollinera_vb_1_V : V ;
 pomadera_vb_1_V : V ;
 poppa_vb_1_V : V ;
 popularisera_vb_1_V : V ;
 porta_vb_1_V : V ;
-
 portraettera_vb_1_1_V : V ;
-
 postdatera_vb_1_V : V ;
 postera_vb_1_V : V ;
 postponera_vb_1_V : V ;
 postroesta_vb_1_1_V : V ;
 poststaempla_vb_1_1_V : V ;
 postulera_vb_1_V : V ;
-
-
-
 predestinera_vb_1_V : V ;
 predicera_vb_1_V : V ;
-
 predisponera_vb_1_V : V ;
 prefabricera_vb_1_V : V ;
 preferera_vb_1_V : V ;
 prefigera_vb_1_V : V ;
 preja_vb_1_V : V ;
 preludiera_vb_1_V : V ;
-
 premiaervisa_vb_1_1_V : V ;
-
 presenta_vb_1_V : V ;
-
 preservera_vb_1_V : V ;
 preskribera_vb_1_V : V ;
-
-
 presumera_vb_1_V : V ;
-
-
-
 prisreglera_vb_1_V : V ;
-
 privilegiera_vb_1_V : V ;
 probera_vb_1_V : V ;
 problematisera_vb_1_V : V ;
-
-
 profanera_vb_1_V : V ;
 professionalisera_vb_1_V : V ;
 profilera_vb_1_V : V ;
 prognostisera_vb_1_V : V ;
-
-
-
-
 proletarisera_vb_1_V : V ;
 prolongera_vb_1_V : V ;
-
 promulgera_vb_1_V : V ;
 prononcera_vb_1_V : V ;
 proponera_vb_1_V : V ;
 proportionera_vb_1_V : V ;
-
 proskribera_vb_1_V : V ;
-
 protegera_vb_1_V : V ;
 protokollera_vb_1_V : V ;
-
-
 provroersbefrukta_vb_1_1_V : V ;
-
-
-
 praama_vb_1_1_V : V ;
-
-
-
 psykoanalysera_vb_1_V : V ;
 psykologisera_vb_1_V : V ;
-
-
-
 pulverisera_vb_1_V : V ;
 pulverlackera_vb_1_V : V ;
-
-
 punkta_vb_1_V : V ;
 punktbevaka_vb_1_V : V ;
-
 punktmarkera_vb_1_V : V ;
 punktsvetsa_vb_1_V : V ;
 punsa_vb_1_V : V ;
@@ -6579,258 +3659,128 @@ purpra_vb_1_V : V ;
 purpurfaerga_vb_1_1_V : V ;
 purra_vb_1_V : V ;
 pusha_vb_1_V : V ;
-
-
-
-
 pytsa_vb_1_V : V ;
 paela_vb_1_1_V : V ;
 paaa_vb_1_1_V : V ;
 paaannonsera_vb_1_1_V : V ;
 paaboerda_vb_1_1_V : V ;
-
-
 paafordra_vb_1_1_V : V ;
-
-
-
 paaropa_vb_1_1_V : V ;
 paaraekna_vb_1_1_V : V ;
-
-
 paatraeffa_vb_1_1_V : V ;
-
 paavisa_vb_1_1_V : V ;
 paayrka_vb_1_1_V : V ;
 quilta_vb_1_V : V ;
 rabattera_vb_1_V : V ;
-
-
 radiera_vb_1_V : V ;
 radikalisera_vb_1_V : V ;
-
-
 raka_vb_1_V : V ;
-
-
-
 ramsa_vb_1_V : V ;
-
 randomisera_vb_1_V : V ;
 rangera_vb_1_V : V ;
-
-
-
-
-
 rappellera_vb_1_V : V ;
-
 rasdiskriminera_vb_1_V : V ;
-
-
-
-
-
-
-
-
 reaktivera_vb_1_V : V ;
-
 reassurera_vb_1_V : V ;
-
 recipiera_vb_1_V : V ;
-
-
-
 redubbla_vb_1_V : V ;
-
-
-
-
-
 regalera_vb_1_V : V ;
 regenerera_vb_1_V : V ;
-
-
-
 reglementera_vb_1_V : V ;
-
-
 regummera_vb_1_V : V ;
-
 reinkarnera_vb_1_V : V ;
 reka_vb_1_V : V ;
 rekapitulera_vb_1_V : V ;
-
 rekognoscera_vb_1_V : V ;
 rekognosera_vb_1_V : V ;
-
 rekompensera_vb_1_V : V ;
-
-
 rektificera_vb_1_V : V ;
 rektifiera_vb_1_V : V ;
-
-
-
 relaea_vb_1_1_V : V ;
 remissbehandla_vb_1_V : V ;
-
 remma_vb_1_V : V ;
 remplacera_vb_1_V : V ;
-
-
-
-
 renraka_vb_1_V : V ;
-
 reorganisera_vb_1_V : V ;
-
-
 repartisera_vb_1_V : V ;
 repatriera_vb_1_V : V ;
 repellera_vb_1_V : V ;
-
-
 reprisera_vb_1_V : V ;
 reproducera_vb_1_V : V ;
-
 resolvera_vb_1_V : V ;
 resorbera_vb_1_V : V ;
-
 respirera_vb_1_V : V ;
-
-
 resumera_vb_1_V : V ;
-
 retablera_vb_1_V : V ;
 retardera_vb_1_V : V ;
-
-
 reva_vb_1_V : V ;
-
 revetera_vb_1_V : V ;
-
-
 ria_vb_1_V : V ;
 rigga_vb_1_V : V ;
 rikoschettera_vb_1_V : V ;
-
-
 rimsalta_vb_1_V : V ;
-
-
 ringbarka_vb_1_V : V ;
 risa_vb_1_V : V ;
-
-
-
 ritsa_vb_1_V : V ;
 ritualisera_vb_1_V : V ;
 rivstarta_vb_1_V : V ;
-
 robotisera_vb_1_V : V ;
 rockera_vb_1_V : V ;
 roffa_vb_1_V : V ;
 rolla_vb_1_V : V ;
 romantisera_vb_1_V : V ;
-
-
 rostbehandla_vb_1_V : V ;
 rostskydda_vb_1_V : V ;
-
-
-
-
 rugga_vb_2_V : V ;
-
-
-
 rundsticka_vb_1_V : V ;
-
-
-
 russificera_vb_1_V : V ;
 russifiera_vb_1_V : V ;
-
-
-
-
 rytmisera_vb_1_V : V ;
-
-
-
-
-
-
-
 raadbraaka_vb_1_1_V : V ;
 raadfraaga_vb_1_1_V : V ;
 raadplaega_vb_1_1_V : V ;
 raaga_vb_1_1_V : V ;
-
-
-
 raaskala_vb_1_1_V : V ;
 roedgloedga_vb_1_1_V : V ;
 roedlista_vb_1_1_V : V ;
-
 roentgenfotografera_vb_1_1_V : V ;
 roesa_vb_1_1_V : V ;
 roeta_vb_1_1_V : V ;
-
 roevknulla_vb_1_1_V : V ;
-
-
 sabrera_vb_1_V : V ;
 safta_vb_1_V : V ;
 saka_vb_1_V : V ;
 sakerfoerklara_vb_1_1_V : V ;
-
-
 sala_vb_1_V : V ;
 saldera_vb_1_V : V ;
 saligfoerklara_vb_1_1_V : V ;
-
-
 sambeskatta_vb_1_V : V ;
 samka_vb_1_V : V ;
-
 sammanavla_vb_1_V : V ;
 sammanblanda_vb_1_V : V ;
 sammandrabba_vb_1_V : V ;
-
 sammanflaeta_vb_1_1_V : V ;
 sammanfoga_vb_1_V : V ;
 sammanhopa_vb_1_V : V ;
 sammanjaemka_vb_1_1_V : V ;
-
 sammanlaenka_vb_1_1_V : V ;
 sammanpacka_vb_1_V : V ;
 sammanpressa_vb_1_V : V ;
 sammanraekna_vb_1_1_V : V ;
 sammanstraala_vb_1_1_V : V ;
 sammansvetsa_vb_1_V : V ;
-
-
-
 samtaxera_vb_1_V : V ;
-
 sandblaestra_vb_1_1_V : V ;
 sandpappra_vb_1_V : V ;
-
 sanforisera_vb_1_V : V ;
 sanktifiera_vb_1_V : V ;
 sanktionera_vb_1_V : V ;
 sanna_vb_1_V : V ;
 sannolikhetsberaekna_vb_1_1_V : V ;
 saponifiera_vb_1_V : V ;
-
 satinera_vb_1_V : V ;
 satisfiera_vb_1_V : V ;
-
 saturera_vb_1_V : V ;
-
 sauvera_vb_1_V : V ;
 saxa_vb_1_V : V ;
 scanna_vb_1_V : V ;
@@ -6838,7 +3788,6 @@ schablonera_vb_1_V : V ;
 schablonisera_vb_1_V : V ;
 schablontaxera_vb_1_V : V ;
 schacka_vb_1_V : V ;
-
 schamponera_vb_1_V : V ;
 schanghaja_vb_1_V : V ;
 schappa_vb_1_V : V ;
@@ -6847,29 +3796,21 @@ schattera_vb_1_V : V ;
 schematisera_vb_1_V : V ;
 schveifa_vb_1_V : V ;
 sedimentera_vb_1_V : V ;
-
 seghaerda_vb_1_1_V : V ;
 segmentera_vb_1_V : V ;
-
 segregera_vb_1_V : V ;
 sejsa_vb_1_V : V ;
-
 sekularisera_vb_1_V : V ;
 sekundera_vb_1_V : V ;
 sekvensera_vb_1_V : V ;
 sekvestrera_vb_1_V : V ;
-
 selektera_vb_1_V : V ;
 semaforera_vb_1_V : V ;
-
 sensibilisera_vb_1_V : V ;
 sentera_vb_1_V : V ;
-
 seponera_vb_1_V : V ;
 seriekoppla_vb_1_V : V ;
 serietillverka_vb_1_V : V ;
-
-
 sexdubbla_vb_1_V : V ;
 sexfaldiga_vb_1_V : V ;
 sexualisera_vb_1_V : V ;
@@ -6885,17 +3826,12 @@ sidnumrera_vb_1_V : V ;
 sidsteppa_vb_1_V : V ;
 sigillera_vb_1_V : V ;
 signa_vb_1_V : V ;
-
-
-
-
 silhuettera_vb_1_V : V ;
 siluettera_vb_1_V : V ;
 silverinfatta_vb_1_V : V ;
 silvra_vb_1_V : V ;
 simplifiera_vb_1_V : V ;
 simsa_vb_1_V : V ;
-
 simultantolka_vb_1_V : V ;
 sinka_vb_1_V : V ;
 sira_vb_1_V : V ;
@@ -6904,251 +3840,126 @@ sjappa_vb_1_V : V ;
 sjasa_vb_1_V : V ;
 sjufaldiga_vb_1_V : V ;
 sjaelvfinansiera_vb_1_1_V : V ;
-
 skadereglera_vb_1_V : V ;
-
 skafta_vb_1_V : V ;
-
-
 skalda_vb_1_V : V ;
 skalka_vb_1_V : V ;
-
 skalpera_vb_1_V : V ;
 skamfila_vb_1_V : V ;
 skandalisera_vb_1_V : V ;
-
 skanna_vb_1_V : V ;
-
-
-
 skeda_vb_1_V : V ;
-
 skenplocka_vb_1_V : V ;
-
 skeva_vb_2_V : V ;
 skevra_vb_1_V : V ;
-
 skikta_vb_1_V : V ;
-
-
-
 skipa_vb_1_V : V ;
-
 skira_vb_1_V : V ;
 skissa_vb_1_V : V ;
-
-
-
 skjuva_vb_1_V : V ;
-
-
-
 skopa_vb_1_V : V ;
 skota_vb_1_V : V ;
-
 skottskada_vb_1_V : V ;
 skraffera_vb_1_V : V ;
-
-
-
 skruda_vb_1_V : V ;
-
 skrymta_vb_1_V : V ;
 skraedda_vb_1_1_V : V ;
-
-
-
 skraama_vb_1_1_V : V ;
-
 skudda_vb_1_V : V ;
 skuffa_vb_1_V : V ;
-
 skulptera_vb_1_V : V ;
 skulpturera_vb_1_V : V ;
-
-
 skumtvaetta_vb_1_1_V : V ;
-
-
-
-
 skvalta_vb_1_V : V ;
 skvimpa_vb_1_V : V ;
 skvisa_vb_1_V : V ;
 skya_vb_1_V : V ;
-
 skyddsimpregnera_vb_1_V : V ;
 skyddsympa_vb_1_V : V ;
-
-
-
-
-
-
 skaefta_vb_1_1_V : V ;
 skaegga_vb_1_1_V : V ;
 skaekta_vb_1_1_V : V ;
-
-
-
 skaermbilda_vb_1_1_V : V ;
 skaerra_vb_1_1_V : V ;
-
 skaerva_vb_1_1_V : V ;
-
-
-
 skaara_vb_1_1_V : V ;
 skoelpa_vb_1_1_V : V ;
-
 skoenstaxera_vb_1_1_V : V ;
 skoentaxera_vb_1_1_V : V ;
 skoera_vb_1_1_V : V ;
-
 skoerna_vb_1_1_V : V ;
 slabba_vb_1_V : V ;
 slacka_vb_1_V : V ;
-
 slafa_vb_1_V : V ;
 slafsa_vb_1_V : V ;
 slagga_vb_1_V : V ;
 slaka_vb_1_V : V ;
 slakna_vb_1_V : V ;
-
 slamma_vb_2_V : V ;
 slamsa_vb_1_V : V ;
 slanga_vb_1_V : V ;
 slanka_vb_1_V : V ;
 slankna_vb_1_V : V ;
 slanta_vb_1_V : V ;
-
-
-
 slasa_vb_1_V : V ;
-
-
 slavisera_vb_1_V : V ;
 slentrianmoerka_vb_1_1_V : V ;
 sleva_vb_1_V : V ;
-
 slikta_vb_1_V : V ;
-
-
 slitsa_vb_1_V : V ;
-
-
-
 slubba_vb_1_V : V ;
-
 slugga_vb_1_V : V ;
 slumpa_vb_1_V : V ;
-
-
 slutbehandla_vb_1_V : V ;
 slutfoervara_vb_1_1_V : V ;
-
 slaegga_vb_1_1_V : V ;
-
-
 slaetraka_vb_1_1_V : V ;
 slaetslipa_vb_1_1_V : V ;
 slaatta_vb_1_1_V : V ;
-
-
 sloera_vb_1_1_V : V ;
-
-
-
 smalfilma_vb_1_V : V ;
-
 smasha_vb_1_V : V ;
-
-
-
-
-
-
 smittspaara_vb_1_1_V : V ;
 smocka_vb_1_V : V ;
 smsa_vb_1_V : V ;
-
 smulta_vb_1_V : V ;
-
-
-
-
 smygfilma_vb_1_V : V ;
 smygislamisera_vb_1_V : V ;
-
 smaekta_vb_1_1_V : V ;
-
 smoera_vb_1_1_V : V ;
 snabbgranska_vb_1_V : V ;
 snabbspola_vb_1_V : V ;
 snabbteckna_vb_1_V : V ;
-
-
-
 snapsa_vb_1_V : V ;
 snara_vb_1_V : V ;
-
 snarpa_vb_1_V : V ;
 snarra_vb_1_V : V ;
 snaska_vb_1_V : V ;
-
 snedparkera_vb_1_V : V ;
 snedrekrytera_vb_1_V : V ;
-
 snorkla_vb_1_V : V ;
 snorta_vb_1_V : V ;
 snoemula_vb_1_1_V : V ;
-
-
 solvera_vb_1_V : V ;
-
-
 sondmata_vb_1_V : V ;
 sopsortera_vb_1_V : V ;
 sordinera_vb_1_V : V ;
-
-
 soulagera_vb_1_V : V ;
 sovjetisera_vb_1_V : V ;
-
 spaljera_vb_1_V : V ;
 spallera_vb_1_V : V ;
-
-
 speciminera_vb_1_V : V ;
-
-
-
-
-
 sprutlackera_vb_1_V : V ;
-
-
 stadsplanera_vb_1_V : V ;
 staffera_vb_1_V : V ;
-
 stajla_vb_1_V : V ;
 stalka_vb_1_V : V ;
-
-
-
 statuera_vb_2_V : V ;
-
-
-
 stenografera_vb_1_V : V ;
 stereofotografera_vb_1_V : V ;
 stereotypera_vb_1_V : V ;
-
 stigmatisera_vb_1_V : V ;
-
-
 stipendiera_vb_1_V : V ;
-
 stoffera_vb_1_V : V ;
 stormsaekra_vb_1_1_V : V ;
 strangulera_vb_1_V : V ;
@@ -7158,12 +3969,9 @@ stridsgruppera_vb_1_V : V ;
 strukturera_vb_1_V : V ;
 strukturrationalisera_vb_1_V : V ;
 straalkonservera_vb_1_1_V : V ;
-
 studieorientera_vb_1_V : V ;
 styla_vb_1_V : V ;
-
 staengsla_vb_1_1_V : V ;
-
 sublimera_vb_1_V : V ;
 subordinera_vb_1_V : V ;
 subsidiera_vb_1_V : V ;
@@ -7171,57 +3979,34 @@ subskribera_vb_1_V : V ;
 substantivera_vb_1_V : V ;
 substituera_vb_1_V : V ;
 subsumera_vb_1_V : V ;
-
-
 succedera_vb_1_V : V ;
 suffigera_vb_1_V : V ;
 sufflera_vb_1_V : V ;
-
-
 supplera_vb_1_V : V ;
 supponera_vb_1_V : V ;
-
-
-
-
 svartna_vb_1_V : V ;
-
 synkopera_vb_1_V : V ;
-
 syntetisera_vb_1_V : V ;
 systematisera_vb_1_V : V ;
-
-
-
 saatera_vb_1_1_V : V ;
 saavera_vb_1_1_V : V ;
 soemma_vb_1_1_V : V ;
-
 tabellera_vb_1_V : V ;
 tabuera_vb_1_V : V ;
 tamponera_vb_1_V : V ;
 tandtraada_vb_1_1_V : V ;
-
-
 tarera_vb_1_V : V ;
 tariffera_vb_1_V : V ;
-
-
-
 teknifiera_vb_1_V : V ;
-
-
 televisera_vb_1_V : V ;
 tempera_vb_1_V : V ;
 temperera_vb_1_V : V ;
-
 terrassera_vb_1_V : V ;
 terrorisera_vb_1_V : V ;
 tesaurera_vb_1_V : V ;
 testamentera_vb_1_V : V ;
 tidsberaekna_vb_1_1_V : V ;
 tillfoerordna_vb_1_1_V : V ;
-
 tillkoppla_vb_1_V : V ;
 tillstroemma_vb_1_1_V : V ;
 tilta_vb_1_V : V ;
@@ -7240,7 +4025,6 @@ tjyvfiska_vb_1_V : V ;
 tjyvjaga_vb_1_V : V ;
 tjyvkoppla_vb_1_V : V ;
 tjyvlyssna_vb_1_V : V ;
-
 tolvfaldiga_vb_1_V : V ;
 topsa_vb_1_V : V ;
 tordera_vb_1_V : V ;
@@ -7248,7 +4032,6 @@ torktumla_vb_1_V : V ;
 torpedera_vb_1_V : V ;
 torrdestillera_vb_1_V : V ;
 torrschamponera_vb_1_V : V ;
-
 totalfinansiera_vb_1_V : V ;
 totalfoerlama_vb_1_1_V : V ;
 totalhaverera_vb_1_V : V ;
@@ -7258,20 +4041,14 @@ touchera_vb_1_V : V ;
 toupera_vb_1_V : V ;
 tracka_vb_1_V : V ;
 tradera_vb_1_V : V ;
-
 trafikreglera_vb_1_V : V ;
-
-
-
 transformera_vb_1_V : V ;
 transitera_vb_1_V : V ;
 transkribera_vb_1_V : V ;
 translitterera_vb_1_V : V ;
 transmittera_vb_1_V : V ;
 transmutera_vb_1_V : V ;
-
 transponera_vb_1_V : V ;
-
 transumera_vb_1_V : V ;
 trasha_vb_1_V : V ;
 trassera_vb_1_V : V ;
@@ -7280,25 +4057,18 @@ tredubbla_vb_1_V : V ;
 trefaldiga_vb_1_V : V ;
 trepanera_vb_1_V : V ;
 triangulera_vb_1_V : V ;
-
 triera_vb_1_V : V ;
 trigga_vb_1_V : V ;
 trippla_vb_1_V : V ;
 trivialisera_vb_1_V : V ;
 trixa_vb_1_V : V ;
-
 tryckimpregnera_vb_1_V : V ;
 tryffera_vb_1_V : V ;
 traea_vb_1_1_V : V ;
 troeghetsnavigera_vb_1_1_V : V ;
-
-
 tupera_vb_1_V : V ;
-
 tuschera_vb_1_V : V ;
 tvaga_vb_1_V : V ;
-
-
 tvaangskommendera_vb_1_1_V : V ;
 tvaangsrekrytera_vb_1_1_V : V ;
 tvaangstatuera_vb_1_1_V : V ;
@@ -7307,7 +4077,6 @@ typifiera_vb_1_V : V ;
 typisera_vb_1_V : V ;
 tyrannisera_vb_1_V : V ;
 taeckdika_vb_1_1_V : V ;
-
 taevlingssegla_vb_1_1_V : V ;
 taagpendla_vb_1_1_V : V ;
 ultrarapidfotografera_vb_1_V : V ;
@@ -7315,41 +4084,28 @@ underbalansera_vb_1_V : V ;
 underdimensionera_vb_1_V : V ;
 underexponera_vb_1_V : V ;
 underfoersaekra_vb_1_1_V : V ;
-
-
-
 underredsbehandla_vb_1_V : V ;
 undertaxera_vb_1_V : V ;
-
 undervaerdera_vb_1_1_V : V ;
-
 unifiera_vb_1_V : V ;
 uniformera_vb_1_V : V ;
 uppamma_vb_1_V : V ;
-
 uppfodra_vb_1_V : V ;
 uppfordra_vb_1_V : V ;
-
 uppgradera_vb_1_V : V ;
 upphandla_vb_1_V : V ;
 uppjustera_vb_1_V : V ;
 upplagra_vb_1_V : V ;
 uppmuddra_vb_1_V : V ;
-
-
 uppodla_vb_1_V : V ;
-
 uppreklamera_vb_1_V : V ;
 uppraekna_vb_1_1_V : V ;
 uppsamla_vb_1_V : V ;
 uppslamma_vb_1_V : V ;
 uppsummera_vb_1_V : V ;
 upptaxera_vb_1_V : V ;
-
-
 uppvaerdera_vb_1_1_V : V ;
 urbanisera_vb_1_V : V ;
-
 usurpera_vb_1_V : V ;
 utackordera_vb_1_V : V ;
 utannonsera_vb_1_V : V ;
@@ -7373,7 +4129,6 @@ utkonkurrera_vb_1_V : V ;
 utkristallisera_vb_1_V : V ;
 utkvittera_vb_1_V : V ;
 utlokalisera_vb_1_V : V ;
-
 utmanoevrera_vb_1_1_V : V ;
 utmejsla_vb_1_V : V ;
 utminutera_vb_1_V : V ;
@@ -7387,38 +4142,22 @@ utslockna_vb_1_V : V ;
 utstoffera_vb_1_V : V ;
 utsoendra_vb_1_1_V : V ;
 uttaxera_vb_1_V : V ;
-
-
-
 utvaexla_vb_1_1_V : V ;
-
-
-
 vaksinera_vb_1_V : V ;
 valutera_vb_1_V : V ;
 valvera_vb_1_V : V ;
-
-
-
-
-
 varudeklarera_vb_1_V : V ;
 vattenkamma_vb_1_V : V ;
 vattra_vb_1_V : V ;
-
 velourisera_vb_1_V : V ;
-
 verbalisera_vb_1_V : V ;
-
 verklighetsfoerankra_vb_1_1_V : V ;
 versifiera_vb_1_V : V ;
 vevla_vb_1_V : V ;
-
 vidarerapportera_vb_1_V : V ;
 vidareutbilda_vb_1_V : V ;
 vidareutveckla_vb_1_V : V ;
 vidfoga_vb_1_V : V ;
-
 vikta_vb_1_V : V ;
 vindicera_vb_1_V : V ;
 vindpollinera_vb_1_V : V ;
@@ -7426,29 +4165,18 @@ vinstmaximera_vb_1_V : V ;
 vinterbada_vb_1_V : V ;
 vintercykla_vb_1_V : V ;
 visera_vb_1_V : V ;
-
 visualisera_vb_1_V : V ;
 vitalisera_vb_1_V : V ;
 vitaminera_vb_1_V : V ;
 vitaminisera_vb_1_V : V ;
 vitlimma_vb_1_V : V ;
-
 vitra_vb_1_V : V ;
-
-
 vokalisera_vb_1_V : V ;
 volta_vb_1_V : V ;
 vulgarisera_vb_1_V : V ;
 vulkanisera_vb_1_V : V ;
-
-
 vaeggmontera_vb_1_1_V : V ;
-
-
-
 vaenstra_vb_1_1_V : V ;
-
-
 vaermebehandla_vb_1_1_V : V ;
 vaermefotografera_vb_1_1_V : V ;
 vaermeisolera_vb_1_1_V : V ;
@@ -7457,15 +4185,10 @@ vaadaskjuta_vb_1_1_V : V ;
 vaarstaeda_vb_1_1_V : V ;
 wallraffa_vb_1_V : V ;
 ytbehandla_vb_1_V : V ;
-
-
 aemnesintegrera_vb_1_1_V : V ;
 aenda_vb_1_1_V : V ;
-
-
 aaldersdiskriminera_vb_1_1_V : V ;
 aasiktsregistrera_vb_1_1_V : V ;
-
 aaterbilda_vb_1_1_V : V ;
 aaterboerda_vb_1_1_V : V ;
 aatereroevra_vb_1_1_V : V ;
@@ -7475,12 +4198,9 @@ aaterinvestera_vb_1_1_V : V ;
 aaterkoppla_vb_1_1_V : V ;
 aaterlaemna_vb_1_1_V : V ;
 aaterplantera_vb_1_1_V : V ;
-
 aatra_vb_1_1_V : V ;
-
 oegonflirta_vb_1_1_V : V ;
 oegonfloerta_vb_1_1_V : V ;
-
 oeverbelasta_vb_1_1_V : V ;
 oeverdebitera_vb_1_1_V : V ;
 oeverdimensionera_vb_1_1_V : V ;
@@ -7489,16 +4209,10 @@ oeverexponera_vb_1_1_V : V ;
 oeverflygla_vb_1_1_V : V ;
 oeverkompensera_vb_1_1_V : V ;
 oeverlagra_vb_1_1_V : V ;
-
 oeverordna_vb_1_1_V : V ;
-
 oeverrenovera_vb_1_1_V : V ;
-
 oeverstegra_vb_1_1_V : V ;
-
-
 oeverutnyttja_vb_1_1_V : V ;
-
 oevervaeltra_vb_1_1_V : V ;
 oevervaerdera_vb_1_1_V : V ;
 oeverman_nn_1_1_N : N ;
