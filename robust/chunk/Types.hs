@@ -8,9 +8,10 @@ utt    = fromJust $ readType "Utt"
 s      = fromJust $ readType "S"
 cl     = fromJust $ readType "Cl"
 vp     = fromJust $ readType "VP"
+vpx    = fromJust $ readType "VPParse"
 np     = fromJust $ readType "NP"
 npsub  = fromJust $ readType "NPTyped Subject" 
---npobj  = fromJust $ readType "NPTyped Object" 
+npobj  = fromJust $ readType "NPTyped Object" 
 adv    = fromJust $ readType "Adv"
 adV    = fromJust $ readType "AdV"
 iadv   = fromJust $ readType "IAdv"
@@ -61,12 +62,14 @@ relvp  = fromJust $ readType "RelVP"
 advs   = [adv,adV,iadv]
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 --advs = [advsub,advobj]
---nps  = [npsub,npobj]
+nps  = [npsub,npobj,np]
 --aps  = [apsub,apobj]
 toGFStr :: [Type] -> Maybe String
 toGFStr xs  | xs == advs  = return "?advs"
+toGFStr xs  | xs == nps   = return "?np"
 toGFStr [x] | x  == np    = return "?np"
 toGFStr [x] | x  == npsub = return "?npsub"
+toGFStr [x] | x  == npobj = return "?npobj"
 toGFStr [x] | x  == ap    = return "?ap"
 toGFStr [x] | x  == adv   = return "?adv"
 toGFStr [x] | x  == iadv  = return "?iadv"

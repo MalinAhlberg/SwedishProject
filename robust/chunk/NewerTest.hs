@@ -50,7 +50,7 @@ try fil = do
   --putStrLn $ "input: "++show inp
   sequence [parseText inp pgf lang startType >>= writeToFile i | (i,inp) <- input]
   --writeFile "testetE1.txt" $ unlines $ map showRes res
- where writeToFile i x = appendFile "testetE1.txt" $ showRes (i,x) ++"\n"
+ where writeToFile i x = appendFile "testNew.txt" $ showRes (i,x) ++"\n"
 
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
        

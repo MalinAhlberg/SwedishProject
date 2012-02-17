@@ -4,6 +4,7 @@ import Control.Monad.State hiding (ap)
 import Control.Applicative
 import Data.List
 import Data.Maybe
+import Data.Ord
 import qualified Data.Map as M
 import Data.Either
 import Debug.Trace
@@ -11,33 +12,60 @@ import Data.Tree
 import Types
 
 data PState = PS {recTypes :: [[Type]]       --stack of types which unknown words should be parsed as
-                 ,recState :: [ParseState]   --stack of states where parsing should be recovered from
+                 ,recState :: [[Result]]   --stack of states where parsing should be recovered from
                  ,skip :: [Bool]                    --stack of booleans telling whether a word may be skipped
-                 ,currentState :: ParseState --the current parse state
+                 ,currentStates :: [Result] --the current parse state
                  ,pieces :: [[Expr]]         --relevant pieces parsed so far
                  ,emptyPState :: Type -> ParseState --an empty parse state
                  }
 type Parser = State PState
+data Result = Ok ParseState | Recover ParseState | Failed 
+instance Eq Result where
+    (Ok _)      == (Ok _)      = True
+    (Recover _) == (Recover _) = True
+    Failed      == Failed      = True
+    _           == _           = False
+type Success = Bool
 
 limit = take 500
 
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   let startState = initState pgf lang startType
-      parser     = PS {recTypes = [[s]], recState =  [startState], skip = [False]
-                      ,currentState = startState, pieces =  [], emptyPState = initState pgf lang}
+      parser     = PS {recTypes = [[s]], recState =  [[Ok startState]], skip = [False]
+                      ,currentStates = [Ok startState], pieces =  [], emptyPState = initState pgf lang}
       (pst,st) = runState (parseX tree) parser 
-  case pst of
-       Right ps -> case fst (getParseOutput ps startType Nothing) of
-                        ParseOk trees   -> return $ limit trees
-                        ParseIncomplete -> putStrLn "incomplete" >> putPiecesTogether st
-                        TypeError x     -> putStrLn "type error" >> putPiecesTogether st
-                        ParseFailed i   -> putStrLn "parse fail" >> putPiecesTogether st
-       Left _   ->  putPiecesTogether st
- where putPiecesTogether st = let piec = pieces st in
-            return $ [mkApp (mkCId "Text") [mkApp meta c] | c <- combinations $ map (limit) piec] -- need some sort of limit
-       combinations = sequence --[]     = [[]]
-       --combinations (x:xs) = [a:as | a <- x , as <- combinations xs]
+  getOutput pst st
+
+ where getOutput pst st | pst && not (best==Failed) && canProduce = return $ limit trees
+                        | otherwise                               = putPiecesTogether st
+        where best       = getBest $ currentStates st
+              canProduce = isOkParse result
+              trees      = getTrees result
+              result     = fst (getParseOutput (getPState best) startType Nothing)
+              getTrees (ParseOk t) = t
+              putPiecesTogether st = let piec = pieces st in
+                    return $ [mkApp (mkCId "Text") [mkApp meta c] | c <- combinations $ map (limit) piec] -- need some sort of limit
+              combinations = sequence
+              isOkParse     (ParseOk t) = True
+              isOkParse     _           = False
+
+{-
+  case pst of -- take first, if all failed, put pieces together --TODO case for getBest returns 
+       True         -> case getBest $ currentStates st of
+                            Ok ps      -> getOutput ps
+                            Recover ps -> getOutput ps
+                            Failed     -> putPiecesTogheter st
+       _            ->  putPiecesTogether st
+       -}
+       --getOutput pst = case fst (getParseOutput pst startType Nothing) of
+       --                 ParseOk trees   -> return $ limit trees
+       --                 ParseIncomplete -> putStrLn "incomplete" >> putPiecesTogether st
+       --                 TypeError x     -> putStrLn "type error" >> putPiecesTogether st
+       --                 ParseFailed i   -> putStrLn "parse fail" >> putPiecesTogether st
+
+
+
 --TODO
 -- 0. recover suddar ut mer än ett ord. hur lösa??
 -- 1. problem: v parsas ej som ? utan som alla kombinationer 
@@ -45,131 +73,169 @@ parseText tree pgf lang startType = do
 
 
 -- parse the words
-parseX ::  Tree String -> Parser (Either ParseState ParseState)
-parseX (Node w []) | length (words w) == 0 = Right <$> gets currentState --for removed names 
-                   | length (words w) > 1  = liftM last $ mapM (parseX . flip Node []) $ words w
+parseX ::  Tree String -> Parser Success
+parseX (Node w []) | length (words w) == 0 = return True --Right <$> gets currentState --for removed names 
+                   | length (words w) > 1  = liftM last $ mapM (parseX . flip Node []) $ words w -- compound
                    | otherwise             = 
-  trace ("parsing "++w) $ let nextTok = simpleParseInput w in
-  do state <- gets currentState
-     case nextState state nextTok of
-          Right ps  -> do trace ("parse success "++w) $ backUpForAdvAndSkip w ps
-                          return $ Right ps
-          Left  er  -> do skipOk <- getSkip
-                          if skipOk then return (Right state)
-                                    else do
-                                         types  <- getRecTypes
-                                         rstate <- getRecState
-                                         let ps' = recoverFrom types rstate 
-                                         trace ("parse fail "++w++", recover as "++show types) 
-                                                   $ putCurrentState ps'
-                                         return $ Left ps'
-  where recoverFrom :: [Type] -> ParseState -> ParseState
-        recoverFrom typs state = do
-               case toGFStr typs of
-                    Just tok -> do
-                          let  nextTok  = simpleParseInput tok
-                               newState = nextState state nextTok
-                          case newState of
-                               Right e  -> e
-                               Left  er -> trace "AAAA USING BAD BRANCH" state -- error ("oops could not recover") 
-                    Nothing  -> do
-                          let nextTok :: ParseInput 
-                              nextTok = simpleParseInput "XXX"
-                              lastSt = nextState state nextTok
-                          case lastSt of
-                               Right _  -> error "could parse XXX"
-                               Left  er -> fst $ recoveryStates typs er
+  do states <- gets currentStates --parsa på alla states, ev lägg till fler
+     newStates <- mapM parseNext states
+     putCurrentStates $ concat newStates
+     return True -- better check?
 
-                 --trace ("for type "++show typs++show (M.keys $ snd $ recoveryStates typs er)) $ 
-              
+ where parseNext :: Result -> Parser [Result]
+       parseNext (Ok state) = do
+              skipOk <- trace ("parsing "++w) $ getSkip
+              let nextTok = simpleParseInput w 
+              case nextState state nextTok of
+                   Right ps  -> do trace ("parse success "++w) $ return () -- putCurrentState ps
+                                   st <- backUpForAdv state
+                                   let st' = if skipOk then [Ok state]
+                                                       else []
+                                   return ([Ok ps]++st++st')   
+                   Left  er  -> do if skipOk then return [Ok state]
+                                             else do
+                                                  types  <- getRecTypes
+                                                  rstate <- getRecState
+                                                  let ps' = map (recoverFrom types) rstate 
+                                                  trace ("parse fail "++w++", recover as "++show types) 
+                                                            $ return () --putCurrentState ps'
+                                                  return $ ps' --recover på vissa? vissa har försvunnit
+         where recoverFrom :: [Type] -> Result -> Result 
+               recoverFrom typs (Ok state) = do
+                      case toGFStr typs of
+                           Just tok -> do
+                                 let  nextTok  = trace ("recover word "++tok) $ simpleParseInput tok
+                                      newState = nextState state nextTok
+                                 case newState of
+                                      Right e  -> trace ("recover success") $ Recover e
+                                      Left  er -> trace ("recover fail") $ Failed 
+                           Nothing  -> do -- if not in list, we use normal recover
+                                 let nextTok :: ParseInput 
+                                     nextTok = simpleParseInput "XXX"
+                                     lastSt = nextState state nextTok
+                                 case lastSt of
+                                      Right _  -> error "could parse XXX"
+                                      Left  er -> trace ("super recover") $ Recover $ fst $ recoveryStates typs er
+               recoverFrom typs state = state
+       parseNext badState = return [badState]
+
 
 -- some tags have a backup-plan
 parseX (Node "ROOT" [t]) = parseX t -- only one node in root
 parseX (Node "ROOT" ts)  = do       -- if there are more, we don't know what to do
   res <- parsePieces ts
   savePieces $ metatize res
-  st <- gets currentState 
-  return $ Left st
+  --st <- gets currentState 
+  return False  
 
 
 parseX (Node "S"  ts) = do 
-   res <- parseX (Node "XX" ts)
-   case res of 
-        Right ps -> case fst (getParseOutput ps text Nothing) of
+   parseX (Node "XX" ts)
+   st <- gets currentStates
+   case getBest st of 
+        Ok ps -> case fst (getParseOutput ps text Nothing) of
                          TypeError _ -> trace "found a type error " combinePieces -- may be incomplete, because part of other sentence etc.
-                         _           -> return res
-        Left  ps -> combinePieces
+                         _           -> return True 
+        _     -> combinePieces
  where combinePieces = do
          oldPieces <- emptyPieces 
          res       <- parsePieces ts
          let s = map (mkApp (mkCId "S")) $ sequence $ metatize res 
          savePieces $ s : oldPieces
-         st <- gets currentState 
-         return $ Right st
+         return False -- TODO what to do here? return False, or add s to state, or return True..?
 
 
-parseX (Node x ts) | isSaveNode x = trace ("saves node" ++show x) $  saveState (getCat x) ts
-                   | isSkipNode x = enableSkip ts
-
+parseX (Node x ts) | "NN" `isPrefixOf` x && length x>2 = parseX (Node "NN" ts)
+                   | isSaveNode x        = trace ("saves node" ++show x) $  saveState (getCat x) ts
+                   | isSkipNode x        = enableSkip ts
 
 -- otherwise, just continue
 parseX (Node x [t]) = trace ("one left in "++x ) $ parseX t 
-parseX (Node x (t:ts)) = trace ("many left in "++x) $ do 
-  res1 <- parseX t 
-  case res1 of
-      Right ps -> parseX (Node ("XX"++x) ts)
-      Left  ps -> return (Left ps)
+parseX (Node x (t:ts)) = trace ("many left in "++x) $ do      --will not need to be checked here anymore
+  parseX t               --look at x here
+  parseX (Node "XX" ts)  --but not again
+--  case res1 of
+--      Right ps -> parseX (Node ("XX"++x) ts) -- TODO get all Ok and continue, let the other sleep
+--      Left  ps -> return (Left ps)
 
-parsePieces :: [Tree String] -> Parser [[(Type,ParseState)]]
+parsePieces :: [Tree String] -> Parser [[(Type,Result)]]
 parsePieces ts = sequence [tryParse t | t <- ts] 
   where toNode (Node x _) = x
         fromEither :: Either ParseState ParseState -> ParseState
         fromEither (Left  st) = st
         fromEither (Right st) = st
         tryParse (Node t ts) = let cats = if isSaveNode t then (getCat t++[utt]) else [utt]
-                               in sequence [emptyState c >> parseX (Node t ts) 
-                                            >>= \x -> return (c,fromEither x) | c <- cats]
+                               in sequence [do emptyState c
+                                               parseX (Node t ts) 
+                                               res <- getBest <$> gets currentStates
+                                               return (c,res) | c <- cats]
 
 isSaveNode = (`elem` map fst saveNodes)
 
-saveNodes = [("NP",[np]),("PP",[adv]),("SS",[npsub,np]),("OO",[np])
+saveNodes = [("NP",nps),("PP",[adv]),("SS",[npsub,np]),("OO",[npobj,np])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
             ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
-            ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",[np])
+            ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",nps)
             ,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
-            ,("CPP",[adv]),("CS",[s]),("CVP",[vp]),("NAC",[utt])
-            ,("++",[conj]),("SP",[icomp,comp])] --TODO change v to all vs
+            ,("CPP",[adv]),("CS",[s]),("CVP",[vpx]),("NAC",[utt])
+            ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])
+            ,("NN",nps)] --TODO change v to all vs
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
 
 getCat :: String -> [Type]
 getCat = fromJust . (`lookup` saveNodes)
 
-saveState ::  [Type] -> [Tree String] -> Parser (Either ParseState ParseState)
+saveState ::  [Type] -> [Tree String] -> Parser Success
 saveState recover ts = do
-  local (pushRecTypes recover >> parseX (Node "XX" ts))
-  res <- gets currentState
-  return (Right res)
+  res <- gets currentStates
+  let oks =  filter isOkResult res 
+  case oks of
+       [] -> return False
+       _  -> do
+            local (putCurrentStates oks >> pushRecTypes recover >> parseX (Node "XX" ts))
+            news <- gets currentStates
+            let recovered = cleanUp news
+            putCurrentStates (recovered++filter (not . isOkResult) res)
+            return (not $ null recovered) --if we have any left..
+cleanUp = map recoverSt  -- . filter isAlive
+  where isAlive                = not . (==Failed)   
+        recoverSt (Recover st) = Ok st
+        recoverSt x            = x
+isOkResult (Ok _) = True
+isOkResult _      = False
 
-enableSkip :: [Tree String] -> Parser (Either ParseState ParseState)
+enableSkip :: [Tree String] -> Parser Success 
 enableSkip ts = do
    modify $ \s -> s {skip = True:skip s}
    res <- parseX (Node "XX" ts)
    modify $ \s -> s {skip = drop 1 (skip s)}
    return res
 
+getBest = head . sortBy (comparing resultOrder)
+ where resultOrder (Ok _)      = 1
+       resultOrder (Recover _) = 2
+       resultOrder _           = 3
 
-metatize :: [[(Type,ParseState)]] -> [[Expr]]
+metatize :: [[(Type,Result)]] -> [[Expr]]
 metatize = map putMetas
-  where putMetas :: [(Type,ParseState)] -> [Expr]
-        putMetas []      = [mkApp meta []]
-        putMetas ((t,p):ps)  = 
-           case fst (getParseOutput p t Nothing) of 
+  where putMetas :: [(Type,Result)] -> [Expr]
+        putMetas []               = [mkApp meta []]
+        putMetas ((t,Failed):ps)  = [mkApp meta []]
+        putMetas ((t,res):ps)     = 
+           case fst (getParseOutput (getPState res) t Nothing) of 
                 ParseOk trees   -> nub trees  
                 _               -> putMetas ps
 
-putCurrentState ::  ParseState -> Parser ()
-putCurrentState ps = modify $ \s -> s {currentState = ps}
+getPState (Recover ps) = ps
+getPState (Ok      ps) = ps
+getPState _            = error "getPState on Failed"
+
+putCurrentStates ::  [Result] -> Parser ()
+putCurrentStates ps = modify $ \s -> s {currentStates = ps}
+
+--addCurrentState :: ParseState -> Parser ()
+--addCurrentState ps = modify $ \s -> s {currentStates = currentStates s ++[ps]} --add last
 
 getRecTypes ::  Parser [Type]
 getRecTypes = liftM head $ gets recTypes 
@@ -179,23 +245,24 @@ getSkip  = liftM head $ gets skip
 
 getRecState = liftM head $ gets recState 
 
-pushState ::  ParseState -> Parser ()
-pushState st = trace ("push State ") $  modify $ \s -> s {recState = st  : recState s}
+pushStates ::  [Result] -> Parser ()
+pushStates st = trace ("push State ") $  modify $ \s -> s {recState = st  : recState s}
 
 pushRecTypes ::  [Type] -> Parser ()
 pushRecTypes typ = trace ("push types "++ show typ) $ modify $ \s -> s {recTypes = typ : recTypes s}
 
-popStates :: [ParseState] -> [[Type]] ->  Parser ()
+popStates :: [[Result]] -> [[Type]] ->  Parser ()
 popStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
 
 savePieces :: [[Expr]] -> Parser ()
 savePieces exps = modify $ \s -> s {pieces = exps++ pieces s} 
 
+local :: Parser a -> Parser a
 local m = do
-  state   <- gets currentState
+  state   <- gets currentStates
   rstates <- gets recState
   rtypes  <- gets recTypes
-  pushState state
+  pushStates $ {-filter (not . (== Failed))-} state
   res <- m
   popStates rstates rtypes
   return res
@@ -204,7 +271,7 @@ local m = do
 emptyState :: Type -> Parser ()
 emptyState typ = do
   st <- gets emptyPState
-  modify $ \s -> s {recTypes = [[text,utt]], recState = [st typ], currentState = st typ
+  modify $ \s -> s {recTypes = [[text,utt]], recState = [[Ok $ st typ]], currentStates = [Ok $ st typ]
                    ,pieces = pieces s, emptyPState = st, skip = [False]}
 
 
@@ -215,22 +282,18 @@ emptyPieces = do
   return ps
 
 
-backUpForAdv w state = do
+-- need list of states, remove as they fail and take the first if it succeedes.
+backUpForAdv state = do --TODO putState Later of sooner!
   types  <- getRecTypes
-  okskip <- gets skip
-  if adV `elem` types then  parseAsAdv advs
-          else --if ok then parseAsCat types else  --TODO START we need to recover from unwanted ','
-                             putCurrentState state
- where parseAsCat cat = do
-         let nextTok = trace "backing up for adv" $ simpleParseInput w
-             badTok = simpleParseInput  "XX"
+  return $ if adV `elem` types then parseAsAdV
+                               else [] 
+ where parseAsAdV = 
+         let nextTok = trace "backing up for adv" $ simpleParseInput $ fromJust $ toGFStr [adV] in
          case nextState state nextTok of
-              Right st -> case nextState st badTok of
-                               Left er -> putCurrentState $ fst 
-                                                $ recoveryStates cat er
-                               _       -> error "could parse XX"
+              Right st -> [Ok st]
+              _        -> []
+--addStateForSkippedToken state = state
 
-              _        -> trace  "bad" $ putCurrentState state
 meta = mkCId "?" 
 
 
