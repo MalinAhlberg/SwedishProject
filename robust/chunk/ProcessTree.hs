@@ -24,7 +24,7 @@ processTree b lex morpho i tree  | isCompound =  moveOn  $ setLabel sms tree
                                  | isName     =  moveOn' $ exchangeNames i tree
                                  | b          =  moveOnSave  $ modifyLabel lower tree  --is first word
                                  | otherwise  =  moveOnSave  $ tree
-  where isCompound    = trace ("sms "++show sms) $ isUnknown && "&+" `isInfixOf` sms 
+  where isCompound    = trace ("work on word "++word) $ isUnknown && "&+" `isInfixOf` sms 
         isNumber      = isUnknown && numbertag pos
         isUVerb       = isUnknown && verbtag pos
         isName        = isUnknown 
@@ -58,11 +58,14 @@ exchangeNames i tree | lookNamish word  = dropName tree'
          name    = if List.last word == 's' then "XPN"++show i else "YPN"++show i
 
 dropName  :: TreePos Full String -> TreePos Full String
-dropName tree | lookNamish word || isNameSpec word = dropName tree'
+dropName tree | lookNamish word || isNameSpec word = moveOn
               | otherwise                          = tree
    where word    = label tree
-         tree'   = modifyLabel (const "") tree -- TODO is this ok for the parser?
+         tree'   = getNextWord $ modifyLabel (const "") tree -- TODO is this ok for the parser?
+         moveOn  | isJust tree' = dropName $ fromJust tree'
+                 | otherwise    = modifyLabel (const "") tree
 
+lookNamish [] = error "emty name"
 lookNamish s = notPn s && isUpper (head s)
 isNameSpec = (`elem` ["von","af"])
 notPn = not . (`elem` ["Dig","Din","Dina","Du","Er","Era","Er","Eder","Ni"])

@@ -66,7 +66,7 @@ nps  = [npsub,npobj,np]
 --aps  = [apsub,apobj]
 toGFStr :: [Type] -> Maybe String
 toGFStr xs  | xs == advs  = return "?advs"
-toGFStr xs  | xs == nps   = return "?np"
+toGFStr xs  | xs == nps   = return "?nps"
 toGFStr [x] | x  == np    = return "?np"
 toGFStr [x] | x  == npsub = return "?npsub"
 toGFStr [x] | x  == npobj = return "?npobj"

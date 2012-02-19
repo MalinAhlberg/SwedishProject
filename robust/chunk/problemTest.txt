@@ -1,0 +1,15 @@
+gälla ej i small lexion, but in big
+räcka ej i small ...
+gälla V2 not taken from lexin
+
+testa 28, varför kan den ej parsa 'det'?
+testa 64, vad blir så fel, 'avvika' fins med?
+'ansvar' borde gå att parsa
+111 'skoputs' med    --> lägg till fler compounds?  varför fick inte puts vara med?
+maxgräns på combined
+regel för att avbryta vid ',' ?
+123 borde funka
+133 borde funka strukturmässigt
+
+måste ha med 'men'!!
+kolla compoundern. utbildningsgrenar? finns i saldo, men ej i vårt :(

@@ -31,9 +31,11 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
                         Nom => "Y" ++i.s };
              g = (variants {utrum | neutrum})} ;
 
-  npMeta =  mkNP' "?np" ;
+  npMeta =  mkNP' (variants { "?np" |  "?nps" }) ;
+  nMeta = {s = \\_,_,_ => "?nps" ; g = variants {utrum | neutrum}} ;
   
-  npsubMeta = mkNP' "?npsub" ;
+  npsubMeta =  mkNP' (variants { "?npsub" | "?nps" }) ;
+  npobjMeta = mkNP' (variants { "?npobj" | "?nps" }) ;
   vMeta  = mkV "?v" ;
   apMeta = {s = \\_,_ => "?ap" ; isPre = variants {True | False}};
   vpMeta = {s = \\_,_ => {fin = "?vp" ; inf = "?vp"} ;

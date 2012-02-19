@@ -26,7 +26,9 @@ abstract BigParse =
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
   npMeta : NP ;
+  nMeta : N ;
   npsubMeta : NPTyped Subject ;
+  npobjMeta : NPTyped Object ;
   vMeta : V ;
   apMeta : AP ;
   vpMeta : VP ;

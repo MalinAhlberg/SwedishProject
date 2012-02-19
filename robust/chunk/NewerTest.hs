@@ -7,6 +7,7 @@ import MkLex
 import Types
 import qualified Format as Form
 import PGF
+import Data.List
 import Data.Tree
 import Data.Tree.Zipper
 import Control.Monad
@@ -35,10 +36,28 @@ tryAll fil = do
   mapM (processAndWrite newPgf newLang) $ zip (map fst input) (map toTree ziptrees)
  where processAndWrite pgf lang (i,tree) = do
          res <- parseText tree pgf lang startType
-         appendFile "supertest.txt" $ showRes (i,res) ++"\n"
+         appendFile "supertest1.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
-
+tryMedium fil = do
+  putStrLn $ "Start, reading saldo ..."
+  lex <- getSaldo 
+  putStrLn $ "Reading pgf ... "
+  pgf <- readPGF "BigParse.pgf"
+  let plang = read "BigParseSwe"
+      morpho = buildMorpho pgf plang
+  putStrLn $ "Parsing xml ... "
+  input <- fmap concat $ Form.parse fil
+  putStrLn $ "Processing the tree "
+  let ziptrees        = map (getFirstWord . fromTree . snd) input
+      (newsTrees,lms) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
+  putStrLn $ "Lemmas requested: "++show (map head $ group $ sort lms)
+  putStrLn $ "Parsing the tree "
+  mapM (processAndWrite pgf plang) $ zip (map fst input) (map toTree ziptrees)
+ where processAndWrite pgf lang (i,tree) = do
+         res <- parseText tree pgf lang startType
+         appendFile "reservtest.txt" $ showRes (i,res) ++"\n"
+        where ziptree = getFirstWord $ fromTree tree
 
 
 try fil = do
