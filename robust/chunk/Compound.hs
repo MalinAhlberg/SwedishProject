@@ -48,8 +48,6 @@ compound' :: Bool -> Lex -> String -> [[String]]
 compound' b saldoLex w = concat 
   [ [pr:sf | pr <- pre, sf <- ss]
         | (p,s) <- prefixesSuffixes w, not (exception s)
-        --, let p' = isInLexPre saldoLex p
-        --, isJust p'
         , let ps  = sandhi b p s
         , let pre = catMaybes (map (isInLexPre saldoLex) ps)
         , pre /= []
@@ -60,17 +58,11 @@ compound' b saldoLex w = concat
 comb :: Bool -> String -> [String] -> [[String]]
 comb b p (s:ss) =  [p':s:ss | p' <- sandhi b p s]
 
-{-
-f g (a:b:xs) = map ((++ concat (f g xs)) .  (:[b])) (g a b)
-f _ [x]       = [[x]]
-f _ []        = []
--}
-
 --isInLex, isInLexPre :: Lex -> String -> Maybe Text
 isInLex lex w =  fmap (snd . head) $ M.lookup (pack w) lex
 isInLexPre lex w = let forms = concat $ maybeToList $ M.lookup (pack w) lex
                        isOk  = listToMaybe . filter ((pack "c" `isPrefixOf`) . fst)
-                   in if isJust $ isOk forms then getInfForm forms else Nothing -- fmap snd $ isOk forms
+                   in if isJust $ isOk forms then getInfForm forms else Nothing 
   where getInfForm ((_,x):xs) = Just $ takeWhile isAlpha $ unpack x
 
   -- tag should not be: (`elem` ["cm","ci","c"] ). Make explicit if other 

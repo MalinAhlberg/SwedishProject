@@ -5,7 +5,7 @@ import Data.Maybe
 text   = fromJust $ readType "Text"
 phr    = fromJust $ readType "Phr"   
 utt    = fromJust $ readType "Utt"
-s      = fromJust $ readType "S"
+sent   = fromJust $ readType "S"
 cl     = fromJust $ readType "Cl"
 vp     = fromJust $ readType "VP"
 vpx    = fromJust $ readType "VPParse"
@@ -78,5 +78,6 @@ toGFStr [x] | x  == v     = return "?v"
 toGFStr [x] | x  == conj  = return "?conj"
 toGFStr [x] | x  == comp  = return "?comp"
 toGFStr [x] | x  == icomp = return "?icomp"
+toGFStr [x] | x  == sent  = return "?s"
 toGFStr  x                = Nothing
            

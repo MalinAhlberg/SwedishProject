@@ -13,9 +13,10 @@ import Data.Tree.Zipper
 import Control.Monad
 import Control.Monad.Writer
 import System.IO
+import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          try "EvalSuite1.xml"
+          timeIt $ tryAll "hardtests.xml"
 
 tryAll fil = do
   putStrLn $ "Start, reading saldo ..."
@@ -33,11 +34,12 @@ tryAll fil = do
   Just (pgf',newLang) <- mkDir lex lms 
   newPgf <- readPGF pgf' 
   putStrLn $ "Parsing the tree "
-  mapM (processAndWrite newPgf newLang) $ zip (map fst input) (map toTree ziptrees)
+  mapM (processAndWrite newPgf newLang) $ zip (map fst input) (map toTree newsTrees)
  where processAndWrite pgf lang (i,tree) = do
          res <- parseText tree pgf lang startType
-         appendFile "supertest1.txt" $ showRes (i,res) ++"\n"
+         appendFile "supertest4.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
+
 
 tryMedium fil = do
   putStrLn $ "Start, reading saldo ..."
@@ -53,7 +55,7 @@ tryMedium fil = do
       (newsTrees,lms) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
   putStrLn $ "Lemmas requested: "++show (map head $ group $ sort lms)
   putStrLn $ "Parsing the tree "
-  mapM (processAndWrite pgf plang) $ zip (map fst input) (map toTree ziptrees)
+  mapM (processAndWrite pgf plang) $ zip (map fst input) (map toTree newsTrees)
  where processAndWrite pgf lang (i,tree) = do
          res <- parseText tree pgf lang startType
          appendFile "reservtest.txt" $ showRes (i,res) ++"\n"
@@ -65,17 +67,14 @@ try fil = do
   putStrLn $ "created pgf etc "
   input <- fmap concat $ Form.parse fil
   putStrLn $ "reading input "
-  --let inp = map snd input 
-  --putStrLn $ "input: "++show inp
   sequence [parseText inp pgf lang startType >>= writeToFile i | (i,inp) <- input]
-  --writeFile "testetE1.txt" $ unlines $ map showRes res
  where writeToFile i x = appendFile "testNew.txt" $ showRes (i,x) ++"\n"
 
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
        
 startType = text 
-pgfFile = "../../gf/BigParse.pgf"
-pgfBigFile = "../../gf/BigValLexAbs.pgf"
+pgfFile = "BigParse.pgf"
+pgfBigFile = "ExtractPGF.pgf" --BigParse with all lexicon
 langBig, lang :: Language
-langBig = read "BigValLex"
+langBig = read "BigParseSwe"
 lang = read "BigParseSwe"

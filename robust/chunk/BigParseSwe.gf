@@ -16,7 +16,7 @@ concrete BigParseSwe of BigParse =
   TextX - [Tense,Temp,Adv] , 
   TenseSwe,
   ConjunctionSwe,
-  StructuralSwe,
+  StructuralSwe - [therefore_PConj,otherwise_PConj], --these require subordinate word order, not for Utt
   TestLex
   ** 
 open CommonScand, Prelude in {
@@ -26,6 +26,7 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
   lin
 
+  annars_Adv = mkAdv "annars" ; --remove
   Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
   Y_PN  i = {s = table {Gen => "Ys"++i.s ;
                         Nom => "Y" ++i.s };
@@ -53,6 +54,7 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
   advsMeta  = mkAdv "?advs" ;  --these three are ambigouos
   iadvMeta  = {s = "?advs"} ;
   adVMeta   = {s = "?advs"} ; 
+  sMeta     = {s = \\_ => "?s" };
   
 
   oper mkNP' : Str ->  {s : NPerson => NPForm => Str ; a : Agr} = 

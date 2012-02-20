@@ -14,7 +14,7 @@ abstract BigParse =
   Relative,
   Conjunction,
   Phrase,
-  Structural,
+  Structural - [therefore_PConj,otherwise_PConj],  --these require subordinate word order, not for Utt
   Tense -[Adv],
   Text - [Adv],
   TestLexAbs
@@ -23,6 +23,7 @@ abstract BigParse =
   flags startcat=Phr ;
   
   fun
+  annars_Adv : Adv ; --remove
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
   npMeta : NP ;
@@ -39,6 +40,7 @@ abstract BigParse =
   advsMeta : Adv ;
   iadvMeta : IAdv ;
   adVMeta : AdV ; 
+  sMeta : S ;
  
  
   } ;
