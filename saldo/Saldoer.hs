@@ -319,7 +319,7 @@ prepCatMap =  [(pack "pp", "Prep", [(pack "invar","s")],("mkPrep",""),[("mkPrep"
 
 advParamMap :: [(String,[String])]
 advParamMap =
-  [("pos", ["s"]),("invar",["s"])] -- is invar needed?
+  [("pos", ["s Per3"]),("invar",["s Per3"])] -- is invar needed?
 
 advParadigmList =
   [("mkAdv", ["s"], "") ]
