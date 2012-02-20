@@ -3,7 +3,8 @@
 -- for testing grammar, using just the test lexicon
 abstract BigParse = 
 --  TestLexAbs,
-  Lexicon,
+--  Lexicon,
+--  BigValLexAbs,
   ExtraSweAbs,
   Noun -[DetNP] ,
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP], --[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], --,ComplVA],

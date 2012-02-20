@@ -156,10 +156,20 @@ cat
 
    PPartAP : V2 -> AP ; --VPSlash -> AP ;
    
- 
+   ElipsCN : Gend -> A -> CN ; 
+   --ElipsNCompar : (a : NPType) -> Num -> Gend -> A -> NPTyped a ; 
+   NeutrumGend : Gend ;
+   UtrumGend   : Gend ;
+     cat Gend ; 
 -------------------------------------------------------------------------------
 -- Predeterminers,Quantifiers,Determiners
 -------------------------------------------------------------------------------
+
+   fun 
+   but_Conj  : Conj ; -- not just PConj, may conjunct sentences or verbphrases, or nounphrases!! (kalle men inte olle)
+   otherwise_Subj : Subj ; -- acts as  subjuctions rather than PConjs (därför går jag inte dit vs. men jag går inte dit)
+   therefore_Subj : Subj ; 
+
 
    bara_AdvFoc : AdvFoc ;
    tillochmed_AdvFoc : AdvFoc ;

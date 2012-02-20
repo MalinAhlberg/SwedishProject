@@ -16,9 +16,10 @@ concrete BigParseSwe of BigParse =
   TextX - [Tense,Temp,Adv] , 
   TenseSwe,
   ConjunctionSwe,
-  StructuralSwe,
+  StructuralSwe
 --  TestLex
-  LexiconSwe
+--  LexiconSwe
+--  BigValLex
   ** open CommonScand, Prelude in {
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;

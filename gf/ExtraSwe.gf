@@ -413,12 +413,14 @@ lin
     {s     = \\a,aform => v2.s ! VI (VPtPret aform Nom);
      isPre = True} ; 
 
-  ReflSlash vp np = let vp_l = lin VPSlash vp ;
-                        np_l = lin NP np      ;
-                        obj  = vp.n3 ! np.a   in
-    lin VP (insertObjPost (\\a => vp.c2.s ++ reflForm a np.a ++ np.s ! NPNom++obj) vp) ; 
+   ElipsCN gend a =  
+      {s = \\n,det,cas => gend.s ++ a.s ! AF (APosit (agrAdj (gennum (ngen2gen gend.g) n) det)) cas;
+       g = gend.g ;
+       isMod = True } ;
 
-
+   NeutrumGend = {s = [] ; g = neutrum} ;
+   UtrumGend   = {s = [] ; g = utrum} ;
+     lincat Gend = {s : Str ; g : NGender} ;
 
 -------------------------------------------------------------------------------
 -- Operations
@@ -460,7 +462,20 @@ lin
 -- Predeterminers,Quantifiers,Determiners
 -------------------------------------------------------------------------------
 
-  lin
+   --lincat SConj = {s1, s2 : Str; n : Number} ;
+   lin 
+   --[S] = {s1,s2 : Order => Str} ;
+   --ConjSConj conj ss = conjunctDistrTable Order conj ss ; --ConjS (lin Conj c) ;
+   --ConjSVPS conj vps =
+   --     {a0 = vps.a0 ; adV = vps.adV ; fin = conj.s1 ++ vps.fin ;  
+   --      inf = \\a => vps.inf1 ! a ++ conj.s2 ++ vps.s2 ! a } ;
+   --ConjSVPX  c = ConjVPX (lin Conj c) ;
+   but_Conj = {s1 = [] ; s2 = "men" ; n = Pl} ;
+   otherwise_Subj = ss "annars" ;
+   therefore_Subj = ss "därför" ;
+
+
+
     bara_AdvFoc = (ss "bara") ** {x = ""} ;
     tillochmed_AdvFoc = (ss "till och med") ** {x = ""} ;
 
