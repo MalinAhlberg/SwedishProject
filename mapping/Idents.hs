@@ -134,18 +134,28 @@ cidPrepIP      = mkCId "PrepIP"
 cidFocObj      = mkCId "FocObj"
 cidSlashVP     = mkCId "SlashVP"
 cidAdvSlash    = mkCId "AdvSlash"
--- added to Extra
-cidDropAttVV   = mkCId "DropAttVV"
-cidRelNP'      = mkCId "RelNP'"
-cidPassV2'     = mkCId "PassV2'"
-cidVPSlashAP   = mkCId "VPSlashAP"
-cidReflCN      = mkCId "ReflCN"
-cidReflSlash   = mkCId "ReflSlash"
+cidSSubjS      = mkCId "SSubjS"
+cidRelVP       = mkCId "RelVP"
+cidIdRP        = mkCId "IdRP"
+cidRelSlash    = mkCId "RelSlash"
+cidTopAdv      = mkCId "TopAdv"
+cidTopObj      = mkCId "TopObj"
+cidUseTop      = mkCId "UseTop"
 
--- to implemented yet
+
+-- added to Extra
+cidDropAttVV   = mkCId "ComplBareVV"
+cidRelCN       = mkCId "RelCN"
+cidPassV2'     = mkCId "PassV2"
+cidVPSlashAP   = mkCId "PPartAP"
+cidReflCN      = mkCId "ReflIdPron"
+cidReflIdPron  = mkCId "ReflIdPron"
+--cidReflSlash   = mkCId "ReflSlash"
+
 cidCompPronAQ  = mkCId "CompPronAQ"  -- 'sådana' -> adjective
 cidQuantPronAQ = mkCId "QuantPronAQ"  -- 'sådana' -> determiner
-cidSSubjS      = mkCId "SSubjS"
+
+--not present in grammar
 cidCNNumNP     = mkCId "CNNumNP"
 cidDummy       = mkCId "dummy" -- for dummy objects
 
@@ -158,9 +168,9 @@ cidCan_VV      = mkCId "can_VV"  --ambig! can be can8know
 cidMust_VV     = mkCId "must_VV"
 cidWant_VV     = mkCId "want_VV"
 cidHave_V2     = mkCId "have_V2"
-cidGet_V2      = mkCId "faa_V2"   -- doesn't exist
-cidGet_VV      = mkCId "faa_VV"   -- doesn't exist
+cidGet_V2      = mkCId "faa_vb_1_1_V2"   -- in lexicon, not grammar
+cidGet_VV      = mkCId "faa_vb_1_1_VV"   -- in lexicon, not grammar
 cidDo_V2       = mkCId "do_V2"
 cidDo_VV       = mkCId "do_VV"
-cidBecome_V2   = mkCId "become_V2" -- doesn't exist
+cidBecome_V2   = mkCId "become_V2" 
 cidBecome_VA   = mkCId "become_VA" 
