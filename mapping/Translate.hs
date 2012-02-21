@@ -12,7 +12,7 @@ import qualified PGF as PGF
 import Control.Arrow hiding ((<+>))
 import Control.Concurrent.MVar
 import Control.Monad
-import Control.Monad.RWS hiding (gets)
+import Control.Monad.RWS hiding (gets,modify)
 import System.IO
 import System.Process
 import System.FilePath
@@ -21,7 +21,7 @@ import Data.List
 import Data.IORef
 import Data.Char
 import Data.Tree
-import Data.Label hiding (get)
+import Data.Label hiding (get,modify)
 import Data.Label.PureM 
 import GraphTree
 
@@ -232,7 +232,7 @@ penn =
    --   ,"ET" :-> cat "PP"
       ,"FO" :-> pItPron -- TODO alla själva
       ,"FS" :-> fst <$> pFS
-      ,"FV" :-> pSlashVP -- TODO, how to do this if it does not parse? fst <$> (msum $ map (`pSlashVP` "FV") vForms)
+      ,"FV" :-> (msum $ map pSlashVP vForms)
       -- punctuation: I?,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
       -- punctuation: , "JC", "JG", "JR", "JT",
       ,"IV" :-> pVP "IV" 
@@ -293,8 +293,9 @@ penn =
     ,"VG" :-> cat "VP"  -- for deep trees
    ] 
 
+--TODO START need old OVS VOS SVO back to get correct combinations.
 cats tags = msum [cat c | c <- tags]
-objCat = msum [pCompl t | t <- vForms ]
+objCat    = msum [pCompl t | t <- vForms ]
 --pVV = cat "IO"
 --      cat "S" ...
 advsCat = pAdv
@@ -395,6 +396,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           write "try questcl, found ip"
           v   <- parseFV             -- new: might miss a lot of things here..
           np  <- cat "SS"
+          objCat
           vp  <- constructVP v
           (temp,pol) <- getTmpPol
           let quest = mkApp cidQuestSlash [ip,mkApp cidSlashVP [np,vp]]      
@@ -404,6 +406,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           ip  <- inside "SS" parseIP --TODO
           write "try questvp, found ip"
           v   <- parseFV             -- new: might miss a lot of things here..
+          objCat
           vp  <- constructVP v
           (temp,pol) <- getTmpPol
           let quest = mkApp cidQuestVP [ip,vp]      
@@ -673,42 +676,36 @@ isVTenseForm _ _          = False
 vForms     = [Cop,Sup,Fut,FutKommer,VV,VA,V2A,V2,V2Pass,VS,V]
 gfvForms  = ["VV","VA","V2A","V2","VS","V","V3"] -- need more?
 
-pSlashVP :: P [Char] Expr PMonad Expr
-pSlashVP = do
- (t,v) <- pVV
-          <+>
-          pV2Act
-          <+>
-          (inside "VV" pExist)
-          <+>
-          do (t,v) <- pVerb "VV" "V"
-             return (t,mkExpr v)
-          <+>
-          do (t,v) <- pVerb "VV" "V2A"
-             return (t,mkExpr v)
-          <+>
-          pV2Pass
-          <+>
-          do t <- pCopula 
-             return (t,mkExpr meta)
-          <+>
-          do t <- pHave
-             return (t,mkExpr meta)
-          <+>
-          pVA
-          <+>
-          do t <- pFuturum
-             write "found future form"
-             return (t,mkExpr meta)
-          <+>
-          do t <- pFuturumKommer
-             return (t,mkExpr meta)
-          <+>
-          do (t,v) <- pVerb "VV" "VS"
-             return (t,mkExpr v)
+--TODO remove set vform if we don't use it
+pSlashVP :: VPForm ->  P [Char] Expr PMonad Expr
+pSlashVP form = do
+ write "in pSlashVP"
+ (t,v,f) <- case form of 
+                  V ->  do (t,v) <- pVerb "VV" "V"
+                           write "found a pVerb of type V"
+                           return (t,mkExpr v,V)
+                  VV -> third VV <$> pVV
+                  V2 -> third V2 <$> pV2Act
+                  V2A -> do (t,v) <- pVerb "VV" "V2A"
+                            return (t,mkExpr v,V2A)
+                  Cop -> do t <- pCopula 
+                            return (t,mkExpr meta,Cop)
+                  Sup -> do t <- pHave
+                            return (t,mkExpr meta,Sup)
+                  VA  -> do third VA <$> pVA
+                  Fut -> do t <- pFuturum
+                            write "found future form"
+                            return (t,mkExpr meta,Fut)
+                  VS  -> do (t,v) <- pVerb "VV" "VS"
+                            return (t,mkExpr v,VS)
+                  V2Pass    -> third V2Pass <$> (inside "VV" pExist
+                                            <+> pV2Pass)
+                  FutKommer -> do t <- pFuturumKommer
+                                  return (t,mkExpr meta,FutKommer)
 -- collect pl preps 
  --pick $ do pl <-maybeParticle
- S.tmp =: Just t
+ S.tmp   =: Just t
+ modify S.vform  (V:) --TODO add on all
  return v
 
 mkTmp False = mkTmp' cidASimul 
@@ -719,11 +716,17 @@ mkTmp' a t | a ==cidASimul = mkApp cidTTAnt [mkExpr t,mkExpr cidASimul]
 --TODO why is typ even here? use it!
 pVP :: String -> P [Char] Expr PMonad Expr
 pVP typ = do
-   v <- cat typ
-   msum [pCompl x | x <- vForms]
-   q             <- gets S.sentenceType
-   (vtyp,exp,bs) <- gets S.complement
-   pComplVP vtyp q v (exp,bs)
+   write $ "doing pVP "++show typ
+   --v <- cat typ
+   msum [do v <- inside "IV" (pSlashVP x)
+--           typ <- gets S.vform
+            write $ "found IV "++show v
+            pCompl x 
+            q <- gets S.sentenceType
+            (vtyp,exp,bs) <- gets S.complement
+            write $ "pVP have succeeded and returns typ "++show vtyp
+            pComplVP vtyp q v (exp,bs)
+        | x <- vForms]
 
 pInfVP = 
   do write "att v?"
@@ -922,7 +925,7 @@ pVV = do
            tryVerb "MV" cidMust_VV "VV"
            <+>
            pVerb "VV" "VV"
-  write ("VV returs tense "++show t)
+  write ("VV returns tense "++show t)
   return (t,mkExpr v)
 
 pVA = do
@@ -975,12 +978,13 @@ pExist =
 
 tryVerb tag cid cat =
  do t <- tense tag
+    write ("tryVerb "++tag) 
     return (t,cid) 
  <+>
   do write "no tense found"
      pVerb tag cat
 
-pVerb     = pVerb' "Act"
+pVerb x y = write ("in pVerb "++x++" "++y) >> pVerb' "Act" x y
 pPassVerb = pVerb' "Pass"
 
 pVerb' act incat cat =
@@ -996,7 +1000,7 @@ pVerb' act incat cat =
         <+>
         do v <- (inside incat $ lemma cat $ "s (VI (VInfin "++ act++"))")
                 <+>
-                (inside incat $ lemma "V" $ "s (VF (VInfin "++ act++"))")
+                (inside incat $ lemma "V" $ "s (VI (VInfin "++ act++"))")
            return (VInf,v)
         <+>
         do v <- (inside incat $ lemma cat $ "s (VF (VPret "++ act++"))")
@@ -1006,7 +1010,7 @@ pVerb' act incat cat =
         <+>
         do v <- (inside incat $ lemma cat $ "s (VI (VSupin "++ act++"))")
                 <+>
-                (inside incat $ lemma "V" $ "s (VF (VSupin "++ act++"))")
+                (inside incat $ lemma "V" $ "s (VI (VSupin "++ act++"))")
            return (VSupin,v)
          {-      `mplus`     --careful here!
         (inside (incat++"PS") consume >> return (VTense cidTPres,meta))
@@ -1153,8 +1157,8 @@ pCompl VV = do
              -- <+>
                do write "look for infinite verb"
                   (im,v) <- inside "OO" (inside "VP" pInfVP)
-                                   <+>
-                                   (write "inf2" >> pInfVP)
+                            <+>
+                            (write "inf2" >> pInfVP)
                   return (im,v) 
              <+>
                do write "looking for weird verb phrase complement for vv"
@@ -1695,7 +1699,7 @@ pSubj = do
   return $ mkExpr s 
 
 pCopula  = write "copula?" >> tense "AV"
-pHave    = write "have" >> tense "HV"  
+pHave    = write "have"    >> tense "HV"  
 --pMust    = write "must?" >> tense "MV"
 --pWant    = tense "WV"
 --pCan     = tense "QV"
@@ -1859,6 +1863,8 @@ getCId _ c = c
   
 fst3 :: (a,b,c) -> a
 fst3 (a,b,c) = a
+third :: a -> (VForm CId,Expr) -> (VForm CId,Expr,a)
+third x = uncurry (,,x)
 
 testa  str = do
   pgf <- readPGF "../gf/BigTest.pgf"

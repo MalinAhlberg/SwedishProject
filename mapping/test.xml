@@ -437,29 +437,30 @@
 				</nonterminals>
 			</graph>
 		</s>
-<s id="s542">
-			<graph root="s542_501">
+
+<s id="s452">
+			<graph root="s452_501">
 				<terminals>
-					<t id="s542_1" word="Vilka" pos="POFPHH"/>
-					<t id="s542_2" word="får" pos="FVPS"/>
-					<t id="s542_3" word="tänka" pos="VVIV"/>
-					<t id="s542_4" word="till" pos="PR"/>
-					<t id="s542_5" word="?" pos="I?"/>
+					<t id="s452_1" word="Det" pos="POOP"/>
+					<t id="s452_2" word="har" pos="HVPS"/>
+					<t id="s452_3" word="katt" pos="VN"/>
+					<t id="s452_4" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s542_502" cat="S">
-						<edge label="SS" idref="s542_1"/>
-						<edge label="FV" idref="s542_2"/>
-						<edge label="IV" idref="s542_3"/>
-						<edge label="PL" idref="s542_4"/>
-						<edge label="I?" idref="s542_5"/>
+					<nt id="s452_502" cat="S">
+						<edge label="SS" idref="s452_1"/>
+						<edge label="FV" idref="s452_2"/>
+						<edge label="OO" idref="s452_3"/>
+						<edge label="IP" idref="s452_4"/>
 					</nt>
-					<nt id="s542_501" cat="ROOT">
-						<edge label="MS" idref="s542_502"/>
+					<nt id="s452_501" cat="ROOT">
+						<edge label="MS" idref="s452_502"/>
 					</nt>
 				</nonterminals>
 			</graph>
 		</s>
 
+
 	</body>
+
 </corpus>
