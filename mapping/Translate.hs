@@ -353,11 +353,12 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
          --v    <- parseFV
          --objCat
          --vp    <- constructVP v
-         vp <- pVP "FV"
+         vp   <- pVP "FV"
          advs <- many $ advsCat
          (temp,pol) <- getTmpPol
+         nptyp  <- S.nptyp
          let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
-             e1 = constructCl Normal np e0
+             e1 = constructCl nptyp np e0
              e2 = mkApp cidUseCl [temp,pol,e1]
          return e2
        advCl = do  -- nu äter jag äpplen
@@ -374,10 +375,11 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           --objCat
           advs' <- many $ advsCat
           (temp,pol) <- getTmpPol
+          nptyp  <- S.nptyp
           --vp    <- constructVP v
           guard $ isJust np
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs'
-              cl = constructCl Normal (fromJust np) e0
+              cl = constructCl nptyp (fromJust np) e0
               c  = mkApp cidTopAdv [advs,cl]
               e1 = mkApp cidUseTop [temp, pol, c ]
           return e1
@@ -394,10 +396,11 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           --objCat
           advs  <- many $ advsCat
           (temp,pol) <- getTmpPol
+          nptyp  <- S.nptyp
           guard $ isJust np
           --vp    <- constructVP v
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
-              cl = constructCl Normal (fromJust np) e0
+              cl = constructCl nptyp (fromJust np) e0
               c  = mkApp cidQuestIAdv [iadv,cl]
               e1 = mkApp cidUseQCl [temp, pol,c ]
           return e1

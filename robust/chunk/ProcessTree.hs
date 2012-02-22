@@ -19,6 +19,7 @@ type ProcessState = Writer [Lemma]
 
 processTree :: Bool -> Lex -> Morpho -> Int -> TreePos Full String -> ProcessState (TreePos Full String)
 processTree b lex morpho i tree  | isCompound =  saveSms >> moveOn (setLabel sms tree)
+                                 | isFut      = moveOn (setLabel "ska" tree) -- hackerish way to handle "skall"
 --                                 | isUVerb    =  moveOn' $ setLabel vx tree
                                  | isNumber   =  moveOn' $ setLabel nx tree
                                  | isName     =  moveOn' $ exchangeNames i tree
@@ -29,6 +30,7 @@ processTree b lex morpho i tree  | isCompound =  saveSms >> moveOn (setLabel sms
         isNumber      = isUnknown && numbertag pos
         isUVerb       = isUnknown && verbtag pos
         isName        = isUnknown 
+        isFut         = pos =="SVPS"
         word          = (if b then lower else id) (label tree)
         vx            = ("VX"++show i)   --TODO maybe look at tag?
         nx            = ("1")  

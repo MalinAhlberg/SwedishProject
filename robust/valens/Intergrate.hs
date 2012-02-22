@@ -30,5 +30,5 @@ verb  = fromJust $ readType "V"
 dict  = "../../saldo/DictSwe.gf"
 pgfFile   = "ValLexAbs.pgf"
 isVerb = ("V" `isSuffixOf`)
-backTranslate str = foldr ($) str 
-  [replace a b | (a,b) <- [("ae","ä"),("aa","å"),("oe","ö")]] 
+backTranslate str = foldr (($) . uncurry replace) str 
+  [("ae","ä"),("aa","å"),("oe","ö")] 
