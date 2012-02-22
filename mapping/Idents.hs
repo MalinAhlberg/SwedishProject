@@ -152,6 +152,7 @@ cidVPSlashAP   = mkCId "PPartAP"
 cidReflCN      = mkCId "ReflIdPron"
 cidReflIdPron  = mkCId "ReflIdPron"
 --cidReflSlash   = mkCId "ReflSlash"
+cidPredetAdvF  = mkCId "PredetAdvF"
 
 cidCompPronAQ  = mkCId "CompPronAQ"  -- 'sådana' -> adjective
 cidQuantPronAQ = mkCId "QuantPronAQ"  -- 'sådana' -> determiner
@@ -175,3 +176,11 @@ cidDo_V2       = mkCId "do_V2"
 cidDo_VV       = mkCId "do_VV"
 cidBecome_V2   = mkCId "become_V2" 
 cidBecome_VA   = mkCId "become_VA" 
+
+-- for old translation
+cidReflSlash =  mkCId "ReflSlash"
+cidSlash3V3  =  mkCId "Slash3V3"
+cidSlash2V3  =  mkCId "Slash2V3"
+cidSlashV2V  =  mkCId "Slash2V2"
+cidComplVQ   =  mkCId "ComplVQ"
+cidRelNP'    =  mkCId "RelNP'"

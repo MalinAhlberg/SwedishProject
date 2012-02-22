@@ -414,7 +414,7 @@
 	<s id="s1955">
 			<graph root="s1955_501">
 				<terminals>
-					<t id="s1955_1" word="Nu" pos="ABDA"/>
+					<t id="s1955_1" word="nu" pos="ABDA"/>
 					<t id="s1955_2" word="kunde" pos="VVPT"/>
 					<t id="s1955_3" word="katten" pos="NNDD"/>
 					<t id="s1955_4" word="flyga" pos="VVIV"/>
@@ -438,29 +438,32 @@
 			</graph>
 		</s>
 
-<s id="s452">
-			<graph root="s452_501">
+<s id="s1244">
+			<graph root="s1244_501">
 				<terminals>
-					<t id="s452_1" word="Det" pos="POOP"/>
-					<t id="s452_2" word="har" pos="HVPS"/>
-					<t id="s452_3" word="katt" pos="VN"/>
-					<t id="s452_4" word="." pos="IP"/>
+					<t id="s1244_1" word="Gå" pos="VVIP"/>
+					<t id="s1244_2" word="bakom" pos="PR"/>
+					<t id="s1244_3" word="en" pos="EN"/>
+					<t id="s1244_4" word="katt" pos="NN"/>
+					<t id="s1244_5" word="." pos="IP"/>
 				</terminals>
 				<nonterminals>
-					<nt id="s452_502" cat="S">
-						<edge label="SS" idref="s452_1"/>
-						<edge label="FV" idref="s452_2"/>
-						<edge label="OO" idref="s452_3"/>
-						<edge label="IP" idref="s452_4"/>
+					<nt id="s1244_503" cat="PP">
+						<edge label="PR" idref="s1244_2"/>
+						<edge label="DT" idref="s1244_3"/>
+						<edge label="HD" idref="s1244_4"/>
 					</nt>
-					<nt id="s452_501" cat="ROOT">
-						<edge label="MS" idref="s452_502"/>
+					<nt id="s1244_502" cat="S">
+						<edge label="FV" idref="s1244_1"/>
+						<edge label="RA" idref="s1244_503"/>
+						<edge label="IP" idref="s1244_5"/>
+					</nt>
+					<nt id="s1244_501" cat="ROOT">
+						<edge label="MS" idref="s1244_502"/>
 					</nt>
 				</nonterminals>
 			</graph>
 		</s>
-
-
 	</body>
 
 </corpus>

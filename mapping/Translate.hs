@@ -12,7 +12,7 @@ import qualified PGF as PGF
 import Control.Arrow hiding ((<+>))
 import Control.Concurrent.MVar
 import Control.Monad
-import Control.Monad.RWS hiding (gets,modify)
+import Control.Monad.RWS hiding (gets,modify,local)
 import System.IO
 import System.Process
 import System.FilePath
@@ -22,7 +22,8 @@ import Data.IORef
 import Data.Char
 import Data.Tree
 import Data.Label hiding (get,modify)
-import Data.Label.PureM 
+import qualified Data.Label as P 
+import Data.Label.PureM hiding (local)
 import GraphTree
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
@@ -32,7 +33,7 @@ import GraphTree
 type PMonad = (RWS () [String] S.State)
 
 
-test = True
+test = False
 usePGF = testGr
 testGr = ("../gf/BigTest.pgf","BigTestSwe")
 bigGr  = ("../gf/Big.pgf","BigSwe")
@@ -345,6 +346,7 @@ pNPCl = do
 pCl ::  P [Char] Expr PMonad Expr
 pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
  where normalCl = do  -- jag äter äpplen
+         S.sentenceType =: Dir
          np   <- pSubject
          write "try normalCl, found np"
          --vp   <- combineCats "VP" ["FV","VG"]
@@ -359,6 +361,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
              e2 = mkApp cidUseCl [temp,pol,e1]
          return e2
        advCl = do  -- nu äter jag äpplen
+          S.sentenceType =: Top 
           write "try advCl"
           advs  <- pAdv    
           write "try advCl, found adv"
@@ -379,6 +382,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
               e1 = mkApp cidUseTop [temp, pol, c ]
           return e1
        iadvCl = do -- när äter jag äpplen
+          S.sentenceType =: Q
           iadv   <- cats ["RA","TA","AB"]
           write "try iadvCl, found iadv"
           iquant <- gets S.iquant
@@ -412,7 +416,6 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           let quest = mkApp cidQuestSlash [ip,mkApp cidSlashVP [fromJust np,vp]]      
           return $ mkApp cidUseQCl [temp,pol,quest]
        questVP = do -- vilka får vara med 
-          S.sentenceType =: Q
           ip  <- inside "SS" parseIP --TODO
           write "try questvp, found ip"
           vp <- pVP "FV"
@@ -421,8 +424,10 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           --vp  <- constructVP v
           (temp,pol) <- getTmpPol
           let quest = mkApp cidQuestVP [ip,vp]      
+          S.sentenceType =: Q
           return $ mkApp cidUseQCl [temp,pol,quest]
        topCl   = do
+          S.sentenceType =: Top
           (vp,cop) <- do vp  <- (pOVS "FV") Cop    
                          return (vp,True)
                       <+>
@@ -561,8 +566,8 @@ pObject = do    --a plain object
 
 
 pImp = do write "in imperative"
-          vp <- parseFV
-          --(tmp,sim,pol,vp) <- pVP "FV"
+          --vp <- parseFV
+          vp <- pVP "FV"
           write "found vp in imp"
           tmp  <- gets S.tmp
           pol  <- gets S.pol
@@ -722,6 +727,7 @@ pSlashVP form = do
 -- collect pl preps 
  --pick $ do pl <-maybeParticle
  S.tmp   =: Just t
+ S.anter =: if f==Sup then True else False
  modify S.vform  (V:) --TODO add on all
  return v
 
@@ -737,10 +743,12 @@ pVP typ = do
    --v <- cat typ
    msum [do v <- inside typ (pSlashVP x)
             write $ "found IV "++show v
-            pCompl x 
-            --(vtyp,exp,bs) <- gets S.complement
-            write $ "pVP have succeeded to parse for typ "++show x
-            constructVP v
+            S.sentenceType =: Dir
+            localKeepPol (do
+                    pCompl x 
+                    --(vtyp,exp,bs) <- gets S.complement
+                    write $ "pVP have succeeded to parse for typ "++show x
+                    constructVP v)
             --pComplVP vtyp q v (exp,bs)
         | x <- vForms]
 
@@ -752,8 +760,7 @@ pVSOCat cat typ = do
   np <- write "looking for SS" >> parseSubject
   write ("pVSO found np "++show np)
   S.subj =: Just np 
-  pCompl typ
-  constructVP v
+  localKeepPol (pCompl typ >> constructVP v)
 
 pOVS cat Cop = do --obs när denna används får vi TopAP --TODO finns CompNP med?
   write "try OVS copula"
@@ -782,10 +789,10 @@ pOVS cat typ = do --huset målar han rött
   write $ "found compl in OVS "++show typ
   np <- write "looking for SS" >> parseSubject --han
   write ("pOVS found np "++show np)
-  pCompl typ --rött
   S.subj =: Just np 
   S.sentenceType =: Top 
-  constructVP v
+  localKeepPol (do pCompl typ --rött
+                   constructVP v)
   return v
 
 
@@ -811,9 +818,9 @@ constructVP v = do
    o     <- gets S.object
    styp  <- gets S.sentenceType
    advs1 <- many pAdv    --TODO this should be here
-   write "in constructVP, will combine"
+   write $ "in constructVP, will combine for " ++ show vtyp
    vp <- pComplVP vtyp styp v (exps,bs)
-   write "in constructVP, have combined"
+   write $ "in constructVP, have combined for " ++ show vtyp
    return $ foldr (\ad e -> mkApp cidAdvVP [ad, e]) vp advs1
  
 pComplVP :: VPForm -> SentenceType -> Expr -> ([Maybe Expr],[Bool]) 
@@ -1258,7 +1265,7 @@ pCompl VA = do
   adv   <- maybeVerbAdv
   a     <- inside "SP" (pAdj <+> cat "CNP")
   S.pol        =: pol
-  S.complement =: (VA,[fo,adv],[])
+  S.complement =: (VA,[fo,adv,Just a],[])
 
 pCompl V = do
   write "v-simple compl begins"
@@ -1638,7 +1645,7 @@ pIAdv =
   
 
 findAdverb = do
-  a <- inside "AB" $ optEat (lemma "Adv" "s") meta
+  a <- inside "AB" $ optEat (lemma "Adv" "s Per3") meta
   write $ "adverb found "++show a
   return (mkExpr a) 
  
@@ -1669,14 +1676,14 @@ pQuant =
      returnApp cidDetQuant [mkExpr cidDefArt,mkExpr cidNumSg]
   <+>                                                       
   do inside "PO" (   -- fler taggar än PO?                         
-       do dt <-       lemma "Quant" "s Sg False False Utr" -- dessa två ej helt testade
-              <+> lemma "Quant" "s Sg False False Neutr"
+       do dt <-       lemma "Quant" "s Per3 Sg False False Utr" -- dessa två ej helt testade
+              <+> lemma "Quant" "s Per3 Sg False False Neutr"
           write ("det: "++show dt)
           returnApp cidDetQuant [mkExpr dt,mkExpr cidNumSg] 
        <+>
-       do dt <- lemma "Quant" "s Pl False False Utr"
+       do dt <- lemma "Quant" "s Per3 Pl False False Utr"
                 <+> 
-                lemma "Quant" "s Pl False False Neutr"
+                lemma "Quant" "s Per3 Pl False False Neutr"
           write ("det: "++show dt)
           returnApp cidDetQuant [mkExpr dt,mkExpr cidNumPl]) 
   <+>
@@ -1684,28 +1691,28 @@ pQuant =
   do w <- inside "PO" $ lemma "PronAQ" "s (AF (APosit (Strong GPl)) Nom)"
      return $ mkApp cidDetQuant [mkApp cidQuantPronAQ [mkExpr w],mkExpr cidNumPl]
   <+>
-  do dt <- inside "PO" $ lemma "Pron" "s (NPPoss GPl Nom)"
+  do dt <- inside "PO" $ lemma "Pron" "s Per3 (NPPoss GPl Nom)"
      return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr dt],mkExpr cidNumPl]
   <+>
-  do dt <- inside "PO" $ lemma "Det" "s False Utr"
+  do dt <- inside "PO" $ lemma "Det" "s Per3 False Utr"
      write ("det: "++show dt)
      return $ mkExpr dt 
   <+>
-  do dt <- inside "PO" $ mplus (lemma "Pron" "s (NPPoss (GSg Neutr) Nom)")
-                               (lemma "Pron" "s (NPPoss (GSg Utr) Nom)")
+  do dt <- inside "PO" $ mplus (lemma "Pron" "s Per3 (NPPoss (GSg Neutr) Nom)")
+                               (lemma "Pron" "s Per3 (NPPoss (GSg Utr) Nom)")
      return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr dt],mkExpr cidNumSg]
   <+>
   do n <- pNumber 
      return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkApp cidNumCard [n]]
  <+>
-  do inside "EN" $ mplus (lemma "Quant" "s Sg False False Utr")
-                         (lemma "Quant" "s Sg False False Neutr")
+  do inside "EN" $ mplus (lemma "Quant" "s Per3 Sg False False Utr")
+                         (lemma "Quant" "s Per3 Sg False False Neutr")
      return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkExpr cidNumSg]
   <+>
   do n <- pNumber 
      return $ mkApp cidDetQuant [mkExpr cidIndefArt,mkApp cidNumCard [n]]
   <+>
-  do p <- inside "POXPHHGG" $ lemma "Pron" "s (NPPoss (GSg Utr) Nom)"
+  do p <- inside "POXPHHGG" $ lemma "Pron" "s Per3 (NPPoss (GSg Utr) Nom)"
      return $ mkApp cidDetQuant [mkApp cidPossPron [mkExpr p]]
   <+>
   -- genitiv nouns
@@ -1811,6 +1818,8 @@ pPrep = do write "in pPrep"
 pPredet = 
   do w <- findPredet
      return $ mkExpr w 
+  <+> parsePredetAdv
+
 --  `mplus`
 --  do fst <$> pNP
  where findPredet = do w <- word "PO"
@@ -1824,7 +1833,10 @@ pPredet =
                         wordlookup w "Predet" "s Utr Sg"
                         <+>
                         wordlookup w "Predet" "s Neutr Sg"
-                      
+       parsePredetAdv = inside "AB" $ do 
+                          w <- lemma "Adv" "s"
+                          return $ (mkApp cidPredetAdvF [mkExpr w])
+
 
                        
 
@@ -1914,6 +1926,19 @@ getVAnalysis str = case str of
  "s (VI (VSupin Pass))" -> Just $ VSupin
  _                      -> Nothing
       
+
+localKeepPol m = do
+  (x,st) <- local m
+  S.pol =: P.get S.pol st
+  return x
+
+local m = do 
+  st  <- get
+  x   <- m
+  loc <- get
+  put st
+  return (x,loc)
+
 
 --For embedded clauses where the state should be cleared and later
 --reset
