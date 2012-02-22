@@ -348,11 +348,12 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
          np   <- pSubject
          write "try normalCl, found np"
          --vp   <- combineCats "VP" ["FV","VG"]
-         v    <- parseFV
-         objCat
+         --v    <- parseFV
+         --objCat
+         --vp    <- constructVP v
+         vp <- pVP "FV"
          advs <- many $ advsCat
          (temp,pol) <- getTmpPol
-         vp    <- constructVP v
          let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
              e1 = constructCl Normal np e0
              e2 = mkApp cidUseCl [temp,pol,e1]
@@ -362,15 +363,18 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           advs  <- pAdv    
           write "try advCl, found adv"
           write "will do FV"
-          v     <- parseFV
-          write "did FV"
-          np    <- cat "SS"
-          objCat
+          vp <- pVSO "FV"          
+          --v     <- parseFV
+          --write "did FV"
+          --np    <- cat "SS"
+          np <- gets S.subj
+          --objCat
           advs' <- many $ advsCat
           (temp,pol) <- getTmpPol
-          vp    <- constructVP v
+          --vp    <- constructVP v
+          guard $ isJust np
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs'
-              cl = constructCl Normal np e0
+              cl = constructCl Normal (fromJust np) e0
               c  = mkApp cidTopAdv [advs,cl]
               e1 = mkApp cidUseTop [temp, pol, c ]
           return e1
@@ -379,38 +383,61 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           write "try iadvCl, found iadv"
           iquant <- gets S.iquant
           guard iquant 
-          v    <- parseFV
-          np   <- cat "SS"
-          objCat
+          vp <- pVSO "FV"          
+          np <- gets S.subj
+          --v    <- parseFV
+          --np   <- cat "SS"
+          --objCat
           advs  <- many $ advsCat
           (temp,pol) <- getTmpPol
-          vp    <- constructVP v
+          guard $ isJust np
+          --vp    <- constructVP v
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
-              cl = constructCl Normal np e0
+              cl = constructCl Normal (fromJust np) e0
               c  = mkApp cidQuestIAdv [iadv,cl]
               e1 = mkApp cidUseQCl [temp, pol,c ]
           return e1
        questCl = do  -- vilka äpplen är godast? / vem har du sett?
           S.sentenceType =: Q
-          ip  <- inside "SP" parseIP --TODO
+          ip  <- inside "SP" parseIP --TODO add äpplen to parseIP
           write "try questcl, found ip"
-          v   <- parseFV             -- new: might miss a lot of things here..
-          np  <- cat "SS"
-          objCat
-          vp  <- constructVP v
+          vp <- pVSO "FV"          
+          np <- gets S.subj
+          --v   <- parseFV             -- new: might miss a lot of things here..
+          --np  <- cat "SS"
+          --objCat
+          --vp  <- constructVP v
+          guard $ isJust np
           (temp,pol) <- getTmpPol
-          let quest = mkApp cidQuestSlash [ip,mkApp cidSlashVP [np,vp]]      
+          let quest = mkApp cidQuestSlash [ip,mkApp cidSlashVP [fromJust np,vp]]      
           return $ mkApp cidUseQCl [temp,pol,quest]
        questVP = do -- vilka får vara med 
           S.sentenceType =: Q
           ip  <- inside "SS" parseIP --TODO
           write "try questvp, found ip"
-          v   <- parseFV             -- new: might miss a lot of things here..
-          objCat
-          vp  <- constructVP v
+          vp <- pVP "FV"
+--          v   <- parseFV             -- new: might miss a lot of things here..
+--          objCat
+          --vp  <- constructVP v
           (temp,pol) <- getTmpPol
           let quest = mkApp cidQuestVP [ip,vp]      
           return $ mkApp cidUseQCl [temp,pol,quest]
+       topCl   = do
+          (vp,cop) <- do vp  <- (pOVS "FV") Cop    
+                         return (vp,True)
+                      <+>
+                      do vp  <- msum $ map (pOVS "FV") (Cop `delete` vForms)
+                         return (vp,False)
+          np  <- gets S.subj
+          obj <- gets S.object
+          (temp,pol) <- getTmpPol
+          guard $ isJust obj
+          guard $ isJust np
+          let top = if cop then cidTopAP else cidTopObj
+              cl = mkApp top [fromJust obj,mkApp cidSlashVP [fromJust np,vp]] -- how to deal with 'man'
+              e1 = mkApp (clType cidUseTop) [temp,pol,cl ]
+          return e1 
+
 
 getTmpPol = do
   tmp <- gets S.tmp
@@ -483,24 +510,6 @@ pObjectFoc sTyp = do
   return (e1,tmp,pol,predVP)
   -}
 
-topCl   = do
-   S.sentenceType =: Dir
-   objCat
-   v    <- parseFV             -- new: might miss a lot of things here..
-   write "try topCl, found fv"
-   np   <- cat "SS"
-   vp   <- constructVP v
-   tmp  <- gets S.tmp
-   pol  <- gets S.pol
-   ant  <- gets S.anter
-   obj  <- gets S.object
-   guard $ isJust obj
-   let cl = mkApp cidTopObj [fromJust obj,mkApp cidSlashVP [np,vp]] -- how to deal with 'man'
-       e1 = mkApp (clType cidUseTop) [maybe (mkExpr meta) (mkTmp ant) (isVTense tmp)
-                                  ,mkPol pol
-                                  ,cl ]
-   return e1 
-
 {-
 pSS =  
   do s1   <- cat "S"    -- jag går om hon kommer
@@ -513,22 +522,7 @@ pSS =
 -- if   Cop then use QuestIComp : ip -> np -> qcl
 -- else     then use SlashVP : sub_np -> slashvp -> clSlash
 --                   QuestSlash : ip -> clSlash -> qcl
-pOVS styp Cop = do
-  write "try OVS copula"
-  (pol,args,[]) <- pCompl Cop 
-  obj <- case args of 
-             [Nothing,Just sp] -> return sp
-             xs                -> write ("pOVS cop fail"++show xs)
-                                   >> mzero
-  write $ "found compl in OVS Cop: "++show obj
-  (v,t) <- pSlashVP Cop "FV"
-  S.sentenceType =: Dir
-  advs <- many pAdv    
-  np <- write "looking for SS in OVS" >> parseSubject
-  advs1 <- many pAdv    
-  let f   = if styp==Q then cidQuestIComp else meta
-      np1 = foldr (\ad e -> mkApp cidAdvNP [ad, e]) np (advs++advs1)
-  return (mkTmp t,pol,obj,np1,f)
+
      -}
 
 pSS =  
@@ -541,7 +535,30 @@ pSS =
 
 pSubject = cat "SS" <+> cat "FV"
 
-pObj =  msum $ map pCompl vForms
+pObj    =  msum $ map pCompl vForms
+pObject = do    --a plain object
+  obj <- do inside "OO" (word "POXPHH" >> return (Just $ mkExpr meta))
+         <+>
+         do write "look for np in oo"
+            liftM (Just) (inside "OO" pNP)
+         <+>
+         do write "look for np in sp"
+            liftM (Just) (inside "SP" pNP)
+         <+>
+         do o <- inside "OA" (cat "PP") 
+            return (Just $ mkApp meta [o]) -- hard. the preposition may be part of the verb
+         <+>  
+         do det <- inside "FO" pItPron     -- funnit det attraktivt att (VP)
+            a   <- pAdj
+            vp  <- inside "EO" $ cat "VP" 
+            return (Just $ mkApp meta [det,mkApp meta [a,vp]])  --check this. AdjNP,VerbAP??
+         <+>  
+         do inside "IO" $ word "POXPHH"  
+            return (Just $ mkExpr cidReflIdPron) -- sig
+         <+>
+         liftM Just (inside "ES" pNP)
+  S.object =: obj
+
 
 pImp = do write "in imperative"
           vp <- parseFV
@@ -614,7 +631,7 @@ pRelS = do
  where parseTheVP = do
          pol <- pPol
          v   <- parseFV
-         pObj
+         pObj  --TODO eller pObject?
          vp <- constructVP v
          mkRelCl pol $ mkApp cidRelVP [mkExpr cidIdRP,vp]
        parseTheCl = do
@@ -623,7 +640,7 @@ pRelS = do
          np  <- pSubject
          pol <- pPol 
          v   <- parseFV
-         pObj 
+         pObj   --TODO eller pObject?
          vp <- constructVP v
          mkRelCl pol $ mkApp cidRelSlash [mkExpr cidIdRP,mkApp cidSlashVP [np,vp]]
 
@@ -718,15 +735,68 @@ pVP :: String -> P [Char] Expr PMonad Expr
 pVP typ = do
    write $ "doing pVP "++show typ
    --v <- cat typ
-   msum [do v <- inside "IV" (pSlashVP x)
---           typ <- gets S.vform
+   msum [do v <- inside typ (pSlashVP x)
             write $ "found IV "++show v
             pCompl x 
-            q <- gets S.sentenceType
-            (vtyp,exp,bs) <- gets S.complement
-            write $ "pVP have succeeded and returns typ "++show vtyp
-            pComplVP vtyp q v (exp,bs)
+            --(vtyp,exp,bs) <- gets S.complement
+            write $ "pVP have succeeded to parse for typ "++show x
+            constructVP v
+            --pComplVP vtyp q v (exp,bs)
         | x <- vForms]
+
+
+pVSO cat = msum $ map (pVSOCat cat) vForms
+
+pVSOCat cat typ = do
+  v  <- inside cat $ pSlashVP typ 
+  np <- write "looking for SS" >> parseSubject
+  write ("pVSO found np "++show np)
+  S.subj =: Just np 
+  pCompl typ
+  constructVP v
+
+pOVS cat Cop = do --obs när denna används får vi TopAP --TODO finns CompNP med?
+  write "try OVS copula"
+  pObject  --huset
+  --obj <- case args of 
+  --           [Nothing,Just sp] -> return sp
+  --           xs                -> write ("pOVS cop fail"++show xs)
+  --                                 >> mzero
+  write $ "found compl in OVS Cop" -- ++show obj
+  v <- inside cat $ pSlashVP Cop
+  advs <- many pAdv    
+  np <- write "looking for SS" >> parseSubject
+  write ("pOVS found np "++show np)
+  advs1 <- many pAdv    
+  let np1 = foldr (\ad e -> mkApp cidAdvNP [ad, e]) np (advs++advs1)
+  S.subj =: Just np1
+  S.sentenceType =: Top 
+  constructVP v
+  return v
+
+
+pOVS cat typ = do --huset målar han rött
+  write "try OVS"
+  pObject  --huset
+  v  <- inside cat $ pSlashVP typ --målar
+  write $ "found compl in OVS "++show typ
+  np <- write "looking for SS" >> parseSubject --han
+  write ("pOVS found np "++show np)
+  pCompl typ --rött
+  S.subj =: Just np 
+  S.sentenceType =: Top 
+  constructVP v
+  return v
+
+
+  --let qtyp = if styp==Q then cidQuestSlash else cidFocObj -- could be StrandQuest (vem tittar du på) -- or maybe ?QuestIAdv (på vilken katt sitter hon)
+  --    obj  = fromMaybe (mkExpr meta) o   --cannot handle 'sig ser han'
+  --    cl0  = mkApp cidSlashVP [np,vp]
+  --    cl   = foldr (\ad e -> mkApp cidAdvSlash [ad, e]) cl0 (advs++advs1)
+  --return (tmp,pol,obj,cl,qtyp) 
+
+
+
 
 pInfVP = 
   do write "att v?"
@@ -1079,7 +1149,7 @@ pCompl Sup = do
 pCompl V2 = do
   write "v2 compl begins"
   (pol,fo,adv,part) <- pV2Compl
-  obj <-  hasMovedObj 
+  obj <- hasMovedObj 
 --         <+>
 --          Just <$> parseAs "NP"
          <+>
