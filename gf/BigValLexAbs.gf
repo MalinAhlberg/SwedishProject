@@ -4,6 +4,7 @@
  K_maerka_vb_1_1_V2	: V2;
  aaberopa_vb_1_1_V2	: V2;
  aaderlaata_vb_1_1_V2	: V2;
+ aaderlaata_vb_1_1_V3	: V3;
  aadra_vb_2_1_V2	: V2;
  aaka_vb_1_11_V	: V;
  aaka_vb_1_12_V	: V;
@@ -24,9 +25,12 @@
  aastadkomma_vb_1_1_V2	: V2;
  aasyfta_vb_1_1_V2	: V2;
  aatala_vb_1_1_V2	: V2;
+ aatala_vb_1_1_V3	: V3;
  aateranpassa_vb_1_1_V2	: V2;
+ aateranpassa_vb_1_1_V3	: V3;
  aaterberaetta_vb_1_1_V2	: V2;
  aaterbetala_vb_1_1_V2	: V2;
+ aaterbetala_vb_1_1_V3	: V3;
  aaterfaa_vb_1_1_V2	: V2;
  aaterfinna_vb_1_1_V2	: V2;
  aaterfoera_vb_1_1_V2	: V2;
@@ -67,6 +71,7 @@
  administrera_vb_1_V2	: V2;
  adoptera_vb_1_V2	: V2;
  adressera_vb_1_V2	: V2;
+ adressera_vb_1_V3	: V3;
  aeckla_vb_1_11_V2	: V2;
  aeckla_vb_1_12_V2	: V2;
  aega_vb_2_1_V2	: V2;
@@ -84,6 +89,7 @@
  aentra_vb_1_1_V2	: V2;
  aera_vb_1_1_V2	: V2;
  aerva_vb_1_1_V2	: V2;
+ aerva_vb_1_1_V3	: V3;
  aeska_vb_1_1_V2	: V2;
  aeta_vb_1_1_V2	: V2;
  aeventyra_vb_1_1_V2	: V2;
@@ -105,6 +111,7 @@
  amma_vb_1_V2	: V2;
  amortera_vb_1_V2	: V2;
  amputera_vb_1_V2	: V2;
+ amputera_vb_1_V3	: V3;
  ana_vb_1_V2	: V2;
  ana_vb_1_VS	: VS;
  analysera_vb_1_V2	: V2;
@@ -115,6 +122,7 @@
  andas_vb_1_V	: V;
  andas_vb_1_V2	: V2;
  andra_vb_1_V2	: V2;
+ andra_vb_1_V3	: V3;
  anfaekta_vb_1_1_V2	: V2;
  anfalla_vb_1_V2	: V2;
  anfoera_vb_1_1_V2	: V2;
@@ -135,6 +143,7 @@
  anlaegga_vb_1_1_V2	: V2;
  anlaenda_vb_1_1_V	: V;
  anlita_vb_1_V2	: V2;
+ anlita_vb_1_V3	: V3;
  anloepa_vb_1_1_V2	: V2;
  anmaela_vb_1_11_V2	: V2;
  anmaela_vb_1_12_V2	: V2;
@@ -161,6 +170,7 @@
  anslaa_vb_1_1_V2	: V2;
  ansluta_vb_11_V2	: V2;
  ansluta_vb_12_V2	: V2;
+ ansluta_vb_1_V3	: V3;
  ansoeka_vb_1_1_V	: V;
  ansoeka_vb_1_1_V2	: V2;
  anspela_vb_1_V2	: V2;
@@ -172,6 +182,7 @@
  ansvara_vb_1_V2	: V2;
  ansvara_vb_1_VS	: VS;
  anta_vb_1_V2	: V2;
+ anta_vb_1_V3	: V3;
  anta_vb_1_VS	: VS;
  antaenda_vb_1_1_V2	: V2;
  antasta_vb_1_V2	: V2;
@@ -181,6 +192,7 @@
  antyda_vb_1_VS	: VS;
  anvaenda_vb_1_11_V2	: V2;
  anvaenda_vb_1_12_V2	: V2;
+ anvaenda_vb_1_1_V3	: V3;
  anvisa_vb_11_V3	: V3;
  anvisa_vb_12_V3	: V3;
  appellera_vb_1_V2	: V2;
@@ -204,6 +216,7 @@
  aska_vb_1_V2	: V2;
  aspirera_vb_1_V2	: V2;
  assimilera_vb_1_V2	: V2;
+ assimilera_vb_1_V3	: V3;
  assistera_vb_1_V3	: V3;
  associera_vb_1_V2	: V2;
  associera_vb_1_V3	: V3;
@@ -245,6 +258,7 @@
  avlaegga_vb_1_1_V2	: V2;
  avlaegsna_vb_1_11_V2	: V2;
  avlaegsna_vb_1_12_V2	: V2;
+ avlaegsna_vb_1_1_V3	: V3;
  avlaemna_vb_1_1_V2	: V2;
  avlaesa_vb_1_1_V2	: V2;
  avlasta_vb_1_V2	: V2;
@@ -255,7 +269,8 @@
  avloepa_vb_1_1_V	: V;
  avloesa_vb_1_1_V2	: V2;
  avlossa_vb_1_V2	: V2;
- avraada_vb_1_1_V2	: V2;
+ avraada_vb_1_1_V3	: V3;
+ avraada_vb_1_1_VV	: VV;
  avraetta_vb_1_1_V2	: V2;
  avreagera_vb_1_V2	: V2;
  avregistrera_vb_1_V2	: V2;
@@ -270,14 +285,17 @@
  avskaffa_vb_1_V2	: V2;
  avskeda_vb_1_V2	: V2;
  avskilja_vb_1_V2	: V2;
- avskraecka_vb_1_1_V2	: V2;
+ avskilja_vb_1_V3	: V3;
+ avskraecka_vb_1_1_V3	: V3;
+ avskraecka_vb_1_1_VV	: VV;
  avsky_vb_1_V	: V;
  avsky_vb_1_V2	: V2;
  avsky_vb_1_VV	: VV;
  avslaa_vb_1_1_V2	: V2;
  avsloeja_vb_1_1_V2	: V2;
  avsloeja_vb_1_1_VS	: VS;
- avsluta_vb_1_V2	: V2;
+ avsluta_vb_1_V3	: V3;
+ avsluta_vb_1_VV	: VV;
  avsoendra_vb_1_1_V2	: V2;
  avspaerra_vb_1_1_V2	: V2;
  avspegla_vb_1_V2	: V2;
@@ -326,6 +344,7 @@
  baktala_vb_1_V2	: V2;
  balansera_vb_2_V	: V;
  balansera_vb_2_V2	: V2;
+ balansera_vb_2_V3	: V3;
  balsamera_vb_1_V2	: V2;
  banda_vb_1_V2	: V2;
  banka_vb_1_V2	: V2;
@@ -364,6 +383,7 @@
  befordra_vb_1_V2	: V2;
  befraemja_vb_1_1_V2	: V2;
  befria_vb_1_V2	: V2;
+ befria_vb_1_V3	: V3;
  befrukta_vb_1_V2	: V2;
  begaa_vb_1_1_V2	: V2;
  begaava_vb_1_1_V3	: V3;
@@ -406,6 +426,7 @@
  belasta_vb_1_V2	: V2;
  beledsaga_vb_1_V2	: V2;
  beloena_vb_1_1_V2	: V2;
+ beloena_vb_1_1_V3	: V3;
  belysa_vb_1_V2	: V2;
  bemaestra_vb_1_1_V2	: V2;
  bemanna_vb_1_V2	: V2;
@@ -447,12 +468,13 @@
  beskriva_vb_1_V2	: V2;
  beskydda_vb_1_V2	: V2;
  beskylla_vb_1_V2	: V2;
+ beskylla_vb_1_V3	: V3;
  beslaa_vb_1_1_V2	: V2;
  beslaa_vb_1_1_V3	: V3;
  beslagta_vb_1_V2	: V2;
+ besluta_vb_1_V	: V;
  besluta_vb_1_V2	: V2;
  besluta_vb_1_VS	: VS;
- besluta_vb_1_VV	: VV;
  besoeka_vb_1_1_V2	: V2;
  bespara_vb_1_V3	: V3;
  bespotta_vb_1_V2	: V2;
@@ -473,6 +495,7 @@
  bestrida_vb_1_V2	: V2;
  bestrida_vb_1_VS	: VS;
  bestroe_vb_1_1_V2	: V2;
+ bestroe_vb_1_1_V3	: V3;
  bestryka_vb_1_V2	: V2;
  bestyra_vb_1_VS	: VS;
  bestyrka_vb_1_V2	: V2;
@@ -530,6 +553,7 @@
  binda_vb_11_V2	: V2;
  binda_vb_12_V2	: V2;
  bistaa_vb_1_1_V2	: V2;
+ bistaa_vb_1_1_V3	: V3;
  bita_vb_1_V	: V;
  bita_vb_11_V2	: V2;
  bita_vb_12_V2	: V2;
@@ -613,6 +637,7 @@
  braas_vb_1_1_V2	: V2;
  braecka_vb_1_1_V	: V;
  braecka_vb_1_1_V2	: V2;
+ braecka_vb_1_1_V3	: V3;
  braedsegla_vb_1_1_V	: V;
  braeka_vb_1_1_V	: V;
  braenna_vb_1_11_V	: V;
@@ -670,6 +695,7 @@
  bygga_vb_12_V2	: V2;
  bygga_vb_1_VS	: VS;
  byta_vb_1_V2	: V2;
+ byta_vb_1_V3	: V3;
  campa_vb_1_V	: V;
  censurera_vb_1_V2	: V2;
  centralisera_vb_1_V2	: V2;
@@ -724,6 +750,7 @@
  dementera_vb_1_VS	: VS;
  demonstrera_vb_21_V2	: V2;
  demonstrera_vb_22_V2	: V2;
+ demonstrera_vb_2_V3	: V3;
  demonstrera_vb_2_VS	: VS;
  deponera_vb_1_V2	: V2;
  deportera_vb_1_V2	: V2;
@@ -742,6 +769,7 @@
  dikta_vb_11_V2	: V2;
  dikta_vb_12_V2	: V2;
  diktera_vb_1_V2	: V2;
+ diktera_vb_1_V3	: V3;
  dilla_vb_1_V	: V;
  dimpa_vb_1_V	: V;
  dingla_vb_11_V2	: V2;
@@ -758,7 +786,8 @@
  distribuera_vb_1_V2	: V2;
  distribuera_vb_1_V3	: V3;
  dividera_vb_1_V2	: V2;
- dividera_vb_1_V3	: V3;
+ dividera_vb_11_V3	: V3;
+ dividera_vb_12_V3	: V3;
  djupfrysa_vb_1_V2	: V2;
  doa_vb_1_V	: V;
  docka_vb_1_V2	: V2;
@@ -766,9 +795,12 @@
  doeda_vb_1_1_V2	: V2;
  doedfoerklara_vb_1_1_V2	: V2;
  doelja_vb_1_1_V2	: V2;
+ doelja_vb_1_1_V3	: V3;
  doelja_vb_1_1_VS	: VS;
  doema_vb_1_1_V2	: V2;
+ doema_vb_1_1_V3	: V3;
  doepa_vb_1_1_V2	: V2;
+ doepa_vb_1_1_V3	: V3;
  dofta_vb_2_V	: V;
  dofta_vb_2_V2	: V2;
  doktorera_vb_1_V	: V;
@@ -785,6 +817,7 @@
  dopa_vb_1_V2	: V2;
  doppa_vb_1_V	: V;
  doppa_vb_1_V2	: V2;
+ doppa_vb_1_V3	: V3;
  dra_vb_11_V	: V;
  dra_vb_12_V	: V;
  dra_vb_11_V2	: V2;
@@ -797,6 +830,7 @@
  dra_vb_18_V2	: V2;
  dra_vb_19_V2	: V2;
  dra_vb_110_V2	: V2;
+ dra_vb_1_V3	: V3;
  dra_vb_1_VV	: VV;
  draasa_vb_1_1_V	: V;
  drabba_vb_1_V2	: V2;
@@ -843,6 +877,7 @@
  duka_vb_12_V2	: V2;
  duka_vb_13_V2	: V2;
  dumpa_vb_1_V2	: V2;
+ dumpa_vb_1_V3	: V3;
  dundra_vb_1_V	: V;
  dunka_vb_11_V2	: V2;
  dunka_vb_12_V2	: V2;
@@ -894,7 +929,10 @@
  erlaegga_vb_1_1_V2	: V2;
  eroevra_vb_1_1_V2	: V2;
  ersaetta_vb_1_1_V2	: V2;
- ertappa_vb_1_V2	: V2;
+ ersaetta_vb_1_1_V3	: V3;
+ ersaetta_vb_1_1_VS	: VS;
+ ertappa_vb_1_V3	: V3;
+ ertappa_vb_1_VV	: VV;
  etablera_vb_1_V	: V;
  etablera_vb_1_V2	: V2;
  etsa_vb_1_V2	: V2;
@@ -908,6 +946,7 @@
  exploatera_vb_1_V2	: V2;
  explodera_vb_1_V	: V;
  exponera_vb_1_V2	: V2;
+ exponera_vb_1_V3	: V3;
  exportera_vb_1_V2	: V2;
  extraknaecka_vb_1_1_V	: V;
  faa_vb_1_1_V2	: V2;
@@ -1185,6 +1224,7 @@
  foersoeka_vb_1_1_VV	: VV;
  foersoerja_vb_1_1_V	: V;
  foersoerja_vb_1_1_V2	: V2;
+ foersoerja_vb_1_1_V3	: V3;
  foersonas_vb_1_1_V2	: V2;
  foerspilla_vb_1_1_V2	: V2;
  foerstaa_vb_1_1_V2	: V2;
@@ -1236,6 +1276,7 @@
  foervanska_vb_1_1_V2	: V2;
  foervara_vb_1_1_V2	: V2;
  foervarna_vb_1_1_V2	: V2;
+ foervarna_vb_1_1_V3	: V3;
  foerverka_vb_1_1_V2	: V2;
  foerverkliga_vb_1_1_V2	: V2;
  foervilla_vb_1_1_V2	: V2;
@@ -1266,6 +1307,7 @@
  fota_vb_1_V2	: V2;
  fotografera_vb_1_V2	: V2;
  fraaga_vb_1_1_V2	: V2;
+ fraaga_vb_1_1_V3	: V3;
  fraaga_vb_1_1_VQ	: VQ;
  fraelsa_vb_1_1_V2	: V2;
  fraemja_vb_1_1_V2	: V2;
@@ -1296,6 +1338,7 @@
  fresta_vb_1_V2	: V2;
  fria_vb_1_V	: V;
  fria_vb_1_V2	: V2;
+ fria_vb_1_V3	: V3;
  fridlysa_vb_1_V2	: V2;
  frige_vb_1_V2	: V2;
  frigoera_vb_1_1_V2	: V2;
@@ -1323,6 +1366,7 @@
  fuska_vb_1_V	: V;
  fuska_vb_1_V2	: V2;
  fylla_vb_1_V2	: V2;
+ fylla_vb_1_V3	: V3;
  fynda_vb_1_V	: V;
  gaa_vb_1_11_V	: V;
  gaa_vb_1_12_V	: V;
@@ -1408,6 +1452,7 @@
  gnaga_vb_1_V2	: V2;
  gnida_vb_1_V	: V;
  gnida_vb_1_V2	: V2;
+ gnida_vb_1_V3	: V3;
  gnissla_vb_1_V	: V;
  gnistra_vb_1_V	: V;
  gno_vb_1_V	: V;
@@ -1430,15 +1475,18 @@
  goera_vb_1_13_V2	: V2;
  goera_vb_1_14_V2	: V2;
  goera_vb_1_1_V2A	: V2A;
+ goera_vb_1_1_V3	: V3;
  goera_vb_1_1_VS	: VS;
  golva_vb_1_V2	: V2;
  gorma_vb_1_V	: V;
  gottgoera_vb_1_1_V2	: V2;
+ gottgoera_vb_1_1_V3	: V3;
  graana_vb_1_1_V	: V;
  graata_vb_1_1_V	: V;
  graedda_vb_1_1_V2	: V2;
  graela_vb_1_11_V2	: V2;
  graela_vb_1_12_V2	: V2;
+ graela_vb_1_1_V3	: V3;
  graema_vb_1_1_V2	: V2;
  graensa_vb_1_1_V2	: V2;
  graeva_vb_2_1_V2	: V2;
@@ -1622,6 +1670,7 @@
  hysa_vb_1_V2	: V2;
  hyssja_vb_1_V2	: V2;
  hytta_vb_1_V2	: V2;
+ hytta_vb_1_V3	: V3;
  hyvla_vb_1_V2	: V2;
  iaktta_vb_1_V2	: V2;
  identifiera_vb_11_V2	: V2;
@@ -1645,13 +1694,15 @@
  inbjuda_vb_1_V2	: V2;
  inbjuda_vb_1_V3	: V3;
  indela_vb_1_V2	: V2;
+ indela_vb_1_V3	: V3;
  indikera_vb_1_V2	: V2;
  indikera_vb_1_VS	: VS;
  infiltrera_vb_1_V2	: V2;
  influera_vb_1_V2	: V2;
  infoera_vb_1_1_V2	: V2;
  infoerliva_vb_1_1_V3	: V3;
- informera_vb_1_V2	: V2;
+ informera_vb_1_V3	: V3;
+ informera_vb_1_VS	: VS;
  infria_vb_1_V2	: V2;
  ingaa_vb_2_1_V2	: V2;
  ingaa_vb_2_1_V3	: V3;
@@ -1661,12 +1712,14 @@
  inhaegna_vb_1_1_V2	: V2;
  inhaemta_vb_1_1_V2	: V2;
  injaga_vb_1_V2	: V2;
+ injaga_vb_1_V3	: V3;
  injicera_vb_1_V2	: V2;
  inkassera_vb_1_V2	: V2;
  inkludera_vb_1_V2	: V2;
  inkorporera_vb_1_V3	: V3;
  inkraekta_vb_1_1_V2	: V2;
  inkvartera_vb_1_V2	: V2;
+ inkvartera_vb_1_V3	: V3;
  inleda_vb_1_V2	: V2;
  inlemma_vb_1_V3	: V3;
  innebaera_vb_1_1_V2	: V2;
@@ -1675,6 +1728,7 @@
  innehaalla_vb_1_1_V2	: V2;
  inordna_vb_1_V2	: V2;
  inpraenta_vb_1_1_V2	: V2;
+ inpraenta_vb_1_1_V3	: V3;
  inraetta_vb_1_1_V2	: V2;
  inreda_vb_1_V2	: V2;
  inregistrera_vb_1_V2	: V2;
@@ -1709,6 +1763,7 @@
  intervjua_vb_1_V2	: V2;
  intraeda_vb_1_1_V	: V;
  intraeffa_vb_1_1_V	: V;
+ intressera_vb_1_V	: V;
  intressera_vb_11_V2	: V2;
  intressera_vb_12_V2	: V2;
  introducera_vb_1_V2	: V2;
@@ -1722,6 +1777,7 @@
  inverka_vb_1_V2	: V2;
  investera_vb_1_V2	: V2;
  inviga_vb_1_V2	: V2;
+ inviga_vb_1_V3	: V3;
  irra_vb_1_V	: V;
  irritera_vb_1_V2	: V2;
  iscensaetta_vb_1_1_V2	: V2;
@@ -1918,7 +1974,8 @@
  kommentera_vb_1_V2	: V2;
  kommunicera_vb_2_V2	: V2;
  kompensera_vb_1_V3	: V3;
- komplettera_vb_1_V2	: V2;
+ komplettera_vb_1_V3	: V3;
+ komplettera_vb_1_VV	: VV;
  komplicera_vb_1_V2	: V2;
  komprimera_vb_1_V2	: V2;
  koncentrera_vb_11_V2	: V2;
@@ -1929,6 +1986,7 @@
  konfiskera_vb_1_V2	: V2;
  konfrontera_vb_1_V2	: V2;
  konkurrera_vb_1_V2	: V2;
+ konkurrera_vb_1_V3	: V3;
  konservera_vb_1_V2	: V2;
  konspirera_vb_1_V2	: V2;
  konstatera_vb_1_V2	: V2;
@@ -1942,10 +2000,12 @@
  kontrollera_vb_1_VS	: VS;
  konvertera_vb_2_V2	: V2;
  koordinera_vb_1_V2	: V2;
+ koordinera_vb_1_V3	: V3;
  kopiera_vb_1_V2	: V2;
  koppla_vb_1_V	: V;
  koppla_vb_11_V2	: V2;
  koppla_vb_12_V2	: V2;
+ koppla_vb_1_V3	: V3;
  kora_vb_1_V3	: V3;
  korrigera_vb_1_V2	: V2;
  korsa_vb_1_V2	: V2;
@@ -1963,6 +2023,7 @@
  kraevas_vb_1_1_VS	: VS;
  krafsa_vb_11_V2	: V2;
  krafsa_vb_12_V2	: V2;
+ krafsa_vb_1_V3	: V3;
  krama_vb_11_V2	: V2;
  krama_vb_12_V2	: V2;
  krascha_vb_1_V	: V;
@@ -1974,6 +2035,7 @@
  kriminalisera_vb_1_V2	: V2;
  kringgaa_vb_1_1_V2	: V2;
  kringgaerda_vb_1_1_V2	: V2;
+ kringgaerda_vb_1_1_V3	: V3;
  krocka_vb_1_V2	: V2;
  kroeka_vb_1_11_V	: V;
  kroeka_vb_1_12_V	: V;
@@ -1986,6 +2048,7 @@
  krusa_vb_12_V2	: V2;
  krydda_vb_11_V2	: V2;
  krydda_vb_12_V2	: V2;
+ krydda_vb_1_V3	: V3;
  krylla_vb_1_V	: V;
  krympa_vb_1_V	: V;
  krypa_vb_1_V	: V;
@@ -2025,7 +2088,8 @@
  kyla_vb_1_V2	: V2;
  kyssa_vb_1_V2	: V2;
  laana_vb_1_1_V2	: V2;
- laana_vb_1_1_V3	: V3;
+ laana_vb_1_11_V3	: V3;
+ laana_vb_1_12_V3	: V3;
  laasa_vb_1_1_V2	: V2;
  laata_vb_1_1_V	: V;
  laata_vb_1_1_V2	: V2;
@@ -2050,6 +2114,9 @@
  laegga_vb_1_15_V2	: V2;
  laegga_vb_1_16_V2	: V2;
  laegga_vb_1_17_V2	: V2;
+ laegga_vb_1_11_V3	: V3;
+ laegga_vb_1_12_V3	: V3;
+ laegga_vb_1_13_V3	: V3;
  laegga_vb_1_1_VV	: VV;
  laeka_vb_1_1_V	: V;
  laeka_vb_1_1_V2	: V2;
@@ -2084,12 +2151,14 @@
  landsaetta_vb_1_1_V2	: V2;
  landstiga_vb_1_V	: V;
  langa_vb_1_V2	: V2;
+ langa_vb_1_V3	: V3;
  lansera_vb_1_V2	: V2;
  lapa_vb_1_V2	: V2;
  lappa_vb_1_V2	: V2;
  larma_vb_2_V	: V;
  larma_vb_2_V2	: V2;
  lassa_vb_1_V2	: V2;
+ lassa_vb_1_V3	: V3;
  lasta_vb_1_V2	: V2;
  lasta_vb_1_V3	: V3;
  le_vb_11_V2	: V2;
@@ -2101,6 +2170,7 @@
  legitimera_vb_1_V	: V;
  leja_vb_1_V2	: V2;
  leka_vb_1_V2	: V2;
+ leka_vb_1_V3	: V3;
  lemlaesta_vb_1_1_V2	: V2;
  leta_vb_11_V2	: V2;
  leta_vb_12_V2	: V2;
@@ -2108,6 +2178,7 @@
  leva_vb_11_V	: V;
  leva_vb_12_V	: V;
  leverera_vb_1_V2	: V2;
+ leverera_vb_1_V3	: V3;
  levras_vb_1_V	: V;
  lida_vb_1_V	: V;
  liera_vb_1_V2	: V2;
@@ -2165,13 +2236,13 @@
  luras_vb_1_V2	: V2;
  luska_vb_1_V2	: V2;
  lussa_vb_1_V2	: V2;
- luta_vb_2_V	: V;
+ luta_vb_21_V	: V;
+ luta_vb_22_V	: V;
  luta_vb_21_V2	: V2;
  luta_vb_22_V2	: V2;
  lyckas_vb_1_V	: V;
  lyckas_vb_1_V2	: V2;
- lyckas_vb_11_VV	: VV;
- lyckas_vb_12_VV	: VV;
+ lyckas_vb_1_VV	: VV;
  lyda_vb_1_V	: V;
  lyda_vb_1_V2	: V2;
  lyfta_vb_1_V	: V;
@@ -2185,6 +2256,7 @@
  lystra_vb_1_V2	: V2;
  maa_vb_1_1_V	: V;
  maa_vb_1_1_VV	: VV;
+ maala_vb_1_1_V2	: V2;
  maala_vb_1_1_V2A	: V2A;
  maana_vb_1_1_V2	: V2;
  maekta_vb_1_1_VV	: VV;
@@ -2315,10 +2387,12 @@
  nacka_vb_1_V2	: V2;
  naemna_vb_1_1_V2	: V2;
  naemna_vb_1_1_V2S	: V2S;
+ naemna_vb_1_1_V3	: V3;
  naerma_vb_1_1_V2	: V2;
  nagelfara_vb_1_V2	: V2;
  nalkas_vb_1_V	: V;
  nalla_vb_1_V2	: V2;
+ nalla_vb_1_V3	: V3;
  namna_vb_1_V2	: V2;
  nationalisera_vb_1_V2	: V2;
  nattas_vb_1_V2	: V2;
@@ -2360,6 +2434,7 @@
  ockupera_vb_1_V2	: V2;
  oedelaegga_vb_1_1_V2	: V2;
  oedsla_vb_1_1_V2	: V2;
+ oedsla_vb_1_1_V3	: V3;
  oegna_vb_1_1_V2	: V2;
  oeka_vb_2_1_V	: V;
  oeka_vb_2_1_V2	: V2;
@@ -2386,7 +2461,7 @@
  oeverdriva_vb_1_1_V2	: V2;
  oeverensstaemma_vb_1_1_V2	: V2;
  oeverfalla_vb_1_1_V2	: V2;
- oeverfoera_vb_1_1_V2	: V2;
+ oeverfoera_vb_1_1_V3	: V3;
  oeverge_vb_1_1_V2	: V2;
  oeverglaensa_vb_1_1_V2	: V2;
  oeverhopa_vb_1_1_V3	: V3;
@@ -2415,7 +2490,8 @@
  oevertraeffa_vb_1_1_V	: V;
  oevertraeffa_vb_1_1_V2	: V2;
  oevertrassera_vb_1_1_V2	: V2;
- oevertyga_vb_1_1_V2	: V2;
+ oevertyga_vb_1_1_V3	: V3;
+ oevertyga_vb_1_1_VS	: VS;
  oevervaega_vb_2_1_V	: V;
  oevervaega_vb_2_1_V2	: V2;
  oevervaega_vb_2_1_VV	: VV;
@@ -2428,6 +2504,7 @@
  offentliggoera_vb_1_1_V2	: V2;
  offra_vb_11_V2	: V2;
  offra_vb_12_V2	: V2;
+ offra_vb_1_V3	: V3;
  ofreda_vb_1_V2	: V2;
  ogilla_vb_1_V2	: V2;
  ogilla_vb_1_VS	: VS;
@@ -2442,11 +2519,13 @@
  omintetgoera_vb_1_1_V2	: V2;
  omkomma_vb_1_V	: V;
  omnaemna_vb_1_1_V2	: V2;
+ omnaemna_vb_1_1_V3	: V3;
  omoejliggoera_vb_1_1_V2	: V2;
  omorganisera_vb_1_V2	: V2;
  omproeva_vb_1_1_V2	: V2;
  omringa_vb_1_V2	: V2;
  omsaetta_vb_1_1_V2	: V2;
+ omsaetta_vb_1_1_V3	: V3;
  omskaera_vb_1_1_V2	: V2;
  omskola_vb_1_V	: V;
  omskola_vb_1_V2	: V2;
@@ -2459,6 +2538,7 @@
  onanera_vb_1_V	: V;
  operera_vb_1_V	: V;
  operera_vb_1_V2	: V2;
+ operera_vb_1_V3	: V3;
  opponera_vb_1_V2	: V2;
  opponera_vb_1_VS	: VS;
  optimera_vb_1_V2	: V2;
@@ -2469,9 +2549,9 @@
  organisera_vb_1_V2	: V2;
  orientera_vb_2_V	: V;
  orientera_vb_2_V2	: V2;
+ orka_vb_1_V	: V;
  orka_vb_1_V2	: V2;
- orka_vb_11_VV	: VV;
- orka_vb_12_VV	: VV;
+ orka_vb_1_VV	: VV;
  oroa_vb_11_V2	: V2;
  oroa_vb_12_V2	: V2;
  oroa_vb_1_VS	: VS;
@@ -2548,6 +2628,7 @@
  plaastra_vb_1_1_V2	: V2;
  plaata_vb_1_1_V2	: V2;
  placera_vb_1_V2	: V2;
+ placera_vb_1_V3	: V3;
  pladdra_vb_1_V	: V;
  plaedera_vb_1_1_V2	: V2;
  planera_vb_1_V2	: V2;
@@ -2565,6 +2646,7 @@
  plugga_vb_22_V2	: V2;
  plumsa_vb_1_V2	: V2;
  plundra_vb_1_V2	: V2;
+ plundra_vb_1_V3	: V3;
  poaengtera_vb_1_1_V2	: V2;
  poaengtera_vb_1_1_VS	: VS;
  pocka_vb_1_V2	: V2;
@@ -2586,7 +2668,8 @@
  praktisera_vb_1_V	: V;
  praktisera_vb_1_V2	: V2;
  prassla_vb_1_V	: V;
- prata_vb_1_V2	: V2;
+ prata_vb_1_V3	: V3;
+ prata_vb_1_VS	: VS;
  precisera_vb_1_V2	: V2;
  predika_vb_1_V2	: V2;
  premiera_vb_1_V2	: V2;
@@ -2663,6 +2746,7 @@
  raa_vb_2_1_VS	: VS;
  raada_vb_1_1_V2	: V2;
  raadgoera_vb_1_1_V2	: V2;
+ raadgoera_vb_1_1_V3	: V3;
  raadslaa_vb_1_1_V2	: V2;
  raakas_vb_1_11_V2	: V2;
  raakas_vb_1_12_V2	: V2;
@@ -2759,7 +2843,9 @@
  relatera_vb_12_V2	: V2;
  relatera_vb_1_V3	: V3;
  relegera_vb_1_V2	: V2;
+ relegera_vb_1_V3	: V3;
  remittera_vb_1_V2	: V2;
+ remittera_vb_1_V3	: V3;
  rena_vb_1_V2	: V2;
  rendera_vb_1_V3	: V3;
  rengoera_vb_1_1_V2	: V2;
@@ -2785,6 +2871,7 @@
  resignera_vb_1_V	: V;
  resonera_vb_1_V	: V;
  resonera_vb_1_V2	: V2;
+ resonera_vb_1_V3	: V3;
  respektera_vb_1_V2	: V2;
  restaurera_vb_1_V2	: V2;
  restera_vb_1_V	: V;
@@ -2897,9 +2984,11 @@
  saekerstaella_vb_1_1_V2	: V2;
  saekra_vb_1_1_V2	: V2;
  saelja_vb_1_1_V2	: V2;
+ saelja_vb_1_1_V3	: V3;
  saellskapa_vb_1_1_V2	: V2;
  saenda_vb_1_1_V2	: V2;
- saenda_vb_1_1_V3	: V3;
+ saenda_vb_1_11_V3	: V3;
+ saenda_vb_1_12_V3	: V3;
  saenka_vb_1_1_V	: V;
  saenka_vb_1_1_V2	: V2;
  saera_vb_1_1_V3	: V3;
@@ -2920,6 +3009,7 @@
  saetta_vb_1_1_VV	: VV;
  saknas_vb_1_V	: V;
  saknas_vb_1_V2	: V2;
+ sakta_vb_1_V	: V;
  sakta_vb_11_V2	: V2;
  sakta_vb_12_V2	: V2;
  salta_vb_1_V2	: V2;
@@ -2940,6 +3030,7 @@
  sammantraeffa_vb_1_1_V2	: V2;
  samordna_vb_1_V3	: V3;
  samsas_vb_1_V2	: V2;
+ samsas_vb_1_V3	: V3;
  samtala_vb_1_V2	: V2;
  samtycka_vb_1_V2	: V2;
  samverka_vb_1_V2	: V2;
@@ -3063,6 +3154,7 @@
  skoja_vb_21_V2	: V2;
  skoja_vb_22_V2	: V2;
  skoja_vb_23_V2	: V2;
+ skoja_vb_2_V3	: V3;
  skola_vb_1_V2	: V2;
  skolka_vb_1_V2	: V2;
  skona_vb_1_V2	: V2;
@@ -3169,8 +3261,8 @@
  slinka_vb_1_V	: V;
  slinta_vb_1_V	: V;
  slipa_vb_1_V2	: V2;
+ slippa_vb_1_V	: V;
  slippa_vb_1_V2	: V2;
- slippa_vb_1_VV	: VV;
  slira_vb_1_V	: V;
  slita_vb_1_V	: V;
  slita_vb_11_V2	: V2;
@@ -3277,6 +3369,7 @@
  snurra_vb_1_V2	: V2;
  snusa_vb_1_V	: V;
  snuva_vb_1_V2	: V2;
+ snuva_vb_1_V3	: V3;
  snyfta_vb_1_V	: V;
  snylta_vb_1_V2	: V2;
  snyta_vb_1_V	: V;
@@ -3404,6 +3497,7 @@
  staella_vb_1_18_V2	: V2;
  staella_vb_1_19_V2	: V2;
  staella_vb_1_110_V2	: V2;
+ staella_vb_1_1_V3	: V3;
  staella_vb_1_1_VS	: VS;
  staemma_vb_1_1_V	: V;
  staemma_vb_1_1_V2	: V2;
@@ -3446,6 +3540,7 @@
  sticka_vb_32_V	: V;
  sticka_vb_31_V2	: V2;
  sticka_vb_32_V2	: V2;
+ sticka_vb_3_V3	: V3;
  stifta_vb_1_V2	: V2;
  stiga_vb_11_V	: V;
  stiga_vb_12_V	: V;
@@ -3606,6 +3701,7 @@
  sympatisera_vb_1_V2	: V2;
  syna_vb_1_V2	: V2;
  synkronisera_vb_1_V3	: V3;
+ sysselsaetta_vb_1_1_V	: V;
  sysselsaetta_vb_1_11_V2	: V2;
  sysselsaetta_vb_1_12_V2	: V2;
  syssla_vb_1_V2	: V2;
@@ -3636,6 +3732,7 @@
  taala_vb_1_1_VS	: VS;
  taaras_vb_1_1_V	: V;
  tacka_vb_1_V2	: V2;
+ tacka_vb_1_V3	: V3;
  tackla_vb_1_V2	: V2;
  taecka_vb_1_11_V2	: V2;
  taecka_vb_1_12_V2	: V2;
@@ -3658,11 +3755,13 @@
  taerna_vb_1_1_V2	: V2;
  taeta_vb_1_1_V2	: V2;
  taevla_vb_1_1_V2	: V2;
+ taevla_vb_1_1_V3	: V3;
  tafsa_vb_1_V2	: V2;
  tampas_vb_1_V2	: V2;
  tangera_vb_1_V2	: V2;
  tanka_vb_1_V2	: V2;
  tapetsera_vb_1_V2	: V2;
+ tapetsera_vb_1_V3	: V3;
  tappa_vb_11_V2	: V2;
  tappa_vb_12_V2	: V2;
  tarva_vb_1_V2	: V2;
@@ -3749,7 +3848,8 @@
  tjaenstgoera_vb_1_1_V	: V;
  tjafsa_vb_1_V	: V;
  tjalla_vb_1_V	: V;
- tjata_vb_1_V2	: V2;
+ tjata_vb_1_V3	: V3;
+ tjata_vb_1_VS	: VS;
  tjattra_vb_1_V	: V;
  tjura_vb_1_V	: V;
  tjusa_vb_1_V2	: V2;
@@ -3797,6 +3897,7 @@
  transplantera_vb_1_V2	: V2;
  transportera_vb_1_V2	: V2;
  traska_vb_1_V	: V;
+ trassla_vb_1_V	: V;
  trassla_vb_11_V2	: V2;
  trassla_vb_12_V2	: V2;
  trava_vb_1_V	: V;
@@ -3886,10 +3987,12 @@
  underkuva_vb_1_V2	: V2;
  underlaata_vb_1_1_VV	: VV;
  underlaetta_vb_1_1_V2	: V2;
+ underlaetta_vb_1_1_V3	: V3;
  underminera_vb_1_V2	: V2;
  underordna_vb_1_V2	: V2;
  underordna_vb_1_V3	: V3;
  underraetta_vb_1_1_V2	: V2;
+ underraetta_vb_1_1_V3	: V3;
  underskatta_vb_1_V2	: V2;
  underskrida_vb_1_V2	: V2;
  undersoeka_vb_1_1_V2	: V2;
@@ -3932,6 +4035,7 @@
  uppgaa_vb_1_1_V	: V;
  uppge_vb_1_V2	: V2;
  uppge_vb_1_V2S	: V2S;
+ uppge_vb_1_V3	: V3;
  upphaeva_vb_2_1_V2	: V2;
  upphoeja_vb_1_1_V3	: V3;
  upphoera_vb_1_1_V	: V;
@@ -4003,6 +4107,7 @@
  uthyra_vb_1_V2	: V2;
  utjaemna_vb_1_1_V2	: V2;
  utkaempa_vb_1_1_V2	: V2;
+ utkaempa_vb_1_1_V3	: V3;
  utklassa_vb_1_V2	: V2;
  utkomma_vb_1_V	: V;
  utlaemna_vb_1_1_V2	: V2;
@@ -4016,10 +4121,12 @@
  utmaala_vb_1_1_V2	: V2;
  utmaerka_vb_1_1_V2	: V2;
  utmana_vb_1_V2	: V2;
+ utmana_vb_1_V3	: V3;
  utmynna_vb_1_V2	: V2;
  utmynna_vb_1_VS	: VS;
  utnaemna_vb_1_1_V2	: V2;
  utnyttja_vb_1_V2	: V2;
+ utnyttja_vb_1_V3	: V3;
  utoeka_vb_1_1_V2	: V2;
  utoeva_vb_1_1_V2	: V2;
  utpeka_vb_1_V2	: V2;
@@ -4052,6 +4159,7 @@
  utverka_vb_1_V2	: V2;
  utvidga_vb_1_V2	: V2;
  utvinna_vb_1_V2	: V2;
+ utvinna_vb_1_V3	: V3;
  utvisa_vb_1_V2	: V2;
  utvisa_vb_1_VS	: VS;
  vaaga_vb_1_1_V	: V;
@@ -4071,7 +4179,7 @@
  vaega_vb_3_1_V	: V;
  vaega_vb_3_1_V2	: V2;
  vaegleda_vb_1_1_V2	: V2;
- vaegra_vb_1_1_VV	: VV;
+ vaegra_vb_1_1_V	: V;
  vaeja_vb_1_1_V2	: V2;
  vaelja_vb_1_1_V2	: V2;
  vaelja_vb_1_1_V3	: V3;
@@ -4085,6 +4193,7 @@
  vaeltra_vb_1_1_V2	: V2;
  vaelva_vb_1_11_V2	: V2;
  vaelva_vb_1_12_V2	: V2;
+ vaelva_vb_1_1_V3	: V3;
  vaenda_vb_2_1_V	: V;
  vaenda_vb_2_11_V2	: V2;
  vaenda_vb_2_12_V2	: V2;
@@ -4096,6 +4205,7 @@
  vaenta_vb_1_1_VS	: VS;
  vaerdera_vb_1_1_V2	: V2;
  vaerdesaekra_vb_1_1_V2	: V2;
+ vaerdesaekra_vb_1_1_V3	: V3;
  vaerdesaetta_vb_1_1_V2	: V2;
  vaerdesaetta_vb_1_1_VS	: VS;
  vaerja_vb_1_1_V2	: V2;
@@ -4136,7 +4246,8 @@
  varna_vb_1_V3	: V3;
  varna_vb_1_VV	: VV;
  varsebli_vb_1_V2	: V2;
- varsko_vb_1_V2	: V2;
+ varsko_vb_1_V3	: V3;
+ varsko_vb_1_VS	: VS;
  varsla_vb_1_V2	: V2;
  varva_vb_1_V2	: V2;
  varva_vb_1_V3	: V3;
@@ -4242,7 +4353,6 @@
  yrka_vb_1_VS	: VS;
  yttra_vb_1_V2	: V2;
  yttra_vb_1_VS	: VS;
-
 
 varda_vb_1_V : V ;
 utloepa_vb_1_1_V : V ;

@@ -59,8 +59,29 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
   advsMeta  = mkAdv "?advs" ;  --these three are ambigouos
   iadvMeta  = {s = "?advs"} ;
   adVMeta   = {s = "?advs"} ; 
+  {-
+  vMeta   : V ;
+  vvMeta  : VV ;
+  vsMeta  : VS ;
+  v2Meta  : V2 ;
+  v3Meta  : V3 ;
+  vaMeta  : VA ;
+  vqMeta  : VQ ;
+  v2sMeta : V2S ;
+  v2qMeta : V2Q ;
+  v2aMeta : V2A ; 
+  -}
   
-
+  {-
+    Verb : Type = {
+      s : VForm => Str ;
+      part : Str ;
+      vtype : VType
+      } ;
+   V, VS, VQ, VA = Verb ;
+    V2, VV, V2Q, V2S, V2A = Verb ** {c2 : Complement} ;
+    V3, V2V = Verb ** {c2,c3 : Complement} ;
+-}
   oper mkNP' : Str ->  {s : NPerson => NPForm => Str ; a : Agr} = 
       \str -> {s = \\_,_ => str ; a = {n = variants {Sg | Pl} ;
                                        g = variants {utrum | neutrum} ;

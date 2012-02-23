@@ -43,6 +43,18 @@ abstract BigParse =
   advMeta : Adv ;
   iadvMeta : IAdv ;
   adVMeta : AdV ; 
+  {-
+  vMeta   : V ;
+  vvMeta  : VV ;
+  vsMeta  : VS ;
+  v2Meta  : V2 ;
+  v3Meta  : V3 ;
+  vaMeta  : VA ;
+  vqMeta  : VQ ;
+  v2sMeta : V2S ;
+  v2qMeta : V2Q ;
+  v2aMeta : V2A ;
+  -}
  
   } ;
 
