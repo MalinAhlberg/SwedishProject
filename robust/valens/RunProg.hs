@@ -72,8 +72,8 @@ cleanDicts :: IO ()
 cleanDicts = do
   (cnc,rem)  <- getAndOrderCnc newcnc
   abs        <- getAndOrderAbs newabs rem 
-  writeFile "NewCnc.gf" cnc
-  writeFile "NewAbs.gf" abs
+  writeFile "NewCnc1.gf" cnc
+  writeFile "NewAbs1.gf" abs
   writeGF $!! (abs,cnc)
 
  where --getAndOrder :: Bool -> FilePath -> IO (String,[String])

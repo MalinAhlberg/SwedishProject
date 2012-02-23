@@ -2,6 +2,7 @@ module ParseLexin where
 import Prelude as Pr
 import Data.Attoparsec.Text as A
 import Data.Text as T
+import Data.Maybe
 import Control.Monad
 import Control.Applicative
 
@@ -15,14 +16,14 @@ verbValency = do
   xorA
   theWord
   xs <- many (particle True <|> sig) --outside of the paranthesis, in order to avoid
-                                       -- confusion
+                                     -- confusion
   mone $ char' '('  --- should make sure they match!!
   pr1 <- preposition
   vs <- sepBy (v2s <|> v3 <|> v2a <|> va <|> vv <|> vs <|> vq <|> v2 <|> v <|> moreVal) (char '/')
   mone $ char' ')' --- should make sure they match!!
-  return $ Pr.map (\v -> VT (vtype v) (xs++argument v) (pr1:preps v)) vs
+  return $ Pr.map (\v -> VT (vtype v) (xs++argument v) (pr1:preps v)) (Pr.concat vs)
 
-moreVal = A.anyChar >> return (VT X [] []) -- to be implemented properly
+moreVal = A.anyChar >> return [VT X [] []] -- to be implemented properly
 subject = xorA
 
 xorA = 
@@ -43,107 +44,120 @@ data VerbType = VT {vtype :: V , argument :: [Argument], preps :: [Preposition]}
 data V = V | V2 | V3 | X | VV Bool | VS | VQ | VA | V2S | V2Q | V2A -- V2V, very uncommon 
   deriving (Show,Eq)
 data Argument = Part Text  --particles
-              | Refl             --is reflexive
-              -- | Inf Bool         --infinitival verb, True if inifinitive marker is used
+              | Refl       --is reflexive
   deriving (Show,Eq)
 type Preposition = Maybe Text
 
-v :: Parser VerbType
+v :: Parser [VerbType]
 v = do
  xs <- many (particle True <|> sig) 
- return (VT V xs [])
+ return [VT V xs []]
 
-v2 :: Parser VerbType
+v2 :: Parser [VerbType]
 v2 = do
   xs <- many (particle True <|> sig) 
-  mone (char' '(')   -- verbs that can be used as both V and V2 will assigned V2
+  st <- maybeP $ char' '('  
   pr <- preposition
   xorA
-  mone (char' ')')
-  return $ VT V2 xs [pr]
+  cl <- maybeP $ char' ')'
+  -- if the argument is enclosed in parathesis it is optional
+  let rest = if isJust st && isJust cl then [VT V xs []] else []
+  return $ (VT V2 xs [pr]):rest
 
 {- Assigns V3 also two verbs with a counjunction as argument
    Eg. 'särar på x och y'
    RunProg could handle this in a clever way -}
-v3 :: Parser VerbType
+v3 :: Parser [VerbType]
 v3 = do
   xs <- many (particle True <|> sig)
   pr1 <- preposition
-  mone (char' '(')   -- verbs that can be used as both V2 and V3 will assigned V3
+  mone (char' '(')   
   xorA
   mone (char' ')')
+  st <- maybeP $ char' '('  
   pr2 <- preposition
   xorA
-  return $ VT V3 xs [pr1,pr2]
+  cl <- maybeP $ char' ')'
+  -- if the second argument is enclosed in parathesis it is optional
+  let rest = if isJust st && isJust cl then [VT V2 xs [pr1]] else []
+  return $ (VT V3 xs [pr1,pr2]):rest
 
-vv :: Parser VerbType
+vv :: Parser [VerbType]
 vv = do
   ps <- many (particle True <|> sig)
   pp <- preposition
   skipSpace
-  b <- (mone (char' '(') >> string' "att" >> mone (char' ')') >> return True) -- ignores facts about whether infinitive marker can be left out. improve!
+  b <- (char' '('     >> string' "att" >> char' ')' >> return 1) -- may use infinitival marker
         <|> 
-        return False
+       (string' "att" >> return 2)          --must use infinitival marker
+        <|> 
+        return 0    --may not use infinitival marker
   skipSpace
   char' '+'
   skipSpace
   string' "INF"
   mone $ char' ')'
-  return $ VT (VV b) ps [pp]
+  let res = case b of
+                 0 -> [VT (VV False) ps [pp]]
+                 1 -> [VT (VV False) ps [pp],VT (VV True) ps [pp]]
+                 2 -> [VT (VV True)  ps [pp]]
+  return res
 
-vs :: Parser VerbType
+vs :: Parser [VerbType]
 vs = do
   ps <- many (particle True <|> sig)
   skipSpace
   mone $ char' '('
-  --ignores which one, should be improved
+  --ignores this info (att/hur/när), should be improved
+  --but needs updates to the grammar
   sepBy ((string' "att" <|> string' "hur" <|> string' "när") 
                                           >> mone (etc)) (char' '/') 
   mone $ char' ')'
   char' '+'
   skipSpace
   ignore (string' "SATS") <|> (string' "S" >> endOfInput)
-  return $ VT VS ps []
+  return [VT VS ps []]
 
-vq :: Parser VerbType
+vq :: Parser [VerbType]
 vq = do
   ps <- many (particle True <|> sig)
   mone $ char' '+'
   skipSpace
   string' "FRÅGESATS"
-  return $ VT VQ ps [] 
+  return [VT VQ ps []]
 
 {- Accepts predicative verbs, which may not be VA
    Eg. 'avancerar som (till) PRED' -> when finding 'som' use as V2? 
         (to be done in RunProg)
    See SAG Verbfraser: Predikativ $ 23, Talbanken 4440,4438 -}
-va :: Parser VerbType
+va :: Parser [VerbType]
 va = do
   ps <- many (particle True <|> sig)
   mone $ char' '+'
   skipSpace
   string' "PRED"
-  return $ VT VA ps [] 
+  return $ [VT VA ps []]
 
-v2s :: Parser VerbType
+v2s :: Parser [VerbType]
 v2s = do
   mone $ char' '('
-  v  <- v2
+  v  <- Pr.head <$> v2 -- just care about the first interpretation, not V
   mone $ char' ')'
   mone $ char' '('
-  v' <- vs
+  v' <- Pr.head <$> vs
   mone $ char' ')'
-  return $ VT V2S  (argument v ++ argument v') (preps v ++ preps v')
+  return [VT V2S  (argument v ++ argument v') (preps v ++ preps v')]
 
-v2a :: Parser VerbType
+v2a :: Parser [VerbType]
 v2a = do
   mone $ char' '('
-  v  <- v2
+  v  <- Pr.head <$> v2
   mone $ char' ')'
-  mone $ char' '('
-  v' <- va
-  mone $ char' ')'
-  return $ VT V2A  (argument v ++ argument v') (preps v ++ preps v')
+  st <- maybeP $ char' '('
+  v' <- Pr.head <$> va
+  cl <- maybeP $ char' ')'
+  let rest = if isJust st && isJust cl then [v] else []
+  return $ (VT V2A  (argument v ++ argument v') (preps v ++ preps v')):rest
 
 preposition :: Parser Preposition
 preposition = maybeP $ do
