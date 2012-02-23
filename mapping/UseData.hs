@@ -18,10 +18,14 @@ use = do
 isBanned = (`notElem` ["MassNP","?","john_PN"]) . fst -- "s11" "johan_PN" etc
 removeParent = filter (`notElem` "()") 
 
+showThem = do
+  pgf   <- readPGF "../gf/BigTest.pgf"
+  probs <- readProbabilitiesFromFile "ProbsNew" pgf
+  putStrLn $ showProbabilities probs
+
 test str = do
   pgf   <- readPGF "../gf/BigTest.pgf"
-  probs <- readProbabilitiesFromFile "Probs" pgf
-  --putStrLn $ showProbabilties probs
+  probs <- readProbabilitiesFromFile "ProbsNew" pgf
   let pgf' = setProbabilities probs pgf 
       lang = read "BigTestSwe"
       ex1  = parse pgf  lang (fromJust $ readType "Utt") str
