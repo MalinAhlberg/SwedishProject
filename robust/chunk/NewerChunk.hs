@@ -19,17 +19,13 @@ data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown
                  ,trace         :: [String]
                  }
 type Parser = State PState
--- TODO take back old datatype, Failed does not need state  , use -Wall
-data Result = Res {mode :: Mode, contained :: ParseState}
-data Mode = Ok | Recover | Failed
- deriving (Eq)
+data Result = Ok ParseState | Recover ParseState | Failed 
 instance Eq Result where
-  a == b = mode a == mode b
-  {-
     (Ok _)      == (Ok _)      = True
     (Recover _) == (Recover _) = True
     (Failed)  == (Failed)  = True
-    _           == _           = False-}
+    _           == _           = False
+
 type Success = Bool
 
 limit = take 500
@@ -37,8 +33,8 @@ limit = take 500
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   let startState = initState pgf lang startType
-      parser     = PS {recTypes = [[sent]], recState =  [[Res Ok startState]], skip = [False]
-                      ,currentStates = [Res Ok startState], pieces =  []
+      parser     = PS {recTypes = [[sent]], recState =  [[Ok startState]], skip = [False]
+                      ,currentStates = [Ok startState], pieces =  []
                       , emptyPState = initState pgf lang, trace = []}
       (success,st) = runState (parseX tree) parser 
   appendFile "output2" (unlines $ trace st++["\n"])
@@ -70,18 +66,18 @@ parseX (Node w []) | length (words w) == 0 = return True --for removed names
      return True 
 
  where parseNext :: Result -> Parser [Result]
-       parseNext (Res Ok state) = do
+       parseNext (Ok state) = do
               putTrace ("parsing "++w) 
               skipOk <- getSkip
               putTrace ("skip ok: "++show skipOk) 
               let nextTok = simpleParseInput w 
               case nextState state nextTok of
                    Right ps  -> do putTrace ("parse success "++w)
-                                   st <- backUpForAdv state
-                                   let st' = if skipOk then [Res Ok state]
+                                   st <- backUp{-ForAdv-} state
+                                   let st' = if skipOk then [Ok state]
                                                        else []
-                                   return ([Res Ok ps]++st++st')   
-                   Left  er  -> do if skipOk then return [Res Ok state]
+                                   return ([Ok ps]++st++st')   
+                   Left  er  -> do if skipOk then return [Ok state]
                                              else do
                                                types  <- getRecTypes
                                                rstate <- getRecState
@@ -103,7 +99,7 @@ parseX (Node "S"  ts) = do
    parseX (Node "XX" ts)
    st  <- gets currentStates
    case getBest st of 
-        Res Ok ps -> case fst (getParseOutput ps text Nothing) of
+        Ok ps -> case fst (getParseOutput ps text Nothing) of
                          TypeError _ ->  putTrace "found a type error "
                                       >> combinePieces st-- may be incomplete, because part of other sentence etc.
                          _           -> return True 
@@ -133,23 +129,23 @@ parseX (Node x (t:ts)) = do
   parseX (Node "XX" ts)  --but not again
 
 recoverFrom :: [Type] -> Result -> Parser Result 
-recoverFrom typs (Res Ok state) = 
+recoverFrom typs (Ok state) = 
   case toGFStr typs of
        Just tok -> do
              putTrace ("recover word "++tok)
              let  nextTok  =  simpleParseInput tok
                   newState = nextState state nextTok
              case newState of
-                  Right e  -> putTrace ("recover success") >> (return $  Res Recover e)
-                  Left  er -> putTrace ("recover fail")    >> (return $  Res Failed state)
+                  Right e  -> putTrace ("recover success") >> (return $ Recover e)
+                  Left  er -> putTrace ("recover fail")    >> return Failed
        Nothing  -> do -- if not in list, we use normal recover
              let nextTok :: ParseInput 
                  nextTok = simpleParseInput "XXX"
                  lastSt = nextState state nextTok
              case lastSt of
-                  Right _  -> return (Res Failed state) --TODO remove this state 
+                  Right _  -> return Failed 
                   Left  er ->  putTrace ("super recover") 
-                           >>  return (Res Recover $ fst $ recoveryStates typs er)
+                           >>  return (Recover $ fst $ recoveryStates typs er)
 recoverFrom typs state = return state
 
 
@@ -194,11 +190,11 @@ saveState recover ts = do
             return (not $ null recovered) --if we have any left..
 cleanUp s t res = concat <$> mapM (recoverSt s t) res 
   where recoverSt :: [Result] -> [Type] -> Result -> Parser [Result]
-        recoverSt _     _      (Res Recover st) = return [Res Ok st]
-        recoverSt recSt recTyp (Res Failed  st) = mapM (recoverFrom recTyp) recSt  -- should be recovered at next level instead
-        recoverSt _     _      ok              = return [ok]
+        recoverSt _     _      (Recover st) = return [Ok st]
+        recoverSt recSt recTyp Failed           = mapM (recoverFrom recTyp) recSt  -- should be recovered at next level instead
+        recoverSt _     _      ok               = return [ok]
 
-isOkResult (Res Ok _) = True
+isOkResult (Ok _) = True
 isOkResult _          = False
 
 enableSkip :: [Tree String] -> Parser Success 
@@ -209,8 +205,8 @@ enableSkip ts = do
    return res
 
 getBest = head . sortBy (comparing resultOrder)
- where resultOrder (Res Ok _)      = 1
-       resultOrder (Res Recover _) = 2
+ where resultOrder (Ok _)      = 1
+       resultOrder (Recover _) = 2
        resultOrder _               = 3
 
 metatize :: [[(Type,Result)]] -> [[Expr]]
@@ -222,8 +218,8 @@ metatize = map putMetas
                 ParseOk trees   -> nub trees  
                 _               -> putMetas ps
 
-getPState (Res Recover ps) = ps
-getPState (Res Ok      ps) = ps
+getPState (Recover ps) = ps
+getPState (Ok      ps) = ps
 getPState _                = error "getPState on Failed"
 
 putCurrentStates ::  [Result] -> Parser ()
@@ -270,7 +266,7 @@ putTrace str = modify $ \s -> s {trace = str:trace s}
 emptyState :: Type -> Parser ()
 emptyState typ = do
   st <- gets emptyPState
-  modify $ \s -> s {recTypes = [[text,utt]], recState = [[Res Ok $ st typ]], currentStates = [Res Ok $ st typ]
+  modify $ \s -> s {recTypes = [[text,utt]], recState = [[Ok $ st typ]], currentStates = [Ok $ st typ]
                    ,pieces = pieces s, emptyPState = st, skip = [False]}
 
 
@@ -281,18 +277,25 @@ emptyPieces = do
   return ps
 
 
--- TODO write a comment
-backUpForAdv :: ParseState -> Parser [Result]
-backUpForAdv state = do 
+-- Since we do not have much information about adverbs in our lexicon,
+-- we remember the possibility that an adverb (Adv) was acctually used
+-- as AdV. The AdV will then use the 'meta' word ?adV
+backUp{-ForAdv-} :: ParseState -> Parser [Result]
+backUp{-ForAdv-} state = do 
   types  <- getRecTypes
   if adV `elem` types then parseAsAdV
-                               else return [] 
+          else if v `elem` types 
+               then parseAsVs
+               else return [] 
  where parseAsAdV = do
          putTrace "backing up for adv" 
          let nextTok = simpleParseInput $ fromJust $ toGFStr [adV] 
          case nextState state nextTok of
-              Right st -> return [Res Ok st]
+              Right st -> return [Ok st]
               _        -> return []
+       parseAsVs = do
+         putTrace "backing up for verb" 
+         let nextTok = simpleParseInput $ fromJust $ toGFStr vs 
 
 meta = mkCId "?" 
 

@@ -54,7 +54,7 @@ tryMedium fil = do
   let ziptrees        = map (getFirstWord . fromTree . snd) input
       (newsTrees,lms) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
   putStrLn $ "Lemmas requested: "++show (map head $ group $ sort lms)
-  putStrLn $ "Parsing the tree "
+  putStrLn $ "Parsing the trees "
   mapM (processAndWrite pgf plang) $ zip (map fst input) (map toTree newsTrees)
  where processAndWrite pgf lang (i,tree) = do
          res <- parseText tree pgf lang startType
