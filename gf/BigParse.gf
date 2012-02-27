@@ -7,7 +7,7 @@ abstract BigParse =
 --  BigValLexAbs,
   ExtraSweAbs,
   Noun -[DetNP] ,
-  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP], --[PassV2,AdvVPSlash,ComplSlash, ReflVP,SlashV2VNP,Slash2V3,Slash3V3,ComplSlash,CompNP], --,ComplVA],
+  Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP], 
   Adjective -[UseComparA],
   Adverb,
   Idiom,
@@ -28,7 +28,7 @@ abstract BigParse =
       VPCompl ;
 
   fun
-  VPMeta : MetaAgr -> VPCompl -> NPTyped Object -> VPParse ;
+  VPMeta : {-MetaAgr ->-}  VPCompl -> NPTyped Object -> VPParse ;
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
   npMeta : NP ;

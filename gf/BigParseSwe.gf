@@ -27,11 +27,12 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
   lincat   VPParse  = {s : Str } ;
            MetaAgr = {s : Str ; a : NPerson } ;
-   --        VPCompl = String ;
+           --VPCompl = String ;
 
   lin
   --assume that this works.. TODO
-  VPMeta agr str np = {s = str.s ++ np.s ! agr.a ! accusative } ;
+  VPMeta {-agr-} str np = {s = "{"++ str.s ++ "}" ++ np.s ! Per3 
+                           ! accusative } ; --;agr.a ! accusative } ;
 
   Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
   Y_PN  i = {s = table {Gen => "Ys"++i.s ;
