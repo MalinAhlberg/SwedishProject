@@ -9,6 +9,7 @@ import Saldoer
 skipList :: Maybe [String]
 skipList = Nothing
 
+splits :: [String] -> [[String]]
 splits []  = []
 splits xs = let (part,rest) = splitAt 200000 xs
                 (end,rest') = span ((/=) "<LexicalEntry>" . dropWhites) rest
@@ -29,16 +30,18 @@ writeFiles (x:xmls) n = do
         head = "<Lexicon>"
         end  = "</Lexicon>"
 
-
+initGFFiles :: String -> IO ()
 initGFFiles tot = do
   writeFile ("saldo"++tot++".gf")   $ absHeader "Tot" ""
   writeFile ("saldo"++tot++"Cnc.gf") $ concHeader "Tot" ""
 
+endGFFiles :: String -> IO ()
 endGFFiles tot = do
   appendFile ("saldo"++tot++".gf") "}"
   appendFile ("saldo"++tot++"Cnc.gf") "}"
   
 
+dropWhites :: String -> String
 dropWhites = takeWhile (not . isSpace) . dropWhile isSpace
 
 noOfParts :: IO [Int]

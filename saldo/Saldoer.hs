@@ -9,15 +9,12 @@ import System.Directory
 import Data.Char
 import Data.Maybe
 import Data.List
-import Data.ByteString.Char8 (ByteString,pack,unpack)
-import Data.IORef
+import Data.ByteString.Char8 (pack)
 import qualified Data.Map as Map
-import Text.Read.Lex(Lexeme(..),lex)
 import Control.Monad.Writer
 import Control.Monad.State
 import Control.Monad.Error
 import Control.Arrow
-import Debug.Trace
 
 import qualified PGF as PGF
 
@@ -184,7 +181,7 @@ checkWord gf t entry@(G id cat lemmas _ _ _) = do
   checkForms paramMap t gf_t entry
 
 checkForms
-  :: Eq a => [(a, [String])] -> [(a, [Char])] -> [([Char], [Char])] -> GrammarInfo -> Convert ()
+  :: Eq a => [(a, [String])] -> [(a, String)] -> [(String, String)] -> GrammarInfo -> Convert ()
 checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
   | null diffs = accept entry
   | otherwise  = do c <- gets changes 
@@ -195,9 +192,9 @@ checkForms paramMap fm_t gf_t entry@(G id cat lemmas _ _  _)
   where
     diffs = [(fm_p,fm_v,gf_p,gf_v)  -- | gf_p' <- gf_p
                                    | (fm_p,gf_p) <- paramMap
-                                   , fm_vs      <- [lookup' fm_p fm_t]
-                                   , let gf_v  = catMaybes $ map (`lookup` gf_t) gf_p 
-                                   , Just fm_v  <- [isDiff gf_v fm_vs]]
+                                   , fm_vs       <- [lookup' fm_p fm_t]
+                                   , let gf_v    =  mapMaybe (`lookup` gf_t) gf_p 
+                                   , Just fm_v   <- [isDiff gf_v fm_vs]]
    -- if there is no information about the form in saldo, we chose to accept it
     isDiff  _ [] = Nothing
     isDiff ys xs | any (`elem` xs) ys = Nothing
@@ -475,6 +472,7 @@ nounParadigmList =
 -------------------------------------------------------------------
 -- Dump GF code
 -------------------------------------------------------------------
+printGFFinal :: Convert ()
 printGFFinal = do
   good <- gets ok
   num <- gets partNo
@@ -489,6 +487,7 @@ printGF = do
   nam <- gets name
   io $ printGF' entries (show num) nam
 
+printGF' :: [GrammarInfo] -> String -> String -> IO ()
 printGF' [] _ _ = putStrLn "no lemmas to write"
 printGF' entries num name = do
   let absName = "generate/saldo"++name++num++".gf"
@@ -502,6 +501,7 @@ printGF' entries num name = do
       concatMap showCnc entries ++
       "}"
 
+showAbs, showCnc :: GrammarInfo -> String
 showAbs (G id cat lemmas a _ paradigms) = "  " ++ mkGFName id cat ++ " : " 
                                         ++ find cat ++ " ;\n"
   where 
@@ -523,10 +523,12 @@ showCnc (G id cat lemmas a (mk,end) paradigms)
     fnutta x@"variant {}" = "("++x++")"
     fnutta x = "\""++x++"\""
 
+absHeader :: String -> String -> String
 absHeader n nam =
   "--# -path=.:abstract:alltenses/\n" ++ "abstract saldo"++nam++n++" = Cat ** {\n"++
       "\n"++ "fun\n" 
 
+concHeader :: String -> String -> String
 concHeader n nam = 
       "--# -path=.:swedish:scandinavian:abstract:common:alltenses\n" ++
       "concrete saldo"++nam++n++"Cnc of saldo"++nam++n++" = CatSwe ** open ParadigmsSwe in {\n"++
@@ -536,7 +538,7 @@ concHeader n nam =
       "\n"++
       "lin\n"
  
-getCncName, getAbsName, getPGFName :: Convert String 
+getCncName, getAbsName, getPGFName, getLangName :: Convert String 
 getCncName = do
  n   <- gets partNo
  nam <- gets name
@@ -564,17 +566,21 @@ cleanUp = do
 -- State
 -------------------------------------------------------------------
  
+initState :: Int -> Maybe [String] -> String -> CState
 initState n s name 
   = CS {errs = [], msg = [], retries = []
         , pgf = "", ok = [] ,dead = []
         , saldo = Map.empty, changes = 0, tmps = []
         , partNo = n, selection = s, name = name }
 
+setPGF :: FilePath -> Convert ()
 setPGF f = modify $ \s -> s { pgf = f}
+replace :: GrammarInfo -> Convert ()
 replace gr = modify $ \s -> s {retries = gr : delete gr (retries s)} -- hehe, make nice?
 -- add to dead , remove from retries
-isDead d = modify $ \s -> s {dead = d:dead s, retries = delete (emptyG d) (retries s)}  -- hehe, make nice?
-  where emptyG d = G d [] [] [] ("","") []
+isDead :: String -> Convert ()
+isDead d = modify $ \s -> s {dead = d:dead s, retries = delete emptyG (retries s)}  -- hehe, make nice?
+  where emptyG = G d [] [] [] ("","") []
 --add to ok, remove from retries
 accept :: GrammarInfo -> Convert ()
 accept e = do report $ "accepting "++lemma e
@@ -607,7 +613,8 @@ head' s []     = error $ "Error in head in "++s
 head' _ (x:xs) = x
 
 
-f = do pgf <- PGF.readPGF "../gf/BigTest.pgf"
-       let g  = PGF.tabularLinearizes  pgf (read "BigTestSwe") (read "switch8on_V2")
-       return g
+testit :: IO [[(String, String)]]
+testit = do pgf <- PGF.readPGF "../gf/BigTest.pgf"
+            let g  = PGF.tabularLinearizes  pgf (read "BigTestSwe") (read "switch8on_V2")
+            return g
 
