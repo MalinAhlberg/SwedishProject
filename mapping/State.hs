@@ -3,7 +3,6 @@ module State where
 import Structure
 import PGF
 import Data.Label 
-import Data.Label.PureM 
 
 data State = State { -- _isReflGenVP  :: Bool not wanted anymore
              _isExist      :: Bool

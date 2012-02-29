@@ -6,31 +6,28 @@ import Test
 import Structure
 import qualified State as S
 import qualified Format as Form
+import GraphTree
 
-import PGF hiding (Tree,parse)
-import qualified PGF as PGF
 import Control.Arrow hiding ((<+>))
-import Control.Concurrent.MVar
 import Control.Monad
 import Control.Monad.RWS hiding (gets,modify,local)
-import System.IO
-import System.Process
-import System.FilePath
 import Data.Maybe
-import Data.List
-import Data.IORef
 import Data.Char
-import Data.Tree
-import Data.Label hiding (get,modify)
+import Data.IORef
 import qualified Data.Label as P 
 import Data.Label.PureM hiding (local)
-import GraphTree
+import Data.List
+import Data.Tree
+import PGF hiding (parse)
+import System.IO
+import System.Process
 
 -- Test by runnig mainTest. Use testGr, otherwise very slow
 
 -- rember to fix new NP2
 
 type PMonad = (RWS () [String] S.State)
+type Translator a = P String Expr PMonad a
 
 
 test = False
@@ -48,7 +45,11 @@ mapp f    = main' f >> return ()
 main      = main' "test.xml" >> return ()
 bigTest   = do res <- main' "../testSuites/testShortSimpleTwo.xml" 
                writeFile "mappingShort6.txt" $ unlines (getRes res)
+
+evaluation :: IO ()
 evaluation = evaluations "EvalMappSuite2.xml" "Evalresult.txt" 
+
+evaluations :: FilePath -> FilePath -> IO ()
 evaluations test to = do 
     res <- main' test 
     writeFile to $ unlines (show (getQuote res) : getRes res)
@@ -62,6 +63,7 @@ getQuote :: [(Double,String)] -> Double
 getQuote = fst . last 
 
 -- Standard main
+main' :: FilePath -> IO [(Double,String)]
 main' fil  = do
   pgf <- readPGF $ fst usePGF
   let Just language = readLanguage $ snd usePGF
@@ -70,10 +72,9 @@ main' fil  = do
   print $ prune $ snd $ head s
   ref  <- newIORef (0,0,0)
   --mvar <- newMVar (mempty,mempty)
-  trees <- mapM (process pgf morpho ref) {-(if test then take 15 else id)-} s
+  mapM (process pgf morpho ref) {-(if test then take 15 else id)-} s
   --res  <- readMVar mvar
   --writeFile "Theresult.txt" $ show res
-  return trees
   where
     process pgf morpho ref (id,t) = do
       (cn,co,l) <- readIORef ref
@@ -84,8 +85,8 @@ main' fil  = do
           l'            = l+1
       writeIORef ref  (cn',co',l')
       --modifyMVar_ mvar (return . (mappend suc *** mappend bad))
-      when test $ putStrLn $ unlines $ trace
-      hPutStrLn stdout (showExpr [] e)
+      when test $ putStrLn $ unlines trace
+      putStrLn (showExpr [] e)
       when paint $ do
         writeFile "tmp_tree.dot" --(graphvizAbstractTree pgf (True,False) e)
                                    (graphvizParseTree pgf lang e) 
@@ -113,14 +114,16 @@ main' fil  = do
        && last ts == Node "." [Node "." []] = Node tag (init ts)
       | otherwise                           = Node tag ts
 
+showAlign :: Show a => a -> String
 showAlign n =
       replicate (5 - length s) '0' ++ s
       where
         s = show n
 
+paintTree :: String -> IO ()
 paintTree file = do
   s <- fmap concat $ Form.parse file 
-  pgf <- readPGF $ fst usePGF
+  --pgf <- readPGF $ fst usePGF
   mapM_ paintIt $ zip [0..] $ map snd s 
  where 
    paintIt (i,t) = do
@@ -233,7 +236,7 @@ penn =
    --   ,"ET" :-> cat "PP"
       ,"FO" :-> pItPron -- TODO alla själva
       ,"FS" :-> fst <$> pFS
-      ,"FV" :-> (msum $ map pSlashVP vForms)
+      ,"FV" :-> msum $ map pSlashVP vForms
       -- punctuation: I?,"IC","ID","IG","IK","IM", "IO", "IP", "IQ", "IR", "IS", "IT", "IU",
       -- punctuation: , "JC", "JG", "JR", "JT",
       ,"IV" :-> pVP "IV" 
@@ -265,7 +268,7 @@ penn =
                 <+>
                 do consume
                    return (mkExpr meta) --we know we are in SP, so ok to consume
-      ,"SS" :-> pNP <+> pflatNP <+> (cat "NP") 
+      ,"SS" :-> pNP <+> pflatNP <+> cat "NP"
       --,"ST"  paragraph
       ,"TA" :-> inAdv
       ,"TT" :-> pNP
@@ -295,10 +298,14 @@ penn =
    ] 
 
 --TODO START need old OVS VOS SVO back to get correct combinations.
+cats :: [String] -> Translator Expr 
 cats tags = msum [cat c | c <- tags]
+objCat :: Translator ()
 objCat    = msum [pCompl t | t <- vForms ]
 --pVV = cat "IO"
 --      cat "S" ...
+
+advsCat :: Translator Expr
 advsCat = pAdv
 
 
@@ -307,13 +314,17 @@ a <+> b = mplus a b
 infixr 2 <+>
 infixr 3 <$>
 
+clType :: CId -> CId
 clType typ | typ==cidQuestVP = cidUseQCl
            | otherwise       = cidUseCl
+utType :: SentenceType -> CId
 utType typ | typ==Q          = cidUttQS
            | otherwise       = cidUttS
 
+parseSCl :: Translator Expr
 parseSCl = inside "S" pCl
 
+pS :: Translator (Expr,Maybe Expr)
 pS = do
   cl <- do cl <- pCl 
            write "found cl"
@@ -338,12 +349,13 @@ pS = do
   return (cl1,s2)
 
 
+pNPCl :: Translator Expr
 pNPCl = do 
  np <- parseSubject
  --guard $ typ /= cidImpersCl TODO add this if it feels nice
  return $ mkApp cidUttNP [np]
 
-pCl ::  P [Char] Expr PMonad Expr
+pCl ::  Translator Expr
 pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
  where normalCl = do  -- jag äter äpplen
          S.sentenceType =: Dir
@@ -354,9 +366,9 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
          --objCat
          --vp    <- constructVP v
          vp   <- pVP "FV"
-         advs <- many $ advsCat
+         advs <- many advsCat
          (temp,pol) <- getTmpPol
-         nptyp  <- S.nptyp
+         nptyp      <- gets S.nptype
          let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
              e1 = constructCl nptyp np e0
              e2 = mkApp cidUseCl [temp,pol,e1]
@@ -373,9 +385,9 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           --np    <- cat "SS"
           np <- gets S.subj
           --objCat
-          advs' <- many $ advsCat
+          advs' <- many advsCat
           (temp,pol) <- getTmpPol
-          nptyp  <- S.nptyp
+          nptyp      <- gets S.nptype
           --vp    <- constructVP v
           guard $ isJust np
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs'
@@ -394,9 +406,9 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           --v    <- parseFV
           --np   <- cat "SS"
           --objCat
-          advs  <- many $ advsCat
+          advs  <- many advsCat
           (temp,pol) <- getTmpPol
-          nptyp  <- S.nptyp
+          nptyp      <- gets S.nptype
           guard $ isJust np
           --vp    <- constructVP v
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
@@ -431,7 +443,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           return $ mkApp cidUseQCl [temp,pol,quest]
        topCl   = do
           S.sentenceType =: Top
-          (vp,cop) <- do vp  <- (pOVS "FV") Cop    
+          (vp,cop) <- do vp  <- pOVS "FV" Cop    
                          return (vp,True)
                       <+>
                       do vp  <- msum $ map (pOVS "FV") (Cop `delete` vForms)
@@ -447,6 +459,7 @@ pCl = questCl <+> questVP <+> normalCl  <+> advCl <+> iadvCl <+> topCl
           return e1 
 
 
+getTmpPol :: Translator (Expr,Expr)
 getTmpPol = do
   tmp <- gets S.tmp
   pol <- gets S.pol
@@ -456,6 +469,7 @@ getTmpPol = do
   
          
 
+parseIP :: Translator Expr
 parseIP = do p <- inside "PO" (lemma "IP" "s NPNom"
                                <+>
                                lemma "IP" "s NPAcc" )
@@ -503,6 +517,7 @@ pCl =
   --- Focused sentence
   pObjectFoc F
  
+pObjectFoc :: SentenceType -> Translator Expr
 pObjectFoc sTyp = do
   S.sentenceType =: sTyp
   (tmp,pol,ip,qcl,qtyp) <- msum $ map (pOVS sTyp) vForms
@@ -533,6 +548,7 @@ pSS =
 
      -}
 
+pSS :: Translator Expr
 pSS =  
   do s1   <- cat "S"    -- jag går om hon kommer
      --conj <- cat "UK" --inside "UK" pConj
@@ -541,17 +557,20 @@ pSS =
      let sub = fromMaybe (mkExpr meta) conj
      return $ mkApp cidSSubjS [s1,sub,s2] 
 
+pSubject :: Translator Expr
 pSubject = cat "SS" <+> cat "FV"
 
+pObj :: Translator ()
 pObj    =  msum $ map pCompl vForms
+pObject :: Translator ()
 pObject = do    --a plain object
-  obj <- do inside "OO" (word "POXPHH" >> return (Just $ mkExpr meta))
+  obj <- inside "OO" (word "POXPHH" >> return (Just $ mkExpr meta))
          <+>
          do write "look for np in oo"
-            liftM (Just) (inside "OO" pNP)
+            liftM Just (inside "OO" pNP)
          <+>
          do write "look for np in sp"
-            liftM (Just) (inside "SP" pNP)
+            liftM Just (inside "SP" pNP)
          <+>
          do o <- inside "OA" (cat "PP") 
             return (Just $ mkApp meta [o]) -- hard. the preposition may be part of the verb
@@ -568,6 +587,7 @@ pObject = do    --a plain object
   S.object =: obj
 
 
+pImp :: Translator Expr
 pImp = do write "in imperative"
           --vp <- parseFV
           vp <- pVP "FV"
@@ -576,13 +596,14 @@ pImp = do write "in imperative"
           pol  <- gets S.pol
           guard (tmp==Just VImp)
           write "vp in imp is ok"
-          advs <- many $ pAdv
+          advs <- many pAdv
           write ("advs found: "++show advs)
           let e0 = foldr (\ad e -> mkApp cidAdvVP [e,ad]) vp advs
               imp = mkApp cidImpVP [e0] 
           return $ mkApp cidUttImpPol [mkPol pol,imp]
 
 -- "att det inte regnar"
+pUttAdv :: Translator Expr
 pUttAdv = do 
  sub <- inside "UK" pSubj 
  np  <- cat "SS" <+> cat "FS" 
@@ -602,15 +623,15 @@ pUttAdv = do
                          ,mkPol pol,e1]
  return $ mkApp cidSubjS [sub,e2]
 
-parseFV :: P [Char] Expr PMonad Expr
+parseFV :: Translator Expr
 parseFV = do
    write "In parseFV"
    --fv  <- checkWord 
    write "checked word in parseFV"
    v   <- cat "FV" --use word2 instead
-   p   <- maybeParticle "FV" -- then try to add this and parse with word2 "FV"
+   p   <- maybeParticle "FV" --TODO?? then try to add this and parse with word2 "FV"
    --write $ "Keep going in parseFV, word is "++fv
-   tmp <- gets S.tmp
+   --tmp <- gets S.tmp
    write "FV checks tmp "
 --   unless (isJust $ isVTense tmp) $ do --unless tmp set (will not be set when gf parsed by itself)
 --                                     ana <- analyse fv "V"
@@ -619,6 +640,7 @@ parseFV = do
 --                                     S.tmp =: tmp
    return v
 
+parseRelS :: Translator Expr
 parseRelS = do 
   old <- putStateToZero
   rcl <- pRelS
@@ -630,7 +652,7 @@ parseRelS = do
 -- obs does not have to be relVP, ClSlash (pojken som jag ser...)
 -- StrandRelSlash, emptyRelSlash, relSlash (clslash), relVP (vp)
 -- should be RelCN in NP, attached to CN not NP
-pRelS :: P [Char] Expr PMonad Expr
+pRelS :: Translator Expr
 pRelS = do
   -- parseAs "RP" : this should work
   w <- inside "S" $ inside "SS" $ word "PO" 
@@ -659,14 +681,17 @@ pRelS = do
          return (mkApp cidUseRCl [t,mkPol pol,cl])
 
 
+
+constructCl :: NPType -> Expr -> Expr -> Expr
 constructCl typ np vp = 
   if typ == Generic || typ == Impers
      then mkApp (toCid typ) [vp]
      else mkApp cidPredVP [np,vp]
  where toCid Generic = cidGenericCl
        toCid Impers  = cidImpersCl
-       toCid x       = meta
+       toCid _       = meta
 
+pSpecialPP :: CId -> Translator Expr
 pSpecialPP cid = 
  do pr <- inside "PR" $ optEat (lemma "Prep" "s") meta
 
@@ -682,27 +707,36 @@ pSpecialPP cid =
 
 
 
+{-
+isVInf :: VForm CId -> Bool
 isVInf VInf = True
 isVInf _    = False
 
+isVPart :: VForm CId -> Bool
 isVPart VPart = True
 isVPart _     = False
+-}
 
+isVSupin :: VForm CId -> Bool
 isVSupin VSupin = True
-isVSupin _       = False
+isVSupin _      = False
 
+isVTense :: Maybe (VForm CId) -> Maybe CId 
 isVTense (Just (VTense t)) = Just t
 isVTense _                 = Nothing
 
+isVTenseForm :: CId -> VForm CId -> Bool
 isVTenseForm a (VTense t) = t == a 
 isVTenseForm _ _          = False
 
 
-vForms     = [Cop,Sup,Fut,FutKommer,VV,VA,V2A,V2,V2Pass,VS,V]
-gfvForms  = ["VV","VA","V2A","V2","VS","V","V3"] -- need more?
+vForms :: [VPForm]
+vForms =  [Cop,Sup,Fut,FutKommer,VV,VA,V2A,V2,V2Pass,VS,V]
+gfvForms :: [String]
+gfvForms =  ["VV","VA","V2A","V2","VS","V","V3"] -- need more?
 
 --TODO remove set vform if we don't use it
-pSlashVP :: VPForm ->  P [Char] Expr PMonad Expr
+pSlashVP :: VPForm ->  Translator Expr
 pSlashVP form = do
  write "in pSlashVP"
  (t,v,f) <- case form of 
@@ -730,17 +764,20 @@ pSlashVP form = do
 -- collect pl preps 
  --pick $ do pl <-maybeParticle
  S.tmp   =: Just t
- S.anter =: if f==Sup then True else False
+ S.anter =: f==Sup
  modify S.vform  (V:) --TODO add on all
  return v
 
+mkTmp :: Bool -> CId -> Expr
 mkTmp False = mkTmp' cidASimul 
 mkTmp True  = mkTmp' cidAAnter 
+
+mkTmp' :: CId -> CId -> Expr
 mkTmp' a t | a ==cidASimul = mkApp cidTTAnt [mkExpr t,mkExpr cidASimul] 
            | a ==cidAAnter = mkApp cidTTAnt [mkExpr t,mkExpr cidAAnter] 
 
 --TODO why is typ even here? use it!
-pVP :: String -> P [Char] Expr PMonad Expr
+pVP :: String -> Translator Expr
 pVP typ = do
    write $ "doing pVP "++show typ
    --v <- cat typ
@@ -756,8 +793,10 @@ pVP typ = do
         | x <- vForms]
 
 
+pVSO :: String -> Translator Expr
 pVSO cat = msum $ map (pVSOCat cat) vForms
 
+pVSOCat :: String -> VPForm -> Translator Expr
 pVSOCat cat typ = do
   v  <- inside cat $ pSlashVP typ 
   np <- write "looking for SS" >> parseSubject
@@ -765,6 +804,7 @@ pVSOCat cat typ = do
   S.subj =: Just np 
   localKeepPol (pCompl typ >> constructVP v)
 
+pOVS :: String -> VPForm -> Translator Expr
 pOVS cat Cop = do --obs när denna används får vi TopAP --TODO finns CompNP med?
   write "try OVS copula"
   pObject  --huset
@@ -772,7 +812,7 @@ pOVS cat Cop = do --obs när denna används får vi TopAP --TODO finns CompNP me
   --           [Nothing,Just sp] -> return sp
   --           xs                -> write ("pOVS cop fail"++show xs)
   --                                 >> mzero
-  write $ "found compl in OVS Cop" -- ++show obj
+  write "found compl in OVS Cop" -- ++show obj
   v <- inside cat $ pSlashVP Cop
   advs <- many pAdv    
   np <- write "looking for SS" >> parseSubject
@@ -783,7 +823,6 @@ pOVS cat Cop = do --obs när denna används får vi TopAP --TODO finns CompNP me
   S.sentenceType =: Top 
   constructVP v
   return v
-
 
 pOVS cat typ = do --huset målar han rött
   write "try OVS"
@@ -807,7 +846,7 @@ pOVS cat typ = do --huset målar han rött
 
 
 
-
+pInfVP :: Translator (Bool,Expr)
 pInfVP = 
   do write "att v?"
      -- to go
@@ -816,6 +855,7 @@ pInfVP =
      v  <- pVP "IV" <+> inside "IF" (pVP "IV")
      return (im,v)
  
+constructVP :: Expr -> Translator Expr
 constructVP v = do
    (vtyp,exps,bs) <- gets S.complement
    o     <- gets S.object
@@ -827,7 +867,7 @@ constructVP v = do
    return $ foldr (\ad e -> mkApp cidAdvVP [ad, e]) vp advs1
  
 pComplVP :: VPForm -> SentenceType -> Expr -> ([Maybe Expr],[Bool]) 
-         -> P String Expr PMonad Expr
+         -> Translator Expr
 pComplVP V q vp (exps,_) = do 
   comp <- getComplement V q exps 
   (fo,adv,part,adv1) <-  case comp of
@@ -877,7 +917,7 @@ pComplVP V2 q vp (exps,_) = do
 
 pComplVP V2A q vp (exps,_) = do
   comp <- getComplement V2A q exps
-  (fo,adv,obj,adj) <-  case comp of
+  (fo,adv,obj,adj) <-  case comp of    --TODO what about o on next line?
                   (fo:a:o:Just aj:p:_) -> return (fo,a,o,aj) -- particles should handled them selves..
                   _                    -> argErr "V2A"
   let slashVP = mkApp cidSlashV2A [vp,adj]
@@ -963,6 +1003,7 @@ pComplVP VS q vp (exps,_) = do
   when (q/=Dir) $ S.object =: Just s
   return $ maybe vp1 (\fob -> mkApp meta [vp1,fob]) fo
 
+getComplement :: VPForm -> SentenceType -> [Maybe Expr] -> Translator [Maybe Expr]
 getComplement v q exps = return exps
 {- What is this for?
 getComplement v q exps | v `elem` [Fut,FutKommer,VV,Sup]
@@ -977,10 +1018,12 @@ getComplement v q exps =
          else return exps
          -}
 
+argErr :: String -> Translator a
 argErr s = do
   write ("wrong number of arguments to pCompl "++ s)
   mzero
 
+pPart :: String -> Translator Expr
 pPart v = do
   p <- do write "part right!!"
           inside "AB" (lemma v "part")
@@ -994,6 +1037,7 @@ pPart v = do
 -- (mother_N2,"c2 s","N2")
 
 
+pVV :: Translator (VForm CId,Expr)
 pVV = do
   (t,v) <- tryVerb "FV" cidGet_VV "VV"  
            <+>
@@ -1008,6 +1052,7 @@ pVV = do
   write ("VV returns tense "++show t)
   return (t,mkExpr v)
 
+pVA :: Translator (VForm CId,Expr)
 pVA = do
   (t,v) <- tryVerb "BV" cidBecome_VA "VA"
            <+>
@@ -1016,6 +1061,7 @@ pVA = do
   return (t,mkExpr v)
 
 
+pV2Act :: Translator (VForm CId,Expr)
 pV2Act = do 
   (t,v) <- do t <- pHave
               return (t,mkExpr cidHave_V2)  -- need to look for passive form here too
@@ -1035,6 +1081,7 @@ pV2Act = do
               return (t,mkExpr v)
   return (t,mkApp cidSlashV2a [v]) 
 
+pV2Pass :: Translator (VForm CId,Expr)
 pV2Pass = do
   (t,v) <- pPassVerb "VV" "V2"
            <+>
@@ -1043,6 +1090,7 @@ pV2Pass = do
            tryVerb "FV" cidGet_V2 "V2"
   return (t,mkApp cidPassV2 [mkExpr v])
 
+pExist :: Translator (VForm CId,Expr)
 pExist =
 -- do set isExist True
     do lemma "NP -> Cl" "s SPres Simul Pos Main"
@@ -1056,6 +1104,7 @@ pExist =
         lemma "NP -> Cl" "s SPret Anter Pos Main"
        return (VSupin,mkExpr cidExistNP)
 
+tryVerb :: String -> CId -> String -> Translator (VForm CId,CId)
 tryVerb tag cid cat =
  do t <- tense tag
     write ("tryVerb "++tag) 
@@ -1064,9 +1113,13 @@ tryVerb tag cid cat =
   do write "no tense found"
      pVerb tag cat
 
+pVerb :: String -> String -> Translator (VForm CId, CId)
 pVerb x y = write ("in pVerb "++x++" "++y) >> pVerb' "Act" x y
+
+pPassVerb :: String -> String -> Translator (VForm CId, CId)
 pPassVerb = pVerb' "Pass"
 
+pVerb' :: String -> String -> String -> Translator (VForm CId, CId)
 pVerb' act incat cat =
         do v <- (inside incat $ lemma cat $ "s (VF (VPres "++act++"))")
                 <+>
@@ -1104,8 +1157,10 @@ pVerb' act incat cat =
            return metaVerb -}
 
 
+maybeVerbAdv :: Translator (Maybe Expr)
 maybeVerbAdv  = maybeParse pAdv  
 
+maybeParticle :: String -> Translator (Maybe Expr)
 maybeParticle = maybeParse . inside "PL" . pPart 
 
 {-
@@ -1117,9 +1172,10 @@ metaVP = do
 metaVP' vf = return (mkExpr meta,VTense cidTPres)
 -}
 
+metaVerb :: (VForm a,CId)
 metaVerb   = (VInf,meta)
 
---pCompl :: VPForm -> P String Expr PMonad (CId,[Maybe Expr],[Bool])
+pCompl :: VPForm -> Translator ()
 pCompl Cop = do
   write "copula compl begins"
   pol <- pPol
@@ -1163,13 +1219,13 @@ pCompl V2 = do
 --         <+>
 --          Just <$> parseAs "NP"
          <+>
-          do inside "OO" (word "POXPHH" >> return (Just $ mkExpr meta))
+         inside "OO" (word "POXPHH" >> return (Just $ mkExpr meta))
          <+>
          do write "look for np in oo"
-            liftM (Just) (inside "OO" pNP)
+            liftM Just (inside "OO" pNP)
          <+>
          do write "look for np in sp"
-            liftM (Just) (inside "SP" pNP)
+            liftM Just (inside "SP" pNP)
          <+>
          do o <- inside "OA" (cat "PP") 
             return (Just $ mkApp meta [o]) -- hard. the preposition may be part of the verb
@@ -1312,11 +1368,13 @@ pCompl VS = do
   S.pol        =: pol -- make sure will not ruin other pol
   S.complement =: (VS,[fo,adv,Just s],[])
 
+hasMovedObj :: Translator (Maybe a)
 hasMovedObj = do
   moved <- isJust <$> gets S.object
   guard moved
-  return Nothing
+  return Nothing --TODO what is this? Always Nothing??
 
+pV2Compl :: Translator (Maybe Bool,Maybe Expr,Maybe Expr,Maybe Expr)
 pV2Compl = do
   fo <- maybeParse $ cat "FO" 
   pol <- pPol
@@ -1326,9 +1384,10 @@ pV2Compl = do
   write ("particle: "++show part)
   return (pol,fo,adv,part)
 
-maybeParse :: P [Char] Expr PMonad a -> P [Char] Expr PMonad (Maybe a)
+maybeParse :: Translator a -> Translator (Maybe a)
 maybeParse = flip opt Nothing . (Just <$>)  
 
+pflatNP :: Translator Expr
 pflatNP =
   do write "in NP with Adj"
      -- good cars
@@ -1338,7 +1397,7 @@ pflatNP =
                                   inside "CA" pPredet
                                   <+>
                                   inside "DT" pPredet
-     m_det        <- if typ==Q then S.iquant =: True >> Just <$> (inside "DT" pIQuant)
+     m_det        <- if typ==Q then S.iquant =: True >> Just <$> inside "DT" pIQuant
                                else  maybeParse (inside "DT" pQuant)
                                     <+>
                                      maybeParse (inside "DT" pDetRefl)
@@ -1395,7 +1454,8 @@ pflatNP =
      returnApp cidhow8much_IAdv []
                  
 
--- returns (word :: CId, number :: CId, determined :: NounForm)
+-- returns (word :: Expr, number :: CId, determined :: NounForm)
+pCN :: Translator (Expr,CId,NForm)
 pCN = 
      inside "VN" pNoun
      <+>
@@ -1424,8 +1484,11 @@ pCN =
  
  
 -- may use tag, "xx    GG" = genitiv
+pNoun,pNounGen :: Translator (Expr,CId,NForm)
 pNoun    = pNoun' "Nom"
 pNounGen = pNoun' "Gen"
+
+pNoun' :: String -> Translator (Expr,CId,NForm)
 pNoun' nom = 
   do      n <- lemma "N" ("s Pl Indef "++nom)
           return (mkExpr n,cidNumPl,NIndef)
@@ -1440,7 +1503,7 @@ pNoun' nom =
           return (mkExpr n,cidNumPl,NDef)
 
 
-
+metaNoun :: (Expr, CId, NForm)
 metaNoun = (mkExpr meta,cidNumSg,NIndef)
 data NForm = NDef | NIndef | NOther -- NOther for reciprocs etc 
   deriving (Eq,Show)
@@ -1448,17 +1511,20 @@ data NForm = NDef | NIndef | NOther -- NOther for reciprocs etc
 --isDef :: NForm -> Bool
 --isDef NIndef = True
 --isDet _      = False
+getDef :: NForm -> CId
 getDef NDef = cidDefArt
 getDef NIndef = cidIndefArt
 getDef NOther = meta
 
 
+parseSubject :: Translator Expr
 parseSubject = inside "SS" (optEat pNP (mkExpr meta)) --,cidPredVP))
                <+> 
                do (n,typ) <- inside "FS" pFS
                   S.nptype =: typ
                   return n
               
+pFS :: Translator (Expr,NPType)
 pFS =
      do w <- inside "PO" $ lemma "VP -> Cl" "s SPres Simul Pos Main"
         write "imperson hittad!!"
@@ -1467,12 +1533,15 @@ pFS =
      do w <- inside "PO" $ lemma "NP -> Cl" "s SPres Simul Pos Inv"
         return (mkExpr w,Exist)
 
+pItPron :: Translator Expr
 pItPron = 
  do p <- inside "POOP" $ lemma "Pron" "s Per3 NPNom"
     return $ mkExpr p
  
+pPN :: Translator Expr
 pPN = do n <- inside "PN" $ optEat (lemma "PN" "s Nom") cidName
          return $ mkExpr n
+pNP :: Translator Expr
 pNP = 
   cat "NP" 
   <+> 
@@ -1535,6 +1604,7 @@ pNP =
       return e0
   
 -- akta optEat här!! om fler läggs till måste den flyttas ut!
+pAdj :: Translator Expr
 pAdj = 
   do ad <- inside "AJKP" $ optEat (lemma "A" "s (AF ACompar Nom)") meta
      return $ mkApp cidUseComparA [mkExpr ad] 
@@ -1562,6 +1632,7 @@ pAdj =
   do a <- inside "TP" $ optEat findAPerfParticip meta
      return (mkApp cidVPSlashAP  [mkExpr a])  --gä
   
+findAdj :: Translator Expr
 findAdj = 
   do ad <- inside "AJ" (optEat findA meta)
            <+>
@@ -1574,6 +1645,7 @@ findAdj =
                <+> lemma "A" adjWPl
 
 
+findA2 :: Translator Expr
 findA2 = 
   do ad <- inside "AJ" (lemma "A2" "s (AF (APosit (Strong (GSg Neutr))) Nom)")
            <+>
@@ -1583,10 +1655,12 @@ findA2 =
      return $ mkExpr ad
 
 
+findNParticip :: Translator (Expr,CId,NForm)
 findNParticip = pNoun 
 
 
 -- only V2 at the moment
+findAPerfParticip :: Translator CId
 findAPerfParticip = 
  lemma "V" "s (VI (VPtPret (Strong (GSg Utr)) Nom))"
  <+>
@@ -1614,24 +1688,32 @@ findAPerfParticip =
 
 -- akta optEat här!! om fler läggs till måste den flyttas ut!
 -- om inte adjektivet finns med blir det ett adA? kanske bättre tvärtom?
+pAdA :: Translator Expr
 pAdA = inside "AB" $ do a <- lemma "A" "s (AF (APosit (Strong (GSg Neutr))) Nom)"
                         return (mkApp cidPositAdAAdj [mkApp a[]])
                     <+>
                      do ada <- optEat (lemma "AdA" "s") meta
                         return (mkExpr ada)
 
+adv :: [String]
 adv = ["RA","TA","MA","+A","CA","VA"]
+
+pAdv :: Translator Expr
+pAdv = pAdv' adv 
+
+pAdvMinus,pAdv' :: [String] -> Translator Expr
 pAdvMinus xs = pAdv' $ adv \\ xs
 
-pAdv = pAdv' adv 
 pAdv' xs = 
   msum [ inside x inAdv | x <- xs]
   <+>
   do write "looking for adv in AA1"
      inside "AA" pAA
      
+inAdv :: Translator Expr
 inAdv = findAdverb <+> cat "PP" <+> cat "NP" <+> cat "AVP"
 
+pAA :: Translator Expr
 pAA =     cat "PP" 
       <+> pAdvAdj 
       <+> pAdv
@@ -1639,6 +1721,7 @@ pAA =     cat "PP"
       <+> inside "S" pUttAdv
       <+> cat "AVP"
 
+pIAdv :: Translator Expr
 pIAdv =
   msum [ inside x (cat "AVP") | x <- ["RA","TA"]]
   <+>
@@ -1647,17 +1730,21 @@ pIAdv =
      return $ mkExpr a
   
 
+findAdverb :: Translator Expr
 findAdverb = do
   a <- inside "AB" $ optEat (lemma "Adv" "s Per3") meta
   write $ "adverb found "++show a
   return (mkExpr a) 
  
+pAdvAdj :: Translator Expr
 pAdvAdj = do
   a <- findAdj
   return $ mkApp cidPositAdvAdj [a]
  
+pAdAdj :: Translator Expr
 pAdAdj = liftM (\a -> mkApp cidPositAdAAdj [a]) findAdj         
 
+pIQuant :: Translator Expr
 pIQuant = inside "PO" piq
  where piq =    
             do dt <- lemma "IQuant" "s Sg Utr" 
@@ -1672,13 +1759,14 @@ pIQuant = inside "PO" piq
                write ("det: "++show dt)
                returnApp cidDetQuant [mkExpr dt,mkExpr cidNumPl] 
 
+pQuant :: Translator Expr
 pQuant =
   do w <- word "PODP"   -- to avoid this_Quant when it should be DefArt
      let den = map toLower w
      guard (den=="den" || den=="det")                               
      returnApp cidDetQuant [mkExpr cidDefArt,mkExpr cidNumSg]
   <+>                                                       
-  do inside "PO" (   -- fler taggar än PO?                         
+  inside "PO" (   -- fler taggar än PO?                         
        do dt <-       lemma "Quant" "s Per3 Sg False False Utr" -- dessa två ej helt testade
               <+> lemma "Quant" "s Per3 Sg False False Neutr"
           write ("det: "++show dt)
@@ -1727,8 +1815,9 @@ pQuant =
 
 
 
+pDetRefl :: Translator Expr
 pDetRefl =         
-  do w <- word "POXP" 
+  do word "POXP" 
      write "setting it to true"
    --  isReflGenVP =: True
     -- t <- gets isReflGenVP
@@ -1736,6 +1825,7 @@ pDetRefl =
      return (mkExpr cidReflIdPron) -- $ mkExpr cidReflGenVP 
 
 
+pN2 :: Translator (Expr,Expr,Expr)
 pN2 = 
   -- hur vill gf ha det här?
   do np <- cat "NP"
@@ -1754,9 +1844,11 @@ pN2 =
                      return (mkExpr n,mkExpr cidNumPl,mkExpr cidIndefArt))
 
 -- how to handle this? could be a lot of things..
+pAppos :: Translator Expr
 pAppos = do inside "XP" consume 
             return (mkExpr meta)
 
+pPConj :: Translator Expr
 pPConj = 
   do s <- inside "++" $ lemma "PConj" "s"
      return (mkExpr s)
@@ -1764,6 +1856,7 @@ pPConj =
   do s <- inside "++" $ lemma "Conj" "s2"
      return (mkApp cidPConjConj [mkExpr s])
 
+pConj :: Translator Expr
 pConj = 
   do word "++OC"
      return $ mkExpr cidAndConj
@@ -1774,25 +1867,32 @@ pConj =
   do s <- inside "++" $ lemma "Conj" "s2"
      return (mkExpr s)
     
+pSubj :: Translator Expr
 pSubj = do 
   s <- inside "UK" $ optEat (lemma "Subj" "s") meta
   return $ mkExpr s 
 
+pCopula, pHave :: Translator (VForm CId)
 pCopula  = write "copula?" >> tense "AV"
 pHave    = write "have"    >> tense "HV"  
 --pMust    = write "must?" >> tense "MV"
 --pWant    = tense "WV"
 --pCan     = tense "QV"
+
+pFuturum :: Translator (VForm CId)
 pFuturum = do write "futurum?"
               t <- tense "SV"
               write ("futurum: "++show t)
               if isVTenseForm cidTPres t then return (VTense cidTFut)
                                          else return (VTense cidTCond) -- ?
+
+pFuturumKommer :: Translator (VForm CId)
 pFuturumKommer = do
                t <- tense "KV"
                write ("futurum kom att: "++show t)
                return (VTense cidTFutKommer)
   
+tense :: String -> Translator (VForm CId)
 tense cat =
   do word $ cat++"IV"    
      return VInf
@@ -1813,11 +1913,13 @@ tense cat =
   do word $ cat++"IP"
      return VPart      -- ?? imperativ
    
+pPrep :: Translator Expr
 pPrep = do write "in pPrep"
            p <- inside "PR" $ optEat (lemma "Prep" "s") meta
            return $ mkExpr p
 
 -- här behöver vi kanske kunna ha bla Adv, som 'även'. hur?
+pPredet :: Translator Expr
 pPredet = 
   do w <- findPredet
      return $ mkExpr w 
@@ -1838,19 +1940,21 @@ pPredet =
                         wordlookup w "Predet" "s Neutr Sg"
        parsePredetAdv = inside "AB" $ do 
                           w <- lemma "Adv" "s"
-                          return $ (mkApp cidPredetAdvF [mkExpr w])
+                          return (mkApp cidPredetAdvF [mkExpr w])
 
 
                        
 
 
 -- translate all numers to 1. could also be NumNumeral ( num (pot... n1))
+pNumber :: Translator Expr
 pNumber = 
   inside "RO" $ do consume
                    return $ mkApp cidNumDigits 
                           [mkApp cidIDig 
                              [mkExpr cidD_1]] 
 
+pPol :: Translator (Maybe Bool)
 pPol =
   do w  <- cat "NA"
     -- guard (w == "inte" || w == "not") -- andra ord?
@@ -1858,12 +1962,14 @@ pPol =
   <+>
      return (Just True) --cidPPos
 
+listOf :: Translator a -> Translator [a]
 listOf f = 
   many $ do
    a <- inside "CJ" f 
    word2 "IK"
    return a
 
+conjunct :: CId -> CId -> CId -> Translator Expr -> Translator Expr
 conjunct consf basef conjf f =
   do xs   <- listOf f
      write $ "found list of " ++show xs
@@ -1878,21 +1984,29 @@ conjunct consf basef conjf f =
      return $ mkApp conjf [conj, conjs]
 
 
------
+adjSN, adjSU, adjSPl, adjWPl, adjWSg :: String
 adjSN = "s (AF (APosit (Strong (GSg Neutr))) Nom)"
 adjSU = "s (AF (APosit (Strong (GSg Utr))) Nom)"
 adjSPl = "s (AF (APosit (Strong GPl)) Nom)"
 adjWPl = "s (AF (APosit (Weak Pl)) Nom)"
 adjWSg = "s (AF (APosit (Weak Sg)) Nom)" 
 
+isExistNP :: Expr -> Bool
 isExistNP = (==mkExpr cidExistNP)
+
+meta :: CId
 meta = mkCId "?"
+
+mkExpr :: CId -> Expr
 mkExpr x = mkApp x []
+
+mkPol :: Maybe Bool -> Expr
 mkPol (Just True)  = mkExpr cidPPos 
 mkPol (Just False) = mkExpr cidPNeg 
 mkPol Nothing      = mkExpr meta 
 
 
+returnApp :: CId -> [Expr] -> Translator Expr
 returnApp cid exs = do -- keep or remove??
   t <- gets S.sentenceType
   return $ mkApp (getCId t cid) exs 
@@ -1911,8 +2025,9 @@ getNAnalysis = findNAna . words
        toDef  "Indef" = Just NIndef
        toDef  "Def"   = Just NDef
        toDef  _       = Nothing
-       toCase "Nom"   = Just NIndef
-       toCase "Gen"   = Just NDef
+       --toCase "Nom"   = Just NIndef
+       --toCase "Gen"   = Just NDef
+       --toCase _       = Nothing
 
 
 getVAnalysis :: String -> Maybe (VForm CId) 
@@ -1929,12 +2044,13 @@ getVAnalysis str = case str of
  "s (VI (VSupin Pass))" -> Just $ VSupin
  _                      -> Nothing
       
-
+localKeepPol :: Translator a -> Translator a
 localKeepPol m = do
   (x,st) <- local m
   S.pol =: P.get S.pol st
   return x
 
+local :: Translator a -> Translator (a,S.State)
 local m = do 
   st  <- get
   x   <- m
@@ -1943,15 +2059,18 @@ local m = do
   return (x,loc)
 
 
---For embedded clauses where the state should be cleared and later
---reset
+--For embedded clauses where the state should be cleared and later reset
+putStateToZero :: Translator S.State
 putStateToZero = do
   st <- get
   put S.startState
   return st
 
-resetState st = put st 
+resetState :: S.State -> Translator ()
+resetState = put
 
+--TODO use this or not?
+getCId :: SentenceType -> CId -> CId
 getCId Q  c | c == cidCompNP   = cidCompIP
             | c == cidCompAdv  = cidCompIAdv
             | c == cidDetCN    = cidIdetCN
@@ -1964,11 +2083,11 @@ fst3 (a,b,c) = a
 third :: a -> (VForm CId,Expr) -> (VForm CId,Expr,a)
 third x = uncurry (,,x)
 
+testa :: String -> IO [(Lemma, Analysis, String)]
 testa  str = do
   pgf <- readPGF "../gf/BigTest.pgf"
   let Just language = readLanguage "BigTestSwe"
       morpho        = buildMorpho pgf language
   return [(lemma,an,cat) | (lemma,an) <- lookupMorpho morpho str
-                   ,let cat = maybe "" (showType []) (functionType pgf lemma)]
-
+         ,let cat = maybe "" (showType []) (functionType pgf lemma)]
 

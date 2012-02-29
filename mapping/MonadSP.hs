@@ -12,7 +12,6 @@ module MonadSP  ( Rule(..), Grammar, grammar
 import Data.Tree
 import Data.Char
 import Data.List
-import Debug.Trace
 import qualified Data.Map as Map
 import Control.Monad
 import Control.Monad.State
@@ -40,7 +39,8 @@ grammar def rules = gr
       
       let retry = \pgf m ts -> case ts of 
             [Node w []] -> return (def [])
-            ts          -> def `liftM` sequence [gr tag pgf m ts | Node tag ts <- ts]
+            trs         -> def `liftM` sequence [ gr tag pgf m trs' 
+                                                | Node tag trs' <- trs]
  
       case Map.lookup tag pmap of
         Just f -> \pgf m ts -> do 
@@ -173,11 +173,9 @@ transform :: Monad m => ([Tree t] -> [Tree t]) -> P t e m ()
 transform f = P $ \gr pgf morpho ts -> return (Just ((),f ts))
 
 many :: MonadState s m => P t e m a -> P t e m [a]
-many f = do x  <- f
-            xs <- many f
-            return (x:xs)
+many f = many1 f
          `mplus`
-            return []
+         return []
 
 many1 :: MonadState s m => P t e m a -> P t e m [a]
 many1 f = do x  <- f
@@ -198,4 +196,5 @@ consume :: Monad m => P t e m ()
 consume = P $ \gr pgf morpho ts ->
   case ts of
    Node x w:ws -> return (Just ((),ws))
+   []          -> return (Just ((),[]))  -- this should not be allowed to happen
 
