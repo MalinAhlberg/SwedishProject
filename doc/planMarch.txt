@@ -1,0 +1,29 @@
+
+
+10 - paper, essay, disamibiguation, read
+11 - submit lrec, run parser, comment code
+12 - webpage, report
+13
+
+
+
+
+write report
+paper lrec
+other paper
+essay
+read nenkova
+comment code
+webpage
+disambig
+run complete parser
+
+
+import more words (prepositions, idioms)
+update mapping to new grammar
+clean code!!
+grammar
+noun guesser and import the failed nouns
+import pronouns in fancy way?
+import verbs with verbguesser
+implement good datastructure for files (for looking up words)
