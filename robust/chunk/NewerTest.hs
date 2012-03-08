@@ -31,7 +31,7 @@ tryAll fil = do
   let ziptrees        = map (getFirstWord . fromTree . snd) input
       (newsTrees,res) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
       (lms,names)     = res
-  writeFile "namesEx" names
+  writeFile "namesEx" $ formatNames names
   lex <- mkLexMap
   Just (pgf',newLang) <- mkDir lex lms 
   newPgf <- readPGF pgf' 
@@ -56,7 +56,7 @@ tryMedium fil = do
   let ziptrees        = map (getFirstWord . fromTree . snd) input
       (newsTrees,res) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
       (lms,names)     = res
-  writeFile "namesEx" names
+  writeFile "namesEx" $ formatNames names
   putStrLn $ "Lemmas requested: "++show (map head $ group $ sort lms)
   putStrLn $ "Names exchanged "++show   (map head $ group $ sort names)
   putStrLn $ "Parsing the trees "
@@ -76,6 +76,8 @@ try fil = do
  where writeToFile i x = appendFile "testNew.txt" $ showRes (i,x) ++"\n"
 
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
+formatNames = let format (i,name) = show i ++ "\t"++name
+              in  unlines . map format
        
 startType = text 
 pgfFile = "BigParse.pgf"
@@ -83,3 +85,4 @@ pgfBigFile = "ExtractPGF.pgf" --BigParse with all lexicon
 langBig, lang :: Language
 langBig = read "BigParseSwe"
 lang = read "BigParseSwe"
+

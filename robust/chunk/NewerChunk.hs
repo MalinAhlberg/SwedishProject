@@ -23,7 +23,7 @@ data Result = Ok ParseState | Recover ParseState | Failed
 instance Eq Result where
     (Ok _)      == (Ok _)      = True
     (Recover _) == (Recover _) = True
-    (Failed)  == (Failed)  = True
+    (Failed)    == (Failed)  = True
     _           == _           = False
 
 type Success = Bool
@@ -285,7 +285,7 @@ backUp{-ForAdv-} state = do
   types  <- getRecTypes
   if adV `elem` types then parseAsAdV
           else if v `elem` types 
-               then parseAsVs
+               then return [] -- TODO parseAsVs
                else return [] 
  where parseAsAdV = do
          putTrace "backing up for adv" 
@@ -293,9 +293,10 @@ backUp{-ForAdv-} state = do
          case nextState state nextTok of
               Right st -> return [Ok st]
               _        -> return []
-       parseAsVs = do
-         putTrace "backing up for verb" 
-         let nextTok = simpleParseInput $ fromJust $ toGFStr vs 
+              --TODO
+       --parseAsVs = do
+       --  putTrace "backing up for verb" 
+       --  let nextTok = simpleParseInput $ fromJust $ toGFStr verbs 
 
 meta = mkCId "?" 
 
