@@ -28,7 +28,7 @@ instance Eq Result where
 
 type Success = Bool
 
-limit = take 500
+limit = 500
 
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
@@ -40,7 +40,9 @@ parseText tree pgf lang startType = do
   appendFile "output2" (unlines $ trace st++["\n"])
   getOutput success st
 
- where getOutput success st | success && canProduce = return $ limit trees
+ where getOutput success st | success && canProduce = if limit<=length tress 
+                                                              then return trees
+                                                              else disambigChunks st
                             | otherwise             = limit <$> putPiecesTogether st
         where best       = getBest $ currentStates st
               canProduce = isOkParse result
@@ -301,3 +303,24 @@ backUp{-ForAdv-} state = do
 meta = mkCId "?" 
 
 
+disambigParse :: Tree String -> Parser [[Expr]]
+disambigParse (Node x ts) | isSaveNode x = do res <- parseWithEmptyState (Node "XX" ts)
+                                              if length res > limit then let disambigParses ts
+                                                      else return res
+
+disambigParses (t:ts) | isAmbigouos && hardParts  =
+                            do addToState (typ++i) (rankByProbs res)
+                               parseNext typ
+                               disambigParses ts
+                       | isAmbigouos && goodParts = 
+                            do let bits = disambigsParses parts
+                               addToState (typ++i) (rankByProbs bits)
+                               parseNext typ
+                               disambigParses ts
+                      | otherwise     = 
+                            do parseNext t
+                               disambigParses ts
+  where addToState = undefined -- add to be exchanged when done
+        isAmbigouos = undefined -- Bool, if more trees than limit (length result > limit)
+        result      = parseWithEmptyStateAs typ t
+        parseNext   = parseNormal t -- without emptying state
