@@ -1,7 +1,9 @@
 10 - paper, essay, disamibiguation, read
 
 Monday:    Fix lrec paper
-Tuesday:   Send paper to ramona, read nenkova
-Wednesday: Read nenkova, write essay
-Thursday:  send essay, start on disamibguation
-Friday:    disambiguation, comment code
+Tuesday:   Sick --Send paper to ramona, read nenkova
+Wednesday: Sick (homepage html) --Read nenkova, write essay
+Thursday:  Meet Ramona about paper, fix, send to Bella 
+Friday:    fix disambiguation
+
+weekend? : disambiguation write essay, send essay,

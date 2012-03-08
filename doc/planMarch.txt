@@ -1,8 +1,8 @@
 
 
 10 - paper, essay, disamibiguation, read
-11 - submit lrec, run parser, comment code
-12 - webpage, report
+11 - disambiguation, submit lrec, run parser, start on paper two
+12 - webpage, report, comment code, submit paper two
 13
 
 
