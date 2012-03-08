@@ -2,6 +2,7 @@
 \usepackage{lrec2006}
 \usepackage{lingmacros}
 \usepackage{graphicx}
+\usepackage[utf8]{inputenc}
 
 \title{Combining Language Resources Into A Grammar-Driven Swedish Parser}
 
@@ -19,8 +20,8 @@ Swedish. The central component is a wide-coverage grammar implemented in the GF
 formalism (Grammatical Framework), a dependently typed grammar formalism
 based on Martin-L{\"o}f type theory. GF has strong support for multilinguality and
 has so far been used successfully for
-controlled languages \cite{cnl} and recent experiments have showed
-that it is also possible to use the framework for parsing free language.
+controlled languages \cite{cnl}. Recent experiments have showed
+that it is also possible to use the framework for parsing unrestricted language.
 In addition
 to GF, we use two other main resources: the Swedish treebank Talbanken and the
 electronic SALDO lexicon. By combining the grammar with
@@ -31,7 +32,7 @@ The resulting parser gives a full syntactic analysis of the input sentences.
 It will be highly reusable, freely available, and as GF provides libraries for
 compiling grammars to a number of programming languages, chosen parts of the the 
 grammar may be used in various NLP applications. 
-\\ \newline \Keywords{GF, Swedish, Parsing}}
+\\ \newline \Keywords{GF, Swedish, Parsing, Grammar Formalisms, Lexical Acquisition}}
 
 \begin{document}
 
@@ -40,7 +41,6 @@ grammar may be used in various NLP applications.
 
 % TODO add links to the website?
 \section{Introduction}
-% Copied from Master's Thesis. ok to do that?
 Our goal is to implement a wide-coverage grammar and parser for Swedish
 using the GF formalism, and 
 thereby investigate how GF can be used for open-domain parsing.
@@ -48,7 +48,7 @@ We compile a large-scale grammar to a parser
 and combine it with the extensive lexicon SALDO. The Swedish treebank 
 Talbanken provides manually tagged trees which we use for improving and evaluating
 the grammar. The parser will additionally
-be evaluated by experts. \\
+be evaluated by an expert. \\
 We chose our resources so that both our grammar and parser can 
 be freely available and open-source. 
 The target language is Swedish, a North-Germanic language
@@ -104,7 +104,7 @@ and WebAlt \cite{webalt} to mention a few.
 All those are special domain applications, dealing with controlled natural
 language.
 This project takes a different approach by using GF for open domain language,
-as done in recently conducted work on translating patents \cite{patent}.
+similar to the recently conducted work on translation of patents \cite{patent}.
 
 Using the Swedish resource grammar as our starting
 point, we get a basic description of the language. The framework provides
@@ -118,9 +118,9 @@ and Java.
 \subsection{Talbanken}
 For development and evaluation, we use the Swedish treebank
 Talbanken \cite{talbanken}.
-It was assembled in the 1970s at Lund University and modernized
-in 2005 \cite{talbanken05} and
-enriched with annotation for a full phrase structure analysis.  \\
+It was assembled in the 1970s at Lund University and later
+%in 2005 \cite{talbanken05} and
+enriched with annotation for a full phrase structure analysis \cite{talbanken05}.  \\
 Although Talbanken contains both written and spoken Swedish,
 only the prose material, consisting of 6316 sentences, is used in this
 project.
@@ -133,11 +133,9 @@ developed at Spr{\aa}kbanken at Gothenburg University
 and intended for usage in language technology
 research. 
 We have developed tools for extracting GF lexicons
-from SALDO, described in \ref{sec:extractsaldo}
+from SALDO, described in section \ref{sec:extractsaldo}
 
 \section{Related work}
-%Copied form thesis!!!! 
-% Add: how are these related to this work?
 % Add: detaild comparison of outputs of various parsers of Sw.
 Many years of research have lead to many interesting language
 technology tools for Swedish.
@@ -152,7 +150,6 @@ Swedish FDG (Voultanien,2001) uses the Functional Dependency Grammar
 an extension of the Constraint Grammar
 formalism, and produces a dependency structure focusing on finding the nominal
 arguments. \\
-
 The LinGO Grammar Matrix \cite{matrix}, is a starter-kit for building
 Head-Driven Phrase Structure Grammars \cite{hpsg} (HPSG) providing
 compatibility with tools for parsing, evaluation, semantic representations etc.
@@ -167,20 +164,25 @@ was based upon this by Ahrenberg, covering the morphology and some
 differences between Swedish and Norwegian. Further, there is the BiTSE 
 grammar \cite{stymne}, also implemented using the Lingo Matrix,
 which focuses on describing and translating verb frames.\\ 
-
-
 The Swedish version of the Core Language Engine (CLE) \cite{gamback}
 gives a full syntactic analysis as well as semantics represented in `Quasi logical form'. A
 translation to English  was implemented and the work was further developed in the spoken
-language translator \cite{spoken}. Unfortunately, it is no longer available. The coverage of the Swedish
-CLE is also reported to be very limited \cite[p. 134]{nivreTrees}.\\
-
-In the TAG formalism \cite{tag}, there are projects on getting open source, wide-coverage grammars
+language translator \cite{spoken}. Unfortunately, it is no longer available.\\
+%The coverage of the Swedish
+%CLE is also reported to be very limited \cite[p. 134]{nivreTrees}.\\
+In the TAG formalism \cite{tag}, there are projects on getting open-source, wide-coverage grammars
 for English and Korean, but, to our knowledge, not for Swedish.  \\
-
 The ParGram \cite{pargram} project aims at making wide coverage grammars using
+the Lexical Functional Grammar approach \cite{lfg}.
 The grammars are implemented in parallel in order to coordinate the analyses of
 different languages and there are now grammars for English, German, Japanese and Norwegian. 
+
+Extract \cite{MarkusForsberg2007} is a tool for lexicon
+%TODO
+extraction compatible with GF, sharing its basic ideas with our lexical
+acquisition tool. Extract does however not consider parts-of-speech and our
+tool is developed closer to GF, while still
+having additional mechanisms for being robust and human support to be accurate.
 
 
 \section{Extracting a large lexicon}
@@ -291,19 +293,15 @@ The same problem occurred for the irregular s-verbs,
 (\emph{`synas'} \emph{(`show')} or \emph{umg{\aa}s} \emph{(`socialize')})
 which made up 61.5 \% of the failing verbs of type \verb_vb_.\\
 In a few cases the smart paradigms could not generate the correct declination.\\
-
 When testing the coverage of Talbanken,
 we found that there are around 2500 word forms still missing, excluding the ones
 tagged as names and numbers. This number may seem very high, but 
 4/5 of the word forms are compounds and when performing the intended parsing,
 an additional analysis identifying compounds is preformed before
-looking-up the words in the lexicon. We
-should also take into consideration that 
-we cannot automatically find out how many actually stem from the same word, or
-how many abbreviations that are present. Talbanken also contains a small number of 
+looking-up the words in the lexicon. 
+Talbanken also contains a small number of 
 spelling errors, which probably are enumerated among our missing words. The majority
 of the missing words are only used once.\\
-
 \begin{figure}[h]
 \begin{tabular}{|l|l|}
 \hline
@@ -318,7 +316,6 @@ Used more than once,& \\
 \end{tabular}
 \caption{}
 \end{figure}
-
 A list of words that were given different labels in GF than in Talbanken has been
 composed, consisting of about 1600 entries. Many of those are
 acceptable and reflects the difference 
@@ -327,7 +324,8 @@ others are examples of words that are still missing from
 the lexicon.
 
 Valency information, which is crucial for GF, is not given in SALDO and
-hence not in the imported lexicon. Instead we extract this from
+hence not in the imported lexicon. Instead we are working on methods
+of extracting this from
 Lexin\footnote{http://spraakbanken.gu.se/lexin/}.
 
 
@@ -352,6 +350,9 @@ allow the word to be added to the lexicon, remove it or request another guess.
 The user hence only needs to decide if each paradigm is correct or not, and
 the program will do the rest.
 
+%TODO 
+%our largest set of testdata came from talbanken, about 2000? words. Not to large,
+%could be better if more forms appeared more often.
 The tool has been tested on verbs. Although using simple techniques it 
 manages to assign the correct paradigm to 70-75 \% of the given lemmas.
 A smaller test has shown that out of the accepted lemmas, the correct guess is
@@ -365,7 +366,7 @@ guesses for 25\%.
 %From this a lexicon with about 1000 verbs have been extracted, manually verified.
 
 
-\section{Translating The Treebank Talbanken}
+\section{Mapping of Talbanken trees}
 \label{sec:mapping}
 The information from the tags in Talbanken can be used for many purposes.
 We have developed an automatic transformation of Talbanken trees 
@@ -382,16 +383,9 @@ the syntactic information.
 \end{center}
 \end{figure}
 
-
 Figure \ref{fig:translationtrees} shows an example of a visualized Talbanken05 tree
 of the sentence ``Katten p{\aa} bilen blir st{\"o}rre" 
-(\emph{``The cat on the car gets bigger"}).
-The mapping is based on 
-a translation of the English Penn Treebank \cite{gfpenn}.
-By modifying this program, we now have a translation that works for
-the Tiger XML-format of
-Talbanken. Adaption was required for the differences in annotation as well as 
-for the syntactic differences between Swedish and English.
+(\emph{``The cat on the car gets bigger"}) and its translation to GF.
 
 The translation 
 gives us means to evaluate our parser. By both parsing a Talbanken sentence and
@@ -409,16 +403,8 @@ information.\\
 \subsection{Results and evaluation}
 The development was mostly example-driven, and at least one rule for the translation of
 every Talbanken-tag has been implemented.
-Shorter sentences have been prioritized in order to get a coverage of the most
-fundamental constructions. 
-Regression testing was used to ensure that a new rule would not violate the old ones
-or allow trees to be translated erroneously.
-
-
-The flat version of Talbanken05 was used for developing the mapping, but
-the program works for both the flat and the deep Tiger-XML versions.
-The focus on the mapping has been simple sentences, in order to cover the most
-fundamental structures. 
+Shorter sentences, with less than 10 words, have been prioritized in order to
+get a coverage of the most fundamental constructions. 
 
 When evaluating the mapping, the results strongly depend on which restrictions we
 put on the input. 
@@ -473,29 +459,6 @@ Short sentences with known words & 85 \%\\
 \label{tab:mappres}
 \end{figure}
 
-A mapping between GF and the Wall Street Journal of Penn Treebank has earlier
-been conducted \cite{gfMech}.
-The percentage of restored nodes from Peen Treebank is higher than our results.
-The reason for this may be the fact that English is syntactically less complicated
-than Swedish.
-Furthermore, the text in Talbanken are from various brochures, newspapers and text books,
-where idiomatic expressions are more likely the be appear and the language
-presumably less strict than in Wall Street Journal\footnote{www.wsj.com}.
-Also, the Penn Treebank contains a lower number of tags, 82 compared
-to more than 300 in Talbanken. Even if the tags describing the same word
-class as another tag are excluded, Talbanken still leaves us with more than 130 tags.
-With more tags, we get more information, but as the number 
-increase, so does the amount of work of finding the correct translation 
-for each combination of tags and writing rules that cover all constructions. 
-
-We believe that the results could be enhanced by simply adding more rules 
-and in this way get a wider coverage. There are many special cases that require
-special rules. Since we are not aware of any formal specification of how the tags may be
-combined in Talbanken, the only way of finding all possibilities are to manually look
-for different patterns. Another option would be to make the mapping more
-robust, but the robustness must not interfere with the correctness.
-
-
 \section{Development of the grammar}
 \label{sec:grammar}
 An important part of this project has been to develop the Swedish GF grammar and
@@ -506,179 +469,23 @@ analysis of the most important Swedish constructions.
 The starting point has been the GF resource grammar and the new implementation is
 still compatible with this.
 
-It has earlier been hard to identify missing constructions of the Swedish
-implementation, since there was no large resource available to evaluate it on.
-Our evaluations are based on Talbanken, and when first conducting tests,
-we found much room for improvement.
+For Swedish, about 85\% of the GF resource code is shared with the other Scandinavian
+languages. 
+However, if we aim for a deeper and more comprehensive analysis of Swedish,
 the implementation of the languages needs to be more independent.
 The resource grammar gives a good start and our present grammar 
 covers constructions such as declarative sentences, questions, passives,
 imperatives, relative clauses, cleft constructions etc.
-During our work the grammar has been extended to cover language specific
-constructions such as topicalisation and the features listed below. We further
-put effort on avoiding and removing overgeneration, which might pass unnoticed
-when parsing controlled text but which cause an explosion of ambiguous parse trees
-when used for free text and with a large lexicon.
-\subsection{The s-passive}
-Passive voice is commonly used in Swedish.
-There are two ways of forming passive verb phrases in Swedish: the 
-\textbf{periphrastic passive}, formed by using the modal auxiliary verb `bli'
-(\emph{`become'}) and the \textbf{s-passive} which is formed by adding an
-\emph{s} to the verb: \\
-\enumsentence{
-\shortex{5}{Uppsatsen & skrev\textbf{s} & av & en & student.}
-        {\emph{the essay} & \emph{wrote+\textbf{s}} & \emph{by} & \emph{a} & \emph{student}}
-        {``The essay was written by a student."}}\label{sent:skrevs}
-Some studies suggest that the s-passive is used in more than 80 \% of the times
-\cite{laanemets}.
-It is however not as common in the other Scandinavian languages,
-and the resource grammar for Scandinavian therefore only implemented a function for
-passive by using auxiliary verb.
-
-During this project, the s-passive was added and the
-periphrastic passive is still allowed.
-The grammar further allows not only two-place verbs, but all verb phrases missing an object, to 
-form passive:
-\enumsentence{\textbf{Active use of two-place verb}\\\shortex{4}
-{Vi & erbj{\"o}d& henne& jobbet }
-{\emph{we} & \emph{offered}& \emph{her}&\emph{the job}}
-{``We offered her the job"}}
-\label{sent:give2pass}
-\enumsentence{\textbf{First place in two-place verbs}\\\shortex{3}
-{Hon & erbj{\"o}ds & jobbet}
-{\emph{she} &\emph{ offered+\textbf{s}}&\emph{ the job}}
-{``She was offered the job"}}
-\label{ex:passV33}
-\enumsentence{\textbf{Second place in two-place verbs}\\\shortex{3}
-{Jobbet & erbj{\"o}ds & henne }
-{\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
-{``The job was offered to her"}}
-\label{ex:passV32}
-\enumsentence{\textbf{V2A verb}\\\shortex{3}
-{Huset & m{\aa}lades & r{\"o}tt}
-{\emph{the house} & \emph{painted+\textbf{s}}& \emph{red}}
-{``The house was painted red"}}
-\label{ex:passV2A}
-
-\subsection{Impersonal constructions}
-\label{sec:Formal}
-Formal subjects \cite[\textsection 19]{SAG} are often used in
-Swedish.
-\enumsentence{\shortex{6}
-{Det & sitter & en & f{\aa}gel & p{\aa} & taket}
-{\emph{it }& \emph{sits }& \emph{a} & \emph{bird} &\emph{ on} & \emph{the roof}}
-{``There is a bird sitting on the roof''}}
-\emph{`Det'} has the position of the subject, and the real subject, 
-\emph{`en f{\aa}gel'} the one of an object.
-
-Our grammar implementation allows impersonal constructions 
-and does not allow ungrammatical variants such as sentence
-(\ref{sent:fagelfron}) where a transitive verb is used.
-
-\enumsentence{\shortex{5}
-{Det&dricks&mycket & {\"o}l& nuf{\"o}rtiden}
-{\emph{It}&\emph{drinks+s}&\emph{much} &\emph{ beer}&\emph{ nowadays}}
-{``A lot of beer is being drunk these days"}}
-
-The grammar also respects the restrictions on the real subject, which cannot
-contain a determiner requiring the noun or modifying adjective to be definite form \cite{Cooper}
-\enumsentence{\shortexnt{6}
-{*Det     & sitter     & \textbf{den}& \textbf{f{\aa}geln}& p{\aa}       & taket.}
-{\emph{it}& \emph{sits}& \emph{the}  & \emph{bird}    & \emph{on}& \emph{the roof}}
-}
-\enumsentence{\shortexnt{6}
-{*Det& sitter& \textbf{min}& \textbf{f{\aa}gel}& p{\aa}& taket}
-{\emph{it}&\emph{sits}&\emph{my}&\emph{bird}&\emph{on}&\emph{the roof}}
-}\label{sent:dumfagel}
- 
-\subsection{Formalizing the rules for reflexive pronouns by using dependent types}
-\label{sec:reflexives}
-An important area in a Swedish grammar is the treatment of the reflexive pronouns and
-the reflexive possessive pronouns.
-The reflexives require an antecedent with which they agree in
-number and person.
-Our grammar accept the following sentences:
-
-\enumsentence{Han s{\aa}g sina barns skor.\\ \label{ex:ReflGen}
-He saw {\sc self's} children's shoes.}
-\enumsentence{Sina vantar hade han gl{\"o}mt p{\aa} t{\aa}get.\\
-{\sc self's} gloves, he had forgotten on the train.}
-\enumsentence{Hon ber alla sina kompisar att g{\aa}\\
-She asks all {\sc self's} friends to leave}\label{ex:ReflPredet}
-\enumsentence{Jag vill att han rakar sig.\\
-I want him to shave {\sc self}.}
-\eenumsentence{
-\item Hon tyckte om skolan och alla sina elever.\\
-     She liked the school and all {\sc self's} students.
-\item Han s{\aa}g sina f{\aa} b{\"o}cker och sin penna.\\
- He saw {\sc self's} few books and {\sc self's} pencil.
-}\label{ex:ReflConj} \label{ex:ReflConj2}
-Reflexive pronouns can not be used in subject noun phrases of finite sentences,
-as shown by the ungrammatical examples in 
-sentence (\ref{sent:sesig}) and (\ref{ex:ReflSubj}).
-The third person reflexives (`sig',`sin') requires a third person antecedent (see \ref{ex:refljag}).
-Furthermore, the antecedent must be within the same finite sentence as the reflexive
-pronoun, see (\ref{sent:sesig}).
-The grammar does not accept any of these sentences:
-\enumsentence{
-*Sina vantar var kvar p{\aa} t{\aa}get.\\
-{\sc self's} gloves were left on the train.}\label{ex:ReflSubj}
-\enumsentence{*Han och sin kompis läser en bok.\\
-He and {\sc self's} friend are reading a book. }
-\enumsentence{*Jag ger sina pengar till sina syskon.\\
-I give {\sc self's} money to {\sc self's} siblings. }\label{ex:refljag}
-\enumsentence{*Han vill att jag ser p{\aa} sig.\\
-He wants me to look at {\sc self}.}\label{sent:sesig}
-
-In order to achieve a scalable implementation of reflexive pronouns, we needed
-to diverge from the old abstract implementation. To capture the agreement
-between the antecedent and the reflexive pronoun, while still allowing the grammar
-to accept reflexive constructions embedded in adverbial and adjectival phrases,
-in fronted positions etc. we make use of the dependent types of GF. This is the
-first use of the dependent types in the resource grammars and a could be
-extended to other languages having similar dependencies.
-
-\subsection{A second future tense: ``Kommer att"}
-Swedish use two auxiliary verbs for future tense \\
-\cite[p. 246]{H&H}:
-\eenumsentence{
-\item {
-Det \textbf{kommer att} bli m{\"o}rkt snart\\
-``It will get dark soon" }
-\item {
-Jag \textbf{ska} g{\aa} och l{\"a}gga mig nu\\
-``I'm going to bed now"\\}
-}
-The resource grammar included 
-\emph{`ska'}, which was implemented as the standard way of forming future
-tense, and hence represents the translation of
-\emph{`will'}. 
-The new grammar also supports \emph{``kommer att"}, expressed as an alternative
-future tense.
-\begin{figure}[h]
-\begin{verbatim}
-(UseCl (TTAnt TFutKommer ASimul) PPos 
-       (ImpersCl (AdvVP (ComplVA become_VA 
-                (PositA dark_A)) soon_Adv))
-\end{verbatim}
-\caption{Result of parsing ``Det kommer att bli m{\"o}rkt snart". The future tense
-         is marked by the constant TFutKommer}
-  \label{fig:kommeratt}
-\end{figure}
-
-\subsection{Testing}
-Throughout the project regression testing has been used. Every time the grammar was updated
-it was tested against a treebank consisting of 155 sentences, and the number of
-parse trees were compared to a standard.
-The purpose was first of all to
-make sure that the coverage was not decreased, but also to make sure that we
-would notice if new ambiguities or overgenerating functions were introduced.
-If so, the ambiguities could be removed when possible, and when not, we were made
-aware of them and could decide whether the increase of coverage were worth the
-increase in ambiguities.
-
-New functions were also tested by random generating and by creating tables showing
-all forms of the added construction.
+A number of constructs that are generally not present in other languages and
+therefore not given by the resources, have also been added. These include the use of
+the reflexive pronoun \emph{sitt}: \\
+\emph{Han s{\aa}g \textbf{sitt} hus} $\; \; \; \;$ (\emph{He saw SELF's house}) $\;$ \\
+as opposed to \\
+\emph{Han s{\aa}g \textbf{hans} hus} $\;$ (\emph{He saw his (another person's) house}) \\
+Fronting words or phrases is very common in Swedish and are now allowed by the grammar:\\
+\emph{\textbf{Glad} var han inte.} $\;$ (\emph{\textbf{Happy} was he not}). \\
+This sort of rephrasing is not given by the resource grammar, since it
+has little effect on the logical representation.
 
 \section{Evaluation and Future Work}
 The project has so far resulted in
@@ -686,10 +493,6 @@ The project has so far resulted in
 \item a large-scale GF lexicon and a program to redo the importation when needed
 \item an extended grammar covering an important part of Swedish
 \item a comparison between GF and another annotation
-\item a deeper testing of the Swedish resource grammar and an estimation
-%TODO lexin, chunking?
-of how well GF can be used to describe larger parts of a language
-\item a study of how dependent types can be used in the resource grammars
 \end{itemize}
 
 Besides being capable of reimporting SALDO, the lexicon extraction program could also
@@ -700,12 +503,14 @@ The grammar has been extended and enhanced, and its current status is
 a specialized extension of the resource grammar.
 Besides parsing, the grammar may well be used for language generation,
 which works fast even when using an extensive lexicon.
-Although it is not been formally verified, we believe that the majority of the
-sentences generated are grammatically correct in a syntactical point of view.
-Without any semantic knowledge, nonsense phrases cannot be avoided in
-random generation. However, given that the abstract tree has a meaningful
-interpretation,
-the linearization should be correct.
+By the renewed import of SALDO, we have doubled the size of the lexicon and thereby
+added many of the commonly used words that were missing from the older
+version. This is of course a big improvement.
+However, the lexical part still requires some work before it can be made use of.
+The lexicon is too big to use with the current techniques as its size exhausts the
+the current incremental parsing algorithm. However, new research is being conducted
+to improve the GF run-time system.
+%TODO can I write that?
 
 When it comes to parsing, we do not get far without robustness.
 The grammar in itself is by no means robust, and just one 
@@ -723,15 +528,6 @@ the ability to scale up, which has so far proved to be good.
 We further believe that the presence of a expert in Swedish, professor Elisabet
 Engdahl\footnote{http://svenska.gu.se/om-oss/personal/elisabet-engdahl},
 has increased the standard substantially.\\
-
-By the renewed import of SALDO, we have doubled the size of the lexicon and thereby
-added many of the commonly used words that were missing from the older
-version. This is of course a big improvement.
-However, the lexical part still requires some work before it can be made use of.
-The lexicon is too big to use with the current techniques. Its size causes the
-incremental parsing algorithm to use more heap memory than normal computers
-allow. To solve this, we need to use the lexicon data more cleverly.
-
 We are currently working on chunk parsing and disambiguation using probabilities
 extracted from our translation of Talbanken. We combine this with simple named
 entity recognition and compounding analysis. For evaluation, we intend to use
@@ -741,39 +537,29 @@ The result will be evaluated both automatically -- by comparing the output of
 the translated trees from Talbanken -- and manually by professor Elisabet Engdahl.
 She also evaluates the intermediate results.
 
-% Add: valencies extracted, compounds from språkbanken
 \section{Conclusion}
 We have developed the main components
 for a deep Swedish parser; an extended grammar and lexicon and material for
 evaluation and disambiguation.
 By starting from the GF resource grammar, we got a well-defined system for
 describing language. 
-
-We have implemented a grammar covering an important fragment of Swedish by
-focusing on constructions that are frequent in Talbanken.
+We have developed tools for extending the lexicon with words from Talbanken,
+and we show how to make use of the information in the manually tagged
+treebank.
 \\
-
 All parts of the project are open-source and may thus be used in other applications.
 The grammar and the lexicon may be beneficial also when working with controlled languages,
 as it increases the coverage of the Swedish resource grammar.
-
-The constructions
-that we have focused on have all been possible to implement, with varying  amounts
-of work. Many of them could be done by utilizing and extending the resource library
-but in some cases we needed to part from the multilingual abstract and use other
-grammatical theories in order to arrive at a good analysis.
-
 
 The usage of GF allows us to start from
 a well-defined system for describing grammar, as well as tools for
 parsing.
 
 \section{Acknowledgments}
-We would like to thank Center of Language Technology for funding this project.
-Further, special thanks to Aarne Ranta,
+The work has been funded by Center of Language Technology.
+We would also like to give special thanks to Aarne Ranta,
 Elisabet Engdahl, Krasimir Angelov, Olga Caprotti, Lars Borin and John Camilleri for their help
 and support.
-%\nocite{*}
 
 \bibliographystyle{lrec2006}
 \bibliography{FinBib}
