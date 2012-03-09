@@ -35,11 +35,13 @@ tryAll fil = do
   lex <- mkLexMap
   Just (pgf',newLang) <- mkDir lex lms 
   newPgf <- readPGF pgf' 
+  probs <- readProbabilitiesFromFile "ProbsNewSpec" newPgf
+  let goodPgf = setProbabilities probs newPgf
   putStrLn $ "Parsing the tree "
-  mapM (processAndWrite newPgf newLang) $ zip (map fst input) (map toTree newsTrees)
+  mapM (processAndWrite goodPgf newLang) $ zip (map fst input) (map toTree newsTrees)
  where processAndWrite pgf lang (i,tree) = do
          res <- parseText tree pgf lang startType
-         appendFile "supertest4.txt" $ showRes (i,res) ++"\n"
+         appendFile "disambigtest3.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
 

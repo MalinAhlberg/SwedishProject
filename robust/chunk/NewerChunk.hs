@@ -16,6 +16,9 @@ data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown
                  ,currentStates :: [Result]       --the current parse state
                  ,pieces        :: [[Expr]]       --relevant pieces parsed so far
                  ,emptyPState   :: Type -> ParseState --an empty parse state
+                 ,replaced      :: [(Int,[Expr])]
+                 ,counter       :: Int
+                 ,pgf           :: PGF
                  ,trace         :: [String]
                  }
 type Parser = State PState
@@ -28,39 +31,62 @@ instance Eq Result where
 
 type Success = Bool
 
+limit, chunklimit, disambiglimit :: Int
 limit = 500
+chunklimit = 200
+disambiglimit = 700
 
+-- TODO chunkade bitar ska disambigueras på en gång
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
-  let startState = initState pgf lang startType
-      parser     = PS {recTypes = [[sent]], recState =  [[Ok startState]], skip = [False]
-                      ,currentStates = [Ok startState], pieces =  []
-                      , emptyPState = initState pgf lang, trace = []}
-      (success,st) = runState (parseX tree) parser 
-  appendFile "output2" (unlines $ trace st++["\n"])
-  getOutput success st
+  let (success,st) = runState (parseX tree) parser 
+  appendFile "outputdis" (unlines $ trace st++["\n"])
+  limitOutput success st 
+  --appendFile "outputdis" (unlines $ trace st'++["\n"])
+  --getOutput success st'
 
- where getOutput success st | success && canProduce = if limit<=length tress 
-                                                              then return trees
-                                                              else disambigChunks st
-                            | otherwise             = limit <$> putPiecesTogether st
-        where best       = getBest $ currentStates st
-              canProduce = isOkParse result
-              trees      = getTrees result
-              textoutput = fst (getParseOutput (getPState best) startType Nothing) 
-              result     = if isOkParse textoutput then textoutput 
-                              else fst (getParseOutput (getPState best) utt Nothing) 
-              getTrees (ParseOk t) = t
-              putPiecesTogether st = let piec = pieces st in
-                    return $ [mkApp (mkCId "Text") [mkApp meta c] | c <- combinations $ map (limit) piec] 
-              combinations = sequence
-              isOkParse     (ParseOk t) = True
-              isOkParse     _           = False
+ where parser     = PS {recTypes = [[sent]], recState =  [[Ok startState]], skip = [False]
+                       ,currentStates = [Ok startState], pieces =  []
+                       ,emptyPState = initState pgf lang
+                       ,replaced = [], counter = 0
+                       ,pgf = pgf, trace = []}
+       startState = initState pgf lang startType
+      
+       limitOutput :: Success -> PState -> IO [Expr]
+       limitOutput success st | success && canProduce = return $ take limit $ rankThem trees
+                                     --if limit <= length trees 
+                                     --    then return trees
+                                     --    else do 
+                                     --     -- let dis = execState (disambigParse tree) parser 
+                                     --     -- appendFile "outputdis" (unlines $ trace dis++["\n"])
+                                     --     -- appendFile "comps" (unlines $ map show $ replaced dis)
+                                     --      getOutput success st -- $ dis
+                              | otherwise = getOutput success st
+         where canProduce = isOkParse result
+               result     = if isOkParse textoutput then textoutput
+                                      else fst (getParseOutput (getPState best) utt Nothing) 
+               textoutput = fst (getParseOutput (getPState best) startType Nothing) 
+               best       = getBest $ currentStates st
+               trees      = getTrees result
+               getTrees  (ParseOk t) = t
+               isOkParse (ParseOk t) = True
+               isOkParse _           = False
+        
+               rankThem trees = map fst $ rankTreesByProbs pgf trees
+               getOutput success st | success && canProduce = return $ take limit trees
+                                    | otherwise             = take limit <$> putPiecesTogether st
+                                                              --TODO limit shouldn't be needed here
+
+               putPiecesTogether st = let piec = pieces st in
+                     return $ [mkApp (mkCId "Text") [mkApp meta c] | c <- combinations $ map (take limit) piec] 
+               combinations = sequence
 
 -- parse the words
 parseX ::  Tree String -> Parser Success
-parseX (Node w []) | length (words w) == 0 = return True --for removed names 
-                   | length (words w) > 1  = liftM last $ mapM (parseX . flip Node []) $ words w -- compound
+parseX (Node w []) | length (words w) == 0 = return True --for removed parts of names 
+                   | length (words w) > 1  = liftM last  -- compounds
+                                           $ mapM (parseX . flip Node []) 
+                                           $ words w
                    | otherwise             = 
   do states <- gets currentStates 
      newStates <- mapM parseNext states
@@ -92,7 +118,8 @@ parseX (Node w []) | length (words w) == 0 = return True --for removed names
 parseX (Node "ROOT" [t]) = parseX t -- only one node in root
 parseX (Node "ROOT" ts)  = do       -- if there are more, we don't know what to do
   res <- parsePieces ts
-  savePieces $ metatize res
+  pgf       <- gets pgf
+  savePieces $ metatize pgf res
   return False  
 
 
@@ -109,7 +136,8 @@ parseX (Node "S"  ts) = do
  where combinePieces st = do
          oldPieces <- emptyPieces 
          res       <- parsePieces ts
-         let s = map (mkApp (mkCId "S")) $ sequence $ metatize res 
+         pgf       <- gets pgf
+         let s = map (mkApp (mkCId "S")) $ sequence $ metatize pgf res 
          savePieces $ s : oldPieces
          rec <- mapM (recoverFrom [sent]) st
          putCurrentStates rec
@@ -162,6 +190,9 @@ parsePieces ts = sequence [tryParse t | t <- ts]
 
 isSaveNode = (`elem` map fst saveNodes)
 
+isDisambigNode = (`elem` map fst disambigNodes)
+
+
 saveNodes = [("NP",nps),("PP",[adv]),("SS",[npsub,np]),("OO",[npobj,np])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
             ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
@@ -171,10 +202,29 @@ saveNodes = [("NP",nps),("PP",[adv]),("SS",[npsub,np]),("OO",[npobj,np])
             ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])
             ,("NN",nps)] --TODO change v to all vs
 
+disambigNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
+               ,("OA",adv),("AP",ap),("CPP",adv),("CS",sent)
+               ]
+{-
+typeNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
+            ,("OA",adv),("TA",adV),("XA",adV),("VA",adV)
+            ,("MA",adV),("KA",adV),("CA",adV),("AA",adV)
+            ,("+A",adV),("FV",v), ("IV",v),("CNP",np)
+            ,("AP",ap),("AVP",adV),("CAP",ap),("CAVP",adV)
+            ,("CPP",adv),("CS",sent),("CVP",vpx),("NAC",utt)
+            ,("++",conj),("SP",comp),("VP",vpx)
+            ,("NN",np)] --TODO change v to all vs
+
+-}
+
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
 
 getCat :: String -> [Type]
-getCat = fromJust . (`lookup` saveNodes)
+getCat = fromJust . getCatMaybe
+getCatMaybe :: String -> Maybe [Type]
+getCatMaybe = (`lookup` saveNodes)
+getTypeNode :: String -> Type
+getTypeNode = fromJust . (`lookup` disambigNodes)
 
 saveState ::  [Type] -> [Tree String] -> Parser Success
 saveState recover ts = do
@@ -206,18 +256,22 @@ enableSkip ts = do
    modify $ \s -> s {skip = drop 1 (skip s)}
    return res
 
+getBestMaybe t = case getBest t of
+   Ok p -> Just $ Ok p
+   _    -> Nothing
+
 getBest = head . sortBy (comparing resultOrder)
  where resultOrder (Ok _)      = 1
        resultOrder (Recover _) = 2
        resultOrder _               = 3
 
-metatize :: [[(Type,Result)]] -> [[Expr]]
-metatize = map putMetas
+metatize :: PGF -> [[(Type,Result)]] -> [[Expr]]
+metatize pgf = map putMetas
   where putMetas :: [(Type,Result)] -> [Expr]
         putMetas []               = [mkApp meta []]
         putMetas ((t,res):ps)     = 
            case fst (getParseOutput (getPState res) t Nothing) of 
-                ParseOk trees   -> nub trees  
+                ParseOk trees   -> map fst $ take chunklimit $ rankTreesByProbs pgf (nub trees)
                 _               -> putMetas ps
 
 getPState (Recover ps) = ps
@@ -236,8 +290,8 @@ getSkip  = liftM head $ gets skip
 getRecState :: Parser [Result]
 getRecState = liftM head $ gets recState 
 
-pushStates ::  [Result] -> Parser ()
-pushStates st = do
+pushRecState ::  [Result] -> Parser ()
+pushRecState st = do
   putTrace ("push State ")
   modify $ \s -> s {recState = st  : recState s}
 
@@ -246,8 +300,8 @@ pushRecTypes typ = do
   putTrace ("push types "++ show typ) 
   modify $ \s -> s {recTypes = typ : recTypes s}
 
-popStates :: [[Result]] -> [[Type]] ->  Parser ()
-popStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
+restoreStates :: [[Result]] -> [[Type]] ->  Parser ()
+restoreStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
 
 savePieces :: [[Expr]] -> Parser ()
 savePieces exps = modify $ \s -> s {pieces = exps++ pieces s} 
@@ -257,10 +311,20 @@ local m = do
   state   <- gets currentStates
   rstates <- gets recState
   rtypes  <- gets recTypes
-  pushStates state
+  pushRecState state
   res <- m
-  popStates rstates rtypes
+  restoreStates rstates rtypes
   return res
+
+localEmpty :: Type -> [Type] -> Parser a -> Parser (a,PState)
+localEmpty typ rec m = do
+   old <- get
+   emptyState typ
+   pushRecTypes rec
+   res <- m
+   new <- get
+   put old
+   return (res,new)
 
 putTrace ::  String -> Parser ()
 putTrace str = modify $ \s -> s {trace = str:trace s}
@@ -303,12 +367,84 @@ backUp{-ForAdv-} state = do
 meta = mkCId "?" 
 
 
-disambigParse :: Tree String -> Parser [[Expr]]
-disambigParse (Node x ts) | isSaveNode x = do res <- parseWithEmptyState (Node "XX" ts)
-                                              if length res > limit then let disambigParses ts
-                                                      else return res
+disambigParse :: Tree String -> Parser Success
+disambigParse n@(Node x ts)  
+    | isDisambigNode x = do
+         putTrace "is in a disambiguation situation :O"
+         let typs  = getCat x
+         let typ   = getTypeNode x
+         (ok,st) <- localEmpty typ typs $ parseX n
+         let tr  = currentStates st
+         if length tr <= disambiglimit || null ts --600 ca
+              then do s <- goDeeper ts
+                      bit <- gets currentStates
+                      rankAndSave bit typ typs
+                      return s
+              else goFurther ts
+    | null ts   = parseX n
+    | otherwise = goDeeper ts
 
-disambigParses (t:ts) | isAmbigouos && hardParts  =
+
+goDeeper [] = error "tried to go deeper on empty"
+goDeeper (t:ts) = do
+  disambigParse t
+  disambigParse (Node "X" ts)
+
+goFurther [] = error "tried to go further on empty"
+goFurther (t:ts) = do
+  parseX t
+  parseX (Node "X" ts)
+
+rankAndSave :: [Result] -> Type -> [Type] -> Parser ()
+rankAndSave pstates typ typs = do
+  let trees =  concat $ catMaybes $ map (extractTrees typ) pstates
+  pgf <- gets pgf
+  pst <- gets currentStates
+  let best = take chunklimit $ rankTreesByProbs pgf trees 
+  putReplaced best
+  --typs <- mapM getCats best
+  --let typ = fromMaybe typs (getCatMaybe x)
+  mapM (recoverFrom typs) pst
+  putTrace $ "rankAndSaved for "++show typs
+ --where getCats (expr,_) = do
+ --        pgf <- gets pgf
+ --        let eTs = inferExpr pgf expr
+ --        case eTs of
+ --             Left e      -> error $ "could not infer type for expr " -- ++show expr++show e
+ --             Right (_,t) -> return t
+  
+extractTrees :: Type -> Result -> Maybe [Expr]
+extractTrees typ pstate = do
+  best <- getBestMaybe [pstate] --fult
+  let trees      = getTrees textoutput
+      textoutput = fst (getParseOutput (getPState best) typ Nothing) 
+      getTrees (ParseOk t) = t
+  Just trees
+
+
+
+putReplaced :: [(Expr,Double)] -> Parser ()
+putReplaced expr = do
+  i <- gets counter
+  modify $ \s -> s {counter = i+1, replaced = (i,map fst expr):replaced s}
+
+
+{-
+    | isDisambigNode && isAmbigouos = do
+           old <- gets parseState
+           -- if allTrees far too many, do this below, otherwise use them directly
+           ok <- local (disambigParses t)
+           ---check if ok, put pack old state?
+           bit <- gets currentState
+           putCurrentState old
+           if isBig bit then rankAndSave bit
+                        else parseX (Node "X" ts)
+
+    | otherwise                   = return True -- ?
+-}
+ 
+{-
+&& hardParts  =
                             do addToState (typ++i) (rankByProbs res)
                                parseNext typ
                                disambigParses ts
@@ -320,7 +456,9 @@ disambigParses (t:ts) | isAmbigouos && hardParts  =
                       | otherwise     = 
                             do parseNext t
                                disambigParses ts
+                               
   where addToState = undefined -- add to be exchanged when done
         isAmbigouos = undefined -- Bool, if more trees than limit (length result > limit)
         result      = parseWithEmptyStateAs typ t
         parseNext   = parseNormal t -- without emptying state
+        -}

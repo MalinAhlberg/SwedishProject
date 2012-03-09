@@ -3,7 +3,7 @@
 -- for testing grammar, using just the test lexicon
 concrete BigParseSwe of BigParse = 
   ExtraSwe,
-  NounSwe- [DetNP,PossPron] ,
+  NounSwe- [DetNP,PossPron,ApposCN],
   VerbSwe -[PassV2,ComplSlash,ReflVP],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
@@ -13,7 +13,7 @@ concrete BigParseSwe of BigParse =
   QuestionSwe,
   RelativeSwe,
   PhraseSwe,
-  TextX - [Tense,Temp,Adv] , 
+  TextX - [Tense,Temp,Adv], 
   TenseSwe,
   ConjunctionSwe,
   StructuralSwe - [therefore_PConj,otherwise_PConj], --these require subordinate word order, not for Utt
