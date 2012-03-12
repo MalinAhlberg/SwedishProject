@@ -22,7 +22,10 @@ abstract BigParse =
   {
   flags startcat=Phr ;
   
+  cat PhrText ;
   fun
+  isUtt : Phr -> PhrText ;
+  isText : Text -> PhrText ;
   annars_Adv : Adv ; --remove
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
@@ -31,6 +34,16 @@ abstract BigParse =
   npsubMeta : NPTyped Subject ;
   npobjMeta : NPTyped Object ;
   vMeta : V ;
+  v2 : V2 ;
+  v3 : V3 ;
+  va : VA ;
+  vs : VS ;
+  vq : VQ ;
+  vv : VV ;
+  v2a : V2A ;
+  v2v : V2V ;
+  v2s : V2S ;
+  v2q : V2Q ;
   apMeta : AP ;
   vpMeta : VP ;
   icompMeta : IComp ;
@@ -42,6 +55,7 @@ abstract BigParse =
   adVMeta : AdV ; 
   sMeta : S ;
  
+  
  
   } ;
 

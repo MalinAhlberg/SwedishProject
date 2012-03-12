@@ -8,6 +8,7 @@ import Data.Ord
 import qualified Data.Map as M
 import Data.Either
 import Data.Tree
+import System.IO
 import Types
 
 data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown words should be parsed as
@@ -19,6 +20,8 @@ data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown
                  ,replaced      :: [(Int,[Expr])]
                  ,counter       :: Int
                  ,pgf           :: PGF
+                 ,isInnerS      :: [()]
+                 ,gettingPieces :: Bool
                  ,trace         :: [String]
                  }
 type Parser = State PState
@@ -36,19 +39,20 @@ limit = 500
 chunklimit = 200
 disambiglimit = 700
 
--- TODO chunkade bitar ska disambigueras på en gång
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
+  hSetBuffering stdout LineBuffering
   let (success,st) = runState (parseX tree) parser 
-  appendFile "outputdis" (unlines $ trace st++["\n"])
-  limitOutput success st 
+  res <- limitOutput success st 
+  appendFile "outputdis2" (unlines $ trace st++["\n"])
+  return res
   --appendFile "outputdis" (unlines $ trace st'++["\n"])
   --getOutput success st'
 
  where parser     = PS {recTypes = [[sent]], recState =  [[Ok startState]], skip = [False]
                        ,currentStates = [Ok startState], pieces =  []
                        ,emptyPState = initState pgf lang
-                       ,replaced = [], counter = 0
+                       ,replaced = [], counter = 0, isInnerS = [], gettingPieces = False
                        ,pgf = pgf, trace = []}
        startState = initState pgf lang startType
       
@@ -73,8 +77,8 @@ parseText tree pgf lang startType = do
                isOkParse _           = False
         
                rankThem trees = map fst $ rankTreesByProbs pgf trees
-               getOutput success st | success && canProduce = return $ take limit trees
-                                    | otherwise             = take limit <$> putPiecesTogether st
+               getOutput success st {-| success && canProduce = return $ take limit trees
+                                    | otherwise             -}= take limit <$> putPiecesTogether st
                                                               --TODO limit shouldn't be needed here
 
                putPiecesTogether st = let piec = pieces st in
@@ -118,37 +122,59 @@ parseX (Node w []) | length (words w) == 0 = return True --for removed parts of 
 parseX (Node "ROOT" [t]) = parseX t -- only one node in root
 parseX (Node "ROOT" ts)  = do       -- if there are more, we don't know what to do
   res <- parsePieces ts
-  pgf       <- gets pgf
-  savePieces $ metatize pgf res
+  --pgf       <- gets pgf
+  savePieces $ res -- metatize pgf res
   return False  
 
 
 --TODO maybe make better check so that 'så att ?s' funkar
 parseX (Node "S"  ts) = do 
+   inner   <- gets isInnerS
+   oldPieces <- emptyPieces 
+   piecing <- gets gettingPieces
+   modify $ \s -> s {isInnerS = ():inner}
    parseX (Node "XX" ts)
    st  <- gets currentStates
-   case getBest st of 
-        Ok ps -> case fst (getParseOutput ps text Nothing) of
-                         TypeError _ ->  putTrace "found a type error "
-                                      >> combinePieces st-- may be incomplete, because part of other sentence etc.
-                         _           -> return True 
-        _         -> combinePieces st 
- where combinePieces st = do
-         oldPieces <- emptyPieces 
+   let failFunction = {-if piecing then -}combinePieces st oldPieces piecing-- else return True 
+   res <- case getBest st of 
+               Ok ps -> case fst (getParseOutput ps phrText Nothing) of
+--                                TypeError _ ->  putTrace "found a type error "  
+--                                             >> combinePieces st-- may be incomplete, because part of other sentence etc.
+                                ParseOk x        -> return True
+                                ParseIncomplete  -> if not (null inner) && not piecing  --is embedded, does not have to be complete
+                                                       then putTrace ("inner and piecing "++ show (not $ null inner) ++ show (not piecing)) 
+                                                            >> failFunction 
+                                                       else return True
+                                x                ->  putTrace ("failed on S " ++show x) >> failFunction
+               _         -> putTrace "doesn't like best, failing" >> failFunction --TODO shouldn't we also do pieces, in case outer S succeeds, but innner fails?
+   modify $ \s -> s {isInnerS = inner}
+   return res
+-- TODO START here. What happens?? Why does it start piecing when it should parse IP and be happy?
+
+ where combinePieces st oldPieces piecing = do
+   --      oldPieces <-
+         emptyPieces 
+         putTrace "emptying pieces, parsing news"
          res       <- parsePieces ts
-         pgf       <- gets pgf
-         let s = map (mkApp (mkCId "S")) $ sequence $ metatize pgf res 
+         --pgf       <- gets pgf
+         let s = map (mkApp (mkCId "S")) $ sequence res -- metatize pgf res 
+         putTrace $ "got pieces "++show (map (showExpr []) s)
          savePieces $ s : oldPieces
+         unless piecing $ recoverSentence st
+         return False 
+       recoverSentence st = do 
          rec <- mapM (recoverFrom [sent]) st
          putCurrentStates rec
-         return False 
-
+ 
 
 -- some nouns don't have surrounding NP, but should be roubust anyway
 parseX (Node x ts) | "NN" `isPrefixOf` x && length x>2 = parseX (Node "NN" ts)
                    | isSaveNode x        =  putTrace ("saves node" ++show x)
                                          >> saveState (getCat x) ts
                    | isSkipNode x        = enableSkip ts
+                  -- | isPunct x           = do inner <- gets isInnerS
+                  --                            if null inner then parseX (Node "X" ts)
+                  --                                          else enableSkip ts
 
 -- otherwise, just continue
 parseX (Node x [t]) = putTrace ("one left in "++x ) 
@@ -180,13 +206,45 @@ recoverFrom typs state = return state
 
 
 
-parsePieces :: [Tree String] -> Parser [[(Type,Result)]]
-parsePieces ts = sequence [tryParse t | t <- ts] 
-  where tryParse (Node t ts) = let cats = if isSaveNode t then (getCat t++[utt]) else [utt]
-                               in sequence [do emptyState c
-                                               parseX (Node t ts) 
-                                               res <- getBest <$> gets currentStates
-                                               return (c,res) | c <- cats]
+parsePieces :: [Tree String] -> Parser [[Expr]] --[[(Type,Result)]]
+parsePieces ts = do modify $ \s -> s {gettingPieces = True}
+                    sequence [tryParse t | t <- ts] 
+  where tryParse :: Tree String -> Parser [Expr]
+        tryParse (Node t []) = return [mkApp meta []]
+        tryParse (Node t ts) = do
+                let cats = if isSaveNode t then (getCat t++[utt]) else [utt]
+                ps <- concat <$> sequence [do emptyState c
+                                              parseX (Node t ts) 
+                                              res <-  getBest <$> gets currentStates
+                                              pieces <- gets pieces
+                                              expr <-  acceptOrContinue c res pieces
+                                              return expr {-(c,res)-} | c <- cats]
+                putTrace $ "making pieces, in node "++t++"found "++show (length ps)
+                return ps
+
+         where 
+          acceptOrContinue :: Type -> Result -> [[Expr]] -> Parser [Expr]
+          acceptOrContinue c (Ok st) olds = do
+             putTrace $ "accept "++show c++"?"
+             pgf <- gets pgf
+             case fst (getParseOutput st c Nothing) of 
+                  ParseOk trees   -> do putTrace $ "yes, accept "++show c
+                                        return $ map fst $ take chunklimit $ rankTreesByProbs pgf (nub trees)
+                  _               -> do putTrace $ "no, not good parseState for "++show c
+                                        return [mkApp meta []] --locallyPiece ts olds
+
+          acceptOrContinue c _       olds = do 
+              putTrace $ "no, no good result for "++show c
+              --locallyPiece ts olds --{-
+              return [mkApp meta []] --concat <$> parsePieces ts 
+          locallyPiece ts olds = do 
+              emptyPieces
+              res <- concat <$> parsePieces ts
+              savePieces olds
+              return res
+
+
+
 
 isSaveNode = (`elem` map fst saveNodes)
 
@@ -199,7 +257,7 @@ saveNodes = [("NP",nps),("PP",[adv]),("SS",[npsub,np]),("OO",[npobj,np])
             ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",nps)
             ,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
             ,("CPP",[adv]),("CS",[sent]),("CVP",[vpx]),("NAC",[utt])
-            ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])
+            ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])--,("S",[utt])
             ,("NN",nps)] --TODO change v to all vs
 
 disambigNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
@@ -218,6 +276,7 @@ typeNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
 -}
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
+isPunct    x = any (`isPrefixOf` x) ["IP","IU","I?"]
 
 getCat :: String -> [Type]
 getCat = fromJust . getCatMaybe
@@ -263,7 +322,7 @@ getBestMaybe t = case getBest t of
 getBest = head . sortBy (comparing resultOrder)
  where resultOrder (Ok _)      = 1
        resultOrder (Recover _) = 2
-       resultOrder _               = 3
+       resultOrder _           = 3
 
 metatize :: PGF -> [[(Type,Result)]] -> [[Expr]]
 metatize pgf = map putMetas
@@ -355,14 +414,18 @@ backUp{-ForAdv-} state = do
                else return [] 
  where parseAsAdV = do
          putTrace "backing up for adv" 
-         let nextTok = simpleParseInput $ fromJust $ toGFStr [adV] 
+         let nextTok = simpleParseInput $ fromJust $ toGFStr advs -- [adV,adv]  --good?
          case nextState state nextTok of
               Right st -> return [Ok st]
               _        -> return []
               --TODO
-       --parseAsVs = do
-       --  putTrace "backing up for verb" 
-       --  let nextTok = simpleParseInput $ fromJust $ toGFStr verbs 
+       parseAsVs = do
+         putTrace "backing up for verb" 
+         let nextTok = simpleParseInput $ fromJust $ toGFStr verbs  --------TODO OBS add verbs in Types and Grammar
+         case nextState state nextTok of                        --- also allow all types for chunking vps
+              Right st -> return [Ok st]
+              _        -> return []
+
 
 meta = mkCId "?" 
 
@@ -462,3 +525,11 @@ putReplaced expr = do
         result      = parseWithEmptyStateAs typ t
         parseNext   = parseNormal t -- without emptying state
         -}
+
+instance Show ParseOutput where
+   show  (ParseOk tree)    = "ParseOK"++unlines (map (showExpr []) tree)
+   show  (TypeError x)     = "TypeError"
+   show  (ParseFailed i)   = "ParseFailed"
+   show  (ParseIncomplete) = "Incomplete"
+
+

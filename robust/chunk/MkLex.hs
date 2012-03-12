@@ -13,19 +13,21 @@ import ReadCommand
 type LexMap = (Lex,Lex)
 type Lex    = M.TMap String String
 
-mkDir ::LexMap -> [Lemma] -> IO (Maybe (FilePath,Language))
-mkDir lexs lem = do
+mkDir ::LexMap -> [Lemma] -> Int -> IO (Maybe (FilePath,Language))
+mkDir lexs lem i = do
    let lems = map head $ group $ sort lem
    putStrLn $ "Lemmas wanted "++show lems
    putStrLn "Extracting new lexicon..."
-   (t,(cnc,abs)) <- timeItT $ extractLemmas lexs lems
+   (t,(cnc,abs)) <- timeItT $ extractLemmas lexs lems 
    putStrLn $ "Compiling new grammar, extraction: "++ show t
    (t',(ex,res,err)) <- timeItT $ readProcessWithExitCode' "." "gf"
                               ["--make",parseGF] []
    putStrLn $ "compilation: "++ show t'
    case ex of
         ExitSuccess   -> do putStrLn "Done"
-                            return $ Just (newPGF,newLang)
+                            let thisPGF = "BigParse"++show i++".pgf"
+                            runCommand $ "mv \"BigParse.pgf\" "++ thisPGF
+                            return $ Just (thisPGF,newLang)
         ExitFailure _ -> do putStrLn "PGF error"
                             putStrLn err
                             return Nothing

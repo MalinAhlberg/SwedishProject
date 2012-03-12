@@ -13,6 +13,7 @@ import Compound
 
 -- compound: kattpälsen  -> [(katt &+ pälsen)]
 -- ne      : Johan Ros   -> ["X1",""](
+--TODO write names to state!!
 
 type ProcessState = Writer ([Lemma], [(Int,String)])
 

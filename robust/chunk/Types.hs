@@ -63,7 +63,8 @@ advs   = [adv,adV,iadv]
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 --advs = [advsub,advobj]
 nps  = [npsub,npobj,np]
-verbs   = [v,v2] -- should contain all, but never used...
+verbs   = [v,v2] --,v3,vs,vq,va,v2a,v2q,vv,v2v,v2s] 
+phrText = fromJust $ readType "PhrText"
 --aps  = [apsub,apobj]
 toGFStr :: [Type] -> Maybe String
 toGFStr xs  | xs == advs  = return "?advs"

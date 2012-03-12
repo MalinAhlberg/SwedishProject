@@ -16,17 +16,23 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ tryAll "hardtests.xml"
+          timeIt $ tryAll "stest.xml"
 
 tryAll fil = do
   putStrLn $ "Start, reading saldo ..."
-  lex <- getSaldo 
+  saldo <- getSaldo 
   putStrLn $ "Reading pgf ... "
   pgf <- readPGF pgfBigFile
   putStrLn $ "Building morpho ... "
   let morpho = buildMorpho pgf langBig
   putStrLn $ "Parsing xml ... "
-  input <- fmap concat $ Form.parse fil
+  input <- splitFile $ fmap concat $ Form.parse fil
+  --input <- fmap concat $ Form.parse fil
+
+  pgfs <- mapM (extractDicts saldo morpho) [x | x <- zip input [0..]]  --write to file, input included
+  mapM processPartition pgfs
+
+  {-
   putStrLn $ "Processing the tree "
   let ziptrees        = map (getFirstWord . fromTree . snd) input
       (newsTrees,res) = runWriter (mapM (processTree True lex morpho 0) ziptrees)
@@ -34,15 +40,30 @@ tryAll fil = do
   writeFile "namesEx" $ formatNames names
   lex <- mkLexMap
   Just (pgf',newLang) <- mkDir lex lms 
-  newPgf <- readPGF pgf' 
-  probs <- readProbabilitiesFromFile "ProbsNewSpec" newPgf
-  let goodPgf = setProbabilities probs newPgf
-  putStrLn $ "Parsing the tree "
-  mapM (processAndWrite goodPgf newLang) $ zip (map fst input) (map toTree newsTrees)
+  -}
+
  where processAndWrite pgf lang (i,tree) = do
-         res <- parseText tree pgf lang startType
-         appendFile "disambigtest3.txt" $ showRes (i,res) ++"\n"
+          res <- parseText tree pgf lang startType
+          appendFile "disambigtest4.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
+
+       extractDicts saldo morpho (input,i) = do
+          putStrLn $ "Processing the tree "
+          let ziptrees        = map (getFirstWord . fromTree . snd) input
+              (newsTrees,res) = runWriter (mapM (processTree True saldo morpho 0) ziptrees)
+              (lms,names)     = res
+          writeFile ("namesEx"++show i) $ formatNames names
+          lex <- mkLexMap 
+          pgfs <- mkDir lex lms i 
+          return (map fst input, newsTrees,pgfs)
+
+       processPartition (nums,newsTrees,Just (pgf,newLang)) = do
+          newPgf <- readPGF pgf 
+          probs  <- readProbabilitiesFromFile "ProbsNewSpec" newPgf
+          let goodPgf = setProbabilities probs newPgf
+          putStrLn $ "Parsing the tree "
+          mapM (processAndWrite goodPgf newLang) $ zip nums (map toTree newsTrees)
+       splitFile = --TODO
 
 
 tryMedium fil = do

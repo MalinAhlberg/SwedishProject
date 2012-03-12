@@ -24,7 +24,11 @@ open CommonScand, Prelude in {
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;
 
+  lincat PhrText = {s : Str} ;
   lin
+  isUtt s = s ;
+  isText s = s ;
+     
 
   annars_Adv = mkAdv "annars" ; --remove
   Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
@@ -55,7 +59,19 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
   iadvMeta  = {s = "?advs"} ;
   adVMeta   = {s = "?advs"} ; 
   sMeta     = {s = \\_ => "?s" };
-  
+  {-
+  v2 = mkV2 "?v2" ;
+  v3 = mkV2 "?v3" ;
+  va =  mkV2 "?va" ;
+  vs =  mkVS (mkV "?vs") ;
+  vq =  mkVQ (mkV "?vq") ;
+  vv =  mkVV (mkV "?vv") ;
+  v2a =  mkVA "?v2a" ;
+  v2v =  mkVV "?v2v" ;
+  v2s =  mkVS "?v2s" ;
+  v2q =  mkVQ "?v2q" ;
+ 
+ -}
 
   oper mkNP' : Str ->  {s : NPerson => NPForm => Str ; a : Agr} = 
       \str -> {s = \\_,_ => str ; a = {n = variants {Sg | Pl} ;
