@@ -26,8 +26,9 @@ mkDir lexs lem i = do
    case ex of
         ExitSuccess   -> do putStrLn "Done"
                             let thisPGF = "BigParse"++show i++".pgf"
-                            runCommand $ "mv \"BigParse.pgf\" "++ thisPGF
-                            return $ Just (thisPGF,newLang)
+                            x <- readProcess "mv" ["BigParse.pgf","pgfs/"++thisPGF] []
+                            putStrLn $ "Moved the pgf "++x
+                            return   $ Just (thisPGF,newLang)
         ExitFailure _ -> do putStrLn "PGF error"
                             putStrLn err
                             return Nothing

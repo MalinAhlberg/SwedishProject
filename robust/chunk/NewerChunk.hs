@@ -17,12 +17,12 @@ data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown
                  ,currentStates :: [Result]       --the current parse state
                  ,pieces        :: [[Expr]]       --relevant pieces parsed so far
                  ,emptyPState   :: Type -> ParseState --an empty parse state
-                 ,replaced      :: [(Int,[Expr])]
-                 ,counter       :: Int
-                 ,pgf           :: PGF
-                 ,isInnerS      :: [()]
-                 ,gettingPieces :: Bool
-                 ,trace         :: [String]
+                 ,replaced      :: [(Int,[Expr])]  --list of expressions to replace the ints with later
+                 ,counter       :: Int             --counter for replacing
+                 ,pgf           :: PGF             --the pgf
+                 ,isInnerS      :: [()]            --stack keeping track of if a sentence is embedded or not
+                 ,gettingPieces :: Bool            --are we parsing chunks or the whole sentence?
+                 ,trace         :: [String]        --logging trace
                  }
 type Parser = State PState
 data Result = Ok ParseState | Recover ParseState | Failed 
@@ -129,42 +129,66 @@ parseX (Node "ROOT" ts)  = do       -- if there are more, we don't know what to 
 
 --TODO maybe make better check so that 'så att ?s' funkar
 parseX (Node "S"  ts) = do 
+   old  <- gets currentStates
    inner   <- gets isInnerS
    oldPieces <- emptyPieces 
    piecing <- gets gettingPieces
    modify $ \s -> s {isInnerS = ():inner}
    parseX (Node "XX" ts)
-   st  <- gets currentStates
-   let failFunction = {-if piecing then -}combinePieces st oldPieces piecing-- else return True 
-   res <- case getBest st of 
-               Ok ps -> case fst (getParseOutput ps phrText Nothing) of
+   new  <- gets currentStates
+   let failFunction = {-if piecing then -}combinePieces old oldPieces piecing inner-- else return True 
+   let out = getBest new -- sortThem $ map getTheOutput (filter (not . (==Failed)) new)
+   res <- case out of 
+        Ok ps -> case fst (getParseOutput ps phrText Nothing) of
 --                                TypeError _ ->  putTrace "found a type error "  
 --                                             >> combinePieces st-- may be incomplete, because part of other sentence etc.
-                                ParseOk x        -> return True
-                                ParseIncomplete  -> if not (null inner) && not piecing  --is embedded, does not have to be complete
-                                                       then putTrace ("inner and piecing "++ show (not $ null inner) ++ show (not piecing)) 
-                                                            >> failFunction 
-                                                       else return True
-                                x                ->  putTrace ("failed on S " ++show x) >> failFunction
-               _         -> putTrace "doesn't like best, failing" >> failFunction --TODO shouldn't we also do pieces, in case outer S succeeds, but innner fails?
+               ParseOk x        -> return True
+               ParseIncomplete  -> if  True --{-(null inner) &&-} not piecing  --is embedded, does not have to be complete
+                                      then return True
+                                      else putTrace ("inner and piecing "++ show (null inner) ++ show (not piecing)) 
+                                        >> failFunction 
+               x                ->  putTrace ("failed on S " ++show x) >> failFunction
+        _         -> putTrace "doesn't like best, failing" >> failFunction --TODO shouldn't we also do pieces, in case outer S succeeds, but innner fails?
    modify $ \s -> s {isInnerS = inner}
    return res
--- TODO START here. What happens?? Why does it start piecing when it should parse IP and be happy?
+ where getTheOutput (Ok st) = fst $ getParseOutput st phrText Nothing
+       getTheOutput (Recover st) = fst $ getParseOutput st phrText Nothing
+       getTheOutput _       = ParseFailed 0
+       sortThem             = sortBy (comparing goodness)
+       goodness (ParseOk _)     = 1
+       goodness ParseIncomplete = 2
+       goodness _               = 3
+       --getAGoodOne inner (x:xs) | inner = case fst (getParseOutput ps phrText Nothing) of
+-- TODO START here. Insert pieces afterwards
 
- where combinePieces st oldPieces piecing = do
-   --      oldPieces <-
+       combinePieces st oldPieces piecing inner = do
          emptyPieces 
          putTrace "emptying pieces, parsing news"
          res       <- parsePieces ts
-         --pgf       <- gets pgf
          let s = map (mkApp (mkCId "S")) $ sequence res -- metatize pgf res 
          putTrace $ "got pieces "++show (map (showExpr []) s)
          savePieces $ s : oldPieces
-         unless piecing $ recoverSentence st
+         unless piecing $ recoverSentence st inner
          return False 
-       recoverSentence st = do 
-         rec <- mapM (recoverFrom [sent]) st
+       recoverSentence st inner = do 
+         rec <- case inner of
+                     [] -> putTrace "recover outer" >> mapM (recoverFrom [sent]) st
+                     _  -> putTrace "recover inner" >> mapM recoverConjAndSent st
          putCurrentStates rec
+       recoverConjAndSent st= do mid <- recoverFrom [conj] st
+                                 case mid of
+                                   Recover st' -> recoverFrom [sent] $ Ok st'
+                                   _           -> return $ mid
+                     {-putTrace "recover outer" >> mapM (recoverFully [sent]) st
+                     _  -> putTrace "recover inner" >> mapM recoverConjAndSent st
+         putCurrentStates rec
+       recoverFully t st = do mid <- recoverFrom t st
+                              case mid of
+                                   Recover st' -> return $ Ok st'
+                                   _           -> return $ mid
+       recoverConjAndSent st= do mid <- recoverFully [conj] st
+                                 recoverFully [sent] mid 
+                                 -}
  
 
 -- some nouns don't have surrounding NP, but should be roubust anyway
@@ -181,8 +205,9 @@ parseX (Node x [t]) = putTrace ("one left in "++x )
                     >> parseX t 
 parseX (Node x (t:ts)) = do
   putTrace ("many left in "++x)   
-  parseX t               --look at x here --why do we do this??
-  parseX (Node "XX" ts)  --but not again
+  parseX t               
+  parseX (Node "XX" ts)  -- continue, but don't use x anymore
+
 
 recoverFrom :: [Type] -> Result -> Parser Result 
 recoverFrom typs (Ok state) = 
@@ -287,8 +312,8 @@ getTypeNode = fromJust . (`lookup` disambigNodes)
 
 saveState ::  [Type] -> [Tree String] -> Parser Success
 saveState recover ts = do
-  res  <- gets currentStates
-  recSt <- getRecState
+  res    <- gets currentStates
+  recSt  <- getRecState
   recTyp <- getRecTypes
   let oks =  filter isOkResult res  --only the ones that are ok when we start should be considered
   case oks of
@@ -297,7 +322,7 @@ saveState recover ts = do
             local (putCurrentStates oks >> pushRecTypes recover >> parseX (Node "XX" ts))
             news <- gets currentStates
             recovered <- cleanUp recSt recTyp news
-            putCurrentStates recovered
+            putCurrentStates $ recovered ++ filter (not . isOkResult) res
             return (not $ null recovered) --if we have any left..
 cleanUp s t res = concat <$> mapM (recoverSt s t) res 
   where recoverSt :: [Result] -> [Type] -> Result -> Parser [Result]
@@ -306,7 +331,7 @@ cleanUp s t res = concat <$> mapM (recoverSt s t) res
         recoverSt _     _      ok               = return [ok]
 
 isOkResult (Ok _) = True
-isOkResult _          = False
+isOkResult _      = False
 
 enableSkip :: [Tree String] -> Parser Success 
 enableSkip ts = do
@@ -405,8 +430,8 @@ emptyPieces = do
 -- Since we do not have much information about adverbs in our lexicon,
 -- we remember the possibility that an adverb (Adv) was acctually used
 -- as AdV. The AdV will then use the 'meta' word ?adV
-backUp{-ForAdv-} :: ParseState -> Parser [Result]
-backUp{-ForAdv-} state = do 
+backUp :: ParseState -> Parser [Result]
+backUp state = do 
   types  <- getRecTypes
   if adV `elem` types then parseAsAdV
           else if v `elem` types 

@@ -65,6 +65,7 @@ advs   = [adv,adV,iadv]
 nps  = [npsub,npobj,np]
 verbs   = [v,v2] --,v3,vs,vq,va,v2a,v2q,vv,v2v,v2s] 
 phrText = fromJust $ readType "PhrText"
+emsent = fromJust $ readType "SubjS" --obs!! 
 --aps  = [apsub,apobj]
 toGFStr :: [Type] -> Maybe String
 toGFStr xs  | xs == advs  = return "?advs"
@@ -82,6 +83,7 @@ toGFStr [x] | x  == conj  = return "?conj"
 toGFStr [x] | x  == comp  = return "?comp"
 toGFStr [x] | x  == icomp = return "?icomp"
 toGFStr [x] | x  == sent  = return "?s"
+toGFStr [x] | x  == emsent  = return "?conj ?s"
 toGFStr  x                = Nothing
            
 
