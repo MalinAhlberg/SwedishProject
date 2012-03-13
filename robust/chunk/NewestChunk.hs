@@ -1,14 +1,16 @@
 {-# LANGUAGE ViewPatterns #-}
-module NewerChunk where 
+module NewestChunk where 
 import PGF hiding (Tree)
-import Control.Monad.State hiding (ap)
 import Control.Applicative
+import Control.Arrow
+import Control.Monad.State hiding (ap)
 import Data.List
 import Data.Maybe
 import Data.Ord
 import qualified Data.Map as M
 import Data.Either
 import Data.Tree
+import qualified Debug.Trace as DB
 import System.IO
 import Types
 
@@ -20,8 +22,9 @@ data PState = PS {recTypes      :: [[Type]]       --stack of types which unknown
                  ,emptyPState   :: Type -> ParseState --an empty parse state
                  ,replaced      :: [(Int,[Expr])]  --list of expressions to replace the ints with later
                  ,counter       :: Int             --counter for replacing
+                 ,sentences     :: [Tree String]
                  ,pgf           :: PGF             --the pgf
-                 ,isInnerS      :: [()]            --stack keeping track of if a sentence is embedded or not
+                 ,isInnerS      :: Int             --stack keeping track of if a sentence is embedded or not
                  ,gettingPieces :: Bool            --are we parsing chunks or the whole sentence?
                  ,trace         :: [String]        --logging trace
                  }
@@ -42,31 +45,21 @@ disambiglimit = 700
 
 parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
-  hSetBuffering stdout LineBuffering
   let (success,st) = runState (parseX tree) parser 
   res <- limitOutput success st 
-  appendFile "outputdis2" (unlines $ trace st++["\n"])
+  appendFile "outputdis3" (unlines $ trace st++["\n"])
   return res
-  --appendFile "outputdis" (unlines $ trace st'++["\n"])
-  --getOutput success st'
 
- where parser     = PS {recTypes = [[sent]], recState =  [[Ok startState]], skip = [False]
-                       ,currentStates = [Ok startState], pieces =  []
-                       ,emptyPState = initState pgf lang
-                       ,replaced = [], counter = 0, isInnerS = [], gettingPieces = False
-                       ,pgf = pgf, trace = []}
-       startState = initState pgf lang startType
+ where parser     = initPState pgf lang startType
       
        limitOutput :: Success -> PState -> IO [Expr]
-       limitOutput success st | success && canProduce = return $ take limit $ rankThem trees
-                                     --if limit <= length trees 
-                                     --    then return trees
-                                     --    else do 
-                                     --     -- let dis = execState (disambigParse tree) parser 
-                                     --     -- appendFile "outputdis" (unlines $ trace dis++["\n"])
-                                     --     -- appendFile "comps" (unlines $ map show $ replaced dis)
-                                     --      getOutput success st -- $ dis
-                              | otherwise = getOutput success st
+       limitOutput success st | success && canProduce = do putStrLn $ "success "++show success
+                                                           sents <- parseSentences st lang
+                                                           return $ (take limit $ rankThem trees)
+                                                                    ++ (rankThem $ concat sents)
+                                                           
+                              | otherwise = do putStrLn $ "could not produce. success :"++show success
+                                               take limit <$> putPiecesTogether st
          where canProduce = isOkParse result
                result     = if isOkParse textoutput then textoutput
                                       else fst (getParseOutput (getPState best) utt Nothing) 
@@ -75,25 +68,33 @@ parseText tree pgf lang startType = do
                trees      = getTrees result
                getTrees  (ParseOk t) = t
                isOkParse (ParseOk t) = True
-               isOkParse _           = False
+               isOkParse x           = DB.trace ("got a bad result "++show x) False
         
                rankThem trees = map fst $ rankTreesByProbs pgf trees
-               getOutput success st {-| success && canProduce = return $ take limit trees
-                                    | otherwise             -}= take limit <$> putPiecesTogether st
-                                                              --TODO limit shouldn't be needed here
 
                putPiecesTogether st = let piec = pieces st in
-                     return $ [mkApp (mkCId "Text") [mkApp meta c] | c <- combinations $ map (take limit) piec] 
+                     return $ [mkApp (mkCId "Text") [mkApp meta c] 
+                              | c <- combinations $ map (take chunklimit) piec] 
                combinations = sequence
 
+initPState pgf lang startType =  
+  let startS = startState pgf lang startType
+  in  PS {recTypes = [[sent]], recState =  [[Ok $ startS ]], skip = [False]
+         ,currentStates = [Ok startS], pieces =  []
+         ,emptyPState = initState pgf lang
+         ,replaced = [], counter = 0, isInnerS = 0, gettingPieces = False
+         ,sentences = [], pgf = pgf, trace = []}
+
+startState pgf lang startType = initState pgf lang startType
+
 -- parse the words
-parseX ::  Tree String -> Parser Success
-parseX (Node w []) | length (words w) == 0 = return True --for removed parts of names 
-                   | length (words w) > 1  = liftM last  -- compounds
-                                           $ mapM (parseX . flip Node []) 
-                                           $ words w
-                   | otherwise             = 
-  do states <- gets currentStates 
+parseX' ::  Tree String -> Parser Success
+parseX' (Node w []) | length (words w) == 0 = return True --for removed parts of names 
+                    | length (words w) > 1  = liftM last  -- compounds
+                                            $ mapM (parseX . flip Node []) 
+                                            $ words w
+                    | otherwise             = 
+  do states    <- gets currentStates 
      newStates <- mapM parseNext states
      putCurrentStates $ concat newStates
      return True 
@@ -106,10 +107,10 @@ parseX (Node w []) | length (words w) == 0 = return True --for removed parts of 
               let nextTok = simpleParseInput w 
               case nextState state nextTok of
                    Right ps  -> do putTrace ("parse success "++w)
-                                   st <- backUp{-ForAdv-} state
+                                   st <- backUp state
                                    let st' = if skipOk then [Ok state]
                                                        else []
-                                   return ([Ok ps]++st++st')   
+                                   return (st'++[Ok ps]++st)   
                    Left  er  -> do if skipOk then return [Ok state]
                                              else do
                                                types  <- getRecTypes
@@ -120,44 +121,38 @@ parseX (Node w []) | length (words w) == 0 = return True --for removed parts of 
        parseNext badState = return [badState]
 
 
-parseX (Node "ROOT" [t]) = parseX t -- only one node in root
-parseX (Node "ROOT" ts)  = do       -- if there are more, we don't know what to do
+parseX' (Node "ROOT" [t]) = parseX t -- only one node in root
+parseX' (Node "ROOT" ts)  = do       -- if there are more, we don't know what to do
   res <- parsePieces ts
-  --pgf       <- gets pgf
-  savePieces $ res -- metatize pgf res
+  savePieces $ res 
   return False  
 
 
---TODO maybe make better check so that 'så att ?s' funkar
-parseX (Node "S"  ts) = do 
-   old  <- gets currentStates
-   inner   <- gets isInnerS
-   oldPieces <- emptyPieces 
-   piecing <- gets gettingPieces
-   modify $ \s -> s {isInnerS = ():inner}
-   parseX (Node "XX" ts)
-   new  <- gets currentStates
-   let failFunction = return False --combinePieces old oldPieces piecing inner-- else return True 
-   let out = findBest (filter isOkResult new) -- sortThem $ map getTheOutput (filter (not . (==Failed)) new)
-   res <- case out of 
-        Just (ParseOk x)        -> return True
-        Just ParseIncomplete  -> if  True --{-(null inner) &&-} not piecing  --is embedded, does not have to be complete
-                                      then return True
-                                      else putTrace ("inner and piecing "++ show (null inner) ++ show (not piecing)) 
-                                        >> failFunction 
-        Nothing                ->  putTrace ("failed on S ") >> failFunction
-        --_         -> putTrace "doesn't like best, failing" >> failFunction --TODO shouldn't we also do pieces, in case outer S succeeds, but innner fails?
-   modify $ \s -> s {isInnerS = inner}
-   return res
- where getTheOutput (Ok st) = fst $ getParseOutput st phrText Nothing
-       getTheOutput (Recover st) = fst $ getParseOutput st phrText Nothing
-       getTheOutput _       = ParseFailed 0
-       sortThem             = minimumBy (comparing goodness)
-       goodness (ParseOk _)     = 1
-       goodness ParseIncomplete = 2
-       goodness _               = 3
+parseX' node@(Node "S"  ts) = do 
+   old       <- gets currentStates
+   inner     <- gets isInnerS
+   case inner of
+        0 -> putTrace "parsing a s" >> parseS old inner
+        n -> do modify $ \s -> s {sentences = node : sentences s}
+                putTrace "save the sentence for later"
+                res <- recoverSentence old inner
+                return True -- $ any isOkResult res
 
-    
+ where parseS old inner = do 
+         piecing   <- gets gettingPieces
+         oldPieces <- emptyPieces 
+         modify $ \s -> s {isInnerS = inner + 1}
+         parseX (Node "XX" ts)
+         new  <- gets currentStates
+         let failFunction = combinePieces old oldPieces piecing inner
+         let out = findBest (filter isOkResult new) 
+         res <- case out of 
+              Just x    -> return True
+              Nothing   ->  putTrace ("failed on S ") >> failFunction
+         modify $ \s -> s {isInnerS = inner}
+         putTrace $ "has parsed a sentence, result was "++show res
+         return res
+
        findBest :: [Result] -> Maybe ParseOutput
        findBest (map (\(Ok x) -> fst $ getParseOutput x phrText Nothing) -> xs)
                    = findParseOk xs `mplus` findParseInc xs
@@ -170,51 +165,46 @@ parseX (Node "S"  ts) = do
            findParseInc (_:xs)              = findParseInc xs
            findParseInc []                  = Nothing
 
--- TODO START here. Insert pieces afterwards
+-- TODO Insert pieces afterwards, keep node numbers to put them back
 
-       combinePieces st oldPieces piecing inner = do
+       combinePieces oldst oldPieces piecing inner = do
          emptyPieces 
          putTrace "emptying pieces, parsing news"
          res       <- parsePieces ts
-         let s = map (mkApp (mkCId "S")) $ sequence res -- metatize pgf res 
+         let s = map (mkApp (mkCId "S")) $ sequence res 
          putTrace $ "got pieces "++show (map (showExpr []) s)
          savePieces $ s : oldPieces
-         unless piecing $ recoverSentence st inner
+         unless piecing $ (recoverSentence oldst inner >> return ())
          return False 
+
+       recoverSentence :: [Result] -> Int -> Parser [Result]
        recoverSentence st inner = do 
          rec <- case inner of
-                     [] -> putTrace "recover outer" >> mapM (recoverFrom [sent]) st
-                     _  -> putTrace "recover inner" >> mapM recoverConjAndSent st
+                     0 -> putTrace "recover outer" >> mapM (recoverFully [sent]) st
+                     _ -> putTrace "recover inner" >> mapM recoverConjAndSent st
          putCurrentStates rec
-       recoverConjAndSent st= do mid <- recoverFrom [conj] st
-                                 case mid of
-                                   Recover st' -> recoverFrom [sent] $ Ok st'
-                                   _           -> return $ mid
-                     {-putTrace "recover outer" >> mapM (recoverFully [sent]) st
-                     _  -> putTrace "recover inner" >> mapM recoverConjAndSent st
-         putCurrentStates rec
+         return rec
+
+       recoverConjAndSent st= do mid <- recoverFully [conj] st
+                                 recoverFully [sent] mid 
+
        recoverFully t st = do mid <- recoverFrom t st
                               case mid of
                                    Recover st' -> return $ Ok st'
                                    _           -> return $ mid
-       recoverConjAndSent st= do mid <- recoverFully [conj] st
-                                 recoverFully [sent] mid 
-                                 -}
- 
+
 
 -- some nouns don't have surrounding NP, but should be roubust anyway
-parseX (Node x ts) | "NN" `isPrefixOf` x && length x>2 = parseX (Node "NN" ts)
-                   | isSaveNode x        =  putTrace ("saves node" ++show x)
-                                         >> saveState (getCat x) ts
-                   | isSkipNode x        = enableSkip ts
-                  -- | isPunct x           = do inner <- gets isInnerS
-                  --                            if null inner then parseX (Node "X" ts)
-                  --                                          else enableSkip ts
+parseX' (Node x ts) | "NN" `isPrefixOf` x && length x>2 = parseX (Node "NN" ts) -- put all variants of NNxxx to NN
+
+                    | isSaveNode x        =  putTrace ("saves node" ++show x)
+                                          >> saveState (getCat x) ts
+                    | isSkipNode x        = enableSkip ts
 
 -- otherwise, just continue
-parseX (Node x [t]) = putTrace ("one left in "++x ) 
+parseX' (Node x [t]) = putTrace ("one left in "++x ) 
                     >> parseX t 
-parseX (Node x (t:ts)) = do
+parseX' (Node x (t:ts)) = do
   putTrace ("many left in "++x)   
   parseX t               
   parseX (Node "XX" ts)  -- continue, but don't use x anymore
@@ -231,6 +221,7 @@ recoverFrom typs (Ok state) =
                   Right e  -> putTrace ("recover success") >> (return $ Recover e)
                   Left  er -> putTrace ("recover fail")    >> return Failed
        Nothing  -> do -- if not in list, we use normal recover
+             putTrace "couldn't do a normal recovery"
              let nextTok :: ParseInput 
                  nextTok = simpleParseInput "XXX"
                  lastSt = nextState state nextTok
@@ -238,11 +229,11 @@ recoverFrom typs (Ok state) =
                   Right _  -> return Failed 
                   Left  er ->  putTrace ("super recover") 
                            >>  return (Recover $ fst $ recoveryStates typs er)
+
 recoverFrom typs state = return state
 
 
-
-parsePieces :: [Tree String] -> Parser [[Expr]] --[[(Type,Result)]]
+parsePieces :: [Tree String] -> Parser [[Expr]] 
 parsePieces ts = do modify $ \s -> s {gettingPieces = True}
                     sequence [tryParse t | t <- ts] 
   where tryParse :: Tree String -> Parser [Expr]
@@ -254,7 +245,8 @@ parsePieces ts = do modify $ \s -> s {gettingPieces = True}
                                               res <-  getBest <$> gets currentStates
                                               pieces <- gets pieces
                                               expr <-  acceptOrContinue c res pieces
-                                              return expr {-(c,res)-} | c <- cats]
+                                              return expr
+                                          | c <- cats]
                 putTrace $ "making pieces, in node "++t++"found "++show (length ps)
                 return ps
 
@@ -271,15 +263,19 @@ parsePieces ts = do modify $ \s -> s {gettingPieces = True}
 
           acceptOrContinue c _       olds = do 
               putTrace $ "no, no good result for "++show c
-              --locallyPiece ts olds --{-
-              return [mkApp meta []] --concat <$> parsePieces ts 
+              --locallyPiece ts olds 
+              return [mkApp meta []] 
           locallyPiece ts olds = do 
               emptyPieces
               res <- concat <$> parsePieces ts
               savePieces olds
               return res
 
-
+parseSentences :: PState -> Language -> IO [[Expr]]
+parseSentences st lang = 
+  let sents = sentences st
+      pgf'  = pgf st
+  in mapM (\s -> do parseText (Node "MS" [s]) pgf' lang phrText) sents
 
 
 isSaveNode = (`elem` map fst saveNodes)
@@ -293,33 +289,20 @@ saveNodes = [("NP",nps),("PP",[adv]),("SS",[npsub,np]),("OO",[npobj,np])
             ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",nps)
             ,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
             ,("CPP",[adv]),("CS",[sent]),("CVP",[vpx]),("NAC",[utt])
-            ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])--,("S",[utt])
+            ,("++",[conj]),("SP",[icomp,comp]),("VP",[vpx])
             ,("NN",nps)] --TODO change v to all vs
 
 disambigNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
                ,("OA",adv),("AP",ap),("CPP",adv),("CS",sent)
                ]
-{-
-typeNodes = [("NP",np),("PP",adv),("SS",np),("OO",np)
-            ,("OA",adv),("TA",adV),("XA",adV),("VA",adV)
-            ,("MA",adV),("KA",adV),("CA",adV),("AA",adV)
-            ,("+A",adV),("FV",v), ("IV",v),("CNP",np)
-            ,("AP",ap),("AVP",adV),("CAP",ap),("CAVP",adV)
-            ,("CPP",adv),("CS",sent),("CVP",vpx),("NAC",utt)
-            ,("++",conj),("SP",comp),("VP",vpx)
-            ,("NN",np)] --TODO change v to all vs
 
--}
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
-isPunct    x = any (`isPrefixOf` x) ["IP","IU","I?"]
 
 getCat :: String -> [Type]
 getCat = fromJust . getCatMaybe
 getCatMaybe :: String -> Maybe [Type]
 getCatMaybe = (`lookup` saveNodes)
-getTypeNode :: String -> Type
-getTypeNode = fromJust . (`lookup` disambigNodes)
 
 saveState ::  [Type] -> [Tree String] -> Parser Success
 saveState recover ts = do
@@ -338,7 +321,8 @@ saveState recover ts = do
 cleanUp s t res = concat <$> mapM (recoverSt s t) res 
   where recoverSt :: [Result] -> [Type] -> Result -> Parser [Result]
         recoverSt _     _      (Recover st) = return [Ok st]
-        recoverSt recSt recTyp Failed           = mapM (recoverFrom recTyp) recSt  -- should be recovered at next level instead
+        recoverSt recSt recTyp Failed           = -- should be recovered at next level instead
+                                                  mapM (recoverFrom recTyp) recSt 
         recoverSt _     _      ok               = return [ok]
 
 isOkResult (Ok _) = True
@@ -355,23 +339,19 @@ getBestMaybe t = case getBest t of
    Ok p -> Just $ Ok p
    _    -> Nothing
 
-getBest = head . sortBy (comparing resultOrder)
+getBest :: [Result] -> Result
+getBest ts = let res  = map (resultOrder &&& id) ts
+                 list :: [(Int,Result)]
+                 list = filter ((==1) . fst) res ++ filter ((==2) . fst) res
+                         ++ res
+             in snd $ head list
  where resultOrder (Ok _)      = 1
        resultOrder (Recover _) = 2
        resultOrder _           = 3
 
-metatize :: PGF -> [[(Type,Result)]] -> [[Expr]]
-metatize pgf = map putMetas
-  where putMetas :: [(Type,Result)] -> [Expr]
-        putMetas []               = [mkApp meta []]
-        putMetas ((t,res):ps)     = 
-           case fst (getParseOutput (getPState res) t Nothing) of 
-                ParseOk trees   -> map fst $ take chunklimit $ rankTreesByProbs pgf (nub trees)
-                _               -> putMetas ps
-
 getPState (Recover ps) = ps
 getPState (Ok      ps) = ps
-getPState _                = error "getPState on Failed"
+getPState _            = error "getPState on Failed"
 
 putCurrentStates ::  [Result] -> Parser ()
 putCurrentStates ps = modify $ \s -> s {currentStates = ps}
@@ -395,8 +375,8 @@ pushRecTypes typ = do
   putTrace ("push types "++ show typ) 
   modify $ \s -> s {recTypes = typ : recTypes s}
 
-restoreStates :: [[Result]] -> [[Type]] ->  Parser ()
-restoreStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
+putStates :: [[Result]] -> [[Type]] ->  Parser ()
+putStates ps t = modify $ \s -> s {recTypes = t, recState = ps}
 
 savePieces :: [[Expr]] -> Parser ()
 savePieces exps = modify $ \s -> s {pieces = exps++ pieces s} 
@@ -408,18 +388,8 @@ local m = do
   rtypes  <- gets recTypes
   pushRecState state
   res <- m
-  restoreStates rstates rtypes
+  putStates rstates rtypes
   return res
-
-localEmpty :: Type -> [Type] -> Parser a -> Parser (a,PState)
-localEmpty typ rec m = do
-   old <- get
-   emptyState typ
-   pushRecTypes rec
-   res <- m
-   new <- get
-   put old
-   return (res,new)
 
 putTrace ::  String -> Parser ()
 putTrace str = modify $ \s -> s {trace = str:trace s}
@@ -429,7 +399,6 @@ emptyState typ = do
   st <- gets emptyPState
   modify $ \s -> s {recTypes = [[text,utt]], recState = [[Ok $ st typ]], currentStates = [Ok $ st typ]
                    ,pieces = pieces s, emptyPState = st, skip = [False]}
-
 
 emptyPieces :: Parser [[Expr]]
 emptyPieces = do
@@ -450,7 +419,7 @@ backUp state = do
                else return [] 
  where parseAsAdV = do
          putTrace "backing up for adv" 
-         let nextTok = simpleParseInput $ fromJust $ toGFStr advs -- [adV,adv]  --good?
+         let nextTok = simpleParseInput $ fromJust $ toGFStr advs 
          case nextState state nextTok of
               Right st -> return [Ok st]
               _        -> return []
@@ -465,7 +434,7 @@ backUp state = do
 
 meta = mkCId "?" 
 
-
+{-
 disambigParse :: Tree String -> Parser Success
 disambigParse n@(Node x ts)  
     | isDisambigNode x = do
@@ -493,7 +462,6 @@ goFurther [] = error "tried to go further on empty"
 goFurther (t:ts) = do
   parseX t
   parseX (Node "X" ts)
-
 rankAndSave :: [Result] -> Type -> [Type] -> Parser ()
 rankAndSave pstates typ typs = do
   let trees =  concat $ catMaybes $ map (extractTrees typ) pstates
@@ -527,40 +495,12 @@ putReplaced expr = do
   i <- gets counter
   modify $ \s -> s {counter = i+1, replaced = (i,map fst expr):replaced s}
 
-
-{-
-    | isDisambigNode && isAmbigouos = do
-           old <- gets parseState
-           -- if allTrees far too many, do this below, otherwise use them directly
-           ok <- local (disambigParses t)
-           ---check if ok, put pack old state?
-           bit <- gets currentState
-           putCurrentState old
-           if isBig bit then rankAndSave bit
-                        else parseX (Node "X" ts)
-
-    | otherwise                   = return True -- ?
 -}
- 
-{-
-&& hardParts  =
-                            do addToState (typ++i) (rankByProbs res)
-                               parseNext typ
-                               disambigParses ts
-                       | isAmbigouos && goodParts = 
-                            do let bits = disambigsParses parts
-                               addToState (typ++i) (rankByProbs bits)
-                               parseNext typ
-                               disambigParses ts
-                      | otherwise     = 
-                            do parseNext t
-                               disambigParses ts
-                               
-  where addToState = undefined -- add to be exchanged when done
-        isAmbigouos = undefined -- Bool, if more trees than limit (length result > limit)
-        result      = parseWithEmptyStateAs typ t
-        parseNext   = parseNormal t -- without emptying state
-        -}
+
+parseX tree = do
+  putTrace $ "parseX with tree "++show tree
+  parseX' tree
+
 
 instance Show ParseOutput where
    show  (ParseOk tree)    = "ParseOK"++unlines (map (showExpr []) tree)

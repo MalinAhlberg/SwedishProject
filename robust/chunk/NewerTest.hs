@@ -1,6 +1,6 @@
 {-# LANGUAGE TupleSections #-}
 module Main where
-import NewerChunk
+import NewestChunk
 import ProcessTree
 import ParseSaldo
 import MkLex
@@ -19,7 +19,7 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ try "stest.xml" --tryAll "stest.xml"
+          timeIt $ tryAll "hardtests.xml" --tryAll "stest.xml"
 
 
 tryAll fil = do
@@ -37,7 +37,7 @@ tryAll fil = do
  where processAndWrite :: PGF -> Language -> (String,Tree String) -> IO ()
        processAndWrite pgf lang (i,tree) = do
           res <- parseText tree pgf lang startType
-          appendFile "disambigtest4.txt" $ showRes (i,res) ++"\n"
+          appendFile "nicetest.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
        extractDicts :: Saldo -> Morpho -> ([(String,Tree String)],Int) -> IO ([String],[TreePos Full String],Maybe (FilePath,Language))
@@ -53,6 +53,7 @@ tryAll fil = do
 
        processPartition :: ([String],[TreePos Full String],Maybe (FilePath,Language)) -> IO ()
        processPartition (ids,newsTrees,Just (pgf,newLang)) = do
+          putStrLn $ "using pgf file "++pgf
           newPgf <- readPGF pgf 
           probs  <- readProbabilitiesFromFile "ProbsNewSpec" newPgf
           let goodPgf = setProbabilities probs newPgf
@@ -103,7 +104,7 @@ formatNames = let format (i,name) = show i ++ "\t"++name
 type Saldo = HM.Map Text.Text [(Text.Text, Text.Text)]
 
        
-startType = text 
+startType = phrText 
 pgfFile = "BigParse.pgf"
 pgfBigFile = "ExtractPGF.pgf" --BigParse with all lexicon
 langBig, lang :: Language
