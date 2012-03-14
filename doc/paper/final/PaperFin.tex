@@ -21,11 +21,11 @@ Swedish. The central component is a wide-coverage grammar implemented in the GF
 formalism (Grammatical Framework), a dependently typed grammar formalism
 based on Martin-L{\"o}f type theory. GF has strong support for multilinguality and
 has so far been used successfully for
-controlled languages \cite{cnl}. Recent experiments have showed
+controlled languages \cite{cnl} and recent experiments have showed
 that it is also possible to use the framework for parsing unrestricted language.
 In addition
 to GF, we use two other main resources: the Swedish treebank Talbanken and the
-electronic SALDO lexicon. By combining the grammar with
+electronic lexicon SALDO. By combining the grammar with
 a lexicon extracted from SALDO we obtain a parser accepting all sentences
 described by the given rules. We develop and test this
 on examples from Talbanken.
@@ -33,7 +33,7 @@ The resulting parser gives a full syntactic analysis of the input sentences.
 It will be highly reusable, freely available, and as GF provides libraries for
 compiling grammars to a number of programming languages, chosen parts of the the 
 grammar may be used in various NLP applications. 
-\\ \newline \Keywords{GF, Swedish, Parsing, Computational Grammar, Lexical Acquisition}}
+\\ \newline \Keywords{GF, Swedish, Parsing}}
 
 \begin{document}
 
@@ -121,7 +121,7 @@ For development and evaluation, we use the Swedish treebank
 Talbanken \cite{talbanken}.
 It was assembled in the 1970s at Lund University and later
 %in 2005 \cite{talbanken05} and
-enriched with annotation for a full phrase structure analysis \cite{talbanken05}.  \\
+enriched with annotation for a full phrase structure analysis \cite{talbanken05}.  
 Although Talbanken contains both written and spoken Swedish,
 only the prose material, consisting of 6316 sentences, is used in this
 project.
@@ -140,7 +140,7 @@ from SALDO, described in section \ref{sec:extractsaldo}
 % Add: detaild comparison of outputs of various parsers of Sw.
 Many years of research have lead to many interesting language
 technology tools for Swedish.
-An example is the well-known data-driven Malt parser \cite{malt},
+An example is the well-known data-driven Maltparser \cite{malt},
 trained on Talbanken. 
 There are also a number of grammar-based parsers, although none is freely available.
 The cascaded finite state parser CassSwe \cite{casswe} and
@@ -160,7 +160,7 @@ There is a collection of grammars implemented in this framework, giving broad-co
 descriptions of 
 English, Japanese and German. 
 The Scandinavian Grammar Matrix \cite{scandmatrix} covers common parts of
-Scandinavian, while Norsource (Hellan, 2003) describes Norwegian. A Swedish version
+Scandinavian, while Norsource \cite{norsource} describes Norwegian. A Swedish version
 was based upon this by Ahrenberg, covering the morphology and some
 differences between Swedish and Norwegian. Further, there is the BiTSE 
 grammar \cite{stymne}, also implemented using the Lingo Matrix,
@@ -171,7 +171,7 @@ translation to English  was implemented and the work was further developed in th
 language translator \cite{spoken}. Unfortunately, it is no longer available.\\
 %The coverage of the Swedish
 %CLE is also reported to be very limited \cite[p. 134]{nivreTrees}.\\
-In the TAG formalism \cite{tag}, there are projects on getting open-source, wide-coverage grammars
+In the TAG formalism \cite{tag}, there are projects in getting open-source, wide-coverage grammars
 for English and Korean, but, to our knowledge, not for Swedish.  \\
 The ParGram \cite{pargram} project aims at making wide coverage grammars using
 the Lexical Functional Grammar approach \cite{lfg}.
@@ -183,7 +183,7 @@ Extract \cite{MarkusForsberg2007} is a tool for lexicon
 extraction compatible with GF, sharing its basic ideas with our lexical
 acquisition tool. Extract does however not consider parts-of-speech and our
 tool is developed closer to GF, while still
-having additional mechanisms for being robust and human support to be accurate.
+having additional mechanisms for robustness and human support for accuracy.
 
 
 \section{Extracting a large lexicon}
@@ -195,7 +195,7 @@ compatible with GF, and easily translated to GF format.
 As SALDO is continuously updated, the importing process has been designed to be fast
 and stable enough to be redone at any time.
 
-\subsubsection{Implementation}
+\subsection{Implementation}
 The basic algorithm for importing SALDO was implemented by Angelov (2008)
 and  produces code for a GF lexicon.
 For each word in SALDO, it decides which forms should be used as input
@@ -207,7 +207,7 @@ the present tense form, see figure \ref{fig:saldoknyt}. \\
 \begin{figure}[h]
 \begin{center}
 \verb-mkV "knyter" ;-
-\caption{First code produced for the verb `knyta' (\emph{`tie'})}
+\caption{First code produced for the verb \emph{knyta} (`tie')}
 \label{fig:saldoknyt}
 \end{center}
 \end{figure}
@@ -225,25 +225,25 @@ are given:\\
 \begin{figure}[h]
 \begin{center}
 \verb-mkV "knyter" "knöt" ;-
-\caption{Second output for the verb `knyta'}
+\caption{Second output for the verb \emph{knyta}}
 \label{fig:saldoknyt2}
 \end{center}
 \end{figure}
 
 The program is run iteratively until the GF table matches the one given in SALDO,
-or until there are no more ways of using the smart paradigm. The verb 'knyta'
+or until there are no more ways of using the smart paradigm. The verb \emph{knyta}
 will need three forms:\\
 
 \begin{figure}[h]
 \begin{center}
 \verb-mkV "knyter" "knöt" "knutit"-\\
-\caption{Final output for the verb `knyta'}
+\caption{Final output for the verb \emph{knyta}}
 \label{fig:saldoknyt3}
 \end{center}
 \end{figure}
 
 
-\subsubsection{Results}
+\subsection{Results}
 \label{sec:saldoRes}
 The resulting dictionary contains more than 100 000 entries, approximately 80 \% 
 of the total size of SALDO.
@@ -266,15 +266,15 @@ total six types of words were considered for the extraction: \\
 \hline
 & SALDO$/$GF & Example \\
 \hline
- Adverb & \textbf{ab}$/$\textbf{Adv} & ofta (\emph{often})\\
- Adjective&\textbf{av}$/$\textbf{A} & gul (\emph{yellow})\\
- Noun & \textbf{nn}$/$\textbf{N} & hus (\emph{house})\\
- Verb & \textbf{vb}$/$\textbf{V} & springa (\emph{run})\\
- Reflexive verbs &\textbf{vbm}$/$\textbf{V} & raka sig (\emph{shave})\\
- Particles verbs &\textbf{vbm}$/$\textbf{V}  &  piggna till (\emph{perk up})\\
+ Adverb & \textbf{ab}$/$\textbf{Adv} & \emph{ofta} (`often')\\
+ Adjective&\textbf{av}$/$\textbf{A} & \emph{gul} (`yellow')\\
+ Noun & \textbf{nn}$/$\textbf{N} & \emph{hus} (`house')\\
+ Verb & \textbf{vb}$/$\textbf{V} & \emph{springa} (`run')\\
+ Reflexive verbs &\textbf{vbm}$/$\textbf{V} & \emph{raka sig} (`shave')\\
+ Particle verbs &\textbf{vbm}$/$\textbf{V}  &  \emph{piggna till} (`perk up')\\
 \hline
 \end{tabular}
-\caption{}
+\caption{Word classes imported from SALDO}
 \end{figure}
 
 Most but not all words of these categories have been imported.
@@ -282,15 +282,15 @@ One reason why the importing phase would fail
 is that SALDO, unlike GF, only contains the actually used word forms.
 For technical reasons, the smart paradigm might need forms never used.
 Consider for example the plural tantum 
-noun \emph{`glas{\"o}gon'} (\emph{`glasses'}).
+noun \emph{glas{\"o}gon} (`glasses').
 The smart paradigm requires a singular form, and since the program could not
 find this in SALDO, there was no way of adding the lemma to the lexicon. 
 When the program failed to import a noun, this was often the explanation.
-Words of this type may be added manually, for \emph{`glas{\"o}gon'} we could use
-the ostensibly correct singular form `glas{\"o}ga', although this
+Words of this type may be added manually, for \emph{glas{\"o}gon} we could use
+the ostensibly correct singular form \emph{glas{\"o}ga}, although this
 has another meaning (`glass-eye').
-The same problem occurred for the irregular s-verbs,
-(\emph{`synas'} \emph{(`show')} or \emph{umg{\aa}s} \emph{(`socialize')})
+The same problem occurred for the irregular s-verbs
+(\emph{synas} (`show') or \emph{umg{\aa}s} (`socialize'))
 which made up 61.5 \% of the failing verbs of type \verb_vb_.\\
 In a few cases the smart paradigms could not generate the correct declination.\\
 When testing the coverage of Talbanken,
@@ -314,7 +314,7 @@ Used more than once,& \\
 \hspace{2mm} ignoring compounds & $\sim$ 150 word-forms\\
 \hline
 \end{tabular}
-\caption{}
+\caption{Number of Talbanken words still missing}
 \end{figure}
 A list of words that were given different labels in GF than in Talbanken has been
 composed, consisting of about 1600 entries. Many of those are
@@ -347,8 +347,7 @@ validate the claimed paradigm.
 This step is needed since the input may not provide information enough
 to automatically do the validation. The user may now either
 allow the word to be added to the lexicon, remove it or request another guess.
-The user hence only needs to decide if each paradigm is correct or not, and
-the program will do the rest.
+The user hence only needs to decide if each paradigm is correct or not.
 
 %TODO 
 %our largest set of testdata came from talbanken, about 2000? words. Not to large,
@@ -372,20 +371,21 @@ The information from the tags in Talbanken can be used for many purposes.
 We have developed an automatic transformation of Talbanken trees 
 to trees in GF format. The translation makes use of the POS tags as well as
 the syntactic information. 
-\begin{figure}[h!]
+\begin{figure}[!h]
 \begin{center}
 \hspace{-30mm}
 \subfloat{\label{pic:tbtree}\includegraphics[width=60mm]{Talbankentree.pdf}}
 \hspace{-10mm}
 \subfloat{\label{pic:gftree}\includegraphics[width=90mm]{gfTree.pdf}}
-\caption{The Talbanken tree and the GF tree for the sentence ``Katten p{\aa} bilen blir st{\"o}rre".}
+\caption{The Talbanken tree and the GF tree for the sentence \emph{``Katten
+p{\aa} bilen blir st{\"o}rre".}}
 \label{fig:translationtrees}
 \end{center}
 \end{figure}
 
 Figure \ref{fig:translationtrees} shows an example of a visualized Talbanken05 tree
-of the sentence ``Katten p{\aa} bilen blir st{\"o}rre" 
-(\emph{``The cat on the car gets bigger"}) and its translation to GF.
+of the sentence \emph{``Katten p{\aa} bilen blir st{\"o}rre"}
+(``The cat on the car gets bigger") and its translation to GF.
 
 The translation 
 gives us means to evaluate our parser. By both parsing a Talbanken sentence and
@@ -413,13 +413,13 @@ use of the tags show in figure \ref{fig:mapBadtag}.
 The \textbf{PU} tag is used for graphic listings, and not for fluent text.
 In our grammar there is naturally no corresponding function; 
 the listings are meant for making the text look nice in
-folders etc and outside the scope for the grammar itself. The tags \textbf{XX}
+folders etc and are outside the scope for the grammar itself. The tags \textbf{XX}
 and \textbf{NAC} are often used since Talbanken makes a
 difference between subject
 and object noun phrases.
 The analysis of elliptical expression in (\ref{sent:krav})
 \enumsentence{F\"or stora krav.\\
-``Too high demands."}\label{sent:krav}
+\emph{``Too high demands."}}\label{sent:krav}
 contains the tags \textbf{XX} and \textbf{NAC}, since it is not obvious
 whether the noun phrase is used as subject or an object.
 The tags shown in figure \ref{fig:mapBadtag} occur quite frequently in the treebank and are always translated
@@ -479,11 +479,11 @@ imperatives, relative clauses, cleft constructions etc.
 A number of constructs that are generally not present in other languages and
 therefore not given by the resources, have also been added. These include the use of
 the reflexive pronoun \emph{sitt}: \\
-\emph{Han s{\aa}g \textbf{sitt} hus} $\; \; \; \;$ (\emph{He saw SELF's house}) $\;$ \\
+\emph{Han s{\aa}g \textbf{sitt} hus} $\; \; \; \;$ (``He saw SELF's house") $\;$ \\
 as opposed to \\
-\emph{Han s{\aa}g \textbf{hans} hus} $\;$ (\emph{He saw his (another person's) house}) \\
+\emph{Han s{\aa}g \textbf{hans} hus} $\;$ (``He saw his (another person's) house") \\
 Fronting words or phrases is very common in Swedish and are now allowed by the grammar:\\
-\emph{\textbf{Glad} var han inte.} $\;$ (\emph{\textbf{Happy} was he not}). \\
+\emph{\textbf{Glad} var han inte.} $\;$ (``\textbf{Happy} was he not"). \\
 This sort of rephrasing is not given by the resource grammar, since it
 has little effect on the logical representation.
 
@@ -492,7 +492,7 @@ The project has so far resulted in
 \begin{itemize}
 \item a large-scale GF lexicon and a program to redo the importation when needed
 \item an extended grammar covering an important part of Swedish
-\item a comparison between GF and another annotation
+\item a comparison and translation between GF and another annotation
 \end{itemize}
 
 Besides being capable of reimporting SALDO, the lexicon extraction program could also
@@ -501,14 +501,14 @@ the resource provides inflection tables.
 
 The grammar has been extended and enhanced, and its current status is
 a specialized extension of the resource grammar.
-Besides parsing, the grammar may well be used for language generation,
-which works fast even when using an extensive lexicon.
+Besides parsing, the grammar may well be used for language generation.
+%which works fast even when using an extensive lexicon.
 By the renewed import of SALDO, we have doubled the size of the lexicon and thereby
 added many of the commonly used words that were missing from the older
-version. This is of course a big improvement.
-However, the lexical part still requires some work before it can be made use of.
+version. This is of course a big improvement
+but the lexical part still requires some work before it can be made good use of.
 The lexicon is too big to use with the current techniques as its size exhausts the
-the current incremental parsing algorithm. However, new research is being conducted
+current incremental parsing algorithm. However, new research is being conducted
 to improve the GF run-time system.
 %TODO can I write that?
 
@@ -522,19 +522,21 @@ and a comparison of the results would not be of much value as
 there would not be enough material
 to do be able to do any interesting analysis.
 
-Without methods for robust parsing, %TODO evaluate??
-it is not interesting to talk about coverage, but about the quality and
-the ability to scale up, which has so far proved to be good.
-We further believe that the presence of a expert in Swedish, professor Elisabet
-Engdahl\footnote{http://svenska.gu.se/om-oss/personal/elisabet-engdahl},
-has increased the standard substantially.\\
-We are currently working on chunk parsing and disambiguation using probabilities
+We are currently working on chunk parsing by which we get robustness and a possibility
+to limit the memory usage. We perform disambiguation by using probabilities
 extracted from our translation of Talbanken. We combine this with simple named
 entity recognition and compounding analysis. For evaluation, we intend to use
 10 \% of Talbanken, chosen so that is does not infer with our test data.
 
+%At the current stage, without methods for robust parsing, %TODO evaluate??
+%it is not interesting to talk about coverage, but about the quality and
+%the ability to scale up, which has so far proved to be good.
+%We further believe that the presence of a expert in Swedish, professor Elisabet
+%Engdahl\footnote{http://svenska.gu.se/om-oss/personal/elisabet-engdahl},
+%has increased the standard substantially.\\
+
 The result will be evaluated both automatically -- by comparing the output of
-the translated trees from Talbanken -- and manually by professor Elisabet Engdahl.
+the translated trees from Talbanken -- and manually by professor Elisabet Engdahl\footnote{http://svenska.gu.se/om-oss/personal/elisabet-engdahl}.
 She also evaluates the intermediate results.
 
 \section{Conclusion}
@@ -546,14 +548,13 @@ describing language.
 We have developed tools for extending the lexicon with words from Talbanken,
 and we show how to make use of the information in the manually tagged
 treebank.
-\\
+The usage of GF allows us to start from
+a well-defined system for describing grammar, as well as tools for
+parsing.
 All parts of the project are open-source and may thus be used in other applications.
 The grammar and the lexicon may be beneficial also when working with controlled languages,
 as it increases the coverage of the Swedish resource grammar.
 
-The usage of GF allows us to start from
-a well-defined system for describing grammar, as well as tools for
-parsing.
 
 \section{Acknowledgments}
 The work has been funded by Center of Language Technology.
