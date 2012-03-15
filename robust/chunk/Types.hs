@@ -12,7 +12,7 @@ vpx    = fromJust $ readType "VPParse"
 np     = fromJust $ readType "NP"
 npsub  = fromJust $ readType "NPTyped Subject" 
 npobj  = fromJust $ readType "NPTyped Object" 
-adv    = fromJust $ readType "Adv"
+adv    = fromJust $ readType "AdvTyped Object" --TODO should be subject too
 adV    = fromJust $ readType "AdV"
 iadv   = fromJust $ readType "IAdv"
 --advsub = fromJust $ readType "AdvTyped Subject"  
@@ -63,11 +63,13 @@ advs   = [adv,adV,iadv]
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 --advs = [advsub,advobj]
 nps  = [npsub,npobj,np]
+--npsubs = [npsub,np]
 verbs   = [v,v2] --,v3,vs,vq,va,v2a,v2q,vv,v2v,v2s] 
 phrText = fromJust $ readType "PhrText"
 emsent = fromJust $ readType "SubjS" --obs!! 
 --aps  = [apsub,apobj]
 toGFStr :: [Type] -> Maybe String
+toGFStr []                = return ""
 toGFStr xs  | xs == advs  = return "?advs"
             | xs == nps   = return "?nps"
             | xs == verbs = return "?v"

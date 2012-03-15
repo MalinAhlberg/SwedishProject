@@ -19,7 +19,7 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ {-tryAll "hardtests.xml" -} try "stest.xml"
+          timeIt $ {-tryAll "hardtests.xml"  -}try "stest.xml"
 
 
 tryAll fil = do
@@ -37,7 +37,7 @@ tryAll fil = do
  where processAndWrite :: PGF -> Language -> (String,Tree String) -> IO ()
        processAndWrite pgf lang (i,tree) = do
           res <- parseText tree pgf lang startType
-          appendFile "nicetest.txt" $ showRes (i,res) ++"\n"
+          appendFile "newfancytest.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
        extractDicts :: Saldo -> Morpho -> ([(String,Tree String)],Int) -> IO ([String],[TreePos Full String],Maybe (FilePath,Language))
@@ -94,7 +94,7 @@ try fil = do
   input <- fmap concat $ Form.parse fil
   putStrLn $ "reading input "
   sequence [parseText inp pgf lang startType >>= writeToFile i | (i,inp) <- input]
- where writeToFile i x = appendFile "smalltests" $ showRes (i,x) ++"\n"
+ where writeToFile i x = appendFile "newfancytests" $ showRes (i,x) ++"\n"
 
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
 formatNames = let format (i,name) = show i ++ "\t"++name

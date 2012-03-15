@@ -53,6 +53,8 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
 
   icompMeta = {s = \\_ => "?icomp"} ;
   compMeta  = {s = \\_ => "?comp"} ;
+  compsMeta = {s = \\_ => "?comps"} ;
+  icompsMeta = {s = \\_ => "?icomps"} ;
   conjMeta  = {s1 = ""; s2 =  "?conj" ; n = variants {Sg | Pl}} ;
   advMeta   = mkAdv "?adv" ;
   advsMeta  = mkAdv "?advs" ;  --these three are ambigouos
