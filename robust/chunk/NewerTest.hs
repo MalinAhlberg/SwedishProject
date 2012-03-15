@@ -19,7 +19,7 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ tryAll "hardtests.xml" --tryAll "stest.xml"
+          timeIt $ {-tryAll "hardtests.xml" -} try "stest.xml"
 
 
 tryAll fil = do
