@@ -23,10 +23,12 @@ import Types
 
 data PState = PS {currentStates :: [[String]]       --the current parse state
                  ,gfParser      :: Type -> String -> [Expr]
-                 ,replaced      :: [(Int,[Expr])]  --list of expressions to replace the ints with later
+                 ,chunks        :: [(Id,[Expr])]  --list of expressions to replace the ints with later
                  ,counter       :: Int             --counter for replacing
+--                 ,backups       :: 
                  }
 type Parser = WriterT [String] (State PState)
+type Id     = String
 
 
 limit, chunklimit, disambiglimit :: Int
@@ -36,17 +38,19 @@ disambiglimit = 700
 backuplimit = 20
 saveStatelimit = 8 
 
-parseText :: Tree String -> PGF -> Language -> Type -> IO [Expr]
+parseText :: Tree (Id,String) -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   hSetBuffering stdout LineBuffering
+  -- parse the flat string!!
   let (trejs,st) = runState (execWriterT (parseX tree)) parser 
   appendFile "newfancyoutput" (unlines $ trejs++["\n"])
   let strs = currentStates st 
-  ok <- limitAndRank pgf <$> findParse (sortBy (comparing noMetas) strs)
+  -- testa att byta alla adv mot adV
+  ok <- limitAndRank <$> findParse {-(sortBy (comparing noMetas)-} strs
   putStrLn $ "string 1: "++unwords (concat $ take 1 strs)
-  when (null ok) $ putStrLn "No parse trees :("
-  return ok
-
+  if null ok then do putStrLn "No parse trees :("
+                     combinePieces st
+             else return ok
 
  where parser     = initPState pgf lang startType
       
@@ -55,28 +59,25 @@ parseText tree pgf lang startType = do
        findParse []  = return []
        findParse (st:sts) = do
            putStrLn $ "parsing "++unwords st
-           --let parse  = foldr parseToks (Right $ startState pgf lang phrText) st
            let parsed = parse pgf lang phrText (unwords st)
            case parsed of
-                --Right pst -> do
                 []    -> findParse sts
                 trees -> return trees
-                  --let output = fst ({-# SCC "getParseOutput1" #-}getParseOutput pst phrText Nothing)
-                  --case output of
-                   --    ParseOk tr -> return tr 
-                   --    _          -> findParse sts
 
-                --- _         -> findParse sts
-
-       limitAndRank :: PGF -> [Expr] -> [Expr]  -- TODO use threshold!!
-       limitAndRank pgf = take limit . map fst . rankTreesByProbs pgf
+       limitAndRank,limitAndRankChunk :: [Expr] -> [Expr]  -- TODO use threshold!!
+       limitAndRank = limitAndRank' limit
+       limitAndRankChunk = limitAndRank' chunklimit
+       limitAndRank' i = take i . map fst . rankTreesByProbs pgf
 
        --parseToks :: Token -> Either a ParseState -> Either a ParseState
        parseToks tok (Right parseState) = nextState parseState (simpleParseInput tok)
        parseToks tok failure            = failure
        noMetas :: [String] -> Int
        noMetas = length . filter (=='?') . concat
-       
+
+       combinePieces st = do
+         let chunkorder = sequence $ map (limitAndRankChunk . snd) $ chunks st
+         return $ take limit $ map (\ex -> mkApp meta ex) chunkorder
        
 initPState pgf lang startType =  
   let startS = startState pgf lang startType
@@ -84,48 +85,50 @@ initPState pgf lang startType =
           currentStates = [[]] --, pieces =  []
          ,gfParser = parse pgf lang
          --,emptyPState = initState pgf lang
-         ,replaced = [], counter = 0 --, isInnerS = 0, gettingPieces = False
+         ,chunks = [], counter = 0 --, isInnerS = 0, gettingPieces = False
          --,sentences = [], pgf = pgf
          }
 
 startState pgf lang startType = initState pgf lang startType
 
 -- parse the words
-parseX' ::  Tree String -> Parser [String]
-parseX' (Node w []) = do
+parseX' ::  Tree (Id,String) -> Parser [String]
+parseX' (Node (i,w) []) = do
+-- bad idea? is word unknown? maybe XX if it is. then 
   putTrace $ "add word "++w
   addWord w
   return [w]                         
 
 -- some nouns don't have surrounding NP, but should be roubust anyway
-parseX' (Node x ts) | "NN" `isPrefixOf` x && length x>2 = parseX (Node "NN" ts) -- put all variants of NNxxx to NN
+parseX' (Node (i,x) ts) 
+     | "NN" `isPrefixOf` x && length x>2 = parseX (Node (i,"NN") ts) -- put all variants of NNxxx to NN
 
-                    | isSaveNode x        =  {-# SCC "parseXSave" #-}
-                                             putTrace ("saves node" ++show x)
-                                          >> saveState (getCat x) ts
-                    | isSkipNode x        = enableSkip ts
+     | isSaveNode x        =  {-# SCC "parseXSave" #-}
+                              putTrace ("saves node" ++show x)
+                           >> saveState (getCat x) i ts
+     | isSkipNode x        = enableSkip ts
 
 -- otherwise, just continue
-parseX' (Node x [t]) = putTrace ("one left in "++x ) 
+parseX' (Node x [t]) = putTrace ("one left in "++show x ) 
                     >> parseX t 
-parseX' (Node x (t:ts)) = do
-  putTrace ("many left in "++x)   
+parseX' (Node (i,x) (t:ts)) = do
+  putTrace ("many left in "++ x)   
   w  <- parseX t               
-  ws <- parseX (Node "XX" ts)  -- continue, but don't use x anymore
+  ws <- parseX (Node (i,"XX") ts)  -- continue, but don't use x anymore
   return (w++ws)
 
 isSaveNode = (`elem` map fst saveNodes)
 
 
-saveNodes = --("NP",nps),("PP",[adv]), 
+saveNodes = --("NP",nps),("PP",[adv]), ("FV",[v]),
             [("SS",[npsub{-,np-}]),("OO",[npobj,np])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
             ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
-            ,("+A",advs),("FV",[v]), ("IV",[v]),("CNP",nps)
+            ,("+A",advs), ("IV",[v]),("CNP",nps)
             --,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
             --,("CPP",[adv]),("CS",[sent]),("CVP",[vpx]),("NAC",[utt])
             ,("++",[conj]),("SP",[icomp,comp]) --,("VP",[vpx])
-            ,("NN",[np])] --TODO change v to all vs
+            ,("NN",nps)] --TODO change v to all vs
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
 
@@ -133,28 +136,63 @@ getCat :: String -> [Type]
 getCat a = DB.trace ("fromJust on"++a)$ (fromJust . (`lookup` saveNodes)) a
 getStr a = DB.trace ("fromJust on"++show a)$ toGFStr a 
 
-saveState ::  [Type] -> [Tree String] -> Parser [String]
-saveState recover ts = do
+saveState ::  [Type] -> Id -> [Tree (Id,String)] -> Parser [String]
+saveState recover id ts = do
   begin <- gets currentStates
+  oldChunks <- emptyChunks
   str <- concat <$> mapM parseX ts
   parser <- gets gfParser
   let parsable = concatMap (\typ -> parser typ (unwords str)) recover
-  putTrace $ "chunk parsed "++unwords str++"as "++show recover++" got "++show (map (showExpr []) (take 1 parsable))
-  when (null parsable) $ do let types = fromJust $ getStr recover
-                            addNews (map (++[types]) begin)
+  newChunks <- emptyChunks
+  putChunks oldChunks
+  putTrace $ "chunk parsed "++unwords str++"as "++show recover++" got "
+                            ++show (map (showExpr []) (take 1 parsable))
+  -- if we can't parse the chunk, we save its subchunks and adds a dummy word to the sentence
+  if null parsable then do let types = fromJust $ getStr recover
+                           putTrace $ "could not parse chunk "++id
+                           putString (map (++[types]) begin)
+                           addChunks newChunks
+                    -- if we can parse it, we add the tree to the state
+                    -- and don't save the dummy words from within the chunk
+                    else do putTrace $ "could parse chunk "++id
+                            addChunks [(id,parsable)]
+                            putString (map (++str) begin)
   return str
   
-enableSkip :: [Tree String] -> Parser [String] 
-enableSkip = saveState [] 
+enableSkip :: [Tree (Id,String)] -> Parser [String] 
+enableSkip ts = do
+  begin <- gets currentStates
+  str <- concat <$> mapM parseX ts
+  putTrace $ "skip processed "
+  addStrings begin
+  return str
+ 
+addChunks :: [(Id,[Expr])] -> Parser ()
+addChunks c = modify $ \s -> s {chunks = chunks s++c} 
 
+emptyChunks :: Parser [(Id,[Expr])] 
+emptyChunks = do
+  c <- gets chunks
+  modify $ \s -> s {chunks = []} 
+  return c
+
+putChunks :: [(Id,[Expr])] -> Parser ()
+putChunks c = modify $ \s -> s {chunks = c} 
+
+-- exchange the sentences
+putString :: [[String]] -> Parser ()
+putString strs = modify $ \s -> s {currentStates = strs} 
+
+-- adds a word to all the sentences
 addWord ::  String -> Parser ()
 addWord str = do
   modify $ \s -> s {currentStates = map (++[str]) $ currentStates s}
   x <- gets currentStates
   putTrace $ "in current "++unwords (concat $ take 1 x)
 
-addNews :: [[String]] -> Parser ()
-addNews strs = modify $ \s -> s {currentStates = currentStates s++strs}
+-- add a new sentence
+addStrings :: [[String]] -> Parser ()
+addStrings strs = modify $ \s -> s {currentStates = currentStates s++strs}
 
 putTrace ::  String -> Parser ()
 putTrace str = do
@@ -172,3 +210,4 @@ instance Show ParseOutput where
    show  (ParseFailed i)   = "ParseFailed"
    show  (ParseIncomplete) = "Incomplete"
 
+meta = mkCId "?" 

@@ -48,8 +48,6 @@ abstract BigParse =
   vpMeta : VP ;
   icompMeta : IComp ;
   compMeta :  Comp ;
-  icompsMeta : IComp ;
-  compsMeta :  Comp ;
   conjMeta : Conj ;
   advMeta : Adv ;
   advsMeta : Adv ;
