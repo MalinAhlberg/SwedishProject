@@ -19,7 +19,7 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ tryAll "hardtests.xml"  --try "stest.xml"
+          timeIt $ {-tryAll "hardtests.xml"-} try "stest.xml"
 
 type ChunkTree = Tree (Id,String)
 
@@ -38,7 +38,7 @@ tryAll fil = do
  where processAndWrite :: PGF -> Language -> (String,ChunkTree) -> IO ()
        processAndWrite pgf lang (i,tree) = do
           res <- parseText tree pgf lang startType
-          appendFile "newfancytest.txt" $ showRes (i,res) ++"\n"
+          appendFile "lastfancytest.txt" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
        extractDicts :: Saldo -> Morpho -> ([(String,ChunkTree)],Int) -> IO ([String],[WorkingTree],Maybe (FilePath,Language))

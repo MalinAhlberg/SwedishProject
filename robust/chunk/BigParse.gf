@@ -29,31 +29,33 @@ abstract BigParse =
   annars_Adv : Adv ; --remove
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
-  npMeta : NP ;
-  nMeta : N ;
-  npsubMeta : NPTyped Subject ;
-  npobjMeta : NPTyped Object ;
-  vMeta : V ;
-  v2 : V2 ;
-  v3 : V3 ;
-  va : VA ;
-  vs : VS ;
-  vq : VQ ;
-  vv : VV ;
-  v2a : V2A ;
-  v2v : V2V ;
-  v2s : V2S ;
-  v2q : V2Q ;
-  apMeta : AP ;
-  vpMeta : VP ;
-  icompMeta : IComp ;
-  compMeta :  Comp ;
-  conjMeta : Conj ;
-  advMeta : Adv ;
-  advsMeta : Adv ;
-  iadvMeta : IAdv ;
-  adVMeta : AdV ; 
-  sMeta : S ;
+  npMeta : String -> NP ;
+  cnMeta : String -> CN ;
+  nMeta :String ->  N ;
+  npsubMeta : String -> NPTyped Subject ;
+  npobjMeta : String -> NPTyped Object ;
+  vMeta : String -> V ;
+  v2 : String -> V2 ;
+  v3 : String -> V3 ;
+  va : String -> VA ;
+  vs : String -> VS ;
+  vq : String -> VQ ;
+  vv : String -> VV ;
+  v2a : String -> V2A ;
+  v2v : String -> V2V ;
+  v2s : String -> V2S ;
+  v2q : String -> V2Q ;
+  apMeta : String -> AP ;
+  vpMeta : String -> VP ;
+  icompMeta : String -> IComp ;
+  compMeta :  String -> Comp ;
+  conjMeta : String -> Conj ;
+  advMeta : String -> Adv ;
+  advsMeta : String -> Adv ;
+  iadvMeta : String -> IAdv ;
+  adVMeta : String -> AdV ; 
+  sMeta : String -> S ;
+  phrTextMeta : String -> PhrText ;
  
   
  

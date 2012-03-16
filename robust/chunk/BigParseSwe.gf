@@ -36,14 +36,14 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
                         Nom => "Y" ++i.s };
              g = (variants {utrum | neutrum})} ;
 
-  npMeta =  mkNP' (variants { "?np" |  "?nps" }) ;
-  nMeta = {s = \\_,_,_ => "?nps" ; g = variants {utrum | neutrum}} ;
+  npMeta str =  mkNP' (variants { "?np"++str.s |  "?nps"++str.s }) ;
+  nMeta  str = {s = \\_,_,_ => "?nps" ++str.s ; g = variants {utrum | neutrum}} ;
   
-  npsubMeta =  mkNP' (variants { "?npsub" | "?nps" }) ;
-  npobjMeta = mkNP' (variants { "?npobj" | "?nps" }) ;
-  vMeta  = mkV "?v" ;
-  apMeta = {s = \\_,_ => "?ap" ; isPre = variants {True | False}};
-  vpMeta = {s = \\_,_ => {fin = "?vp" ; inf = "?vp"} ;
+  npsubMeta str =  mkNP' (variants { "?npsub" ++str.s | "?nps"++str.s  }) ;
+  npobjMeta str = mkNP' (variants { "?npobj" ++str.s | "?nps" ++str.s }) ;
+  vMeta  str = mkV "?v" ;
+  apMeta str = {s = \\_,_ => "?ap" ++str.s ; isPre = variants {True | False}};
+  vpMeta str = {s = \\_,_ => {fin = "?vp" ++str.s ; inf = "?vp"++str.s } ;
             a0 = "" ;
             a1 = \\_ => "" ;
             n2 = \\_ => "" ;
@@ -51,16 +51,17 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
             ext = "" ;
             voice = Act ; en2,ea2,eext = variants {True | False}}; 
 
-  icompMeta = {s = \\_ => "?icomp"} ;
-  compMeta  = {s = \\_ => "?comp"} ;
-  compsMeta = {s = \\_ => "?comps"} ;
-  icompsMeta = {s = \\_ => "?icomps"} ;
-  conjMeta  = {s1 = ""; s2 =  "?conj" ; n = variants {Sg | Pl}} ;
-  advMeta   = mkAdv "?adv" ;
-  advsMeta  = mkAdv "?advs" ;  --these three are ambigouos
-  iadvMeta  = {s = "?advs"} ;
-  adVMeta   = {s = "?advs"} ; 
-  sMeta     = {s = \\_ => "?s" };
+  icompMeta   str = {s = \\_ => "?icomp"++str.s } ;
+  compMeta    str = {s = \\_ => "?comp"++str.s } ;
+  compsMeta   str = {s = \\_ => "?comps"++str.s } ;
+  icompsMeta  str = {s = \\_ => "?icomps"++str.s } ;
+  conjMeta    str = {s1 = ""; s2 =  "?conj" ++str.s ; n = variants {Sg | Pl}} ;
+  advMeta     str = mkAdv ("?adv" ++str.s );
+  advsMeta    str = mkAdv ("?advs" ++str.s) ;  --these three are ambigouos
+  iadvMeta    str = {s = "?advs"++str.s } ;
+  adVMeta     str = {s = "?advs"++str.s } ; 
+  sMeta       str = {s = \\_ => "?s" ++str.s };
+  phrTextMeta str = {s = "?phrText" ++str.s };
   {-
   v2 = mkV2 "?v2" ;
   v3 = mkV2 "?v3" ;
@@ -74,7 +75,6 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
   v2q =  mkVQ "?v2q" ;
  
  -}
-
   oper mkNP' : Str ->  {s : NPerson => NPForm => Str ; a : Agr} = 
       \str -> {s = \\_,_ => str ; a = {n = variants {Sg | Pl} ;
                                        g = variants {utrum | neutrum} ;
