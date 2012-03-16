@@ -16,14 +16,15 @@ import Compound
 --TODO write names to state!!
 
 type ProcessState = Writer ([Lemma], [(Int,String)])
+type WorkingTree  = TreePos Full (String,String)
 
-processTree :: Bool -> Lex -> Morpho -> Int -> TreePos Full String -> ProcessState (TreePos Full String)
-processTree b lex morpho i tree  | isCompound =  saveSms >> moveOn (setLabel sms tree)
-                                 | isFut      = moveOn (setLabel "ska" tree) -- hackerish way to handle "skall"
+processTree :: Bool -> Lex -> Morpho -> Int -> WorkingTree -> ProcessState WorkingTree
+processTree b lex morpho i tree  | isCompound =  saveSms >> moveOn (setLabel' sms tree)
+                                 | isFut      = moveOn (setLabel' "ska" tree) -- hackerish way to handle "skall"
 --                                 | isUVerb    =  moveOn' $ setLabel vx tree
-                                 | isNumber   =  moveOn' $ setLabel nx tree
+                                 | isNumber   =  moveOn' $ setLabel' nx tree
                                  | isName     =  saveName >> (moveOn' $ exchangeNames i tree)
-                                 | b          =  trace "put to lower" $ moveOnSave $ setLabel word tree  --is first word, put to lower
+                                 | b          =  trace "put to lower" $ moveOnSave $ setLabel' word tree  --is first word, put to lower
                                  | otherwise  =  moveOnSave $ tree
 
   where isCompound    = trace ("work on word "++word) $ isUnknown && length cmps > 1
@@ -31,17 +32,18 @@ processTree b lex morpho i tree  | isCompound =  saveSms >> moveOn (setLabel sms
         --isUVerb       = isUnknown && verbtag pos
         isName        = isUnknown 
         isFut         = pos =="SVPS"
-        word          = (if b then lower else id) (label tree)
+        word          = (if b then lower else id) (snd $ label tree)
         --vx            = ("VX"++show i)   --TODO maybe look at tag?
-        nx            = ("1")  
+        nx            = "1"  
         isUnknown     = null lemmas
         lemmas        = map fst $ lookupMorpho morpho word
-        pos           = label $ fromJust $ parent tree
+        pos           = snd $ label $ fromJust $ parent tree
         sms           = intercalate bind cmps
         bind          = " &+ "
         cmps          = compoundUnknown lex word 
         lower (x:xs)  = toLower x:xs 
         lower []      = []
+        setLabel' a   = setLabel (fst $ label tree,a)
         saveSms       = tellLemma $ map fst $ (concatMap (lookupMorpho morpho) cmps)
         saveName      = tellName (i,word) --TODO save whole name, not just first part
         moveOn  tr    = maybe (return tr) (processTree False lex morpho i)     (getNextWord tr)
@@ -61,20 +63,22 @@ compoundUnknown lex w
         getFirstGood []    = []
 
 
-exchangeNames :: Int -> TreePos Full String -> TreePos Full String
-exchangeNames i tree | lookNamish word  = moveOnTree (setLabel name) dropName tree 
+exchangeNames :: Int -> WorkingTree -> WorkingTree
+exchangeNames i tree | lookNamish word  = moveOnTree (setLabel (id,name)) dropName tree 
                      | otherwise        = tree
-   where word    = label tree
+   where word    = snd $ label tree
+         id      = fst $ label tree
          name    = if List.last word == 's' then "XPN"++show i else "YPN"++show i
 
-dropName  :: TreePos Full String -> TreePos Full String
-dropName tree | lookNamish word || isNameSpec word = moveOnTree (setLabel "") dropName tree
+dropName  :: WorkingTree -> WorkingTree
+dropName tree | lookNamish word || isNameSpec word = moveOnTree (setLabel (id,"")) dropName tree
               | otherwise                          = tree
-   where word    = label tree
+   where word    = snd $ label tree
+         id      = fst $ label tree
 
 -- Modifies the tree with mod, then continues with f on the next word in the tree, if a such exist
-moveOnTree :: forall t.  (t -> TreePos Full String) -> (TreePos Full String -> TreePos Full String) 
-           -> t -> TreePos Full String
+moveOnTree :: forall t.  (t -> WorkingTree) -> (WorkingTree -> WorkingTree) 
+           -> t -> WorkingTree
 moveOnTree mod f tree | Just tree'<- getNextWord $ mod tree = f tree'
                       | otherwise                           = mod tree
 
@@ -90,11 +94,11 @@ notPn      = (`notElem` ["Dig","Din","Dina","Du","Er","Era","Er","Eder","Ni"])
 numbertag :: String -> Bool 
 numbertag = (=="RO") . take 2
 
-getFirstWord :: TreePos Full  String -> TreePos Full String
+getFirstWord :: WorkingTree -> WorkingTree
 getFirstWord tree | isLeaf tree = tree
                   | otherwise   = getFirstWord $ fromJust (firstChild tree)
 
-getNextWord :: TreePos Full  String -> Maybe (TreePos Full String)
+getNextWord :: WorkingTree -> Maybe WorkingTree
 getNextWord tree  | hasSiblingLeaf                           = next tree
                   | not (isLast tree)                        = Just $ getFirstWord sibling
                   | isContained tree                         = getNextWord parentNode
