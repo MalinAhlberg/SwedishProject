@@ -60,6 +60,7 @@ quant  = fromJust $ readType "Quant"
 pron   = fromJust $ readType "Pron"  -- obs! ej reflexive
 relvp  = fromJust $ readType "RelVP"
 advs   = [adv,adV,iadv]
+comps   = [icomp,comp]
 --pol    = fromJust $ readType "Pol"  --no, this must be some special, just string "inte"
 --advs = [advsub,advobj]
 nps  = [npsub,npobj,np]
@@ -73,6 +74,7 @@ toGFStr []                 = return ""
 toGFStr xs  | xs == advs   = return "?advs"
             | xs == nps    = return "?nps"
             | xs == verbs  = return "?v"
+            | xs == comps  = return "?comps"
 toGFStr [x] | x  == cn     = return "?cn"
             | x  == np     = return "?np"
             | x  == npsub  = return "?npsub"

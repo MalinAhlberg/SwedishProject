@@ -19,7 +19,9 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ {-tryAll "hardtests.xml"-} try "stest.xml"
+          timeIt $ tryAll tb --"hardtests.xml" {- try "stest.xml"-}
+
+tb = "../../Talbanken05_20060604/FPS/P.tiger.xml" 
 
 type ChunkTree = Tree (Id,String)
 
@@ -31,14 +33,14 @@ tryAll fil = do
   putStrLn $ "Building morpho ... "
   let morpho = buildMorpho pgf langBig
   putStrLn $ "Parsing xml ... "
-  input <- splitFile . concat <$> Form.parseIdTree fil
-  pgfs <- mapM (extractDicts saldo morpho) [x | x <- zip input [0..]]  
+  input <- take 190 . drop 190 . splitFile . concat <$> Form.parseIdTree fil
+  pgfs <- mapM (extractDicts saldo morpho) [x | x <- zip input [191..]]   --OBS
   mapM processPartition pgfs
 
  where processAndWrite :: PGF -> Language -> (String,ChunkTree) -> IO ()
        processAndWrite pgf lang (i,tree) = do
           res <- parseText tree pgf lang startType
-          appendFile "lastfancytest.txt" $ showRes (i,res) ++"\n"
+          appendFile "helaTBpart2" $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
        extractDicts :: Saldo -> Morpho -> ([(String,ChunkTree)],Int) -> IO ([String],[WorkingTree],Maybe (FilePath,Language))
@@ -95,7 +97,7 @@ try fil = do
   input <- fmap concat $ Form.parseIdTree fil
   putStrLn $ "reading input "
   sequence [parseText inp pgf lang startType >>= writeToFile i | (i,inp) <- input]
- where writeToFile i x = appendFile "newfancytests" $ showRes (i,x) ++"\n"
+ where writeToFile i x = appendFile "dummesvar2" $ showRes (i,x) ++"\n"
 
 showRes (i,expr) = i++"\n"++ unlines (map (showExpr []) expr)
 formatNames :: [(Int,String)] -> String

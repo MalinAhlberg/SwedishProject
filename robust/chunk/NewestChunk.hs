@@ -2,10 +2,11 @@
 module NewestChunk where 
 import PGF hiding (Tree)
 import Control.Applicative
-import Control.Arrow hiding ((+++))
+import Control.Arrow hiding ((+++),(|||))
 import Control.Monad.Writer.Lazy hiding (ap)
 import Control.Monad.State.Lazy hiding (ap)
 import Data.List
+import Data.List.Split
 import Data.Maybe
 import Data.Ord
 import qualified Data.Map as M
@@ -28,15 +29,18 @@ data PState = PS {currentStates :: [String]       --the current parse state
                  ,gfParser      :: Type -> String -> [Expr]
                  ,rankThem      :: [Expr] -> [Expr]
                  ,chunks        :: [(Id,[Expr])]  --list of expressions to replace the ints with later
+                 ,morpho        :: Morpho
                  ,saveChunks    :: [(Id,[Expr])]  
                  ,counter       :: Int             --counter for replacing
                  ,lastExpr      :: Maybe (Id,[Expr])
+--                 ,splitChunks   :: [[String]]
 --                 ,backups       :: 
                  }
 type Parser = WriterT [String] (State PState)
 type Id     = String
 
 
+toplimit = 500
 limit, chunklimit, disambiglimit :: Int
 limit = 500
 chunklimit = 20
@@ -47,11 +51,9 @@ saveStatelimit = 8
 parseText :: Tree (Id,String) -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   hSetBuffering stdout LineBuffering
-  -- parse the flat string!!
   let (trejs,st) = runState (execWriterT (parseX tree)) parser 
-  appendFile "lastfancyoutput" (unlines $ trejs++["\n"])
+  appendFile "TBUt" (unlines $ trejs++["\n"])
   let res = lastExpr st
- -- let strs = currentStates st 
   -- testa att byta alla adv mot adV
 --  ok <- limitAndRank <$> findParse {-(sortBy (comparing noMetas)-} strs
   --putStrLn $ "string 1: "++concat (take 1 strs)
@@ -60,37 +62,23 @@ parseText tree pgf lang startType = do
                            combinePieces st
        Just (_,expr) -> do let unparsed = saveChunks st
                                pieces = map (\(i,expr) -> (mkApp (mkCId i) expr)) unparsed
-                           putStrLn $ "saved chunks: "++show (length $ saveChunks st)
+                           -- remove these two later
+                           putStrLn $ "saved chunks: "++show (length $ unparsed)
+                           putStrLn $ "and pieces: "++show (length $ pieces)
+                           putStrLn $ "and they are: "++show (map (showExpr []) pieces)
                            let res = limitAndRank expr
-                           putStrLn $ "have got a result " -- ++show (length expr)
+                           putStrLn $ "have got a result " ++show (length res)
                            return (res ++pieces)
-
---  if null ok then do putStrLn "No parse trees :("
---                     combinePieces st
---             else do let unparsed = saveChunks st
---                         pieces = limitAndRank $ map (\(i,expr) -> (mkApp (mkCId i) expr)) unparsed
---  --                   putStrLn $ "saved chunks: "++show (saveChunks st)
---                     return (ok++pieces)
 
  where parser     = initPState pgf lang startType
       
-      -- TODO rank it if possible, otherwise get chunks and rank them
-       --findParse :: [String] -> IO [Expr]
-       --findParse []  = return []
-       --findParse (st:sts) = do
-       --    putStrLn $ "parsing "++ st
-       --    let parsed = parse pgf lang phrText st
-       --    case parsed of
-       --         []    -> findParse sts
-       --         trees -> return trees
 
        limitAndRank,limitAndRankChunk :: [Expr] -> [Expr]  -- TODO use threshold!!
        limitAndRank = limitAndRank' limit
        limitAndRankChunk = limitAndRank' chunklimit
-       limitAndRank' i exs = case length (take topLimit exs) of
-                                  toplimit -> splitINPUT!! --TODO START here. 
-                                  _        ->  take i $ map fst
-                                             $ rankTreesByProbs pgf exs
+       limitAndRank' i exs = if length (take toplimit exs)== toplimit 
+                                then DB.trace "too many" []
+                                else take i $ map fst $ rankTreesByProbs pgf exs
 
        --parseToks :: Token -> Either a ParseState -> Either a ParseState
        parseToks tok (Right parseState) = nextState parseState (simpleParseInput tok)
@@ -99,20 +87,18 @@ parseText tree pgf lang startType = do
        noMetas = length . filter (=='?') . concat
 
        combinePieces st = do
-         let chunkorder = sequence $ map (limitAndRankChunk . snd) $ saveChunks st -- ++ chunks st
+         let chunkorder = mapM (limitAndRankChunk . snd) $ saveChunks st -- ++ chunks st
          return $ take limit $ map (\ex -> mkApp meta ex) chunkorder
        
 initPState pgf lang startType =  
   let startS = startState pgf lang startType
-  in  PS { --recTypes = [[sent]], recState =  [[Ok $ startS ]], skip = [False]
-          currentStates = [""] --, pieces =  []
+  in  PS { currentStates = [""]
          ,gfParser = parse pgf lang
-         --,emptyPState = initState pgf lang
-         ,chunks = [], counter = 0 --, isInnerS = 0, gettingPieces = False
+         ,chunks = [], counter = 0
          ,saveChunks = []
          ,rankThem   = map fst . rankTreesByProbs pgf
          ,lastExpr   = Nothing 
-         --,sentences = [], pgf = pgf
+         ,morpho     = buildMorpho pgf lang
          }
 
 startState pgf lang startType = initState pgf lang startType
@@ -123,8 +109,39 @@ parseX' (Node (i,w) []) = do
 -- bad idea? is word unknown? maybe XX if it is. then 
   putTrace $ "add word "++w
   addWord w
+  m <- gets morpho
+  let lemma = map fst (lookupMorpho m w) ||| [meta]
+  --addChunks [(i,map (\x -> mkApp meta [mkApp x []]) lemma)]
   -- TODO lemma this word, and add it as a chunk
   return w                         
+
+{-
+parseX' (Node (i,"S") ts)  
+   | length splits <2 = parseX' (Node (i,"XX") ts)
+   | otherwise = do begin <- emptyString
+                    ss    <- emptySaveChunks
+                    putTrace "can split this sentence"
+                    pieces <- sequence [do emptyString
+                                           parseX' (Node ('x':i,"Sx") ts)
+                                           ex <- gets lastExpr 
+                                           putTrace $ "last expr in splitted is "++show ex
+                                           return ex
+
+                                       | ts <- splits
+                                       ]
+                    ranker <- gets rankThem
+                    let parts = map (maybe [mkApp meta []] (ranker . snd)) pieces
+                        res   = [(i,[mkApp meta ps]) | ps <- combine parts]
+                    addSaveChunks res
+                    putTrace $ "added saved chunk "++show res
+                    putString begin
+                    addSaveChunks ss
+                    parseX' (Node (i,"XX") ts)
+
+ where splits = splitWhen (nodeIs isSkipNode) ts
+       nodeIs f (Node (i,x) _) = f x
+
+-}
 
 -- some nouns don't have surrounding NP, but should be roubust anyway
 parseX' (Node (i,x) ts) 
@@ -136,6 +153,7 @@ parseX' (Node (i,x) ts)
      | isSkipNode x        = enableSkip ts
 
 --"VN" ("AN" but could also be apposition)
+
 -- otherwise, just continue
 parseX' (Node x [t]) = putTrace ("one left in "++show x ) 
                     >> parseX t 
@@ -157,7 +175,7 @@ saveNodes = --("NP",nps),("PP",[adv]), ("FV",[v]),("IV",[v]),
             --,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
             --,("CPP",[adv]),("CS",[sent]),("CVP",[vpx]),("NAC",[utt])
             ,("++",[conj]),("SP",[icomp,comp]) --,("VP",[vpx])
-            ,("NN",nps),("ROOT",[phrText])] --TODO change v to all vs
+            ,("NN",nps),("ROOT",[phrText]),("Sx",[phrText])] --TODO change v to all vs
 
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
 
@@ -167,7 +185,7 @@ getStr a id = DB.trace ("fromJust on Str "++show a)$ (fromJust (toGFStr a) +++id
 
 saveState ::  [Type] -> Id -> [Tree (Id,String)] -> Parser String
 saveState recover id ts = do
-  begin   <- emptyCurrentStates
+  begin   <- emptyString
   oldChunks <- emptyChunks
   str     <- unwords <$> mapM parseX ts
   parser  <- gets gfParser
@@ -181,37 +199,52 @@ saveState recover id ts = do
   putTrace $ "chunk parsed "++ str++" as "++show recover++" got "
                             ++show (map (showExpr []) (take 1 parsable))
   putTrace $ "chunk parsed fixed "++ intercalate "," fixed
+  let (considerable,res) = if null parsable then (theExpr parsefixed,theStr parsefixed) 
+                                            else (parsable,str)
+      newString          = if null parsable then concatMap (\fixStr -> map (+++fixStr) begin) fixed
+                                            else map (+++str) begin
   -- if we can't parse the chunk, we save its subchunks and adds a dummy word to the sentence
-  case length parsable of
-       0          ->if null parsefixed 
-                       then do let types = getStr recover id
-                               putTrace $ "could not parse chunk "++id
-                               putString (map (+++types) begin)
-                               addSaveChunks newChunks
-                               setLastExpr Nothing
-                       else do putTrace $ "could only parse fixed chunk "++id
-                               addChunks [(id,parsefixed)] -- :newChunks
-                               putString (concatMap (\fixStr -> map (+++fixStr) begin) fixed)
-                               setLastExpr $ Just (id,parsefixed)
-       n           | n > limit -> do putTrace $ "will have to limit chunk "++show n
-                                     let expr = ranker parsable
-                                         types = getStr recover id
+  case length (take limit considerable) of
+       0          -> do --if null parsefixed 
+                     --  then do
+                        let types = getStr recover id
+                        putTrace $ "could not parse chunk "++id
+                        putString (map (+++types) begin)
+                        addSaveChunks newChunks
+                        setLastExpr Nothing
+                   --    else do putTrace $ "could only parse fixed chunk "++id
+                   --            addChunks [(id,parsefixed)] -- :newChunks
+                   --            putString (concatMap (\fixStr -> map (+++fixStr) begin) fixed)
+                   --            setLastExpr $ Just (id,parsefixed)
+       n           | n == limit -> do --putTrace $ "will have to limit chunk "++show n
+            --                          let xs = groupWith (`elem` splitters) newString
+            --                          if length xs > 1 then parser allTypes xs
+            --                                
+            --               --split!!
+                                     putTrace "Wooo, too many chunks"
+                                     --let expr = ranker considerable
+                                     let types = getStr recover id
                                      putString (map (+++types) begin)
-                                     addSaveChunks [(id,expr)]
-                                     setLastExpr $ Just (id,expr)
+                                     addSaveChunks [(id,considerable)]
+                                     setLastExpr $ Just (id,considerable)
                    | otherwise      -> -- if we can parse it, we add the tree to the state
                                        -- and don't save the dummy words from within the chunk
-                                      do putTrace $ "could parse chunk "++id
+                                      do putTrace $ "could parse chunk "++id++", "++res
                                          putTrace $"don't have to limit chunk "++show n
-                                         addChunks [(id,parsable)]
-                                         putString (map (+++str) begin)
-                                         setLastExpr $ Just (id,parsable)
+                                         addChunks [(id,considerable)]
+                                         putString newString
+                                         setLastExpr $ Just (id,considerable)
   return str
- where findOkSentence :: [String] -> (Type -> String -> [Expr]) -> [Expr]
-       findOkSentence fixed parser = concat <$> take 1 
-                                   $ filter (not. null ) 
+ where findOkSentence :: [String] -> (Type -> String -> [Expr]) -> [([Expr],String)]
+       findOkSentence fixed parser = {-first concat <$> -} take 1 
+                                   $ filter (not. null . fst ) 
                                    $ map tryParse fixed
-          where tryParse fixStr = concatMap (\typ -> parser typ fixStr) recover
+          where tryParse :: String -> ([Expr],String)
+                tryParse fixStr = (concatMap (\typ -> parser typ fixStr) recover,fixStr)
+       theExpr :: [([Expr],String)] -> [Expr]
+       theExpr = concat . map fst . take 1 
+       theStr  :: [([Expr],String)] -> String
+       theStr  = concat . map snd . take 1 
 
 
 enableSkip :: [Tree (Id,String)] -> Parser String 
@@ -222,14 +255,30 @@ enableSkip ts = do
   addStrings begin
   return str
  
+emptySaveChunks :: Parser [(Id,[Expr])] 
+emptySaveChunks = do
+  c <- gets chunks
+  modify $ \s -> s {saveChunks = []} 
+  return c
+
+
 addChunks :: [(Id,[Expr])] -> Parser ()
 addChunks c = modify $ \s -> s {chunks = chunks s++c} 
 addSaveChunks :: [(Id,[Expr])] -> Parser ()
 addSaveChunks c = do 
   ranker <- gets rankThem
-  let cs = map (shorten ranker) c
-  modify $ \s -> s {saveChunks = chunks s++cs} 
- where shorten ranker (i,ex) = (i,if length ex > chunklimit then ranker ex else ex)
+  cs     <- mapM (shorten ranker) c
+  modify $ \s -> s {saveChunks = saveChunks s++cs} 
+ where shorten rank (i,ex) 
+        | length (top ex) == toplimit = do
+                putTrace "warning!! limiting unrestricted"
+                return (i,rank $ chunk ex)
+        | length (chunk ex) == chunklimit = do
+                putTrace "limiting a save chunk"
+                return (i,rank $ chunk ex)
+        | otherwise = return (i,rank ex)
+       chunk ex = take chunklimit ex
+       top   ex = take toplimit ex
 
 emptyChunks :: Parser [(Id,[Expr])] 
 emptyChunks = do
@@ -255,8 +304,8 @@ addWord str = do
 addStrings :: [String] -> Parser ()
 addStrings strs = modify $ \s -> s {currentStates = currentStates s++strs}
 
-emptyCurrentStates :: Parser [String] 
-emptyCurrentStates = do
+emptyString :: Parser [String] 
+emptyString = do
   c <- gets currentStates
   modify $ \s -> s {currentStates = [""]} 
   return c
@@ -285,3 +334,14 @@ meta = mkCId "?"
 
 (+++) :: String -> String -> String
 a +++ b = a ++" "++b
+
+combine :: [[a]] -> [[a]]
+combine = sequence
+
+(|||) :: [a] -> [a] -> [a]
+a ||| b = if null a then b else a
+
+{-
+combine [] = [[]]
+combine (x:xs) = [a:as | a <- x, as <- combine xs]
+-}

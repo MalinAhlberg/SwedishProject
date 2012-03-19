@@ -14,6 +14,7 @@ type LexMap = (Lex,Lex)
 type Lex    = M.TMap String String
 
 mkDir ::LexMap -> [Lemma] -> Int -> IO (Maybe (FilePath,Language))
+--mkDir lexs lem i | i <193 = return $ Just ("pgfs/"++"BigParse"++show i++".pgf",newLang)
 mkDir lexs lem i = do
    let lems = map head $ group $ sort lem
    putStrLn $ "Lemmas wanted "++show lems
