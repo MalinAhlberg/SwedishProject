@@ -68,7 +68,7 @@ exchangeNames i tree | lookNamish word  = moveOnTree (setLabel (id,name)) dropNa
                      | otherwise        = tree
    where word    = snd $ label tree
          id      = fst $ label tree
-         name    = if List.last word == 's' then "XPN"++show i else "YPN"++show i
+         name    = if List.last word == 's' then "XPN "++show i else "YPN "++show i
 
 dropName  :: WorkingTree -> WorkingTree
 dropName tree | lookNamish word || isNameSpec word = moveOnTree (setLabel (id,"")) dropName tree

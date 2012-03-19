@@ -19,7 +19,7 @@ import System.IO
 import System.TimeIt
 
 main = do hSetBuffering stdout LineBuffering
-          timeIt $ tryAll tb --"hardtests.xml" {- try "stest.xml"-}
+          timeIt $ tryAll  "hardtests.xml" {- tb --try "stest.xml"-}
 
 tb = "../../Talbanken05_20060604/FPS/P.tiger.xml" 
 
@@ -33,14 +33,16 @@ tryAll fil = do
   putStrLn $ "Building morpho ... "
   let morpho = buildMorpho pgf langBig
   putStrLn $ "Parsing xml ... "
-  input <- take 190 . drop 190 . splitFile . concat <$> Form.parseIdTree fil
-  pgfs <- mapM (extractDicts saldo morpho) [x | x <- zip input [191..]]   --OBS
+  input <- take 43 . drop 190 .{- take 22 .-} splitFile . concat <$> Form.parseIdTree fil
+  pgfs <- mapM (extractDicts saldo morpho) [x | x <- zip input [0..]] 
   mapM processPartition pgfs
 
  where processAndWrite :: PGF -> Language -> (String,ChunkTree) -> IO ()
        processAndWrite pgf lang (i,tree) = do
           res <- parseText tree pgf lang startType
-          appendFile "helaTBpart2" $ showRes (i,res) ++"\n"
+          let fil = "night/advTest2"
+          putStrLn $ "write to "++fil
+          appendFile fil $ showRes (i,res) ++"\n"
         where ziptree = getFirstWord $ fromTree tree
 
        extractDicts :: Saldo -> Morpho -> ([(String,ChunkTree)],Int) -> IO ([String],[WorkingTree],Maybe (FilePath,Language))

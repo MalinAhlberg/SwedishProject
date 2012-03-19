@@ -31,9 +31,9 @@ flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
      
 
   annars_Adv = mkAdv "annars" ; --remove
-  Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
-  Y_PN  i = {s = table {Gen => "Ys"++i.s ;
-                        Nom => "Y" ++i.s };
+  Xs_PN i = {s = \\_ => "XPN"++i.s    ; g = (variants {utrum | neutrum})} ;
+  Y_PN  i = {s = table {Gen => "YPNs"++i.s ;
+                        Nom => "YPN" ++i.s };
              g = (variants {utrum | neutrum})} ;
 
   npMeta str =  mkNP' (variants { "?np"++str.s |  "?nps"++str.s }) ;

@@ -33,11 +33,13 @@ data PState = PS {currentStates :: [String]       --the current parse state
                  ,saveChunks    :: [(Id,[Expr])]  
                  ,counter       :: Int             --counter for replacing
                  ,lastExpr      :: Maybe (Id,[Expr])
+                 ,npRate        :: (Int,Int) --NPInfo
 --                 ,splitChunks   :: [[String]]
 --                 ,backups       :: 
                  }
 type Parser = WriterT [String] (State PState)
 type Id     = String
+--data NPInfo = NP {tot :: Int, ok :: Int, good :: Int, sents :: [String]}
 
 
 toplimit = 500
@@ -52,7 +54,8 @@ parseText :: Tree (Id,String) -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   hSetBuffering stdout LineBuffering
   let (trejs,st) = runState (execWriterT (parseX tree)) parser 
-  appendFile "TBUt" (unlines $ trejs++["\n"])
+  appendFile "night/advTest2" (unlines $ trejs++["\n"])
+  appendFile "night/advTest2"   (show $ npRate st)
   let res = lastExpr st
   -- testa att byta alla adv mot adV
 --  ok <- limitAndRank <$> findParse {-(sortBy (comparing noMetas)-} strs
@@ -99,6 +102,7 @@ initPState pgf lang startType =
          ,rankThem   = map fst . rankTreesByProbs pgf
          ,lastExpr   = Nothing 
          ,morpho     = buildMorpho pgf lang
+         ,npRate     = (0,0) --NP 0 0 0 []
          }
 
 startState pgf lang startType = initState pgf lang startType
@@ -147,6 +151,7 @@ parseX' (Node (i,"S") ts)
 parseX' (Node (i,x) ts) 
      | "NN" `isPrefixOf` x && length x>2 = parseX (Node (i,"NN") ts) -- put all variants of NNxxx to NN
 
+     | isAdverbNode x      = putTrace "fixed an adverb" >> return "?advs"
      | isSaveNode x        =  {-# SCC "parseXSave" #-}
                               putTrace ("saves node" ++show x)
                            >> saveState (getCat x) i ts
@@ -165,7 +170,7 @@ parseX' (Node (i,x) (t:ts)) = do
 
 isSaveNode = (`elem` map fst saveNodes)
 
-
+isNP = not . null . (`intersect` nps) 
 saveNodes = --("NP",nps),("PP",[adv]), ("FV",[v]),("IV",[v]),
             [("SS",[npsub{-,np-}]),("OO",[npobj]) --,np])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
@@ -177,7 +182,13 @@ saveNodes = --("NP",nps),("PP",[adv]), ("FV",[v]),("IV",[v]),
             ,("++",[conj]),("SP",[icomp,comp]) --,("VP",[vpx])
             ,("NN",nps),("ROOT",[phrText]),("Sx",[phrText])] --TODO change v to all vs
 
+adverbNodes = [("TA",advs),("XA",advs),("VA",advs)
+              ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
+              ,("RA",advs),("+A",advs)
+              ]
+
 isSkipNode x = any (`isPrefixOf` x) ["IG","IK","IQ","IR","IS","IT"]
+isAdverbNode  = (`elem` map fst adverbNodes)
 
 getCat :: String -> [Type]
 getCat a = DB.trace ("fromJust on Cat "++a)$ (fromJust . (`lookup` saveNodes)) a
@@ -185,11 +196,12 @@ getStr a id = DB.trace ("fromJust on Str "++show a)$ (fromJust (toGFStr a) +++id
 
 saveState ::  [Type] -> Id -> [Tree (Id,String)] -> Parser String
 saveState recover id ts = do
-  begin   <- emptyString
+  begin     <- emptyString
   oldChunks <- emptyChunks
-  str     <- unwords <$> mapM parseX ts
-  parser  <- gets gfParser
-  ranker  <- gets rankThem
+  oldNP     <- gets npRate
+  str       <- unwords <$> mapM parseX ts
+  parser    <- gets gfParser
+  ranker    <- gets rankThem
   -- TODO if more than chunklimit, rank them and add metas, add to savestate
   let parsable = concatMap (\typ -> parser typ str) recover
   fixed <- gets currentStates
@@ -204,6 +216,8 @@ saveState recover id ts = do
       newString          = if null parsable then concatMap (\fixStr -> map (+++fixStr) begin) fixed
                                             else map (+++str) begin
   -- if we can't parse the chunk, we save its subchunks and adds a dummy word to the sentence
+
+  when (isNP recover) $ setNP parsable oldNP
   case length (take limit considerable) of
        0          -> do --if null parsefixed 
                      --  then do
@@ -255,6 +269,18 @@ enableSkip ts = do
   addStrings begin
   return str
  
+setNP parsable (n,m) | not (null parsable) = setNPRate (n+1,m+1)
+                     | otherwise           = do
+                          (i,j) <- gets npRate 
+                          setNPRate (i,j+1)
+
+setNPRate np = modify $ \s -> s {npRate = np} 
+
+-- when any np is in recover, if not (null parsable) then (+1,+0,+1) else 
+--                               if not (null parsefixed) (+1,+1,+0) else (+1,+0,+0)
+--         anyway: add newString to sent
+
+
 emptySaveChunks :: Parser [(Id,[Expr])] 
 emptySaveChunks = do
   c <- gets chunks
