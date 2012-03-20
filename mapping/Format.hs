@@ -64,25 +64,29 @@ mainF src =
                                      , withRemoveWS yes] src
         >>> arrIO (putStrLn . unlines . map (show . toTree))) 
 
-parse src =
+runPickle f src = 
   runX (xunpickleDocument xpSentences [withInputEncoding utf8
                                      , withRemoveWS yes] src
-        >>> arrIO (return . map toTree)) 
+        >>> arrIO (return . map f)) 
 
+parse = runPickle toStringTree
+parseIdTree = runPickle toTree
 
+toStringTree :: Sentence -> (String,T.Tree String)
+toStringTree = second (fmap snd) . toTree
 
-toTree :: Sentence -> (String,T.Tree String)
+toTree :: Sentence -> (String,T.Tree (Id,String))
 toTree s@(Sent root ws inf _) = (root,toTree' root s)
 
-toTree' :: String -> Sentence -> T.Tree String
+toTree' :: String -> Sentence -> T.Tree (Id,String)
 toTree' nr s@(Sent root ws inf _) = 
      case (lookup' nr ws,lookup'' nr inf) of
        (Just w,_) -> putWord w
        (_,Just p) -> putPhrase p
        _          -> error $ "Error in toTree' "++show nr++" could not be found"
-  where putWord (W i w p)    = T.Node p [T.Node w []]
-        putPhrase (Ph i c t) = T.Node c 
-                                $ map (\(tag,next) -> T.Node tag  [toTree' next s]) t
+  where putWord (W i w p)    = T.Node (i,p) [T.Node (i,w) []]
+        putPhrase (Ph i c t) = T.Node (i,c) 
+                                $ map (\(tag,next) -> T.Node (next,tag)  [toTree' next s]) t
 
         lookup' y (w@(W x _ _):xs) | y ==x     = Just w
                                    | otherwise = lookup' y xs
