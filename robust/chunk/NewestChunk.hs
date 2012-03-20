@@ -31,15 +31,27 @@ data PState = PS {currentStates :: [String]       --the current parse state
                  ,chunks        :: [(Id,[Expr])]  --list of expressions to replace the ints with later
                  ,morpho        :: Morpho
                  ,saveChunks    :: [(Id,[Expr])]  
-                 ,counter       :: Int             --counter for replacing
                  ,lastExpr      :: Maybe (Id,[Expr])
-                 ,npRate        :: (Int,Int) --NPInfo
---                 ,splitChunks   :: [[String]]
---                 ,backups       :: 
+                 ,npRate        :: (Int,Int,[Int]) --NPInfo
+                 ,npCover       :: (Int,Int,[Int])
+                 ,apRate        :: (Int,Int,[Int]) --NPInfo
+                 ,apCover       :: (Int,Int,[Int])
+                 ,advRate       :: (Int,Int,[Int]) --NPInfo
+                 ,advCover      :: (Int,Int,[Int])
                  }
 type Parser = WriterT [String] (State PState)
 type Id     = String
---data NPInfo = NP {tot :: Int, ok :: Int, good :: Int, sents :: [String]}
+data Info   = I {ok, tot :: Int, okLength :: [Int]}
+    deriving Show
+data ChunkInfo =  CI {npR :: Info, apR :: Info, advR :: Info
+                     ,npC :: Info, apC :: Info, advC :: Info}
+    deriving Show
+
+chunkInfo :: PState -> ChunkInfo
+chunkInfo st = CI (info $ npRate st)  (info $ apRate st)  (info $ advRate st)
+                  (info $ npCover st) (info $ apCover st) (info $ advCover st)
+    where info (i,j,l) = I i j l
+                        
 
 
 toplimit = 500
@@ -50,25 +62,25 @@ disambiglimit = 700
 backuplimit = 20
 saveStatelimit = 8 
 
+countChunks :: Tree (Id,String) -> PGF -> Language -> Type -> IO ChunkInfo
+countChunks tree pgf lang startType = do
+  hSetBuffering stdout LineBuffering
+  let st = execState (execWriterT (parseX tree)) parser 
+  return $ chunkInfo st
+ where parser     = initPState pgf lang startType
+
 parseText :: Tree (Id,String) -> PGF -> Language -> Type -> IO [Expr]
 parseText tree pgf lang startType = do
   hSetBuffering stdout LineBuffering
   let (trejs,st) = runState (execWriterT (parseX tree)) parser 
-  appendFile "night/advTest2" (unlines $ trejs++["\n"])
-  appendFile "night/advTest2"   (show $ npRate st)
+  appendFile "night/advTestUt1Corr" (unlines $ trejs++["\n"])
+  appendFile "night/npChunk1" $ show $ npRate st 
   let res = lastExpr st
-  -- testa att byta alla adv mot adV
---  ok <- limitAndRank <$> findParse {-(sortBy (comparing noMetas)-} strs
-  --putStrLn $ "string 1: "++concat (take 1 strs)
   case res of 
        Nothing       -> do putStrLn "No parse trees :("
                            combinePieces st
        Just (_,expr) -> do let unparsed = saveChunks st
                                pieces = map (\(i,expr) -> (mkApp (mkCId i) expr)) unparsed
-                           -- remove these two later
-                           putStrLn $ "saved chunks: "++show (length $ unparsed)
-                           putStrLn $ "and pieces: "++show (length $ pieces)
-                           putStrLn $ "and they are: "++show (map (showExpr []) pieces)
                            let res = limitAndRank expr
                            putStrLn $ "have got a result " ++show (length res)
                            return (res ++pieces)
@@ -90,19 +102,24 @@ parseText tree pgf lang startType = do
        noMetas = length . filter (=='?') . concat
 
        combinePieces st = do
-         let chunkorder = mapM (limitAndRankChunk . snd) $ saveChunks st -- ++ chunks st
+         let chunkorder = mapM (limitAndRankChunk . snd) $ saveChunks st
          return $ take limit $ map (\ex -> mkApp meta ex) chunkorder
        
 initPState pgf lang startType =  
   let startS = startState pgf lang startType
   in  PS { currentStates = [""]
          ,gfParser = parse pgf lang
-         ,chunks = [], counter = 0
+         ,chunks = []
          ,saveChunks = []
          ,rankThem   = map fst . rankTreesByProbs pgf
          ,lastExpr   = Nothing 
          ,morpho     = buildMorpho pgf lang
-         ,npRate     = (0,0) --NP 0 0 0 []
+         ,npRate     = (0,0,[])
+         ,npCover    = (0,0,[])
+         ,apRate     = (0,0,[])
+         ,apCover    = (0,0,[])
+         ,advRate    = (0,0,[])
+         ,advCover   = (0,0,[])
          }
 
 startState pgf lang startType = initState pgf lang startType
@@ -151,7 +168,7 @@ parseX' (Node (i,"S") ts)
 parseX' (Node (i,x) ts) 
      | "NN" `isPrefixOf` x && length x>2 = parseX (Node (i,"NN") ts) -- put all variants of NNxxx to NN
 
-     | isAdverbNode x      = putTrace "fixed an adverb" >> return "?advs"
+--   | isAdverbNode x      = putTrace "fixed an adverb" >> return "?advs"
      | isSaveNode x        =  {-# SCC "parseXSave" #-}
                               putTrace ("saves node" ++show x)
                            >> saveState (getCat x) i ts
@@ -170,17 +187,18 @@ parseX' (Node (i,x) (t:ts)) = do
 
 isSaveNode = (`elem` map fst saveNodes)
 
-isNP = not . null . (`intersect` nps) 
-saveNodes = --("NP",nps),("PP",[adv]), ("FV",[v]),("IV",[v]),
-            [("SS",[npsub{-,np-}]),("OO",[npobj]) --,np])
+isNP  = not . null . (`intersect` nps) 
+isAdv = not . null . (`intersect` advs) 
+isAP  = (ap `elem`)
+
+saveNodes = 
+            [("SS",[npsub]),("OO",[npobj])
             ,("OA",[adv]),("TA",advs),("XA",advs),("VA",advs)
             ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
             ,("RA",advs),("+A",advs), ("CNP",nps),("AT",[ap])
             ,("ES",[npsub]),("FS",[npsub]),("EO",[npobj]),("FO",[npobj])
-            --,("AP",[ap]),("AVP",advs),("CAP",[ap]),("CAVP",advs)
-            --,("CPP",[adv]),("CS",[sent]),("CVP",[vpx]),("NAC",[utt])
-            ,("++",[conj]),("SP",[icomp,comp]) --,("VP",[vpx])
-            ,("NN",nps),("ROOT",[phrText]),("Sx",[phrText])] --TODO change v to all vs
+            ,("AP",[ap]),("++",[conj]),("SP",[icomp,comp])
+            ,("NN",nps),("ROOT",[phrText]),("Sx",[phrText])] 
 
 adverbNodes = [("TA",advs),("XA",advs),("VA",advs)
               ,("MA",advs),("KA",advs),("CA",advs),("AA",advs)
@@ -198,7 +216,7 @@ saveState ::  [Type] -> Id -> [Tree (Id,String)] -> Parser String
 saveState recover id ts = do
   begin     <- emptyString
   oldChunks <- emptyChunks
-  oldNP     <- gets npRate
+  st        <- get --for chunks
   str       <- unwords <$> mapM parseX ts
   parser    <- gets gfParser
   ranker    <- gets rankThem
@@ -217,7 +235,9 @@ saveState recover id ts = do
                                             else map (+++str) begin
   -- if we can't parse the chunk, we save its subchunks and adds a dummy word to the sentence
 
-  when (isNP recover) $ setNP parsable oldNP
+  when (isNP  recover) $ setNP  str fixed parsable parsefixed st
+  when (isAP  recover) $ setAP  str fixed parsable parsefixed st
+  when (isAdv recover) $ setAdv str fixed parsable parsefixed st
   case length (take limit considerable) of
        0          -> do --if null parsefixed 
                      --  then do
@@ -269,12 +289,39 @@ enableSkip ts = do
   addStrings begin
   return str
  
-setNP parsable (n,m) | not (null parsable) = setNPRate (n+1,m+1)
-                     | otherwise           = do
-                          (i,j) <- gets npRate 
-                          setNPRate (i,j+1)
+setNP  = setCounting setNPRate  setNPCover npRate npCover
+setAP  = setCounting setAPRate  setAPCover apRate apCover
+setAdv = setCounting setAdvRate setAdvCover advRate advCover
 
-setNPRate np = modify $ \s -> s {npRate = np} 
+setCounting setrate setcover getrate getcover str strfixed parsable fixed st
+   | not (null parsable) = do -- increase both
+                     let (n,m,l)    = getrate st
+                         (cn,cm,cl) = getcover st
+                     setrate  (n+1,m+1,phraseLength str:l)
+                     setcover (cn+1,cm+1,[]) --phraseLength str:cl)
+   | not (null fixed)    = do --increase coverage, but not rate
+                     let (cn,cm,cl) = getcover st
+                     (i,j,l') <- gets npRate 
+                     setcover (cn+1,cm+1,[]) --phraseLength strfixed:cl)
+                     setrate  (i,j+1,l')
+                      
+   | otherwise           = do --none is increased
+                     (i,j,l')    <- gets npRate 
+                     (ci,cj,cl') <- gets npCover 
+                     setrate  (i,j+1,l')
+                     setcover (ci,cj+1,cl')
+
+phraseLength = length . glueBinds . words
+ where glueBinds (x:"&+":y:ys) = (x++y):ys
+       glueBinds (x:xs)        = x:glueBinds xs
+       glueBinds []            = []
+
+setNPRate  np  = modify $ \s -> s {npRate   = np} 
+setNPCover np  = modify $ \s -> s {npCover  = np} 
+setAPRate  ap  = modify $ \s -> s {apRate   = ap} 
+setAPCover ap  = modify $ \s -> s {apCover   = ap} 
+setAdvRate  adv = modify $ \s -> s {advRate = adv} 
+setAdvCover adv = modify $ \s -> s {advCover  = adv} 
 
 -- when any np is in recover, if not (null parsable) then (+1,+0,+1) else 
 --                               if not (null parsefixed) (+1,+1,+0) else (+1,+0,+0)
@@ -349,6 +396,31 @@ putTrace str = do
 parseX tree = do
   putTrace $ "parseX with tree "++show tree
   parseX' tree
+
+
+sumChunks :: [ChunkInfo] -> String
+sumChunks ch = 
+  let nr = summ npR ch
+      nc = summ npC ch
+      ar = summ apR ch
+      ac = summ apC ch
+      avr = summ advR ch
+      avc = summ advC ch
+      summ f i = let xs =  map f i
+                 in  toEnum (sum $ map ok xs) / toEnum (sum $ map tot xs)
+                    
+  in unlines ["NP rate "++show nr,"NP cover "++show nc
+             ,"AP rate "++show ar,"AP cover "++show ac
+             ,"Adv rate "++show avr,"Adv cover "++show avc
+             ,"NP length "++ratio npR ch
+             ,"AP length "++ratio apR ch
+             ,"Adv length "++ratio advR ch
+             ,""
+             ]
+  where ratio f i = let l = concatMap (okLength . f) i
+                    in  show $ toEnum (sum l) / toEnum (length l)
+
+
 
 instance Show ParseOutput where
    show  (ParseOk tree)    = "ParseOK"++unlines (map (showExpr []) tree)

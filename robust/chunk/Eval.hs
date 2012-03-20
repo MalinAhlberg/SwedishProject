@@ -9,6 +9,8 @@ import Data.Maybe
 import qualified Format as Form
 import System.IO
 
+import qualified NpChunk as NP
+
 type Id = String
 data Result = Result {idN :: Id, isText :: Bool, total :: Bool, mets :: [String], first :: String
                      ,tooBig :: Bool}
@@ -19,12 +21,12 @@ tb = "../../Talbanken05_20060604/FPS/P.tiger.xml"
 -- counts the number of sentences for which we could parse the structure, how many that were
 -- totally parsed and how many metas that were in them
 main = do
-   inp <- readFile "helaTBAdv"
+   inp <- readFile "night/advTest1Res" --"helaTBAdv"
    let ss   = splitWhen null $ lines inp
        oks  = map mkLine $ filter (not . null) ss
        res  = (length oks,length (filter isText oks),length (filter (\x -> isText x && total x) oks)
-              ,map (head &&& length) $ group $ sort $ concatMap mets oks)
-   appendFile "Results2" $ show res ++"\n"++ show oks
+              ,length (filter tooBig oks),map (head &&& length) $ group $ sort $ concatMap mets oks)
+   appendFile "night/ResultsAdv1" $ show res ++"\n"++ show oks 
 
 isOk l = okStart l -- || hasChunk l
 whole x = not $ "Meta" `isInfixOf` x
@@ -33,10 +35,18 @@ whole x = not $ "Meta" `isInfixOf` x
 mkLine :: [String] -> Result  
 mkLine (i:xs) = let nice     = any isOk xs
                     semiNice = any hasChunk xs
-                    which    = if not nice && semiNice then last else head
+                    which    = if not nice && semiNice then (firstS . last) else head
                 in  Result i nice (whole $ which xs) (if nice then metas $ which xs else [])
-                           (which xs) semiNice
+                           (which xs) (not nice && semiNice)
  where metas         = filter ("Meta" `isInfixOf`)  . words
+   
+       firstS :: String -> String
+       firstS string = let (start,(p:rest)) = span (/='(') string
+                       in start++(p:takeParent "" rest 1)
+          where takeParent str rest 0 = str
+                takeParent str (x:xs) n | x=='('    = takeParent (str++[x]) xs (n+1)
+                                        | x==')'    = takeParent (str++[x]) xs (n-1)
+                                        | otherwise = takeParent (str++[x]) xs n
 
 
 okStart l = "isText" `isPrefixOf` l || "isUtt" `isPrefixOf` l
@@ -53,7 +63,7 @@ hasChunk l = let (s,rest ) = span (=='s') l
 -- counts the number of words in each skipped chunk
 countmetalength = do
    putStrLn "reading test"
-   inp <- readFile "helaTBpart2" 
+   inp <- readFile "night/npTest1" 
    let ss   = splitWhen null $ lines inp
        oks  = map mkLine $ filter (not . null) ss
        ms   = concatMap (metas . words . first) oks
@@ -105,6 +115,8 @@ sentenceLength = do
   allTrees <- drop 1900 . take 2323 . concat <$> Form.parseIdTree tb
   allTrees1 <- take 220 . concat <$> Form.parseIdTree tb
   return $ ratio $ map (countLeaves . snd) (allTrees++allTrees1)
+
+npchunks = toEnum (sum $ map fst NP.nps) / toEnum (sum $ map snd NP.nps)
 
 ratio :: [Int] -> Double
 ratio xs = (toEnum  $ sum xs) / (toEnum $ length xs)
