@@ -18,7 +18,6 @@ concrete BigSwe of Big =
   ExtraSwe,
   DictSwe
   ** open IrregSwe, ParamX, CommonScand in {
-      -- Irreg needed for göra
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ;

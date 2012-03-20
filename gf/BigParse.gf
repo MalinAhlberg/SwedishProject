@@ -1,12 +1,11 @@
 --# -path=./gf:.:../gf:swedish:prelude:alltenses:abstract:scandinavian:common
 
--- for testing grammar, using just the test lexicon
 abstract BigParse = 
 --  TestLexAbs,
 --  Lexicon,
---  BigValLexAbs,
+  BigValLexAbs,
   ExtraSweAbs,
-  Noun -[DetNP] ,
+  Noun -[DetNP,PossPron,ApposCN],
   Verb -[PassV2,AdvVPSlash,ComplSlash, ReflVP], 
   Adjective -[UseComparA],
   Adverb,
@@ -17,21 +16,22 @@ abstract BigParse =
   Relative,
   Conjunction,
   Phrase,
-  Structural, 
-  Tense - [Adv] ,
+  Structural - [therefore_PConj,otherwise_PConj],  --these require subordinate word order, not for Utt
+  Tense -[Adv],
   Text - [Adv]
-  ** {
-  flags startcat=Phr ; literal=VPCompl ;
+  **
+  {
+  flags startcat=Phr ;
   
   cat VPParse ;
       MetaAgr ;
       VPCompl ;
 
   fun
-  VPMeta : {-MetaAgr ->-}  VPCompl -> NPTyped Object -> VPParse ;
   Y_PN  : Int -> PN ; 
   Xs_PN : Int ->  PN ; --same genitive as nominative
   npMeta : NP ;
+  nMeta : N ;
   npsubMeta : NPTyped Subject ;
   npobjMeta : NPTyped Object ;
   vMeta : V ;
@@ -43,18 +43,7 @@ abstract BigParse =
   advMeta : Adv ;
   iadvMeta : IAdv ;
   adVMeta : AdV ; 
-  {-
-  vMeta   : V ;
-  vvMeta  : VV ;
-  vsMeta  : VS ;
-  v2Meta  : V2 ;
-  v3Meta  : V3 ;
-  vaMeta  : VA ;
-  vqMeta  : VQ ;
-  v2sMeta : V2S ;
-  v2qMeta : V2Q ;
-  v2aMeta : V2A ;
-  -}
+
  
   } ;
 

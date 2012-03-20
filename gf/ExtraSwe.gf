@@ -1,7 +1,6 @@
 --# -path=./gf:.:swedish:prelude:alltenses:abstract:scandinavian:common
--- unnecessarily complicated type of AdvNP???
 concrete ExtraSwe of ExtraSweAbs = 
-           ExtraScandSwe - [PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS] , --why exclude TopAdv??
+           ExtraScandSwe - [PredVPS,VPS,ListVPS,BaseVPS,ConjVPS,ConsVPS,MkVPS,TopAdv] ,
            ParadigmsSwe - [nominative] **
  open CommonScand, ResSwe, ParamX, VerbSwe, Prelude, DiffSwe, StructuralSwe, MorphoSwe,
       NounSwe, Coordination, AdjectiveSwe, SentenceSwe, RelativeSwe in {
@@ -14,7 +13,6 @@ lincat
  N2P = CN ** {c2 : Complement ; det : DetSpecies ; num : Number} ; 
  N2' = N2 ** {det : DetSpecies ; num : Number} ;
  SimpleVP = VP ;
- Obj = {s : Agr => Str };
  
  VPred =  {s : Agr => Str } ;
  VAdv =  {s : Agr => Str } ;
@@ -23,21 +21,25 @@ lincat
 
 ------------------------------------------------------------------------------
  lin
-  ComplVPred vp vpred = insertObjPost vpred.s vp ; --(predV v) ;
-  ComplVAdv vp  vadv = insertObjPost vadv.s vp ; --(predV v) ;
+  ComplVPred vp vpred = insertObjPost vpred.s vp ; 
+  ComplVAdv vp  vadv = insertObjPost vadv.s vp ; 
   CNPred n       = {s = \\a => "som" ++ (CompCN (UseN n)).s ! a } ;
   CNAdv cn        = {s = \\a => "som" ++ cn.s ! a.n ! DIndef ! Nom };
   
-  --ComplCop vpred = insertObj vpred.s (predV verbBe) ;
 -------------------------------------------------------------------------------
 -- For conjunction of verb phrases
 -------------------------------------------------------------------------------
  lincat 
- VPS   = {a0, adV, fin : Str; inf : Agr => Str } ;    --redefined in order to allow questions, topicalisation etc
+ --redefined in order to allow questions, topicalisation etc
+ VPS   = {a0, adV, fin : Str; inf : Agr => Str } ; 
  [VPS] = {a0, adV, fin : Str ; inf1, s2 : Agr => Str} ;
- VPX   = {a0, adV : Str ; inf : XTmp => Agr => Str } ;  -- like VPI, but also works for future tense, topicalisation etc
+
+ -- like VPI, but also works for future tense, topicalisation etc
+ VPX   = {a0, adV : Str ; inf : XTmp => Agr => Str } ; 
  [VPX] = {a0, adV : Str ; s1,s2 : XTmp => Agr => Str } ;
- XTense  = {s : Str ; tmp : XTmp } ;  -- the tenses that can be used with VPX
+
+ -- the tenses that can be used with VPX
+ XTense  = {s : Str ; tmp : XTmp } ; 
  
  param XTmp = XFutur Anteriority | XFuturKommer Anteriority | XSupin SupTense ;
        SupTense = SupPres | SupPast ; 
@@ -53,7 +55,7 @@ lincat
  BaseVPS vp1 vp2 = {a0 = vp1.a0 ; adV = vp1.adV ; fin = vp1.fin ; inf1 = vp1.inf ;
                     s2 = \\a => vp2.a0 ++ vp2.fin ++ vp2.adV ++ vp2.inf ! a }; 
  ConjVPS conj vps = {a0 = vps.a0 ; adV = vps.adV ; fin = conj.s1 ++ vps.fin ;  
-                     inf = \\a => vps.inf1 ! a ++ conj.s2 ++ vps.s2 ! a } ; ---- conj.s1 ?
+                     inf = \\a => vps.inf1 ! a ++ conj.s2 ++ vps.s2 ! a } ;
 
  ConsVPS vp1 vps = {a0   = vp1.a0 ; adV = vp1.adV ; fin = vp1.fin ;
                     inf1 = \\a => vp1.inf ! a ++ "," ++ vps.a0 ++ vps.fin ++ vps.adV ++ vps.inf1 ! a ;
@@ -61,7 +63,7 @@ lincat
 
  BaseVPX vp1 vp2 = {a0 = vp1.a0 ; adV = vp1.adV ; s1 = vp1.inf ; s2 = \\x,a => vp2.adV ++ vp2.a0 ++ vp2.inf ! x ! a }; 
 
- ConjVPX conj vps = {a0 = vps.a0 ; adV = conj.s1 ++ vps.adV ;  ---- conj.s1 ?
+ ConjVPX conj vps = {a0 = vps.a0 ; adV = conj.s1 ++ vps.adV ;  
                      inf = \\xt,a => vps.s1 ! xt ! a ++ conj.s2 ++ vps.s2 ! xt ! a } ;
 
  ConsVPX vp1 vps = {a0   = vp1.a0 ; adV = vp1.adV ; 
@@ -76,7 +78,7 @@ lincat
  MkVPS t p vp =
       let verb = vp.s ! vp.voice ! VPFinite t.t t.a in
       {
-      a0   = vp.a0 ; adV = vp.a1 ! p.p ; fin = verb.fin ;  -- adV med nu?
+      a0   = vp.a0 ; adV = vp.a1 ! p.p ; fin = verb.fin ;
       inf  = \\a => t.s ++ p.s ++ verb.inf ++ vp.n2 ! a ++ vp.a2 ! a ++ vp.ext 
                 } ;
 
@@ -130,7 +132,8 @@ lin
                                      _          => reflForm a }; 
                    a = agrP3 utrum Sg} ;
 
-
+-------------------------------------------------------------------------------
+-- Comparing adjectives
 ------------------------------------------------------------------------------
   lin
   SuperlA a = {
@@ -143,7 +146,6 @@ lin
      isPre = True
      };
    
-  --LeaveOutObj vps = lin VP (insertObj vps.n3 vps) ;
 
 -------------------------------------------------------------------------------
 -- Formal subjects
@@ -159,54 +161,13 @@ lin
       DDef _ => {s = \\_,_,_,_ => NONEXIST ; agr = agrP3 utrum Sg}} ;
 
 
--------------------------------------------------------------------------------
--- Test for 'antalet'
--------------------------------------------------------------------------------
-  --ApposNP np1 np2 = {s = \\f => np1.s ! NPNom ++ np2.s ! f ; a = np2.a } ;
-
-  ComplN2P det n2 cn = 
-     let npdet = DetCN det n2 in 
-     {
-      s = \\nform => npdet.s ! nform ++ n2.c2.s ++ cn.s ! n2.num ! n2.det ! Nom ;
-      a = {g = cn.g ; n = n2.num ; p = P3 } 
-      } ;
-
-  AdjN2 ap n2 =  let g = n2.g in 
-   lin CN {
-      s = \\n,d,c =>
-            preOrPost ap.isPre 
-             (ap.s ! agrAdj (gennum (ngen2gen g) n) d) 
-             (n2.s ! n ! d ! c) ;
-      g = g ;
-      isMod = True ;
-      c2 = n2.c2 ;
-      det = n2.det ;
-      num = n2.num 
-      } ;
-
-   UseN2P n2 = lin CN {
-      s = \\n,d,c => n2.s ! n ! specDet d ! c ; 
-           ---- part app wo c shows editor bug. AR 8/7/2007
-      g = n2.g } ** {
-      isMod = False ;
-      c2 = n2.c2 ;
-      det = n2.det ;
-      num = n2.num 
-      } ;
-
-   N2N noun = {
-      s = \\n,d,c => noun.s ! n ! d ! c ; 
-      g = noun.g ;
-      isMod = False
-      } ;
-
  
 -------------------------------------------------------------------------------
--- Varandra
+-- Varandra -- experiment! 
 -------------------------------------------------------------------------------
   varandra = {s = table {Per1 Sg => \\_ => NONEXIST ; Per2 Sg => \\_ => NONEXIST ;
                          _ => \\_ => "varandra"}  ;
-              a = {g = Utr ; n = Pl ; p = P2}};  -- obs!! Person?
+              a = {g = Utr ; n = Pl ; p = P2}};
 
 -------------------------------------------------------------------------------
 -- Relatives
@@ -226,8 +187,6 @@ lin
                  <Sg,Utr>   => "den" ;
                  <Sg,Neutr> => "det" ;
                  <Pl,_>     => "de" };
-
-
 
 -------------------------------------------------------------------------------
 -- Focusing adverbs
@@ -306,7 +265,7 @@ lin
 
 
 -------------------------------------------------------------------------------
--- Implemented in ExtraScand
+-- Reimplemented, also in ExtraScand
 -------------------------------------------------------------------------------
 lin
   TopVP vp np = {
@@ -334,7 +293,7 @@ lin
 lin
   TopAP ap np    = 
   {s = \\t,a,p => 
-   let vp = UseComp ap ; --(CompAP ap);
+   let vp = UseComp ap ; 
        vps = vp.s ! vp.voice ! VPFinite t a  ;
        npAgr = np.a in
     vp.n2 ! npAgr ++ vps.fin ++ np.s ! aNPerson !  NPNom 
@@ -357,7 +316,9 @@ lin
 lin
   PrepCN prep cn = {s = \\a => prep.s ++ cn.s ! Sg ! DIndef ! Nom } ;
  
--- Compounding --------------------------------------------------------------
+-----------------------------------------------------------------------------
+-- Compounding 
+-----------------------------------------------------------------------------
   CompoundNomN a b = {
     s = \\n,d,c => a.s ! Sg ! Indef ! Nom ++ BIND ++ b.s ! n ! d ! c ;
     g = b.g
@@ -373,11 +334,10 @@ lin
     g = b.g
     } ;
 
-    CompoundAdjA a a2 = {s = \\aform => a.s ! AF (APosit (Strong (GSg Utr))) Nom
-                            ++ BIND ++ a2.s ! aform ;
-                         isComp = a2.isComp } ;
+   CompoundAdjA a a2 = {s = \\aform => a.s ! AF (APosit (Strong (GSg Utr))) Nom
+                           ++ BIND ++ a2.s ! aform ;
+                        isComp = a2.isComp } ;
 
------------------------------------------------------------------------------
   
 -------------------------------------------------------------------------------
 -- Various functions
@@ -462,14 +422,7 @@ lin
 -- Predeterminers,Quantifiers,Determiners
 -------------------------------------------------------------------------------
 
-   --lincat SConj = {s1, s2 : Str; n : Number} ;
    lin 
-   --[S] = {s1,s2 : Order => Str} ;
-   --ConjSConj conj ss = conjunctDistrTable Order conj ss ; --ConjS (lin Conj c) ;
-   --ConjSVPS conj vps =
-   --     {a0 = vps.a0 ; adV = vps.adV ; fin = conj.s1 ++ vps.fin ;  
-   --      inf = \\a => vps.inf1 ! a ++ conj.s2 ++ vps.s2 ! a } ;
-   --ConjSVPX  c = ConjVPX (lin Conj c) ;
    but_Conj = {s1 = [] ; s2 = "men" ; n = Pl} ;
    otherwise_Subj = ss "annars" ;
    therefore_Subj = ss "därför" ;
@@ -479,6 +432,8 @@ lin
     bara_AdvFoc = (ss "bara") ** {x = ""} ;
     tillochmed_AdvFoc = (ss "till och med") ** {x = ""} ;
 
+    aeven_Predet  = {s  = \\_,_ => "även" ; p = [] ; a = PNoAg} ;
+    ocksaa_Predet  = {s  = \\_,_ => "också" ; p = [] ; a = PNoAg} ;
 
 
     sadana_PronAQ = mkA "sådan" ;
@@ -519,17 +474,8 @@ lin
 
     noll_Det = {s,sp = \\_,_,_ => "noll" ; n = Pl ; det = DDef Indef};
 
-    --annnan/andra?
-  boerja_med_VV = mkVV (partV (mkV "börjar") "med") ;
-  --ge_V3' = mkV3 (irregV "ge" "gav" "gett")  ;
     numberOf = mkN2 (mkN "antal" "antalet" "antalen" "antalena") noPrep **
                 {num = Pl; det = DDef Indef };
-
-   likna_V2 = dirV2 (mkV "liknar") ;
-   akta_V3  = dirV3 (mkV "aktar") (mkPrep "för") ; 
-   komma_V = mkV "komma" "kom" "kommit" ;
---   frysa_V = mkV "frysa" "frös" "frusit" ;
-   tvaetta_V = reflV (regV "tvätta") ;
 
 }
 

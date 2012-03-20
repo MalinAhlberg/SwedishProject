@@ -2,14 +2,12 @@
 -- Structures special for Swedish. These are not implemented in other
 -- Scandinavian languages.
 
-abstract ExtraSweAbs = ExtraScandAbs -[TopAP] **  -- why exclued TopAdv??
+abstract ExtraSweAbs = ExtraScandAbs -[TopAP,TopAdv] **  
    open CommonScand, ResScand in {
 
 cat
-    PronAD ; -- relational pronouns which can act like adjectives and determiners. 'fler'
+    PronAD ; -- relational pronouns which can act like adjectives and determiners: 'fler'
              -- can be compared as both: de flesta katter, katterna är flest
-             --                             Predet?
-             -- få sådana katter. not parsable, since få determiner.
     PronAQ ; -- relational pronouns which can act like adjectives and quantifiers. 'sådan'
   
     AdvFoc ; -- foucsing adverbs 'bara'. acts as predeterminers, normal adverbs or before finite verb
@@ -20,31 +18,29 @@ cat
     N2' ;
     SimpleVP ;
 
+------------------------------------------------------------------------------
+-- Predicative complements
+------------------------------------------------------------------------------
     VPred ; -- (arbeta) som lärare 
     VAdv ;  -- (arbeta) som en häst 
 
--- Compounding --------------------------------------------------------------
- fun
-    CompoundAdjA : A -> A -> A ;      --småsjuk
---    CompoundAdjV : A -> V -> V ;      --småspringa
---    CompoundNV   : N -> V -> V ;      --hetsäta
---    CompoundNVSlash : N -> VPSlash -> VPSlash ;
---    CompoundAdjV2          --småspringa
---    CompoundAdjV2A         --småspringa
---    CompoundAdjVV          --småspringa
---    CompoundAdjVS          --småspringa
---    CompoundAdjVQ          --småspringa
-
-------------------------------------------------------------------------------
     fun 
-      ComplVPred : VP -> VPred -> VP ; -- hjälper dig som lärare 
-      ComplVAdv  : VP -> VAdv -> VP ; -- äter glass som en galen hund
+      ComplVPred : VP -> VPred -> VP ; -- (han) gör karriär som lärare 
+      ComplVAdv  : VP -> VAdv -> VP ; --  (han) äter glass som en galen hund
       CNPred : N  -> VPred  ;    -- som en hund
       CNAdv  : CN -> VAdv   ;    -- som lärare
 
---- test
-   AdvCompI : IComp -> Adv -> IComp ;
 -------------------------------------------------------------------------------
+-- Compounding 
+------------------------------------------------------------------------------
+ fun
+    CompoundAdjA : A -> A -> A ;  --små+sjuk
+
+    CompoundNomN : N -> N -> N ;  -- fot+boll
+    CompoundGenN : N -> N -> N ;  -- yrkes+musiker
+    CompoundAdjN : A -> N -> N ;  -- vit+vin
+
+------------------------------------------------------------------------------
 -- For conjunction of verb phrases
 -------------------------------------------------------------------------------
  cat
@@ -67,9 +63,6 @@ cat
  fun
    DetNP : (a : NPType) -> DetTyped a -> NPTyped a ;
    
-   --CompNP : CN -> Comp ; -- should restrict the NP/CN to have the correct number!
-   
-
 -------------------------------------------------------------------------------
 -- For objects          
 -------------------------------------------------------------------------------
@@ -79,21 +72,23 @@ cat
 
 
 -------------------------------------------------------------------------------
-  SuperlA : A -> AP ;
-  ComparAP : A -> AP ;  -- en större katt
+-- Comparing adjectives
+-------------------------------------------------------------------------------
+  SuperlA : A -> AP ;   -- han är störst
+  ComparAP : A -> AP ;  -- hon är större
 
 -------------------------------------------------------------------------------
 -- Formal subjects
 -------------------------------------------------------------------------------
   FormalSub : SimpleVP -> DetTyped Subject -> CN -> Cl ; -- det sitter en katt där
 
-  SimpleV      : V -> SimpleVP ;            -- sitter
+  SimpleV      : V -> SimpleVP ;      -- sitter
   Pass2VSimple : V2 -> SimpleVP ;     -- skrivs 
   AdvSimpleVP : SimpleVP -> AdvTyped Object -> SimpleVP ;
   AdVSimpleVP : SimpleVP -> AdV -> SimpleVP ;
 
 -------------------------------------------------------------------------------
--- Varandra
+-- Varandra -- experiment!
 -------------------------------------------------------------------------------
   varandra : NPTyped Object ; 
    
@@ -110,7 +105,8 @@ cat
   AdvFocVP : AdvFoc -> VP -> VP ; -- (han) bara log
   PredetAdvF : AdvFoc -> Predet ; -- bara (barn), inte ens (katten)
   AdvFocAdV : AdvFoc -> AdV     ;  -- (hon sover) bara
-  TopAP : Comp -> NPTyped Subject -> Top ; -- changed from AP -> NP -> Top
+  TopAP : Comp -> NPTyped Subject -> Top ; 
+                              -- TopAp is changed from AP -> NP -> Top
                               -- to allow 'sådan är han'
                               -- also allows 'här är han' , 'katt är han'
                               -- which might actually be good
@@ -121,58 +117,52 @@ cat
 -------------------------------------------------------------------------------
   DetNP_utr : (a : NPType) -> DetTyped a -> NPTyped a ; -- den här
 
-  DetPronAD : (a : NPType) -> PronAD -> DetTyped a ;
-  -- not implented??
-  QuantPronAQ : (a : NPType) -> PronAQ -> QuantTyped a ;
-  CompPronAQ : PronAQ -> Comp ;
-  CompPronAD : PronAD -> Comp ;
-  -- de blev sådana
-  ComplVAPronAQ : VA -> PronAQ -> VP ;
- -- de blev fler
-  ComplVAPronAD : VA -> PronAD -> VP ;
+  DetPronAD : (a : NPType) -> PronAD -> DetTyped a ;     -- flera katter
+  QuantPronAQ : (a : NPType) -> PronAQ -> QuantTyped a ; -- sådana hus
+  CompPronAQ : PronAQ -> Comp ; -- de är fler
+  CompPronAD : PronAD -> Comp ; -- de är sådana
+
+  ComplVAPronAQ : VA -> PronAQ -> VP ;  -- de blev sådana
+  ComplVAPronAD : VA -> PronAD -> VP ; -- de blev fler
 
   it8utr_Pron   : Pron  ;
   this8denna_Quant : Quant ;
 
 
----
-  CompoundNomN : N -> N -> N ;  -- fot+boll
-  CompoundGenN : N -> N -> N ;  -- yrkes+musiker
-  CompoundAdjN : A -> N -> N ;  -- vit+vin
- 
-  
 -------------------------------------------------------------------------------
 -- Various functions
 -------------------------------------------------------------------------------
   ComplBareVV : VV -> VP -> VP ;      -- började att äta --> började äta. 
   SupCl  : NPTyped Subject -> VP -> Pol -> S ; -- när jag sovit
   
-  
-  UseComparA  : A -> AP ;
-  PassV2 : V2 -> VP ;  -- bli äten --shouldn't need to be here, but get irrefutable pattern
+  PassV2 : V2 -> VP ;      -- bli äten
   PassVP : VPSlash -> VP ; -- ätas
   
- 
-
-   PPartAP : V2 -> AP ; --VPSlash -> AP ;
+   PPartAP : V2 -> AP ;  -- en slarvigt skriven bok
    
-   ElipsCN : Gend -> A -> CN ; 
-   --ElipsNCompar : (a : NPType) -> Num -> Gend -> A -> NPTyped a ; 
+   ElipsCN : Gend -> A -> CN ;  -- de äldre
    NeutrumGend : Gend ;
    UtrumGend   : Gend ;
      cat Gend ; 
+
 -------------------------------------------------------------------------------
 -- Predeterminers,Quantifiers,Determiners
 -------------------------------------------------------------------------------
 
    fun 
-   but_Conj  : Conj ; -- not just PConj, may conjunct sentences or verbphrases, or nounphrases!! (kalle men inte olle)
-   otherwise_Subj : Subj ; -- acts as  subjuctions rather than PConjs (därför går jag inte dit vs. men jag går inte dit)
-   therefore_Subj : Subj ; 
+   but_Conj  : Conj ;      -- not just PConj, may also conjoin sentences or verbphrases, or nounphrases
+                           --  "kalle men inte olle"
 
+  -- acts as subjuctions rather than PConjs 
+  --  "därför går jag inte dit vs. men jag går inte dit"
+   therefore_Subj : Subj ; 
+   otherwise_Subj : Subj ; 
 
    bara_AdvFoc : AdvFoc ;
    tillochmed_AdvFoc : AdvFoc ;
+
+   aeven_Predet  : Predet ;
+   ocksaa_Predet : Predet ;
 
   sadana_PronAQ : PronAQ ;
   fler_PronAD : PronAD ;
@@ -195,12 +185,4 @@ cat
   annan_Quant : Quant  ;
 
   numberOf : N2' ;
-  boerja_med_VV : VV ; 
-  ge_V3' : V3 ; 
-
-  likna_V2 : V2 ;
-  akta_V3 : V3 ;
-  komma_V : V ;
---  frysa_V : V ;
-  tvaetta_V : V ;
-}
+  }

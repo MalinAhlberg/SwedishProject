@@ -3,8 +3,8 @@
 -- for testing grammar, using just the test lexicon
 concrete BigParseSwe of BigParse = 
   ExtraSwe,
-  NounSwe - [DetNP,PossPron] ,
-  VerbSwe -[PassV2,ComplSlash,AdvVPSlash,ReflVP],
+  NounSwe- [DetNP,PossPron,ApposCN],
+  VerbSwe -[PassV2,ComplSlash,ReflVP],
   AdjectiveSwe -[UseComparA],
   AdverbSwe,
   IdiomSwe,
@@ -16,23 +16,16 @@ concrete BigParseSwe of BigParse =
   TextX - [Tense,Temp,Adv] , 
   TenseSwe,
   ConjunctionSwe,
-  StructuralSwe
+  StructuralSwe - [therefore_PConj,otherwise_PConj], --these require subordinate word order, not for Utt
+  BigValLex
 --  TestLex
---  LexiconSwe
---  BigValLex
-  ** open CommonScand, Prelude in {
+  ** 
+open CommonScand, Prelude in {
 
 flags startcat = Phr ;  unlexer = text ; lexer = text ; coding=utf8;
       optimize=values ; literal=VPCompl ;
 
-  lincat   VPParse  = {s : Str } ;
-           MetaAgr = {s : Str ; a : NPerson } ;
-           --VPCompl = String ;
-
   lin
-  --assume that this works.. TODO
-  VPMeta {-agr-} str np = {s = "{"++ str.s ++ "}" ++ np.s ! Per3 
-                           ! accusative } ; --;agr.a ! accusative } ;
 
   Xs_PN i = {s = \\_ => "X"++i.s    ; g = (variants {utrum | neutrum})} ;
   Y_PN  i = {s = table {Gen => "Ys"++i.s ;
