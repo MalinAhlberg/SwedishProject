@@ -100,7 +100,7 @@ with Norwegian and Danish. It is also one of the official languages in Finland
 and is spoken by approximately 9 million people.
 Although Swedish syntax often is similar to English, the  morphology is richer and the
 word order more intricate.
-It is a verb-second language \cite[p.116]{gunlog}: the
+It is a verb-second language: the
 second constituent of a declarative main clause must consist of a verb.
 The normal word order is subject-verb-object, but fronting other constituents
 -- topicalisation -- is very common,  especially for temporal and
@@ -359,8 +359,8 @@ to all other language, but are meant to cover language specific constructions.
 %
 %We use the resources from the other paper, so to say :)
 \textbf{Some more here}
-Our main lexical resource is SALDO \cite{}. We use the tools
-described in \cite{} to extract a large-scale lexicon and annotate
+Our main lexical resource is SALDO \cite{saldo}. We use the tools
+described in \cite{ahlbergEnache} to extract a large-scale lexicon and annotate
 this with valencies from Lexin. This gives us a dictionary with more than 
 100 000 entries, covering all but 500 words from Talbanken ignoring names,
 numbers and compounds.
@@ -555,7 +555,13 @@ to decrease the number of parse trees for some sentences to 10 \%.
 %Chapter 5 - short introduction about Talbanken tags + difference in
 %the tags + 5.2(the translation process - first part) + example of
 %2 trees  
-Why we do this...... when is meta used
+Talbanken contains much valuable information about phrase structures and word 
+usage. One part of this project has focused on translating trees from Talbanken to GF
+by constructing a mapping, which automatically transforms trees in the
+Talbanken format to GF abstract syntax trees.
+We hence get a comparison between the two annotations and at the same time
+we get methods for extracting and translating to GF notation. 
+
 Talbanken05 uses three kinds of tags: categories, edge labels and POS-tags. 
 While the POS-tags are reserved for words, the categories give grammatical information,
 such as \verb|S|, \verb|NP| and \verb|VP|.
@@ -606,39 +612,40 @@ whether the noun phrase is used as subject or an object.
 These tags occur quite frequently in the treebank and are always translated
 to metas, which lowers our result. \\
 
-The evaluation measures the numbers of \textit{metas} in each translated tree.
-If the finite verb is untranslatable, we get metas for the verb itself and for the
-tense.
-For all of Talbanken, we get a number of 65 \%, and if we limit our input to
-uncomplicated sentences with no more than 10 words where all words are known to
-our lexicon, we can reach 85 \%. When translating the whole treebank, 78 sentences
-could not be mapped at all and resulted in \textit{metas} only.
+If a node fails to be translated, a \textit{meta variable} is in its place. This is also the
+case when two sister nodes can be translated, but no rule is applicable for joining them
+into one tree.
+
 
 \section{Chunk Parsing}
-
+\label{sec:chunk}
 %New section - insights about latest work
 The grammar, which is hand written, cannot be expected to cover all
 possible expressions of the language.
-Hence, we combine it with statistical means to get good coverage. Our approach
-makes use of the rich annotation in Talbanken -- we perform chunk parsing
+Hence, we combine it with statistical means to get good coverage. 
+The parser uses named entity recognition and a compounding analysis.
+Further we need to be able to give output
+even when encountering unknown words and grammatical constructions 
+as well as idioms or ellipses.
+Our approach makes use of the rich annotation in Talbanken -- we perform chunk parsing
 relying on some of the tags given in the treebank. 
-Unknown words and grammatical constructions, idioms or ellipses cannot be
-handled from within the grammar.
 Therefore, whenever a sentence is not recognized by the grammar, it is 
 parsed chunk by chunk.
-Noun phrases, adverbial phrases and ? are considered. At the first stage,
+Noun phrases, adverbial phrases and adjectival phrases are considered. Due to 
+differences in the annotation between Talbanken and GF, verbs are not considered
+as parsable chunks. The verbs need their particles and preposition to be parsed
+correctly, and these are usually not in the same Talbanken chunk. Therefore,
+we focus on whole sentences and noun phrases. At the first stage,
 we try to parse the basic sentence structure, and therefore allow the parser
 to parse complicated chunks as dummy words. This way, we don't loose the 
 high-level sentence analysis given by GF.
 When this is done, we try to separately parse the chunks,
 until as much of the sentence as possible is covered. 
 
-This way we get good coverage -- from ca 10 \% of Talbanken -- to ??
+
+%This way we get good coverage -- from ca 10 \% of Talbanken -- to ??
 
 \section{Language Model-Based Disambiguation}
-
- Maybe move this to future work, we have it but not really sure
- if it is actually used atm.
 
 %New section - fill in with the basic principle + new results(when available)
 The translation of Talbanken to GF gives us a GF treebank consisting of more than
@@ -652,23 +659,67 @@ from the mapping to our grammar, we get a model of the language. We believe
 this data can be trusted as it is extracted from manually annotated 
 real-world sentences.
 
-This model is used for disambiguation: the parse trees for each sentence
+The model is used for disambiguation: the parse trees for each sentence
 are ranked by the sum of the probability of each function used.
+Both whole sentence and chunks -- phrases -- can be ranked using this
+principle.
+
 
 \section{Evaluation}
 
-Section 5.3 + the evaluation part from 6.1 
+For the extraction of a GF Treebank from Talbanken, (section \ref{sec:mapping})
+the evaluation measures the numbers of \textit{metas} in each translated tree.
+If the finite verb is untranslatable, we get metas for the verb itself and for the
+tense.
+For all of Talbanken, we get a number of 65 \%, and if we limit our input to
+uncomplicated sentences with no more than 10 words where all words are known to
+our lexicon, we can reach 85 \%. When translating the whole treebank, 78 sentences
+could not be mapped at all and resulted in \textit{metas} only.
 
-Latest results from chunk parsing and disambiguation
+A mapping between GF and the Wall Street Journal of Penn Treebank has earlier been conducted \cite{gfMech}.
+The percentage of restored nodes from Peen Treebank is higher than our results.
+The reason for this may be the fact that English is syntactically less complicated
+than Swedish.
+Furthermore, the text in Talbanken are from various brochures, newspapers and text books,
+where idiomatic expressions are more likely the be appear and the language
+presumably less strict than in Wall Street Journal\footnote{www.wsj.com}.
+Also, the Penn Treebank contains a lower number of tags, 82 compared
+to more than 300 in Talbanken. With more tags, we get more information, but as the number 
+increase, so does the amount of work of finding the correct translation 
+for each combination of tags and writing rules that cover all constructions. \\
+
+The evaluation of the parser is performed by testing it on Talbanken sentences
+and is still being done. So far, our evaluation results cover 643 sentences -- about 10 \%
+of the treebank. Without the robustness given by the chunk parser,
+we can only parse 17.9 \% of the sentences. For noun phrases, we cover 76 \%.
+By using the chunk parsing described in section
+\ref{sec:chunk}, we identify the structure on 65 \% of the sentences. That
+is, the parser can identify the verbs and how they relate to the noun phrases,
+prepositions and particles. The noun phrases and adverbs, however, may not be
+completely parsed. If a verb is unknown to the grammar, or if it is used with
+another valency, other prepositions or particles than the lexicon has assigned
+it, the sentence structure can not be identified. In that case
+the parser returns chunks, showing the parse trees of identifiable sub-phrases.
+
+%Section 5.3 + the evaluation part from 6.1 
+%
+%Latest results from chunk parsing and disambiguation
+
+
 
 \section{Future Work}
 %From 6.2 subtract the things that are already done, maybe more future
 %work related to the results for chunk parsing and disambiguation. 
 
-abbrivations, idioms, learning adVs.
-\textbf{too much about grammar details? there should be other things here as well}
 At the end of the current project, we are left with 
-many interesting future directions.
+many interesting future directions. 
+We should make sure to make as much use of resources as possible -- Saldo
+and Lexin provides more information than we so far have been able to extract.
+For example, data about abbreviations and idioms should
+be added to the parser. This could be extracted from Saldo as well as Talbanken.
+As the valency information is so important to the GF grammar, the lexicon should
+be annotated with more of this in order to get a good parser.
+
  
 \subsubsection{Grammar}
 The grammar should cover the most prominent Swedish features.
@@ -682,25 +733,26 @@ that are desirable and interesting to implement. A few examples are listed here:
 a. & Jag & ser&  honom& \textbf{inte}&~~ & b.&Jag &ser &\textbf{inte} &honom\\
    & \emph{I} & \emph{see}&\emph{him}&\emph{not}&&& \emph{I} &\emph{see}&\emph{not}&\emph{him}\\
 \end{tabular}}
-Personal pronouns are allowed to precede negation and some other sentence adverbials % --\textit{satsadverbial} --
-in main clauses without auxiliary verbs.
-
-\enumsentence{\begin{tabular}[t]{@{}*{12}{l@{\ }}}
-a. & *Vi & har&  honom&  inte&sett&~~ & b.& * Jag &ser &huset &inte\\
-   & \emph{~we} & \emph{have}&  \emph{him}&  \emph{not} &  \emph{seen} && b.& \emph{~I}&\emph{see} &\emph{the house} &\emph{not}\\
-\end{tabular}}
-
-Although object shifts are frequently used, they are hardly found in
-Talbanken's part P, which has been the inspiration for this project.
-Therefore, this implementation has so far not been prioritized.\\
+%Personal pronouns are allowed to precede negation and some other sentence adverbials % --\textit{satsadverbial} --
+%in main clauses without auxiliary verbs.
+%
+%\enumsentence{\begin{tabular}[t]{@{}*{12}{l@{\ }}}
+%a. & *Vi & har&  honom&  inte&sett&~~ & b.& * Jag &ser &huset &inte\\
+%   & \emph{~we} & \emph{have}&  \emph{him}&  \emph{not} &  \emph{seen} && b.& \emph{~I}&\emph{see} &\emph{the house} &\emph{not}\\
+%\end{tabular}}
+%
+%Although object shifts are frequently used, they are hardly found in
+%Talbanken's part P, which has been the inspiration for this project.
+%Therefore, this implementation has so far not been prioritized.\\
 
 \item
-\textit{Bare indefinites} are at this point always parsed as mass nouns
-    \enumsentence{\shortexnt{3}
-{Jag & dricker& vatten}
-{\emph{I}&\emph{drink}&\emph{water}}
-}\label{sent:water}
-although this clearly is a unsatisfying analysis for bare indefinites as in (\ref{sent:hund})
+\textit{Bare indefinites} 
+%are at this point always parsed as mass nouns
+%    \enumsentence{\shortexnt{3}
+%{Jag & dricker& vatten}
+%{\emph{I}&\emph{drink}&\emph{water}}
+%}\label{sent:water}
+%although this clearly is a unsatisfying analysis for bare indefinites as in (\ref{sent:hund})
 \enumsentence{\shortex{4}
 {Vi & ska& köpa & hund}
 {\emph{we} &\emph{will}& \emph{buy} & \emph{dog} }
@@ -709,10 +761,9 @@ although this clearly is a unsatisfying analysis for bare indefinites as in (\re
 
 \item
 \textit{Object and subject control verbs}
-The implementation of reflexive pronouns can be improved.  
-It should for example be possible to differentiate between 
-object and subject control verbs.
-
+%It should for example be possible to differentiate between 
+%object and subject control verbs.
+%
 \eenumsentence{
 \item[a]\shortex{7}
 {Han & ber & henne & att & städa & sitt & rum}
@@ -742,6 +793,10 @@ implemented by using external resources.
 
 \end{itemize}
 
+A thorougly evaluation is still to be done, this should be carried out by
+measuring the agreement between all parsed chunks and their respective
+translation from Talbanken. The evaluation should also be done manually.
+For this, we rely on an expert in Swedish.
 
 \section{Conclusion}
 %From 6.1 - the discussion part + something about the latest work
@@ -759,15 +814,9 @@ The grammar has been extended and enhanced, and its current status is
 a specialized extension of the resource grammar.
 Besides parsing, the grammar may well be used for language generation,
 which works fast even when using an extensive lexicon.
-Although it is not been formally verified, we believe that the majority of the
-sentences generated are grammatically correct in a syntactical point of view.
-Without any semantic knowledge, nonsense phrases cannot be avoided in
-random generation. However, given that the abstract tree has a meaningful
-interpretation,
-the linearization should be correct. \\
 
-Here we have some nice new results... (todo..)
-
+Open source, transparent, modular, explores the strengths and weakneses
+of GF.
 \bibliographystyle{splncs}
 \bibliography{FinBib}
 
