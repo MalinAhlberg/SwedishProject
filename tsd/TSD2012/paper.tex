@@ -34,7 +34,7 @@ It is developed using GF(Grammatical Framework), a dependently-typed
 functional language, specialized for grammar programming. We trained
 and evaluated the grammar by using Talbanken, one of the largest treebanks for 
 Swedish. As a result 65 $\%$ of the Talbanken trees were translated
-into the GF format in the training stage and 75 \% of the noun phrases
+into the GF format in the training stage and 76 \% of the noun phrases
 was parsed during the evaluation. Moreover, we obtained a language
 model for Swedish which we use for disambiguation when parsing free text
 with the grammar. 
@@ -113,8 +113,11 @@ grammars --- adding support for the most common syntactic
 constructions that could appear in Swedish texts. For some of these we
 use dependent types to encode the syntactic phenomena in an elegant
 way. The lexicon limitation is not a problem, as we use an existing 
-large Swedish lexicon \cite{ahlbergEnache}, which is being continuously
-developed and contains more than 120 000 entries.
+large Swedish lexicon \cite{ahlbergEnache}, which is imported to GF
+format from an electronic dictionary and which contains more than
+%being continuously
+%developed and contains more than 
+100 000 entries.
 %... \textbf{Malin, can you say a bit more ?But not more than a couple
 %  of lines :)}  
 
@@ -145,7 +148,8 @@ Fronting the finite verb marks questions.
 %{\hspace{-9mm}``The police arrested the thief"}}
 %\label{gfPass:s-pass}
 Special reflexive pronouns and reflexive possessive pronouns for the 3rd
-exist \cite[\textsection 310 \& 319]{H&H}, distinct from the normal 3rd person forms.
+person exist \cite[\textsection 310 \& 319]{H&H}, distinct from the normal 3rd
+person forms.
 %\enumsentence{
 %\begin{tabular}{llll}
 %a. & Han slog \textbf{sig}.&\hspace{6mm}b. & Han såg \textbf{sitt} barn.\\
@@ -167,12 +171,12 @@ For testing and evaluation of the grammar and lexicon, we needed to be able to
 compare them against a reliable source.
 We have used Talbanken \cite{talbanken},
 a freely available, manually annotated, large-scale treebank.
-It is analyzed with the MAMBA annotation scheme (Teleman, 1974) and 
-the more than 6000 sentences we have been using
-%consists of four
+It is analyzed with the MAMBA annotation scheme and the section used for our
+work contains more than 6000 sentences
+%consists of four we have been using
 %parts. Two of them are transcriptions of spoken language, one a collection of
 %text written by high school students, and one, section P,
-consists of professionally written Swedish gathered from newspapers, brochures and textbooks.
+of professionally written Swedish gathered from newspapers, brochures and textbooks.
 
 Talbanken was also used to train the Swedish version of the Malt parser \cite{malt}
 and was then redistributed in an updated version,
@@ -231,10 +235,14 @@ language generation grammar via Montague semantics \cite{montague}.
 \section{Grammar}
 
 %Discussion about the two dimensions of a grammar - lexicon and syntax 
-There are two aspects of on a computational grammar -- the work on the lexicon
-and the work regarding syntax.  For this article, we will focus on the
-syntactical dimension of our work, the description and formalization of grammar
-rules and the usage of Talbanken.
+There are two aspects of a computational grammar -- the work on the lexicon
+and the work regarding syntax.  
+This article focuses on the syntactical dimension and the following section
+illustrates the work on describing grammatical constructions in the GF 
+formalism.
+%For this article, we will focus on the
+%of our work, the description and formalization of grammar
+%rules and the usage of Talbanken.
 
 \subsection{Resource grammar}
 
@@ -302,8 +310,8 @@ Our evaluations are based on Talbanken and when first conducting tests
 
 \noindent\textbf{The s-passive}
 Swedish has two ways of forming passive verb phrases: the 
-periphrastic passive, formed by using the modal auxiliary verb `bli'
-(\emph{`become'})
+periphrastic passive, formed by using the modal auxiliary verb \emph{bli}
+(`become')
 and the s-passive which is formed by adding an \emph{s} to the verb. 
 Passive voice is often used, especially the
 s-passive, % (sentence \ref{gfPass:s-pass}).
@@ -316,25 +324,26 @@ Scandinavian therefore only implemented the periphrastic passive.
 %\verb-PassV2-, by using auxiliary verb.
 %The function allows two-place verbs to be used in passive by using \emph{bli} (\emph{become}), and thereby
 %turned into complete verb phrases; they no longer need an object.
-During this project, the s-passive was added although the
-periphrastic passive is still allowed.
+During this project, an implementation of   the s-passive was added
+%although the periphrastic passive is still allowed.
 %The grammar further allows not only transitive verbs, but 
 %All verb phrases that misses an object are allowed to form passives.
 A ditransitive verb -- \emph{ge} (`give') (\ref{sent:give2pass}) -- gives rise to two
-passives, (\ref{ex:passV33}) and (\ref{ex:passV32}), both covered by our new implementation.
+passives, (\ref{ex:passV32}a) and (\ref{ex:passV32}b), both covered by our grammar.
 \eenumsentence{
 \item{\textbf{Active use of two-place verb}\\\shortex{4}
 {Vi & erbjöd& henne& jobbet }
 {\emph{we} & \emph{offered}& \emph{her}&\emph{the job}}
-{``We offered her the job"}}
-\label{sent:give2pass}
-\item{\textbf{Passive use, first place \hspace{3mm}Passive use, second place}\\\shortex{7}
-{Hon & erbjöds & jobbet && \hspace{3mm}Jobbet & erbjöds & henne }
+{``We offered her the job"}
+\label{sent:give2pass}}
+\item{\textbf{Passive use, first place} &c. \textbf{Passive use, second place}}
+\\\shortex{6}
+{Hon & erbjöds & jobbet &\hspace{18pt}Jobbet & erbjöds & henne }
 {\emph{she} &\emph{ offered+\textbf{s}}&\emph{ the job}
-&&  \hspace{3mm}\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
+&  \hspace{18pt}\emph{the job} & \emph{offered+\textbf{s}}&\emph{ her}}
 {``She was offered the job"}
-~``The job was offered to her"}}
-\label{ex:passV33}
+~~``The job was offered to her"}
+\label{ex:passV33}}
 %\item{\textbf{Second place in two-place verbs}\\\shortex{3}
 %{Jobbet & erbjöds & henne }
 %{``The job was offered to her"}}
@@ -353,7 +362,7 @@ Formal subjects \cite[\textsection 19]{SAG} are often used in Swedish.
 Restrictions on both the verb and the noun phrase are covered by the grammar:
 the determiner of the
 noun phrase must be of such type that it requires both the noun and its modifiers
-to appear in indefinite form. The verb phrase must consist of an intransitive verb
+to appear in indefinite form \cite{cooper}. The verb phrase must consist of an intransitive verb
 or be in passive form.
 %A very common example of impersonal constructions is sentences with the verbs \emph{finnas},
 %(\emph{exist})
@@ -417,10 +426,9 @@ categories. For example, the first argument of the function
 \verb-PredVP- always acts as the subject, but the noun phrase itself does not carry
 information about its semantic role.
 As noun phrases containing reflexive pronouns may be used as ordinary
-noun phrases, apart from the restrictions stated above,
+noun phrases -- apart from the restrictions stated above --
 we do not want them to differentiate
-from other \verb-NP- on the type level since we would then need to duplicate
-our code.
+from other \verb-NP- on the type level since this would require code duplication.
 %due to the rich type system in GF. 
 Still, the type system should prevent noun phrases containing reflexive
 pronouns from being used as subjects.
@@ -458,13 +466,15 @@ to describing similar relations between
 noun phrases and antecedent in other languages.
 %having could be extended to use the type system in similar ways.
 
-\subsubsection{Overgenerating}
+\subsubsection{Overgeneration}
 Another aspect of the grammar implementation was the avoidance of overgeneration. As
 the Swedish resource grammar had not been used for larger projects, many examples of
 overgeneration were present that did not cause problems when working with small
-lexicons and controlled languages, but that caused explosions of ambiguities when 
+lexicons and controlled language, but that caused explosions of ambiguities when 
 tested on Talbanken. For the function \verb-GenNP-, used for genitive, we managed
 to decrease the number of parse trees for problematic, although short, sentences to 10 \%.
+
+
 % Could also be here:
 %Experiments were also conducted on how we can use Talbanken for assigning correct
 %types to words which we couldnot import directly from SALDO, due to annotational
@@ -483,36 +493,25 @@ usage.
 One part of this project has focused on translating trees from Talbanken to GF
 by constructing a mapping, which automatically transforms trees in the
 Talbanken format to GF abstract syntax trees. We hence get a comparison 
-%\vspace{-9mm}
 \begin{figure}[!h]
 \centering
 \subfloat[Talbanken tree]
-{\begin{tikzpicture}
-\Tree [.S [.SS [.POOP Det ]]
-          [.FV [.AVPS \"ar ]]
-          [.NA [.ABNA inte ] ]
-          [.SP [.AJ l\"att ]]
-          [.IP [.IP . ] ]
-      ]
-\end{tikzpicture}
-}
+{\includegraphics[width=60mm]{TBTree_cropped.pdf}}
 \subfloat[Translation to GF]
 {\includegraphics[width=60mm]{latt2.pdf}}
 \caption{The sentence \emph{Det är inte lätt} (``It is not easy"). If the word
          \emph{lätt} (`easy') is unknown to the grammar, a meta variable is put
          in its place.}
 \label{fig:gftree1}
-\vspace{-5mm}
 \end{figure}
-between the two annotations and at the same time we get methods for extracting
-and translating to GF notation. 
+between the two annotations and at the same time we extract a GF treebank.
 If a node fails to be translated, a meta variable  --annotated \verb-?- -- is put in its place.
 This is also the case when two sister nodes can be translated, but no rule is
 applicable for joining them into one tree.
 
 Talbanken05 uses three kinds of tags: categories, edge labels and POS-tags. 
-While the POS-tags are reserved for words, the categories give grammatical information,
-such as \verb|S|, \verb|NP| and \verb|VP|.
+While the POS-tags are reserved for words, the categories give grammatical information:
+ \verb|S|, \verb|NP| and \verb|VP|.
 The edge labels give the part of sentence: \verb|SS| for subject, 
 \verb|OO| for object etc. 
 %
@@ -529,10 +528,10 @@ differences complicated the translation.
 One example is valency information, which is given implicitly by the complements
 of a word in Talbanken. If a verb is followed by an object, \verb-OO-, which contains an
 \verb-S-, we can conclude that this is a sentence-complement verb.
-In GF, the valency information is given for each entry in the lexicon.
-A sentence-complement verb has the type \verb-VS- and must the 
-function \verb-ComplVS- must be used for combining the verb and with a 
-sentence.
+In GF, the valency information is given explicitly for each entry in the lexicon.
+A sentence-complement verb has the type \verb-VS- and the 
+function \verb-ComplVS-  must be used for combining the verb and  a 
+sentence into a complete verb phrase.
 %Another annotational difference that turned out to be problematic for the
 %translation can be illustrated by analysis of the generic pronoun \emph{`man'}.
 %In Talbanken, \emph{`man'} is simply a personal pronoun, 
@@ -563,15 +562,15 @@ Hence, we combine it with statistical means to get good coverage.
 %The parser uses named entity recognition and a compounding analysis.
 The parser should give as much output as possible 
 %Further we need to be able to give output
-even when encountering unknown words and grammatical constructions 
-or idioms and ellipses.
+even when encountering unknown words and grammatical constructions,
+idioms and ellipses.
 Our approach makes use of the rich annotation in Talbanken -- we perform chunk parsing
 relying on the tags given in the treebank. 
 Consequentially, whenever a sentence is not recognized by the grammar, it is 
 parsed chunk by chunk and the parse trees for each chunk is returned.
 Noun phrases, adverbial phrases and adjectival phrases are considered.
 Due to the differences in the annotation between Talbanken and
-GF mentioned is section \ref{sec:mapping} verbs are not considered
+GF mentioned is section \ref{sec:mapping}, verbs are not considered
 as parsable chunks. %The GF parser depend on requires verb particles and prepositions to give
 %a correct output, and which are usually not in the same Talbanken chunk. 
 Therefore, our focus is on whole sentences and noun phrases. At the first stage,
@@ -606,7 +605,7 @@ it constitutes a reliable source for disambiguation.
 
 \section{Evaluation}
 
-For the extraction of a GF Treebank from Talbanken, (section \ref{sec:mapping})
+For the extraction of a GF Treebank from Talbanken (section \ref{sec:mapping}),
 the evaluation measures the numbers of meta variables in each translated tree.
 %If the finite verb is untranslatable, we get meta variables for the verb itself and for the
 %tense.
@@ -668,7 +667,7 @@ For this, we rely on an expert in Swedish.
 \textbf{Grammar}
 The grammar should cover the most prominent Swedish features.
 While statistical methods compensates for constructions not covered by
-the grammar, we still aim for a even wider grammar coverage. 
+the grammar, we still aim for an even broader grammar coverage. 
 As examples of constructions to be added, we mention
 pronominal object shift, bare indefinites and a differentiation between
 object and subject control verbs.
@@ -751,7 +750,7 @@ Swedish and the most complex GF grammar to date.
 Besides parsing, the grammar may well be used for language generation.
 
 All parts of the project is open-source and the grammar and other parts
-are modular and may well be reused and developed.
+are modular and may well be reused and further developed.
 
 %Open source, transparent, modular, explores the strengths and weakneses
 %of GF.
