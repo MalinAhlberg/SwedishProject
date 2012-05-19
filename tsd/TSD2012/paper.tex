@@ -30,6 +30,7 @@
 
 
 \begin{abstract}
+%\textbf{typos, omissions, grammar, proof read!}
 The work describes a wide-coverage computational grammar for Swedish. 
 It is developed using GF (Grammatical Framework), a %dependently-typed 
 functional language specialized for grammar programming. We trained
@@ -253,17 +254,20 @@ words.
 %when implementing multilingual applications.
 The grammars describe how to construct phrases and sentences and how to
 decline words. They cover the 
-word order, agreement, tense, basic conjunction etc.
+word order, agreement, tense, basic conjunction, etc.
 Due to the syntactic similarities between the Scandinavian languages, much of
 the implementation for Swedish is shared with Norwegian and Danish. The modules
 that concern the lexical aspects are separate, while 85\% of the syntax
 description is shared.  There are about 80 functions, which describe the rules
 for building phrases and clauses, such as functions for predication and
 complementation:\\
+%\textbf{explain notation, why ComplVPSlash?}\\
 \small \texttt{
-\indent PredVP ~~~~~ : NP -> VP -> Cl ; -- Predication\\
-\indent ComplVPSlash : VPSlash  -> VP ;~ -- Complementation}\\
+\indent PredVP ~~~ : NP -> VP -> Cl ;~~~~~~ -- Predication\\
+\indent ComplSlash : VPSlash  -> NP -> VP ;~ -- Complementation}\\
 \normalsize
+Here the types for the functions are given -- \texttt{PredVP} will return a clause when 
+given its input arguments: a noun phrase and a verb phrase.
 %\small
 %\begin{verbatim}
 %PredVP       : NP -> VP -> Cl ; -- Predication
@@ -440,8 +444,8 @@ We make a difference between subjects and objects
 by letting the type \verb-NP- depend on an argument, 
 which may either be \verb-Subject- or \verb-Object-.\\
 \small \texttt{
-\indent PredVP  ~~~~~ : NP Subject -> VP        -> Cl ; ~~~ -- predication\\
-\indent ComplVPSlash : VPSlash    -> NP Object -> VP ; -- complementation\\
+\indent PredVP  ~~~ : NP Subject -> VP        -> Cl ; ~~~ -- predication\\
+\indent ComplSlash : VPSlash    -> NP Object -> VP ; -- complementation\\
 \indent PrepNP       : (a: NPType) -> Prep -> NP a -> Adv a ; -- adverbial phrase \\
 }
 \normalsize
@@ -457,6 +461,7 @@ in other languages.\\
 %having could be extended to use the type system in similar ways.
 
 \noindent \textbf{Overgeneration}
+%\textbf{how many at first, how about other sentences?}
 Another aspect of the grammar implementation was the avoidance of overgeneration. As
 the Swedish resource grammar had not been used for larger projects, many examples of
 overgeneration were present that did not cause problems when working with small
@@ -478,6 +483,7 @@ to decrease the number of parse trees for short, yet problematic sentences to 10
 %the tags + 5.2(the translation process - first part) + example of
 %2 trees  
 
+%\textbf{About the underlying probalistic model of GF}
 Talbanken contains very valuable information about phrase structures and word 
 usage.
 One part of this project has focused on translating trees from Talbanken to GF
@@ -503,7 +509,7 @@ Talbanken05 uses three kinds of tags: categories, edge labels and POS-tags.
 While the POS-tags are reserved for words, the categories give grammatical information:
  \verb|S|, \verb|NP| and \verb|VP|.
 The edge labels give the part of sentence: \verb|SS| for subject, 
-\verb|OO| for object etc. 
+\verb|OO| for object, etc. 
 %
 %\begin{tabular}{lll}
 %\textbf{Tag} & \textbf{Example} & \textbf{Explanation} \\
@@ -564,6 +570,7 @@ it constitutes a reliable source for disambiguation.
 
 \section{Chunk Parsing}
 \label{sec:chunk}
+%\textbf{what does eval in terms of metas mean? is gf not necessary when chunking}
 %New section - insights about latest work
 The grammar, which is hand written, cannot be expected to cover all
 possible expressions of the language.
@@ -576,7 +583,8 @@ idioms and ellipses.
 Our approach uses of the rich annotation in Talbanken -- we perform chunk parsing
 relying on the tags given in the treebank. 
 Consequentially, whenever a sentence is not recognized by the grammar, it is 
-parsed chunk by chunk and the parse trees for each chunk are returned.
+parsed chunk by chunk. Each chunk is analysed by the grammar-driven parser, and
+resulting trees are returned.
 Noun, adverbial and adjectival phrases are considered.
 Due to the differences in the annotation between Talbanken and
 GF mentioned is Section \ref{sec:mapping}, verbs are not considered
@@ -597,6 +605,8 @@ until as much of the sentence as possible is covered.
 %New section - fill in with the basic principle + new results(when available)
 
 \section{Evaluation}
+%\textbf{limited, how many rules? 45 functions added, plus
+%categories, updates, and tense}
 
 For the extraction of a GF treebank from Talbanken (Section \ref{sec:mapping}),
 the evaluation measures the numbers of meta variables in each translated tree.
@@ -731,8 +741,8 @@ object and subject control verbs.
 %implemented by using external resources.
 
 
-
 \section{Conclusion}
+%\textbf{only minimal success? not ripe enough?}
 %From 6.1 - the discussion part + something about the latest work
 Our work resulted in a wide-coverage grammar for Swedish which --
 combined with statistical resources -- can be used for parsing 
@@ -740,6 +750,7 @@ open-domain text. The grammar covers a large number of syntactic
 phenomena and uses an extensive morphological lexicon. To
 our knowledge, it is the most comprehensive computational grammar for
 Swedish and the most complex GF grammar to date.
+%\textbf{based on what?}
 Besides parsing, the grammar may well be used for language generation.
 All parts of the project are open-source and the grammar and other parts
 are modular and could be reused and further developed.
